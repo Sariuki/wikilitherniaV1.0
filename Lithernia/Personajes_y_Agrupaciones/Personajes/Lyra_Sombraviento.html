@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Sombraviento</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Sombraviento</div>
+        <div class="content">
+<p>nombre: Lyra Sombraviento rol: Manos del Velo edad: 135 agrupacion:
+El Cónclave del Velo Argénteo tipo: Personaje lema: “La verdad no fue
+quemada, solo escondida.” escudo: Un pergamino de plata entreabierto. La
+mitad izquierda muestra <a href="Runas.html">Runas</a> antiguas e
+intactas, mientras que la mitad derecha está carbonizada y rota. Sobre
+el centro del pergamino, una llave de obsidiana. ciudad_sede: <a
+href="Thelyrion.html">Thelyrion</a> rivalidades: - Clan Sel’thirak y el
+Reino de <a href="Mor&#39;dhul.html">Mor’dhul</a> - La Torre de las
+Estrellas de <a href="Valtoria.html">Valtoria</a> - Las Casas Nobles de
+<a href="Eldrador.html">Eldrador</a> alianzas: - Células Rebeldes y
+Disidentes - Gremios de Información y Contrabandistas relaciones: -
+Kaelenor (figura paterna, lealtad inquebrantable) - Borin (aliado
+valioso pero cauteloso, fuente de fricción) tags: [lithernia,
+personajes, Cónclave del Velo Argénteo, elfo] # Lyra Sombraviento</p>
+<h3 id="biografía">Biografía</h3>
+<p>En los bosques ancestrales de <a href="Eldrador.html">Eldrador</a>,
+donde la historia se mide en el crecimiento de los árboles y la nobleza
+se aferra a un poder milenario, el nombre Sombraviento no figura en los
+anales de las grandes casas. Es un susurro, un linaje de elfos silvanos
+que siempre cuestionaron la rígida “Mano de Hierro” y el relato oficial
+de los dioses. Lyra nació de esa disidencia silenciosa. Sus padres,
+historiadores aficionados, fueron declarados <em>exiliados</em> por
+poseer textos que contradecían las crónicas élficas sobre el Cataclismo
+del <a href="Lilium.html">Lilium</a>. Su crimen no fue la traición, sino
+la curiosidad. Cazados y silenciados, dejaron a una joven Lyra huérfana
+y marcada por el estigma de la verdad prohibida.</p>
+<p>Fue entonces cuando Kaelenor, un enigmático <a
+href="Erudito.html">Erudito</a> y uno de los fundadores del Cónclave del
+Velo Argénteo, la encontró. Vio en sus ojos no solo el dolor de la
+pérdida, sino la misma llama de desafío que había encendido su propia
+búsqueda. La acogió bajo su protección, convirtiéndose en el padre que
+había perdido y en su mentor en los caminos de la sombra. En <a
+href="Thelyrion.html">Thelyrion</a>, la ciudad oculta que sirve de sede
+al Cónclave, Lyra encontró un propósito: la misión de la organización se
+convirtió en su propia venganza personal contra los poderes que borran
+la historia para mantener su dominio.</p>
+<p>Con 135 años, Lyra es joven para los estándares élficos, pero su alma
+carga el peso de varias vidas. Ascendió rápidamente en las filas del
+Cónclave hasta convertirse en las “Manos del Velo”, su agente de campo
+más letal y eficaz. Mientras otros miembros como Borin, el cauto
+artífice, analizan y planifican, Lyra ejecuta. Es ella quien se desliza
+por las almenas de fortalezas en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, quien roba grimorios de las
+bibliotecas privadas de los archimagos de <a
+href="Eldrador.html">Eldrador</a> y quien extrae secretos de las mentes
+de nobles en <a href="Valtoria.html">Valtoria</a> con la punta de una
+daga envenenada.</p>
+<p>Su lealtad a Kaelenor es absoluta, pero su relación con Borin es un
+constante tira y afloja. Él ve el riesgo en cada misión, la posibilidad
+de perder a una agente irremplazable; ella solo ve el objetivo, la pieza
+del puzle histórico que debe ser recuperada a cualquier coste. Esta
+fricción la define: Lyra no es una simple asesina, sino una recuperadora
+de historia perdida, una bibliotecaria que usa el sigilo y el acero en
+lugar de tinta y pergamino. Sus hazañas son <a
+href="Leyendas.html">Leyendas</a> susurradas en los bajos fondos: se
+dice que recuperó un fragmento del diario del Primer Rey de una cripta
+custodiada por espectros en Estriedana, y que sobrevivió a una cacería
+personal ordenada por la mismísima Lady Xandria “La Susurrante”. Su
+motivación trasciende la simple obediencia; cada artefacto que recupera
+es un golpe contra la arrogancia de los nobles élficos que destruyeron a
+su familia y contra los dioses que mintieron a todo un mundo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra posee la agilidad y los rasgos afilados de los elfos del bosque,
+pero la vida en las sombras ha dejado su huella. Su piel tiene un tono
+pálido, casi ceniciento, y su cabello, de un negro profundo, suele
+llevarlo recogido en una trenza funcional que no obstaculice su visión.
+Sus ojos, de un verde musgo intenso, son su rasgo más llamativo:
+observan el mundo con una mezcla de melancolía y una agudeza
+depredadora, capaces de detectar una trampa en la penumbra o una mentira
+en una sonrisa. Un fino tatuaje rúnico, el símbolo de la llave de
+obsidiana del Cónclave, se enrosca en su antebrazo izquierdo,
+normalmente oculto bajo sus guanteletes.</p>
+<p>Su equipamiento es una extensión de su propósito: la eficiencia
+silenciosa. * <strong>Armadura de Cuero de Sombra:</strong>
+Confeccionada por Borin, esta armadura de cuero endurecido está tratada
+con <a href="Alquimia.html">Alquimia</a> para amortiguar el sonido y
+mezclarse con la penumbra. Las placas de metal son mínimas y están
+estratégicamente colocadas para no tintinear. * <strong>Las “Hojas del
+Silencio”:</strong> Un par de espadas cortas gemelas, de acero oscuro y
+sin brillo. Sus empuñaduras están envueltas en cuero tratado para un
+agarre perfecto, y sus filos están imbuidos con encantamientos menores
+que silencian su paso por el aire. * <strong>Arco de Tejo
+Sombraviento:</strong> Un arco largo heredado de su familia, de madera
+de tejo casi negra. Las flechas que utiliza suelen tener puntas
+especiales preparadas por Borin: algunas con veneno para dormir, otras
+con ácido para corroer cerraduras, y unas pocas, letales, reservadas
+para los guardianes de la verdad que no pueden ser evitados. *
+<strong>Kit de las Manos del Velo:</strong> Un conjunto de herramientas
+magistrales que incluye ganzúas de mithril, viales de venenos y
+antídotos, lentes de cristal ahumado para ver en la oscuridad mágica y
+pergaminos de un solo uso con <a href="Conjuros.html">Conjuros</a> de
+<em>silencio</em>, <em>oscuridad</em> e <em>ilusión menor</em>.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lyra Sombraviento nunca será aclamada como una heroína ni temida como
+una tirana. Su nombre no será grabado en monumentos ni cantado por
+bardos en las cortes. Su legado es invisible, pero profundo. Es una
+fuerza de cambio que opera en las grietas del poder, una agente del caos
+para los tiranos y una luz de esperanza para los olvidados.</p>
+<p>Cada secreto que desvela, cada artefacto que recupera, es una piedra
+que se quita del muro de mentiras que sostiene el orden actual de
+Lithernia. Sus acciones pueden ser el catalizador que revele la
+verdadera naturaleza del <a href="Lilium.html">Lilium</a>, que exponga
+la participación de los dioses en la caída del Primer Rey o que entregue
+el conocimiento de las Lanzas Celestiales a las manos equivocadas… o a
+las correctas. En la gran guerra por el alma de Lithernia, Lyra no
+comanda ejércitos, pero sus sigilosos pasos en la oscuridad bien podrían
+decidir el resultado de la batalla final por la verdad. Es la prueba
+viviente de que, en un mundo gobernado por la fuerza y la fe, el arma
+más peligrosa puede ser una verdad desenterrada.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

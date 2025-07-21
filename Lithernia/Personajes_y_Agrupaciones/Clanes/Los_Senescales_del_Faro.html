@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Senescales_del_Faro</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Senescales_del_Faro</div>
+        <div class="content">
+<h1 id="los-senescales-del-faro">Los senescales del faro</h1>
+<h3 id="perfil-del-trasfondo">Perfil del Trasfondo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Percepción, Persuasión</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de navegante, Vehículos
+(acuáticos)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Uno de tu elección</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un catalejo, un conjunto de ropas de
+viajero, un símbolo de tu patrón (una casa <a
+href="Noble.html">Noble</a> o facción), una bolsa con 15 po.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgo-autoridad-del-faro">Rasgo: Autoridad del Faro</h3>
+<p>Eres reconocido y respetado en los puestos de avanzada y
+asentamientos costeros. En cualquier faro, torre de vigilancia o
+fortaleza portuaria aliada a tu antiguo patrón, tú y tus compañeros
+podéis encontrar refugio y comida seguros sin coste alguno. Además,
+tienes ventaja en las pruebas de Carisma (Persuasión) cuando interactúas
+con marineros, guardias portuarios o miembros de la facción a la que
+servías, ya que tu reputación de responsabilidad y confianza te
+precede.</p>
+<h3 id="tablas-de-personalidad">Tablas de Personalidad</h3>
+<h4 id="rasgo-de-personalidad-d8">Rasgo de Personalidad (d8)</h4>
+<table>
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d8</th>
+<th>Rasgo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td>Prefiero la compañía del rugido de las olas a la charla insustancial
+de la gente.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td>Mi mirada siempre está en el horizonte, buscando tanto barcos amigos
+como amenazas.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td>La disciplina y el protocolo son el único baluarte contra el caos
+del mar y de los hombres.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td>Cuento historias exageradas de tormentas y monstruos marinos para
+animar cualquier velada.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td>Soy metódico y paciente, como la marea. Cada problema tiene su
+momento de ser resuelto.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td>Analizo a todas las personas como si fueran una tormenta que se
+aproxima, evaluando su peligro potencial.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>7</strong></td>
+<td>Encuentro paz y un propósito profundo en las tareas repetitivas y el
+deber constante.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>8</strong></td>
+<td>Tengo una fe inquebrantable en los dioses del mar y el cielo, y a
+menudo realizo pequeños rituales en su honor.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ideal-d6">Ideal (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th>Ideal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td><strong>Deber.</strong> La llama no debe apagarse. Mi palabra y mi
+responsabilidad son sagradas. (Legal)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td><strong>Protección.</strong> Mi luz protege a los inocentes de la
+oscuridad. Mi propósito es salvaguardar vidas. (Bueno)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td><strong>Control.</strong> Quien controla las costas, controla el
+flujo del poder. Aspiro a una posición de mayor influencia.
+(Maligno)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td><strong>Libertad.</strong> El mar representa la libertad, y mi faro
+garantiza que todos puedan navegarlo de forma segura. (Caótico)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td><strong>Tradición.</strong> Los métodos y juramentos de los
+senescales han perdurado por siglos. Debo honrar ese legado.
+(Legal)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td><strong>Autonomía.</strong> El faro era mi feudo, mi ley. No
+respondo ante nadie más que ante mí mismo y mi patrón. (Neutral)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vínculo-d6">Vínculo (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th>Vínculo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td>Mi lealtad pertenece a la Casa <a href="Noble.html">Noble</a> o al
+Capitán que me confió el faro, y haré cualquier cosa para restaurar su
+honor o el mío.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td>El faro que una vez protegí fue destruido. Debo encontrar a los
+responsables y hacerlos pagar.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td>La guarnición bajo mi mando era mi única familia. Los protegeré,
+incluso si ya no estamos en la torre.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td>Un antiguo Vigía me traicionó. Algún día, el mar lo traerá de vuelta
+a mis costas.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td>Oculté un artefacto o un mensaje secreto en mi antiguo faro, y debo
+asegurarme de que permanezca a salvo.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td>El espíritu de un Senescal anterior me guía y me advierte en sueños.
+Tengo una deuda con él.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="defecto-d6">Defecto (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th>Defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td>La soledad prolongada me ha hecho desconfiado y paranoico. Veo
+conspiraciones en todas partes.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td>Subestimo las amenazas de tierra firme; mi experiencia se limita a
+los peligros del mar.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td>Soy inflexible y autoritario. Me cuesta aceptar órdenes de quienes
+no han demostrado su valía.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td>Siento una profunda melancolía por el faro que perdí y a menudo me
+pierdo en recuerdos del pasado.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td>Mi sentido del deber me ciega, y podría sacrificar a un amigo por
+cumplir una misión.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td>Tengo una deuda con una criatura marina o una facción pirata que me
+ayudó a defender el faro una vez.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="variantes-de-reino">Variantes de Reino</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Reino</th>
+<th style="text-align: left;">Título Alternativo</th>
+<th style="text-align: left;">Modificaciones Mecánicas</th>
+<th style="text-align: left;">Deidad Asociada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Galvorn.html">Galvorn</a></strong></td>
+<td style="text-align: left;">Senescal de Faro</td>
+<td style="text-align: left;">(Estándar) Percepción, Persuasión, Herr.
+de Navegante, Vehículos (Acuáticos).</td>
+<td style="text-align: left;"><a href="Yfrit.html">Yfrit</a>, <a
+href="Harmias.html">Harmias</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong></td>
+<td style="text-align: left;">Supervisor del Fanallúgubre</td>
+<td style="text-align: left;">Reemplaza Persuasión con
+<strong>Intimidación</strong>. Reemplaza Herr. de Navegante con
+<strong>Kit de Envenenador</strong>.</td>
+<td style="text-align: left;">Sel’thirak, <a
+href="Kromagul.html">Kromagul</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Eldrador.html">Eldrador</a></strong></td>
+<td style="text-align: left;">Guardián del Fanal Estelar</td>
+<td style="text-align: left;">Reemplaza Persuasión con
+<strong>Arcanos</strong>. Reemplaza Vehículos (Acuáticos) con
+<strong>Kit de Herboristería</strong>.</td>
+<td style="text-align: left;"><a href="Arzia.html">Arzia</a>, <a
+href="Thirogrim.html">Thirogrim</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Valtoria.html">Valtoria</a></strong></td>
+<td style="text-align: left;">Maestro de la Torre de Señales</td>
+<td style="text-align: left;">Reemplaza Persuasión con
+<strong>Supervivencia</strong>. Reemplaza Vehículos (Acuáticos) con
+<strong>Herramientas de Cantero</strong>.</td>
+<td style="text-align: left;"><a href="Rokael.html">Rokael</a>, <a
+href="Cirkon.html">Cirkon</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnj-de-ejemplo">PNJ de Ejemplo</h3>
+<p>```statblock name: Senescal de Faro Veterano size: Mediano type:
+humanoide (humano) alignment: legal neutral ac: 17 (Armadura de media
+placa) hp: 65 (10d8 + 20) speed: 30 ft. stats: [16, 13, 14, 12, 16, 14]
+saves: - Con: +4 - Sab: +5 skills: - Percepción: +5 - Persuasión: +4 -
+Supervivencia: +5 senses: Percepción Pasiva 15 languages: Común, Enano
+cr: 3 traits: - name: Lanzamiento de Conjuros Innato desc: “La aptitud
+mágica del Senescal es la Sabiduría (CD de salvación de conjuros 13).
+Puede lanzar los siguientes conjuros de forma innata:voluntad:
+<em>Luz</em>, <em>Crear Hoguera</em>/día cada uno: <em>Rayo Guía</em>,
+<em>Nube de Niebla</em>” actions: - name: Multiataque desc: “El Senescal
+realiza dos ataques con su Tridente.” - name: Tridente desc: “Ataque de
+arma cuerpo a cuerpo o a distancia: +5 a impactar, alcance 5 ft. o rango
+20/60 ft., un objetivo. Impacto: 6 (1d6 + 3) de daño perforante, o 7
+(1d8 + 3) si se usa a dos manos en un ataque cuerpo a cuerpo.” - name:
+Ballesta Pesada desc: “Ataque de arma a distancia: +3 a impactar,
+alcance 100/400 ft., un objetivo. Impacto: 5 (1d10) de daño perforante.”
+reactions: - name: Órdenes Claras (Recarga 5-6) desc: “Cuando un aliado
+que el Senescal puede ver a 30 pies de él es objetivo de un ataque, el
+Senescal puede gritar una orden evasiva. El aliado puede usar su
+reacción para moverse hasta la mitad de su velocidad sin provocar
+ataques de oportunidad.”</p>
+        </div>
+    </div>
+</body>
+</html>

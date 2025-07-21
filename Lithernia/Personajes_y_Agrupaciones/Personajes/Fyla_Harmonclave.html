@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fyla_Harmonclave</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Fyla_Harmonclave</div>
+        <div class="content">
+<h1 id="fyla-harmonclave">Fyla Harmonclave</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los profundos salones de <a href="Valtoria.html">Valtoria</a>,
+donde el eco de los martillos sobre el yunque es la canción de cuna de
+la civilización enana, la Casa Harmonclave ha cultivado un arte más
+sutil y antiguo: la litomancia acústica. Fyla Harmonclave no es solo una
+heredera de este legado; es su más brillante y peligrosa evolución.
+Nacida del matrimonio entre el tradicionalista Lord Borin Harmonclave y
+una ingeniera gnoma de renombre, Fyla encarna la tensión y el potencial
+de dos mundos: la paciencia y la permanencia de la roca enana, y la
+chispa inquieta e innovadora del ingenio gnómico.</p>
+<p>Desde joven, Fyla demostró una afinidad prodigiosa para el
+‘canto-roca’, el arte ancestral de su casa. Sin embargo, donde sus
+ancestros buscaban la armonía perfecta para sanar o proteger, ella
+escuchaba el potencial de la disonancia controlada, la resonancia como
+fuerza motriz. Mientras su padre, Lord Borin, le enseñaba los cantos
+para calmar la montaña, Fyla experimentaba en secreto, intentando
+enseñar a los cristales a moverse por sí mismos, a responder no solo a
+una nota, sino a una sinfonía completa.</p>
+<p>Su momento de revelación llegó durante un temblor que amenazó con
+colapsar una de las galerías de cristal más preciadas de <a
+href="Allotena.html">Allotena</a>. Mientras los guardias <a
+href="Enanos.html">Enanos</a> se preparaban para apuntalar los túneles
+con fuerza bruta, Fyla, usando un conjunto de diapasones de precisión y
+su propia voz, emitió una compleja serie de frecuencias que
+contrarrestaron las vibraciones destructivas, estabilizando la caverna y
+salvando incontables vidas. Fue la primera demostración pública de que
+su visión no era una simple excentricidad juvenil, sino una
+revolución.</p>
+<p>Desde entonces, su ambición se ha desatado. Fyla ha fusionado la
+litomancia de su casa con la ingeniería de autómatas, creando su obra
+magna: la “Sinfonía de Cristal”. No son simples gólems; son constructos
+intrincados de cristal tallado y engranajes sónicos, animados por
+complejas melodías que Fyla compone y transmite. Cada gólem es un
+instrumento en su orquesta de guerra y creación, capaz de erigir
+murallas con vibraciones precisas o de desatar ondas de choque
+devastadoras. Este avance la ha convertido en una figura de inmenso
+interés para sus aliados, la Casa Silvertorch, con quienes perfecciona
+las aleaciones metálicas de sus autómatas, y la Casa Seraphiel de <a
+href="Eldrador.html">Eldrador</a>, fascinada por la belleza y poder de
+sus focos sónicos.</p>
+<p>Sin embargo, su progreso es una fuente constante de conflicto con su
+padre. Lord Borin, guardián de los secretos más profundos de la casa,
+teme que la ambición de Fyla la lleve a redescubrir la ‘Frecuencia de la
+Ruptura’, un tono prohibido capaz de desintegrar la piedra y, con ella,
+los cimientos mismos de <a href="Valtoria.html">Valtoria</a>. Su
+rivalidad con la Casa Dravonis también se ha agudizado; Fyla desprecia
+públicamente su dependencia del “fuego y el músculo”, proclamando que el
+futuro de <a href="Valtoria.html">Valtoria</a> no se forjará con
+martillos, sino con armonía y precisión. Su objetivo es claro: demostrar
+que su visión no solo es el futuro de la Casa Harmonclave, sino de todo
+el reino enano.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Fyla es la personificación de su herencia dual. Posee la baja
+estatura y la complexión robusta de los <a
+href="Gnomos.html">Gnomos</a>, pero con una solidez que evoca la
+montaña. Su cabello, de un color castaño oscuro, está recogido en una
+trenza práctica salpicada de diminutos cristales resonantes que
+tintinean suavemente con sus movimientos. Sus ojos son lo más llamativo:
+de un intenso color azul zafiro, parecen analizar el mundo en patrones
+de vibración, siempre brillantes de curiosidad e intelecto. Sus manos,
+ágiles y precisas, están perpetuamente manchadas con polvo de gemas y
+aceite de autómata.</p>
+<p>Viste un atuendo que fusiona la funcionalidad enana con el ingenio
+gnómico: un delantal de cuero reforzado sobre una túnica de tela
+resistente, repleto de bolsillos que albergan lentes de relojero,
+pequeños diapasones, diagramas enrollados y cristales a medio
+tallar.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Diapasón Maestro
+de Mithril:</strong> Su herramienta principal y símbolo de su autoridad.
+Es un diapasón exquisitamente elaborado, capaz de emitir frecuencias de
+una pureza inigualable. Lo utiliza para afinar sus creaciones,
+diagnosticar la salud de la roca y, si es necesario, como un arma sónica
+focalizada. * <strong>Gafas de Litosonancia:</strong> Unas gafas de su
+propia invención con lentes de cristal multifacetado. Le permiten “ver”
+las ondas sonoras y las tensiones estructurales en la piedra, dándole
+una percepción única de su entorno. * <strong>Eco, el Autómata
+Compañero:</strong> Un pequeño gólem de cristal con forma de colibrí que
+revolotea constantemente a su alrededor. Actúa como su asistente,
+registrando notas musicales, proyectando diagramas holográficos y
+emitiendo frecuencias de calibración. Es su primera creación y su
+confidente más cercano.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Fyla Harmonclave no es solo una inventora; es una fuerza de cambio en
+un reino anclado en la tradición. Su trabajo amenaza con redefinir la
+mismísima identidad de <a href="Valtoria.html">Valtoria</a>, desplazando
+el poder de los clanes guerreros y herreros hacia los artífices y los
+pensadores. La “Sinfonía de Cristal” tiene el potencial de revolucionar
+la guerra, la minería y la construcción, convirtiendo a la Casa
+Harmonclave en una potencia militar y económica sin precedentes.</p>
+<p>Su impacto resuena más allá de las montañas. Los elfos de la Casa
+Seraphiel ven en su arte una nueva forma de expresión mágica,
+fortaleciendo una alianza crucial entre <a
+href="Eldrador.html">Eldrador</a> y <a
+href="Valtoria.html">Valtoria</a>. Sin embargo, también siembra el
+miedo. La Casa Dravonis y otros clanes tradicionalistas la ven como una
+hereje que juega con fuerzas que no comprende, y su búsqueda de poder
+sónico la acerca peligrosamente a la ‘Frecuencia de la Ruptura’.</p>
+<p>El legado de Fyla será, por tanto, una paradoja. Podría ser la
+visionaria que guíe a <a href="Valtoria.html">Valtoria</a> hacia una
+nueva era de prosperidad e innovación, o la artífice brillante cuya
+ambición desate una catástrofe sónica que haga temblar los cimientos del
+mundo. Su historia es la del eterno conflicto entre el progreso y la
+precaución, una melodía que aún está por decidir si terminará en una
+gloriosa fanfarria o en un silencio devastador.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Harmonclave.html">Casa Harmonclave</a> (relevancia:
+0.45)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

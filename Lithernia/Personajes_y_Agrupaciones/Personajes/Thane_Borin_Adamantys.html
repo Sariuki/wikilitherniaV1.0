@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thane_Borin_Adamantys</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Thane_Borin_Adamantys</div>
+        <div class="content">
+<h1 id="thane-borin-adamantys">Thane Borin Adamantys</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en las profundidades resonantes de <a
+href="Kythlas.html">Kythlas</a>, bajo la sombra de las Montañas Dientes
+de Dragón, Borin Adamantys fue moldeado por la piedra y la tradición.
+Como vástago de la Casa Adamantys, su destino no estaba en el acero de
+la forja, sino en la luz atrapada en el corazón de los cristales. Desde
+joven, mostró una afinidad casi sobrenatural con las gemas, capaz de
+sentir las tensiones y fracturas internas de un diamante en bruto con
+solo rozarlo. Su devoción a los dioses <a href="Enanos.html">Enanos</a>,
+<a href="Rokael.html">Rokael</a> el Creador y <a
+href="Cirkon.html">Cirkon</a> la Señora de la Roca, no era una fe ciega,
+sino una filosofía de trabajo: veía cada gema como una oración a la
+perfección de la creación, esperando ser revelada.</p>
+<p>Su ascenso a Maestro del Gremio de los Talladores de Luz fue
+meteórico, incluso para los estándares <a href="Enanos.html">Enanos</a>.
+Durante una de las incursiones más sangrientas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> en las fronteras de <a
+href="Valtoria.html">Valtoria</a>, Borin diseñó y talló personalmente el
+“Ojo de la Cumbre”, un ‘Corazón de Cristal’ monumental. Instalado en la
+fortaleza de la Grieta de Hierro, el Ojo canalizó la luz de una rara
+conjunción estelar y desató un pulso de energía purificadora que
+desintegró a un batallón orco entero, salvando a miles. Esta hazaña no
+solo le otorgó el título de Thane, sino que solidificó su creencia
+inquebrantable en los métodos ancestrales de su casa: la paciencia, la
+precisión y la adhesión estricta a los alineamientos celestes.</p>
+<p>Como Patriarca, Borin ha gobernado con mano firme y una sabiduría tan
+sólida como el granito. Ha mantenido la neutralidad pragmática de la
+Casa Adamantys, consciente de que el monopolio de las gemas mágicas es
+un arma de doble filo. Sabe que las cortes élficas de <a
+href="Eldrador.html">Eldrador</a> anhelan sus creaciones para sus
+encantamientos etéreos y que los brujos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> matarían por descifrar sus
+secretos para alimentar su magia oscura. Por ello, se ha convertido en
+un bastión de la tradición, un guardián celoso de los secretos que han
+mantenido a su casa segura y próspera durante siglos.</p>
+<p>Su mayor conflicto no proviene de reinos rivales, sino de su propia
+sangre. Su hija y heredera, Lyra, es una visionaria que ve el futuro de
+la gemología en la fusión de técnicas, incluyendo la ‘magia etérea’ de
+los elfos y las innovaciones de los artífices <a
+href="Gnomos.html">Gnomos</a>. Borin ama a su hija, pero ve sus ideas
+como una traición a los principios que los han protegido. Desconfía
+profundamente de la magia élfica, considerándola caprichosa y sin
+fundamento, a diferencia de la magia tangible y predecible que él extrae
+de la roca. Este cisma generacional es más que una disputa familiar; es
+el choque de dos eras en el corazón de la casa más influyente de <a
+href="Valtoria.html">Valtoria</a>. Borin teme que la impaciencia de Lyra
+y su fascinación por lo extranjero atraigan la atención no deseada de
+sus rivales y pongan en peligro el legado que ha jurado proteger.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Thane Borin Adamantys es la personificación de una montaña. De
+complexión robusta y ancha, su piel tiene la textura curtida de quien ha
+pasado siglos bajo la luz de las gemas en lugar del sol. Sus ojos, de un
+profundo color topacio, son agudos y analíticos, capaces de juzgar el
+valor de una gema o el carácter de un rey con una sola mirada. Su barba,
+una cascada de plata y granito, cae en trenzas complejas, cada una
+sujeta con un broche de mithril y obsidiana pulida. En el centro, una
+única gema sin cortar, la primera que encontró en la Gran Geoda, cuelga
+como un recordatorio de sus orígenes.</p>
+<p>Viste túnicas de lana oscura de la mejor calidad, bordadas con hilo
+de plata que traza el sigilo de su casa: el draco de piedra y el
+diamante radiante. Sus manos son callosas, pero de una firmeza
+legendaria, capaces de ejercer una presión milimétrica sobre las facetas
+de una gema.</p>
+<p>No porta armadura en su día a día, confiando en la protección de su
+estatus y en el amuleto que siempre lleva al cuello: el <strong>Corazón
+de Adamantys</strong>, una obra maestra tallada por él mismo que absorbe
+y disipa la energía mágica hostil. En su cadera descansa el
+<strong>Martillo de la Verdad Geométrica</strong>, un martillo de guerra
+ceremonial de adamantita y cabeza de cristal, que se dice que resuena
+con la verdad cuando golpea la roca o un juramento falso. En su taller,
+su herramienta más preciada es una colección de lentes y lupas de
+cristal de estrella, que le permiten ver los caminos de la luz dentro de
+las gemas más complejas.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Thane Borin Adamantys es un pilar del viejo orden de <a
+href="Valtoria.html">Valtoria</a> y, por extensión, de toda Lithernia.
+Su liderazgo ha garantizado que la Casa Adamantys siga siendo la
+principal fuente de componentes mágicos de alta potencia, un factor que
+ha mantenido el equilibrio de poder entre los reinos durante décadas. Al
+negar sus creaciones más poderosas tanto a <a
+href="Eldrador.html">Eldrador</a> como a <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, ha evitado indirectamente la
+escalada de la Gran Guerra en múltiples ocasiones.</p>
+<p>Sin embargo, su rigidez tradicionalista es también su mayor
+debilidad. Al resistirse a la innovación, corre el riesgo de que la Casa
+Adamantys se estanque, volviéndose una reliquia en un mundo que cambia
+rápidamente. Su conflicto con Lyra no es solo una tensión familiar, sino
+un microcosmos de la lucha de Lithernia entre preservar el pasado que
+garantizó la supervivencia y abrazar un futuro incierto que podría traer
+una nueva era de prosperidad o la ruina total.</p>
+<p>El legado de Borin se decidirá en el crepúsculo de su vida: si
+logrará reconciliar tradición y progreso a través de su heredera, o si
+su intransigencia fracturará su casa desde dentro, dejando el poder de
+los cristales de <a href="Kythlas.html">Kythlas</a> a merced de las
+sombras que siempre ha mantenido a raya. En la gran balanza de
+Lithernia, Thane Borin Adamantys es el peso del pasado, y su mayor
+desafío será descubrir si ese peso es un ancla que estabiliza o una
+carga que hunde.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Adamantys.html">Casa Adamantys</a> (relevancia:
+0.52)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.41)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

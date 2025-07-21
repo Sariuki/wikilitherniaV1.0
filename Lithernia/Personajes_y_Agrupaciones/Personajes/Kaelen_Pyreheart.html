@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Pyreheart</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Pyreheart</div>
+        <div class="content">
+<h1 id="kaelen-pyreheart">Kaelen Pyreheart</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En las entrañas ardientes de <a href="Valarion.html">Valarion</a>,
+donde el aire huele a azufre y metal, pocos nombres inspiran tanto temor
+y respeto como Pyreheart. Kaelen es el heredero de ese nombre, un joven
+forjado no solo en el calor de la lava, sino en el crisol de dos sangres
+guerreras: la de los honorables <a href="Dragonborn.html">Dragonborn</a>
+y la de los indomables <a href="Orcos.html">Orcos</a>. Su existencia
+misma es un testimonio de la filosofía de su Casa: la verdadera nobleza
+no reside en la pureza de un linaje, sino en la fuerza de la
+voluntad.</p>
+<p>La Casa Pyreheart es una anomalía en la rígida estructura de clanes
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Fundada por su abuelo,
+<strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+Pyreheart</strong>, un Genasi de Fuego renegado, la casa se alzó desde
+el desprecio. <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+un paria sin nombre, se ganó el derecho a fundar su clan al sobrevivir a
+la prueba mortal del ‘Foso del Desafío’ de <a
+href="Valarion.html">Valarion</a>. Emergió de la arena volcánica con la
+piel marcada por <a href="Runas.html">Runas</a> de fuego espontáneas y
+una determinación que unió a otros descastados bajo su estandarte. Su
+lema, <em>“Del Fuego, la Fuerza. De la Ceniza, el Renacer.”</em>, se
+convirtió en el credo de una hermandad de guerreros y herreros que
+adoraban a <a href="Valarios.html">Valarios</a>, el dios de la
+destrucción y la creación, en su faceta más purificadora.</p>
+<p>Kaelen nació bajo esta pesada sombra. Su padre,
+<strong>Valerius</strong>, un <a href="Dragonborn.html">Dragonborn</a>
+de escamas cobrizas, es el actual señor de la Casa y un hombre
+endurecido por la necesidad de legitimar el legado de su padre. Su
+madre, <strong>Grakka</strong>, una guerrera orca del Clan Ironclaw,
+selló con su matrimonio la alianza más importante de los Pyreheart. De
+Valerius, Kaelen heredó el orgullo dracónico y la capacidad de exhalar
+fuego; de Grakka, una resistencia implacable y una furia que arde bajo
+la superficie.</p>
+<p>Pero esta herencia mixta es tanto una bendición como una maldición.
+Para su padre, un hombre que lucha por mantener la reputación de la
+casa, la sangre orca de Kaelen es una debilidad visible, un recordatorio
+constante de que no son una casa “pura”. Por ello, Valerius somete a su
+hijo a una exigencia implacable. El respeto de su padre no se da, se
+conquista. Y el único lugar para conquistarlo es el mismo ‘Foso del
+Desafío’ que consagró a su abuelo.</p>
+<p>Kaelen ha descendido a la arena volcánica en tres ocasiones, buscando
+superar la prueba. En cada una ha luchado con una ferocidad legendaria,
+pero en cada una ha fracasado, emergiendo con nuevas cicatrices y el
+peso renovado de la mirada decepcionada de su padre. Estos fracasos
+públicos han alimentado los susurros de sus rivales, la <strong>Casa
+Hammerthon</strong> de <a href="Valtoria.html">Valtoria</a> y el
+<strong>Clan Agrietacero</strong>, quienes lo ven como la prueba de que
+la Casa Pyreheart es un castillo de naipes destinado a caer.</p>
+<p>A pesar de la presión, Kaelen no es un bruto desesperado. Es un líder
+natural y un estratega astuto. Ha comandado las fuerzas Pyreheart en
+escaramuzas fronterizas y ha defendido las forjas de <a
+href="Valarion.html">Valarion</a> de incursiones, ganándose la lealtad
+de los guerreros de la casa, quienes ven en él la encarnación de su
+ideal: un <a href="Heroes.html">Heroes</a> forjado en la adversidad. Su
+objetivo es más profundo que la mera aprobación paterna; Kaelen busca
+demostrar que el legado de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+no fue una casualidad, sino el inicio de una nueva era donde la valía de
+un individuo se mide por sus actos, no por el eco de sus ancestros. Su
+ambición, como la de su casa, apunta al corazón del poder en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen es una figura imponente que encarna su dualidad. Mide más de
+dos metros, con la complexión masiva y musculosa de un orco, pero con la
+postura erguida y la estructura ósea de un dracónido. Su piel es un
+mosaico de tonos grises y verdes pálidos, interrumpida por parches de
+finas escamas de color bronce y cobre en sus hombros, antebrazos y
+pómulos. Sus ojos arden con una inteligencia feroz y un brillo
+anaranjado, casi ígneo. Una mandíbula fuerte revela colmillos <a
+href="Orcos.html">Orcos</a>, más cortos de lo habitual pero afilados. Su
+rostro y torso están surcados por una red de cicatrices de quemaduras,
+recuerdos blanquecinos de sus intentos fallidos en el Foso del
+Desafío.</p>
+<p><strong>Equipamiento:</strong> * <strong>Armadura de la Forja de
+Purificación:</strong> Viste una armadura de placas completa, forjada
+por los maestros herreros de la Casa Pyreheart. El acero ha sido
+repetidamente fundido y vuelto a forjar en lava, dándole un color negro
+mate con vetas que parecen retener un calor latente. El escudo de la
+casa, un corazón de obsidiana en llamas, está grabado en el peto. *
+<strong>Mandoble “Ceniza y Furia”:</strong> Su arma es un mandoble
+colosal, de hoja ancha y oscura, con <a href="Runas.html">Runas</a> de
+<a href="Valarios.html">Valarios</a> grabadas a lo largo del filo. Se
+dice que el arma fue enfriada con la sangre de un elemental de fuego y
+que zumba con una energía contenida antes de cada golpe. * <strong>El
+Corazón de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>:</strong>
+Kaelen lleva al cuello un amuleto: un fragmento de obsidiana irregular,
+siempre cálido al tacto. Es la primera piedra que su abuelo <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+recogió al salir victorioso del Foso, el símbolo tangible del legado que
+aspira a superar.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelen Pyreheart no es simplemente un <a
+href="Guerrero.html">Guerrero</a>; es el futuro de una ideología. Él
+representa la segunda generación de una casa que desafía las tradiciones
+milenarias de Lithernia. Su éxito o fracaso determinará si la
+meritocracia puede arraigar en el suelo hostil de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> o si la sangre y el linaje
+volverán a imponer su tiranía.</p>
+<p>En el tablero político, Kaelen es una pieza desestabilizadora. Su
+liderazgo podría consolidar a la Casa Pyreheart como una potencia capaz
+de rivalizar con las antiguas dinastías de <a
+href="Valtoria.html">Valtoria</a> y <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, alterando el equilibrio de poder
+en la región. Su herencia mixta lo convierte en un símbolo potente: para
+algunos, es la prueba viviente de que la cooperación entre razas puede
+crear algo más fuerte; para otros, es un presagio del caos y la
+disolución de las identidades sagradas creadas por los dioses.</p>
+<p>Mientras los susurros de la profecía del Primer Rey recorren el
+continente, Kaelen no busca liberar a un antiguo monarca. Su ambición es
+más personal y, quizás, más peligrosa: forjar su propio reino, no sobre
+las ruinas del pasado, sino sobre las cenizas de un presente que se
+niega a cambiar. Su destino no está escrito en pergaminos antiguos, sino
+que se forja cada día en el fuego de su voluntad. Kaelen Pyreheart no
+espera un renacer; él <em>es</em> el renacer. Un renacer de fuego, acero
+y furia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+<li><a href="Casa%20Pyreheart.html">Casa Pyreheart</a> (relevancia:
+0.48)</li>
+<li><a href="Ignis.html">Ignis</a> (relevancia: 0.46)</li>
+<li><a href="Personajes.html">Personajes</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

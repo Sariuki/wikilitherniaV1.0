@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grakor_Manoveneno</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grakor_Manoveneno</div>
+        <div class="content">
+<h1 id="grakor-manoveneno">Grakor Manoveneno</h1>
+<blockquote>
+<p><em>“El dolor es un grito. La aniquilación es una fanfarria. Ambas
+son para los impacientes. Yo ofrezco el silencio del final, el susurro
+de la podredumbre. Ofrezco el verdadero poder.”</em></p>
+</blockquote>
+<h2 id="biografía">Biografía</h2>
+<p>Nacido en las miasmáticas ruinas de <a
+href="Rynavel.html">Rynavel</a>, Grakor no conoció la nobleza de las
+grandes casas de <a href="Mor&#39;dhul.html">Mor’dhul</a>, sino la cruda
+filosofía del Clan Umbracor: la supremacía de la decadencia. Su linaje,
+como el de muchos en el clan, se remonta a los <a
+href="Tieflings.html">Tieflings</a> exiliados que vieron en la <a
+href="Alquimia.html">Alquimia</a> prohibida una senda hacia un poder más
+sutil y duradero que el acero. Creció no entre guerreros, sino entre
+destiladores y botánicos de lo macabro, aprendiendo que la paciencia de
+una toxina que se extiende por las venas es más letal que la furia de un
+hacha.</p>
+<p>Su ascenso a Jefe de Ejecutores no se forjó en arenas de combate,
+sino en una noche de silenciosa traición. Cuando el Clan <a
+href="Kromagul.html">Kromagul</a>, en su sádica arrogancia, intentó
+subyugar a los Umbracor mediante la tortura y el miedo, Grakor demostró
+la superioridad de su doctrina. Mientras los pocos guerreros del clan
+caían, él se movió entre las sombras, no con una daga, sino con un polvo
+insípido. En cuestión de días, los <a href="Heroes.html">Heroes</a> y
+líderes de <a href="Kromagul.html">Kromagul</a> se consumieron desde
+dentro, sus cuerpos fallando en un colapso silencioso que los médicos no
+pudieron explicar. La demostración fue tan aterradora como
+impecable.</p>
+<p>Este acto capturó la atención de <a href="Vexia.html">Vexia</a>, la
+enigmática matriarca del clan. Vio en Grakor no solo a un asesino, sino
+a la encarnación perfecta de su credo. Lo nombró su Jefe de Ejecutores,
+la mano que haría cumplir los contratos del clan y eliminaría las
+amenazas con la misma eficiencia silenciosa de una plaga. Desde
+entonces, Grakor ha sido la sombra que se cierne sobre los poderosos de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>. Su lealtad a <a
+href="Vexia.html">Vexia</a> es absoluta; la ve no como una líder, sino
+como la mente maestra del ciclo inevitable de la podredumbre, un poder
+más fundamental que los dioses mismos.</p>
+<p>Su principal motivación es la perfección de su arte y la
+consolidación de la influencia de Umbracor. Desprecia la teatralidad del
+Clan <a href="Kromagul.html">Kromagul</a>, a quienes considera bárbaros
+ruidosos, y siente una fría rivalidad con la Casa <a
+href="Saelaril.html">Saelaril</a> de <a
+href="Eldrador.html">Eldrador</a>, cuyos druidas y purificadores
+representan la antítesis de su obra. Para Grakor, la vida que ellos
+protegen es solo un lienzo virgen esperando la pincelada final de la
+descomposición.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Grakor es un tiefling de complexión delgada y fibrosa, cuya
+apariencia desmiente su letalidad. Su piel tiene un tono gris verdoso,
+como la piedra cubierta de musgo en un pantano, permitiéndole fundirse
+con el entorno de <a href="Rynavel.html">Rynavel</a>. Sus cuernos son
+cortos y afilados, curvados hacia atrás como los colmillos de una
+víbora, y sus ojos, de un amarillo pálido y sin brillo, observan todo
+con una calma depredadora. Se mueve con una economía de movimiento
+inquietante, sin un solo gesto o sonido superfluo.</p>
+<p>Su equipamiento es puramente funcional, despojado de cualquier
+ornamento. * <strong>Armadura:</strong> Viste una armadura de cuero
+endurecido, tratada con aceites alquímicos para resistir la humedad y la
+corrosión. Es ligera, silenciosa y teñida de colores oscuros. *
+<strong>Arsenal Tóxico:</strong> No porta espadas ni hachas. Sus armas
+son herramientas de aplicación: una serie de dagas de obsidiana
+finamente afiladas, dardos de hueso y una cerbatana de caña de pantano.
+Cada una es un vehículo para las creaciones de los destiladores del
+clan. * <strong>Venenos Notorios:</strong> Siempre lleva consigo una
+selección de las obras maestras de Fizzik, el principal alquimista del
+clan. Entre ellas se encuentran: * <strong>El Beso de <a
+href="Rynavel.html">Rynavel</a>:</strong> Un neurotóxico de acción
+rápida que paraliza los músculos, provocando una muerte silenciosa por
+asfixia mientras la víctima permanece consciente. * <strong>Lágrima del
+<a href="Lilium.html">Lilium</a>:</strong> Un veneno de efecto retardado
+y base necrótica. No mata el cuerpo, sino que marchita lentamente el
+alma y la conexión del objetivo con el Tejido del Maná, dejándolo como
+una cáscara vacía y vulnerable. * <strong>El Susurro de la
+Serpiente:</strong> Un agente de contacto que se absorbe por la piel,
+diseñado para inducir paranoia y alucinaciones terroríficas, llevando al
+objetivo a la locura o al suicidio.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Grakor Manoveneno nunca será cantado en las epopeyas de los bardos ni
+su rostro tallado en estatuas. Su legado es intangible, tejido en el
+miedo y la paranoia que impregna la política de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y más allá. Es la razón por la que
+los nobles desconfían de sus catadores, por la que los generales temen
+un simple rasguño en batalla, y por la que los tratados firmados con el
+Clan Umbracor se cumplen al pie de la letra.</p>
+<p>Mientras Volrath es el martillo del Rey Sel’thirak y Lady Xandria su
+mente manipuladora, Grakor es el estilete silencioso que se desliza
+entre las costillas del poder. No busca la gloria ni el trono; su
+satisfacción reside en la prueba irrefutable de que, al final, la fuerza
+más grande de Lithernia no es el fuego del <a
+href="Lilium.html">Lilium</a> ni el acero de los ejércitos, sino la
+inevitable y silenciosa victoria de la ponzoña.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Veneno.html">Veneno</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

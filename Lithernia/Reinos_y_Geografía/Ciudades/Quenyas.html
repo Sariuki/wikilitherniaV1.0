@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quenyas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Quenyas</div>
+        <div class="content">
+<h1 id="quenyas">Quenyas</h1>
+<p>Quenyas, la Ciudad de los Vientos, no es un lugar para quienes temen
+a las alturas. Fundada sobre una serie de imponentes mesetas costeras,
+la ciudad se alza desafiante contra el cielo, conectada por una
+intrincada red de puentes de cuerda que se mecen con la brisa incesante
+del océano. Es el principal centro de adoración de <a
+href="Quiteon.html">Quiteon</a>, y sus habitantes, maestros de la
+navegación celestial, han aprendido a leer los secretos del viento no
+como un obstáculo, sino como su mayor aliado. El aire vibra
+constantemente con el sonido de complejos carillones y el susurro de las
+velas más rápidas de Lithernia, forjadas en sus talleres e imbuidas con
+la magia de las corrientes.</p>
+<h2 id="historia">Historia</h2>
+<p>Quenyas nació de un sueño y una brisa. Hace siglos, una cartógrafa
+humana llamada Lyra Susurraviento, frustrada por las limitaciones de los
+<a href="Mapas.html">Mapas</a> terrestres, se obsesionó con trazar las
+corrientes invisibles del cielo. Siguiendo lo que ella describía como un
+susurro del propio <a href="Quiteon.html">Quiteon</a>, guio a un pequeño
+grupo de exploradores, inventores y filósofos a las inhóspitas mesetas
+costeras. Allí, en un lugar donde el viento nunca duerme, fundaron un
+asentamiento dedicado no a la conquista, sino al descubrimiento.</p>
+<p>Rápidamente, Quenyas se ganó una reputación única en <a
+href="Galvorn.html">Galvorn</a>. Mientras otras ciudades construían
+flotas de guerra o amasaban fortunas comerciales, Quenyas perfeccionaba
+el arte de moverse con el viento. Sus innovaciones en la fabricación de
+velas y el diseño de planeadores rudimentarios la convirtieron en un
+pilar indispensable para el espíritu explorador del reino. Hoy, es una
+ciudad gobernada por el Consejo de los Vientos, una asamblea de los más
+brillantes inventores, navegantes y pensadores, que valora una idea
+audaz por encima de una bolsa de oro.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Crestas del Eco</strong>: Las mesetas más altas y
+expuestas al viento albergan los templos a <a
+href="Quiteon.html">Quiteon</a>. No son edificios cerrados, sino
+gigantescas estructuras al aire libre, similares a arpas de piedra y
+metal, diseñadas para “cantar” con el paso del viento, creando una
+melodía etérea que envuelve toda la ciudad.</p></li>
+<li><p><strong>Los Astilleros del Cielo</strong>: Un vertiginoso
+distrito construido en los bordes de los acantilados. Aquí, los
+artesanos, muchos de ellos <a href="Halflings.html">Halflings</a> y <a
+href="Genasi%20de%20Aire.html">Genasi de Aire</a>, trabajan en talleres
+suspendidos sobre el vacío, cosiendo velas imbuidas de magia y
+construyendo cometas y planeadores experimentales. El aire está lleno de
+telas de colores que se secan al viento y del olor a madera
+tratada.</p></li>
+<li><p><strong>La Plaza de las Corrientes</strong>: El corazón social de
+Quenyas. Es un amplio espacio abierto donde las corrientes de varias
+mesetas convergen. Aquí se celebran debates filosóficos que duran días,
+los inventores muestran sus últimos (y a menudo fallidos) prototipos, y
+el Festival de las Corrientes llena el cielo de color una vez al
+año.</p></li>
+<li><p><strong>El Nido de los Puentes</strong>: El principal distrito
+residencial, donde las casas ligeras y aerodinámicas se aferran a las
+paredes de las mesetas. La verdadera maravilla es la red de puentes
+colgantes que conectan cada vivienda y cada barrio, dándole a la ciudad
+su apodo de “La Ciudad de los Puentes Susurrantes”. Cruzarlos durante
+una ráfaga de viento es un rito de iniciación para todo
+visitante.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Quenyas es un reflejo del viento: libre, cambiante e
+impredecible. El fracaso no se oculta; un inventor cuyo planeador se
+estrella contra las rocas es aplaudido por su audacia, no ridiculizado.
+La libertad de pensamiento es el bien más preciado, y los niños aprenden
+tanto de filosofía como de nudos marineros.</p>
+<p>Una de sus costumbres más hermosas es la “Ofrenda del Susurro”. Antes
+de que un barco zarpe en una larga travesía, su capitán libera al viento
+un pequeño pájaro de madera tallada, en cuyo interior ha susurrado una
+oración o un deseo para <a href="Quiteon.html">Quiteon</a>. Se cree que
+el dios del viento escucha estos mensajes y guía a las naves seguras a
+su destino.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura es ligera y funcional, diseñada para coexistir con el
+viento, no para luchar contra él. Los edificios tienen formas curvas y
+elegantes, construidos con madera tratada mágicamente para ser flexible,
+tensas lonas y las estructuras óseas de gigantescas <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+marinas encontradas en la costa. El símbolo de la ciudad, una golondrina
+estilizada cuyas alas se funden en una espiral de viento, adorna
+estandartes y veletas por todas partes. El ambiente es de optimismo y
+movimiento perpetuo; una sensación de que en cualquier momento, una
+nueva idea o una ráfaga de inspiración pueden cambiarlo todo.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Cueva de los Ecos Locos</strong>: Se dice que en las
+profundidades de las cuevas que perforan la base de las mesetas, el
+viento no solo canta, sino que habla. La leyenda afirma que susurra
+profecías y verdades olvidadas a quienes se atreven a escuchar. Sin
+embargo, el precio es alto: la voz del viento es tan pura y caótica que
+permanecer demasiado tiempo en las cuevas puede despojar a un mortal de
+su cordura, dejándolo con la mente tan dispersa como una nube.</p></li>
+<li><p><strong>El Canto de Elara Vientoflauta</strong>: Todos los
+navegantes de Quenyas conocen la historia de Elara Vientoflauta, una
+legendaria capitana <a href="Genasi%20de%20Aire.html">Genasi de Aire</a>
+que, hace generaciones, se adentró en una tormenta imposible de la que
+nunca regresó. Se cuenta que su espíritu, atado al viento, aún navega
+por los cielos de Lithernia. En las noches de niebla espesa, los
+marineros perdidos a veces afirman ser guiados a un puerto seguro por el
+eco de una flauta triste que suena en la distancia, la única señal de
+que el fantasma de Elara sigue velando por los suyos.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

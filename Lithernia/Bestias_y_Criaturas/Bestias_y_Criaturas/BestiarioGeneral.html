@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BestiarioGeneral</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">BestiarioGeneral</div>
+        <div class="content">
+<h1 id="bestiariogeneral">Bestiariogeneral</h1>
+<h3 id="bestias-ancestrales">Bestias Ancestrales</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Criatura</th>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: center;">CR Típico</th>
+<th style="text-align: left;">Rol Táctico</th>
+<th style="text-align: left;">Vínculo Principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="Dragones.html">Dragones</a>
+Ancestrales]]</td>
+<td style="text-align: left;">Dragón</td>
+<td style="text-align: center;">25+</td>
+<td style="text-align: left;">Legendario, Artillería</td>
+<td style="text-align: left;"><a href="Herreria.html">Herreria</a> del
+Mundo</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gólems de la <a
+href="Herreria.html">Herreria</a></td>
+<td style="text-align: left;">Constructo</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">Defensor, Bruto</td>
+<td style="text-align: left;"><a href="Valtoria.html">Valtoria</a>, <a
+href="Rokael.html">Rokael</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+Elementales]]</td>
+<td style="text-align: left;">Elemental</td>
+<td style="text-align: center;">5-11</td>
+<td style="text-align: left;">Artillería, Escaramuzador</td>
+<td style="text-align: left;">Planos Primigenios</td>
+</tr>
+</tbody>
+</table>
+<h3 id="criaturas-de-mordhul">Criaturas de Mor’dhul</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Criatura</th>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: center;">CR Típico</th>
+<th style="text-align: left;">Rol Táctico</th>
+<th style="text-align: left;">Vínculo Principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Zombi / Esqueleto</td>
+<td style="text-align: left;">No muerto</td>
+<td style="text-align: center;">1/4</td>
+<td style="text-align: left;">Esbirro</td>
+<td style="text-align: left;"><a
+href="Nigromante.html">Nigromante</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">Espectro</td>
+<td style="text-align: left;">No muerto</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Drenador de Vida</td>
+<td style="text-align: left;">Sel’thirak</td>
+</tr>
+<tr>
+<td style="text-align: left;">Demonio Menor (Imp/Quasit)</td>
+<td style="text-align: left;">Infernal</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Acechador, Espía</td>
+<td style="text-align: left;">Pacto Oscuro</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lobo de Sombra</td>
+<td style="text-align: left;">Monstruosidad</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Acechador, Manada</td>
+<td style="text-align: left;">Plano de las Sombras</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dríade Corrupta</td>
+<td style="text-align: left;">Feérico</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Controlador, <a
+href="Hechicero.html">Hechicero</a></td>
+<td style="text-align: left;">Cataclismo del <a
+href="Lilium.html">Lilium</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">Monstruo del Pantano</td>
+<td style="text-align: left;">Monstruosidad</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Bruto, Emboscador</td>
+<td style="text-align: left;">Clan Mirewalker</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fauna-de-galvorn">Fauna de Galvorn</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Criatura</th>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: center;">CR Típico</th>
+<th style="text-align: left;">Rol Táctico</th>
+<th style="text-align: left;">Vínculo Principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Sirena Oscura</td>
+<td style="text-align: left;">Monstruosidad</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Encantador, Controlador</td>
+<td style="text-align: left;"><a href="Yfrit.html">Yfrit</a>
+(Corrompido)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Grifo Marino</td>
+<td style="text-align: left;">Monstruosidad</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Volador, Escaramuzador</td>
+<td style="text-align: left;"><a href="Galvorn.html">Galvorn</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">Serpiente Marina Gigante</td>
+<td style="text-align: left;">Bestia</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Bruto, Constrictor</td>
+<td style="text-align: left;">Océano</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kraken</td>
+<td style="text-align: left;">Monstruosidad</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: left;">Legendario, Defensor</td>
+<td style="text-align: left;">Profundidades Marinas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="criaturas-de-valtoria">Criaturas de Valtoria</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Criatura</th>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: center;">CR Típico</th>
+<th style="text-align: left;">Rol Táctico</th>
+<th style="text-align: left;">Vínculo Principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Gólem de Piedra</td>
+<td style="text-align: left;">Constructo</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: left;">Defensor, Bruto</td>
+<td style="text-align: left;"><a href="Cirkon.html">Cirkon</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="Dragonborn.html">Dragonborn</a>
+(Salvaje)</td>
+<td style="text-align: left;">Humanoide</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Bruto, Artillería</td>
+<td style="text-align: left;"><a href="Valarios.html">Valarios</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+Dracónicas (Wyvern)</td>
+<td style="text-align: left;">Dragón</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Volador, Atacante</td>
+<td style="text-align: left;">Era de las Escamas y Fuego</td>
+</tr>
+<tr>
+<td style="text-align: left;">Basilisco</td>
+<td style="text-align: left;">Monstruosidad</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Controlador (Petrificación)</td>
+<td style="text-align: left;">Cavernas Profundas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bestias-y-espíritus-de-eldrador">Bestias y Espíritus de
+Eldrador</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Criatura</th>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: center;">CR Típico</th>
+<th style="text-align: left;">Rol Táctico</th>
+<th style="text-align: left;">Vínculo Principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Dríade</td>
+<td style="text-align: left;">Feérico</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Encantador, Guardián</td>
+<td style="text-align: left;"><a href="Ferion.html">Ferion</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">Ent</td>
+<td style="text-align: left;">Planta</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">Bruto, Defensor</td>
+<td style="text-align: left;">Bosques Ancestrales</td>
+</tr>
+<tr>
+<td style="text-align: left;">Unicornio</td>
+<td style="text-align: left;">Celestial</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Sanador, Soporte</td>
+<td style="text-align: left;">Panteón Élfico</td>
+</tr>
+<tr>
+<td style="text-align: left;">Espíritu Estelar</td>
+<td style="text-align: left;">Celestial</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Soporte, Ilusionista</td>
+<td style="text-align: left;"><a href="Arzia.html">Arzia</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="criaturas-planares">Criaturas Planares</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Criatura</th>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: center;">CR Típico</th>
+<th style="text-align: left;">Rol Táctico</th>
+<th style="text-align: left;">Vínculo Principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Sombra</td>
+<td style="text-align: left;">No muerto</td>
+<td style="text-align: center;">1/2</td>
+<td style="text-align: left;">Drenador de Fuerza, Sigilo</td>
+<td style="text-align: left;">Plano de las Sombras</td>
+</tr>
+<tr>
+<td style="text-align: left;">Espectro del Velo</td>
+<td style="text-align: left;">No muerto</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">Controlador, Impredecible</td>
+<td style="text-align: left;">El velo gris</td>
+</tr>
+<tr>
+<td style="text-align: left;">Coleccionistas de lamentos</td>
+<td style="text-align: left;">No muerto</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Controlador, Cosechador</td>
+<td style="text-align: left;"><a href="Kromagul.html">Kromagul</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">Vampiro</td>
+<td style="text-align: left;">No muerto</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: left;">Élite, Encantador</td>
+<td style="text-align: left;">Clan of the Damned</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="bloques-de-estadísticas-de-ejemplo">Bloques de Estadísticas de
+Ejemplo</h3>
+<p>statblock name: Gólem de la Forja size: Grande type: constructo
+alignment: neutral ac: 17 (armadura natural) hp: 133 (14d10 + 56) speed:
+30 ft. stats: [20, 9, 18, 3, 11, 1] damage_immunities: Fuego, Veneno,
+Psíquico; Contundente, Perforante y Cortante de ataques no mágicos que
+no sean de adamantium condition_immunities: Hechizado, Agotamiento,
+Asustado, Paralizado, Petrificado, Envenenado senses: Visión en la
+oscuridad 120 ft., Percepción Pasiva 10 languages: Entiende Enano pero
+no puede hablar cr: 9 traits: - name: Cuerpo Calentado desc: “Una
+criatura que toque al gólem o lo golpee con un ataque cuerpo a cuerpo
+mientras se encuentre a 5 pies de él, recibe 5 (1d10) de daño por
+fuego.” - name: Resistencia Mágica desc: “El gólem tiene ventaja en las
+tiradas de salvación contra Conjuros y otros efectos mágicos.” - name:
+Inmutable desc: “El gólem es inmune a cualquier conjuro o efecto que
+altere su forma.” actions: - name: Multiataque desc: “El gólem realiza
+dos ataques de Golpetazo.” - name: Golpetazo desc: “Ataque de arma
+cuerpo a cuerpo: +9 a impactar, alcance 5 ft., un objetivo. Impacto: 16
+(2d10 + 5) de daño contundente más 5 (1d10) de daño por fuego.” - name:
+Aliento de Vapor (Recarga 5-6) desc: “El gólem exhala vapor hirviendo en
+un cono de 30 pies. Cada criatura en esa área debe realizar una tirada
+de salvación de Constitución CD 16, sufriendo 33 (6d10) de daño por
+fuego si falla la tirada, o la mitad si tiene éxito.”</p>
+<p>```statblock name: Sirena Oscura size: Mediana type: monstruosidad
+alignment: caótico maligno ac: 15 (armadura natural) hp: 82 (15d8 + 15)
+speed: 10 ft., nadar 40 ft. stats: [12, 18, 12, 14, 15, 19] saves: -
+Dex: +7 - Car: +7 skills: - Engaño: +7 - Percepción: +5 -
+Interpretación: +7 senses: Visión en la oscuridad 120 ft., Percepción
+Pasiva 15 languages: Común, Élfico, Primordial cr: 4 traits: - name:
+Anfibio desc: “La sirena puede respirar aire y agua.” actions: - name:
+Multiataque desc: “La sirena realiza dos ataques con sus garras.” -
+name: Garras desc: “Ataque de arma cuerpo a cuerpo: +7 a impactar,
+alcance 5 ft., un objetivo. Impacto: 8 (1d6 + 4) de daño cortante más 7
+(2d6) de daño por frío.” - name: Canto Cautivador desc: “La sirena
+comienza a cantar una melodía inquietante. Cada humanoide y gigante a
+menos de 300 pies de la sirena que pueda oír el canto debe tener éxito
+en una tirada de salvación de Sabiduría CD 15 o quedará hechizado por la
+sirena. Mientras esté hechizado de esta manera, el objetivo está
+incapacitado y se mueve por la ruta más directa posible para acercarse a
+la sirena. Si el objetivo está a más de 5 pies de la sirena, debe usar
+su movimiento en cada uno de sus turnos para acercarse a ella. El
+objetivo puede repetir la tirada de salvación al final de cada uno de
+sus turnos, y cada vez que reciba daño de una fuente que no sea la
+sirena. Si la sirena o uno de sus compañeros daña al objetivo, el efecto
+termina inmediatamente. Un objetivo que tenga éxito en la tirada de
+salvación es inmune al canto de esta sirena durante las próximas 24
+horas.”</p>
+        </div>
+    </div>
+</body>
+</html>

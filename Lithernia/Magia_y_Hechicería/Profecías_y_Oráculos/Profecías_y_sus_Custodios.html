@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profecías_y_sus_Custodios</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Profecías_y_sus_Custodios</div>
+        <div class="content">
+<h1 id="profecías-y-sus-custodios">Profecías y sus custodios</h1>
+<p>Desde tiempos inmemoriales, en Lithernia, las profecías han sido el
+pulso invisible que guía la historia bajo el manto de un destino
+ancestral. Estas visiones del porvenir no nacen de la mera casualidad,
+sino que son sendas presenciadas por aguerridos oráculos y protegidas
+celosamente por hermandades y templos dedicados a velar por la señal que
+anunciará el retorno del Rey, aquel monarca divino cuya caída y regreso
+han tejido la narrativa eterna de esta tierra.</p>
+<h2 id="las-profecías-del-retorno">Las Profecías del Retorno</h2>
+<p>La caída de <a href="Lilium.html">Lilium</a>, el último soberano de
+la divina estirpe, marcó el inicio de una era de caos y desasosiego. Sin
+embargo, entre los sabios y visionarios, siempre se susurró la promesa
+de un juicio venidero y su justa restauración. Las profecías hablan de
+un tiempo en que el linaje perdido reemprenderá su trono, guiado por una
+estrella sangrante y confirmado por señales celestiales y terrestres.
+Estos augurios se transmiten mediante códices antiguos, cantos orales y
+rituales secretos.</p>
+<h2 id="los-custodios-oráculos-y-hermandades">Los Custodios: Oráculos y
+Hermandades</h2>
+<p>El peso de mantener viva esta esperanza recae en los Profetas de la
+Última Luz, una orden de oráculos que, desde la fundación de Lithernia,
+han vivido apartados en el Conclave de las Sombras. En sus dominios,
+custodian códices proféticos cuya tinta parece danzar con la verdad
+misma. Ellos interpretan sueños y signos, pero también guardan secretos
+que podrían desatar una guerra ancestral si llegaran a manos
+equivocadas.</p>
+<p>Junto a ellos, existen numerosas hermandades esparcidas por la
+geografía de Lithernia, cada una con especializaciones propias:</p>
+<ul>
+<li><strong>Los Vigías del Eclipse:</strong> Monjes guerreros que
+navegan entre la espada y la meditación, señalando y defendiendo lugares
+sagrados donde las señales del retorno se manifiestan.</li>
+<li><strong>El Culto de la Llama Eterna:</strong> Sacerdotes y
+sacerdotisas que mantienen rituales ardientes para purificar la memoria
+y proteger las profecías de la corrupción del tiempo.</li>
+<li><strong>La Orden del Alba Silente:</strong> Guardianes secretos que
+cifran las advertencias en <a href="Runas.html">Runas</a> escondidas,
+solo descifrables por los iniciados de su linaje.</li>
+</ul>
+<h2 id="templos-como-santuarios-del-destino">Templos Como Santuarios del
+Destino</h2>
+<p>Los templos construidos en honor al Rey caído son más que simples
+lugares de culto: son fortalezas de conocimiento y vigilancia. Entre los
+más emblemáticos:</p>
+<ul>
+<li><strong>El Templo de la Estrella Marchita:</strong> Ubicado en la
+cima del monte Vylar, conocido por su vista inigualable del cielo
+nocturno, lugar donde se leen las constelaciones en busca de
+presagios.</li>
+<li><strong>El Santuario del Último Aliento:</strong> Un refugio
+subterráneo donde se preservan fragmentos de los textos proféticos
+originales, su acceso está vedado a todos, salvo a los más altos
+custodios.</li>
+<li><strong>La Cripta de las Voces Silenciadas:</strong> Un complejo
+laberíntico donde los oráculos reciben visiones en trance, ligados por
+juramentos de sangre a su deber.</li>
+</ul>
+<h2 id="leyendas-entretejidas-en-el-tiempo">Leyendas Entretejidas en el
+Tiempo</h2>
+<p>Cuenta una antigua leyenda que la última señal del retorno será una
+aurora carmesí que cubra el cielo y una flor púrpura que brotará en la
+gran plaza central de <a href="Lilium.html">Lilium</a>, ambos signos
+anunciando la reunión de los verdaderos custodios con el Rey renacido.
+Se dice que quienes presencien estas señales serán marcados por los
+dioses para forjar la nueva era.</p>
+<p>Otra tradición habla de una tormenta profética, llamada “El Rugido
+del Olvido”, la cual borrará la memoria de toda Lithernia excepto la de
+los Custodios, encargados de preservar el legado físico y espiritual
+hasta que el reinado divino sea restituido.</p>
+<h2 id="costumbres-y-rituales">Costumbres y Rituales</h2>
+<p>Cada año, en el día del Eclipse Dual, marcado en el calendario lunar,
+los custodios realizan el Rito de la Vigilancia, donde renuevan sus
+votos y armonizan su conexión con el destino de Lithernia. Este ritual
+incluye:</p>
+<ul>
+<li>La lectura colectiva del Oráculo Renacido.</li>
+<li>El Encendido de la Llama de la Esperanza.</li>
+<li>El Juramento de Silencio, que promete no revelar profecías
+incompletas o perturbadoras.</li>
+</ul>
+<p>Durante este día, se permite la entrada a peregrinos devotos que
+buscan escuchar fragmentos de las palabras sagradas, aunque bajo
+estricta supervisión.</p>
+<hr />
+<p>La existencia de las profecías y sus custodios en Lithernia no solo
+ofrece un hilo conductor místico para la historia del mundo, sino que
+también es la piedra angular de la esperanza y la vigilancia contra la
+oscuridad que amenaza con eclipsar la renovación del Rey. En este
+equilibrio frágil, los Custodios actúan como guardianes incansables,
+eternamente atentos a las señales del destino.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li>Profecías del Retorno</li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Profecías.html">Profecías</a> (relevancia: 0.76)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

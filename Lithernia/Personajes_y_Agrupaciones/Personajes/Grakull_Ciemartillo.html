@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grakull_Ciemartillo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grakull_Ciemartillo</div>
+        <div class="content">
+<h1 id="grakull-ciemartillo">Grakull Ciemartillo</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de <a href="Valtoria.html">Valtoria</a>, donde el honor
+se mide en la pureza del mithril y la lealtad es más dura que el
+granito, el nombre de Grakull es una cicatriz supurante, un recordatorio
+de que incluso la piedra más <a href="Noble.html">Noble</a> puede
+albergar corrupción. Nacido en el seno de la orgullosa Casa Dravonis,
+Grakull mostró desde joven una impaciencia y una ambición que
+desentonaban con la metódica devoción de su pueblo. Mientras sus pares
+encontraban la divinidad en la creación de <a
+href="Rokael.html">Rokael</a>, Grakull solo veía estancamiento. La
+paciencia de la montaña era para él debilidad; la belleza de una gema,
+una distracción del poder crudo que contenía.</p>
+<p>Su fascinación lo llevó por un sendero herético. Encontró la
+verdadera esencia del poder enano no en la creación, sino en su
+contraparte: <a href="Valarios.html">Valarios</a>, el dios de la
+Destrucción. Pero Grakull retorció su dogma, viéndolo no como una fuerza
+de renovación cíclica, sino como el fin último del poder absoluto, una
+fuerza para ser dominada y desatada. Esta visión lo acercó a los
+susurros de otros panteones. En los textos prohibidos del Clan <a
+href="Kromagul.html">Kromagul</a> de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, descubrió una deidad que
+complementaba su filosofía: el dios del Dolor. Grakull comprendió que la
+destrucción física era efímera; el miedo, forjado a través del dolor,
+era un dominio eterno.</p>
+<p>Como líder de la facción radical conocida como los “Cazadores de
+Sombras”, Grakull comenzó a predicar su evangelio oscuro. Denunciaba la
+“blandura” del Concilio de la Montaña, la influencia de los <a
+href="Gnomos.html">Gnomos</a> inventores y la diplomacia con los elfos
+como una traición a la verdadera naturaleza enana. Él y sus seguidores
+llevaron a cabo rituales blasfemos en las profundidades de las minas,
+intentando corromper las vetas de mineral sagrado con magia de sombras y
+dolor, ofreciéndolas como tributo a <a
+href="Kromagul.html">Kromagul</a>.</p>
+<p>La purga fue inevitable y sangrienta. Acusado de alta traición y
+herejía, Grakull y sus leales fueron desterrados de <a
+href="Valtoria.html">Valtoria</a>, marcados como parias. Pero el exilio
+no lo rompió; lo forjó. Abrazando su nueva identidad, Grakull renombró a
+sus seguidores como el Clan Ciemartillo, un desafío directo al martillo
+sagrado de <a href="Rokael.html">Rokael</a>. Se establecieron en las
+desoladas Cumbres Resquebrajadas, una tierra de nadie entre reinos, y
+allí excavaron su propia fortaleza-mina: “Las Minas Cicatriz”, un lugar
+donde el mineral se extrae con crueldad y se moldea con miedo.</p>
+<p>Hoy, Grakull Ciemartillo es el Señor indiscutible de su clan.
+Gobierna desde un trono de hierro sin pulir, no como un rey, sino como
+un capataz tiránico. Su alianza con el Clan <a
+href="Kromagul.html">Kromagul</a> le proporciona acceso a magia
+prohibida y rutas hacia el oscuro corazón de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, mientras que sus pactos con
+contrabandistas y corsarios le permiten proyectar su influencia más allá
+de las montañas, vendiendo armas forjadas en el miedo y corrompiendo a
+los descontentos de otros reinos. En la ciudad-estado de <a
+href="Valarion.html">Valarion</a>, su presencia es una espina clavada en
+el costado del Clan Agrietacero, cuyos rituales de purificación chocan
+directamente con la filosofía nihilista de Grakull, creando una guerra
+fría que amenaza con estallar en violencia abierta.</p>
+<p>Su desprecio por la magia arcana es notorio, considerando a Malthor,
+su propio <a href="Hechicero.html">Hechicero</a>, una herramienta
+necesaria pero despreciable. Su única muestra de afecto, si puede
+llamarse así, es hacia Helga Puñonegro, su lugarteniente. En su
+ferocidad y pragmatismo brutal, Grakull ve el reflejo perfecto de su
+legado, la única enana que comprende que el verdadero poder no se
+encuentra en lo que se construye, sino en la capacidad de romperlo
+todo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grakull es un testamento andante de su propia filosofía. Es más ancho
+y denso que la mayoría de los <a href="Enanos.html">Enanos</a>, con una
+musculatura forjada en el conflicto y no en la herrería. Su barba,
+antaño un orgullo trenzado de su linaje Dravonis, ahora está recortada,
+áspera y teñida de gris por la ceniza y el polvo de Las Minas Cicatriz.
+Sus ojos no tienen el brillo cálido de la forja, sino el fulgor frío y
+rojizo de un ascua a punto de extinguirse en la oscuridad. Una red de
+cicatrices rituales, símbolos de <a href="Kromagul.html">Kromagul</a>,
+marca su rostro y sus brazos.</p>
+<p>Viste una armadura de placas de hierro negro y obsidiana, extraída de
+sus propias minas. No está adornada con <a href="Runas.html">Runas</a>
+de protección ni filigranas, sino con bordes afilados y púas que la
+hacen tan ofensiva como defensiva. Su escudo es una manifestación de su
+lema: una losa de obsidiana agrietada, de cuyo centro parece manar una
+sombra tangible.</p>
+<p>Su arma es un martillo de guerra colosal llamado
+<strong>Rompedolor</strong>. Su cabeza no es la de un artesano, sino un
+bloque macizo de metal oscuro, diseñado para aplastar armaduras y
+voluntades por igual. Se rumorea que el martillo fue templado en las
+lágrimas y la sangre de sus enemigos, y que cada golpe resuena con un
+eco de agonía que infunde miedo en el corazón de sus adversarios.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Grakull Ciemartillo no es simplemente un caudillo exiliado; es la
+encarnación de una herejía que amenaza con fracturar la identidad enana
+desde dentro. Representa el rechazo absoluto a los valores de comunidad,
+creación y honor que definen a <a href="Valtoria.html">Valtoria</a>. Su
+existencia demuestra que la sombra de <a
+href="Valarios.html">Valarios</a> puede ser interpretada no como parte
+de un ciclo natural, sino como un camino hacia la tiranía personal.</p>
+<p>Su mayor impacto es geopolítico. Al forjar una alianza pragmática con
+facciones de <a href="Mor&#39;dhul.html">Mor’dhul</a>, ha creado un
+puente peligroso entre la oscuridad organizada de los Korogrim y el
+resentimiento latente en las fronteras de <a
+href="Valtoria.html">Valtoria</a>. El Clan Ciemartillo sirve como un
+proveedor de armas crueles y un agente desestabilizador, introduciendo
+la filosofía del miedo en regiones que antes solo conocían el honor del
+combate o la paz de la montaña.</p>
+<p>Para Lithernia, Grakull es un presagio. Su ascenso es una advertencia
+de que las antiguas rivalidades divinas siguen vivas en los corazones de
+los mortales, y que la desesperación y la ambición pueden corromper
+hasta los legados más nobles. Si su influencia crece, podría no solo
+desencadenar una guerra civil entre los clanes <a
+href="Enanos.html">Enanos</a>, sino también arrastrar a <a
+href="Valtoria.html">Valtoria</a> a un conflicto directo con las fuerzas
+más oscuras de <a href="Mor&#39;dhul.html">Mor’dhul</a>, convirtiendo
+las montañas en un nuevo frente de la Gran Guerra. Su legado, si no se
+le detiene, no será de piedra tallada, sino de reinos rotos.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clan%20Ciemartillo.html">Clan Ciemartillo</a> (relevancia:
+0.41)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

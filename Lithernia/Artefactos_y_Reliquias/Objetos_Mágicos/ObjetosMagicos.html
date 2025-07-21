@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ObjetosMagicos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">ObjetosMagicos</div>
+        <div class="content">
+<h1 id="objetosmagicos">Objetosmagicos</h1>
+<h3 id="categorías-de-objetos-mágicos">Categorías de Objetos
+Mágicos</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Categoría</th>
+<th style="text-align: left;">Nivel de Poder</th>
+<th style="text-align: left;">Origen Común</th>
+<th style="text-align: left;">Ejemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Artefactos</strong></td>
+<td style="text-align: left;">Legendario / Único</td>
+<td style="text-align: left;">Divino, Primordial</td>
+<td style="text-align: left;">Lanzas Celestiales, Ojos de un dios,
+Corazón del <a href="Lilium.html">Lilium</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Reliquias</strong></td>
+<td style="text-align: left;">Muy Raro - Legendario</td>
+<td style="text-align: left;">Dracónico, Pre-<a
+href="Lilium.html">Lilium</a></td>
+<td style="text-align: left;">Escama de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+Talismán de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>,
+Corona del Primer Rey</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Objetos de Poder</strong></td>
+<td style="text-align: left;">Raro - Muy Raro</td>
+<td style="text-align: left;">Magia Estelar, <a
+href="Herreria.html">Herreria</a> Enana</td>
+<td style="text-align: left;">Astrolabio de <a
+href="Arzia.html">Arzia</a>, Hacha Rúnica de <a
+href="Valtoria.html">Valtoria</a>, Orbe de Sombras</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Comunes</strong></td>
+<td style="text-align: left;">Común - Poco Común</td>
+<td style="text-align: left;">Artesanía Gnoma, <a
+href="Alquimia.html">Alquimia</a></td>
+<td style="text-align: left;">Pociones de Maná, Flechas de Rastreo,
+Juguetes de Manitas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="catálogo-de-artefactos-y-objetos-notables">Catálogo de
+Artefactos y Objetos Notables</h3>
+<h4 id="mortum-la-lanza-del-fin">Mortum, la Lanza del Fin</h4>
+<p><em>Arma (lanza), artefacto (requiere sintonización por una criatura
+de alineamiento no bueno)</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bonificador</strong></td>
+<td style="text-align: left;">+3 a las tiradas de ataque y daño</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Daño Adicional</strong></td>
+<td style="text-align: left;">3d8 necrótico</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Propiedades</strong></td>
+<td style="text-align: left;">Arrojadiza (rango 30/120), Versátil
+(1d8)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Toque del Fin:</strong> Si reduces a una criatura a 0 puntos
+de golpe con esta lanza, su alma es destruida. No puede ser revivida por
+ningún medio salvo un conjuro de <em>Deseo</em>.</li>
+<li><strong>Sentencia de Muerte (1/día):</strong> Como acción, apuntas a
+una criatura que puedas ver a 60 pies. La criatura debe superar una
+tirada de salvación de Constitución CD 20. Si falla, cae a 0 puntos de
+golpe. Si tiene éxito, sufre 10d10 de daño necrótico.</li>
+<li><strong>Aura de Desesperación:</strong> Los enemigos a 30 pies de ti
+tienen desventaja en las tiradas de salvación contra ser asustados.</li>
+<li><strong>Maldición:</strong> Mientras estés sintonizado, no puedes
+recuperar puntos de golpe mediante <a href="Conjuros.html">Conjuros</a>.
+Tu alineamiento se desplaza un paso hacia Neutral Maligno cada 30
+días.</li>
+</ul>
+<h4 id="orbe-de-sombras-del-clan-whisper">Orbe de Sombras del Clan
+Whisper</h4>
+<p><em>Objeto maravilloso, muy raro (requiere sintonización por un
+lanzador de <a href="Conjuros.html">Conjuros</a>)</em></p>
+<ul>
+<li>El orbe tiene 10 cargas y recupera 1d6 + 4 cargas gastadas
+diariamente al anochecer.</li>
+<li><strong><a href="Conjuros.html">Conjuros</a>:</strong> Mientras
+sostienes el orbe, puedes usar una acción para gastar 1 o más de sus
+cargas para lanzar uno de los siguientes <a
+href="Conjuros.html">Conjuros</a> (CD de salvación 17):
+<ul>
+<li><em>Animar a los muertos</em> (3 cargas)</li>
+<li><em>Oscuridad</em> (2 cargas)</li>
+<li><em>Invisibilidad</em> (2 cargas)</li>
+<li><em>Silencio</em> (2 cargas)</li>
+</ul></li>
+<li><strong>Llamada del Velo:</strong> Como acción, puedes gastar 1
+carga para intentar rasgar el velo hacia el Plano de las Sombras. Tira
+un d20. Con un resultado de 1-10, nada sucede. Con un 11-19, invocas una
+<strong>Sombra</strong>. Con un 20, invocas 1d4
+<strong>Sombras</strong>. Las sombras son hostiles a todas las criaturas
+vivas y no están bajo tu control.</li>
+</ul>
+<h4 id="astrolabio-de-arzia">Astrolabio de Arzia</h4>
+<p><em>Objeto maravilloso, muy raro (requiere sintonización por un
+lanzador de <a href="Conjuros.html">Conjuros</a>)</em></p>
+<ul>
+<li>Mientras sostienes este dispositivo de anillos de bronce, tienes
+ventaja en las pruebas de Inteligencia (Arcanos) e Inteligencia
+(Historia) relacionadas con los <a href="Conjuros.html">Conjuros</a>
+Estelares y el plano astral.</li>
+<li><strong>Visión Estelar (1/día):</strong> Puedes usar el astrolabio
+para lanzar el conjuro <em>Adivinación</em> sin necesidad de componentes
+materiales. La respuesta del conjuro proviene de la pauta de las
+estrellas.</li>
+<li><strong>Localizar Anomalía (3/día):</strong> Como acción, puedes
+usar el astrolabio para detectar la dirección de la fuente más cercana
+de magia salvaje o de una “Zona de Velo Roto” en un radio de una
+milla.</li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Objetos.html">Objetos</a> (relevancia: 0.44)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

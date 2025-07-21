@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saelaril</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Saelaril</div>
+        <div class="content">
+<h1 id="saelaril">Saelaril</h1>
+<p>Conocida en todo <a href="Eldrador.html">Eldrador</a> como “La Ciudad
+de los Hilos de Luz”, Saelaril no es una ciudad, sino una joya tallada
+en la faz del mundo. Se alza sobre un colosal pináculo de cuarzo que
+emerge de las aguas tranquilas del Lago Espejo, un faro de belleza
+inmaculada y rivalidad artística. Sus esbeltas torres de cristal vivo y
+mithril, unidas por puentes que parecen tejidos con luz de luna, están
+diseñadas para capturar y refractar cada rayo de sol y cada destello
+estelar en una sinfonía visual perpetua. Aquí, la vida está obsesionada
+con la perfección. El estatus no se mide solo por la pureza del linaje,
+sino por la capacidad de crear, poseer o inspirar una belleza tan
+sublime que pueda conmover a los mismos dioses.</p>
+<h2 id="historia">Historia</h2>
+<p>Saelaril nació de la ambición y la estética tras la Gran Guerra.
+Mientras otros reinos reconstruían fortalezas, ocho casas nobles
+élficas, compuestas por los más grandes orfebres de cristal,
+ilusionistas y tejedores de luz, buscaron un lienzo digno de su arte.
+Encontraron el gran pináculo de cuarzo y declararon que allí crearían
+una obra maestra que haría palidecer la belleza del mundo anterior al <a
+href="Lilium.html">Lilium</a>. Dedicaron su nueva ciudad a <a
+href="Arzia.html">Arzia</a>, la Diosa de las Estrellas, y a <a
+href="Thirogrim.html">Thirogrim</a>, el patrón de la magia que les
+permitiría moldear la luz como si fuera arcilla.</p>
+<p>Con los siglos, Saelaril se convirtió en el epicentro del arte
+élfico. Su cultura, obsesionada con la perfección, atrajo a los mejores
+artesanos de <a href="Eldrador.html">Eldrador</a>, pero también fomentó
+una competencia feroz y a menudo despiadada. Las casas nobles fundadoras
+gobiernan a través de un consejo oligárquico, donde las intrigas
+políticas se desarrollan en galerías etéreas y las alianzas se sellan
+con la comisión de una obra de arte, no con pactos de sangre.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Pináculo del Loto</strong>: El corazón de la ciudad y
+el distrito más elevado, donde se encuentran los palacios de las ocho
+casas nobles. Las estructuras aquí son las más espectaculares, cada una
+diseñada para parecer un pétalo del Loto de Cristal, el símbolo de la
+ciudad. El acceso está restringido, y solo los elfos de más alto linaje
+o los artistas más aclamados pueden caminar por sus puentes de luz
+sólida.</p></li>
+<li><p><strong>La Galería Refractada</strong>: El distrito comercial y
+artesanal de la ciudad. Sus calles son un laberinto de talleres
+abiertos, galerías de arte lumínico y academias donde los maestros
+enseñan a manipular la luz y el cristal. El aire vibra con el tintineo
+de cinceles de diamante y el zumbido de la magia de ilusión.</p></li>
+<li><p><strong>El Velo de <a href="Morgal.html">Morgal</a></strong>: Un
+barrio envuelto en una perpetua y sutil bruma iridiscente. Es el dominio
+de los elfos oscuros y sus academias de ilusionismo. Aquí, el arte del
+engaño es venerado, y se dice que las paredes de los edificios cambian
+de forma y color según el estado de ánimo de sus habitantes. Es el
+centro del comercio de gemas raras y conocimiento arcano
+prohibido.</p></li>
+<li><p><strong>Los Jardines Flotantes</strong>: Terrazas de vegetación
+cristalina que cuelgan de los costados del pináculo. Las plantas aquí no
+son orgánicas, sino construcciones de luz y cristal que florecen con luz
+propia y cambian de color con las estaciones. Son el lugar predilecto
+para los paseos contemplativos y los “Duelos de Creación”.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Saelaril es un performance constante. La costumbre más
+sagrada es el “Bautismo de la Estrella”, un festival anual en el que los
+artesanos exponen sus obras maestras bajo el cielo nocturno, esperando
+que un destello de la propia <a href="Arzia.html">Arzia</a> “bautice”
+una de ellas, consagrándola como la mejor del año.</p>
+<p>Las disputas entre nobles rara vez implican violencia. En su lugar,
+se resuelven mediante “Duelos de Creación”: dos casas rivales compiten
+por patrocinar al artista que pueda crear la obra más sublime. El
+perdedor sufre una humillación social devastadora. Como gesto de respeto
+o para sellar un trato, es tradición regalar una “Lágrima de Luz”, un
+pequeño cristal encantado que contiene una emoción pura capturada, como
+la alegría o la admiración.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Saelaril es un sueño hecho realidad. No hay
+materiales opacos; todo está diseñado para interactuar con la luz. Los
+edificios no tienen ventanas, sino paneles de cristal encantado que
+proyectan en su interior constelaciones y paisajes oníricos. Por la
+noche, la ciudad entera resplandece, reflejándose en las aguas del Lago
+Espejo y creando la ilusión de una segunda ciudad de estrellas bajo la
+primera. El ambiente es etéreo y abrumadoramente bello, pero bajo la
+superficie se siente una tensión constante: el miedo a no ser perfecto,
+la envidia hacia el talento ajeno y la ambición desmedida por alcanzar
+la gloria artística.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Corazón de la Bestia de Luz</strong>: Se susurra entre
+los mineros de cristal que el gran pináculo sobre el que se asienta la
+ciudad no es una formación geológica, sino el corazón petrificado de una
+colosal criatura de luz que cayó durante las Guerras Dracónicas. Temen
+que la incesante extracción de cuarzo pueda algún día hacer que el
+corazón vuelva a latir.</p></li>
+<li><p><strong>El Tejedor Ciego</strong>: Los artistas más arrogantes
+viven temiendo la leyenda del Tejedor Ciego, el fantasma de un maestro
+artesano que fue traicionado por un rival celoso, que le quemó los ojos
+antes de una competición crucial. Se dice que su espíritu vaga por las
+galerías en las noches sin luna, buscando robar la vista de aquellos
+cuyo orgullo eclipsa su talento.</p></li>
+<li><p><strong>El Parpadeo de la Estrella</strong>: La leyenda más
+temida y secreta es que la luz perpetua de la ciudad no es solo un
+reflejo, sino que proviene de un poderoso artefacto encerrado en el
+centro del pináculo, conocido como el “Corazón de la Estrella”.
+Últimamente, los sabios y los guardias más antiguos han notado algo
+inquietante: la luz ha comenzado a parpadear.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casas%20Nobles.html">Casas Nobles</a> (relevancia:
+0.35)</li>
+<li><a href="Noble.html">Noble</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

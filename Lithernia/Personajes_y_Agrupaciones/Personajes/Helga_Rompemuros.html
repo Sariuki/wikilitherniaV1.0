@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helga_Rompemuros</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Helga_Rompemuros</div>
+        <div class="content">
+<h1 id="helga-rompemuros">Helga Rompemuros</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones de mercenarios y en las tiendas de mando de los
+generales de Lithernia, el nombre “Helga Rompemuros” no se susurra, se
+pronuncia con una mezcla de reverencia y temor. Es el eco de la montaña
+que se derrumba, la sinfonía de la fractura y la mente maestra detrás
+del arte de la aniquilación perfeccionado por la Casa Yunque-Roto.</p>
+<p>Nacida poco después del exilio de su clan de las majestuosas salas de
+<a href="Valtoria.html">Valtoria</a>, Helga es la encarnación viviente
+de la nueva filosofía de su casa. Mientras los demás <a
+href="Enanos.html">Enanos</a> de su linaje llevaban la marca del
+repudio, ella nació marcada por el propio dios de la destrucción, <a
+href="Valarios.html">Valarios</a>. Como genasi de tierra, su conexión
+con la piedra no era para tallarla, sino para comprender su alma, sus
+debilidades y el punto exacto donde cedería. Para el clan exiliado, su
+nacimiento fue una profecía cumplida: la prueba de que su devoción a la
+destrucción como acto creativo era el camino correcto.</p>
+<p>Criada por su padre, Lord Borin Yunque-Roto, Helga no jugó con
+muñecas, sino con engranajes, pólvoras alquímicas y diagramas de
+contrafuertes. Su infancia fue una cátedra sobre tensión, compresión y
+la gloriosa catarsis de la detonación. Mientras los <a
+href="Enanos.html">Enanos</a> de <a href="Valtoria.html">Valtoria</a>
+rezaban a <a href="Rokael.html">Rokael</a> por la solidez de sus muros,
+Helga aprendía de <a href="Valarios.html">Valarios</a> que toda creación
+lleva en su interior la semilla de su propio fin. Su genio no tardó en
+florecer, superando rápidamente a los viejos maestros de su clan. Diseñó
+catalizadores que triplicaban la potencia de los explosivos y arietes
+neumáticos capaces de pulverizar puertas de hierro rúnico.</p>
+<p>Su apodo lo ganó durante el Asedio de la Aguja Gris, una fortaleza
+que se creía inexpugnable. Durante meses, los ejércitos de la Casa
+Noctha se estrellaron contra sus murallas. Helga, contratada a un precio
+exorbitante, pasó tres días simplemente “escuchando” la roca, caminando
+por su perímetro con la mano apoyada en la piedra fría. Al cuarto día,
+colocó una serie de cargas precisas, no en la base, sino en puntos de
+tensión que nadie más había detectado. La detonación no fue un estallido
+brutal, sino un gemido profundo y resonante, y la torre entera se
+desplomó sobre sí misma como un gigante cansado. Desde entonces, su
+reputación la precede.</p>
+<p>Su motivación trasciende el oro. Arde en ella el rencor heredado de
+su clan. Cada fortaleza que derriba es una afrenta directa a la
+filosofía de <a href="Valtoria.html">Valtoria</a>, una demostración de
+que el arte de deshacer es tan sublime y complejo como el de construir.
+Mantiene una singular rivalidad profesional con los maestros herreros
+del Clan Ironclaw de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Aunque
+son <a href="Orcos.html">Orcos</a>, su devoción a la forja es algo que
+Helga respeta. Compiten en un campo diferente pero paralelo: ellos
+buscan la aleación indestructible; ella, el compuesto que pueda
+fracturarla. Este pulso profesional la ha llevado a colaborar y competir
+en los proyectos más ambiciosos, siempre con un respeto mutuo por la
+maestría del otro.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Helga es la imagen de la montaña misma: una genasi de tierra de
+estatura enana, pero con una presencia que impone solidez y una voluntad
+inquebrantable. Su piel tiene la textura y el color del granito pulido,
+con vetas de pirita que brillan débilmente a la luz de la forja. Sus
+ojos son profundos, del color del ámbar, y parecen analizar el mundo en
+términos de vectores de fuerza y puntos de ruptura. Su cabello es una
+masa de filamentos metálicos de color bronce oscuro, usualmente recogido
+en una trenza práctica y gruesa, manchada de hollín y polvo de
+piedra.</p>
+<p>Viste un pesado delantal de cuero endurecido sobre ropa funcional de
+lana oscura, todo ello cubierto de quemaduras, manchas de aceite y
+residuos alquímicos. Sus manos, aunque cubiertas de callos y cicatrices
+de antiguos experimentos fallidos, se mueven con la precisión de un
+cirujano al calibrar un detonador o moler un mineral raro.</p>
+<p>Su equipo es una extensión de su arte: * <strong>Gafas de
+Alquimista:</strong> Lentes de cristal ahumado y aumentos
+intercambiables, esenciales para proteger sus ojos y analizar
+componentes diminutos. * <strong>Martillo de Guerra
+“Rompeestructuras”:</strong> Un arma formidable, pero también su
+herramienta principal. La cabeza del martillo está afinada para producir
+vibraciones específicas, permitiéndole “sondear” la integridad de la
+piedra y el metal al golpearlos. * <strong>Cinturón de
+Herramientas:</strong> Cargado con una variedad de cinceles, medidores
+de precisión, mechas de combustión lenta y una colección de bolsas que
+contienen polvos minerales, catalizadores volátiles y cristales de
+resonancia.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Helga Rompemuros está redefiniendo el concepto de la guerra en
+Lithernia. Donde antes se necesitaban ejércitos para tomar una ciudad,
+ella ha demostrado que solo se requiere un genio, la fórmula correcta y
+el coraje para encender la mecha. Su trabajo ha convertido a la Casa
+Yunque-Roto de un clan de parias a una de las facciones mercenarias más
+temidas y solicitadas del continente.</p>
+<p>Para <a href="Valtoria.html">Valtoria</a>, es un recordatorio
+constante de su “error”, una hereje cuyo éxito pone en duda la rigidez
+de su fe en <a href="Rokael.html">Rokael</a>. Para sus clientes, es la
+garantía de la victoria. Para sus rivales, una fuerza de la naturaleza
+que no puede ser contenida, solo, quizás, redirigida.</p>
+<p>Su legado no se escribirá en piedra, sino en el polvo de las murallas
+que ha derribado y en el fuego de las innovaciones que aún están por
+venir. Helga no solo rompe muros; rompe paradigmas, demostrando a todo
+el continente que, a veces, para construir un nuevo futuro, primero hay
+que demoler el pasado.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

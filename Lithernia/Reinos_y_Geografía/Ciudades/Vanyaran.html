@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanyaran</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vanyaran</div>
+        <div class="content">
+<h1 id="vanyaran">Vanyaran</h1>
+<p>Vanyaran no es una ciudad que invite a la vida; es una herida abierta
+en la tierra que exige trabajo y dolor. Erigida en el borde mismo del
+Bosque de Vidrio Ceniciento, un páramo donde los árboles fueron
+petrificados por el <a href="Lilium.html">Lilium</a> y transformados en
+obsidiana resonante, Vanyaran existe bajo un velo perpetuo de ceniza
+vítrea. El viento, que nunca cesa, transporta un polvo de esquirlas
+microscópicas que se adhiere a la piel y a los pulmones, un recordatorio
+constante del sufrimiento que impregna este lugar. La ciudad es famosa
+por una sola cosa: la extracción y el procesamiento de los “Susurros de
+Cristal”, fragmentos del bosque encantado que vibran con las agonías del
+pasado, utilizados en la hechicería más oscura y como herramientas de
+tortura refinada.</p>
+<h2 id="historia">Historia</h2>
+<p>Vanyaran nació de la cicatriz del mundo. Tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, cuando los exploradores de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> cartografiaban las tierras
+devastadas, un clan de <a href="Hobgoblins.html">Hobgoblins</a> devotos
+de <a href="Kromagul.html">Kromagul</a> descubrió el Bosque de Vidrio
+Ceniciento. No vieron una tragedia, sino un don divino: un lugar donde
+el dolor era la esencia misma de la tierra. Liderados por un visionario
+cruel, establecieron un campamento minero que, con el tiempo, se
+solidificó en la ciudad de Vanyaran. La disciplina militar y una
+devoción fanática por el sufrimiento permitieron a los <a
+href="Hobgoblins.html">Hobgoblins</a> prosperar donde otros
+perecían.</p>
+<p>Su éxito atrajo la atención del Rey Sel’thirak, quien, viendo el
+valor estratégico y arcano de los “Susurros de Cristal”, envió una élite
+de nobles Tiefling para supervisar la operación. Desde entonces,
+Vanyaran opera bajo una tensa jerarquía: los <a
+href="Tieflings.html">Tieflings</a> gobiernan desde sus bastiones de
+ceniza, los <a href="Hobgoblins.html">Hobgoblins</a> gestionan la brutal
+logística de la producción, y una masa de <a
+href="Goblins.html">Goblins</a> y sirvientes <a
+href="Orcos.html">Orcos</a> sufre en las minas, alimentando la
+maquinaria del reino con su sudor y su sangre.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Fauces de Cristal</strong>: La entrada principal a
+las minas. No es una puerta, sino una gigantesca grieta dentada en la
+ladera de una colina de basalto. Está fuertemente custodiada por
+veteranos <a href="Hobgoblins.html">Hobgoblins</a> y vigilada desde
+torres de obsidiana. El aire aquí es espeso, cargado con el sonido
+chirriante de las picas contra el vidrio y los gritos ahogados de los
+desafortunados.</p></li>
+<li><p><strong>El Taller del Eco</strong>: El distrito de procesamiento.
+Aquí, los bloques de vidrio ceniciento son tallados y pulidos hasta
+convertirlos en los letales “Susurros de Cristal”. El trabajo es
+minucioso y peligroso. El nombre del barrio proviene del constante eco
+de los fragmentos al romperse y de los lamentos de los artesanos que, a
+menudo, son utilizados para “sintonizar” las propiedades torturadoras de
+los cristales.</p></li>
+<li><p><strong>El Bastión de Ceniza</strong>: El distrito administrativo
+y residencial de la élite. Aquí se alzan los únicos edificios de más de
+una planta. Protegido por murallas internas, es el hogar de los
+supervisores Tiefling y los comandantes Hobgoblin. Es un oasis de orden
+brutal en medio del caos, aunque la opresiva atmósfera de la ciudad lo
+impregna todo.</p></li>
+<li><p><strong>El Sumidero</strong>: Un laberinto de barracones
+apretados y túneles excavados en la roca donde vive la fuerza laboral de
+<a href="Goblins.html">Goblins</a> y <a href="Orcos.html">Orcos</a>. Es
+un lugar de miseria absoluta, donde la supervivencia se disputa a diario
+y la única ley es la del más fuerte. Los sacrificios a Gyth’kai son
+comunes aquí, realizados en secreto para apaciguar el hambre del
+destino.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Vanyaran es un culto a la resistencia. El valor no se
+mide en riqueza o linaje, sino en la cantidad de dolor que un individuo
+puede soportar en silencio. Las conversaciones son directas y
+funcionales; mostrar emoción es una debilidad peligrosa. El “Rito del
+Polvo Silente” es una ceremonia semanal obligatoria en la que todos los
+habitantes, desde el esclavo orco hasta el <a
+href="Noble.html">Noble</a> Tiefling, se untan la cara con ceniza vítrea
+como símbolo de su sumisión a las duras leyes de la ciudad y al dios <a
+href="Kromagul.html">Kromagul</a>.</p>
+<p>Para los jóvenes <a href="Hobgoblins.html">Hobgoblins</a>, la mayoría
+de edad se alcanza al superar la “Vigilia Silenciosa”: deben pasar una
+noche solos y desarmados en el Bosque de Vidrio. Los que regresan lo
+hacen con la mirada endurecida y la piel marcada por innumerables
+cortes, habiendo demostrado su valía. Los que no, se convierten en otra
+leyenda susurrada por el viento.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Vanyaran es una declaración de intenciones: es
+brutal, funcional y carente de cualquier adorno. Los edificios son
+estructuras angulares y bajas, construidas con bloques de basalto oscuro
+y vigas del propio vidrio ceniciento, diseñadas para resistir los
+vientos cortantes. Torres de vigilancia dentadas, coronadas por braseros
+que emiten un humo verdoso y enfermizo, salpican el horizonte. El
+ambiente es opresivo. Un sonido constante, como el de arena arañando el
+metal, lo llena todo. El aire huele a piedra quemada, a ozono y a un
+miedo metálico que se pega a la garganta.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Danza de los Fragmentos</strong>: Los mineros más
+viejos juran que en las noches sin luna, cuando el viento amaina, las
+siluetas de los árboles petrificados se mueven. Dicen que no es el
+viento lo que los hace temblar, sino que las figuras de cristal imitan
+los últimos momentos de aquellos que murieron en el bosque, atrapados en
+una danza macabra y silenciosa. Afirman que los “susurros” que emanan
+del vidrio no son solo vibraciones, sino las voces de esas almas
+torturadas.</p></li>
+<li><p><strong>El Corazón Cantor del <a
+href="Lilium.html">Lilium</a></strong>: La leyenda más temida y
+prohibida habla de un lugar en lo más profundo del bosque donde yace un
+fragmento puro del <a href="Lilium.html">Lilium</a>. No es una llama,
+sino un cristal que arde desde dentro con un fuego eterno e incoloro. Se
+dice que no quema la carne, sino el alma, y que canta una melodía de
+locura pura. Algunos cultistas de <a href="Kromagul.html">Kromagul</a>
+creen que es un himno sagrado y buscan el fragmento, convencidos de que
+escuchar su canción es la apoteosis final del dolor, un honor que los
+elevará a la divinidad.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.48)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

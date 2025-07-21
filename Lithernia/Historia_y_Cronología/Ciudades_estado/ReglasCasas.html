@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReglasCasas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">ReglasCasas</div>
+        <div class="content">
+<h1 id="reglascasas">Reglascasas</h1>
+<p>En Lithernia, las <strong>Reglas Casas</strong> representan el
+entramado fundamental que regula la convivencia, la jerarquía social y
+el derecho ancestral dentro de la gran variedad de reinos, clanes y
+culturas que pueblan este continente singular. Lejos de ser meras normas
+legales, las Reglascasas son un sistema vivo de tradiciones, pactos y
+normas tácitas que moldean el honor, la lealtad y la dinámica del poder
+en cada rincón del mundo.</p>
+<h2 id="propósito-y-funciones">Propósito y Funciones</h2>
+<p>Las Reglascasas cumplen varios fines esenciales:</p>
+<ul>
+<li><strong>Definen la estructura de poder:</strong> En cada reino o
+clan, las Casas tienen jerarquías claras donde el linaje determina el
+acceso al poder, el deber de proteger, y la obligación de mantener la
+reputación.</li>
+<li><strong>Preservan el honor:</strong> El honor es la piedra angular
+de las Reglascasas, y las transgresiones se juzgan no solo por la ley
+sino por el impacto en la estima social y ancestral.</li>
+<li><strong>Regulan alianzas y disputas:</strong> Matrimonios, pactos de
+sangre, vasallaje y tratados se negocian bajo las reglas de las casas,
+protegiendo la estabilidad política y social.</li>
+<li><strong>Establecen ceremonias y ritos:</strong> Las casas custodian
+costumbres únicas que marcan nacimientos, iniciaciones, duelos, ofrendas
+a los dioses y funerales, reforzando el sentido de identidad
+colectiva.</li>
+<li><strong>Marcan la responsabilidad frente a los dioses:</strong> En
+un mundo donde las deidades interfieren constantemente, las Reglascasas
+también norman el vínculo de cada casa con su panteón protector, las
+obligaciones religiosas y los castigos divinos o místicos.</li>
+</ul>
+<h3 id="galvorn-código-de-los-vientos-y-los-mares">Galvorn – Código de
+los Vientos y los Mares</h3>
+<p>En el reino marítimo de <a href="Galvorn.html">Galvorn</a>, las
+Reglascasas se adaptan al dinamismo y la libertad del océano,
+enfatizando la protección mutua, el comercio justo y la camaradería.</p>
+<ul>
+<li><strong>La Carta de los Capitanes:</strong> Acuerdo tradicional
+entre casas para respetar las rutas comerciales, compartir información
+de navegación y proteger los barcos aliados.</li>
+<li><strong>Ley de la Brisa:</strong> Define derechos de asilo y
+hospitalidad para los marinos, que deben ser respetados aun en tiempos
+de guerra.</li>
+<li><strong>Pacto de los Estandartes Flotantes:</strong> Matrimonios
+entre casas deben ser anunciados y celebrados con regatas ceremoniosas
+para simbolizar la unión de linajes.</li>
+<li><strong>Tributo a Yfrit:</strong> Obligación de las casas de ofrecer
+cada año una ofrenda a la <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a>, perpetuando
+la protección y prosperidad de sus barcos y puertos.</li>
+</ul>
+<h3 id="eldrador-ley-de-las-estrellas-y-el-bosque">Eldrador – Ley de las
+Estrellas y el Bosque</h3>
+<p>En el reino élfico, las Reglascasas expresan la perfección y la
+nobleza, imbricadas en un estricto sistema de castas conocido como
+<strong>La Mano de Hierro</strong>.</p>
+<ul>
+<li><strong>Código del Alba <a href="Noble.html">Noble</a>:</strong>
+Normas restrictivas para líos matrimoniales, propiedad de tierras y
+acceso a <a href="Recursos.html">Recursos</a> mágicos que refuerzan la
+pirámide social.</li>
+<li><strong>Pacto de la Raíz y la Estrella:</strong> Acuerdo espiritual
+entre casas para proteger sitios sagrados, mantener la pureza de la
+magia arcana y respetar secretos ancestrales.</li>
+<li><strong>Deber de la Guardia Eterna:</strong> Obligación de nobles y
+artesanos de educar y proteger a las castas inferiores dentro del orden
+social.</li>
+<li><strong>Ilusiones de la Verdad:</strong> Una costumbre donde las
+disputas se resuelven mediante duelos de magia ilusoria; el perdedor
+acepta la decisión social sin violencia física.</li>
+</ul>
+<h2 id="leyendas-y-crónicas-sobre-las-reglascasas">Leyendas y Crónicas
+sobre las Reglascasas</h2>
+<h3 id="la-promesa-de-requiem">La Promesa de Requiem</h3>
+<p>Se cuenta que la lanza Requiem, una de las Cuatro Lanzas Celestiales,
+impone una Reglascasas eterna: aquel que rompa su sello deberá jurar por
+sangre que gobernará con justicia o enfrentará el olvido total. Muchos
+señalan que esta promesa fue el origen moral de las Casas Reales en
+Lithernia.</p>
+<h3 id="la-traición-de-umbrae">La Traición de Umbrae</h3>
+<p>Una historia popular en <a href="Eldrador.html">Eldrador</a> narra la
+ruptura de una gran Casa Umbrae que quebrantó la Mano de Hierro,
+desencadenando una guerra civil interna que casi destruye la capital. Su
+traición ilustra los límites y peligros de romper la Reglascasas: la
+desunión puede condenar a toda una nación.</p>
+<h2 id="conclusión">Conclusión</h2>
+<p>En Lithernia, las <strong>Reglascasas</strong> son mucho más que
+reglas: son el reflejo de la historia milenaria, la cultura y la fe de
+sus pueblos. Forman la columna vertebral de la interacción social y
+política, y el respeto o la violación de estas leyes puede marcar
+destinos personales y nacionales. A través de ellas, los habitantes de
+Lithernia honran su pasado, sostienen el equilibrio presente y desafían
+el futuro en un mundo donde el poder y la tradición caminan de la
+mano.</p>
+<p>Los maestros de juego sabrán utilizar las Reglascasas como un recurso
+evocador para tejer historias significativas de honor, traición y
+redención en el vasto tapiz legendario de Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a
+href="Casas%20Nobles%20de%20Eldrador%20-%20Cultura%20y%20Tradiciones.html">Casas
+Nobles de Eldrador - Cultura y Tradiciones</a> (relevancia: 0.37)</li>
+<li><a href="Casa%20Umbrae.html">Casa Umbrae</a> (relevancia: 0.37)</li>
+<li><a
+href="Clanes%20y%20Casas%20Nobles%20de%20Mor&#39;dhul.html">Clanes y
+Casas Nobles de Mor’dhul</a> (relevancia: 0.37)</li>
+<li><a
+href="Casas%20Nobles%20de%20Eldrador%20-%20Linajes%20y%20Familias.html">Casas
+Nobles de Eldrador - Linajes y Familias</a> (relevancia: 0.36)</li>
+<li><a href="Casa%20Corazón%20de%20Piedra.html">Casa Corazón de
+Piedra</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

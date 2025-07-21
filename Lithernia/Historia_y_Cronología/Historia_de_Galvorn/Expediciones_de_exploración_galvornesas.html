@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expediciones_de_exploración_galvornesas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Expediciones_de_exploración_galvornesas</div>
+        <div class="content">
+<h1 id="expediciones-de-exploración-galvornesas">Expediciones de
+exploración galvornesas</h1>
+<p>Las expediciones de exploración galvornesas constituyen uno de los
+capítulos más fascinantes y cruciales en la historia del Reino de
+Lithernia. Estas empresas se gestaron en la cúspide de la expansión
+territorial, cuando el ansia de conocimiento y poder impulsó al reino a
+aventurarse más allá de las fronteras conocidas del continente
+galvornés.</p>
+<h2 id="contexto-histórico-el-despertar-de-la-curiosidad">Contexto
+histórico: El despertar de la curiosidad</h2>
+<p>Durante los últimos años del Reinado de Aerondis II, Lithernia vivió
+un periodo de relativa estabilidad interna, que permitió a su corona
+dirigir la mirada hacia lo desconocido. Los relatos de mercaderes y
+primeros exploradores, que hablaban de tierras inexploradas y criaturas
+insospechadas más allá de los Montes Turol, alimentaron una especia de
+fervor exploratorio.</p>
+<p>Fue así como, en el año 837 d.L. (después de Lithern), se organizaron
+las primeras grandes expediciones galvornesas bajo el mando del
+almirante Àdor Valenar, cuyos navíos estuvieron a punto de cruzar el
+peligroso Estrecho de Brumegrafía hasta ahora considerado maldito.</p>
+<h2 id="principales-objetivos-de-las-expediciones">Principales objetivos
+de las expediciones</h2>
+<p>Estas exploraciones tenían motivos tanto pragmáticos como
+simbólicos:</p>
+<ul>
+<li><strong>Descubrimiento de rutas comerciales</strong>: Explorar vías
+seguras para el tránsito de mercaderías como el galvorno (un mineral que
+dio nombre al continente), especias y tejidos exóticos.</li>
+<li><strong>Establecimiento de alianzas</strong>: Contactar con pueblos
+y reinos desconocidos para forjar pactos políticos y militares que
+aseguraran un frente unido frente a amenazas exteriores y reforzaran el
+prestigio de Lithernia.</li>
+<li><strong>Investigación científica y cultural</strong>: Documentar y
+comprender las costumbres, la flora, la fauna, y posibles fuentes
+mágicas en los territorios inexplorados.</li>
+</ul>
+<h2 id="expediciones-destacadas">Expediciones destacadas</h2>
+<h3 id="la-expedición-de-àdor-valenar-837-842-d.l.">La expedición de
+Àdor Valenar (837-842 d.L.)</h3>
+<p>Considerada la pionera, esta aventura partió desde el puerto de
+Galvornis a bordo de cinco galeones. Enfrentó tormentas, criaturas
+marinas desconocidas y la dificultad de sortear los archipiélagos de los
+Susurros Eternos. Su mayor logro fue el contacto con la ciudad-estado
+fluvial de Ithélora, iniciando la primera alianza formal con una cultura
+galvornesa distante. De allí se trajeron manuscritos sobre magia antigua
+que más tarde influirían en Lithernia.</p>
+<h3 id="la-caravana-de-exploración-interior-849-856-d.l.">La caravana de
+exploración interior (849-856 d.L.)</h3>
+<p>Mandada por la nobleza del sello labiargos, esta expedición terrestre
+cruzó los desiertos cristalinos de Vhellar. Fue famosa no solo por la
+cartografía rigurosa del terreno sino por los encuentros diplomáticos
+con las tribus nómadas de los Windar, quienes compartieron secretos
+sobre las fuentes de poder natural que rodean el Caelum Inferno. Se cree
+que esta información alimentó el desarrollo de técnicas mágicas de
+invocación en Lithernia.</p>
+<h3 id="la-flota-del-amanecer-carmesí-869-877-d.l.">La flota del
+Amanecer Carmesí (869-877 d.L.)</h3>
+<p>Esta flota, mayor y mejor equipada que sus predecesoras, salió con la
+misión de establecer colonias definitivas en las islas que separan
+Galvornia de los mares occidentales helados. Si bien la conquista fue
+durísima, con bajas y rebeliones, esta expedición puso la primera piedra
+en la expansión ultramarina que llevaría a Lithernia más allá del
+continente.</p>
+<h2 id="impacto-en-las-relaciones-exteriores">Impacto en las relaciones
+exteriores</h2>
+<p>Las expediciones de exploración galvornesas marcaron un antes y un
+después en la diplomacia de Lithernia. Las relaciones con reinos tan
+antiguos como Ithélora aumentaron en complejidad y prosperidad; pactos
+comerciales, matrimonios entre casas nobles y tratados de defensa mutua
+cambiaron el rostro político del continente.</p>
+<p>Asimismo, nuevos desafíos surgieron: el conocimiento de otras
+culturas provocó tanto fascinación como tensión. Por ejemplo, en el
+intercambio con los Windar, las diferencias religiosas originaron
+disputas que llegaron a escaramuzas menores pero que luego se
+resolvieron en encuentros conciliadores y respeto mutuo.</p>
+<h2 id="leyendas-y-tradiciones-surgidas-de-las-expediciones">Leyendas y
+tradiciones surgidas de las expediciones</h2>
+<p>Entre las crónicas populares, muchos relatos evocan personajes
+legendarios nacidos de estas aventura:</p>
+<ul>
+<li><strong>La Dama de los Mares Brumosos</strong>, una misteriosa
+capitana que guió sus barcos a salvo a través de tormentas impensadas,
+hoy honrada cada equinoccio con ceremonias en Galvornis.</li>
+<li><strong>El Lobo de Vhellar</strong>, un <a
+href="Guerrero.html">Guerrero</a> tribal que, según la leyenda, salvó la
+vida a la caravana terrestre y en agradecimiento fue nombrado Guardián
+Honorífico de Lithernia.</li>
+</ul>
+<p>Estas historias, además de nutrir la cultura y el arte galvornés,
+fundamentan una identidad ligada al coraje y la curiosidad que aún
+define a Lithernia.</p>
+<h2 id="costumbres-derivadas">Costumbres derivadas</h2>
+<p>La época de las expediciones sigue celebrándose anualmente con la
+<strong>Fiesta del Horizonte</strong>, donde se rememora el valor de los
+exploradores mediante desfiles, cantos y la reproducción en teatros de
+las aventuras más épicas. Es costumbre regalar durante esta festividad
+pequeñas brújulas hechas en galvorno, símbolo de guía y protección en lo
+desconocido.</p>
+<hr />
+<p>Las expediciones de exploración galvornesas son, en suma, un pilar
+fundamental para entender el crecimiento cultural, político y mágico de
+Lithernia. Más allá de meros viajes, fueron una expresión del espíritu
+indómito de un pueblo que siempre ha mirado hacia la vastedad con ansias
+de descubrir su lugar en el mundo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a> (relevancia: 0.99)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.40)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

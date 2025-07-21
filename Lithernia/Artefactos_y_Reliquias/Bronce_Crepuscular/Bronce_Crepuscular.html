@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bronce_Crepuscular</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Bronce_Crepuscular</div>
+        <div class="content">
+<h1 id="bronce-crepuscular">Bronce crepuscular</h1>
+<p>El <strong>Bronce Crepuscular</strong> es una de las aleaciones más
+enigmáticas y codiciadas de Lithernia. No es un metal común, sino un
+material místico cuya verdadera naturaleza y origen se han perdido entre
+<a href="Leyendas.html">Leyendas</a> y teorías arcanas. Su nombre
+proviene de su apariencia inconfundible: un bronce que parece capturar
+perpetuamente la luz del ocaso, con vetas de colores que cambian entre
+el naranja, el púrpura y el azul profundo, como un atardecer atrapado en
+metal. Al tacto, emite un calor suave y reconfortante, y se dice que
+resuena sutilmente con el flujo del Tejido del Maná.</p>
+<p>Más que un simple material, el Bronce Crepuscular es un símbolo del
+estado actual de Lithernia: un mundo suspendido entre la oscuridad de un
+pasado catastrófico y la incierta esperanza de un nuevo amanecer.</p>
+<h3 id="orígenes-y-leyendas">Orígenes y Leyendas</h3>
+<p>El secreto de su <a href="Herreria.html">Herreria</a> se ha perdido,
+y hoy en día solo existen fragmentos o artefactos antiguos hechos de
+este metal. Los eruditos de los Cuatro Reinos han propuesto diversas
+teorías sobre su creación, cada una arraigada en la tumultuosa historia
+del mundo.</p>
+<ul>
+<li><p><strong>La Lágrima de <a href="Arzia.html">Arzia</a></strong>: La
+leyenda más popular en <a href="Eldrador.html">Eldrador</a> sostiene que
+el Bronce Crepuscular nació del dolor divino. Se cuenta que cuando los
+dioses desataron el Cataclismo del <a href="Lilium.html">Lilium</a>, <a
+href="Arzia.html">Arzia</a>, la diosa de las estrellas, lloró por la
+belleza del mundo que se consumía en llamas. Una de sus lágrimas,
+cargada de la luz de las estrellas y la tristeza del fin de una era,
+cayó a través de los cielos teñidos por <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>.
+Al tocar el suelo, la lágrima divina se fusionó con el bronce fundido de
+una ciudad en ruinas, creando la primera pieza de esta aleación. Los
+eruditos élficos creen que por esta razón el metal resuena con el
+destino y la magia de adivinación.</p></li>
+<li><p><strong>El Eco del <a href="Lilium.html">Lilium</a></strong>: Los
+maestros herreros de <a href="Valtoria.html">Valtoria</a> y ciertos
+hechiceros de <a href="Mor&#39;dhul.html">Mor’dhul</a> proponen una
+teoría más pragmática y aterradora. Sugieren que el Bronce Crepuscular
+no es de origen divino directo, sino una transmutación accidental. El
+fuego sagrado y profano del <a href="Lilium.html">Lilium</a>, al barrer
+el mundo, alteró la estructura misma de la materia. El bronce ordinario,
+expuesto a esta energía mágica de increíble potencia, absorbió la
+esencia de la destrucción y la transformación, convirtiéndose en algo
+nuevo. Si esta teoría es cierta, el metal sería un eco físico del evento
+que cambió el mundo para siempre, y podría contener la clave para
+entender —o incluso replicar— el poder del <a
+href="Lilium.html">Lilium</a>.</p></li>
+<li><p><strong>La <a href="Herreria.html">Herreria</a> de una
+Era</strong>: Los historiadores de la Torre de las Estrellas de <a
+href="Valtoria.html">Valtoria</a> han propuesto una visión más
+metafísica. Sostienen que el Bronce Crepuscular no fue creado en un solo
+momento, sino que es la manifestación física de toda la <strong>Era
+Crepuscular</strong>. Según ellos, el metal absorbió lentamente la
+desesperación, la resiliencia y la tenue esperanza de las generaciones
+que vivieron reconstruyendo el mundo entre la oscuridad y la luz. Cada
+pieza de este bronce contendría los susurros de esa época de lucha, un
+testamento del espíritu indomable de los mortales.</p></li>
+</ul>
+<h3 id="propiedades-conocidas">Propiedades Conocidas</h3>
+<p>Independientemente de su origen, los artefactos de Bronce Crepuscular
+comparten propiedades extraordinarias que los hacen invaluables.</p>
+<ul>
+<li><strong>Apariencia Cambiante</strong>: Su color no es estático.
+Varía según la luz ambiental y el estado del Tejido del Maná cercano,
+mostrando destellos cobrizos bajo el sol y profundos tonos violáceos en
+la sombra.</li>
+<li><strong>Resonancia Arcana</strong>: El metal es un conductor
+excepcional de energía mágica. Los encantamientos aplicados sobre él son
+más potentes y duraderos. Un <a href="Mago.html">Mago</a> que porte un
+amuleto de Bronce Crepuscular puede sentir una conexión más clara con el
+Tejido del Maná, aunque esto también puede hacerlo más vulnerable a
+sobrecargas mágicas.</li>
+<li><strong>Memoria Sónica</strong>: Su propiedad más legendaria. Se
+dice que el Bronce Crepuscular “recuerda” los sonidos y las emociones
+intensas que ocurren a su alrededor. Un arma forjada con este metal
+podría susurrar los gritos de batallas pasadas, y un instrumento musical
+podría tocar melodías de una era olvidada por sí solo.</li>
+<li><strong>Vínculo Crepuscular</strong>: Las propiedades mágicas del
+metal se intensifican drásticamente durante el amanecer y el atardecer,
+los dos crepúsculos del día. Durante estos breves periodos, su poder
+alcanza su punto máximo.</li>
+</ul>
+<h3 id="usos-y-artefactos-notables">Usos y Artefactos Notables</h3>
+<p>Debido a su extrema rareza, son pocos los objetos conocidos hechos de
+este material. Su <a href="Herreria.html">Herreria</a> es un arte
+perdido, y cualquier intento de fundir y remodelar los artefactos
+existentes a menudo resulta en la pérdida de sus propiedades
+mágicas.</p>
+<ul>
+<li><p><strong>La Campana del Ocaso Silente</strong>: El artefacto más
+famoso hecho de Bronce Crepuscular. Según la leyenda, esta campana no se
+encuentra en ningún templo, sino que está perdida en las ruinas de una
+ciudad anterior al Primer Rey. Se dice que su tañido no produce sonido
+audible, sino que resuena directamente en el alma de quienes la
+escuchan, forzándolos a revivir un eco del pasado o a vislumbrar una
+verdad sobre el futuro. Algunos creen que la campana está ligada a la
+Profecía del Retorno del Rey y que su repique anunciará el momento en
+que el <a href="Heroes.html">Heroes</a> elegido deba actuar.</p></li>
+<li><p><strong>Las Llaves del Ocaso</strong>: Un conjunto de intrincadas
+llaves de Bronce Crepuscular, supuestamente capaces de abrir cerraduras
+mágicas o portales sellados durante la Era Crepuscular. Se rumorea que
+una de estas llaves se encuentra en posesión de una casa <a
+href="Noble.html">Noble</a> de los elfos oscuros en Moonshadow, mientras
+que otra fue vista por última vez en un mercado negro de <a
+href="Galvorn.html">Galvorn</a>.</p></li>
+<li><p><strong>Fragmentos de la Víspera</strong>: No es un artefacto,
+sino pequeños fragmentos o lingotes del metal que a veces aparecen en
+antiguas ruinas o son recuperados de tesoros dracónicos. Son
+increíblemente valiosos para magos, encantadores y bardos, quienes los
+utilizan como focos arcanos o para crear instrumentos musicales con
+propiedades únicas.</p></li>
+</ul>
+<h3 id="la-búsqueda-del-bronce-crepuscular">La Búsqueda del Bronce
+Crepuscular</h3>
+<p>Hoy en día, la búsqueda del Bronce Crepuscular o de sus artefactos es
+una motivación para muchos aventureros, eruditos y facciones de poder. *
+<strong>En <a href="Eldrador.html">Eldrador</a></strong>, los seguidores
+de <a href="Arzia.html">Arzia</a> lo consideran una reliquia sagrada, y
+los adivinos buscan sus fragmentos para potenciar sus visiones sobre el
+destino. * <strong>En <a href="Valtoria.html">Valtoria</a></strong>, los
+clanes de herreros sueñan con redescubrir el secreto de su <a
+href="Herreria.html">Herreria</a>, viéndolo como el desafío definitivo
+de su artesanía. * <strong>En <a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong>, facciones como el Clan
+Whisper o los magos oscuros lo codician por su capacidad para almacenar
+ecos del pasado, creyendo que podrían extraer de él secretos necróticos
+o el conocimiento de almas atrapadas. * <strong>En <a
+href="Galvorn.html">Galvorn</a></strong>, los capitanes más audaces lo
+buscan como un tesoro sin par, convencidos de que un timón o un
+astrolabio hecho de este metal podría navegar a través de tormentas
+mágicas o incluso a través del tiempo.</p>
+<p>El Bronce Crepuscular sigue siendo un misterio, un pedazo tangible de
+la historia de Lithernia que encarna tanto la tragedia de su caída como
+la promesa de su resurgimiento. Quien logre dominar sus secretos, sin
+duda tendrá en sus manos una llave para moldear el futuro del mundo.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li>El Cataclismo del <a href="Lilium.html">Lilium</a></li>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Hobgoblins.html">Hobgoblins</a></li>
+<li><a href="Leyendas.html">Leyendas</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.52)</li>
+<li><a href="Meta.html">Meta</a> (relevancia: 0.46)</li>
+<li><a href="Artefactos.html">Artefactos</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

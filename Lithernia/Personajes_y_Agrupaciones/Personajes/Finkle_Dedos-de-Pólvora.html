@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finkle_Dedos-de-Pólvora</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Finkle_Dedos-de-Pólvora</div>
+        <div class="content">
+<h1 id="finkle-dedos-de-pólvora">Finkle ‘Dedos-de-Pólvora’</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en un pequeño y recluido enclave gnomo en las estribaciones de
+las montañas de <a href="Valtoria.html">Valtoria</a>, Finkle demostró
+desde joven una fascinación casi peligrosa por las reacciones químicas y
+la física de las explosiones. Mientras sus pares se dedicaban a la
+creación de intrincados autómatas o ilusiones sutiles, Finkle buscaba la
+fórmula perfecta para la pólvora, el ácido más corrosivo y el
+catalizador más volátil. Su carrera académica terminó abruptamente tras
+un “incidente experimental” que demolió el ala de <a
+href="Alquimia.html">Alquimia</a> de su comunidad y chamuscó
+permanentemente las cejas del Archisabio. Exiliado por su imprudencia,
+pero no por falta de talento, Finkle encontró su verdadero hogar en el
+lugar más improbable y, a la vez, más adecuado: el Gremio del Grifo de
+Hierro.</p>
+<p>En la pragmática y brutal cultura del Gremio, su obsesión por la
+destrucción controlada no fue vista como un defecto, sino como un activo
+de valor incalculable. Bajo la tutela de cazadores veteranos y en las
+forjas del Clan Agrietacero, Finkle perfeccionó su arte. Ya no buscaba
+la explosión más grande, sino la más <em>eficiente</em>. Aprendió a
+diseñar cargas que podían quebrar el caparazón de un basilisco sin
+derruir la cueva, o a formular venenos que derribaban a un wyvern en
+pleno vuelo con una sola dosis certera.</p>
+<p>Su meticulosidad y su extraña capacidad para prever las necesidades
+logísticas de las cacerías más peligrosas lo elevaron rápidamente de un
+simple artífice a Jefe de Suministros y <a
+href="Alquimia.html">Alquimia</a>. Finkle se convirtió en el corazón
+palpitante del arsenal del Gremio. No hay <a
+href="Cazador.html">Cazador</a> que salga de las puertas de <a
+href="Valarion.html">Valarion</a> sin llevar consigo sus bálsamos, sus
+granadas o sus municiones encantadas. Él es la razón por la que un <a
+href="Cazador.html">Cazador</a> solitario puede enfrentarse a una hidra
+y tener una oportunidad de sobrevivir.</p>
+<p>Su relación con el Clan Agrietacero es la piedra angular de su
+trabajo. Mantiene una amistad gruñona y profundamente respetuosa con el
+maestro de forja Borin Agrietacero, con quien debate durante horas sobre
+la aleación perfecta para las carcasas de sus bombas o la pureza del
+carbón de las minas más profundas. Aunque Finkle es un gnomo, su
+mentalidad directa, su honestidad brutal y su devoción por la artesanía
+le han ganado un lugar de honor entre los <a
+href="Enanos.html">Enanos</a>, que lo ven menos como un extranjero y más
+como un excéntrico pero indispensable colega.</p>
+<p>Su motivación no es la gloria ni el oro, sino el desafío intelectual.
+Cada monstruo es un problema que requiere una solución química o
+mecánica. Derrotar a una quimera no es una hazaña heroica para él, es la
+prueba exitosa de una hipótesis. Este desapego esconde un peso inmenso:
+cada fallo en sus cálculos, cada poción mal calibrada, puede costar la
+vida de los cazadores que confían en él. Finkle carga con esta
+responsabilidad en silencio, ocultándola bajo una capa de sarcasmo y una
+dedicación obsesiva a su trabajo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Finkle es la personificación de su oficio. Es un gnomo de complexión
+robusta, con unos brazos sorprendentemente musculosos por años de
+martillar y moler componentes. Sus cejas, perpetuamente cortas y
+erizadas, son un recuerdo constante de sus primeros experimentos. Sus
+dedos, callosos y manchados de hollín, azufre y docenas de otros
+químicos, le ganaron su apodo. Siempre lleva unas gruesas gafas de
+vidriero empujadas sobre su frente, que bajan sobre sus agudos ojos
+grises solo en los momentos de máxima concentración.</p>
+<p>Viste un delantal de cuero de draco, grueso y resistente al fuego,
+sobre ropas de trabajo reforzadas proporcionadas por sus aliados <a
+href="Enanos.html">Enanos</a>. Su cinturón no porta dagas ni bolsas de
+monedas, sino un caos ordenado de viales de cristal, bolsas de polvos de
+colores, rollos de mecha de distintos grosores y herramientas de
+precisión.</p>
+<p>Su pieza de equipamiento más preciada es
+<strong>“Rompemandíbulas”</strong>, un arma de fuego personalizada, un
+híbrido entre un trabuco enano y un rifle de precisión gnomo. Es una
+obra maestra de ingeniería capaz de disparar desde munición perforante
+estándar hasta cápsulas alquímicas de su propio diseño: proyectiles que
+estallan en una nube de ácido, hielo o una llamarada cegadora.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Finkle ‘Dedos-de-Pólvora’ nunca se sentará en un trono ni su nombre
+será cantado en las grandes baladas épicas de las cortes de <a
+href="Eldrador.html">Eldrador</a>. Sin embargo, su impacto en el día a
+día de las gentes de Lithernia es innegable. Es uno de los pilares
+anónimos que sostienen la frágil seguridad del mundo post-<a
+href="Lilium.html">Lilium</a>.</p>
+<p>Dentro del Gremio del Grifo de Hierro, es una leyenda. Es el artífice
+que convirtió a un grupo de cazadores desesperados en la fuerza de
+exterminio más eficaz del continente. Sus innovaciones en <a
+href="Alquimia.html">Alquimia</a> de combate y armamento de fuego han
+definido el estilo de lucha del Gremio y han salvado incontables vidas,
+tanto de sus miembros como de los civiles que protegen.</p>
+<p>Para el Clan Agrietacero y la ciudad de <a
+href="Valarion.html">Valarion</a>, Finkle es el nexo viviente de una de
+las alianzas más sólidas de <a href="Valtoria.html">Valtoria</a>. Ha
+introducido técnicas gnomas en las forjas enanas y, a su vez, ha
+adaptado la resistencia y la potencia de la metalurgia enana a sus
+explosivos, creando una sinergia tecnológica única en la región.</p>
+<p>A escala continental, Finkle representa una fuerza de cambio
+silenciosa. Mientras los nobles de las grandes casas conspiran y los
+dioses juegan sus partidas milenarias, hombres y mujeres como Finkle
+enfrentan las amenazas reales y tangibles. Él es la prueba de que en
+Lithernia, el ingenio, la dedicación y un poco de pólvora bien colocada
+pueden ser tan poderosos como la sangre <a href="Noble.html">Noble</a> o
+la fe divina. Su legado no está escrito en piedra, sino en los cráteres
+humeantes donde antes anidaban monstruos, y en la gratitud silenciosa de
+cada aldea que puede ver un nuevo amanecer.</p>
+        </div>
+    </div>
+</body>
+</html>

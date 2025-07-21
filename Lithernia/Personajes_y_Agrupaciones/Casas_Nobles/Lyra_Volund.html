@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Volund</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Volund</div>
+        <div class="content">
+<hr />
+<p>nombre: Lyra Volund rol: Heredera y Maestra de Encantamientos edad:
+95 agrupacion: Casa Volund tipo: Casa <a href="Noble.html">Noble</a>
+lema: El Tiempo es Nuestro Yunque, la Precisión Nuestro Martillo escudo:
+Un reloj de arena de mithril con engranajes de bronce en sus extremos,
+sobre un campo de pizarra azul oscuro. ciudad_sede: <a
+href="Cyndril.html">Cyndril</a> (<a href="Valtoria.html">Valtoria</a>)
+rivalidades: - nombre_casa: Casa Dravonis descripcion: Una intensa
+rivalidad comercial. La Casa Volund depende del mithril y los metales
+raros de Dravonis, quienes a menudo imponen precios exorbitantes,
+considerando los complejos autómatas de Volund como ‘juguetes’ frívolos
+en comparación con sus armas de guerra. Esta dependencia forzada
+alimenta un desprecio mutuo. - nombre_casa: Gremio de Artífices de <a
+href="Vatilleurs.html">Vatilleurs</a> descripcion: Una profunda
+rivalidad intelectual y artesanal. Volund desprecia la ‘caótica y
+explosiva’ metodología de <a href="Vatilleurs.html">Vatilleurs</a>,
+considerándola imprecisa. A su vez, <a
+href="Vatilleurs.html">Vatilleurs</a> ve a Volund como tradicionalista y
+lenta. Cada Festival del Primer Engranaje es un campo de batalla para
+demostrar qué filosofía de la invención es superior. alianzas: -
+nombre_casa: Casa Silvertorch descripcion: Una alianza simbiótica.
+Silvertorch provee a Volund con los reactivos alquímicos y componentes
+mágicos necesarios para sus encantamientos más delicados. A cambio,
+Volund diseña y fabrica para ellos los instrumentos de precisión y
+contenedores rúnicos que ninguna otra casa puede replicar. -
+nombre_casa: Casa Astellia descripcion: Una alianza de conocimiento.
+Volund suministra a los observatorios de la nobleza élfica de Astellia
+los cronómetros y astrolabios más precisos de Lithernia, esenciales para
+sus predicciones. A cambio, Astellia comparte <a
+href="Mapas.html">Mapas</a> estelares y conocimientos arcanos sobre la
+naturaleza del tiempo, que inspiran los diseños más complejos y
+esotéricos de la Casa Volund. relaciones: - nombre: Kaelen Volund
+(Padre) descripcion: Siente que la tradición de su padre frena el
+verdadero potencial de la casa, viéndolo como un ancla en el pasado. -
+nombre: Grak Ironhand (Jefe de Guardia) descripcion: Respeta su lealtad
+inquebrantable a la casa, pero lo ve como un obstáculo conservador para
+sus experimentos más audaces. tags: [lithernia, personajes, Casa Volund,
+<a href="Valtoria.html">Valtoria</a>, Artífice] # Lyra Volund</p>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones de <a href="Cyndril.html">Cyndril</a>, donde el
+tic-tac de mil mecanismos mide el pulso de <a
+href="Valtoria.html">Valtoria</a>, reside el futuro de la Casa Volund:
+Lyra, una mente tan brillante como los engranajes que pule y tan
+inquieta como los resortes que tensa. Nacida del linaje que fusionó la
+maestría en cantería del enano Borin Volund con el genio mecánico de la
+gnoma Glimmera Cogspinner, Lyra personifica la dualidad de su herencia:
+la paciencia de la montaña y la chispa incansable de la invención.</p>
+<p>Criada para ser la heredera de la casa más prestigiosa del Sínodo del
+Engranaje Pulido, Lyra demostró desde joven un talento que superaba la
+mera artesanía. Mientras su padre, el patriarca Kaelen Volund,
+perfeccionaba los diseños que habían cimentado el poder de la casa
+durante generaciones, Lyra miraba más allá. Se convirtió en la Maestra
+de Encantamientos, una artífice capaz no solo de construir el cuerpo de
+un autómata, sino de susurrarle un alma de magia. Es ella quien teje las
+<a href="Runas.html">Runas</a> de la Casa Silvertorch en los delicados
+balancines de sus cronómetros y quien interpreta los <a
+href="Mapas.html">Mapas</a> estelares de la Casa Astellia para imbuir
+sus creaciones con un eco del orden cósmico.</p>
+<p>Su principal motivación es una profunda frustración con el lema no
+escrito de su casa: la “innovación paciente”. Ve el legado de su padre
+no como una base sólida, sino como una jaula dorada. Mientras Kaelen se
+enorgullece de la fiabilidad inmutable de sus creaciones, Lyra sueña con
+la verdadera evolución: autómatas que aprendan, mecanismos que anticipen
+el futuro, y cronómetros que no solo midan el tiempo, sino que quizás
+puedan moldearlo. Esta ambición la pone en constante conflicto con su
+padre, a quien respeta como arquitecto de su poder, pero desprecia como
+carcelero de su potencial.</p>
+<p>Este conflicto se extiende a su relación con Grak Ironhand, el
+veterano Jefe de la Guardia de la casa. Lyra valora su lealtad, forjada
+en acero y juramentos, pero su mentalidad pragmática y su desconfianza
+hacia lo desconocido lo convierten en un guardián no solo de la casa,
+sino de las viejas costumbres. Más de una vez, los experimentos más
+audaces de Lyra —como el prototipo de corazón de maná que latía de forma
+errática o el autómata-araña diseñado para navegar por planos etéreos—
+han sido puestos bajo llave por orden de Kaelen, con Grak como el
+ejecutor impasible.</p>
+<p>Lyra se siente atrapada entre la asfixiante dependencia de la Casa
+Dravonis por sus metales y la burlona condescendencia del Gremio de
+Artífices de <a href="Vatilleurs.html">Vatilleurs</a>. Su objetivo es
+romper ambas cadenas: sueña con crear una nueva aleación o un método de
+transmutación que libere a Volund de la tiranía de los precios de
+Dravonis, y anhela presentar en el próximo Festival del Primer Engranaje
+una creación tan revolucionaria que silencie para siempre las caóticas y
+explosivas fanfarronadas de <a href="Vatilleurs.html">Vatilleurs</a>. Su
+ambición no es solo liderar la Casa Volund, sino redefinirla y, con
+ella, el propio concepto de la creación en Lithernia.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra posee la complexión robusta de su herencia enana, pero con una
+agilidad en sus manos y una mirada brillante y curiosa que delatan la
+sangre gnoma que corre por sus venas. Su cabello, de un color cobrizo
+metálico, suele estar recogido en una trenza compleja y funcional,
+aunque algunos mechones rebeldes siempre escapan para enmarcar un rostro
+salpicado de diminutas pecas y, ocasionalmente, alguna mancha de aceite
+o reactivo alquímico.</p>
+<p>No viste las pesadas armaduras de su reino, prefiriendo un atuendo de
+cuero reforzado y lino oscuro de alta calidad, diseñado para la
+movilidad y lleno de bolsillos y trabillas ocultas. Sus manos rara vez
+están desnudas; suele llevar guantes de piel de draco sin dedos para
+protegerse de quemaduras y cortes.</p>
+<p>Su equipamiento es una extensión de su arte. En su cinturón cuelga un
+juego de herramientas de precisión de mithril y obsidiana, cada pieza
+una obra maestra en sí misma. Siempre lleva consigo una lente de
+relojero con múltiples cristales encantados, que le permiten ver no solo
+los detalles más nimios, sino también las auras mágicas tejidas en los
+objetos. Para su defensa, confía en un guardabrazo mecánico que puede
+desplegar una ballesta de mano compacta o un escudo de energía rúnica
+con un simple gesto. A menudo la acompaña “Chispa”, un pequeño autómata
+con forma de colibrí metálico que actúa como su familiar, explorador y
+asistente de laboratorio, susurrándole datos y observaciones con una voz
+de engranajes y campanas.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lyra Volund se encuentra en la cúspide de un precipicio histórico. Su
+camino determinará si la Casa Volund se convierte en la vanguardia de
+una nueva era tecnológica en <a href="Valtoria.html">Valtoria</a> o en
+una nota a pie de página sobre los peligros de la ambición
+desmedida.</p>
+<p>Si logra sus objetivos, sus innovaciones podrían transformar
+Lithernia. Autómatas imbuidos con una inteligencia adaptativa podrían
+revolucionar la industria y la guerra, haciendo que las armas de la Casa
+Dravonis parezcan herramientas primitivas. Sus estudios sobre el tiempo,
+inspirados por los elfos de Astellia, podrían llevar a avances en la
+adivinación o incluso a la manipulación de la cronomancia, un poder que
+ni los dioses miran con ligereza. Podría consolidar a la Casa Volund
+como la facción más influyente de <a href="Valtoria.html">Valtoria</a>,
+no por la fuerza de sus ejércitos, sino por poseer las llaves del
+futuro.</p>
+<p>Sin embargo, el fracaso podría ser catastrófico. Un experimento
+fallido podría desatar una plaga de autómatas descontrolados sobre <a
+href="Cyndril.html">Cyndril</a>, o provocar una fractura en el tejido
+del tiempo que atraiga la atención de entidades peligrosas. Su rebelión
+contra la tradición podría romper la casa desde dentro, destruyendo
+alianzas centenarias y dejando a Volund vulnerable a sus rivales.</p>
+<p>En el gran tapiz de Lithernia, Lyra Volund no es solo una heredera;
+es una profecía en movimiento. Ella es el conflicto encarnado entre el
+orden y el caos, la tradición y el progreso, un engranaje perfectamente
+calibrado que podría o bien encajar en el gran mecanismo del destino, o
+hacerlo saltar en mil pedazos. El tiempo, su yunque y su obsesión, será
+el único juez de su legado.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

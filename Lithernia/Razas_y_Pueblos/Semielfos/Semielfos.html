@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semielfos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Semielfos</div>
+        <div class="content">
+<h1 id="semielfos">Semielfos</h1>
+<h3 id="contexto-mecánico">Contexto Mecánico</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Vinculación en Lithernia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Reino de Origen</strong></td>
+<td style="text-align: left;"><a href="Galvorn.html">Galvorn</a> (más
+común), <a href="Eldrador.html">Eldrador</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Panteón Principal</strong></td>
+<td style="text-align: left;">Panteón Humano o Panteón Élfico</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidades Patronas
+Comunes</strong></td>
+<td style="text-align: left;"><a href="Yfrit.html">Yfrit</a>, <a
+href="Quiteon.html">Quiteon</a>, <a href="Lerian.html">Lerian</a>, <a
+href="Morgal.html">Morgal</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Social Típico</strong></td>
+<td style="text-align: left;">Diplomático, comerciante, capitán,
+aventurero, espía.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Trasfondos Sugeridos</strong></td>
+<td style="text-align: left;">Charlatán, Marinero, Artista, Espía.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resumen-de-rasgos">Resumen de Rasgos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo Clave</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Aumento de
+Característica</strong></td>
+<td style="text-align: left;">+2 Carisma, +1 a otras dos
+características.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">30 pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión</strong></td>
+<td style="text-align: left;">Visión en la Oscuridad (60 pies).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgos Únicos</strong></td>
+<td style="text-align: left;">Afinidad Feérica, Versatilidad de
+Habilidades (o un rasgo de linaje variante).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-raciales-base">Rasgos Raciales Base</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Incremento de Puntuación de
+Característica</strong></td>
+<td style="text-align: left;">Tu puntuación de Carisma aumenta en 2, y
+otras dos puntuaciones de característica de tu elección aumentan en
+1.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Edad</strong></td>
+<td style="text-align: left;">Maduran al mismo ritmo que los <a
+href="Humanos.html">Humanos</a> y alcanzan la edad adulta alrededor de
+los 20 años. Viven más de 180 años.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento</strong></td>
+<td style="text-align: left;">Valoran la libertad personal y la
+expresión creativa, tendiendo a alineamientos caóticos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tamaño</strong></td>
+<td style="text-align: left;">Mediano. Miden entre 1,5 y 1,8 metros de
+altura.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">Tu velocidad base al caminar es de 30
+pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión en la
+Oscuridad</strong></td>
+<td style="text-align: left;">Puedes ver en luz tenue a menos de 60 pies
+como si fuera luz brillante, y en la oscuridad como si fuera luz tenue.
+No puedes discernir colores en la oscuridad, solo tonos de gris.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Afinidad Feérica</strong></td>
+<td style="text-align: left;">Tienes ventaja en las tiradas de salvación
+para no ser encantado, y la magia no puede dormirte.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Versatilidad de
+Habilidades</strong></td>
+<td style="text-align: left;">Ganas competencia en dos habilidades de tu
+elección.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Puedes hablar, leer y escribir Común,
+Élfico y un idioma adicional de tu elección.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="variantes-de-linaje-élfico">Variantes de Linaje Élfico</h3>
+<p>(Reemplaza <strong>Versatilidad de Habilidades</strong>)</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Linaje</th>
+<th style="text-align: left;">Rasgo de Reemplazo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Alto Elfo</strong></td>
+<td style="text-align: left;"><strong>Truco de <a
+href="Mago.html">Mago</a></strong></td>
+<td style="text-align: left;">Aprendes un truco de tu elección de la
+lista de <a href="Conjuros.html">Conjuros</a> del <a
+href="Mago.html">Mago</a>. La Inteligencia es tu aptitud mágica para
+él.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Elfo del Bosque</strong></td>
+<td style="text-align: left;"><strong>Pies Ligeros</strong></td>
+<td style="text-align: left;">Tu velocidad base al caminar aumenta a 35
+pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Elfo Oscuro</strong></td>
+<td style="text-align: left;"><strong>Magia de Elfo Oscuro</strong></td>
+<td style="text-align: left;">Conoces el truco <em>luces danzantes</em>.
+A nivel 3, puedes lanzar <em>fuego feérico</em> una vez por descanso
+largo. A nivel 5, puedes lanzar <em>oscuridad</em> una vez por descanso
+largo. El Carisma es tu aptitud mágica para estos <a
+href="Conjuros.html">Conjuros</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Eladrin.html">Eladrin</a></strong></td>
+<td style="text-align: left;"><strong>Paso Feérico</strong></td>
+<td style="text-align: left;">Como acción adicional, puedes
+teletransportarte mágicamente hasta 30 pies a un espacio desocupado que
+puedas ver. Puedes usar este rasgo un número de veces igual a tu
+bonificador de competencia, recuperando los usos tras un descanso
+largo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Shadar-kai</strong></td>
+<td style="text-align: left;"><strong>Bendición del Traspaso
+Sombrío</strong></td>
+<td style="text-align: left;">Como acción adicional, puedes
+teletransportarte mágicamente hasta 30 pies a un espacio desocupado que
+puedas ver. Recuperas su uso tras un descanso largo. A partir del nivel
+3, también ganas resistencia a todo el daño hasta el comienzo de tu
+siguiente turno.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sinergias-de-clase">Sinergias de Clase</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Sinergia y Rol Sugerido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a href="Bardo.html">Bardo</a> /
+<a href="Hechicero.html">Hechicero</a> / <a
+href="Brujo.html">Brujo</a></strong></td>
+<td style="text-align: left;"><strong>Óptima.</strong> El +2 a CAR es el
+atributo principal. La versatilidad de habilidades y los rasgos de
+linaje variante ofrecen personalización y poder.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Paladín</strong></td>
+<td style="text-align: left;"><strong>Excelente.</strong> El +2 a CAR es
+clave para los <a href="Conjuros.html">Conjuros</a> y auras. La
+flexibilidad en los otros aumentos de característica permite construir
+un paladín fuerte y resistente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pícaro</strong></td>
+<td style="text-align: left;"><strong>Fuerte.</strong> Los aumentos
+flexibles de características, la competencia en habilidades y la
+Afinidad Feérica hacen de él un pícaro muy completo, especialmente como
+<em>Granuja</em> o <em>Pícaro Arcano</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cualquier otra clase</strong></td>
+<td style="text-align: left;"><strong>Fuerte.</strong> La capacidad de
+asignar +1 a dos características cualesquiera, junto con el +2 a CAR,
+hace que el semielfo sea un candidato viable y poderoso para casi
+cualquier rol.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnj-de-ejemplo">PNJ de Ejemplo</h3>
+<p>```statblock name: Capitán Semielfo size: Mediano type: humanoide
+(semielfo) alignment: caótico neutral ac: 16 (Armadura de cuero
+tachonado) hp: 65 (10d8 + 20) speed: 30 ft. stats: [12, 16, 14, 12, 11,
+18] saves: - Dex: +5 - Sab: +2 skills: - Acrobacias: +5 - Percepción: +2
+- Persuasión: +6 senses: Visión en la oscuridad 60 ft., Percepción
+Pasiva 12 languages: Común, Élfico, Enano cr: 3 traits: - name: Afinidad
+Feérica desc: “El capitán tiene ventaja en las tiradas de salvación
+contra ser encantado, y la magia no puede dormirlo.” - name: Duelo de
+Capitán desc: “El capitán tiene ventaja en las tiradas de ataque contra
+cualquier criatura que le haya infligido daño desde su último turno.”
+actions: - name: Multiataque desc: “El capitán realiza dos ataques: uno
+con su cimitarra y otro con su daga.” - name: Cimitarra desc: “Ataque de
+arma cuerpo a cuerpo: +5 a impactar, alcance 5 ft., un objetivo.
+Impacto: 6 (1d6 + 3) de daño cortante.” - name: Daga desc: “Ataque de
+arma cuerpo a cuerpo o a distancia: +5 a impactar, alcance 5 ft. o rango
+20/60 ft., un objetivo. Impacto: 5 (1d4 + 3) de daño perforante.”
+reactions: - name: Parada desc: “El capitán añade 3 a su CA contra un
+ataque cuerpo a cuerpo que lo impactaría. Para hacerlo, el capitán debe
+ver al atacante y estar empuñando un arma cuerpo a cuerpo.”</p>
+        </div>
+    </div>
+</body>
+</html>

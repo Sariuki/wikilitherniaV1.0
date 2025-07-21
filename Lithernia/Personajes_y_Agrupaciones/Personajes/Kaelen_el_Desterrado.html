@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_el_Desterrado</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_el_Desterrado</div>
+        <div class="content">
+<h1 id="kaelen-el-desterrado">Kaelen el Desterrado</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en las entrañas del mundo, en la ciudad secreta de <a
+href="Kythlas.html">Kythlas</a>, Kaelen nunca fue un enano común.
+Mientras sus hermanos de clan sentían la llamada del yunque y el
+martillo, Kaelen sentía la resonancia de la historia en la piedra.
+Miembro del Clan Abismoforjado —una facción radical de <a
+href="Enanos.html">Enanos</a> de <a href="Valtoria.html">Valtoria</a>
+que abandonaron la luz para buscar poder en los minerales inestables de
+las fisuras más profundas—, fue instruido desde joven en las artes de la
+supervivencia en la oscuridad y en el dogma del clan: que el verdadero
+poder emana de la energía cruda del abismo, una manifestación de la
+diosa <a href="Cirkon.html">Cirkon</a> en su forma más primigenia, la
+“Madre del Abismo”.</p>
+<p>Su mentor, el maestro herrero <strong>Borgrim Manonegra</strong>, un
+pilar del clan, intentó guiarlo por la senda de la forja, pero pronto
+reconoció el talento innato de Kaelen para la erudición y la
+cartografía. Sus manos, aunque fuertes, eran más diestras con el
+carboncillo y el compás que con el martillo. Se convirtió en el
+Cartógrafo de las Profundidades, un rol vital y peligroso encargado de
+trazar <a href="Mapas.html">Mapas</a> de los túneles siempre cambiantes
+y de identificar nuevas vetas de metales resonantes. Su única
+confidente, <strong>Grelka Ojo-de-Geoda</strong>, una runasacerdotisa
+con la habilidad de leer el destino en los cristales, compartía su
+curiosidad por los secretos que el abismo guardaba.</p>
+<p>La tragedia de Kaelen fue su propio talento. Aventurándose más allá
+de las rutas conocidas, descubrió una caverna sellada que no constaba en
+ningún mapa del clan. Dentro no había vetas minerales, sino las ruinas
+de una estructura de la Era del Primer Rey. Allí, entre monolitos
+erosionados por el tiempo, encontró grabados que contaban una historia
+diferente. La energía que su clan veneraba como la “Madre del Abismo” no
+era la esencia pura de <a href="Cirkon.html">Cirkon</a>, sino un eco
+corrupto del Cataclismo del <a href="Lilium.html">Lilium</a>, una
+cicatriz mágica que retorcía la roca y susurraba promesas de poder a
+cambio de devoción. La “abismoforja” no era una artesanía divina, sino
+una lenta corrupción que hacía a sus armas poderosas, pero a sus almas,
+frágiles.</p>
+<p>Armado con esta terrible verdad, regresó a <a
+href="Kythlas.html">Kythlas</a> y presentó sus hallazgos ante el consejo
+de ancianos. Lo que esperaba que fuera una revelación fue recibido como
+una blasfemia. Borgrim Manonegra, su propio mentor, lo denunció
+públicamente, acusándolo de haber sido seducido por mentiras de la
+superficie y de traicionar los cimientos de su pueblo. Para los líderes
+del Clan Abismoforjado, la verdad de Kaelen era un veneno que amenazaba
+con destruir su identidad y su poder.</p>
+<p>Fue declarado “Desterrado”. Despojado de su nombre de clan y de sus
+herramientas, fue expulsado a la superficie, un mundo que solo conocía a
+través de <a href="Leyendas.html">Leyendas</a>. Ahora, Kaelen vaga por
+Lithernia con una doble carga: el dolor del exilio y el peso de un
+conocimiento que podría salvar a su gente o condenarla para siempre. Su
+motivación ya no es solo trazar <a href="Mapas.html">Mapas</a> de la
+tierra, sino desentrañar la verdadera historia del <a
+href="Lilium.html">Lilium</a> y del Primer Rey, con la esperanza de
+encontrar una forma de purgar la corrupción que anida en el corazón de
+su hogar y, quizás, algún día, dejar de ser el Desterrado.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen posee la complexión robusta de los <a
+href="Enanos.html">Enanos</a>, pero su cuerpo es más enjuto y fibroso
+que el de un <a href="Guerrero.html">Guerrero</a>, forjado por años de
+escalada y exploración en lugar de combate. Su piel es pálida, con el
+tono ceniciento de quien rara vez ha visto el sol. Sus ojos, de un gris
+profundo, parecen retener la luz de las geodas púrpuras de <a
+href="Kythlas.html">Kythlas</a> y están acostumbrados a la penumbra,
+otorgándole una mirada intensa y penetrante. Su barba y cabello, de un
+color negro como el carbón, están recogidos en trenzas prácticas,
+entrelazadas con finos hilos de metal pulido, un vestigio de su herencia
+artesana.</p>
+<p>Viste un atuendo funcional de cuero reforzado y pieles oscuras,
+diseñado para el sigilo y la protección contra los afilados bordes de la
+roca. Su equipo más valioso no es un arma, sino su colección de
+herramientas de cartógrafo: un juego de compases, plomadas y teodolitos
+forjados en <a href="Kythlas.html">Kythlas</a> con metales oscuros, un
+estuche de cuero con pergaminos vírgenes y <a
+href="Mapas.html">Mapas</a> a medio terminar, y un diario encuadernado
+en piel de basilisco donde anota sus descubrimientos con una caligrafía
+precisa. Para su defensa, porta un martillo de guerra de una sola mano,
+regalo de Borgrim en su juventud, cuya cabeza de acero oscuro está
+grabada con una runa de protección ahora despojada de su poder por el
+edicto de su exilio. Es un recordatorio constante de todo lo que ha
+perdido.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Aunque actualmente es una figura desconocida en el gran tapiz de
+Lithernia, el potencial de Kaelen es inmenso y peligroso. Es un
+catalizador andante, un portador de una verdad que podría fracturar los
+cimientos de la sociedad enana de <a href="Valtoria.html">Valtoria</a>
+si se revelara, demostrando que incluso los más aislados no son inmunes
+a las antiguas cicatrices del mundo.</p>
+<ul>
+<li><strong>Guardián de un Secreto Peligroso:</strong> Kaelen es uno de
+los pocos mortales vivos que comprende la naturaleza residual y
+corruptora del <a href="Lilium.html">Lilium</a>. Su conocimiento podría
+ser clave para entender la profecía del Retorno del Primer Rey, o para
+evitar que un poder similar sea desatado de nuevo.</li>
+<li><strong>El Cartógrafo del Apocalipsis:</strong> Sus <a
+href="Mapas.html">Mapas</a> no solo muestran túneles y vetas, sino que
+también señalan lugares de poder inestable y cicatrices arcanas bajo la
+superficie de Lithernia. En las manos equivocadas, esta información
+podría guiar a facciones como los Cazadores de Sombras o cultos oscuros
+a desatar calamidades.</li>
+<li><strong>El Puente o la Brecha:</strong> Su destino está ligado a su
+clan. Podría ser el único capaz de redimir a los Abismoforjados,
+guiándolos de vuelta a la luz de la verdadera <a
+href="Cirkon.html">Cirkon</a> y <a href="Rokael.html">Rokael</a>. O, si
+su conocimiento es malinterpretado o rechazado, sus acciones podrían
+precipitar una guerra civil en las profundidades de <a
+href="Valtoria.html">Valtoria</a>, enfrentando a los clanes
+tradicionalistas contra los herejes del abismo.</li>
+</ul>
+<p>El legado de Kaelen el Desterrado aún no está escrito. Dependerá de
+si su búsqueda de la verdad lo convierte en un <a
+href="Heroes.html">Heroes</a> que ilumina las sombras o en un paria cuyo
+conocimiento solo trae más oscuridad al ya conflictivo mundo de
+Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.44)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

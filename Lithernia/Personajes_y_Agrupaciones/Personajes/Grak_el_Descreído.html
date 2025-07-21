@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grak_el_Descreído</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grak_el_Descreído</div>
+        <div class="content">
+<h1 id="grak-el-descreído">Grak el Descreído</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En el corazón de toda fe, por más luminosa que sea su promesa, existe
+una oscuridad necesaria. En los Heraldos del Amanecer Roto, esa
+oscuridad tiene un nombre: Grak. Nacido en la ciudad conquistada de <a
+href="Lywathil.html">Lywathil</a>, Grak es un semielfo cuya infancia no
+conoció las canciones de <a href="Eldrador.html">Eldrador</a> ni la
+libertad de <a href="Galvorn.html">Galvorn</a>, sino el yugo de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y la crueldad metódica del Clan
+Nighthawk. Vio a su gente, los últimos vestigios de un linaje orgulloso,
+ser doblegada, sus tradiciones profanadas y su esperanza convertida en
+un susurro castigado con el látigo.</p>
+<p>Su familia estaba entre los primeros devotos del culto naciente. Se
+aferraban a la profecía del Primer Rey como a la única luz en una noche
+eterna, rezando por la llegada de un <a href="Heroes.html">Heroes</a>
+que los liberara. Grak, entonces un joven lleno de rabia impotente,
+observaba sus rituales con escepticismo. Su fe no los protegió. Fueron
+descubiertos y ejecutados por los <a
+href="Hobgoblins.html">Hobgoblins</a> de Nighthawk como ejemplo, no por
+rebelión, sino por el simple crimen de soñar con un mundo diferente. Ese
+día, Grak no solo perdió a su familia; perdió cualquier atisbo de fe en
+plegarias y profecías. La salvación, comprendió, no se pide, se
+arranca.</p>
+<p>Sobrevivió en las sombras, un paria alimentado por el odio, hasta que
+fue encontrado por Kaelen Umbrae, un elfo oscuro que vio en la furia de
+Grak una herramienta perfecta. Kaelen le dio un propósito, canalizando
+su sed de venganza hacia los objetivos de los Heraldos. Grak se
+convirtió en su puño, el ejecutor de la voluntad de la hermandad. Su
+apodo, “El Descreído”, no es un insulto, sino una descripción precisa
+que él mismo porta con orgullo. Mientras otros Heraldos estudian textos
+antiguos y debaten el significado de las estrellas, Grak afila su hacha.
+No cree que romper las Lanzas Celestiales vaya a liberar mágicamente a
+un salvador; cree que destruir los símbolos de la tiranía divina
+inspirará a los mortales a alzarse y tomar lo que es suyo.</p>
+<p>Como Puño de la Hermandad, su labor es brutal y directa. Es el
+encargado de silenciar traidores, proteger células vulnerables y
+recuperar artefactos o información por la fuerza. Ha desmantelado
+puestos de avanzada de <a href="Mor&#39;dhul.html">Mor’dhul</a>, ha
+escoltado a eruditos disidentes a través de páramos mortales y se ha
+enfrentado a las criaturas corruptas que guardan los secretos del <a
+href="Lilium.html">Lilium</a>. No lo hace por devoción a la profecía,
+sino por lealtad a la causa: un mundo donde nadie más tenga que ver a su
+familia morir por una plegaria sin respuesta. Es el puño de acero en un
+guante de fervor, una contradicción viviente que protege a los soñadores
+sin compartir sus sueños.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grak es un semielfo imponente, cuya herencia se manifiesta en una
+constitución más robusta que la de sus parientes élficos y una vida que
+ha borrado cualquier atisbo de su gracia feérica. Con 45 años, su rostro
+es un mapa de cicatrices y adversidades. Su cabello oscuro, entrecano en
+las sienes, lo lleva corto y práctico. Sus ojos, de un verde apagado,
+carecen de la luz mística de los elfos; en su lugar, arden con una
+intensidad vigilante y pragmática. Su cuerpo es pura fibra y músculo,
+forjado en una vida de lucha y supervivencia, no en salones de
+entrenamiento.</p>
+<p>No viste los colores de ninguna casa ni los símbolos abiertos de su
+culto. Su armadura es un conjunto de piezas de cuero endurecido y placas
+de metal gastadas, ensambladas y reparadas por él mismo. Cada pieza es
+funcional, sin adornos, priorizando el silencio y la movilidad.</p>
+<p>Su equipamiento principal incluye: * <strong>Hacha de Verdugo
+“Rompesperanza”:</strong> Un hacha de guerra pesada, de aspecto brutal y
+funcional. El filo está perpetuamente afilado y el mango de madera
+oscura está manchado por el uso constante. No tiene <a
+href="Runas.html">Runas</a> ni encantos visibles; su única magia es la
+certeza de su golpe. * <strong>Cuchillos arrojadizos:</strong> Un juego
+de cuchillos perfectamente equilibrados que lleva ocultos en su arnés.
+Son sus herramientas para el trabajo sucio, para acabar un conflicto
+antes de que empiece. * <strong>Símbolo Oculto de los Heraldos:</strong>
+En el interior de su guantelete izquierdo, lleva grabado a fuego el
+símbolo de la corona rota. Es un recordatorio privado de su juramento,
+invisible para el mundo. * <strong>Amuleto de Sauce Tallado:</strong> El
+único objeto personal que conserva. Un pequeño trozo de madera de sauce,
+tallado toscamente en forma de hoja por su madre. Lo aprieta en los
+momentos de silencio, un ancla a la memoria de aquellos por los que
+lucha.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Grak el Descreído nunca será un <a href="Heroes.html">Heroes</a>
+cantado en las baladas de los bardos. Su nombre se susurra con una
+mezcla de miedo y respeto en los círculos internos de la rebelión. Para
+los Heraldos del Amanecer Roto, él es la cruda realidad de su lucha: la
+prueba de que la libertad exige un precio de sangre y acero. Mientras
+los líderes inspiran con palabras de un futuro mejor, Grak garantiza que
+haya un futuro al que llegar.</p>
+<p>Su impacto en Lithernia es un reguero de cadáveres enemigos y aliados
+salvados en el último instante. Es el miedo que sienten los espías de
+Sel’thirak en las ciudades libres y la razón por la que muchas células
+de los Heraldos han sobrevivido a purgas que deberían haberlas
+aniquilado.</p>
+<p>En la gran crónica de Lithernia, si los Heraldos fracasan, Grak será
+recordado como un simple asesino, un fanático violento al servicio de
+una causa perdida. Pero si triunfan, si un nuevo amanecer llega a romper
+las cadenas de los dioses, su legado será el de un guardián silencioso.
+Será la paradoja del hombre que, sin tener fe, se convirtió en el
+protector más devoto de la misma, demostrando que la verdadera creencia
+no reside en las profecías, sino en la inquebrantable voluntad de luchar
+por un mundo mejor.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.78)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

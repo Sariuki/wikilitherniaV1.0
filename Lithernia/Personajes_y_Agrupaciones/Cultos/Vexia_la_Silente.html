@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexia_la_Silente</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vexia_la_Silente</div>
+        <div class="content">
+<hr />
+<p>nombre: <a href="Vexia.html">Vexia</a> la Silente rol: Archivista del
+Silencio, Suma Sacerdotisa edad: 182 agrupacion: El Culto del Eco Roto
+tipo: Culto lema: El silencio esconde el trueno. escudo: Una onda sónica
+agrietada, de color verde espectral, sobre un campo de granito negro.
+ciudad_sede: <a href="Aelithor.html">Aelithor</a> (en las profundidades)
+rivalidades: Cónclave de los Susurros, Clan Grimstone, Clan Whisper
+(linaje principal) alianzas: Lord Aethel ‘El Cruel’ (pacto de
+conveniencia) relaciones: - Líder suprema y matriarca del Culto del Eco
+Roto. - Enemiga acérrima del Cónclave de los Susurros en <a
+href="Aelithor.html">Aelithor</a>. - Aliada secreta y manipuladora de
+Lord Aethel. - Considerada una hereje y traidora por el Clan Whisper.
+tags: [lithernia, personajes, culto, antagonista, hobgoblin, <a
+href="Mor&#39;dhul.html">Mor’dhul</a>] # Vexia la Silente</p>
+<h3 id="biografía">Biografía</h3>
+<p>En los corredores más profundos y olvidados de <a
+href="Aelithor.html">Aelithor</a>, donde la luz es un mito y el silencio
+es tan denso que parece sólido, reside <a href="Vexia.html">Vexia</a>,
+la Archivista del Silencio. Su nombre se susurra con una mezcla de pavor
+y reverencia entre los miembros del Culto del Eco Roto, la secta que
+ella misma ha elevado desde una simple herejía a una de las amenazas más
+esotéricas de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p><a href="Vexia.html">Vexia</a> es la última matriarca de una línea de
+sangre renegada del Clan Whisper. Sus antepasados, <a
+href="Hobgoblins.html">Hobgoblins</a> obsesionados no con las almas de
+los muertos, sino con las vibraciones que dejaron atrás, rompieron con
+el clan principal hace más de dos siglos. Se negaron a aceptar que el
+poder residía en el control de los espíritus, convencidos de que la
+verdadera fuerza yacía en los sonidos <a
+href="Primordiales.html">Primordiales</a> del mundo. Descubrieron la
+leyenda del “Primer Eco”, la palabra de poder que el Primer Rey
+pronunció para dar forma a la realidad, un sonido que, según ellos,
+quedó atrapado en las rocas del Cañón Silente durante el Cataclismo del
+<a href="Lilium.html">Lilium</a>. Para los antepasados de <a
+href="Vexia.html">Vexia</a>, este eco no era una reliquia, sino una
+llave.</p>
+<p>Nacida y criada en esta doctrina, <a href="Vexia.html">Vexia</a>
+demostró una afinidad innata por la nigromancia sónica, una disciplina
+prohibida que manipula la esencia misma de la vida y la muerte a través
+de frecuencias. A sus 182 años, no solo ha perfeccionado estas artes,
+sino que ha convertido la filosofía de su familia en una fe organizada.
+Como suma sacerdotisa, enseña que el orden actual del mundo, impuesto
+por los dioses, es una jaula imperfecta, una disonancia que debe ser
+corregida. Su objetivo no es la conquista, sino la purga. Busca liberar
+el Primer Eco para desatar una “Cacofonía Final”, un evento que
+destruirá las leyes físicas y mágicas de los dioses, devolviendo
+Lithernia a un caos puro y primordial. En ese vacío, ella y sus
+seguidores se convertirán en los nuevos arquitectos de la
+existencia.</p>
+<p>Su liderazgo es absoluto, basado en una sabiduría aterradora y un
+poder que desafía su apariencia frágil. Ha sobrevivido a purgas del Clan
+Whisper, ha desbaratado expediciones del Clan Grimstone que buscaban los
+mismos secretos arqueológicos, y mantiene al Cónclave de los Susurros,
+el gobierno de <a href="Aelithor.html">Aelithor</a>, en un precario
+estado de ignorancia sobre su verdadero poder. Su alianza con Lord
+Aethel ‘El Cruel’ es un testamento a su astucia política: <a
+href="Vexia.html">Vexia</a> lo considera un peón útil, una distracción
+ruidosa y ambiciosa que mantiene a <a
+href="Mor&#39;dhul.html">Mor’dhul</a> ocupado en guerras y traiciones
+superficiales, mientras ella trabaja en el silencio, acercándose cada
+día más a encontrar la nota que hará añicos la creación.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p><a href="Vexia.html">Vexia</a> proyecta una imagen de antigüedad y
+fragilidad que oculta una voluntad de acero. Es una hobgoblin anciana,
+encorvada por el peso de casi dos siglos, con la piel de un tono
+grisáceo pálido, tensa y reseca como el pergamino. Sus ojos, sin
+embargo, arden con una inteligencia fría y penetrante de color ámbar. Se
+mueve con una lentitud deliberada, pero es su voz la que contiene su
+verdadero poder: un susurro apenas audible que, al ser imbuido con su
+magia, puede agrietar la roca, hacer hervir la sangre o silenciar un
+corazón para siempre.</p>
+<p>Viste túnicas de un negro profundo, tejidas con hilos de plomo para
+amortiguar cualquier vibración no deseada, bordadas con los patrones
+geométricos de las ondas sónicas que estudia.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>El Bastón del
+Silencio Quebrado:</strong> Un báculo de madera petrificada extraída del
+Cañón Silente. En su extremo, un cristal de cuarzo ahumado vibra
+perpetuamente, actuando como un diapasón arcano que le permite canalizar
+y enfocar su nigromancia sónica con una precisión devastadora. *
+<strong>Los Pergaminos de Frecuencia:</strong> Una colección de antiguos
+rollos de piel que contienen sus investigaciones. En ellos no hay
+palabras, sino complejos diagramas de ondas y notaciones musicales
+arcanas que cartografían las frecuencias de la vida, la muerte y la
+propia piedra de Lithernia. * <strong>Amuleto del Diente de
+Grimstone:</strong> Colgando de su cuello lleva un colmillo fosilizado
+de un <a href="Heroes.html">Heroes</a> orco del Clan Grimstone al que
+derrotó en una disputa por unas ruinas arcanas. Sirve como recordatorio
+de que el conocimiento, y no la fuerza bruta, es la clave del verdadero
+dominio.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p><a href="Vexia.html">Vexia</a> la Silente no aspira a un trono ni a
+un imperio. Su legado, si tiene éxito, será el de la aniquilación y la
+recreación. Para la mayoría de Lithernia, es una figura fantasmagórica,
+una leyenda de cultistas locos en las profundidades. Sin embargo, para
+aquellos que conocen la verdad, como los líderes del Clan Whisper o los
+sabios más perspicaces de <a href="Valtoria.html">Valtoria</a>,
+representa una amenaza existencial, comparable al propio Cataclismo del
+<a href="Lilium.html">Lilium</a>.</p>
+<p>Su impacto potencial trasciende las guerras de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Si desata el Primer Eco, no solo
+destruirá el reino oscuro, sino que podría deshacer el tejido mismo de
+la magia y la realidad en todo el continente, poniendo fin a la Gran
+Guerra de la manera más absoluta posible: borrando el tablero de juego.
+Es la arquitecta de un apocalipsis silencioso, una amenaza que no llega
+con ejércitos y estandartes, sino con una sola vibración resonando desde
+el corazón del mundo. Su historia es una advertencia de que las mayores
+catástrofes no siempre nacen del fragor de la batalla, sino del eco
+persistente de una idea prohibida.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

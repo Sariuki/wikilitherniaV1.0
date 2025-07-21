@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baelka_Manosdeacero</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Baelka_Manosdeacero</div>
+        <div class="content">
+<h1 id="baelka-manosdeacero">Baelka Manosdeacero</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones inmaculados de <a href="Valtoria.html">Valtoria</a>,
+donde la pureza del metal es un dogma y la tradición un yunque
+inquebrantable, nació Baelka. Perteneciente a una casa menor de
+artesanos, los Martillopuro, demostró desde joven un talento que era a
+la vez un don y una maldición: una visión que trascendía la mena virgen
+y encontraba potencial en lo que otros consideraban escoria. Mientras
+sus pares competían por forjar con el mithril más puro, Baelka
+recolectaba los fragmentos de escudos rotos y los engranajes de
+autómatas caídos, convencida de que la memoria del acero era su mayor
+fortaleza. Esta filosofía fue su herejía. Acusada de profanar el sagrado
+arte de la creación por los Gremios de Artífices, fue sometida a un
+juicio humillante. Con 80 años, una edad en la que muchos <a
+href="Enanos.html">Enanos</a> apenas comienzan su maestría, fue
+declarada <em>An-Forgal</em> —“la Indigna de la Forja”— y exiliada de
+las montañas que eran su único hogar.</p>
+<p>Despojada de su clan y su honor, vagó por las tierras baldías, un
+páramo de desolación sembrado de los restos de la Gran Guerra. Fue allí,
+en el corazón del Osario de Acero, donde la desesperación casi la
+consumió. Pero en lugar de la muerte, encontró un propósito. Se topó con
+una comunidad de parias como ella: <a href="Gnomos.html">Gnomos</a>, <a
+href="Goblins.html">Goblins</a> y <a href="Humanos.html">Humanos</a> que
+no veían chatarra, sino un lienzo. Eran los Engranajes Oxidados, y su
+líder, el ingenioso goblin Grix ‘El Remendador’, no vio en ella a una
+exiliada, sino a una visionaria. Él le enseñó que la verdadera
+innovación no nace de la perfección, sino de la necesidad.</p>
+<p>Bajo la tutela de Grix, el talento innato de Baelka floreció en un
+entorno libre de dogmas. Su conocimiento enano de la metalurgia,
+fusionado con la audaz improvisación de los Engranajes, la convirtió en
+una leyenda. Forjó un brazo mecánico para un veterano orco a partir del
+pistón de un ariete de asedio; construyó un sistema de purificación de
+agua para la ciudad rebelde de Vallas usando los condensadores de un
+golem de hielo destrozado. Sus manos, antes consideradas impuras, se
+volvieron el motor creativo de la facción, ganándose el apellido
+“Manosdeacero” no por nacimiento, sino por mérito.</p>
+<p>Hoy, como Maestra Forjadora, Baelka es el alma ardiente de los
+Engranajes Oxidados. Es la guardiana de sus forjas y la defensora de su
+credo. Ve en Grix al padre que nunca tuvo, uno que valora el ingenio por
+encima del linaje. Canaliza su resentimiento hacia <a
+href="Valtoria.html">Valtoria</a> en una feroz competencia amistosa con
+los herreros del Clan Ironclaw en <a href="Valarion.html">Valarion</a>,
+buscando demostrar con cada creación que el futuro de Lithernia no se
+forjará en las impolutas fraguas de las montañas, sino en el crisol de
+sus ruinas.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Baelka es la encarnación de la resistencia enana. Es más ancha y
+musculosa que la mayoría de las mujeres de su raza, con brazos marcados
+por las cicatrices de la forja y quemaduras de soldadura. Su cabello, de
+un color cobre oscuro, está recogido en una única trenza gruesa y
+práctica, entrelazada con alambres y pequeños engranajes de latón. Sus
+ojos, de un intenso azul acero, arden con la luz perpetua de la fragua.
+Su rasgo más distintivo son los tres dedos de su mano izquierda,
+reemplazados por prótesis de acero y bronce finamente articuladas que
+ella misma diseñó y construyó tras un accidente con un motor rúnico.
+Lejos de ser una debilidad, los utiliza con una precisión que supera a
+la carne y el hueso.</p>
+<p>No viste las armaduras ceremoniales de <a
+href="Valtoria.html">Valtoria</a>. Su protección es un peto de placas
+superpuestas, ensamblado a partir de los blindajes de varias máquinas de
+guerra, cada abolladura una historia. Bajo él, lleva una túnica de cuero
+ignífugo y pantalones reforzados.</p>
+<p>Su arma principal es <strong>“La Rompedora de Dogmas”</strong>, un
+colosal martillo de guerra cuya cabeza fue forjada con el contrapeso de
+un trabuco de asedio y el núcleo de un autómata de la Casa Dravonis. Su
+mango está envuelto en el cuero de una bestia del páramo y su base está
+rematada con un pesado engranaje que le sirve de pomo. Más que un arma,
+es una declaración.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Baelka Manosdeacero, la paria de <a
+href="Valtoria.html">Valtoria</a>, se ha convertido en una pieza clave
+en el equilibrio de poder de las facciones marginadas de Lithernia. Su
+trabajo no solo proporciona herramientas y defensas a los descastados,
+sino que representa una revolución ideológica: la idea de que el valor
+no reside en el origen, sino en el propósito.</p>
+<p>Es el puente viviente entre la disciplina y el conocimiento ancestral
+de los <a href="Enanos.html">Enanos</a> y la caótica pero brillante
+innovación de los demás parias, unificando a los Engranajes Oxidados con
+una visión compartida. Para los Gremios de <a
+href="Valtoria.html">Valtoria</a>, es un recordatorio humillante de su
+propia rigidez, una hereje cuyo éxito amenaza con fracturar sus
+tradiciones milenarias. Para las ciudades rebeldes y los clanes
+olvidados, es un símbolo de esperanza: una prueba de que incluso lo que
+ha sido roto, desechado y exiliado puede ser reforjado para convertirse
+en algo más fuerte y resistente que nunca. Su legado no se medirá en oro
+ni en mithril, sino en las ciudades que sobreviven gracias a sus
+ingenios y en la mentalidad de una generación que aprende a ver el
+tesoro que otros llaman chatarra.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.50)</li>
+<li><a href="Los%20Engranajes%20Oxidados.html">Los Engranajes
+Oxidados</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

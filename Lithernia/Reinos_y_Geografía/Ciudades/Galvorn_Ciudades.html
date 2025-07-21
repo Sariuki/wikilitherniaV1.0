@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galvorn_Ciudades</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Galvorn_Ciudades</div>
+        <div class="content">
+<h1 id="galvorn-ciudades">Galvorn ciudades</h1>
+<p>El reino de <a href="Galvorn.html">Galvorn</a>, uno de los núcleos
+más vitales y antiguos de Lithernia, alberga una red de ciudades que
+reflejan su historia profunda, sus tradiciones centenarias y su poderío
+estratégico. Cada ciudad, bañada por los ríos Galron y Esthella, encarna
+un equilibrio entre fuerza militar, arte y espiritualidad ancestral,
+formando así el esqueleto urbano que sostiene la grandeza de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<h2 id="historia-y-origen-de-las-ciudades-galvornianas">Historia y
+origen de las ciudades galvornianas</h2>
+<p>Las ciudades de <a href="Galvorn.html">Galvorn</a> surgieron tras la
+antigua alianza de los clanes guerreros y artesanos que dominaron estas
+tierras. Fundadas inicialmente como fuertes para defenderse de
+invasiones bárbaras y de criaturas del Bosque Sombrío, fueron
+evolucionando hasta convertirse en verdaderos centros administrativos,
+culturales y comerciales gracias a la labor conjunta de reyes
+visionarios y maestros artesanos.</p>
+<h2 id="ciudades-principales-de-galvorn">Ciudades principales de
+Galvorn</h2>
+<h3 id="valmaris-la-fortaleza-de-hielo">Valmaris, la Fortaleza de
+Hielo</h3>
+<p>Situada sobre las colinas nevadas del norte, Valmaris es conocida por
+sus imponentes muros de piedra helada y su clima riguroso. Fundada hace
+más de 800 años, esta ciudad es el bastión militar de <a
+href="Galvorn.html">Galvorn</a> y guarda el legendario Templo de los
+Ancestros, sitio sagrado donde se ofrendan las armas a la diosa Thalria.
+Sus habitantes son temidos por su disciplina férrea y sus rituales
+honoríficos previos a la batalla.</p>
+<h3 id="eldrenar-la-ciudad-de-los-artesanos">Eldrenar, la Ciudad de los
+Artesanos</h3>
+<p>En el corazón del valle Galron se extiende Eldrenar, cuna de los
+herreros y magos que forjan tanto armas como artefactos encantados. Sus
+talleres, iluminados por <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+del volcán cercano, son la joya de <a href="Galvorn.html">Galvorn</a>,
+base del renombre en toda Lithernia. Eldrenar también conserva la
+Biblioteca de las Mil <a href="Runas.html">Runas</a>, un santuario del
+conocimiento donde se estudia la magia ancestral y la historia del
+mundo.</p>
+<h3 id="thalindor-la-ciudad-del-viento">Thalindor, la Ciudad del
+Viento</h3>
+<p>Al pie de los acantilados sobre el mar de Esthella, Thalindor es
+famosa por sus torres altas y balcones abiertos al viento salado. Esta
+ciudad puerto maneja gran parte del comercio marítimo y es el punto de
+intercambio cultural más dinámico de <a href="Galvorn.html">Galvorn</a>.
+Celebran el festival anual de las Velas de Luz, donde cientos de
+barcazas iluminadas honran a los navegantes caídos y piden bendición
+para la prosperidad del reino.</p>
+<h2 id="costumbres-y-tradiciones-urbanas">Costumbres y tradiciones
+urbanas</h2>
+<ul>
+<li><p><strong>La Vigilia de las Llamas Eternas:</strong> En todas las
+ciudades galvornianas, la última noche del año se encienden hogueras
+gigantes para protegerse contra las fuerzas oscuras que acechan en el
+invierno. Esta tradición se cree que mantiene viva la bendición del dios
+de la luz Helvathar sobre las tierras.</p></li>
+<li><p><strong>El Mercado de las Sombras:</strong> Un evento secreto que
+ocurre una vez al mes en Eldrenar, donde comerciantes y aventureros
+intercambian objetos raros y secretos en la oscuridad, lejos de los ojos
+de las autoridades. Se dice que allí se hay tráfico de artefactos
+prohibidos y pactos con entidades desconocidas.</p></li>
+</ul>
+<h2 id="leyendas-y-mitos-urbanos">Leyendas y mitos urbanos</h2>
+<p>Se cuenta en canciones y relatos que bajo las calles de Thalindor, un
+antiguo dragón dormido, llamado Vysrath, aguarda el momento para
+despertar y guiar a <a href="Galvorn.html">Galvorn</a> en una nueva era.
+Nadie ha visto nunca su forma, pero muchos aseguran sentir sus latidos
+subterráneos durante tormentas y noches de luna nueva.</p>
+<p>En Valmaris, se narra la leyenda de Alaric el Inquebrantable, un <a
+href="Guerrero.html">Guerrero</a> que con una sola mano blindada detuvo
+la invasión de oscuridad, y cuyo espíritu vela eternamente por las
+puertas de la ciudad, apareciendo como un espectro de luz en las noches
+más oscuras.</p>
+<h2 id="importancia-estratégica-y-cultural">Importancia estratégica y
+cultural</h2>
+<p>Las ciudades de <a href="Galvorn.html">Galvorn</a> no solo son
+centros políticos y militares, sino también faros culturales que
+fortalecen la identidad única del reino. La coexistencia de antiguas
+tradiciones con avances tecnológicos artísticos convierte a <a
+href="Galvorn.html">Galvorn</a> en un faro de estabilidad y creatividad
+que desafía el paso del tiempo en un mundo lleno de cambios y
+conflictos.</p>
+<hr />
+<p><a href="Galvorn.html">Galvorn</a> ciudades representan la alma de un
+reino que resiste con honor, <a href="Herreria.html">Herreria</a> su
+destino entre fuego y hielo, y mantiene viva la llama de su historia y
+legado para las futuras generaciones de Lithernia.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Ciudades.html">Ciudades</a> (relevancia: 0.93)</li>
+<li><a href="ciudades.html">ciudades</a> (relevancia: 0.93)</li>
+<li><a href="Reino%20de%20Galvorn.html">Reino de Galvorn</a>
+(relevancia: 0.44)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

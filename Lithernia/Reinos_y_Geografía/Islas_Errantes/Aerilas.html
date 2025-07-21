@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aerilas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Aerilas</div>
+        <div class="content">
+<h1 id="aerilas">Aerilas</h1>
+<p>Suspendida sobre las nubes como una herida en el cielo de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Aerilas es una ciudadela
+construida sobre un colosal fragmento de tierra flotante. Se mantiene en
+el aire no por gracia, sino por la fuerza bruta de glifos arcanos que
+crepitan con una energía inestable y verdosa, grabados en las entrañas
+de la roca. Para evitar que la isla derive sin rumbo, cadenas ciclópeas
+forjadas en obsidiana la anclan a los picos montañosos cercanos,
+gimiendo bajo la tensión de un viento perpetuo y helado que barre sus
+calles, llevando consigo el olor a ozono y ceniza. Aerilas no es un
+hogar, es un arma apuntando al mundo inferior.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Aerilas son un testamento a la audacia del Clan
+Whispering Wind. Tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, cuando la tierra aún temblaba con los
+ecos de la ira divina, una sección de los Picos Dentados fue desgarrada
+y lanzada al cielo por una tormenta de maná salvaje. Durante
+generaciones, la roca flotó como una leyenda. Fue Grolnok el Susurrante,
+el primer Shaman-Lord del clan, quien vio su potencial. Liderando a sus
+<a href="Hobgoblins.html">Hobgoblins</a> en una peligrosa ascensión,
+reclamó la isla. Mediante rituales prohibidos que esclavizaban a los
+espíritus del aire y drenaban la esencia de Genasi capturados, Grolnok y
+sus sucesores estabilizaron la levitación de la roca y la anclaron con
+las cadenas que la sujetan hoy, convirtiendo un desastre natural en el
+bastión más inexpugnable de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><strong>El Nido del Viento</strong>: La ciudadela central y
+superior, tallada en el punto más alto de la isla. Aquí residen los
+líderes del clan y los chamanes del viento en estructuras de basalto
+diseñadas para canalizar las corrientes de aire hacia los altares de
+sacrificio.</li>
+<li><strong>Las Pasarelas Desvencijadas</strong>: Una red caótica de
+puentes de cuerda y pasarelas de metal oxidado que conectan los
+edificios más bajos en los bordes de la isla. Es el distrito de los <a
+href="Goblins.html">Goblins</a>, una zona superpoblada y peligrosa donde
+la vida es barata y una ráfaga de viento inesperada puede ser
+mortal.</li>
+<li><strong>El Corazón de la Tormenta</strong>: Una profunda caverna en
+el centro de la isla, prohibida para la mayoría. En su interior, los
+glifos de levitación brillan con una luz enfermiza sobre las paredes.
+Aquí, una pequeña comunidad de Genasi de Aire es mantenida prisionera,
+sus cuerpos atados a monolitos de contención mientras su energía
+elemental es drenada para alimentar la ciudad.</li>
+<li><strong>El Precipicio de los Aullidos</strong>: El borde oriental de
+la isla, un acantilado escarpado que se abre al vacío. Es un lugar
+sagrado y temido, donde se celebran las ‘Danzas del Viento’ y se lanzan
+las ofrendas a <a href="Quiteon.html">Quiteon</a>.</li>
+<li><strong>El Vientre de la Roca</strong>: La parte inferior de la
+isla, una masa de piedra irregular y llena de grietas. Es un territorio
+salvaje, hogar de nidos de wyverns, mantícoras y otras criaturas
+voladoras que a veces atacan las pasarelas en busca de presas
+fáciles.</li>
+</ul>
+<h2 id="gobierno-y-política">Gobierno y Política</h2>
+<p>Aerilas es una teocracia militarista gobernada con puño de hierro por
+el Shaman-Lord del Clan Whispering Wind. El poder se basa en la
+capacidad de interpretar y “controlar” los vientos, una manifestación de
+su retorcida fe en <a href="Quiteon.html">Quiteon</a>. El clan busca
+activamente fortalecer su posición, experimentando con nuevos rituales
+para liberar a Aerilas de sus anclas y convertirla en una fortaleza de
+guerra móvil, una amenaza que podría cambiar el equilibrio de poder en
+<a href="Mor&#39;dhul.html">Mor’dhul</a>. Esta ambición los ha puesto en
+conflicto directo con clanes rivales, especialmente con el Clan Aethel,
+que ve su dominio del cielo con envidia y ha intentado sabotearlos en
+múltiples ocasiones. El símbolo del clan, un torbellino negro del que
+emerge una cara de hobgoblin con ojos de relámpago, ondea en estandartes
+por toda la ciudadela.</p>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida está definida por la precariedad y el viento. Las “Danzas del
+Viento” son duelos rituales a muerte, librados en estrechas plataformas
+al borde del abismo para resolver disputas o probar el valor de un <a
+href="Guerrero.html">Guerrero</a>. En la “Noche de los Aullidos”,
+durante las peores tormentas, los habitantes atan ofrendas (a menudo
+pequeños animales o trofeos de enemigos) a cometas hechas de piel y
+hueso, soltándolas en la tempestad como tributo. Caer de la ciudad es el
+máximo deshonor; los cuerpos nunca se recuperan, pues se considera que
+el viento los ha rechazado.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Las estructuras de Aerilas son bajas, angulosas y brutalistas,
+construidas con piedra gris y basalto para ofrecer la mínima resistencia
+a los vientos huracanados. Los edificios están interconectados por una
+telaraña de puentes de cuerda y pasarelas metálicas aseguradas con redes
+gruesas y oxidadas. No hay vegetación natural, solo parches de líquenes
+oscuros y hongos tenaces que se aferran a las rocas. El ambiente es
+opresivo, cargado con el zumbido constante de los glifos de levitación y
+el aullido incesante del viento.</p>
+<h2 id="amenazas-y-conflictos">Amenazas y Conflictos</h2>
+<p>La mayor amenaza para Aerilas es ella misma. Los glifos que la
+mantienen a flote son inestables y fallan periódicamente, provocando
+violentos terremotos que sacuden la ciudad y desprenden rocas sobre las
+tierras de abajo. Las criaturas que anidan en el “Vientre de la Roca”
+son un peligro constante para los habitantes de las pasarelas.
+Externamente, el Clan Aethel busca activamente desestabilizar la ciudad,
+enviando saboteadores para corromper los rituales del viento con la
+esperanza de que Aerilas se desplome y elimine a sus rivales de una vez
+por todas.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Cráneo del Titán</strong>: Los chamanes susurran que
+la isla no es una simple roca, sino el cráneo petrificado de un titán
+elemental de aire, asesinado por los dioses durante el Cataclismo del <a
+href="Lilium.html">Lilium</a>. Creen que el viento que azota la ciudad
+es el último aliento del titán, y que si alguna vez deja de soplar, la
+isla caerá.</p></li>
+<li><p><strong>Los Caídos Trepadores</strong>: Se cuenta entre los <a
+href="Goblins.html">Goblins</a> que en las noches sin luna, los
+fantasmas de aquellos que han caído al vacío (los “Caídos”) intentan
+regresar. Se dice que sus formas espectrales trepan lentamente por las
+colosales cadenas de anclaje, susurrando advertencias sobre el colapso
+inminente o maldiciones contra los vivos que aún desafían al
+cielo.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

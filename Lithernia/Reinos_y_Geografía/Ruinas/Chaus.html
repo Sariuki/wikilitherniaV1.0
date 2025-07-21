@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaus</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Chaus</div>
+        <div class="content">
+<h1 id="chaus">Chaus</h1>
+<p>En un valle perdido entre las cumbres más altas de <a
+href="Valtoria.html">Valtoria</a>, donde el aire es puro y el silencio
+solo lo rompe el viento, yace Chaus. No es una ciudad de piedra y metal
+como sus hermanas enanas, sino un santuario tallado en las entrañas de
+una maravilla natural: el Corazón de Piedra, el tocón petrificado de un
+árbol colosal de la Era de la Forja del Mundo. Sus calles son senderos
+en espiral que siguen las vetas de la madera fosilizada, y sus murallas
+son las propias laderas del valle. Puentes hechos de raíces vivas,
+nutridos por la magia druídica, se arquean desde el tocón hasta las
+montañas, uniendo la ciudad con el mundo exterior en un abrazo orgánico.
+Chaus es un bastión de paz, un lugar donde la tenacidad enana y la
+sabiduría de la naturaleza se han fundido en una sola entidad.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Chaus se pierden en la Era de los Mil Años, un tiempo
+de guerra y desesperación. Huyendo del conflicto interminable, un clan
+de druidas <a href="Enanos.html">Enanos</a> se refugió en las montañas
+más inhóspitas. Allí descubrieron el Corazón de Piedra, un eco
+petrificado de la creación. Sintieron que el espíritu del árbol
+ancestral no había muerto, sino que dormía en la roca, y juraron
+convertirse en sus guardianes.</p>
+<p>Fundaron Chaus no como una fortaleza, sino como un refugio para todos
+los que buscaban la comunión con la naturaleza y un respiro del caos del
+mundo. Durante siglos, la ciudad creció en secreto, atrayendo a <a
+href="Gnomos.html">Gnomos</a>, <a href="Goliaths.html">Goliaths</a> y
+otros seres que compartían su reverencia por la tierra. No fue hasta el
+Renacimiento que Chaus se unió formalmente al reino de <a
+href="Valtoria.html">Valtoria</a>, negociando una fuerte autonomía a
+cambio de sus dones únicos: su sabiduría espiritual y los raros <a
+href="Recursos.html">Recursos</a> de su valle. Hoy, Chaus es el corazón
+espiritual de <a href="Valtoria.html">Valtoria</a>, un recordatorio
+viviente de que el poder no solo reside en la forja, sino también en la
+raíz.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Núcleo del Árbol</strong>: El centro neurálgico y
+sagrado de la ciudad, ubicado en <a
+href="Darvask_the_Hollow.html">Darvask_the_Hollow</a> del tocón donde
+las raíces de piedra convergen. Este espacio cavernoso, iluminado por
+vetas de gemas que brillan con luz propia, sirve como sala del Círculo
+de los Ancianos y lugar para los rituales estacionales. El aire aquí es
+denso, cargado con la energía de la tierra.</p></li>
+<li><p><strong>Las Terrazas de la Vida</strong>: Una serie de jardines
+colgantes que descienden en cascada por el exterior del Corazón de
+Piedra. Aquí se cultivan las hierbas alquímicas y los hongos luminosos
+que sustentan la economía de la ciudad. Es también donde se planta una
+semilla por cada recién nacido, cuyo crecimiento se convierte en un
+símbolo vivo del destino del individuo.</p></li>
+<li><p><strong>Las Galerías de la Veta</strong>: Los distritos
+residenciales de Chaus, tallados directamente en las paredes del tocón.
+Cada hogar es único, respetando la veta y la forma de la madera
+petrificada. No hay puertas de metal, sino cortinas de fibras tejidas o
+portales de piedra giratorios, y las ventanas son cristales naturales
+que filtran la luz del sol.</p></li>
+<li><p><strong>Los Brazos del Valle</strong>: La red de puentes de
+raíces vivas que se extienden desde el Corazón de Piedra. Mantenidos por
+la magia constante de los druidas, estos puentes son lo suficientemente
+fuertes como para soportar el peso de caravanas y lo suficientemente
+flexibles como para mecerse suavemente con el viento de la
+montaña.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Chaus es una armoniosa fusión de la paciencia enana y
+la espiritualidad druídica. Se valora el equilibrio y el conocimiento
+ancestral por encima de todo. Los conflictos se resuelven no con la
+fuerza, sino con los “debates de raíces”, en los que los litigantes y
+los ancianos meditan tocando el Corazón de Piedra hasta que se revela
+una solución consensuada.</p>
+<p>El arte se centra en la talla de la madera petrificada, creando
+báculos, <a href="Runas.html">Runas</a> y estatuillas que zumban con
+poder latente. Su música es hipnótica, una mezcla de flautas de hueso y
+cantos guturales que imitan los sonidos de la montaña. Es una costumbre
+diaria dejar pequeñas ofrendas de gemas pulidas o agua de manantial en
+las grietas del tocón, un gesto para “alimentar” y honrar al espíritu
+durmiente que les da cobijo.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Chaus es una oda a la naturaleza. No hay ángulos
+rectos ni simetría forzada; todo fluye en curvas y espirales orgánicas.
+Las estructuras parecen haber crecido en lugar de haber sido
+construidas, fundiéndose con el colosal tocón. El ambiente es de una paz
+profunda y resonante. El aire huele a piedra húmeda, a musgo y a la
+sutil fragancia de las hierbas mágicas. El símbolo de la ciudad, un
+martillo de piedra entrelazado con una rama de roble con hojas de jade,
+se ve tallado sobre las entradas de los talleres y los lugares de
+reunión, representando la unión perfecta de sus dos herencias.</p>
+<h2 id="leyendas-y-amenazas">Leyendas y Amenazas</h2>
+<ul>
+<li><p><strong>El Latido de Piedra</strong>: Los ancianos y los más
+sensibles afirman que en las noches sin luna, si uno apoya la oreja
+contra el suelo del Núcleo, puede oír un débil y rítmico pulso. Es el
+latido del Corazón de Piedra, una señal de que el gran espíritu del
+árbol ancestral no está muerto, sino que sueña y, algún día, podría
+despertar.</p></li>
+<li><p><strong>La Raíz al Verano Eterno</strong>: Otra leyenda susurra
+que las raíces más profundas del tocón no terminan en la roca, sino que
+atraviesan el velo de los planos y conducen a un portal al reino
+feérico. Se dice que está custodiado por el eco de un antiguo dragón de
+esmeralda que murió protegiendo el árbol, y solo aquellos con un corazón
+puro pueden pasar.</p></li>
+</ul>
+<p>La principal amenaza para Chaus es la codicia del mundo exterior. Los
+Cazadores de Sombras, <a href="Enanos.html">Enanos</a> renegados,
+intentan infiltrarse en el valle para robar su madera petrificada,
+creyendo que pueden corromperla y convertirla en una fuente de poder
+oscuro. Más preocupante aún es el interés mostrado por agentes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Sus espías creen que la energía
+vital del Corazón de Piedra podría ser pervertida y transformada en una
+plaga para aniquilar los bosques de <a
+href="Eldrador.html">Eldrador</a>, convirtiendo el mayor símbolo de vida
+de <a href="Valtoria.html">Valtoria</a> en un arma de destrucción
+masiva.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

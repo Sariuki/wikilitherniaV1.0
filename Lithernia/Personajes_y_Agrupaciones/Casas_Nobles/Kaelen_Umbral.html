@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Umbral</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Umbral</div>
+        <div class="content">
+<h1 id="kaelen-umbral">Kaelen Umbral</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en las sombras de <a href="Eldrador.html">Eldrador</a>, Kaelen
+no pertenece a ninguna de las grandes casas élficas que gobiernan bajo
+la luz de las estrellas. Su linaje, la Casa Umbral, fue una rama menor y
+olvidada, conocida por su afinidad con la magia de las sombras y el
+conocimiento oculto, lo que les granjeó la desconfianza de casas más
+puristas como la Casa Astellia. Desde joven, Kaelen demostró un
+intelecto prodigioso y una sed insaciable por la verdad, una cualidad
+peligrosa en un reino construido sobre tradiciones inamovibles y
+secretos bien guardados.</p>
+<p>Su destino se selló el día que descubrió una sección oculta en los
+archivos de su familia: un diario que contradecía la historia oficial
+sobre la caída del Primer Rey y la naturaleza del <a
+href="Lilium.html">Lilium</a>. Acusado de herejía y de estudiar textos
+prohibidos por la hegemónica Casa Astellia, que temía cualquier cosa que
+pudiera desestabilizar el orden divino, Kaelen fue despojado de su
+nombre y exiliado. Con solo 80 años, una edad insultantemente joven para
+un elfo, se convirtió en un paria.</p>
+<p>Vagó por Lithernia durante décadas, un <a
+href="Erudito.html">Erudito</a> sin biblioteca, hasta que sus
+investigaciones lo guiaron a los susurros de una organización
+clandestina: los Cronistas Silentes. En ellos encontró un propósito y un
+hogar. Su meticulosa capacidad para descifrar lenguajes muertos y su
+valentía para adentrarse en ruinas pre-<a href="Lilium.html">Lilium</a>
+le permitieron ascender rápidamente. Hoy, como Archivista Principal,
+Kaelen es el custodio de las verdades más peligrosas de Lithernia y el
+cerebro detrás de las operaciones más delicadas del gremio.</p>
+<p>Su motivación es una mezcla de venganza personal contra la hipocresía
+de los nobles élficos y una genuina creencia en que solo la verdad
+completa puede salvar al mundo. Sin embargo, vive en un conflicto
+perpetuo. A diferencia de los miembros más radicales del gremio, Kaelen
+no está seguro de que desatar la Profecía del Retorno del Rey sea la
+solución. Teme que el poder del Primer Rey, o la verdad sobre el <a
+href="Lilium.html">Lilium</a>, sea una fuerza demasiado caótica para ser
+controlada, y que en su búsqueda de liberación terminen provocando un
+segundo apocalipsis.</p>
+<p>Como mentor, ha tomado bajo su tutela a dos jóvenes promesas que
+representan su propia dualidad: Brynja, una guerrera orca de Cheneras
+con una voluntad de hierro, y Finkle, un ingenioso gnomo artífice con
+una curiosidad sin límites. Los ve como el futuro del gremio: la fuerza
+para proteger el conocimiento y el ingenio para usarlo sabiamente.
+Mientras tanto, arriesga todo manteniendo una correspondencia cifrada
+con un círculo de sabios disidentes en la Torre de las Estrellas de <a
+href="Valtoria.html">Valtoria</a>, intercambiando fragmentos de historia
+por pistas sobre el paradero de artefactos que los dioses y sus
+sirvientes preferirían mantener enterrados.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen posee la fisionomía enigmática de un elfo Shadar-Kai, con una
+piel pálida del color de la ceniza y ojos de un violeta profundo que
+parecen contener la luz de estrellas lejanas. Su cabello, negro como la
+obsidiana, está surcado por un único mechón de un blanco níveo que le
+cae sobre la frente, un rasgo que se acentuó tras una incursión
+peligrosa en una tumba cargada de energía necrótica. A sus 215 años, su
+rostro es joven pero sus ojos reflejan el peso de siglos de secretos. Es
+alto y de constitución delgada, moviéndose con un sigilo innato que
+desmiente su naturaleza académica.</p>
+<p>Viste túnicas de viajero de color oscuro, funcionales y sin adornos,
+diseñadas para no llamar la atención. Siempre lleva guantes de cuero
+fino para proteger tanto sus manos como los delicados manuscritos que
+maneja. Oculta bajo su capa lleva una <strong>daga de cristal de
+sombras</strong>, un artefacto de su familia que puede volverse
+intangible por breves instantes. Su equipo más preciado, sin embargo, es
+su <strong>Kit de Archivista</strong>: un estuche de cuero que contiene
+lentes de aumento forjadas por <a href="Gnomos.html">Gnomos</a>, polvos
+para revelar inscripciones invisibles, carbón para calcos rúnicos y un
+conjunto de plumas y tintas de diversa composición química y mágica. En
+su cuello cuelga un amuleto discreto: una lasca de obsidiana pulida,
+idéntica a la que se muestra en el escudo del gremio, que le sirve como
+foco arcano.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelen Umbral no es un rey, un general ni un <a
+href="Heroes.html">Heroes</a> de leyenda cantado por los bardos en las
+tabernas. Su campo de batalla son los archivos polvorientos, las ruinas
+olvidadas y las redes de susurros que cruzan los reinos. Sin embargo, su
+impacto potencial en el destino de Lithernia es inmenso. Es el
+arquitecto de una rebelión silenciosa que no busca derrocar tronos con
+espadas, sino desmantelar imperios con la verdad.</p>
+<p>Si tiene éxito, podría ser recordado como el <a
+href="Erudito.html">Erudito</a> que devolvió la memoria a un mundo
+amnésico, el catalizador que cumplió la profecía y liberó a Lithernia
+del yugo de los dioses. Pero si su cautela lo paraliza o si sus enemigos
+lo descubren, su nombre será borrado de la historia, sus conocimientos
+se perderán y su gremio será cazado hasta la extinción, condenando al
+mundo a repetir los ciclos de guerra y engaño. El legado de Kaelen
+Umbral será, en última instancia, el destino mismo de Lithernia, escrito
+en una tinta que él mismo está ayudando a crear.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

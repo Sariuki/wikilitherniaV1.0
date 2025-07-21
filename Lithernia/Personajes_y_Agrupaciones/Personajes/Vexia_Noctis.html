@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexia_Noctis</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vexia_Noctis</div>
+        <div class="content">
+<h1 id="vexia-noctis-el-susurro-pútrido">Vexia Noctis, el Susurro
+Pútrido</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los retorcidos árboles genealógicos de la nobleza de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, no toda la sangre es un
+privilegio; a veces, es una condena. <a href="Vexia.html">Vexia</a>
+Noctis nació en el seno de una rama menor de la Casa <a
+href="Vexia.html">Vexia</a>, una línea de <a
+href="Tieflings.html">Tieflings</a> de modesto poder pero desmedida
+ambición. Demasiado inteligente para ser una simple guerrera y demasiado
+astuta para ser ignorada, <a href="Vexia.html">Vexia</a> fue vista por
+su familia no como una heredera, sino como una herramienta afilada y, en
+última instancia, prescindible. Cuando el Clan Vilespore, los parias
+cultores de la plaga, comenzó a ganar influencia gracias a sus toxinas,
+la Casa <a href="Vexia.html">Vexia</a> vio una oportunidad. Enviaron a
+la joven <a href="Vexia.html">Vexia</a> a la fétida ciudad pantanosa de
+<a href="Rynavel.html">Rynavel</a> como ofrenda diplomática, un peón
+para cimentar una alianza con los maestros de la podredumbre.</p>
+<p>Lo que su familia consideró un exilio, <a href="Vexia.html">Vexia</a>
+lo transformó en su crisol. Lejos de perecer en los miasmas de <a
+href="Rynavel.html">Rynavel</a>, descubrió una afinidad innata por el
+“arte” del clan. Mientras los <a href="Goblins.html">Goblins</a> y <a
+href="Hobgoblins.html">Hobgoblins</a> del Vilespore se regocijaban en la
+descomposición burda, <a href="Vexia.html">Vexia</a> vio el potencial
+para la sutileza y la elegancia. Aprendió a destilar venenos que no solo
+mataban, sino que sembraban la locura; a cultivar esporas que podían
+imitar la más dulce de las fragancias antes de colapsar los pulmones de
+una víctima. Su intelecto y carisma tiefling le permitieron navegar la
+jerarquía del clan, ganándose el título de “Susurro Pútrido”. No era una
+Hongo-Madre, sino algo más peligroso: la mente calculadora detrás de la
+plaga informe.</p>
+<p>Hoy, <a href="Vexia.html">Vexia</a> actúa como la embajadora del Clan
+Vilespore, su rostro “civilizado” ante el resto de Lithernia. Es ella
+quien negocia los contratos con sus sádicos aliados del Clan <a
+href="Kromagul.html">Kromagul</a>, entregándoles nuevas agonías en
+frascos de cristal. Es ella quien comercia secretos y venenos con los
+espías del Clan Nighthawk, tejiendo una red de influencia que se
+extiende mucho más allá de los pantanos de <a
+href="Rynavel.html">Rynavel</a>. Su lealtad al clan es absoluta, pues le
+dieron el poder que su propia casa le negó. Sin embargo, una espina
+personal envenena su éxito: una profunda rivalidad con un miembro del
+Clan Whisper, a quienes considera artistas estériles y arrogantes. Esta
+enemistad la ha llevado a buscar influencia más allá de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, estableciendo una tensa presencia
+diplomática en <a href="Syrenya.html">Syrenya</a> y conspirando contra
+su némesis en la lejana ciudad élfica de <a
+href="Aelithor.html">Aelithor</a>. <a href="Vexia.html">Vexia</a> Noctis
+ya no es un peón; es la jugadora que mueve las piezas en un tablero de
+decadencia y poder.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p><a href="Vexia.html">Vexia</a> es la encarnación de una belleza
+ponzoñosa. Su piel de tiefling posee la palidez de una flor crecida en
+la oscuridad, con un sutil matiz violáceo que se acentúa en sus labios y
+bajo sus ojos. Dos cuernos delgados y negros como la obsidiana se curvan
+hacia atrás desde su frente, pulidos hasta brillar. Sus ojos,
+desprovistos de pupila, arden con un suave fulgor verdoso, reminiscente
+de los hongos fosforescentes que adornan el blasón de su clan.</p>
+<p>Rechaza las armaduras toscas y las pieles sucias de sus hermanos de
+clan. Viste con una elegancia letal, prefiriendo túnicas de seda y
+terciopelo en tonos de púrpura profundo, verde musgo y negro noche. Los
+tejidos a menudo están bordados con intrincados patrones que evocan
+micelios o las delicadas venas de una hoja en descomposición.</p>
+<p>Su equipamiento es tan sutil como ella: * <strong>Daga de Estilete de
+Hueso:</strong> Un arma fina y discreta, oculta en los pliegues de su
+manga. Su punta está permanentemente impregnada con la “Lágrima del
+Vilespore”, una toxina que induce parálisis y alucinaciones
+terroríficas. * <strong>Sello de Embajadora:</strong> Un pesado anillo
+de hierro y obsidiana con el escudo del clan, que utiliza tanto para
+sellar contratos como para dejar una marca contundente en el rostro de
+un insolente. * <strong>El Perfumista Letal:</strong> Una colección de
+viales de cristal finamente trabajados que cuelgan de su cinturón. A
+simple vista parecen perfumes exóticos, pero cada uno contiene un veneno
+gaseoso, un ácido corrosivo o un antídoto crucial. * <strong>Túnicas de
+la Sombra Tejida:</strong> Sus ropajes no son meramente estéticos. Están
+imbuidos con <a href="Alquimia.html">Alquimia</a> Vilespore que los hace
+resistentes al ácido y al veneno, y un ligero encantamiento del Clan
+Nighthawk le permite difuminarse en las sombras con mayor facilidad.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El ascenso de <a href="Vexia.html">Vexia</a> Noctis representa un
+cambio paradigmático en el ecosistema de poder de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Ya no son solo la fuerza bruta de
+los <a href="Orcos.html">Orcos</a> o la magia manifiesta de los Señores
+de la Muerte los únicos caminos hacia la grandeza. <a
+href="Vexia.html">Vexia</a> ha demostrado que la influencia más duradera
+es la que se pudre lentamente desde dentro, a través de la política, el
+espionaje y la guerra biológica.</p>
+<p>Ella es el puente entre la anarquía primordial del Clan Vilespore y
+las complejas intrigas de las grandes casas de Lithernia. Gracias a su
+diplomacia, un clan de cultistas del fango ahora tiene voz en asuntos
+que pueden decidir el destino de reinos. Su éxito amenaza con
+desequilibrar la guerra fría que mantiene con el Clan Whisper en <a
+href="Rynavel.html">Rynavel</a>, lo que podría desatar un conflicto
+interno de consecuencias devastadoras para la ciudad.</p>
+<p>A largo plazo, si <a href="Vexia.html">Vexia</a> continúa su ascenso,
+el Clan Vilespore podría dejar de ser un simple proveedor de armas para
+convertirse en una potencia por derecho propio. Su legado no se medirá
+en batallas ganadas ni en territorios conquistados, sino en tratados
+envenenados, linajes debilitados por enfermedades misteriosas y el miedo
+silencioso a que cualquier sorbo de vino o aliento de aire pueda ser el
+último. Ella es la prueba viviente de que en Lithernia, la decadencia no
+es un final, sino un arma.</p>
+        </div>
+    </div>
+</body>
+</html>

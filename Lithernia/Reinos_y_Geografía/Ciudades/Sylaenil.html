@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylaenil</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Sylaenil</div>
+        <div class="content">
+<h1 id="sylaenil">Sylaenil</h1>
+<p>Conocida como el “Corazón Artesanal de <a
+href="Eldrador.html">Eldrador</a>”, Sylaenil es una ciudad que parece
+esculpida por los mismos dioses a los que venera. Se extiende a lo largo
+de las sinuosas riberas del río Lúminar, cuyas aguas cristalinas
+reflejan la perfección de sus puentes de madera de serbal y cristal
+tejido. No es una fortaleza militar, sino un santuario de la creación,
+donde la orfebrería, la luthería y el tejido de sedas astrales alcanzan
+un nivel sublime. Sus estructuras crecen orgánicamente desde los
+acantilados y los árboles, uniendo madera petrificada y mármol veteado
+con mithril en una danza silenciosa. Sin embargo, bajo esta fachada de
+belleza serena, palpita una estricta jerarquía social y la intensa y
+callada rivalidad de sus gremios por alcanzar la perfección.</p>
+<h2 id="historia">Historia</h2>
+<p>Sylaenil nació de la necesidad de preservar la belleza en un mundo
+fracturado por el Cataclismo del <a href="Lilium.html">Lilium</a>. Fue
+fundada por un gremio de Elfos del Bosque, maestros artesanos que
+huyeron de la destrucción buscando un lugar donde la inspiración de <a
+href="Ferion.html">Ferion</a>, dios de la naturaleza, aún fluyera pura.
+A orillas del Lúminar encontraron las maderas preciosas y las fibras
+mágicas necesarias para sus obras. La ciudad creció como un refugio para
+artistas y creadores, un lugar donde el único valor era la maestría del
+oficio.</p>
+<p>Con el tiempo, la fama de sus creaciones atrajo la atención de la
+nobleza de <a href="Eldrador.html">Eldrador</a>. Casas menores de Altos
+Elfos se asentaron en Sylaenil, imponiendo gradualmente el rígido
+sistema de “La Mano de Hierro”. Levantaron sus esbeltas torres blancas,
+símbolos de su poder, y el santuario de artistas se transformó en un
+motor de producción de bienes de lujo para la élite. Hoy, Sylaenil es un
+microcosmos de las tensiones de <a href="Eldrador.html">Eldrador</a>: la
+inmensa habilidad de la clase trabajadora sostiene un estilo de vida
+opulento para una minoría gobernante que ve su arte como una
+manifestación del poder de <a href="Thirogrim.html">Thirogrim</a>.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Cauce de los Gremios</strong>: La arteria vital de la
+ciudad. A lo largo de la ribera sur del río, los talleres de los
+artesanos están excavados directamente en los acantilados, con balcones
+colgantes de madera que se asoman a las aguas. El aire aquí está cargado
+con el aroma de la madera de serbal, el tañido de los martillos de
+orfebre y la melodía lejana de un laúd recién encordado.</p></li>
+<li><p><strong>Las Torres de Sauceda</strong>: En la ribera norte,
+elevándose por encima de los talleres, se encuentra el distrito de la
+nobleza. Las esbeltas torres de los Altos Elfos, construidas con mármol
+blanco y cristal, imitan la elegancia de los sauces llorones. Están
+conectadas por puentes privados y rodeadas de jardines silenciosos y
+perfectamente cuidados, un mundo aparte del bullicio productivo de la
+otra orilla.</p></li>
+<li><p><strong>El Mercado del Reflejo</strong>: Una serie de plataformas
+y barcazas de madera pulida que flotan permanentemente en el centro del
+río Lúminar. Es el centro social y comercial de Sylaenil. Aquí se
+celebran exhibiciones de arte, conciertos y el anual “Festival de la
+Hebra de Luna”. Es el único lugar donde las castas se mezclan, aunque
+sea bajo la atenta mirada de los guardias Shadar-Kai.</p></li>
+<li><p><strong>Los Bosques de la Materia</strong>: Las arboledas que
+rodean la ciudad, sagradas para los seguidores de <a
+href="Ferion.html">Ferion</a>. De aquí se extraen con sumo cuidado las
+materias primas para las obras maestras de Sylaenil. Solo los artesanos
+más respetados tienen permiso para adentrarse en sus zonas más profundas
+en busca de maderas de corazón estelar o seda de araña lunar.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Sylaenil se mide en obras maestras. El estatus no lo da
+solo el linaje, sino la calidad del trabajo. Antes de comenzar una pieza
+importante, un artesano practica el “Silencio del Taller”, un periodo de
+meditación para conectar con el material y la inspiración divina. La
+estratificación social es asfixiante; es una ley no escrita que un
+miembro de una casta inferior debe bajar la mirada y ceder el paso al
+cruzarse con un <a href="Noble.html">Noble</a>. Tocar la herramienta de
+otro artesano sin su permiso explícito es un tabú, considerado una
+ofensa más grave que un insulto personal.</p>
+<p>El evento más importante del año es el “Festival de la Hebra de
+Luna”, una deslumbrante competición donde los gremios presentan sus
+mejores creaciones en los pabellones flotantes del río. Ganar el favor
+de la nobleza en este festival puede asegurar la prosperidad de un
+taller durante años, mientras que un fracaso puede significar la
+ruina.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Sylaenil es el epítome de la estética élfica. Su arquitectura fluye,
+evitando las líneas rectas. Los edificios parecen ser una extensión
+natural del paisaje, con techos que imitan hojas y ventanas que son como
+ojos en la roca. El ambiente es de una calma concentrada, casi
+reverencial. Hay una quietud en el aire, rota solo por los sonidos del
+trabajo meticuloso y el murmullo constante del río. A pesar de su
+belleza, para muchos de sus habitantes, la ciudad se siente como una
+jaula dorada, donde la perfección exigida y las barreras sociales pesan
+más que la maravilla de sus vistas.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Luthier Fantasma</strong>: Se susurra en los talleres
+que el espíritu de un legendario Elfo del Bosque, cuyo laúd de
+insuperable belleza fue robado por un <a href="Noble.html">Noble</a>
+celoso, aún vaga por la ciudad. En las noches sin luna, se puede oír su
+melodía fantasmal emanando del río. Dicen que es una canción de una
+tristeza tan profunda que es capaz de quebrar el corazón de los vivos y
+hacer añicos el cristal más puro.</p></li>
+<li><p><strong>El Reflejo del Futuro</strong>: Los ancianos advierten a
+los jóvenes que no miren su propio reflejo en las aguas del río Lúminar
+durante demasiado tiempo. La leyenda afirma que el río a veces no
+refleja el presente, sino un futuro posible. Aquellos que se ven
+atrapados por la visión, ya sea de gloria o de tragedia, corren el
+riesgo de que su alma quede atrapada en esa ensoñación eterna, dejando
+su cuerpo como una cáscara vacía en la orilla.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.71)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

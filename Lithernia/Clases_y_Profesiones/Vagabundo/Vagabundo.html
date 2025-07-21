@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagabundo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vagabundo</div>
+        <div class="content">
+<h1 id="vagabundo">Vagabundo</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Perspicacia, Supervivencia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de cartógrafo, un tipo de
+instrumento musical</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Un idioma adicional de tu elección</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo</strong></td>
+<td style="text-align: left;">Unas herramientas de cartógrafo, un
+instrumento musical de tu elección, un mapa de una provincia de
+Lithernia, un báculo, un conjunto de ropas de viajero y una bolsa con 10
+po.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgo-refugio-del-errante">Rasgo: Refugio del Errante</h3>
+<p>Conoces los caminos menos transitados y los secretos de la
+supervivencia en las tierras salvajes y las ruinas de Lithernia. Cuando
+te encuentras en la naturaleza o en asentamientos abandonados (como
+Mirallos o Estriedana), puedes encontrar un lugar seguro para ti y hasta
+cinco criaturas adicionales para esconderse y descansar.</p>
+<p>Además, en cualquier asentamiento, puedes encontrar los lugares donde
+se reúnen otros viajeros, exiliados o parias (como tabernas de mala
+muerte o campamentos clandestinos). Allí, puedes obtener rumores sobre
+rutas seguras, peligros locales o la ubicación de refugios a cambio de
+una pequeña cantidad de comida o monedas.</p>
+<h3 id="características-sugeridas">Características Sugeridas</h3>
+<h4 id="rasgos-de-personalidad-d8">Rasgos de Personalidad (d8)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d8</th>
+<th style="text-align: left;">Rasgo de Personalidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Siempre estoy alerta, analizando mi
+entorno en busca de amenazas o rutas de escape.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Guardo mis secretos celosamente, pues la
+información es la única moneda que nunca pierde su valor.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">He visto la caída de ciudades y el auge de
+tiranos. Nada me sorprende ya.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Colecciono historias y canciones de los
+lugares que visito, son mi único tesoro.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Desconfío de la opulencia y de quienes la
+ostentan; la verdadera riqueza está en la libertad.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Me siento más cómodo bajo las estrellas
+que bajo un techo de una ciudad.</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">Ofrezco mi ayuda a otros viajeros o
+desamparados, pues conozco bien su sufrimiento.</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">Hablo poco, pero cuando lo hago, mis
+palabras son directas y sin adornos.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ideales-d6">Ideales (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Ideal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><strong>Libertad.</strong> Nadie debería
+estar atado a un lugar o a un señor. Mi camino es mío y de nadie más.
+(Caótico)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><strong>Supervivencia.</strong> Haré lo
+que sea necesario para ver un nuevo amanecer. Las grandes causas son un
+lujo. (Neutral)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><strong>Conocimiento.</strong> El mundo
+está lleno de secretos olvidados. Mi propósito es descubrirlos.
+(Neutral)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><strong>Redención.</strong> Huyo de un
+terrible error en mi pasado y busco la forma de enmendarlo. (Bueno)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><strong>Comunidad.</strong> Protejo a los
+marginados y a los que no tienen hogar, pues somos una misma familia.
+(Legal)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><strong>Venganza.</strong> Un día volveré
+al lugar que me expulsó y haré que paguen por lo que me hicieron.
+(Maligno)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vínculos-d6">Vínculos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Vínculo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Busco a un ser querido que se perdió
+durante el éxodo que nos separó.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Protejo un mapa o un artefacto que
+encontré en unas ruinas pre-Cataclismo del <a
+href="Lilium.html">Lilium</a>. Podría cambiar el destino del mundo.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Le debo la vida a un extraño que me ayudó
+a escapar de mis captores. Juro encontrarlo y pagar mi deuda.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Mi lealtad pertenece a un pequeño grupo de
+compañeros de viaje, mi única familia verdadera.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Hay un lugar sagrado y oculto que es mi
+único hogar. Lo protegeré de cualquiera que intente profanarlo.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Fui exiliado de mi clan en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> (o de mi hogar en <a
+href="Eldrador.html">Eldrador</a>) y algún día demostraré mi valía o mi
+inocencia.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="defectos-d6">Defectos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Soy incapaz de confiar plenamente en
+nadie, ni siquiera en mis aliados más cercanos.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">El recuerdo de mi hogar perdido me
+atormenta y a veces me paraliza el dolor.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Tengo una deuda con una facción peligrosa
+(como el El culto de la araña abisal o un mercader de El bazar
+crepuscular) y temo que vengan a cobrarla.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Me arriesgaré de forma imprudente para
+obtener un fragmento de conocimiento perdido o una historia
+interesante.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Desprecio a la autoridad y a las leyes, lo
+que a menudo me mete en problemas innecesarios.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Tengo una adicción a una sustancia o a un
+juego de azar que me ayuda a olvidar mi pasado.</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </div>
+</body>
+</html>

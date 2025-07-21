@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maelys_Noctumbra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Maelys_Noctumbra</div>
+        <div class="content">
+<h1 id="maelys-noctumbra">Maelys Noctumbra</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los corredores silenciosos y laberínticos de <a
+href="Nythalas.html">Nythalas</a>, donde la luz del sol es un recuerdo y
+la verdad un bien de cambio, la figura de Maelys Noctumbra es tan
+fundamental como las piedras fundacionales de la ciudad. Nacido en las
+primeras generaciones del exilio, Maelys es la memoria viviente de la
+Casa Noctumbra, un pilar de conocimiento y cautela en una familia
+forjada en la ambición y el secreto. Como hermano menor del otrora señor
+de la casa, Malachi, Maelys nunca buscó el liderazgo frontal; su dominio
+siempre ha residido en un reino más sutil y perdurable: la Biblioteca de
+Ecos, el archivo prohibido que contiene el poder real de su linaje.</p>
+<p>Desde joven, Maelys mostró una aptitud excepcional no para la espada
+ni para la intriga de salón, sino para desenredar los hilos de la
+información. Mientras otros aspiraban a la gloria en el campo de batalla
+o en la corte, él encontraba el verdadero poder en los susurros, en los
+pactos olvidados y en las genealogías borradas. Fue él quien, hace tres
+siglos, descubrió la mancha en el linaje de la Casa Astellia, un secreto
+tan devastador que silenció la agresión de sus rivales durante décadas y
+consolidó a los Noctumbra como una fuerza a tener en cuenta. No lo hizo
+con un ejército, sino con un pergamino y una pluma.</p>
+<p>Devoto del dios <a href="Morgal.html">Morgal</a> no por fe ciega,
+sino por afinidad filosófica, Maelys comprende que una mentira bien
+colocada es más afilada que cualquier daga, pero que una verdad guardada
+es el escudo más impenetrable. Esta creencia lo ha convertido en el
+custodio perfecto de la Biblioteca, un santuario de chantajes,
+traiciones, alianzas secretas y verdades capaces de desmoronar reinos.
+Él no es un simple bibliotecario; es el archivista de la fragilidad de
+Lithernia, el guardián de las debilidades de los poderosos.</p>
+<p>Su conflicto más profundo no es con un rival externo, sino con el
+futuro de su propia casa, personificado en su sobrina, Lyra. Ve en ella
+el genio afilado de los Noctumbra, pero también una impaciencia
+temeraria. Mientras Maelys aboga por la acumulación y la contención
+—creyendo que el poder de un secreto reside en su potencial, no en su
+uso—, Lyra anhela desatar ese arsenal para elevar a su casa de las
+sombras a la cima de <a href="Eldrador.html">Eldrador</a>. Maelys teme
+que la agresiva política de su sobrina atraiga una luz que los Noctumbra
+no pueden soportar, quemando el velo de misterio que los ha protegido
+durante siglos y convirtiendo su mayor arma en su propia ruina. Por
+ello, la observa, la aconseja y, en ocasiones, obstruye sutilmente sus
+planes, en un peligroso juego de ajedrez familiar donde el tablero es el
+destino de su linaje.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>A sus 780 años, Maelys posee la gracia atemporal de los elfos, aunque
+el peso de los secretos ha dejado su huella. Es de complexión delgada y
+estatura media, con una espalda ligeramente encorvada por décadas de
+inclinarse sobre manuscritos. Su piel pálida tiene el matiz ceniciento
+de los que habitan lejos del sol, y su largo cabello, de un blanco
+plateado, suele llevarlo recogido en una sencilla trenza. Sus rasgos más
+notables son sus ojos, de un violeta profundo y penetrante, que parecen
+leer no solo las palabras, sino las intenciones detrás de ellas. Rara
+vez alza la voz, prefiriendo un tono mesurado y preciso que obliga a sus
+interlocutores a escuchar con atención.</p>
+<p>Viste con una elegancia sobria y funcional. Sus túnicas de seda y
+lana negra están cortadas a la perfección, sin adornos innecesarios más
+allá de sutiles bordados plateados que imitan patrones de constelaciones
+olvidadas. Siempre lleva consigo unas gafas de lectura con montura de
+plata y un juego de llaves de hueso y acero oscuro que abren las cámaras
+más profundas de la Biblioteca de Ecos. En su dedo anular porta el
+anillo de la casa, una máscara de plata que, a diferencia de los de
+otros miembros, parece desgastada por el tiempo y el uso. Aunque desdeña
+el combate, no es un necio; bajo su túnica oculta una estilizada daga de
+mithril, su hoja grabada con <a href="Runas.html">Runas</a> de silencio.
+Sin embargo, su verdadero arsenal son los incontables rollos de
+pergamino, libros encuadernados en piel y cristales de memoria que lo
+rodean en su santuario.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Maelys Noctumbra nunca será cantado en las baladas épicas de los
+héroes de Lithernia, ni su estatua se alzará en ninguna plaza pública.
+Su legado es, como él mismo, una fuerza silenciosa y subterránea que da
+forma al mundo sin que este se percate. Es el ancla que ha impedido que
+la Casa Noctumbra, en su ambiciosa deriva, naufrague contra las rocas de
+las casas más antiguas y poderosas. Los secretos que custodia son diques
+que contienen inundaciones de caos; un solo susurro suyo podría iniciar
+una guerra, deponer a un rey o exonerar a un mártir.</p>
+<p>Su impacto no se medirá en conquistas, sino en las crisis que nunca
+llegaron a estallar. Es un poder en la sombra, un rey sin corona cuyo
+trono es una silla de roble pulido y cuyo reino es un laberinto de
+estanterías. El futuro de la Casa Noctumbra, y por extensión el
+equilibrio de poder en <a href="Eldrador.html">Eldrador</a>, pende del
+resultado de su lucha ideológica con la nueva generación. Si su
+filosofía de contención prevalece, asegurará la supervivencia de su
+linaje. Si la impetuosidad de su sobrina Lyra se impone, Maelys podría
+pasar a la historia como el último guardián sabio de un poder demasiado
+grande para ser controlado, cuya biblioteca se convirtió en la pira
+funeraria de su casa.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Noctumbra.html">Casa Noctumbra</a> (relevancia:
+0.54)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyweneth</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kyweneth</div>
+        <div class="content">
+<h1 id="kyweneth">Kyweneth</h1>
+<p>Kyweneth no es una ciudad construida, sino tejida. Enclavada en el
+corazón del Bosque de los Telares de Plata, sus estructuras no son de
+piedra, sino plataformas vivas que brotan de las ramas de árboles
+gigantes de corteza plateada. Estos colosos, conocidos como los “Telares
+Vivientes”, son el alma de la ciudad. Conectada por puentes de lianas y
+velada por masivos tapices de seda encantada que narran la historia del
+cosmos, Kyweneth es la manifestación física de la filosofía del “Gran
+Tejido”: la creencia de que cada vida es un hilo con un propósito
+predeterminado, y la Mano de Hierro no es opresión, sino el orden divino
+del universo.</p>
+<h2 id="historia">Historia</h2>
+<p>Fundada tras el Cataclismo del <a href="Lilium.html">Lilium</a>,
+Kyweneth nació de la necesidad de imponer un orden en un mundo sumido en
+el caos. Su fundadora, la archimaga Alta Elfa Lyraela, conocida como “La
+Primera Tejedora”, interpretó las constelaciones de <a
+href="Arzia.html">Arzia</a> no como guías hacia la libertad, sino como
+el diseño inmutable de un tapiz cósmico. Afirmó que el sufrimiento del
+mundo provenía de los mortales que intentaban salirse de su rol
+predestinado.</p>
+<p>Bajo su liderazgo, se estableció una sociedad rígidamente
+estratificada, donde cada individuo tenía un lugar asignado desde su
+nacimiento. Los Altos Elfos, como intérpretes del destino, se
+convirtieron en la nobleza gobernante; los Elfos del Bosque y los <a
+href="Eladrin.html">Eladrin</a>, con su destreza manual, fueron
+designados artesanos y cuidadores; y los Shadar-Kai, marcados por la
+sombra, se vieron relegados a los trabajos más arduos en las raíces del
+bosque. Kyweneth se convirtió rápidamente en un bastión ideológico de la
+Mano de Hierro, un ejemplo de “armonía” forzada que el resto de <a
+href="Eldrador.html">Eldrador</a> observaría con una mezcla de
+admiración y temor.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón del Tejido</strong>: La plaza central de la
+ciudad, una vasta plataforma circular suspendida entre los tres Telares
+Vivientes más antiguos. En su centro se alza la “Lanzadera de <a
+href="Arzia.html">Arzia</a>”, un monolito de plata que emana un hilo de
+luz constante, cuyo patrón cambia con los designios del destino. Aquí se
+celebra el Festival del Telar Anual y se realizan los ritos más
+importantes.</p></li>
+<li><p><strong>La Cúspide de Plata</strong>: El distrito más elevado,
+reservado para la nobleza de los Altos Elfos. Son villas etéreas con
+balcones de cristal y jardines colgantes, donde se toman las decisiones
+que rigen la vida de miles de seres. El acceso está restringido por
+guardias y barreras mágicas.</p></li>
+<li><p><strong>Las Galerías Colgantes</strong>: El vibrante distrito de
+los artesanos, una red de talleres y viviendas suspendidas a media
+altura. Aquí, Elfos del Bosque y <a href="Eladrin.html">Eladrin</a>
+trabajan incansablemente en los grandes telares, tejiendo desde los
+tapices proféticos hasta las túnicas de la nobleza. El aire está
+impregnado del aroma de tintes mágicos y el suave zumbido de los hilos
+de maná.</p></li>
+<li><p><strong>Las Raíces Sombrías</strong>: La base de los Telares
+Vivientes, un mundo de penumbra perpetua donde la luz es filtrada por
+los tapices superiores. Es el hogar de los Shadar-Kai y el lugar de los
+trabajos más pesados. Los túneles excavados en las raíces de los árboles
+sirven como viviendas y pasadizos, y se rumorea que ocultan secretos que
+la nobleza prefiere mantener enterrados.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Kyweneth está marcada por el ritual y la predestinación.
+El rito de paso más importante es el “Lanzar los Hilos”, donde un joven
+elfo se presenta ante la Lanzadera de <a href="Arzia.html">Arzia</a>. El
+patrón de luz que esta proyecta sobre ellos determina su rol social de
+por vida, una decisión irrevocable.</p>
+<p>Los pactos y juramentos se sellan con la “Atadura de Hilos”, un
+ritual donde los implicados tejen mechones de su cabello en un pequeño
+tapiz, que luego se quema para liberar la promesa al cosmos. El evento
+más esperado es el “Festival del Telar Anual”, donde la nobleza desvela
+un tapiz monumental tejido a lo largo del año, que supuestamente predice
+los eventos más importantes del reino para el ciclo venidero. Veneran a
+<a href="Arzia.html">Arzia</a> como la tejedora suprema, honran a <a
+href="Lerian.html">Lerian</a> como la guardiana del conocimiento de los
+patrones, y temen a <a href="Morgal.html">Morgal</a>, el “Enredador de
+Hilos”, un dios del caos que representa la pesadilla de un destino
+deshilachado.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Kyweneth es un espectáculo de belleza vertical y ordenada. Los
+puentes de lianas vivas brillan con una suave luminiscencia, y los
+grandes tapices que cuelgan entre los árboles actúan como vidrieras,
+tiñendo la luz del día en tonos joya. El sonido predominante es el
+murmullo rítmico de miles de lanzaderas y telares mágicos, una melodía
+constante que es la banda sonora del destino en acción. El ambiente es
+sereno en la superficie, pero bajo la calma se percibe una tensión
+palpable: la presión de un rol inmutable y la vigilancia constante de
+quienes se aseguran de que nadie se desvíe de su camino.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Tejedora en las Raíces</strong>: Se susurra que el
+espíritu de la fundadora, Lyraela, nunca abandonó la ciudad. Reside en
+el sistema de raíces de los Telares Vivientes, desde donde susurra
+profecías a quienes se atreven a escuchar. Algunos dicen que guía a la
+nobleza, pero otros creen que su alma, corrompida por el poder, ahora
+busca atrapar los hilos vitales de quienes la perturban, añadiéndolos a
+su propio tapiz eterno.</p></li>
+<li><p><strong>El Deshilachado</strong>: Los Shadar-Kai cuentan la
+historia de un fantasma que acecha las Raíces Sombrías. Se dice que fue
+el primer Shadar-Kai en intentar rebelarse contra su destino asignado.
+Ejecutado, su espíritu ahora busca venganza intentando deshacer los
+hilos de los grandes tapices proféticos, con la esperanza de provocar el
+caos y liberar a su pueblo del yugo de la predestinación.</p></li>
+<li><p><strong>El Patrón Olvidado</strong>: La leyenda más peligrosa y
+prohibida de Kyweneth. Habla de un diseño de tejido secreto, un “Patrón
+Olvidado” creado antes de la fundación de la ciudad. Este patrón no
+predice el destino, sino que lo rompe. Se dice que tejerlo podría
+deshacer la magia de la Mano de Hierro y liberar a todos de sus roles
+asignados. Encontrar este patrón es el mayor acto de herejía imaginable,
+y la nobleza exterminaría a cualquiera que se acercara a
+descubrirlo.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.56)</li>
+<li><a href="Noble.html">Noble</a> (relevancia: 0.31)</li>
+<li><a href="Elfos.html">Elfos</a> (relevancia: 0.31)</li>
+<li><a href="Nobleza.html">Nobleza</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

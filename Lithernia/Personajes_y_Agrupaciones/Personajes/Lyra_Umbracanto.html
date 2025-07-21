@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Umbracanto</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Umbracanto</div>
+        <div class="content">
+<h1 id="lyra-umbracanto">Lyra Umbracanto</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los salones silenciosos y fríos del Bastión Silente, donde la
+gloria se mide en la entereza del alma y no en el clamor de la batalla,
+se forjó el espíritu de Lyra Umbracanto. No es una <a
+href="Noble.html">Noble</a> de corte ni una guerrera de campo abierto,
+sino una de las guardianas más cruciales y desconocidas de todo
+Lithernia. Como Runasacerdotisa Mayor de la Casa Umbracanto, su vida
+está consagrada a un deber ancestral: vigilar el Abismo del Lamento, una
+cicatriz psíquica en la realidad, dejada por el Cataclismo del <a
+href="Lilium.html">Lilium</a>.</p>
+<p>Nacida en el linaje directo del fundador, Thane Borin ‘El Silente’,
+Lyra fue criada bajo la sombra de la campana agrietada de su escudo.
+Desde niña, aprendió que el verdadero enemigo no empuña acero, sino que
+susurra locura desde las profundidades. La disciplina de los Umbracanto
+es legendaria: entrenamientos de meditación en silencio absoluto,
+estudio de <a href="Runas.html">Runas</a> de contención y una austeridad
+que ahoga cualquier flaqueza. Lyra no solo soportó esta vida, sino que
+prosperó. Mostró una afinidad innata para la magia de abjuración, capaz
+de percibir las fisuras más sutiles en los sellos rúnicos que contienen
+los ecos del Abismo. Su talento era tal que, a una edad relativamente
+joven para su casa, fue nombrada Maestra de los Sellos, una
+responsabilidad que la sitúa solo por debajo de su tío Hargrim, el
+actual Señor del Bastión.</p>
+<p>Su mayor hazaña, conocida solo por el círculo interno de la casa, fue
+cuando un temblor de tierra debilitó una de las <a
+href="Runas.html">Runas</a> maestras. Mientras los Guardias del Silencio
+luchaban por contener una oleada de terror psíquico que amenazaba con
+quebrar sus mentes, Lyra descendió sola a la Cámara del Eco. Allí,
+durante tres días y tres noches, soportó los lamentos concentrados de un
+mundo moribundo mientras canalizaba su propia esencia vital para
+reinscribir el sello, un acto que la dejó al borde de la locura, pero
+que salvó al Bastión y, por extensión, a <a
+href="Valtoria.html">Valtoria</a>, de un desastre incalculable.</p>
+<p>Sin embargo, su mayor desafío no proviene del Abismo, sino de su
+propia sangre. Su tío, <strong>Hargrim Umbracanto</strong>, es un líder
+anclado en la tradición, que ve el deber como un fin en sí mismo, pero
+carece de la visión para enfrentar las nuevas amenazas. Su primo,
+<strong>Kaelen Umbracanto</strong>, Capitán de la Guardia, es la
+antítesis de todo lo que Lyra representa. Ambicioso y pragmático, Kaelen
+cree que el Abismo no es una herida que custodiar, sino un arma que
+blandir. Sueña con canalizar su poder para convertir a la Casa
+Umbracanto en una potencia temible, una idea que a Lyra le hiela la
+sangre. Esta tensión ideológica amenaza con fracturar la casa desde
+dentro.</p>
+<p>En medio de este conflicto, Lyra ha tomado bajo su protección a
+<strong>Vornik</strong>, un joven Guardia del Silencio cuyo espíritu
+comienza a resquebrajarse bajo la presión constante de los lamentos. En
+él ve el reflejo de lo que le podría ocurrir a toda su familia si
+fallan, y su compasión por él es un ancla de humanidad en su vida de
+disciplina férrea. Lucha por mantener el equilibrio: contener el Abismo
+fuera, la ambición de su primo dentro, y la desesperación de sus
+hermanos de guardia en su corazón.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Lyra posee la belleza austera y afilada de las montañas que la vieron
+nacer. Con 180 años, su rostro ha perdido la suavidad de la juventud,
+pero aún no muestra la profunda marca de la vejez; parece suspendida en
+una madurez atemporal. Su piel es pálida, como el granito pulido de los
+salones del Bastión, y su largo cabello, de un negro profundo, suele
+llevarlo recogido en una severa trenza adornada con anillos de plata
+rúnica. Sus ojos, de un gris tormentoso, reflejan una inteligencia aguda
+y una melancolía infinita, como si contemplaran constantemente el abismo
+que guarda. Su porte es recto y controlado, cada movimiento deliberado y
+sin adornos, producto de una vida de disciplina marcial y mental.</p>
+<p>Viste con la funcionalidad que exige su deber. Sobre una cota de
+mallas de mithril oscuro —un regalo de sus aliados Dravonis—, lleva una
+túnica de lana gruesa de color carbón, bordada en los bordes con sellos
+de contención plateados. No porta joyas, salvo por un sencillo amuleto
+de plata con el emblema de la casa: la campana agrietada, que le sirve
+como foco arcano.</p>
+<p>Su equipamiento principal es una extensión de su rol:</p>
+<ul>
+<li><strong>Báculo “Silencio”:</strong> Un báculo de roble petrificado,
+pulido hasta adquirir un brillo sombrío. Está coronado por un fragmento
+de obsidiana extraído de los bordes del Abismo, que parece absorber la
+luz y el sonido a su alrededor. El báculo le permite canalizar y enfocar
+su magia de abjuración con una precisión formidable.</li>
+<li><strong>Herramientas de Runasacerdotisa:</strong> Un estuche de
+cuero curtido que contiene todo lo necesario para su arte: cinceles de
+plata, tizas rúnicas hechas con polvo de gemas y viales de tinta
+mezclada con su propia sangre, utilizada para los sellos más potentes y
+personales.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>El legado de Lyra Umbracanto es, por su propia naturaleza,
+silencioso. No será cantado en las tabernas de <a
+href="Galvorn.html">Galvorn</a> ni inscrito en los grandes salones de <a
+href="Eldrador.html">Eldrador</a>. Su impacto se mide por las
+catástrofes que <em>no</em> ocurren. Cada día que <a
+href="Valtoria.html">Valtoria</a> no se sume en la locura, cada vez que
+un minero enano no es asaltado por visiones de pesadilla, es una
+victoria para Lyra y su casa. Es una de las guardianas invisibles del
+orden, una heroína cuyo campo de batalla es la mente y cuyo enemigo es
+el dolor de un mundo.</p>
+<p>Su alianza con la <strong>Torre de las Estrellas</strong> ha
+permitido a los sabios de <a href="Valtoria.html">Valtoria</a>
+comprender mejor las fluctuaciones del Tejido de Maná, advirtiendo de
+posibles cataclismos planares antes de que ocurran. Para la <strong>Casa
+Dravonis</strong>, el Bastión Silente es un puesto de vigilancia
+impenetrable, y su apoyo a Lyra es una inversión en la seguridad de todo
+el reino montañoso.</p>
+<p>El futuro de Lithernia podría depender de la resolución de sus
+conflictos internos. Si su primo Kaelen lograra su objetivo, el Abismo
+del Lamento podría convertirse en el arma de terror psicológico más
+devastadora del continente, alterando el equilibrio de poder para
+siempre. Pero si Lyra tiene éxito, no solo mantendrá el juramento de sus
+ancestros, sino que podría encontrar una forma de sanar la herida del
+mundo, no solo de vigilarla. Si lo lograra, liberaría a su linaje de su
+carga milenaria y traería una paz al alma de Lithernia que ni siquiera
+los dioses pudieron concebir. Su historia es la prueba de que las
+batallas más importantes a menudo se libran en el más absoluto
+silencio.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Umbracanto.html">Casa Umbracanto</a> (relevancia:
+0.35)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oráculos_y_Profecías_Élficas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Oráculos_y_Profecías_Élficas</div>
+        <div class="content">
+<h1 id="oráculos-y-profecías-élficas">Oráculos y profecías élficas</h1>
+<p>Los oráculos y profecías élficas son pilares fundamentales en la
+cultura y política del reino de <a href="Eldrador.html">Eldrador</a>, la
+vasta tierra donde la conexión entre magia ancestral y destino se
+entreteje con el día a día de sus habitantes. En Lithernia, esta
+práctica es mucho más que una tradición; es un arte sagrado, guardado
+celosamente por los señores de las tierras y respetado por todas las
+razas que coexisten en el continente.</p>
+<h2 id="la-raíz-de-la-adivinación-élfica">La Raíz de la Adivinación
+Élfica</h2>
+<p>Los elfos de <a href="Eldrador.html">Eldrador</a> creen que el tiempo
+no es lineal sino un río cuyas corrientes se entrelazan y bifurcan. Los
+oráculos, dotados de una sensibilidad excepcional al fluir de estas
+corrientes, son capaces de vislumbrar posibles futuros y desentrañar
+misterios ocultos en las estrellas, las raíces de los árboles
+ancestrales o el murmullo del viento. Según la leyenda, la primera
+profecía fue entregada por Elessariel, la Madre de las Estrellas, quien
+habló de un ciclo eterno en el que la luz y la sombra pactarían su
+destino.</p>
+<h2 id="instituciones-y-custodios">Instituciones y Custodios</h2>
+<h3 id="el-concilio-de-los-susurros">El Concilio de los Susurros</h3>
+<p>Este cuerpo de oráculos, compuesto exclusivamente por elfos de sangre
+<a href="Noble.html">Noble</a>, es el encargado de interpretar visiones
+y dictar las profecías que guían las decisiones del rey y los altos
+nobles. Los miembros se retiran a los santuarios del Bosque Eterno,
+donde meditan durante semanas hasta alcanzar el trance adivinatorio.</p>
+<h3 id="las-hermanas-del-viento">Las Hermanas del Viento</h3>
+<p>Una hermandad femenina que practica la adivinación mediante el canto
+y la danza, influyendo en festivales y ceremonias públicas. Sus
+profecías suelen ser de naturaleza social y cultural, prediciendo
+cambios en las alianzas, nacimientos o catástrofes naturales.</p>
+<h2 id="influencia-en-la-política-de-eldrador">Influencia en la Política
+de Eldrador</h2>
+<p>El peso de una profecía puede decidir guerras, pactos matrimoniales u
+otorgar legitimidad a un gobernante. No hay elección en <a
+href="Eldrador.html">Eldrador</a> que no pase por el escrutinio del
+Concilio de los Susurros. Incluso las conspiraciones deben jugar sus
+cartas considerando lo profetizado, pues desafiar al destino es
+considerado un sacrilegio con consecuencias funestas.</p>
+<p>Una de las profecías más famosas, conocida como “El Eclipse del
+Lamento”, previó la caída de una dinastía y la llegada de un heredero
+inesperado que cambiaría para siempre el curso de Lithernia.</p>
+<h2 id="leyendas-emblemáticas">Leyendas Emblemáticas</h2>
+<ul>
+<li><p><strong>El Oráculo de las Tres Lunas</strong>: Se dice que bajo
+la luz simultánea de tres lunas, un joven elfo recibió una visión que le
+mostró el fin del mundo conocido y el amanecer de una nueva era. Esta
+profecía permitió a <a href="Eldrador.html">Eldrador</a> prepararse para
+la invasión de los encapuchados del norte.</p></li>
+<li><p><strong>El Susurro de Malorien</strong>: Cuenta la leyenda que un
+dragón ancestral, cuyo nombre fue olvidado por el tiempo, habló a un
+oráculo en un sueño, advirtiendo sobre la sombra que crecería en los
+corazones de los gobernantes.</p></li>
+</ul>
+<h2 id="costumbres-y-rituales">Costumbres y Rituales</h2>
+<h3 id="la-noche-de-la-revelación">La Noche de la Revelación</h3>
+<p>Cada año, durante el solsticio de verano, <a
+href="Eldrador.html">Eldrador</a> celebra la Noche de la Revelación,
+donde oráculos y profetas presentan sus visiones ante la corte y el
+pueblo. Este evento es a la vez sagrado y festivo, con música, fuego y
+ofrendas a los antiguos espíritus que, se cree, inspiran la verdad.</p>
+<h3 id="las-runas-del-destino">Las Runas del Destino</h3>
+<p>Antes de emitir un oráculo, los adivinos usan el arte olvidado de
+tallar <a href="Runas.html">Runas</a> en piedra o madera, activándolas
+con hechizos y cantos. Solo la combinación correcta puede revelar los
+caminos entrelazados del destino.</p>
+<h2 id="la-dualidad-del-destino">La Dualidad del Destino</h2>
+<p>En <a href="Eldrador.html">Eldrador</a> existe el concepto de que las
+profecías no son predicciones absolutas, sino advertencias y guías. El
+libre albedrío permite a quienes las escuchan elegir seguir o desafiar
+su curso, aunque siempre con el riesgo de alterar el equilibrio
+sagrado.</p>
+<hr />
+<p>En definitiva, los oráculos y profecías élficas son el alma
+intangible que sostiene a <a href="Eldrador.html">Eldrador</a>. Su
+influencia en la política y cultura del reino no sólo moldea el presente
+sino que traza las líneas invisibles del futuro, en un mundo donde el
+destino es un legado compartido entre magia y voluntad.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Profecías.html">Profecías</a> (relevancia: 0.71)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.41)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

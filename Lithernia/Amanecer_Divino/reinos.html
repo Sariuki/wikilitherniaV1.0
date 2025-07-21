@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reinos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">reinos</div>
+        <div class="content">
+<h1 id="reinos-y-ciudades-de-lithernia">Reinos y Ciudades de
+Lithernia</h1>
+<h2 id="mordhul">Mor’dhul</h2>
+<h3 id="aelithor">Aelithor</h3>
+<ul>
+<li>Ubicación: “1020.3787, 756.2177”</li>
+<li>Cultura: Paranoica, basada en secretos y susurros. Poder medido por
+secretos guardados y extraídos. Dominada por el Clan Whisper, que
+practica nigromancia sónica.</li>
+<li>Religión: Veneran públicamente a Sel’thirak (silencio y paz de la
+tumba). La élite practica en secreto el culto a Kromagul, Dios del
+Dolor.</li>
+<li>Arquitectura: Ciudad tallada en paredes de granito negro, con
+puentes de hueso e hierro. Runas silenciadoras brillan con luz espectral
+verdosa.</li>
+<li>Población: Mayoría Hobgoblins (Clan Whisper), minorías Tieflings y
+exiliados Shadar-Kai.</li>
+<li>Festividades: Festival del Silencio Eterno (día sin hablar),
+Confesión del Eco (castigo de criminales).</li>
+<li>Leyendas: Lamento del Cañón (roba recuerdos), Biblioteca de Susurros
+(almacén de palabras de muertos), Primer Eco (palabra con poder
+inimaginable).</li>
+</ul>
+<h3 id="thirawen">Thirawen</h3>
+<ul>
+<li>Ubicación: “850.09, 672.55”</li>
+<li>Descripción: Ciudad-prisión en meseta helada, gobernada por bandas
+violentas y un Guardián nombrado por Sel’thirak.</li>
+<li>Población: Tieflings, orcos, goblins, otros.</li>
+<li>Cultura: Nihilista y resiliente, arte en grabados de huesos, sin
+festividades salvo la Noche Quieta.</li>
+<li>Religión: Culto fatalista al viento, cultos secretos al Primer
+Rey.</li>
+<li>Arquitectura: Edificios de pizarra oscura con restos petrificados de
+árboles.</li>
+<li>Leyendas: Viento como suspiros del Primer Rey, portal élfico que se
+abre en la Noche Quieta.</li>
+</ul>
+<h3 id="miryalis">Miryalis</h3>
+<ul>
+<li>Ubicación: Mor’dhul</li>
+<li>Cultura: Magocracia teocrática, control del Lilium residual,
+rituales de contención.</li>
+<li>Población: Tieflings élite, hobgoblins, goblins, esclavos
+humanos.</li>
+<li>Arquitectura: Basalto negro, terrazas descendentes, cristal de
+lilium autoiluminado.</li>
+<li>Festividades: Vigilia de la Ceniza (noche de silencio).</li>
+<li>Leyendas: Conciencia residual del Primer Rey en las llamas, niños
+como anclas vivientes.</li>
+</ul>
+<h3 id="aluinel">Aluinel</h3>
+<ul>
+<li>Ubicación: Mor’dhul</li>
+<li>Cultura: Militarista y paranoica, vigilancia y recopilación de
+secretos.</li>
+<li>Población: Hobgoblins, goblins, orcos, descendientes de elfos
+oscuros y Shadar-Kai.</li>
+<li>Religión: Culto a Kromagul, sincretismo forzado con adoración a
+Arzia.</li>
+<li>Arquitectura: Torres de cuarzo pálido fortificadas, árboles
+petrificados.</li>
+<li>Leyendas: Fantasma de suma sacerdotisa Lirael, resistencia de
+Shadar-Kai, tensiones internas.</li>
+</ul>
+<h3 id="daevyra">Daevyra</h3>
+<ul>
+<li>Ubicación: Mor’dhul</li>
+<li>Cultura: Magocracia paranoica, crueldad intelectual, experimentación
+mágica.</li>
+<li>Población: Tieflings, hobgoblins, goblins, esclavos humanos.</li>
+<li>Arquitectura: Agujas de basalto, gemas de alma, bibliotecas
+subterráneas.</li>
+<li>Festividades: Festival del Grimorio Desatado.</li>
+<li>Leyendas: Bibliotecario de Ecos, Mercado de Pensamientos
+Perdidos.</li>
+</ul>
+<h3 id="soriel">Soriel</h3>
+<ul>
+<li>Ubicación: Mor’dhul</li>
+<li>Cultura: Casa noble hobgoblin, orden burocrático y cruel.</li>
+<li>Población: Hobgoblins, goblins, tieflings, esclavos.</li>
+<li>Religión: Culto a Kromagul, veneración a Sel’thirak y Gyth’kai.</li>
+<li>Arquitectura: Edificios angulares de granito, Archivo de
+Edictos.</li>
+<li>Leyendas: Archivista Desalmado, Cobrador de Sombras.</li>
+</ul>
+<h3 id="ethiryn">Ethiryn</h3>
+<ul>
+<li>Ubicación: Mor’dhul</li>
+<li>Cultura: Belleza melancólica y desesperación artística.</li>
+<li>Población: Shadar-Kai, tieflings, goblins, esclavos humanos.</li>
+<li>Religión: Culto estético a Gyth’kai.</li>
+<li>Arquitectura: Gótico decadente, torres de obsidiana, vitrales
+trágicos.</li>
+<li>Festividades: Festival de los Colores Moribundos.</li>
+<li>Leyendas: Musa Llorona, Galería Silenciosa.</li>
+</ul>
+<h3 id="lyndaleas">Lyndaleas</h3>
+<ul>
+<li>Ubicación: Mor’dhul</li>
+<li>Cultura: Sumisión aparente y resistencia silenciosa.</li>
+<li>Población: Elfos, hobgoblins, orcos, goblins.</li>
+<li>Religión: Culto público a Kromagul y Sel’thirak; culto secreto a
+Ferion y Morgal.</li>
+<li>Arquitectura: Estructuras élficas profanadas, fortificaciones de
+hierro.</li>
+<li>Festividades: Día del Acero Doliente, Noche de las Hojas
+Silenciosas.</li>
+<li>Leyendas: Árbol-Corazón élfico, Susurrante de las Raíces.</li>
+</ul>
+<h3 id="calanor">Calanor</h3>
+<ul>
+<li>Ubicación: Mor’dhul</li>
+<li>Cultura: Magocracia de torturadores, gobierno basado en miedo y
+sufrimiento.</li>
+<li>Población: Goblins, hobgoblins, orcos, tieflings.</li>
+<li>Religión: Culto a Kromagul, templos como cámaras de tormento.</li>
+<li>Arquitectura: Roca basáltica e hierro oxidado, pilares de los
+lamentos.</li>
+<li>Festividades: Festival del Silencio Roto.</li>
+<li>Leyendas: Coleccionista de Gritos.</li>
+</ul>
+<h3 id="rynavel">Rynavel</h3>
+<ul>
+<li>Ubicación: Mor’dhul</li>
+<li>Cultura: Supervivencia en pantanos, superstición y secretos.</li>
+<li>Población: Goblins, hobgoblins, orcos, parias.</li>
+<li>Religión: Culto a Gyth’kai y Sel’thirak.</li>
+<li>Arquitectura: Ruinas élficas con estructuras toscas y runas
+desfiguradas.</li>
+<li>Leyendas: Trono de la última reina élfica, entidad antigua bajo la
+ciudad.</li>
+</ul>
+<h3 id="selorith">Selorith</h3>
+<ul>
+<li>Ubicación: Mor’dhul</li>
+<li>Cultura: Sociedad transaccional y paranoica, comercio de bienes y
+secretos.</li>
+<li>Población: Goblins, tieflings, hobgoblins, humanos esclavizados,
+otros.</li>
+<li>Religión: Culto a Gyth’kai.</li>
+<li>Arquitectura: Mercado Susurrante, templos-bancos.</li>
+<li>Leyendas: Falta información canónica.</li>
+</ul>
+<h2 id="valtoria">Valtoria</h2>
+<h3 id="tiryandel">Tiryandel</h3>
+<ul>
+<li>Ubicación: “1359.6548, 413.0150”</li>
+<li>Cultura: Laboriosidad enana y reverencia por la naturaleza,
+guardianes del equilibrio montaña-vida.</li>
+<li>Religión: Rokael (Creación), Cirkon (Roca), tradiciones druídicas
+similares a Ferion.</li>
+<li>Población: Enanos, gnomos, genasi de tierra, goliaths, otros.</li>
+<li>Festividades: La Germinación del Cristal, concursos de tallado y
+encantamiento.</li>
+<li>Arquitectura: Caverna con árbol fosforescente Ancestrogranito,
+estructuras geodrúdicas, puentes de madera viva.</li>
+<li>Símbolo: Martillo de mithril con raíces de árbol de cristal sobre
+montaña facetada.</li>
+<li>Leyendas: Eco del Durmiente (dragón de tierra primordial), peligro
+de despertar.</li>
+</ul>
+<h3 id="lorielyn">Lorielyn</h3>
+<ul>
+<li>Ubicación: “1690.5346, 94.0403”</li>
+<li>Cultura: Asamblea de gremios y clanes, cooperación e ingenio.</li>
+<li>Religión: Panteón enano, veneración sincrética a Ferion y
+Taladrios.</li>
+<li>Población: Gnomos, halflings, enanos, genasi de tierra,
+goliaths.</li>
+<li>Festividades: Festival de la Cosecha Mecanizada.</li>
+<li>Arquitectura: Edificaciones semi-subterráneas con techos de hierba,
+puentes de piedra y cristal.</li>
+<li>Símbolo: Engranaje de bronce con espiga de trigo dorado sobre picos
+azules.</li>
+<li>Leyendas: Río susurrante, Corazón de Cristal (gólem ancestral).</li>
+</ul>
+<h2 id="ciudad-estado-independiente">Ciudad-Estado Independiente</h2>
+<h3 id="valarion-las-cumbres-resquebrajadas">Valarion (Las Cumbres
+Resquebrajadas)</h3>
+<ul>
+<li>Ubicación: “671.29, 646.95”</li>
+<li>Cultura: Teocracia meritocrática, forja extrema y combate.</li>
+<li>Población: Enanos del Clan Agrietacero, genasi de fuego, dragonborn,
+orcos.</li>
+<li>Religión: Valarios (destrucción), Trovdor (metal).</li>
+<li>Arquitectura: Fortalezas en volcán activo, canales de lava
+abiertos.</li>
+<li>Festividades: La Gran Purga, saludo con choque de antebrazos.</li>
+<li>Símbolo: Yunque de obsidiana partido con llama roja.</li>
+<li>Leyendas: Dragón primordial dormido, armas templadas en sangre.</li>
+</ul>
+<h1 id="enlaces-relacionados">Enlaces Relacionados</h1>
+<ul>
+<li><a href="index.html">index</a></li>
+<li><a href="clases.html">clases</a></li>
+</ul>
+<hr />
+<p>Falta información canónica para algunas ciudades y detalles
+específicos.</p>
+        </div>
+    </div>
+</body>
+</html>

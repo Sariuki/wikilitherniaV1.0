@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelos,_el_Primer_Herrero</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelos,_el_Primer_Herrero</div>
+        <div class="content">
+<h1 id="kaelos-el-primer-herrero">Kaelos, el primer herrero</h1>
+<h3 id="trasfondo-forjado-en-la-tradición">Trasfondo: Forjado en la
+Tradición</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Historia, Persuasión</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de herrero</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Enano</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo</strong></td>
+<td style="text-align: left;">Unas herramientas de herrero, un pequeño
+martillo con las iniciales de tu maestro, un delantal de cuero, un
+conjunto de ropas comunes y una bolsa con 10 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Bendición de la <a
+href="Herreria.html">Herreria</a></strong></td>
+<td style="text-align: left;">Eres respetado por artesanos, herreros y
+mineros, especialmente en <a href="Valtoria.html">Valtoria</a>. Puedes
+encontrar refugio y comida sencillos en cualquier herrería o gremio de
+artesanos. Además, al encargar la fabricación de un objeto metálico no
+mágico, el coste de la mano de obra se reduce a la mitad.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="características-sugeridas">Características Sugeridas</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d8</th>
+<th style="text-align: left;">Rasgo de Personalidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Mido el valor de las cosas por su
+manufactura y durabilidad.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Encuentro paz en el ritmo rítmico de un
+martillo sobre un yunque.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Siempre busco la forma de mejorar
+cualquier objeto o estructura.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Hablo con la franqueza y solidez de la
+piedra y el acero.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Tengo una paciencia legendaria, forjada en
+incontables horas frente al fuego.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Creo que toda materia prima tiene un
+potencial oculto esperando ser liberado.</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">Cito viejos proverbios de herreros para
+cada situación.</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">Desconfío de lo que es etéreo y frágil;
+prefiero lo tangible y robusto.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Ideal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><strong>Creación.</strong> El mayor
+propósito es transformar el mundo en algo más útil y hermoso.
+(Bueno)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><strong>Tradición.</strong> Los métodos
+ancestrales han demostrado su valía y deben ser preservados.
+(Legal)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><strong>Perfección.</strong> No me
+conformo con menos que la excelencia en mi oficio y en mis actos.
+(Neutral)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><strong>Comunidad.</strong> Mis
+habilidades deben servir para fortalecer y proteger a mi gente.
+(Bueno)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><strong>Poder.</strong> El dominio sobre
+el metal es el dominio sobre el mundo. (Maligno)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><strong>Innovación.</strong> Las viejas
+tradiciones son solo el cimiento sobre el que construir algo nuevo.
+(Caótico)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Vínculo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Llevo una pieza inacabada de mi maestro, y
+he jurado completarla.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Busco un mineral legendario que se dice
+que Kaelos usó en sus creaciones.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Mi familia forjó un arma para un <a
+href="Heroes.html">Heroes</a> que cayó en desgracia, y debo limpiar
+nuestro honor.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Protejo un secreto de <a
+href="Herreria.html">Herreria</a> que mi gremio me confió.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Mi lealtad está con <a
+href="Valtoria.html">Valtoria</a> y los descendientes del primer rey
+enano.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Debo recrear una de las obras perdidas de
+Kaelos para demostrar mi valía.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Soy terco como una mula de montaña; una
+vez tomo una decisión, no hay quien me mueva.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Subestimo las amenazas que no puedo
+golpear con un martillo.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Acumulo chatarra y materiales “útiles” que
+nunca llego a usar.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Critico abiertamente cualquier trabajo
+artesanal que considero mediocre.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Confío más en mi acero que en mis
+aliados.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Soy capaz de arriesgarlo todo por un
+objeto de bella factura.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dote-legado-de-kaelos">Dote: Legado de Kaelos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Requisito</th>
+<th style="text-align: left;">Competencia con Herramientas de
+Herrero</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Beneficios</strong></td>
+<td style="text-align: left;">• Aumenta tu puntuación de Fuerza o
+Constitución en 1, hasta un máximo de 20.<br>• Ganas pericia con las
+herramientas de herrero (tu bonificador de competencia se duplica para
+cualquier prueba de habilidad que hagas con ellas).<br>• Cuando fabricas
+una armadura o un arma, el tiempo requerido se reduce a la mitad.<br>•
+Una vez por descanso largo, puedes imbuir un arma o armadura metálica no
+mágica con una propiedad temporal. El objeto gana un bonificador de +1 a
+las tiradas de ataque y daño (si es un arma) o a la CA (si es una
+armadura) durante 1 hora.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: left;">Historia / Religión</td>
+<td style="text-align: left;">Kaelos fue el primer herrero mortal, una
+figura legendaria venerada por los artesanos, especialmente en <a
+href="Valtoria.html">Valtoria</a>.</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: left;">Historia</td>
+<td style="text-align: left;">Se conoce la leyenda de cómo recibió el
+primer martillo de <a href="Levbrios.html">Levbrios</a> y fue instruido
+por <a href="Trovdor.html">Trovdor</a> y <a
+href="Rokael.html">Rokael</a>. Se sabe que forjó las armaduras para la
+guardia del Primer Rey.</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: left;">Arcanos / Investigación</td>
+<td style="text-align: left;">Se conocen los nombres de sus creaciones
+legendarias, como el <code>Escudo de la Primera Llama</code> o las
+<code>Llaves de la Veta Madre</code>. Se rumorea que el clan orco Clan
+Ironclaw (<a href="Orcos.html">Orcos</a>) busca pervertir su
+legado.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="artefactos-legendarios">Artefactos Legendarios</h3>
+<p>statblock title: Escudo de la Primera Llama name: Escudo de la
+Primera Llama type: Escudo subtype: legendario, requiere sintonización
+rarity: Legendario ac: 3 property_desc: “Mientras sostienes este escudo
+de acero negro pulido, tienes un bonificador de +3 a la CA. Este
+bonificador se suma al bonificador normal de un escudo.” traits: - name:
+Absorción Ígnea desc: “Eres inmune al daño por fuego. Si un efecto te
+fuera a infligir daño por fuego, en su lugar no recibes daño y recuperas
+puntos de golpe equivalentes a la mitad del daño que hubieras recibido.”
+- name: Deflector de Conjuros desc: “Como reacción, cuando eres el
+objetivo de un conjuro que solo te apunta a ti, puedes forzar al
+lanzador a realizar una tirada de salvación de Destreza (CD 17). Si
+falla, el conjuro es reflejado y le afecta a él como si lo hubiera
+lanzado sobre sí mismo.”</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.51)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

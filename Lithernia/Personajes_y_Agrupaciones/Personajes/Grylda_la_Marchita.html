@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grylda_la_Marchita</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grylda_la_Marchita</div>
+        <div class="content">
+<h1 id="grylda-la-marchita">Grylda la Marchita</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de los reinos de Lithernia, pocos nombres inspiran un
+terror tan silencioso y persistente como el de Grylda la Marchita, la
+archidruida del Clan Umbralith y sacerdotisa de la entropía. Nacida
+enana en las profundidades de <a href="Valtoria.html">Valtoria</a>,
+Grylda mostró desde joven una fascinación antinatural no por la
+creación, sino por su inevitable final. Mientras sus congéneres cantaban
+a la solidez de la roca y la permanencia de la forja, ella escuchaba el
+susurro del viento erosionando los picos y el lento crujido de la piedra
+volviéndose arena.</p>
+<p>Su singular perspectiva la llevó a un exilio autoimpuesto en su
+juventud. Buscando un conocimiento que los <a
+href="Enanos.html">Enanos</a> despreciaban, viajó hasta los bosques de
+<a href="Eldrador.html">Eldrador</a>. Allí, en un acto de apertura sin
+precedentes, fue aceptada en un círculo druídico de elfos del bosque.
+Los elfos, custodios de la vida eterna, quedaron maravillados por su
+conexión con la tierra, pero pronto se horrorizaron al descubrir la
+naturaleza de su devoción. Grylda no celebraba el crecimiento, sino la
+descomposición. Estudiaba el moho que devoraba la madera caída, los
+hongos que pudrían las raíces de árboles milenarios y la belleza solemne
+de una flor al marchitarse. Para ella, la podredumbre no era un final,
+sino una transformación sagrada, la más pura expresión del ciclo
+natural. Los elfos, que veían en ello una perversión de sus creencias
+más sagradas, la expulsaron con desprecio, tildándola de “La Marchita”,
+un nombre que ella adoptó con orgullo.</p>
+<p>Rechazada por los elfos, Grylda regresó a <a
+href="Valtoria.html">Valtoria</a>, pero su hogar ya no la reconoció. Su
+filosofía chocaba directamente con la cultura enana de la creación y la
+perdurabilidad. Su veneración por <a href="Valarios.html">Valarios</a>,
+el dios de la destrucción, no era a través del fuego purificador de la
+forja, como defendía el Clan Agrietacero, sino a través del lento y
+metódico desgaste del tiempo. Fue declarada hereje, una blasfema que
+predicaba la debilidad de la piedra, y fue exiliada por segunda vez.</p>
+<p>Con el corazón endurecido por un doble rechazo, Grylda encontró su
+verdadero hogar en el lugar más inhóspito imaginable: los Pantanos del
+Lamento Sombrío de <a href="Mor&#39;dhul.html">Mor’dhul</a>. En las
+ruinas anegadas de la antigua ciudad élfica de <a
+href="Rynavel.html">Rynavel</a>, encontró a los parias del Clan
+Umbralith. Allí, entre otros geólogos y druidas de la decadencia, su
+conocimiento floreció como una plaga. Su profunda comprensión de la
+stonelore enana, combinada con el retorcido saber druídico que había
+adquirido en <a href="Eldrador.html">Eldrador</a>, la convirtió en una
+figura indispensable. Ascendió rápidamente hasta convertirse en su
+Archidruida.</p>
+<p>Hoy, Grylda es la arquitecta de las plagas y venenos más sofisticados
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Desde su laboratorio en <a
+href="Rynavel.html">Rynavel</a>, cultiva toxinas que pueden marchitar la
+piedra, enfermar bosques enteros y corromper el suelo por generaciones.
+Sus motivaciones son una mezcla de fervor religioso y una amarga sed de
+venganza. Sueña con el día en que los grandes árboles de <a
+href="Eldrador.html">Eldrador</a> se conviertan en polvo y las
+impenetrables fortalezas de <a href="Valtoria.html">Valtoria</a> se
+derrumben por el inexorable abrazo de la decadencia. Para Grylda, no hay
+mayor verdad que la entropía, y ella se ha consagrado como su más devota
+y paciente agente.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grylda encarna su título. Aunque posee la complexión robusta y la
+baja estatura de una enana, su piel tiene la textura del pergamino viejo
+y un tono grisáceo, como la ceniza húmeda. Su largo cabello, antaño del
+color del cobre, ahora parece un cúmulo de musgo seco y liquen, trenzado
+con huesos de animales pequeños y fragmentos de piedra erosionada. Sus
+ojos son lo único que conserva un brillo vital: dos esquirlas de
+obsidiana pulida que observan el mundo con una paciencia geológica,
+ausentes de pasión pero llenas de una certeza aterradora.</p>
+<p>Rechaza las armaduras de metal, considerándolas una vana resistencia
+contra lo inevitable. En su lugar, viste túnicas hechas de fibras de
+hongos y cortezas tratadas, reforzadas con placas de quitina endurecida
+y madera petrificada. Sus ropajes están siempre húmedos, impregnados del
+olor a tierra mojada, hojas en descomposición y el dulce hedor de la
+decadencia.</p>
+<p>Porta un báculo de madera de tejo petrificado, coronado por un
+cristal de cuarzo ahumado que parece absorber la luz a su alrededor. En
+su interior, una espora fosforescente palpita con una luz enfermiza. De
+su cinturón cuelgan bolsas de cuero ajado repletas de esporas, polvos
+venenosos, órganos desecados y viales de vidrio oscuro que contienen las
+plagas que ella misma diseña.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Grylda la Marchita no es una simple villana; es una amenaza
+existencial para las filosofías que sustentan a los reinos de la luz. Su
+influencia trasciende el campo de batalla, pues sus plagas no solo
+matan, sino que desmoralizan, demostrando la fragilidad de todo lo que
+se considera eterno.</p>
+<ul>
+<li><p><strong>Arma Biológica de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>:</strong> A través de su alianza
+con el Clan Whisper y otros poderes oscuros, Grylda se ha convertido en
+una pieza estratégica en la Gran Guerra. Sus creaciones han arruinado
+cosechas en las fronteras de <a href="Galvorn.html">Galvorn</a> y han
+enfermado bosques sagrados de <a href="Eldrador.html">Eldrador</a>,
+convirtiéndola en una de las figuras más odiadas y temidas del
+continente.</p></li>
+<li><p><strong>Heresiarca de la Naturaleza:</strong> Representa una
+corrupción fundamental del druidismo. Atrae a otros parias y
+naturalistas desencantados que ven en su filosofía una verdad más
+honesta que los dogmas de la vida eterna. Su creciente culto amenaza con
+fracturar las órdenes druídicas desde dentro.</p></li>
+<li><p><strong>La Paciencia del Fin:</strong> A diferencia de los
+tiranos que buscan la conquista rápida, el objetivo final de Grylda es
+el fin silencioso de todas las cosas. No busca gobernar, sino presidir
+la desintegración del mundo. Este nihilismo la convierte en una enemiga
+impredecible y profundamente peligrosa, pues no se la puede sobornar con
+poder ni disuadir con amenazas de destrucción. Ella <em>es</em> la
+destrucción, lenta, silenciosa e imparable. Su legado será el polvo al
+que aspira que todo regrese.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.39)</li>
+<li><a href="Druida.html">Druida</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

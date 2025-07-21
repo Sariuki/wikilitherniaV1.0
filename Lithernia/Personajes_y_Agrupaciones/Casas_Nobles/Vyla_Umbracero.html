@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyla_Umbracero</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vyla_Umbracero</div>
+        <div class="content">
+<h1 id="vyla-umbracero">Vyla Umbracero</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En las profundidades más secretas de <a
+href="Valtoria.html">Valtoria</a>, donde las vetas de mineral común dan
+paso a fracturas que susurran con el eco de otros planos, la Casa
+Umbracero forja su leyenda en el silencio y la penumbra. Vyla es la
+digna heredera de este linaje anómalo. Hija de Kaelen Umbracero, el
+austero maestro de la casa, Vyla no fue criada bajo el sol de la
+superficie ni en los grandes salones iluminados de la capital, sino en
+la quietud de la ‘Forja Silente’. Desde joven aprendió que el poder de
+su familia no residía en el oro o el mithril, sino en el dominio del
+‘acero sombrío’, un metal imposible que bebe la luz y gime con el poder
+del Plano de las Sombras.</p>
+<p>Su adiestramiento fue riguroso y dual. Por un lado, desarrolló la
+fuerza y la resistencia de una herrera enana, capaz de soportar el frío
+antinatural que emana del metal prohibido. Por otro, siguiendo el
+antiguo pacto con los Genasi de Tierra, aprendió a “escuchar la roca”, a
+sentir las vibraciones del mundo para no despertar las presencias
+etéreas que duermen en las fracturas más profundas. Esta sensibilidad la
+convirtió en una Maestra Rúnica excepcional, cuyas inscripciones no solo
+decoran, sino que contienen, silencian y dirigen la volátil energía del
+acero sombrío. Sus manos, aunque callosas, pueden tallar <a
+href="Runas.html">Runas</a> de contención con una precisión que pocos en
+la historia de su casa han igualado.</p>
+<p>Pero a diferencia de su padre y sus antecesores, que se contentan con
+la riqueza y el respeto temeroso que les otorga su monopolio, Vyla
+siente el pulso del mundo más allá de <a href="Solles.html">Solles</a>.
+Su ambición arde con una luz propia: cree firmemente que las armas de su
+casa no son una mera mercancía para entendidos, sino la clave para la
+supervivencia de <a href="Valtoria.html">Valtoria</a> frente a las
+crecientes amenazas de <a href="Mor&#39;dhul.html">Mor’dhul</a> y los
+horrores que se agitan en el mundo. Esta visión la ha puesto en
+conflicto directo con las facciones más tradicionalistas de <a
+href="Valtoria.html">Valtoria</a>, como la Casa Dravonis, que ven a los
+Umbracero como traficantes de oscuridad, una mancha en el honorable
+corazón de la montaña.</p>
+<p>Para alimentar su visión, Vyla ha cultivado alianzas tan peligrosas
+como necesarias. Supervisa el comercio clandestino con el Clan Nighthawk
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>, intercambiando hojas
+sombrías por información y componentes exóticos que los <a
+href="Hobgoblins.html">Hobgoblins</a> obtienen de sus incursiones en
+ruinas arcanas. Sin embargo, su conexión más preciada y secreta es con
+un <a href="Erudito.html">Erudito</a> elfo del Gremio de los Talladores
+de Luz de <a href="Nolindor.html">Nolindor</a>. En encuentros furtivos,
+en nichos olvidados de la ciudad, intercambian lo imposible: ella le
+revela los secretos de las <a href="Runas.html">Runas</a> que atan las
+sombras, y él le narra historias de <a
+href="Eldrador.html">Eldrador</a>, de las mareas de <a
+href="Galvorn.html">Galvorn</a> y de las profecías que agitan el
+continente. Este elfo no es solo una fuente de conocimiento; es su
+ventana a un mundo que ansía proteger, un recordatorio de que la luz y
+la sombra están más entrelazadas de lo que nadie en <a
+href="Valtoria.html">Valtoria</a> se atreve a admitir.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vyla posee la constitución robusta de los <a
+href="Enanos.html">Enanos</a>, pero su tiempo en la penumbra ha dejado
+una marca distintiva. Su piel es pálida como el mármol sin pulir y su
+larga cabellera, de un negro profundo, está trenzada con hilos de plata
+y fragmentos de amatista. Sus ojos, de un gris tormentoso, a veces
+parecen reflejar un destello violáceo, un eco del escudo de su casa. Sus
+manos son el mapa de su vida: fuertes y encallecidas por el martillo,
+pero con dedos ágiles y precisos, manchados permanentemente por la tinta
+rúnica y el polvo de obsidiana.</p>
+<p>Viste un jubón de cuero oscuro sobre una cota de malla de acero
+sombrío finamente elaborada. Cada anilla está grabada con una micro-runa
+de contención, haciendo que la armadura sea inquietantemente silenciosa
+y ligera. No porta un hacha de guerra ostentosa, sino un
+<strong>Martillo Rúnico de Precisión</strong> llamado
+<em>Silenciador</em>, cuya cabeza de plata está diseñada tanto para
+golpear el metal como para aplastar a sus enemigos, y cuya cara opuesta
+es un cincel para el grabado rúnico. A su cinturón cuelga una bolsa de
+cuero con sus herramientas de grabado, varias piedras rúnicas de
+comunicación y una daga de acero sombrío, un regalo personal de su
+padre, cuya hoja parece devorar la luz a su alrededor.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Vyla Umbracero se encuentra en una encrucijada que podría definir no
+solo el futuro de su casa, sino también el papel de <a
+href="Valtoria.html">Valtoria</a> en la Gran Guerra. Es una reformista
+en un bastión de tradicionalistas, una enana que busca la luz en el
+corazón de la sombra.</p>
+<p>Si tiene éxito, podría elevar a la Casa Umbracero de un clan de
+artesanos temidos a los armeros más cruciales del reino, proveyendo a
+los ejércitos de <a href="Valtoria.html">Valtoria</a> con las únicas
+armas capaces de herir verdaderamente a las abominaciones de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Su liderazgo podría forjar una
+nueva era de cooperación pragmática entre facciones dispares,
+demostrando que el poder, sin importar su origen, puede ser consagrado
+al bien.</p>
+<p>Sin embargo, el camino que recorre está bordeado de abismos. Sus
+alianzas clandestinas y su ambición podrían ser vistas como una traición
+por el Concilio de la Montaña, llevando a su casa al exilio o la ruina.
+Peor aún, un solo error en el manejo del acero sombrío o en sus pactos
+con entidades oscuras podría desatar las mismas fuerzas que busca
+controlar. El legado de Vyla pende de un hilo: será recordada como la
+salvadora que armó a <a href="Valtoria.html">Valtoria</a> contra la
+noche, o como la visionaria imprudente cuya ambición sumió a la montaña
+en una oscuridad de la que nunca podría despertar.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.47)</li>
+<li><a href="Casa%20Umbracero.html">Casa Umbracero</a> (relevancia:
+0.44)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

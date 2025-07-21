@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hechicero</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Hechicero</div>
+        <div class="content">
+<h1 id="hechicero">Hechicero</h1>
+<p>Los hechiceros de Lithernia son conductos vivientes del Tejido del
+Maná, nacidos con un poder arcano que fluye por sus venas. A diferencia
+de los magos, que estudian y manipulan la magia, los hechiceros la
+sienten como una extensión de su propio ser. Su conexión innata les
+otorga una afinidad natural con el caos y la potencia de la magia en
+bruto, representada por su Dado de Maná (d8), pero también los expone a
+los peligros de una energía que a veces es difícil de controlar. Sus
+orígenes son diversos y a menudo misteriosos, desde linajes tocados por
+el fuego del <a href="Lilium.html">Lilium</a> hasta almas marcadas por
+el destino de las estrellas.</p>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como hechicero, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d6 por nivel de hechicero
+<strong>Puntos de Golpe a nivel 1:</strong> 6 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d6
+(o 4) + tu modificador de Constitución por cada nivel de hechicero
+después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Ninguna <strong>Armas:</strong> Dagas,
+dardos, hondas, bastones, ballestas ligeras
+<strong>Herramientas:</strong> Ninguna <strong>Tiradas de
+Salvación:</strong> Constitución, Carisma <strong>Habilidades:</strong>
+Elige dos de entre Arcanos, Engaño, Intimidación, Perspicacia,
+Persuasión y Religión.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) una ballesta ligera y 20 virotes o (b) cualquier arma
+sencilla * (a) una bolsa de componentes o (b) un foco arcano * (a) un
+paquete de explorador o (b) un paquete de dungeons * Dos dagas</p>
+<h3 id="sistema-de-maná-del-hechicero"><strong>Sistema de Maná del
+Hechicero</strong></h3>
+<p>Tu poder arcano innato surge directamente del Tejido del Maná,
+canalizado a través de tu voluntad.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná para lanzar tus <a href="Conjuros.html">Conjuros</a>. Tu fórmula de
+maná es <strong>10 + (Nivel de Hechicero × Modificador de
+Carisma)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d8.</li>
+<li><strong>Aptitud Mágica:</strong> El Carisma es tu aptitud mágica
+para tus <a href="Conjuros.html">Conjuros</a> de hechicero.
+<ul>
+<li><strong>CD de salvación de <a
+href="Conjuros.html">Conjuros</a></strong> = 8 + tu bonificador por
+competencia + tu modificador de Carisma.</li>
+<li><strong>Modificador de ataque de <a
+href="Conjuros.html">Conjuros</a></strong> = tu bonificador por
+competencia + tu modificador de Carisma.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-hechicero">Tabla de Progresión del
+Hechicero</h3>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 11%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: center;">Puntos de Hechicería</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Trucos Conocidos</th>
+<th style="text-align: center;"><a href="Conjuros.html">Conjuros</a>
+Conocidos</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Lanzamiento de <a
+href="Conjuros.html">Conjuros</a>, Origen de Hechicería</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">10 + (1 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Fuente de Magia</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">10 + (2 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Metamagia</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (3 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10 + (4 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">10 + (5 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Rasgo de Origen de Hechicería</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">10 + (6 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">10 + (7 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">10 + (8 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">10 + (9 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: left;">Metamagia</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">10 + (10 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: left;">Rasgo de Origen de Hechicería</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">10 + (11 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">10 + (12 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">10 + (13 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: left;">Rasgo de Origen de Hechicería</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">10 + (14 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">10 + (15 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">10 + (16 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: left;">Metamagia</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">10 + (17 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: left;">Rasgo de Origen de Hechicería</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">10 + (18 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">10 + (19 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: left;">Restauración de Hechicería</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">10 + (20 × Mod. CAR)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="orígenes-de-hechicería"><strong>Orígenes de
+Hechicería</strong></h2>
+<h3 id="sangre-del-lilium"><strong>Sangre del Lilium</strong></h3>
+<p>Tu poder innato proviene del Cataclismo del <a
+href="Lilium.html">Lilium</a>. Quizás uno de tus ancestros fue marcado
+por <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>,
+o naciste en una tierra aún herida por su poder. Llevas en tu alma una
+chispa de ese poder destructivo y purificador, una fuerza caótica que
+anhela ser liberada.</p>
+<h4 id="afinidad-con-el-cataclismo"><strong>Afinidad con el
+Cataclismo</strong></h4>
+<p>A partir del nivel 1, tu conexión con el <a
+href="Lilium.html">Lilium</a> te otorga afinidad con su naturaleza dual.
+Aprendes el truco <em>Producir Llama</em>. Además, obtienes resistencia
+al daño de fuego.</p>
+<h4 id="corazón-abrasador"><strong>Corazón Abrasador</strong></h4>
+<p>En el nivel 6, puedes canalizar el poder del <a
+href="Lilium.html">Lilium</a> para protegerte. Cuando recibes daño de
+una criatura que puedes ver a 60 pies de ti, puedes usar tu reacción y
+gastar 2 puntos de hechicería para que el atacante sea envuelto en
+llamas. El atacante debe hacer una tirada de salvación de Destreza.
+Recibe 2d8 de daño de fuego más 2d8 de daño radiante si falla la
+salvación, o la mitad de daño si tiene éxito.</p>
+<h4 id="alas-de-fuego-eterno"><strong>Alas de Fuego Eterno</strong></h4>
+<p>En el nivel 14, puedes usar una acción adicional para manifestar un
+par de alas de fuego radiante. Mientras las alas estén presentes, tienes
+una velocidad de vuelo de 30 pies. Las alas duran hasta que las
+descartes como una acción adicional.</p>
+<h4 id="avatar-del-lilium"><strong>Avatar del Lilium</strong></h4>
+<p>A partir del nivel 18, puedes desatar todo el poder del <a
+href="Lilium.html">Lilium</a> que reside en ti. Usando tu acción, puedes
+gastar 7 puntos de hechicería para transformarte en un avatar del fuego
+eterno. Durante 1 minuto, obtienes los siguientes beneficios: * Eres
+inmune al daño de fuego y radiante. * Cuando lanzas un conjuro que
+inflige daño de fuego o radiante, puedes añadir tu modificador de
+Carisma al daño. * Las criaturas hostiles a 10 pies de ti tienen
+vulnerabilidad al daño de fuego.</p>
+<h3 id="magia-de-las-estrellas"><strong>Magia de las
+Estrellas</strong></h3>
+<p>Tu magia proviene de los cielos nocturnos y del destino tejido por <a
+href="Arzia.html">Arzia</a>, la diosa de las estrellas. Quizás naciste
+bajo un presagio cósmico o tu linaje tiene un pacto secreto con los
+guardianes del firmamento. Ves el Tejido del Maná como un reflejo de las
+constelaciones, lleno de patrones, augurios y poder silencioso.</p>
+<h4 id="presagio-estelar"><strong>Presagio Estelar</strong></h4>
+<p>A partir del nivel 1, las estrellas te susurran secretos. Aprendes el
+conjuro <em>Augurio</em> y siempre lo tienes preparado; no cuenta para
+el número de <a href="Conjuros.html">Conjuros</a> que conoces. Además,
+ganas la habilidad de influir sutilmente en el destino. Cuando otra
+criatura que puedas ver a 60 pies de ti haga una tirada de ataque, una
+prueba de característica o una tirada de salvación, puedes usar tu
+reacción y gastar 2 puntos de hechicería para tirar 1d4 y aplicar el
+resultado como un bonificador o una penalización a la tirada de la
+criatura.</p>
+<h4 id="fragmento-de-constelación"><strong>Fragmento de
+Constelación</strong></h4>
+<p>En el nivel 6, puedes usar una acción adicional y gastar 3 puntos de
+hechicería para invocar un fragmento de luz estelar. El fragmento orbita
+a tu alrededor, emitiendo luz brillante en un radio de 10 pies. Como
+acción adicional en tus turnos posteriores, puedes enviar el fragmento
+hacia una criatura a 60 pies de ti. * Si eliges una criatura aliada,
+esta recupera puntos de golpe iguales a 2d8 + tu modificador de Carisma.
+* Si eliges una criatura hostil, esta debe hacer una tirada de salvación
+de Destreza. Recibe 2d8 + tu modificador de Carisma de daño radiante si
+falla, o la mitad si tiene éxito.</p>
+<h4 id="caminar-por-el-firmamento"><strong>Caminar por el
+Firmamento</strong></h4>
+<p>A partir del nivel 14, puedes gastar 5 puntos de hechicería como
+acción adicional para obtener una velocidad de vuelo igual a tu
+velocidad de caminar durante 10 minutos. Durante este tiempo, tu cuerpo
+se vuelve translúcido y brilla con la luz de las estrellas, y tienes
+resistencia al daño contundente, perforante y cortante de ataques no
+mágicos.</p>
+<h4 id="visión-del-destino"><strong>Visión del Destino</strong></h4>
+<p>En el nivel 18, tu conexión con los cielos te otorga un control
+momentáneo sobre el flujo del destino. Cuando lances un conjuro que
+requiera una tirada de salvación, puedes gastar 7 puntos de hechicería
+para elegir un objetivo. Ese objetivo falla automáticamente su tirada de
+salvación contra el conjuro. Una vez que uses este rasgo, no puedes
+volver a usarlo hasta que termines un descanso largo.</p>
+<h3 id="lista-de-conjuros-del-hechicero"><strong>Lista de Conjuros del
+Hechicero</strong></h3>
+<h4 id="trucos-nivel-0"><strong>Trucos (Nivel 0)</strong></h4>
+<ul>
+<li>Aspersión de Ácido</li>
+<li>Bomba de Fuego</li>
+<li>Crear Hoguera</li>
+<li>Descarga de Escarcha</li>
+<li>Ilusión Menor</li>
+<li>Luz</li>
+<li>Mano de <a href="Mago.html">Mago</a></li>
+<li>Mensaje</li>
+<li>Prestidigitación</li>
+<li>Rayo de Escarcha</li>
+<li>Rociada Venenosa</li>
+<li>Salpicadura de Ácido</li>
+<li>Toque Gélido</li>
+<li>Toque de Impacto</li>
+</ul>
+<h4 id="nivel-1"><strong>Nivel 1</strong></h4>
+<ul>
+<li>Armadura de <a href="Mago.html">Mago</a></li>
+<li>Caída de Pluma</li>
+<li>Disfrazarse</li>
+<li>Dormir</li>
+<li>Escudo</li>
+<li>Hechizar Persona</li>
+<li>Luz Estelar</li>
+<li>Manos Ardientes</li>
+<li>Misil Mágico</li>
+<li>Niebla de Oscurecimiento</li>
+<li>Orbe Cromático</li>
+<li>Rayo de Bruja</li>
+<li>Rayo Guiado</li>
+<li>Salto</li>
+<li>Susurro Astral</li>
+<li>Tasha’s Hideous Laughter</li>
+<li>Terror</li>
+</ul>
+<h4 id="nivel-2"><strong>Nivel 2</strong></h4>
+<ul>
+<li>Alterar el Propio Aspecto</li>
+<li>Apertura</li>
+<li>Arma Mágica</li>
+<li>Ceguera/Sordera</li>
+<li>Corona de la Locura</li>
+<li>Esfera Flamígera</li>
+<li>Escudo de Constelaciones</li>
+<li>Fuerza Fantasmal</li>
+<li>Imagen Múltiple</li>
+<li>Invisibilidad</li>
+<li>Levitar</li>
+<li>Nube de Dagas</li>
+<li>Oscuridad</li>
+<li>Paso Brumoso</li>
+<li>Rayo Abrasador</li>
+<li>Rayo de Debilitamiento</li>
+<li>Ráfaga de Viento</li>
+<li>Sugestión</li>
+<li>Telaraña</li>
+<li>Ver lo Invisible</li>
+<li>Vínculo Estelar</li>
+</ul>
+<h4 id="nivel-3"><strong>Nivel 3</strong></h4>
+<ul>
+<li>Acelerar</li>
+<li>Abrir</li>
+<li>Bola de Fuego</li>
+<li>Clarividencia</li>
+<li>Contraconjuro</li>
+<li>Danza de las Constelaciones</li>
+<li>Disipar Magia</li>
+<li>Forma Gaseosa</li>
+<li>Imagen Mayor</li>
+<li>Lanzar Maldición</li>
+<li>Lenguas</li>
+<li>Luz del Día</li>
+<li>Meteoro Menor</li>
+<li>Muro de Viento</li>
+<li>Patrón Hipnótico</li>
+<li>Rayo Relampagueante</li>
+<li>Ralentizar</li>
+<li>Respirar bajo el Agua</li>
+<li>Tormenta de Aguanieve</li>
+<li>Volar</li>
+<li>Visión del Destino</li>
+</ul>
+<h4 id="nivel-4"><strong>Nivel 4</strong></h4>
+<ul>
+<li>Asolar</li>
+<li>Confusión</li>
+<li>Dominar Bestia</li>
+<li>Exilio</li>
+<li>Invisibilidad Mayor</li>
+<li>Mal de Ojo</li>
+<li>Muro de Fuego</li>
+<li>Piel de Piedra</li>
+<li>Puerta Dimensional</li>
+<li>Tentáculos Negros de Evard</li>
+<li>Tormenta de Hielo</li>
+</ul>
+<h4 id="nivel-5"><strong>Nivel 5</strong></h4>
+<ul>
+<li>Animar Objetos</li>
+<li>Cono de Frío</li>
+<li>Creación</li>
+<li>Dominar Persona</li>
+<li>Inmovilizar Monstruo</li>
+<li>Muro de Piedra</li>
+<li>Nube Aniquiladora</li>
+<li>Semejanza</li>
+<li>Telequinesis</li>
+</ul>
+<h4 id="nivel-6"><strong>Nivel 6</strong></h4>
+<ul>
+<li>Cadena de Relámpagos</li>
+<li>Carne a Piedra</li>
+<li>Círculo de Muerte</li>
+<li>Desintegrar</li>
+<li>Globo de Invulnerabilidad</li>
+<li>Mover la Tierra</li>
+<li>Rayo de Sol</li>
+<li>Sugestión en Masa</li>
+<li>Visión Verdadera</li>
+</ul>
+<h4 id="nivel-7"><strong>Nivel 7</strong></h4>
+<ul>
+<li>Bola de Fuego de Explosión Retardada</li>
+<li>Dedo de la Muerte</li>
+<li>Forma Etérea</li>
+<li>Inversión de la Gravedad</li>
+<li>Rociada Prismática</li>
+<li>Teleportar</li>
+</ul>
+<h4 id="nivel-8"><strong>Nivel 8</strong></h4>
+<ul>
+<li>Dominar Monstruo</li>
+<li>Incendiar</li>
+<li>Nube Incendiaria</li>
+<li>Palabra de Poder Aturdidora</li>
+<li>Terremoto</li>
+</ul>
+<h4 id="nivel-9"><strong>Nivel 9</strong></h4>
+<ul>
+<li>Detener el Tiempo</li>
+<li>Enjambre de Meteoritos</li>
+<li>Palabra de Poder Mortal</li>
+<li>Umbral</li>
+<li>Deseo</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

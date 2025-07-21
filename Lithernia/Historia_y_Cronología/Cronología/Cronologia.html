@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronologia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Cronologia</div>
+        <div class="content">
+<h1 id="cronología-de-lithernia">Cronología de Lithernia</h1>
+<p>La crónica de Lithernia es una epopeya tejida a través de eras de
+esplendor, tragedia y renacimiento. En este relato se entrelazan los
+actos de dioses, <a href="Dragones.html">Dragones</a>, reyes y héroes
+mortales, cuyas decisiones dejaron una marca indeleble que aún resuena
+en el presente. La historia de Lithernia no es solo un registro
+temporal, sino un tapiz vibrante de mitos, luchas y esperanzas que
+configura la identidad misma del mundo.</p>
+<h2 id="forja-del-mundo">Forja del Mundo</h2>
+<p>Tras el Amanecer, los dioses y Primordiales moldearon el mundo,
+erigiendo montañas, valles y mares a través de las energías del Fuego
+Primordial y la Sombra Original. El continente central, hogar de
+Lithernia, emergió como núcleo encantado rodeado por océanos infinitos.
+Los <a href="Dragones.html">Dragones</a> ancestrales — Ignis, Tal’vorak,
+Fidriel y Sariel — con sus alientos divinos esculpieron la tierra, el
+clima y los misterios subterráneos. La naturaleza floreció imbuida por
+la magia otorgada por Ferion y Arzia, dando vida a bosques y
+constelaciones que todavía vigilan el cielo nocturno.</p>
+<h2 id="era-del-primer-rey">Era del Primer Rey</h2>
+<h3 id="nacimiento-del-rey">Nacimiento del Rey</h3>
+<p>Entre el caos posterior a la dominación dracónica, apareció la figura
+legendaria del Primer Rey, marcado por profecías y dotado de un espíritu
+unificador. Su liderazgo trascendió razas y clanes, sentando los
+cimientos para la civilización mortal.</p>
+<h3 id="unificación">Unificación</h3>
+<p>Con astucia y valor, el Primer Rey congregó a <a
+href="Humanos.html">Humanos</a>, <a href="Enanos.html">Enanos</a>, elfos
+y otros, estableciendo alianzas y creando las primeras casas nobles y
+leyes comunes. Bajo su estandarte, nació una civilización próspera y
+vibrante.</p>
+<h3 id="la-gran-guerra">La Gran Guerra</h3>
+<p>La envidia y la oposición surgieron contra la unidad lograda. Una
+alianza enemiga desató una guerra devastadora que probó la voluntad del
+Rey y su linaje, dejando el mundo marcado por el conflicto y la pérdida,
+pero asegurando un legado de unidad y sacrificio.</p>
+<h3 id="alba-del-imperio">Alba del Imperio</h3>
+<p>Tras la guerra, Lithernia floreció en un Imperio esplendoroso, con
+ciudades imponentes, tratados diplomáticos y avances culturales. No
+obstante, la ambición humana y divina presagiaban tormentas futuras,
+mientras las sombras acechaban en las cortezas del poder.</p>
+<h2 id="era-crepuscular">Era Crepuscular</h2>
+<h3 id="amanecer-sombrío">Amanecer Sombrío</h3>
+<p>Una época de reconstrucción y fragmentación, donde antiguos caminos
+se perdieron y la magia se tornó errática. Surgieron gremios y
+liderazgos emergentes para afrontar la supervivencia en un mundo
+incierto.</p>
+<h3 id="alzamiento-de-las-sombras">Alzamiento de las Sombras</h3>
+<p>Las fuerzas oscuras se manifestaron con renovado vigor, prolifearon
+cultos y nigromantes, y las tierras fueron devastadas. En respuesta,
+surgieron órdenes clandestinas de luz y heroicos grupos organizados para
+contener la oscuridad.</p>
+<h3 id="concilio-de-magos">Concilio de Magos</h3>
+<p>Los magos y sabios más poderosos de todas las razas unieron fuerzas
+para estabilizar la magia, crear leyes y fundar academias. El Concilio
+representó un faro de conocimiento y esperanza, estableciendo la Gran
+Biblioteca Arcana y sentando bases para la cooperación.</p>
+<h3 id="fin-de-la-esperanza">Fin de la Esperanza</h3>
+<p>Pese a los esfuerzos, la oscuridad alcanzó su cúspide, diezmando
+fortificaciones y sembrando el miedo. El agotamiento y la desesperación
+llevaron al borde de la extinción la cohesión social y mágica, dejando
+solo pequeños focos de resistencia.</p>
+<h2 id="era-actual">Era Actual</h2>
+<h3 id="ecos-del-pasado">Ecos del Pasado</h3>
+<p>Las antiguas <a href="Leyendas.html">Leyendas</a> y misterios
+resurgen en forma de ruinas vivientes, profecías latentes y secretos por
+desvelar. Magos y aventureros exploran este legado mientras reinos y
+facciones disputan su control, enfrentando desafíos tanto nuevos como
+ancestrales.</p>
+<h3 id="crisis-y-profecías">Crisis y Profecías</h3>
+<p>Nuevas amenazas se manifiestan, plagas, fenómenos mágicos extraños y
+monstruos ancestrales ponen en jaque el equilibrio. Profecías hablan del
+posible retorno del Primer Rey, la reaparición de las Lanzas Celestiales
+y consecuencias imprevisibles. El destino pende de la balanza, con
+esperanza y temor entremezclados.</p>
+<h3 id="ascenso-de-nuevos-poderes">Ascenso de Nuevos Poderes</h3>
+<p>Nuevos líderes, facciones y prodigios arcanos surgen para definir el
+futuro. Viejas dinastías decaen ante las ambiciones renovadas y lazos
+cambiantes. Las alianzas, intrigas y artefactos legendarios moldean una
+época de transformación profunda, donde cada elección importa.</p>
+<h3 id="el-destino-de-lithernia">El Destino de Lithernia</h3>
+<p>Lithernia se encuentra en una encrucijada decisiva. El balance entre
+la luz y la sombra depende ahora de los actos de héroes y gobernantes.
+La historia misma, tejidos de poder, profecía y guerra convergen en este
+momento único. Solo aquellos valientes que se atrevan a enfrentar el
+pasado y forjar el futuro podrán escribir la próxima gran epopeya en el
+mundo.</p>
+<hr />
+<p><em>Así, la <a href="01_Historia.html">01_Historia</a> ensancha el
+alma del mundo, invitando a cada jugador y narrador a sumergirse en sus
+eras épicas, a explorar sus mitos y a ser parte del relato que aún se
+está escribiendo.</em></p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.81)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

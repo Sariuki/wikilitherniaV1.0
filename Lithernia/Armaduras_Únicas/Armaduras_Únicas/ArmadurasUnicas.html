@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArmadurasUnicas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">ArmadurasUnicas</div>
+        <div class="content">
+<p>ESTRUCTURA DE ARCHIVOS: - ArmadurasUnicas 1: Introducción y contexto
+general de Lithernia y sus reinos. Descripción general de las armaduras
+únicas y su importancia en el mundo. - ArmadurasUnicas 2: Detalles
+específicos de armaduras únicas legendarias, incluyendo su historia,
+características, y vínculos con personajes o eventos importantes. -
+ArmadurasUnicas 3: Armaduras únicas por reino, con detalles culturales,
+mágicos y de diseño, incluyendo ejemplos destacados de cada reino.</p>
+<p>CONTENIDO:</p>
+<p>—ArmadurasUnicas 1— # Armaduras Únicas en Lithernia: Introducción y
+Contexto</p>
+<h2 id="introducción">Introducción</h2>
+<p>En el vasto y antiguo mundo de Lithernia, forjado en fuego y sombra,
+las armaduras únicas representan mucho más que simples protecciones
+físicas. Son reliquias vivientes de la historia, símbolos de poder,
+honor y misterio, forjadas con técnicas ancestrales, imbuídas con magia
+primordial o bendecidas por los dioses. Estas armaduras no solo protegen
+a sus portadores, sino que también cuentan historias de héroes, batallas
+épicas y secretos olvidados.</p>
+<h2 id="contexto-general-de-lithernia">Contexto General de
+Lithernia</h2>
+<p>Lithernia es un mundo marcado por la Caída del Lilium, un cataclismo
+que transformó la tierra y dio origen a las razas actuales: humanos,
+elfos, enanos, orcos, goblins, y otras criaturas. La magia impregna la
+realidad, y los cuatro reinos principales —Mor’dhul, Galvorn, Valtoria y
+Eldrador— reflejan la diversidad cultural, espiritual y mágica del
+mundo.</p>
+<p>Cada reino tiene su propia relación con la magia, los dioses y la
+historia, lo que se refleja en la creación y uso de armaduras únicas.
+Estas piezas son a menudo el resultado de la maestría artesanal
+combinada con la magia o la bendición divina, y muchas veces están
+ligadas a leyendas y personajes que marcaron el destino de
+Lithernia.</p>
+<h2 id="importancia-de-las-armaduras-únicas">Importancia de las
+Armaduras Únicas</h2>
+<p>Las armaduras únicas en Lithernia son objetos de gran valor y poder.
+Pueden conferir habilidades especiales, resistencias mágicas, o incluso
+otorgar poderes únicos relacionados con la historia o la cultura del
+reino donde fueron forjadas. Son codiciadas por aventureros, nobles y
+guerreros, y a menudo son el centro de misiones, conflictos y
+alianzas.</p>
+<p>Estas armaduras pueden ser: - Forjadas por los enanos maestros de
+Valtoria, imbuyendo runas ancestrales. - Bendecidas por los dioses de
+Eldrador, conectadas con la naturaleza y la magia arcana. - Forjadas en
+el fuego oscuro de Mor’dhul, con magia de sombras y sacrificios. -
+Diseñadas en Galvorn, combinando tecnología, magia elemental y artesanía
+humana.</p>
+<p>En las siguientes secciones, exploraremos las armaduras únicas más
+destacadas, sus orígenes, características y el papel que juegan en la
+historia y cultura de Lithernia.</p>
+<p><a href="ArmadurasUnicas%203.html">ArmadurasUnicas 3</a></p>
+<p>—ArmadurasUnicas 3— # Armaduras Únicas por Reino en Lithernia</p>
+<h2 id="mordhul-armaduras-de-sombras-y-dolor">Mor’dhul: Armaduras de
+Sombras y Dolor</h2>
+<ul>
+<li><strong>Estilo y Materiales:</strong> Armaduras forjadas en hierro
+negro, obsidiana y huesos, adornadas con runas de dolor y sombras.</li>
+<li><strong>Características:</strong> Alta resistencia a la magia
+oscura, habilidades para el sigilo y la tortura, y a menudo malditas o
+con efectos secundarios.</li>
+<li><strong>Ejemplos:</strong>
+<ul>
+<li><em>Armadura del Silencio Eterno:</em> Otorga invisibilidad en la
+oscuridad y absorbe sonidos.</li>
+<li><em>Coraza del Dolor Infinito:</em> Incrementa la fuerza del
+portador a cambio de dolor constante.</li>
+</ul></li>
+</ul>
+<h2 id="galvorn-armaduras-de-magia-elemental-y-tecnología">Galvorn:
+Armaduras de Magia Elemental y Tecnología</h2>
+<ul>
+<li><strong>Estilo y Materiales:</strong> Combinación de acero, cuero
+tratado y cristales mágicos, con mecanismos y encantamientos
+elementales.</li>
+<li><strong>Características:</strong> Adaptabilidad, resistencia
+elemental, y mejoras tecnológicas como sistemas de recarga rápida o
+protección contra ataques mágicos.</li>
+<li><strong>Ejemplos:</strong>
+<ul>
+<li><em>Armadura del Navegante Estelar:</em> Permite al portador
+orientarse en cualquier entorno y resistir condiciones extremas.</li>
+<li><em>Coraza de la Tormenta:</em> Imbuida con energía eléctrica, puede
+descargar rayos contra enemigos.</li>
+</ul></li>
+</ul>
+<h2 id="valtoria-armaduras-de-runa-y-forja-ancestral">Valtoria:
+Armaduras de Runa y Forja Ancestral</h2>
+<ul>
+<li><strong>Estilo y Materiales:</strong> Pesadas armaduras de mithril,
+acero y cristal de roca viva, con runas que canalizan magia de la
+tierra.</li>
+<li><strong>Características:</strong> Gran resistencia física,
+regeneración, y habilidades para manipular la tierra y el metal.</li>
+<li><strong>Ejemplos:</strong>
+<ul>
+<li><em>Armadura del Guardián de la Montaña:</em> Otorga fuerza
+sobrehumana y la capacidad de crear barreras de piedra.</li>
+<li><em>Coraza de Ancestrogranito:</em> Vínculo con la naturaleza y
+protección contra magia oscura.</li>
+</ul></li>
+</ul>
+<h2 id="eldrador-armaduras-de-luz-y-magia-arcana">Eldrador: Armaduras de
+Luz y Magia Arcana</h2>
+<ul>
+<li><strong>Estilo y Materiales:</strong> Armaduras ligeras y elegantes,
+hechas de plata, cristal y seda encantada, con símbolos estelares y
+runas arcanas.</li>
+<li><strong>Características:</strong> Alta movilidad, resistencia
+mágica, y poderes para manipular la luz y la energía arcana.</li>
+<li><strong>Ejemplos:</strong>
+<ul>
+<li><em>Armadura de la Luz Crepuscular:</em> Protección contra la
+oscuridad y habilidades curativas.</li>
+<li><em>Manto del Viento del Alma:</em> Permite al portador moverse con
+la velocidad del viento y evadir ataques.</li>
+</ul></li>
+</ul>
+<hr />
+<p><a href="ArmadurasUnicas%201.html">ArmadurasUnicas 1</a></p>
+        </div>
+    </div>
+</body>
+</html>

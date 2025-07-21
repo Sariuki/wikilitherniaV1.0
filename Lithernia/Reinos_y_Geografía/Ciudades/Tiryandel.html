@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiryandel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Tiryandel</div>
+        <div class="content">
+<h1 id="tiryandel">Tiryandel</h1>
+<p>En las profundidades de <a href="Valtoria.html">Valtoria</a>, allí
+donde la piedra late como un corazón vivo, se encuentra Tiryandel. No es
+una fortaleza tallada con ira contra la montaña, sino una ciudad nacida
+de su abrazo. Toda la urbe se desarrolla dentro de una caverna colosal,
+cuya única y perpetua fuente de luz es Ancestrogranito, un árbol
+fosforescente de proporciones míticas que se eleva desde el suelo de la
+cueva hasta rozar su techo con ramas de cristal puro. La ciudad es un
+milagro de la arquitectura “geodrúdica”, un estilo donde la maestría
+enana en la cantería se fusiona con la sabiduría druídica para crear una
+simbiosis perfecta entre la roca y la vida.</p>
+<h2 id="historia">Historia</h2>
+<p>Tiryandel fue fundada hace siglos por Grondar Raíz-de-Piedra, un
+legendario <a href="Druida.html">Druida</a> enano que se oponía a la
+minería puramente extractiva de algunos clanes. Él creía que la
+verdadera riqueza de la montaña no residía solo en sus vetas de metal,
+sino en su espíritu viviente. En su búsqueda de un lugar donde demostrar
+su filosofía, Grondar siguió el “latido” de la tierra hasta encontrar
+una caverna sellada. Al abrirla, descubrió a Ancestrogranito, un ser a
+medio camino entre planta y mineral que bañaba la oscuridad con una luz
+serena y mágica.</p>
+<p>Grondar y sus seguidores —una mezcla de <a
+href="Enanos.html">Enanos</a>, <a href="Gnomos.html">Gnomos</a> y genasi
+de tierra— juraron proteger el árbol y fundaron Tiryandel a su
+alrededor. No como una mina, sino como un santuario. Con el tiempo, su
+reputación de equilibrio y armonía atrajo a otros, incluyendo una
+sorprendente comunidad de Elfos del Bosque, que encontraron en la
+veneración de Ancestrogranito un eco de su propio dios, <a
+href="Ferion.html">Ferion</a>. Hoy, Tiryandel es un faro de cooperación
+intercultural en <a href="Valtoria.html">Valtoria</a>, un testimonio de
+que la fuerza no solo reside en dominar la roca, sino en escuchar sus
+secretos.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón Luminoso</strong>: La caverna central donde se
+alza Ancestrogranito. La luz iridiscente que emana de sus hojas de
+cristal ilumina los grandes salones del Consejo de las Raíces, tallados
+directamente en las paredes de la cueva y adornados con <a
+href="Runas.html">Runas</a> que brillan al unísono con el pulso del
+árbol. Es la plaza pública, el templo y el centro de gobierno, todo en
+uno.</p></li>
+<li><p><strong>Los Distritos de la Raíz</strong>: Las zonas
+residenciales de Tiryandel están excavadas en las paredes de la caverna
+y entrelazadas con las enormes raíces de Ancestrogranito, que se
+extienden como arterias de luz por toda la ciudad. Los hogares <a
+href="Enanos.html">Enanos</a> son robustos y geométricos, pero sus
+ventanas y puertas están enmarcadas por madera viva, mientras que las
+moradas de los <a href="Gnomos.html">Gnomos</a> son madrigueras
+excéntricas iluminadas por hongos bioluminiscentes.</p></li>
+<li><p><strong>Las Galerías Resonantes</strong>: El distrito minero.
+Aquí, los mineros no excavan con violencia, sino que “persuaden” a la
+piedra. Guiados por los Genasi de Tierra, que pueden sentir las
+tensiones de la roca, y los druidas, que calman al espíritu de la
+montaña, extraen minerales con un impacto mínimo, siguiendo las vetas
+como si siguieran las venas de un ser vivo.</p></li>
+<li><p><strong>El Nido del Silvano</strong>: Un enclave único en una
+terraza elevada de la caverna, donde la comunidad de Elfos del Bosque ha
+cultivado un jardín colgante. Usando la luz de Ancestrogranito, hacen
+crecer plantas que normalmente solo se encuentran en la superficie. Es
+un remanso de paz verde y un símbolo de la insólita alianza que define a
+la ciudad.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Tiryandel se rige por el ciclo de luz de Ancestrogranito,
+que se atenúa y se intensifica en un ritmo de veinticuatro horas. La
+cultura es una amalgama de la diligencia enana y la reverencia druídica.
+Honran a <a href="Rokael.html">Rokael</a> por crear la montaña y a <a
+href="Cirkon.html">Cirkon</a> por ser su esencia, pero sus rituales
+incluyen ofrendas a Ancestrogranito como guardián y espíritu viviente de
+su hogar.</p>
+<p>Su festival más sagrado es la “Germinación del Cristal”. Una vez al
+año, las ramas de Ancestrogranito producen brotes de cristal puro,
+imbuidos de la magia de la tierra. Durante una semana, la ciudad celebra
+con concursos de tallado rúnico, forja de objetos encantados con
+fragmentos de los brotes y cantos corales que hacen vibrar toda la
+caverna. Es costumbre que los recién nacidos sean bendecidos al tocar su
+frente con uno de estos cristales, para que la sabiduría de la montaña
+guíe sus vidas.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>El estilo geodrúdico domina Tiryandel. Las estructuras parecen haber
+crecido de la roca en lugar de haber sido construidas sobre ella. Los
+puentes que cruzan las fisuras de la caverna están hechos de raíces
+vivas, moldeadas por los druidas a lo largo de décadas. Las paredes
+están decoradas con las propias vetas de mithril y oro, dejadas
+expuestas como arte natural. El aire es fresco y huele a tierra húmeda,
+a ozono de la energía mágica y al aroma mineral de los cristales. El
+sonido predominante es un zumbido bajo y constante, el eco de la energía
+de Ancestrogranito, a menudo acompañado por el tintineo de los martillos
+de los artesanos y los cánticos profundos que resuenan desde el Corazón
+Luminoso.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Eco del Durmiente</strong>: La leyenda más persistente
+y temida de Tiryandel afirma que Ancestrogranito no crece sobre roca
+inerte, sino sobre el cuerpo de un colosal dragón de tierra, una de las
+primeras creaciones de <a href="Rokael.html">Rokael</a>, a quien el dios
+puso a dormir en los albores del tiempo. Los mineros más viejos juran
+haber escuchado en las galerías más profundas un retumbar rítmico, como
+la respiración de una bestia inimaginable. El mayor temor no es <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sino que la codicia o un
+accidente minero despierte al Durmiente, que al levantarse haría
+colapsar la montaña y reclamaría a Ancestrogranito, que según la
+leyenda, no es un árbol, sino su propio corazón expuesto.</p></li>
+<li><p><strong>El Martillo de la Canción de Piedra</strong>: Se dice que
+el fundador, Grondar Raíz-de-Piedra, no talló la ciudad, sino que la
+“cantó” para que tomara forma. Su martillo de guerra, perdido tras su
+muerte, no golpeaba la roca, sino que emitía una nota musical que la
+moldeaba sin romperla. Algunos creen que el martillo está escondido en
+el núcleo de Ancestrogranito, esperando a un sucesor digno que pueda
+aprender la canción de la creación y despertar el verdadero potencial de
+la montaña.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

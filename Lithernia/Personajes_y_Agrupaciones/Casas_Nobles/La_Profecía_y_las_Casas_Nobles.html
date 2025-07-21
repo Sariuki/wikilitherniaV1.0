@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Profecía_y_las_Casas_Nobles</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Profecía_y_las_Casas_Nobles</div>
+        <div class="content">
+<h1 id="la-profecía-y-las-casas-nobles">La Profecía y las Casas
+Nobles</h1>
+<p>En el corazón de Lithernia, bajo el vasto cielo de <a
+href="Galvorn.html">Galvorn</a>, la profecía ancestral brilla como una
+constelación guía para los linajes nobiliarios. Traducida por oráculos y
+murmurada en los corredores de poder, <strong>La Profecía</strong> ha
+marcado el destino de las casas nobles durante siglos, otorgándoles un
+propósito sagrado y un imperativo inevitable.</p>
+<h2 id="el-origen-de-la-profecía">El Origen de la Profecía</h2>
+<p>La profecía fue entregada por la vidente <strong>Maelyra de las
+Lunas</strong>, quien en una noche sin estrellas, visionó un futuro
+entretejido con caos y redención. Sus palabras fueron recogidas en el
+códice de Eldren, texto sagrado que solo los líderes de las casas pueden
+consultar en ceremonias estrictamente vigiladas.</p>
+<blockquote>
+<p><em>“Cuando los siete heraldos despierten en la sombra del
+crepúsculo, el linaje que posea la llama eterna será el guardián del
+equilibrio… pero solo si sus hijos recuerdan el pacto de sangre y
+honor.”</em></p>
+</blockquote>
+<p>Este augurio no solo predijo la llegada de desafíos cósmicos y
+políticos, sino que también estableció los términos bajo los cuales las
+casas deben actuar para preservar la armonía de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<h2 id="casas-nobles-guardianas-del-pacto">Casas Nobles: Guardianas del
+Pacto</h2>
+<p>Las casas nobles de Lithernia, cada una descendiente de ancestros
+legendarios, interpretan la profecía a través de su linaje y su
+interpretación del “pacto de sangre y honor”. Estas son las
+principales:</p>
+<h3 id="casa-vorlen">Casa Vorlen</h3>
+<ul>
+<li><strong>Símbolo:</strong> Llama eterna<br />
+</li>
+<li><strong>Interpretación:</strong> Líder natural destinado a custodiar
+la balanza entre luz y oscuridad.<br />
+</li>
+<li><strong>Acciones:</strong> Han centralizado su poder en ceremonias
+de fuego, buscando la pureza en sangre y espíritu. Su pacto les impone
+proteger secretos ancestrales relacionados con la profecía.</li>
+</ul>
+<h3 id="casa-eryndel">Casa Eryndel</h3>
+<ul>
+<li><strong>Símbolo:</strong> Cetro de plata<br />
+</li>
+<li><strong>Interpretación:</strong> Portadores del conocimiento oculto
+y mediadores entre las casas.<br />
+</li>
+<li><strong>Acciones:</strong> Custodian bibliotecas y templos donde se
+estudia la profecía. Insisten en la sabiduría como clave para prevenir
+la catástrofe anunciada.</li>
+</ul>
+<h3 id="casa-brennal">Casa Brennal</h3>
+<ul>
+<li><strong>Símbolo:</strong> Dragón alado<br />
+</li>
+<li><strong>Interpretación:</strong> Guerreros y defensores del reino
+contra las fuerzas que buscan quebrantarlo.<br />
+</li>
+<li><strong>Acciones:</strong> Forjan alianzas bélicas y entrenan a
+caballeros de élite, conscientes de que la profecía llama a la guerra
+como parte de su cumplimiento.</li>
+</ul>
+<h3 id="casa-silvane">Casa Silvane</h3>
+<ul>
+<li><strong>Símbolo:</strong> Ramo de olivo y espada<br />
+</li>
+<li><strong>Interpretación:</strong> Buscadores del equilibrio entre
+guerra y paz.<br />
+</li>
+<li><strong>Acciones:</strong> Fomentan negociaciones y pactos entre
+casas rivales para combatir la división que la profecía indica puede
+llevar a la ruina.</li>
+</ul>
+<h2 id="la-influencia-de-la-profecía-en-la-política-y-la-sociedad">La
+Influencia de la Profecía en la Política y la Sociedad</h2>
+<h3 id="el-pacto-de-sangre">El Pacto de Sangre</h3>
+<p>Todas las casas deben renovar cada generación el <strong>Pacto de
+Sangre</strong>, un juramento solemne que las conecta no solo por sangre
+sino por destino. Este ritual fortalece la alianza entre los linajes y
+mantiene viva la conciencia colectiva sobre la responsabilidad que
+tienen para con <a href="Galvorn.html">Galvorn</a>.</p>
+<h3 id="las-reuniones-del-crepúsculo">Las Reuniones del Crepúsculo</h3>
+<p>Cada equinoccio, los líderes de las casas se reúnen en el
+<strong>Hemitarum</strong>, un antiguo palacio ceremonial, para
+compartir interpretaciones actuales de la profecía y ajustar sus
+estrategias políticas en consecuencia.</p>
+<h3 id="leyendas-y-prosa-popular">Leyendas y Prosa Popular</h3>
+<p>En las tabernas y plazas de Lithernia, se cuenta cómo un descendiente
+de la Casa Vorlen, durante un eclipse total, despertó los “siete
+heraldos”, figuras míticas que cambiarán el destino del mundo. Estas
+narrativas alimentan tanto la esperanza como el temor de la población
+ante el cumplimiento del augurio.</p>
+<h2 id="costumbres-derivadas">Costumbres Derivadas</h2>
+<ul>
+<li><strong>La Vigilia de la Llama:</strong> Celebrada anualmente para
+honrar la Profecía y renovar la conexión espiritual con sus orígenes.
+Las casas encienden una llama sagrada en homenaje a Maelyra de las
+Lunas.<br />
+</li>
+<li><strong>El Festival de los Heraldos:</strong> Un evento en el que se
+representan a través de danzas y relatos teatrales los episodios clave
+de la profecía, reforzando el sentido de identidad y deber.<br />
+</li>
+<li><strong>Foro de los Custodios:</strong> Una asamblea de sabios y
+consejeros de las casas para debatir el significado oculto de la
+profecía y su aplicación política.</li>
+</ul>
+<h2 id="conclusión">Conclusión</h2>
+<p>La profecía no es solo un legado de antiguos vaticinios, sino la
+fuerza viviente que moldea la historia, la política y la cultura de las
+casas nobles en Lithernia. En un mundo donde los destinos están
+predestinados pero la voluntad humana puede alterar el curso, las voces
+de <a href="Galvorn.html">Galvorn</a> resuenan, eternas, en el espíritu
+de cada <a href="Noble.html">Noble</a> linaje.</p>
+<hr />
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casas%20Nobles.html">Casas Nobles</a> (relevancia:
+0.62)</li>
+<li><a
+href="Casas%20Nobles%20de%20Galvorn%20-%20Linajes%20y%20Leyendas.html">Casas
+Nobles de Galvorn - Linajes y Leyendas</a> (relevancia: 0.41)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+<li><a href="Casas%20Nobles%20de%20Galvorn.html">Casas Nobles de
+Galvorn</a> (relevancia: 0.37)</li>
+<li><a href="Casa%20Corazón%20de%20Piedra.html">Casa Corazón de
+Piedra</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lord-Vigía_Borin_Vigilia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lord-Vigía_Borin_Vigilia</div>
+        <div class="content">
+<h1 id="lord-vigía-borin-vigilia">Lord-Vigía Borin Vigilia</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los grandes salones de <a href="Valtoria.html">Valtoria</a>, donde
+las <a href="Leyendas.html">Leyendas</a> se cantan al son de martillos
+sobre yunques, hay historias que solo se susurran en la oscuridad más
+profunda. La historia de Lord-Vigía Borin Vigilia es una de ellas.
+Descendiente directo del legendario Kaelen Vigilia, el fundador de su
+casa, Borin no heredó minas rebosantes de mithril ni salones bañados en
+la luz de gemas milenarias. Heredó un juramento: ser el escudo
+silencioso de <a href="Valtoria.html">Valtoria</a> contra las amenazas
+que reptan en las sombras, una carga que ha grabado en su rostro la
+fatiga de un siglo de guerra invisible.</p>
+<p>Criado en la ciudad-atalaya de <a href="Verue.html">Verue</a>, un
+bastión de granito y secreto en los picos más remotos, la infancia de
+Borin no fue de cantos y forja, sino de estrategia y sigilo. Aprendió a
+leer el silencio de los túneles olvidados, a distinguir el eco de un
+enemigo del goteo inocente del agua y a empuñar el hacha no para la
+gloria del combate abierto, sino para la necesidad sucia de una
+emboscada en la negrura. Es el peso de este legado lo que lo define.
+Mientras otros señores <a href="Enanos.html">Enanos</a> se enorgullecen
+de sus barbas trenzadas con oro, Borin se enorgullece de las cicatrices
+que le recuerdan cada conspiración desmantelada, cada cultista
+purgado.</p>
+<p>Su hazaña más notable, aunque jamás celebrada en festín alguno, fue
+el “Incidente de las Cavernas Susurrantes”. Un agente del Clan
+Nighthawk, un <a href="Zhalric_Vyrnar.html">Zhalric_Vyrnar</a>
+hobgoblin, había logrado infiltrarse hasta los niveles más profundos de
+la Torre de las Estrellas para asesinar a un sabio que estudiaba una
+profecía sobre el retorno del Primer Rey. Borin, actuando sobre un
+fragmento de inteligencia, interceptó al asesino solo. La batalla se
+libró en la más absoluta oscuridad, un duelo de ingenio y acero contra
+sombras y engaños. Salió victorioso, pero con una profunda herida en el
+alma y una cicatriz que le cruza el ojo izquierdo, un recordatorio
+perpetuo de que la vigilancia nunca descansa.</p>
+<p>Esta dedicación fanática a su deber lo ha convertido en una figura
+aislada y temida en el Concilio de la Montaña. Su lealtad a la Reina
+Valeria Bronzebrillo es absoluta; ve en ella a la única líder con la
+visión para entender que los muros de <a
+href="Valtoria.html">Valtoria</a> son inútiles si la corrupción anida
+dentro. Sin embargo, su relación con las casas tradicionales,
+especialmente con la altiva Casa Dravonis, es un glaciar de
+desconfianza. Borin sabe que la herejía de los Cazadores de Sombras
+nació de una rama corrupta de los Dravonis y los considera negligentes y
+ciegos por su orgullo. A su vez, ellos lo ven como un enano deshonroso,
+un espía cuyas tácticas manchan la reputación de toda su raza. Esta
+tensión es una guerra fría que se libra en cada votación del consejo, en
+cada asignación de <a href="Recursos.html">Recursos</a>. Su única
+alianza verdadera, más allá de la Reina, es con el Círculo Interior de
+la Torre de las Estrellas. Los magos y sabios detectan las amenazas
+arcanas; Borin y su casa son el martillo que las aplasta antes de que
+puedan crecer.</p>
+<p>Lord-Vigía Borin Vigilia es un enano cansado, un guardián que anhela
+la paz pero que ha aceptado que su destino es la guerra eterna en la
+penumbra. Su motivación no es la gloria, sino la supervivencia
+silenciosa de su pueblo, un deber que cumple con la determinación
+sombría de una montaña que resiste la tormenta.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Borin es la personificación de la roca de <a
+href="Valtoria.html">Valtoria</a>: ancho, sólido e inquebrantable. Su
+barba, de un negro profundo con vetas de plata prematura, está recogida
+en una única trenza práctica, sin los adornos típicos de su rango. Sus
+ojos, de un gris tormentoso, parecen hundidos por el peso de la vigilia
+constante, y su rostro está marcado por el mapa de sus batallas
+secretas. La más notoria es una fina cicatriz blanca que desciende desde
+su frente, cruzando su ojo izquierdo —ahora ligeramente velado—, un
+recuerdo de un cuchillo hobgoblin recubierto de magia ilusoria.</p>
+<p>Su porte es el de un veterano, no el de un señor. Rara vez se le ve
+con las túnicas ceremoniales del consejo. Prefiere su armadura de placas
+de acero ennegrecido, diseñada para no reflejar la luz y amortiguar el
+sonido. Cada pieza está grabada con <a href="Runas.html">Runas</a> de
+protección y sigilo, un regalo de los magos de la Torre de las
+Estrellas. No es una armadura de desfile, sino una herramienta de
+guerra; sus abolladuras y rasguños son un testimonio de su servicio.</p>
+<p>Porta con él las armas de su casa: un <strong>Martillo de Guerra de
+Granito</strong> llamado <em>Silenciador</em>, cuya cabeza está tallada
+para absorber el impacto sónico, y un <strong>Hacha de Batalla de
+Obsidiana</strong> llamada <em>Lágrima Nocturna</em>, afilada hasta un
+borde monomolecular y perfecta para combates en espacios cerrados. Junto
+a sus armas, siempre lleva un zurrón de cuero con las herramientas de su
+oficio: grilletes de hierro frío para apresar a lanzadores de <a
+href="Conjuros.html">Conjuros</a>, polvo de tiza espectral para revelar
+glifos invisibles y una linterna encantada que proyecta una luz que solo
+él puede ver.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lord-Vigía Borin Vigilia representa una dolorosa pero necesaria
+evolución en la cultura enana de <a href="Valtoria.html">Valtoria</a>.
+En un reino que valora el honor manifiesto y la fuerza bruta, él es el
+guardián de los secretos, el maestro del contraespionaje, el ejecutor de
+sentencias que nunca se harán públicas. Es el alma pragmática de <a
+href="Valtoria.html">Valtoria</a>, la mano que poda las ramas podridas
+para que el árbol no muera.</p>
+<p>Su impacto no se medirá en canciones ni estatuas. Su legado será el
+de las crisis que nunca ocurrieron, los cultos que nunca florecieron y
+los reyes que nunca fueron asesinados. Mientras la Casa Dravonis
+construye monumentos a la gloria de los <a
+href="Enanos.html">Enanos</a>, la Casa Vigilia se asegura de que haya <a
+href="Enanos.html">Enanos</a> vivos para verlos. En la gran narrativa de
+Lithernia, Borin y su casa son los centinelas que vigilan el abismo,
+conscientes de que la mayor amenaza para la montaña no siempre viene de
+fuera, sino de la oscuridad que yace en su propio corazón. Si <a
+href="Valtoria.html">Valtoria</a> cae, no será por falta de muros, sino
+porque la luz de su honor no fue suficiente para cegar a las sombras que
+Borin combate cada día.</p>
+        </div>
+    </div>
+</body>
+</html>

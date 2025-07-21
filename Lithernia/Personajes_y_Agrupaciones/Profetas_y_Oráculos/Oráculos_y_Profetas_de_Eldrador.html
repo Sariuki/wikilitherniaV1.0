@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oráculos_y_Profetas_de_Eldrador</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Oráculos_y_Profetas_de_Eldrador</div>
+        <div class="content">
+<h1 id="oráculos-y-profetas-de-eldrador">Oráculos y Profetas de
+Eldrador</h1>
+<p>En el antiguo dominio de <a href="Eldrador.html">Eldrador</a>, reino
+mítico de Lithernia, los Oráculos y Profetas han sido custodios sagrados
+del destino y guardianes de la profecía del Primer Rey. Su nombre evoca
+tanto respeto como temor, pues a través de sus palabras se escriben las
+sendas inevitables del mañana y se revelan los designios ocultos en las
+sombras del tiempo.</p>
+<h2 id="origen-y-propósito">Origen y Propósito</h2>
+<p>Se dice que el Primer Rey de <a href="Eldrador.html">Eldrador</a>,
+Elandor el Profético, fue elegido por los dioses no sólo para gobernar,
+sino para marcar el futuro con su leyenda inexorable. Antes de su
+ascenso, una orden de videntes apareció en <a
+href="Eldrador.html">Eldrador</a>: los Oráculos, almas elegidas para
+captar el susurro de las estrellas y traducir el destino en palabra
+humana.</p>
+<p>Desde entonces, los Oráculos y Profetas cumplen la misión de
+interpretar esas revelaciones celestiales para proteger al reino, guiar
+a sus líderes y evitar las catástrofes que amenazan la armonía del
+mundo.</p>
+<h2 id="estructura-y-jerarquía">Estructura y Jerarquía</h2>
+<h3 id="la-cúpula-profética">La Cúpula Profética</h3>
+<p>En el corazón de la capital eldriana se erige el Templo del Destino,
+morada de la Cúpula Profética, un consejo conformado por siete
+principales Oráculos. Cada uno representa una rama de la visión
+profética:</p>
+<ul>
+<li><strong>El Vidente de la Luz</strong>, manipula el flujo de las
+posibilidades luminosas.<br />
+</li>
+<li><strong>La Sombra Anunciadora</strong>, experta en los futuros
+oscuros y adversidades.<br />
+</li>
+<li><strong>El Susurrador de Espíritus</strong>, conecta con el reino de
+las almas para revelar mensajes etéreos.<br />
+</li>
+<li><strong>La Guardiana de los Ciclos</strong>, enfocada en los
+patrones temporales y la repetición de eventos.<br />
+</li>
+<li><strong>El Navegante de Estrellas</strong>, especialista en
+astrología profética.<br />
+</li>
+<li><strong>El Lector de <a href="Runas.html">Runas</a></strong>,
+intérprete de las antiguas marcas sagradas.<br />
+</li>
+<li><strong>La Voz del Ancestro</strong>, mediadora para canalizar la
+sabiduría de los predecesores.</li>
+</ul>
+<h3 id="profetas-errantes">Profetas Errantes</h3>
+<p>Además de la Cúpula, los Profetas Errantes viajan por el vasto
+territorio para difundir avisos, consejos o advertencias, a menudo en
+momentos críticos o ante amenazas inminentes.</p>
+<h2 id="prácticas-y-rituales">Prácticas y Rituales</h2>
+<h3 id="la-vigilia-del-destino">La Vigilia del Destino</h3>
+<p>Cada luna llena, los Oráculos se reúnen en un acto ceremonial
+conocido como la Vigilia del Destino. A través de cánticos ancestrales,
+hierbas sagradas y la meditación en el Crisol de Espejos —un objeto
+mágico capaz de mostrar fragmentos del futuro— reciben visiones que
+luego interpretan para el bienestar del reino.</p>
+<h3 id="el-juramento-del-silencio">El Juramento del Silencio</h3>
+<p>Quien se convierte en Oráculo debe realizar un juramento solemne:
+guardar en silencio absoluto las visiones que no están destinadas a ser
+reveladas, pues cada palabra pronunciada puede alterar irremediablemente
+el curso del destino.</p>
+<h2 id="leyendas-emblemáticas">Leyendas Emblemáticas</h2>
+<h3 id="la-profecía-del-crepúsculo-eterno">La Profecía del Crepúsculo
+Eterno</h3>
+<p>Cuenta la leyenda que un Oráculo llamado Syrenna previó la llegada de
+una oscuridad que engulliría <a href="Eldrador.html">Eldrador</a> al
+final de una era, un Crepúsculo Eterno que solo podría detenerse si un
+heredero legítimo del Primer Rey unía los reinos dispersos bajo una
+nueva justicia. Esta profecía fue pieza clave para la unidad de
+Lithernia siglos después.</p>
+<h3 id="la-voz-silenciada">La Voz Silenciada</h3>
+<p>Se narra la historia trágica de Elvar, un profeta que vio la
+destrucción total del reino y quiso alertar a sus gobernantes, pero su
+advertencia fue ignorada. Silenciada y exiliada, su voz solo fue
+valorada tras el advenimiento de la calamidad predicha, convirtiéndose
+en símbolo del sacrificio y la ceguera humana ante la verdad.</p>
+<h2 id="influencia-en-la-sociedad-eldriana">Influencia en la Sociedad
+Eldriana</h2>
+<p>Más allá de sus predicciones, los Oráculos y Profetas son pilares
+espirituales y consejeros en consejos de guerra, decisiones diplomáticas
+y ritos de coronación. Su palabra es ley no escrita, y su presencia
+visto como un puente entre lo mortal y lo divino.</p>
+<h2 id="en-conclusión">En Conclusión</h2>
+<p>Los Oráculos y Profetas de <a href="Eldrador.html">Eldrador</a>
+encarnan la esencia del tiempo y la voluntad del destino en Lithernia.
+Custodios de secretos trascendentales, su legado influye en la historia,
+la cultura y el poder, recordándonos que el futuro es tan maleable como
+el presente está iluminado por el conocimiento y la fe.</p>
+<hr />
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Oráculos%20y%20Profetas.html">Oráculos y Profetas</a>
+(relevancia: 0.76)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

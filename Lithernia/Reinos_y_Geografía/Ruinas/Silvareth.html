@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silvareth</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Silvareth</div>
+        <div class="content">
+<h1 id="silvareth">Silvareth</h1>
+<p>Silvareth es una herida abierta en la frontera del mundo. Lo que una
+vez fue una joya de la arquitectura élfica, un faro de marfil y luz en
+la linde del bosque, es ahora una cicatriz supurante bajo el estandarte
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>. El aire, antes perfumado
+con flores de luna, ahora apesta a hojas podridas y al hollín de las
+forjas orcas. Su símbolo no es el de una casa <a
+href="Noble.html">Noble</a>, sino una profanación: un hacha de batalla
+de hierro negro clavada en el tronco de un sauce plateado, de la cual
+gotea una savia oscura como si el árbol mismo sangrara. Es un
+recordatorio perpetuo de que la belleza puede ser quebrada y de que la
+sombra de la guerra es larga.</p>
+<h2 id="historia">Historia</h2>
+<p>Silvareth fue durante siglos un bastión de la cultura de los Elfos
+del Bosque, una ciudad fronteriza que vigilaba el paso hacia <a
+href="Eldrador.html">Eldrador</a> con la misma gracia con la que
+cultivaba sus jardines. Su caída fue uno de los episodios más trágicos
+de la reciente Gran Guerra: la Batalla de las Lágrimas Negras. Liderados
+por el General Volrath, los ejércitos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> arrasaron las defensas élficas en
+una ofensiva brutal. La ciudad fue tomada no para ser gobernada, sino
+para ser subyugada.</p>
+<p>Desde entonces, Silvareth es un puesto militar estratégico del Clan
+<a href="Thyrgram.html">Thyrgram</a>, una base de operaciones para
+futuras incursiones en territorio élfico. Su conquista es un acto de
+dominación simbólica, una declaración de que nada, ni siquiera la magia
+milenaria de los elfos, puede resistir la fuerza de la guerra.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón Negro</strong>: La antigua plaza central,
+donde los elfos celebraban danzas bajo la luz de las constelaciones. Hoy
+es un lodazal endurecido que sirve como campo de entrenamiento y arena
+de combate para los guerreros <a href="Orcos.html">Orcos</a>. En su
+centro, un altar tosco hecho de cráneos y huesos rinde tributo a <a
+href="Thyrgram.html">Thyrgram</a>, dios de la guerra, siempre rodeado
+por el humo de braseros.</p></li>
+<li><p><strong>Las Torres Silenciadas</strong>: Las elegantes torres de
+marfil y cristal que una vez albergaron a eruditos y astrónomos elfos
+ahora están desfiguradas con parapetos de hierro y estandartes <a
+href="Orcos.html">Orcos</a>. Han sido vaciadas de su sabiduría y
+reutilizadas como atalayas de vigilancia y nidos para arqueros, sus
+delicados ventanales rotos para dar paso a las aspilleras.</p></li>
+<li><p><strong>El Jardín de Espinas</strong>: El principal distrito
+residencial de la guarnición orca. Son barracones toscos y funcionales
+de madera oscura y piedra, erigidos sin orden sobre los jardines élficos
+arrasados. Adyacente, en las ruinas de las antiguas viviendas élficas,
+se encuentra el “Gueto de las Raíces”, donde la población élfica
+superviviente vive hacinada, realizando trabajos forzados.</p></li>
+<li><p><strong>La Ribera de Óxido</strong>: Los puentes de enredaderas
+vivas que cruzaban el río han sido reforzados con planchas de metal
+oxidado o directamente reemplazados por estructuras de madera tosca. El
+río, antes cristalino, ahora arrastra los desechos de las forjas y los
+mataderos, tiñendo sus aguas de un color parduzco.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Silvareth es un reflejo de la opresión. La cultura orca,
+brutal y marcial, ha suplantado por la fuerza toda costumbre élfica. Los
+cantos de guerra resuenan día y noche, y la única música permitida es el
+choque del acero en los torneos de la plaza. Un toque de queda estricto
+se impone al anochecer, y las patrullas del Clan <a
+href="Thyrgram.html">Thyrgram</a> recorren las calles con mano de
+hierro.</p>
+<p>Como acto de dominio, es habitual que los <a
+href="Orcos.html">Orcos</a> tallen sus <a href="Runas.html">Runas</a>
+tribales sobre los delicados grabados de los edificios élficos. Mientras
+tanto, los elfos supervivientes mantienen una resistencia silenciosa y
+desesperada. En secreto, intercambian semillas de las antiguas flores de
+Silvareth, un símbolo de que la belleza de su hogar aún podría volver a
+brotar de las cenizas. Rezan en susurros a <a
+href="Ferion.html">Ferion</a> y <a href="Lerian.html">Lerian</a>,
+aferrándose a los últimos vestigios de su identidad.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La ciudad es un collage grotesco de gracia profanada y brutalidad
+funcional. Las curvas fluidas y la elegancia etérea de la arquitectura
+élfica chocan con las líneas rectas y los ángulos toscos de las
+construcciones orcas. Barricadas de hierro negro cortan los antiguos
+paseos arbolados, y los cristales que una vez emitían una luz suave han
+sido reemplazados por antorchas humeantes que proyectan sombras
+danzantes y siniestras. El ambiente es pesado, cargado de tensión y
+resentimiento, un lugar donde el pasado es un fantasma que se niega a
+desaparecer y el presente es una bota sobre su cuello.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Lamento de la <a
+href="Druida.html">Druida</a></strong>: Se susurra entre los elfos
+oprimidos que el espíritu de Lirael, la última Suma <a
+href="Druida.html">Druida</a> de Silvareth que cayó defendiendo la
+ciudad, aún vaga por el bosque profanado. Dicen que su llanto puede
+oírse en las noches sin luna, un sonido tan lleno de dolor que marchita
+la vegetación y hace que la sangre de los <a href="Orcos.html">Orcos</a>
+que se acercan demasiado se hiele en sus venas.</p></li>
+<li><p><strong>La Bóveda del Solsticio</strong>: Bajo el Corazón Negro,
+donde ahora los <a href="Orcos.html">Orcos</a> entrenan, se encontraba
+el Jardín del Solsticio. La leyenda cuenta que, antes de la caída, los
+elfos ocultaron sus artefactos más sagrados y las semillas de cada
+planta mágica del bosque en una bóveda secreta. Se dice que la bóveda
+está sellada por una magia antigua y que solo puede ser abierta por la
+“sangre del sauce”, un descendiente directo de los fundadores de la
+ciudad, cuya identidad se perdió en la masacre.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.51)</li>
+<li><a href="Elfos.html">Elfos</a> (relevancia: 0.44)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

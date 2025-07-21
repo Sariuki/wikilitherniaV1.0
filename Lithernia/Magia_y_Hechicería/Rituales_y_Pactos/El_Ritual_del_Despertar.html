@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Ritual_del_Despertar</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Ritual_del_Despertar</div>
+        <div class="content">
+<h1 id="el-ritual-del-despertar">El ritual del despertar</h1>
+<p>En los anales más secretos de Lithernia, entre códices prohibidos y
+susurros de cultos olvidados, yace la leyenda del Ritual del Despertar.
+No se trata de una simple ceremonia mágica, sino del proceso mítico y
+catastrófico necesario para invocar el poder de una de las Lanzas
+Celestiales, quebrando el sello que aprisiona al Primer Rey y desatando
+un poder capaz de redefinir el destino del mundo. El ritual es la llave
+para cumplir la <strong>Profecía del Retorno del Rey</strong>, un evento
+tan anhelado por unos como temido por otros, cuyo éxito o fracaso
+supondría el fin de la Gran Guerra o el advenimiento de un caos aún
+mayor.</p>
+<p>El “Despertar” no se refiere a una campana física, sino a una llamada
+metafórica: el eco inmemorial de la voluntad del Primer Rey resonando a
+través del Tejido del Maná, un sonido que solo puede ser emitido una vez
+que su sello se rompe, anunciando una nueva era para Lithernia.</p>
+<h3 id="orígenes-y-propósito">Orígenes y Propósito</h3>
+<p>El ritual tiene sus raíces en la propia derrota del Primer Rey.
+Cuando los dioses lo sellaron bajo tierra, no solo lo condenaron a un
+tormento eterno, sino que también encarcelaron su colosal poder. La
+profecía, surgida en los siglos de oscuridad que siguieron al Cataclismo
+del <a href="Lilium.html">Lilium</a>, predijo que este poder no se
+perdería para siempre. Auguraba que un “mortal elegido” encontraría el
+camino para canalizar esa fuerza, convirtiéndose en el <a
+href="Heroes.html">Heroes</a> del Rey.</p>
+<p>El propósito del ritual, según los creyentes, es triple: 1.
+<strong>Liberar el poder de una Lanza Celestial:</strong> No para
+destruir el artefacto, sino para quebrar su función como sello y
+permitir que su energía divina fluya hacia un mortal. 2.
+<strong>Investir al <a href="Heroes.html">Heroes</a>:</strong> Otorgar
+al elegido la fuerza y la voluntad del Primer Rey, dándole el poder
+necesario para desafiar a los dioses y a sus creaciones. 3.
+<strong>Iniciar la Purga:</strong> Cumplir la parte más controvertida de
+la profecía: “purgar el mundo de las creaciones fallidas de los dioses”,
+unificando Lithernia y poniendo fin al ciclo de la Gran Guerra.</p>
+<h3 id="los-componentes-del-ritual">Los Componentes del Ritual</h3>
+<p>El conocimiento completo del Ritual del Despertar se ha perdido,
+fragmentado en ruinas pre-<a href="Lilium.html">Lilium</a>, grimorios de
+magos exiliados y visiones de oráculos. Sin embargo, los eruditos
+coinciden en que se requieren varios componentes fundamentales:</p>
+<ul>
+<li><strong>El <a href="Heroes.html">Heroes</a> Elegido:</strong> La
+profecía es clara: el ritual solo puede ser completado por un mortal
+específico, un “humano elegido”. No se sabe qué marca a este individuo
+—si es un linaje perdido, una marca de nacimiento o una simple elección
+del destino—, pero sin él, cualquier intento de realizar el ritual
+resultaría en una catástrofe.</li>
+<li><strong>Una de las Lanzas Celestiales:</strong> El ritual debe
+realizarse en presencia de una de las cuatro Lanzas: <strong>Requiem,
+Ultimatum, Mortum</strong> o <strong>Chronos</strong>. Cada una es un
+nexo de poder divino y la llave de una cuarta parte del sello. Localizar
+una de estas reliquias es, en sí mismo, una misión de proporciones
+épicas.</li>
+<li><strong>Un Foco de Maná Colosal:</strong> Para quebrar un sello
+forjado por dioses se necesita una cantidad de energía mágica
+inimaginable. El ritual probablemente deba llevarse a cabo en un
+<strong>Lugar de Poder</strong> de inmensa potencia (como el corazón de
+un volcán activo, el centro de un nudo de líneas ley o una antigua ruina
+de la Era del Primer Rey) o durante un evento cósmico que debilite el
+Tejido del Maná, como un eclipse o una alineación estelar.</li>
+<li><strong>El Sacrificio de la Voluntad:</strong> No es un ritual de
+sangre, sino de espíritu. El <a href="Heroes.html">Heroes</a> debe
+someter su propia voluntad a la del Primer Rey, aceptando convertirse en
+un recipiente de su poder y su misión. Este acto de entrega es
+increíblemente peligroso, pues una mente débil podría ser destruida o
+corrompida por la agonía milenaria del monarca prisionero.</li>
+</ul>
+<h3 id="facciones-e-interpretaciones">Facciones e Interpretaciones</h3>
+<p>La existencia del Ritual del Despertar es un secreto a voces que
+divide a las facciones más poderosas de Lithernia:</p>
+<ul>
+<li><strong>Los Buscadores de la Verdad:</strong> Principalmente cultos
+de <a href="Humanos.html">Humanos</a> y <a
+href="Tieflings.html">Tieflings</a> que veneran al Primer Rey como un
+mártir. Buscan activamente los fragmentos del ritual con la esperanza de
+liberar al mundo del yugo de los dioses, a quienes culpan por la Gran
+Guerra y el sufrimiento del mundo. Para ellos, el ritual es un acto de
+justicia y redención.</li>
+<li><strong>Los Guardianes del Orden Divino:</strong> Encabezados por el
+<strong>Rey Sel’thirak</strong>, quien participó en el sellado.
+Considera la profecía una herejía peligrosa que amenaza con desatar un
+segundo <a href="Lilium.html">Lilium</a>. Sus agentes, como <strong>Lady
+Xandria</strong> y el general <strong>Volrath</strong>, persiguen y
+eliminan a cualquiera que investigue el ritual, convencidos de que
+protegen al mundo de la arrogancia mortal.</li>
+<li><strong>Los Usurpadores del Poder:</strong> Nobles ambiciosos como
+<strong>Lord Aethel “El Cruel”</strong> no buscan cumplir la profecía,
+sino pervertirla. Su objetivo sería encontrar una Lanza Celestial, como
+<strong>Mortum</strong>, y realizar una versión corrupta del ritual para
+robar el poder del Primer Rey para sí mismo, convirtiéndose en un tirano
+de poder inimaginable.</li>
+<li><strong>Los Observadores Cautelosos:</strong> Reinos como <strong><a
+href="Eldrador.html">Eldrador</a></strong> y los sabios de <strong><a
+href="Valtoria.html">Valtoria</a></strong> (como el Archimago
+<strong>Thalios Estrella Antigua</strong>) conocen la profecía pero le
+temen. Un Lithernia unificado bajo un único rey humano amenazaría su
+autonomía y el equilibrio de poder. Prefieren que el sello permanezca
+intacto, estudiando el ritual solo para asegurarse de que nadie más
+pueda completarlo.</li>
+</ul>
+<h3 id="el-despertar-en-una-campaña">El Despertar en una Campaña</h3>
+<p>El Ritual del Despertar es el eje central de muchas <a
+href="Leyendas.html">Leyendas</a> y podría ser el clímax de una campaña
+épica. Los aventureros podrían verse envueltos de múltiples maneras: *
+Descubrir que uno de ellos es el <strong><a
+href="Heroes.html">Heroes</a> Elegido</strong>, siendo perseguidos por
+las fuerzas de <a href="Mor&#39;dhul.html">Mor’dhul</a> mientras buscan
+el conocimiento para cumplir su destino. * Ser contratados para
+encontrar una de las Lanzas Celestiales, sin saber que su patrón planea
+usarla para el ritual. * Intentar detener a una facción que está a punto
+de realizar el ritual, temiendo las consecuencias apocalípticas. *
+Competir contra un villano como Lord Aethel para llegar primero a una
+Lanza y evitar que su poder caiga en las manos equivocadas.</p>
+<p>En última instancia, el Ritual del Despertar representa la mayor
+encrucijada de Lithernia. Su “sonido” podría ser el tañido de una
+campana que anuncia la paz y la unificación, o la alarma que precede a
+una destrucción de la que ni siquiera los dioses podrían salvar al
+mundo.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.42)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

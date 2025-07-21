@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_ColapsoDelViejoOrden</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">03_ColapsoDelViejoOrden</div>
+        <div class="content">
+<h1 id="colapso-del-viejo-orden">03 Colapso del Viejo Orden</h1>
+<p>El Colapso del Viejo Orden marca uno de los episodios más oscuros y
+transformadores en la historia de Lithernia. Tras milenios de
+estabilidad bajo imperios centenarios, el planeta se sumió en un caos
+que destruyó viejas estructuras de poder y sembró las semillas de una
+nueva era. Este periodo, conocido también como la Gran Ruptura, no solo
+devastó reinos, sino que dio forma al Lithernia moderno, fracturado y
+lleno de <a href="Leyendas.html">Leyendas</a> de héroes y tragedias.</p>
+<h2 id="antecedentes-el-esplendor-del-viejo-orden">Antecedentes: el
+esplendor del Viejo Orden</h2>
+<p>Durante casi un milenio, desde la fundación del Emperium Selenar
+hasta las últimas décadas antes del colapso, Lithernia fue gobernada por
+una serie de dinastías y poderosas coaliciones que mantenían un delicado
+equilibrio entre magia arcana, tecnología ancestral y fuerzas militares.
+La prosperidad se hacía sentir en sus ciudades estrelladas y en las
+rutas de comercio que cruzaban los vastos continentes.</p>
+<p>Los custodios del Viejo Orden sostenían un dogma rígido: preservar la
+armonía mediante control absoluto y el dominio del conocimiento arcano.
+Sin embargo, este sistema comenzó a resquebrajarse cuando fuerzas
+internas y externas comenzaron a retar la autoridad centralizada.</p>
+<h2 id="causas-del-colapso">Causas del colapso</h2>
+<h3 id="crisis-múltiples">Crisis múltiples</h3>
+<ul>
+<li><strong>Escasez mágica</strong>: Los <a
+href="Recursos.html">Recursos</a> arcánicos, que eran la base del poder
+y la tecnología, comenzaron a agotarse inexplicablemente, haciendo que
+hechizos y artefactos perdieran efectividad.</li>
+<li><strong>Revuelta social</strong>: Clases oprimidas y pueblos
+olvidados por los grandes imperios levantaron rebeliones masivas,
+motivadas por hambre, injusticia y la sed de autonomía.</li>
+<li><strong>Invasiones bárbaras</strong>: Desde las fronteras del norte
+y el abismo sur, tribus nómadas y seres convocados por hechiceros
+marginados atacaron ciudades y fortalezas, minando la autoridad.</li>
+<li><strong>Traiciones internas</strong>: Nobles codiciosos y consejeros
+magos conspiraron para derrocar a sus propios señores, agudizando las
+divisiones y causando guerras civiles.</li>
+</ul>
+<h3 id="el-desgarro-arcano">El Desgarro Arcano</h3>
+<p>En el punto culminante, un evento conocido como el Desgarro Arcano
+fracturó el velo que separa los planos de existencia. Energías caóticas
+y <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de pesadilla emergieron, sembrando el terror y destruyendo las
+estructuras mágicas que habían sustentado el Viejo Orden. Este fenómeno
+también alteró el tejido mismo de la realidad en varios lugares sagrados
+y ciudades emblemáticas.</p>
+<h2 id="consecuencias-inmediatas">Consecuencias inmediatas</h2>
+<ul>
+<li><strong>Caída de capitales</strong>: Ciudades milenarias como
+Solvaris, la capital del Emperium, fueron consumidas por incendios y
+rebeldías. Sus palacios quedaron en ruinas y sus archivos arcánicos se
+perdieron.</li>
+<li><strong>Fragmentación política</strong>: Las regiones que antes
+formaban territorios unificados se fragmentaron en feudos y clanes,
+dando origen a una era de fragmentación y pequeñas duchas.</li>
+<li><strong>Pérdida del conocimiento</strong>: Muchas bibliotecas de
+magia quedaron destruidas o inaccesibles, generando una época oscura
+donde la sabiduría ancestral se transformó en leyenda.</li>
+<li><strong>Nuevas creencias</strong>: Surgieron cultos que veneraban el
+caos como fuerza primordial, así como religiones que prometían restaurar
+el equilibrio mediante sacrificios y purificación.</li>
+</ul>
+<h2 id="leyendas-y-mitos-del-colapso">Leyendas y mitos del Colapso</h2>
+<h3 id="el-último-emperador-y-el-lamento-de-ébano">El Último Emperador y
+el Lamento de Ébano</h3>
+<p>Se dice que el último soberano del Viejo Orden, el Emperador Kaelen
+Vherran, intentó sellar el Desgarro Arcano utilizando la reliquia
+conocida como el Lamento de Ébano, una gema tallada con la esencia de un
+dragón ancestral. En su intento desesperado, desapareció junto con su
+corte, y desde entonces muchas voces creen que su espíritu vela sobre
+las ruinas, esperando el renacer de Lithernia.</p>
+<h3 id="las-sombras-errantes">Las Sombras Errantes</h3>
+<p>Cuentan que después del colapso, seres espectrales aparecieron en los
+bosques y ruinas, eran los antiguos consejeros caídos, condenados a
+vagar por su incumplida lealtad. Algunos aventureros afirman que
+encontrar estas Sombras Errantes puede llevar tanto a la perdición como
+a hallazgos arcanos olvidados.</p>
+<h2 id="costumbres-surgidas-tras-el-colapso">Costumbres surgidas tras el
+colapso</h2>
+<ul>
+<li><strong>La Noche del Recuerdo</strong>: Cada solsticio de invierno,
+los sobrevivientes realizan vigilias en memoria del Viejo Orden,
+encendiendo velas en ruinas para honrar a los caídos y pedir protección
+ante las fuerzas del caos.</li>
+<li><strong>Ritos de arcanos rotos</strong>: Magos y sabios que
+practican las artes arcanas en la era posterior buscan fragmentos de
+conocimiento antiguo y realizan rituales para purificar y controlar el
+uso del poder mágico fragmentado.</li>
+<li><strong>Concilios de Almas</strong>: En las aldeas, a menudo se
+forman grupos clandestinos llamados Concilios de Almas que preservan la
+memoria y las tradiciones del Viejo Orden, custodiando secretos que
+podrían cambiar el destino de Lithernia.</li>
+</ul>
+<h2 id="importancia-actual">Importancia actual</h2>
+<p>El Colapso del Viejo Orden no solo representa el fin de un ciclo,
+sino el inicio de muchas historias dentro del <a
+href="Título_de_la_nota.html">Título_de_la_nota</a>. Sus ecos persisten
+en la política, la magia y la sociedad, y muchos ven en ese episodio la
+clave para entender los misterios del presente y el destino de su mundo.
+Los fragmentos del Viejo Orden son codiciados, temidos y celebrados por
+igual, invitando a héroes y <a href="Villanos.html">Villanos</a> a
+buscar su propio camino en un mundo de sombras y posibilidades.</p>
+<hr />
+<p>El estudio constante del Colapso es fundamental para comprender las
+fuerzas que moldearon Lithernia. En estas ruinas yace también la
+esperanza — la promesa de un nuevo amanecer que surgirá de las cenizas,
+forjado por la voluntad indomable de sus habitantes.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.77)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

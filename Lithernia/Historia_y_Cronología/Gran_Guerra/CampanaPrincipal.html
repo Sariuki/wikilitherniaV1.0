@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampanaPrincipal</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">CampanaPrincipal</div>
+        <div class="content">
+<h1 id="campanaprincipal">Campanaprincipal</h1>
+<p>En un mundo forjado por la ira de los dioses y marcado por las
+cicatrices de una rebelión ancestral, Lithernia sangra. La Gran Guerra,
+un conflicto milenario entre los cuatro grandes reinos, es el eco
+interminable de una traición divina y un castigo desmedido: el
+Cataclismo del <a href="Lilium.html">Lilium</a>. Pero en las tabernas
+oscuras, en las bibliotecas prohibidas y en los corazones de los
+oprimidos, una profecía arde como una brasa bajo las cenizas. Habla del
+retorno del Primer Rey, o de un <a href="Heroes.html">Heroes</a> mortal
+investido con su poder, destinado a quebrar las cadenas de los dioses y
+unificar el mundo de una vez por todas.</p>
+<p>Esta es la senda de los héroes predestinados, la crónica de su
+ascenso en un mundo al borde del abismo. Esta es la campaña principal de
+Lithernia: <strong>La Caída del <a href="Lilium.html">Lilium</a> y el
+Retorno del Rey</strong>.</p>
+<h3 id="premisa-de-la-campaña">Premisa de la Campaña</h3>
+<p>Los aventureros, ya sea por el azar del destino, una marca de
+nacimiento o una elección audaz, se encuentran en el epicentro de la
+Profecía del Retorno del Rey. Sus vidas se entrelazan con el legado del
+monarca sellado y las cuatro Lanzas Celestiales que lo aprisionan.
+Mientras los reinos chocan y los dioses observan desde sus tronos
+celestiales, los héroes deberán navegar un mundo de intrigas políticas,
+batallas campales y magia ancestral. Su misión no es solo sobrevivir,
+sino decidir el destino de Lithernia: ¿serán los salvadores que
+cumplirán la profecía y traerán la paz, o los catalizadores de un caos
+aún mayor que el del propio <a href="Lilium.html">Lilium</a>?</p>
+<h3 id="los-pilares-de-la-trama">Los Pilares de la Trama</h3>
+<p>La campaña se sustenta sobre varios pilares narrativos
+interconectados, extraídos de las <a href="Leyendas.html">Leyendas</a>
+más profundas de Lithernia.</p>
+<ul>
+<li><strong>La Profecía del Retorno:</strong> El motor de la historia.
+Los héroes descubrirán gradualmente su conexión con este antiguo
+augurio. Deberán descifrar sus versos, comprender sus implicaciones y
+enfrentarse a quienes desean cumplirla y a quienes la temen. La
+ambigüedad de la frase “purgar el mundo de las creaciones fallidas de
+los dioses” será una fuente constante de dilema moral.</li>
+<li><strong>La Búsqueda de las Lanzas Celestiales:</strong> Las cuatro
+lanzas —<strong>Requiem, Ultimatum, Mortum y Chronos</strong>— no son
+solo las llaves de la prisión del Primer Rey; son artefactos de poder
+inconmensurable. Cada lanza está oculta o custodiada en un rincón
+diferente de Lithernia, y obtenerlas requerirá superar desafíos únicos
+en cada uno de los cuatro grandes reinos, enfrentando a sus guardianes y
+desentrañando los misterios de su creación.</li>
+<li><strong>La Gran Guerra como Telón de Fondo:</strong> La campaña no
+ocurre en el vacío. Los héroes deberán viajar a través de naciones en
+guerra. Sus acciones pueden inclinar la balanza de poder, forjar
+alianzas inesperadas entre <a href="Eldrador.html">Eldrador</a> y <a
+href="Valtoria.html">Valtoria</a>, o intensificar el conflicto con el
+tiránico <a href="Mor&#39;dhul.html">Mor’dhul</a>. Cada reino ofrecerá
+aliados y enemigos, y la lealtad será una moneda tan valiosa como el
+oro.</li>
+<li><strong>El Legado del <a href="Lilium.html">Lilium</a>:</strong> El
+cataclismo dejó heridas en el mundo que aún supuran. Zonas mágicamente
+inestables, criaturas corruptas por <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+y ruinas de la civilización del Primer Rey son escenarios comunes.
+Explorar estos lugares peligrosos será necesario para encontrar pistas,
+artefactos perdidos y comprender la verdadera magnitud del poder que los
+dioses desataron.</li>
+</ul>
+<h3 id="facciones-y-personajes-clave">Facciones y Personajes Clave</h3>
+<p>Los héroes no estarán solos en su viaje. El destino de Lithernia está
+en manos de poderosos actores que buscarán ayudarlos, manipularlos o
+destruirlos.</p>
+<ul>
+<li><strong>El Trono de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>:</strong> El antagonista principal
+del orden establecido. El <strong>Rey-Dios Sel’thirak</strong> ve la
+profecía como la mayor amenaza para el dominio divino y usará todo su
+poder para suprimirla. Su leal general, <strong>Lord Volrath</strong>,
+liderará los ejércitos de <a href="Mor&#39;dhul.html">Mor’dhul</a> para
+cazar a los héroes, mientras que la astuta consejera, <strong>Lady
+Xandria</strong>, tejerá redes de intriga y espionaje para anticiparse a
+sus movimientos.</li>
+<li><strong>La Ambición Usurpadora:</strong> <strong>Lord Aethel “El
+Cruel”</strong> representa una amenaza aún más caótica. Este <a
+href="Noble.html">Noble</a> tiefling no quiere suprimir la profecía,
+sino pervertirla para su propio beneficio. Es un rival directo de los
+héroes en la búsqueda de las Lanzas, creyendo que él es el verdadero <a
+href="Heroes.html">Heroes</a> destinado a gobernar. Su crueldad y pactos
+oscuros podrían convertirlo en un mal mayor que el propio
+Sel’thirak.</li>
+<li><strong>Los Reinos Mortales:</strong> Las otras naciones pueden ser
+aliadas o un obstáculo.
+<ul>
+<li>En <strong><a href="Galvorn.html">Galvorn</a></strong>, el valiente
+<strong>Capitán Aurelius Stormsail</strong> podría ofrecer apoyo naval,
+pero el Consejo de Capitanes es un nido de intereses contrapuestos.</li>
+<li>En <strong><a href="Valtoria.html">Valtoria</a></strong>, la justa
+<strong>Reina Valeria Bronzebrillo</strong> y el sabio <strong>Archimago
+Thalios</strong> podrían proporcionar conocimiento y refugio, pero temen
+provocar la ira de los dioses y de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</li>
+<li>En <strong><a href="Eldrador.html">Eldrador</a></strong>, la nobleza
+élfica desconfía de cualquier profecía que amenace su soberanía, viendo
+la reunificación de Lithernia como el fin de su modo de vida.</li>
+</ul></li>
+<li><strong>Los Dioses:</strong> El panteón completo es una fuerza a
+tener en cuenta. Aunque divididos por sus propias rencillas, se unirían
+sin dudarlo para aplastar a cualquier mortal que ose repetir el desafío
+del Primer Rey. Su intervención puede ser sutil (a través de clérigos y
+augurios) o directa y devastadora.</li>
+</ul>
+<h3 id="estructura-sugerida-de-la-campaña">Estructura Sugerida de la
+Campaña</h3>
+<p>La saga del Retorno del Rey puede dividirse en tres grandes
+actos:</p>
+<p><strong>Acto I: El Despertar de los Ecos</strong> Los héroes
+comienzan como simples aventureros, pero una serie de eventos los
+conecta con la profecía. Quizás encuentren un mapa antiguo en unas
+ruinas pre-<a href="Lilium.html">Lilium</a>, o uno de ellos manifieste
+un poder inexplicablemente ligado al Primer Rey. Su primer objetivo será
+sobrevivir a los agentes de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+que ya han detectado la perturbación, y encontrar la primera de las
+Cuatro Lanzas Celestiales, desvelando así la verdadera magnitud de su
+destino.</p>
+<p><strong>Acto II: La Sombra de las Lanzas</strong> Con el conocimiento
+de su misión, los héroes se embarcan en una búsqueda épica a través de
+Lithernia para encontrar las lanzas restantes. Este acto los llevará a
+negociar con la nobleza de <a href="Eldrador.html">Eldrador</a>,
+explorar las profundas forjas de <a href="Valtoria.html">Valtoria</a>,
+navegar los peligrosos mares de <a href="Galvorn.html">Galvorn</a> y,
+finalmente, infiltrarse en el corazón de las tinieblas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. En cada paso, serán perseguidos
+por Volrath y competirán contra los agentes de Aethel, quien busca las
+lanzas para sí mismo.</p>
+<p><strong>Acto III: El Desafío a los Cielos</strong> Con las Lanzas en
+su poder, los héroes se enfrentan a la decisión final. Deben encontrar
+la prisión del Primer Rey y realizar el ritual para quebrar los sellos.
+Este acto culminará en un enfrentamiento épico. No solo deberán derrotar
+a los tiranos mortales que se interponen en su camino, sino también
+enfrentarse a la ira de los dioses, quienes descenderán para evitar a
+toda costa que la historia se repita. El destino de Lithernia se
+decidirá en una batalla que hará temblar los cimientos de la
+creación.</p>
+<h3 id="temas-centrales">Temas Centrales</h3>
+<ul>
+<li><strong>Divinidad vs. Mortalidad:</strong> ¿Tienen los dioses el
+derecho a gobernar a los mortales, o la humanidad y las otras razas
+tienen derecho a forjar su propio destino?</li>
+<li><strong>Orden vs. Libertad:</strong> ¿Es preferible la paz tiránica
+de los dioses y Sel’thirak al caos liberador que promete la
+profecía?</li>
+<li><strong>El Peso de la Historia:</strong> Los personajes cargan con
+las consecuencias de eventos ocurridos hace milenios. ¿Pueden romper el
+ciclo de odio y venganza, o están condenados a repetirlo?</li>
+<li><strong>El Significado del Poder:</strong> Las Lanzas Celestiales
+otorgan un poder inmenso. La campaña explorará cómo los héroes manejan
+ese poder y la tentación de usarlo para fines egoístas.</li>
+</ul>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li>El Legado del <a href="Lilium.html">Lilium</a></li>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.33)</li>
+<li><a href="Lanzas%20Celestiales.html">Lanzas Celestiales</a>
+(relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

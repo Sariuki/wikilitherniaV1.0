@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Vulkoris</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Vulkoris</div>
+        <div class="content">
+<h1 id="lyra-vulkoris">Lyra Vulk’oris</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En las entrañas del Volcán del Yunque Roto, donde el aire vibra con
+el eco de almas olvidadas y la lava fluye como sangre de la tierra, se
+forjó el espíritu de Lyra Vulk’oris. Heredera del exilio y del arte
+prohibido, Lyra es la encarnación viviente del lema de su casa: una
+voluntad de acero nacida de la ceniza del rechazo, y un poder extraído
+de las sombras que otros temen.</p>
+<p>Criada no con canciones de cuna, sino con el rítmico martilleo sobre
+el yunque y los susurros de las esencias atrapadas en el metal, Lyra
+demostró desde joven un talento que rozaba lo sacrílego. Su padre,
+Malakor Vulk’oris, un maestro por derecho propio, vio en ella no solo
+una sucesora, sino una fuerza indómita. Mientras él y los fundadores de
+la casa habían aprendido a canalizar la energía sombría de las Cumbres
+Resquebrajadas por necesidad, Lyra lo hizo con una afinidad innata. No
+solo aprendió la técnica del “Temple Sombrío”, sino que la perfeccionó,
+descubriendo cómo tejer en el acero no solo ecos de desesperación, sino
+también fragmentos de voluntad rota, el filo de la ambición y el peso de
+la traición.</p>
+<p>Su obra maestra, la espada bastarda conocida como <strong>“Lamento de
+Obsidiana”</strong>, no es célebre por su filo impecable, sino por la
+sutil aura de pavor que inflige a quienes la enfrentan, sembrando la
+duda en el corazón del <a href="Guerrero.html">Guerrero</a> más
+valiente. Este logro la elevó por encima de su padre, consolidándola
+como la Maestra Forjadora de Sombras de la Casa Vulk’oris.</p>
+<p>Pero la ambición de Lyra trasciende la forja. Ve la Gran Guerra no
+como una calamidad, sino como una ecuación de poder sin resolver.
+Desprecia la ineficacia de los reinos tradicionales, atrapados en ciclos
+de honor y tradición que solo perpetúan el conflicto. En su visión
+pragmática, las armas de la Casa Vulk’oris son la variable que puede
+forzar un resultado. Su objetivo es claro y despiadado: expandir la
+influencia de su casa hasta que sus creaciones se vuelvan indispensables
+en el tablero de Lithernia, convirtiendo a los Vulk’oris en los
+verdaderos artífices del poder, ocultos tras los tronos que ellos mismos
+han armado.</p>
+<p>Ha fortalecido la alianza con el Clan Ironclaw de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, intercambiando técnicas de
+metalurgia volcánica por acceso a minerales raros y rutas seguras a
+través de tierras hostiles. Esta relación, vista como una traición por
+los puristas de <a href="Valtoria.html">Valtoria</a> como la Casa
+Dravonis, es para Lyra una simple muestra de pragmatismo. Su rivalidad
+con el Clan Nighthawk es más sutil: una guerra fría de espionaje y
+secretos, ya que ambos clanes buscan dominar las sombras, aunque por
+medios diferentes. Lyra sabe que los <a
+href="Hobgoblins.html">Hobgoblins</a> codician los secretos de su forja,
+y ella, a su vez, estudia sus métodos de ilusión para aplicarlos a
+nuevas y más aterradoras creaciones.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra posee la complexión robusta y la resistencia inquebrantable de
+su herencia enana, pero hay en ella una intensidad que la distingue. Su
+piel pálida tiene un matiz ceniciento, como si estuviera permanentemente
+cubierta por el polvo de la forja. Sus ojos, de un inusual y profundo
+color violeta, parecen contener el brillo latente de las llamas púrpuras
+de su blasón. Lleva su largo cabello negro, con mechones plateados por
+la edad y el estrés, recogido en una compleja trenza funcional,
+salpicada de anillos de hierro que ella misma forjó. Sus manos, aunque
+cubiertas de callos y cicatrices de quemaduras, se mueven con la
+precisión de una cirujana al manejar tanto un martillo de guerra como
+una delicada herramienta de grabado.</p>
+<p><strong>Equipamiento:</strong> * <strong>Armadura del Yunque
+Roto:</strong> Un conjunto de armadura de placas de acero volcánico, de
+un color negro mate que parece absorber la luz. No está pulida ni
+ornamentada con metales preciosos, sino grabada con finas <a
+href="Runas.html">Runas</a> Vulk’oris que canalizan y contienen la
+energía sombría, otorgándole una resistencia sobrenatural. *
+<strong>Rompealmas:</strong> Su arma personal, un martillo de guerra
+forjado por ella misma. Su cabeza, de obsidiana metálica, está imbuida
+con el eco del desafío y la tenacidad. Se dice que cada golpe no solo
+rompe huesos, sino que debilita la resolución del oponente. *
+<strong>Herramientas del Maestro:</strong> Siempre lleva consigo su
+martillo de forja personal y unas tenazas de acero sombrío. No son meras
+herramientas, sino una extensión de su voluntad, tratadas con una
+reverencia que reserva para muy pocas cosas.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lyra Vulk’oris está destinada a ser una fuerza disruptiva en
+Lithernia. No es una conquistadora que busca un trono, sino una
+innovadora que pretende redefinir las herramientas del poder. Su legado
+no se medirá en tierras conquistadas, sino en la influencia silenciosa y
+letal de sus creaciones.</p>
+<p>Si tiene éxito, las armas Vulk’oris podrían escalar el conflicto de
+la Gran Guerra a un nuevo nivel de terror psicológico, haciendo que la
+moral y la voluntad sean tan importantes como la fuerza bruta en el
+campo de batalla. Esto podría llevar a su casa a una posición de inmenso
+poder, convirtiéndola en un jugador clave temido y solicitado por todas
+las facciones.</p>
+<p>Para los tradicionalistas de <a href="Valtoria.html">Valtoria</a>,
+representa la corrupción final del arte sagrado de la forja, una hereje
+cuyo trabajo profana el alma del metal. Para los señores de la guerra de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>, es una pragmática visionaria,
+una aliada cuyo genio puede otorgarles la victoria.</p>
+<p>En última instancia, el impacto de Lyra será una pregunta moral para
+el continente: ¿es el poder que nace de la oscuridad inherentemente
+maligno, o es simplemente una herramienta más en la lucha por la
+supervivencia? Su historia será un recordatorio de que en Lithernia, las
+armas más peligrosas no son las que matan el cuerpo, sino las que
+quiebran el espíritu.</p>
+        </div>
+    </div>
+</body>
+</html>

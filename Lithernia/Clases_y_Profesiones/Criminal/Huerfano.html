@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huerfano</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Huerfano</div>
+        <div class="content">
+<h1 id="huerfano">Huerfano</h1>
+<h3 id="perfil-del-trasfondo">Perfil del Trasfondo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Sigilo, Supervivencia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">A elegir: Herramientas de ladrón o un tipo
+de herramientas de artesano.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Uno de tu elección.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un pequeño cuchillo, un recuerdo de tus
+padres (un broche, una carta ilegible, un juguete roto), un conjunto de
+ropas comunes y gastadas, una bolsa con 5 po.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgo-red-de-supervivientes">Rasgo: Red de Supervivientes</h3>
+<p>Puedes encontrar lugares donde otros marginados (huérfanos,
+exiliados, refugiados) se congregan. Siempre que no representes una
+amenaza, puedes encontrar refugio y comida sencillos. También puedes
+obtener rumores e información común sobre los peligros locales, las
+patrullas de la guardia o las facciones que operan en la zona.</p>
+<h3 id="rasgo-variante-pupilo-arcano">Rasgo Variante: Pupilo Arcano</h3>
+<p>Si tu crianza tuvo lugar en una institución que acogía a huérfanos
+con potencial mágico (como la Torre de las Estrellas en <a
+href="Valtoria.html">Valtoria</a> o un templo en <a
+href="Eldrador.html">Eldrador</a>), este rasgo reemplaza a <strong>Red
+de Supervivientes</strong>.</p>
+<p>Obtienes competencia en la habilidad de <strong>Arcanos</strong> en
+lugar de Supervivencia. Tu red de contactos está formada por antiguos
+compañeros y tutores de dicha institución. A través de ellos, podrías
+obtener acceso a conocimiento arcano básico, la identificación de un
+objeto mágico común o un lugar seguro temporal dentro de círculos
+académicos o religiosos.</p>
+<h3 id="características-sugeridas">Características Sugeridas</h3>
+<h4 id="rasgos-de-personalidad-d8">Rasgos de Personalidad (d8)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d8</th>
+<th style="text-align: left;">Rasgo de Personalidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Desconfío de las promesas y la autoridad;
+las acciones son lo único que cuenta.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Siempre tengo un plan de escape, sin
+importar dónde esté.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Colecciono pequeños objetos sin valor
+aparente que encuentro; cada uno tiene una historia.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">La soledad es mi única compañera
+constante, y a veces la prefiero a la compañía.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Comparto lo poco que tengo con aquellos
+que son más desafortunados que yo.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Observo a los demás desde la distancia,
+intentando aprender sus debilidades.</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">Guardo rencor durante mucho tiempo y nunca
+olvido una ofensa.</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">Mi optimismo es inquebrantable, incluso
+después de todo lo que he vivido. El mañana siempre puede ser
+mejor.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ideales-d6">Ideales (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Ideal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><strong>Comunidad.</strong> Crearé la
+familia que nunca tuve, protegiendo a mis compañeros a toda costa.
+(Bueno)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><strong>Independencia.</strong> Nadie
+volverá a controlarme. Mi destino es mío y de nadie más. (Caótico)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><strong>Venganza.</strong> Los que me
+arrebataron todo (un clan, una facción, los dioses) pagarán por ello.
+(Maligno)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><strong>Conocimiento.</strong> Descubrir
+mis orígenes y la verdad de mi pasado es mi único propósito.
+(Neutral)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><strong>Justicia.</strong> Nadie debería
+sufrir lo que yo sufrí. Protegeré a los inocentes y a los débiles.
+(Legal)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><strong>Supervivencia.</strong> Haré lo
+que sea necesario para seguir con vida, sin importar las reglas o la
+moral. (Neutral)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vínculos-d6">Vínculos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Vínculo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Busco a un hermano o hermana que fue
+separado de mí hace mucho tiempo.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Un objeto sin valor es el único recuerdo
+que tengo de mis padres. Lo protegeré con mi vida.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Le debo mi vida a la persona u
+organización que me crió. Haría cualquier cosa por ellos.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Estoy convencido de que mis padres eran
+figuras importantes (un <a href="Noble.html">Noble</a>, un <a
+href="Heroes.html">Heroes</a> de la Gran Guerra, un <a
+href="Mago.html">Mago</a> poderoso) y debo honrar su legado.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Protejo un lugar secreto que fue mi único
+refugio durante mi infancia.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Fui traicionado por mi único amigo de la
+infancia y algún día me enfrentaré a él.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="defectos-d6">Defectos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Sacrificaría a casi cualquiera por una
+cantidad de oro que me asegure no volver a pasar hambre.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Soy incapaz de confiar plenamente en
+nadie, sospechando siempre de una posible traición.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Mi pasado me atormenta en pesadillas, a
+veces con ecos del Cataclismo del <a href="Lilium.html">Lilium</a> o la
+crueldad de un clan de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Haré lo que sea para encajar en un grupo,
+incluso si eso significa abandonar mis principios.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Tengo una adicción (el juego, la bebida,
+la toma de riesgos innecesarios) que me ayuda a olvidar.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Si tengo la oportunidad de tomar algo sin
+que nadie se dé cuenta, probablemente lo haga.</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criminal</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Criminal</div>
+        <div class="content">
+<h1 id="criminal">Criminal</h1>
+<h3 id="perfil-del-trasfondo">Perfil del Trasfondo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Engaño, Sigilo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Un tipo de juego de azar, Herramientas de
+ladrón</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Ninguno adicional</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo</strong></td>
+<td style="text-align: left;">Una palanca, un conjunto de ropas oscuras
+comunes con capucha, una bolsa con 15 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo Único</strong></td>
+<td style="text-align: left;">Contacto del Inframundo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="especialidad-criminal-d8">Especialidad Criminal (d8)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d8</th>
+<th style="text-align: left;">Especialidad</th>
+<th style="text-align: left;">Ubicación/Facción Sugerida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Ladrón y Ratero</td>
+<td style="text-align: left;">Callejones de <strong>Vallas</strong> o
+mercados de <strong>Noblestevo</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Contrabandista</td>
+<td style="text-align: left;">Puertos de <strong><a
+href="Galvorn.html">Galvorn</a></strong> o rutas secretas en <strong><a
+href="Valtoria.html">Valtoria</a></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Asesino a sueldo</td>
+<td style="text-align: left;">Sirviendo a un clan de <strong><a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong> o a una casa <a
+href="Noble.html">Noble</a> de <strong><a
+href="Eldrador.html">Eldrador</a></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Espía</td>
+<td style="text-align: left;">Miembro del <strong>Clan
+Shadowscale</strong> o informante para <strong>Moonshadow</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Chantajista</td>
+<td style="text-align: left;">Operando en las cortes de la
+<strong>Ciudadela de obsidiana</strong> o <strong><a
+href="Eldrador.html">Eldrador</a></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Saqueador de Ruinas</td>
+<td style="text-align: left;">Especializado en artefactos pre-Cataclismo
+del <a href="Lilium.html">Lilium</a> en <strong>Mirallos</strong> o
+<strong>Estriedana</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">Pirata o Corsario</td>
+<td style="text-align: left;">Flotas de <strong><a
+href="Galvorn.html">Galvorn</a></strong> o sirviendo a un señor de la
+guerra de <strong><a href="Mor&#39;dhul.html">Mor’dhul</a></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Miembro de un Gremio</td>
+<td style="text-align: left;">Red organizada en una de las grandes
+ciudades, como el gremio de ladrones de la capital de <strong><a
+href="Galvorn.html">Galvorn</a></strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgo-contacto-del-inframundo">Rasgo: Contacto del
+Inframundo</h3>
+<p>Tienes un contacto fiable y de confianza que actúa como tu enlace con
+una red de otros criminales. Sabes cómo enviar mensajes y recibir
+información de tu contacto, incluso a grandes distancias.
+Específicamente, conoces a los mensajeros locales, a los capitanes de
+caravana corruptos y a los marineros de mala reputación que pueden
+entregar tus mensajes. Tu contacto te puede proporcionar acceso a un
+lugar seguro, información sobre rumores locales y figuras de poder, pero
+no se arriesgará por ti sin una buena razón.</p>
+<h3 id="características-sugeridas">Características Sugeridas</h3>
+<p>Los criminales se definen por su capacidad de supervivencia y su
+código personal, a menudo forjado en la adversidad de los reinos de
+Lithernia.</p>
+<h4 id="rasgos-de-personalidad-d8">Rasgos de Personalidad (d8)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d8</th>
+<th style="text-align: left;">Rasgo de Personalidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Siempre tengo un plan para cuando las
+cosas salen mal.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Desconfío de la palabra de cualquiera que
+no haya sangrado conmigo.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Vi el horror del Cataclismo del <a
+href="Lilium.html">Lilium</a> en una visión, y desde entonces la muerte
+mortal no me asusta.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Soy increíblemente educado y cortés; es la
+mejor forma de que la gente baje la guardia.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Siempre estoy tranquilo, sin importar la
+situación. Nunca levanto la voz ni dejo que mis emociones me
+controlen.</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">No puedo resistir la tentación de un
+artefacto que susurra historias del pasado.</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">La única persona en la que confío es en mí
+mismo. El resto son herramientas o amenazas.</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Prefiero hacer un nuevo enemigo que dejar
+pasar una oportunidad de oro.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ideales-d6">Ideales (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d6</th>
+<th style="text-align: left;">Ideal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>Libertad.</strong> Las cadenas, ya
+sean de un rey-dios o de la ley, están hechas para romperse.
+(Caótico)</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>Lealtad.</strong> Mis deudas
+siempre son pagadas, y mi palabra es mi vínculo, incluso en el
+inframundo. (Legal)</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>Poder.</strong> El Primer Rey
+desafió a los dioses. Yo me conformo con desafiar a los mortales… por
+ahora. (Maligno)</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>Redención.</strong> Mi pasado
+criminal no definirá mi futuro. Busco una causa por la que valga la pena
+luchar. (Bueno)</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>Comunidad.</strong> Protejo a los
+de mi calaña, a los descastados y olvidados por los reinos.
+(Neutral)</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>Riqueza.</strong> El oro abre más
+puertas que cualquier llave o conjuro. (Cualquiera)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vínculos-d6">Vínculos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d6</th>
+<th style="text-align: left;">Vínculo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Estoy tratando de pagar una vieja deuda
+que le debo a un generoso benefactor (o a un señor del crimen).</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Mi antiguo clan o gremio me ha puesto
+precio a la cabeza por una traición que no cometí.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Protejo un secreto sobre una de las Lanzas
+Celestiales que podría derrocar a un gobernante.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Alguien a quien amo fue asesinado por
+orden de un <a href="Noble.html">Noble</a>. Juro venganza.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Mi lealtad es para mi mentor, que me sacó
+de las calles y me enseñó todo lo que sé.</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Me escapé de una de las prisiones de la
+Ciudadela de obsidiana. Haré cualquier cosa para no volver.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="defectos-d6">Defectos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d6</th>
+<th style="text-align: left;">Defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Cuando veo algo de valor, no puedo evitar
+pensar en cómo robarlo.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Subestimo a los nobles de <a
+href="Eldrador.html">Eldrador</a>; su cortesía esconde dagas más
+afiladas que las mías.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">No dudaré en traicionar a un compañero si
+eso garantiza mi supervivencia.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Tengo una deuda con una entidad peligrosa,
+como un vampiro del Clan de los Condenados o un Coleccionistas de
+lamentos.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">La ambición me ciega. Una vez que me fijo
+un objetivo, haré cualquier cosa para conseguirlo, sin importar el
+coste.</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Soy adicto al riesgo y a la emoción del
+peligro. La vida tranquila me parece insoportable.</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </div>
+</body>
+</html>

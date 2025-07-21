@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grorna_Rompepiedra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grorna_Rompepiedra</div>
+        <div class="content">
+<h1 id="grorna-rompepiedra">Grorna Rompepiedra</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los anales de <a href="Valtoria.html">Valtoria</a>, el nombre
+Rompepiedra es sinónimo de honor, de clanes que han servido a la montaña
+con picos y martillos durante generaciones. Grorna nació en el seno de
+esta tradición, en los profundos salones de <a
+href="Douchy.html">Douchy</a>, y desde joven demostró una afinidad
+innata no con la paciencia del cantero, sino con la violencia de la
+fractura. Donde otros veían vetas de mithril que extraer con cuidado,
+ella veía debilidades que explotar. Su espíritu era el del terremoto, no
+el de la montaña paciente.</p>
+<p>Durante sus años en la guardia de granito de <a
+href="Douchy.html">Douchy</a>, Grorna se ahogaba en la doctrina
+defensiva del reino. Observaba con desdén cómo el Concilio de la Montaña
+debatía durante ciclos lunares, cómo los sabios de la Torre de las
+Estrellas predicaban la contención, y cómo la diplomacia con los elfos
+de la cercana <a href="Sylorian.html">Sylorian</a> “suavizaba” el alma
+de acero de su gente. Para Grorna, la sabiduría era cobardía disfrazada,
+y la tradición, una cadena que impedía a los <a
+href="Enanos.html">Enanos</a> reclamar su verdadero destino: el
+dominio.</p>
+<p>Su punto de quiebre fue un tratado comercial con <a
+href="Sylorian.html">Sylorian</a>, donde presenció cómo los líderes <a
+href="Enanos.html">Enanos</a> inclinaban la cabeza ante los “susurros de
+hojas” de los elfos. Aquella noche, desertó. No huyó como una paria,
+sino que marchó como una profeta de un nuevo orden. En las sombras de
+las montañas proscritas, encontró a otros como ella: exiliados, mineros
+cuya ambición superaba su lealtad y magos que osaban estudiar los ecos
+del Cataclismo del <a href="Lilium.html">Lilium</a>. Con ellos fundó los
+<strong>Cazadores de Sombras</strong>.</p>
+<p>Como Comandante de Guerra, Grorna es la encarnación de la furia de su
+facción. Su nombre se susurra con temor en las avanzadillas de <a
+href="Valtoria.html">Valtoria</a>. Lideró el asalto que profanó el
+Santuario de la Piedra Silente en <a
+href="Pralestamo.html">Pralestamo</a>, robando <a
+href="Runas.html">Runas</a> ancestrales. Fue ella quien orquestó el
+colapso de las Minas de Plata de <a href="Nolindor.html">Nolindor</a>,
+no para saquearlas, sino para cortar el sustento de un clan que
+consideraba débil. Su mayor victoria personal fue convencer a una joven
+y prometedora guardia de <a href="Douchy.html">Douchy</a>, a quien veía
+como su reflejo, de abandonar su puesto y unirse a su causa, probando
+que su filosofía era contagiosa.</p>
+<p>Movida por un pragmatismo brutal, Grorna ha forjado alianzas con
+agentes de <a href="Mor&#39;dhul.html">Mor’dhul</a>. No siente devoción
+por sus dioses oscuros ni por Sel’thirak, pero reconoce el poder en sus
+métodos y la utilidad de un enemigo común. Les proporciona inteligencia
+sobre las defensas de <a href="Valtoria.html">Valtoria</a> a cambio de
+conocimiento arcano prohibido y artefactos imbuidos con la energía de
+las sombras, convencida de que el fin justifica cualquier medio. Su
+objetivo final no es solo la riqueza o el poder personal, sino la
+demolición total del orden valtoriano, para reconstruir un imperio enano
+basado en la fuerza, el miedo y la oscuridad que, según ella, siempre ha
+latido bajo la piedra.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Grorna es una figura imponente, incluso para un enano. Su cuerpo es
+un bloque de músculo y dureza, forjado en batallas y túneles prohibidos.
+Su piel es pálida, del color del granito sin pulir, y su rostro está
+marcado por una red de cicatrices finas, recuerdos de esquirlas de roca
+y garras de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de las profundidades. Su barba, de un negro azabache, no está trenzada
+con los anillos de oro de la nobleza, sino con correas de cuero crudo y
+fragmentos de obsidiana. Sus ojos, oscuros y penetrantes, carecen del
+cálido brillo de la forja; son fríos, como astillas de un mundo sin
+sol.</p>
+<p>Viste una <strong>armadura de placas de acero ennegrecido</strong>,
+despojada de cualquier adorno que no sea funcional o intimidante. Las
+hombreras y el peto están incrustados con venas de mineral oscuro que
+parecen absorber la luz, un regalo de sus aliados de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. No porta el escudo de los
+defensores <a href="Enanos.html">Enanos</a>; desprecia la idea de
+esconderse.</p>
+<p>Su arma es una extensión de su voluntad: un <strong>colosal martillo
+de guerra de dos manos</strong>, bautizado como
+<strong><code>Rompe-espíritus</code></strong>. La cabeza del martillo,
+forjada con hierro meteórico y templada en sangre, está cubierta de <a
+href="Runas.html">Runas</a> corruptas que brillan con una tenue luz
+violácea. Se dice que cada golpe no solo quiebra la roca y el hueso,
+sino que también desgarra el alma, dejando una estela de frío necrótico
+a su paso.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Grorna Rompepiedra no es una simple bandida o renegada; es una
+herejía viviente para la cultura enana. Representa la fractura interna
+de <a href="Valtoria.html">Valtoria</a>, la prueba de que ni la sociedad
+más estable y tradicionalista es inmune a la corrosión de la ambición y
+el resentimiento.</p>
+<p>Su impacto directo es la desestabilización de las regiones
+montañosas. Sus incursiones obligan a <a
+href="Valtoria.html">Valtoria</a> a desviar <a
+href="Recursos.html">Recursos</a>, a fortalecer sus defensas internas y
+a confrontar la incómoda verdad de que su mayor enemigo podría no ser <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sino sus propios hijos
+descarriados.</p>
+<p>A largo plazo, el legado de Grorna podría ser catastrófico. Si sus
+Cazadores de Sombras logran corromper un lugar de poder significativo,
+como una de las Ciudades Santuario o un nexo de la Torre de las
+Estrellas, podrían causar un daño irreparable al espíritu y la magia de
+<a href="Valtoria.html">Valtoria</a>. Su alianza con <a
+href="Mor&#39;dhul.html">Mor’dhul</a> amenaza con abrir una brecha en la
+fortaleza natural del reino, convirtiéndola en la punta de lanza de una
+invasión a gran escala.</p>
+<p>Grorna Rompepiedra es el martillo que amenaza con hacer añicos los
+cimientos de <a href="Valtoria.html">Valtoria</a>, demostrando al resto
+de Lithernia que la piedra más dura puede ser quebrada, no por fuerza
+externa, sino por la oscuridad que anida en su propio corazón.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norathil</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Norathil</div>
+        <div class="content">
+<h1 id="norathil">Norathil</h1>
+<p>Norathil no es una ciudad que se defiende con murallas, sino con
+conocimiento. Situada en la resguardada Bahía del Sextante, en el Reino
+de <a href="Galvorn.html">Galvorn</a>, es conocida como el “Ojo del
+Horizonte”, un faro de la exploración en un mundo de conflictos. Sus
+edificios de piedra caliza blanca y tejados de un intenso azul cerámico
+brillan bajo el sol, reflejando el mar que le da vida. Sobre todo ello
+se alza el Faro Astral, una esbelta torre de observación cuya luz
+plateada no solo corta la niebla, sino que también traza el curso de las
+estrellas. En Norathil, un mapa es más valioso que el oro, y el mayor
+tesoro es un rumbo hacia lo desconocido.</p>
+<h2 id="historia">Historia</h2>
+<p>Norathil fue fundada hace tres siglos, no por un conquistador, sino
+por un visionario: el cartógrafo legendario Lyraeus Vientoestelar, un
+semielfo que soñaba con trazar cada rincón de Lithernia. Huyendo de las
+guerras interminables y la política asfixiante de otros reinos, reunió a
+un grupo de exploradores, astrónomos y navegantes <a
+href="Humanos.html">Humanos</a> y <a
+href="Semielfos.html">Semielfos</a>. Su propósito no era crear una
+fortaleza, sino una biblioteca viviente de los mares y los cielos.
+Fundaron la ciudad alrededor de un observatorio natural, que con el
+tiempo se convertiría en el Faro Astral. La corona de <a
+href="Galvorn.html">Galvorn</a> pronto reconoció el valor estratégico de
+sus <a href="Mapas.html">Mapas</a> y le concedió autonomía,
+estableciendo un Lord Almirante para supervisar la defensa, pero dejando
+el verdadero poder —el conocimiento de las rutas— en manos del Gremio
+del Sextante Dorado, fundado por el propio Lyraeus. Desde entonces, la
+ciudad ha sido un delicado equilibrio entre el poder militar de la
+corona y la influencia intelectual de sus cartógrafos.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Faro Astral</strong>: El corazón y el cerebro de
+Norathil. Esta imponente torre no solo sirve de faro, sino que alberga
+el observatorio astrológico más avanzado de <a
+href="Galvorn.html">Galvorn</a>. Sus lentes de cristal encantado,
+pulidos por generaciones de artesanos, son capaces de cartografiar las
+estrellas con una precisión que los navegantes consideran divina. Es el
+dominio de los astrónomos y los devotos de <a
+href="Arzia.html">Arzia</a>.</p></li>
+<li><p><strong>El Muelle del Escriba</strong>: El bullicioso distrito
+que rodea la sede del Gremio del Sextante Dorado. Sus calles huelen a
+sal, tinta y pergamino viejo. Aquí se encuentran los talleres de los
+cartógrafos, las bibliotecas navales y las tiendas que venden desde
+sextantes de precisión hasta brújulas que susurran la dirección del
+viento. Es un lugar de tratos silenciosos e información
+codiciada.</p></li>
+<li><p><strong>La Caleta del Retorno</strong>: El distrito residencial
+más tranquilo, conocido por sus posadas acogedoras gestionadas por una
+próspera comunidad de <a href="Medianos.html">Medianos</a>. En el centro
+de la caleta, en una pequeña playa, se encuentra un humilde altar de
+coral donde los marineros practican el “Juramento de la Marea
+Retornada”, dejando atrás una concha única que solo reclaman a su
+vuelta.</p></li>
+<li><p><strong>La Plaza del Horizonte</strong>: El vibrante centro
+comercial y social de la ciudad. Aquí se celebra anualmente el “Festival
+del Horizonte Trazado”, una competición donde los gremios de
+exploradores presentan sus <a href="Mapas.html">Mapas</a> más audaces
+del último año. El ganador no solo obtiene un premio monetario, sino el
+inmenso prestigio de ver su ruta añadida a la carta maestra del
+Gremio.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Norathil gira en torno a los viajes y el conocimiento. Los
+niños aprenden a leer las estrellas antes que a escribir, y el mayor
+honor para una familia es tener un miembro cuya firma adorne un mapa de
+una región inexplorada. La religión es práctica: se reza a <a
+href="Yfrit.html">Yfrit</a> para calmar el mar, a <a
+href="Quiteon.html">Quiteon</a> para obtener vientos favorables, y a la
+diosa élfica <a href="Arzia.html">Arzia</a> para que las estrellas nunca
+mientan. El símbolo de la ciudad, un sextante de plata sobre olas azules
+con una estrella de ocho puntas, se ve por todas partes, desde los
+estandartes del Lord Almirante hasta los tatuajes de los marineros más
+humildes.</p>
+<h2 id="conflictos-y-amenazas">Conflictos y Amenazas</h2>
+<p>Norathil vive en una paz precaria. Externamente, es el objetivo
+principal del “Sindicato de la Niebla”, una astuta facción pirata que
+utiliza magia de ilusión para crear barcos fantasma y emboscar a las
+valiosas expediciones cartográficas, robando <a
+href="Mapas.html">Mapas</a> que luego venden al mejor postor (a menudo
+agentes de <a href="Mor&#39;dhul.html">Mor’dhul</a>).</p>
+<p>Internamente, la ciudad es un campo de batalla político. El Lord
+Almirante Kaelen Vayl, leal a la corona, presiona para militarizar las
+rutas comerciales y fortalecer la flota, viendo los <a
+href="Mapas.html">Mapas</a> como armas estratégicas. Se opone firmemente
+el Gremio del Sextante Dorado, que defiende la neutralidad y el libre
+acceso al conocimiento, argumentando que su capacidad para comerciar en
+puertos peligrosos depende de no ser vistos como una amenaza militar.
+Esta tensión a menudo paraliza el gobierno de la ciudad y crea
+oportunidades para espías y saboteadores.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Isla Fantasma</strong>: Los marineros más viejos juran
+en voz baja que el Faro Astral guarda un secreto oscuro. Dicen que en
+las noches sin luna, si el farero es sobornado o engañado, la luz
+plateada de la torre puede ser reorientada para apuntar no a un puerto
+seguro, sino a la “Isla Fantasma”, un pedazo de tierra maldita que solo
+se materializa bajo su haz y que se traga barcos y tripulaciones
+enteras, añadiéndolos a una flota espectral.</p></li>
+<li><p><strong>El Kraken Cartógrafo</strong>: La leyenda más increíble
+de Norathil afirma que los <a href="Mapas.html">Mapas</a> más antiguos y
+secretos del Gremio —aquellos que muestran rutas a través de planos o al
+corazón de tormentas eternas— no están dibujados en pergamino. Se dice
+que están tatuados directamente sobre la piel de un kraken ancestral que
+duerme en las profundidades de la bahía. Solo el maestro del Gremio
+conoce el ritual para despertar a la bestia y leer los secretos de su
+piel viviente, un conocimiento tan peligroso como invaluable.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortaleza_de_Karnagal</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Fortaleza_de_Karnagal</div>
+        <div class="content">
+<h1 id="fortaleza-de-karnagal">Fortaleza de karnagal</h1>
+<h2 id="el-bastión-de-los-huesos-susurrantes">El Bastión de los Huesos
+Susurrantes</h2>
+<p><strong>Karnagal</strong>, conocida como <em>“El Argentum de los
+Condenados”</em> entre los clanes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, es una colosal fortaleza
+construida completamente con huesos petrificados fusionados por magia
+oscura. Situada en el Desierto de las Lamentaciones, al noreste de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> capital, sirve como centro
+neurálgico del culto necromántico del Clan Whisper y cuartel general del
+infame <strong>Tercer Ejército No-Muerto</strong>. Sus torres
+retorcidas, hechas de fémures gigantes y cráneos alineados como
+ladrillos, emiten un zumbido perpetuo que los lugareños atribuyen al
+lamento de las almas atrapadas en su estructura.</p>
+<h2 id="arquitectura-maldita">Arquitectura Maldita</h2>
+<p>La fortaleza exhibe características únicas:</p>
+<ol type="1">
+<li><strong>Murallas Vertebrales</strong>: Levantadas con columnas
+vertebrales de criaturas ancestrales desconocidas, cada una de 30 metros
+de altura, entrelazadas con alquitrán de sombras.</li>
+<li><strong>La Puerta de las Mandíbulas</strong>: Entrada principal
+formada por dos maxilares de dragón dracolich petrificados que “muerden”
+intrusos con sellos de energía negativa.</li>
+<li><strong>Torre del Último Aliento</strong>: Estructura central donde
+se almacenan los alaridos de moribundos capturados en esferas de ónice,
+usados como armas psíquicas en asedios.</li>
+<li><strong>Catacumbas Vivas</strong>: Subsuelo donde huesos recién
+añadidos se regeneran y reorganizan automáticamente, haciendo la
+fortaleza casi orgánica.</li>
+</ol>
+<h2 id="historia">Historia</h2>
+<p>El surgimiento de Karnagal está ligado al <strong>Segundo Llanto de
+Sel’thirak</strong> (año 427 PL - Post <a
+href="Lilium.html">Lilium</a>):</p>
+<ul>
+<li><strong>Fundación</strong>: Construida tras la masacre de la Batalla
+de Salién (año 431 PL), donde el general abisal <strong>Zharkul el
+Desollado</strong> sacrificó 10,000 prisioneros de <a
+href="Galvorn.html">Galvorn</a> para petrificar sus huesos con el ritual
+<em>“Sangre al Mármol Eterno”</em>.</li>
+<li><strong>Edad Oscura</strong>: Sirvió como prisión para disidentes
+políticos durante tres siglos, hasta que los necromantes del Clan
+Whisper la reclamaron en el año 781 PL.</li>
+<li><strong>Renacimiento Umbral</strong>: En el año 951 PL, el
+archinecrómante <strong>Velshan el Óseo</strong> descubrió bajo sus
+cimientos un <strong>Vórtex de Entropía</strong>, fuente de poder que
+permitió animar al Tercer Ejército permanentemente.</li>
+</ul>
+<h2 id="el-culto-necromántico">El Culto Necromántico</h2>
+<p>Regido por el dogma del <strong>Pentáculo Silente</strong>, el culto
+practica ritos prohibidos:</p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 36%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr>
+<th><strong>Rito</strong></th>
+<th><strong>Propósito</strong></th>
+<th><strong>Frecuencia</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cosecha Mensual</td>
+<td>Extraer médula para mantener la petrificación</td>
+<td>Cada luna nueva</td>
+</tr>
+<tr>
+<td>Danza de las Costillas Vacías</td>
+<td>Reclutar nuevos esqueletos para el ejército</td>
+<td>Solsticios</td>
+</tr>
+<tr>
+<td>El Banquete Invertido</td>
+<td>Alimentar al Vórtex con órganos frescos</td>
+<td>Noche del <a href="Lilium.html">Lilium</a></td>
+</tr>
+</tbody>
+</table>
+<p>El culto está liderado por la <strong>Matriarca de Huesos</strong>,
+actualmente <strong>Lady Xiryssa la Desgarrada</strong>, una lich
+tiefling que gobierna desde el <strong>Trono del Perturbado Séptimo
+Suspiro</strong>, hecho con los esternones de siete generales
+traicioneros.</p>
+<h2 id="el-tercer-ejército-no-muerto">El Tercer Ejército No-Muerto</h2>
+<p>Fuerza militar única en Lithernia por su composición y tácticas:</p>
+<ul>
+<li><strong>50,000 no-muertos permanentes</strong> (30,000 esqueletos de
+combate, 15,000 zombies especializados, 5,000 espectros ligados).</li>
+<li><strong>Legión de los Caídos sin Tumba</strong>: 300 caballeros
+liches montados en corceles espectrales.</li>
+<li><strong>Arsenal Vivo</strong>: Projectiles hechos con costillas
+afiladas que regeneran tras impactar, ballestas que disparan dientes
+venenosos autocargables.</li>
+</ul>
+<p>Su mayor hazaña fue el <strong>Asedio de Tres Almas</strong> (año 998
+PL), donde derribaron las Murallas de Dargoth usando únicamente los
+gritos psíquicos almacenados en la Torre del Último Aliento durante un
+siglo.</p>
+<h2 id="secretos-y-debilidades">Secretos y Debilidades</h2>
+<p>Secretos que pocos osan mencionar:</p>
+<ul>
+<li><strong>El Pacto del Vórtex</strong>: Cada década, el culto debe
+arrojar al vórtex un corazón de dragón vivo para mantener su poder,
+razón por la que cazan dragonnes en las Montañas Ignifer.</li>
+<li><strong>Maldición de Resonancia</strong>: Quien daña las murallas
+sufre deterioro óseo acelerado (1d6 daño necrótico permanente por cada
+10 puntos de daño infligido).</li>
+<li><strong>La Última Burla</strong>: Según <a
+href="Leyendas.html">Leyendas</a>, el Primer Rey susurró un verso de
+liberación en los huesos fundacionales; si se recita en el sitio exacto,
+toda la fortaleza podría desmoronarse.</li>
+</ul>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.52)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

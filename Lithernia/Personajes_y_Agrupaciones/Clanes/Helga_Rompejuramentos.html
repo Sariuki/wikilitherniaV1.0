@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helga_Rompejuramentos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Helga_Rompejuramentos</div>
+        <div class="content">
+<h1 id="helga-rompejuramentos">Helga Rompejuramentos</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones de piedra de <a href="Valtoria.html">Valtoria</a>,
+donde el honor de un juramento es más pesado que el oro, el nombre
+“Rompejuramentos” es una cicatriz portada con orgullo severo. Helga no
+nació en la sombría Casa Grilletesombrío, sino en el seno del clan
+Picohierro, un linaje de <a href="Enanos.html">Enanos</a> para quienes
+la palabra dada era la ley suprema. Su juventud fue la de cualquier
+enana valtoriana: el calor de la forja, el eco de los martillos y las
+sagas de honor cantadas junto al fuego. Pero el destino tenía para ella
+un yunque más cruel.</p>
+<p>La tragedia llegó en la forma de un ‘Hijo de la Luna’, un joven
+enano, pariente lejano de su clan, cuyos poderes arcanos innatos
+estallaron sin control. Helga, entonces una joven guardia, había jurado
+protegerle. Sin embargo, al ver en sus ojos el mismo vacío de poder que
+aniquiló la ciudad de Piedrasol, se enfrentó a una elección imposible:
+mantener su juramento personal y arriesgar a su comunidad, o traicionar
+su palabra para salvar miles de vidas. Con el corazón convertido en
+escoria, Helga rompió su promesa. Llevó al joven ante los Celadores de
+la Casa Grilletesombrío, entregándolo a un destino de contención
+perpetua.</p>
+<p>El acto le valió el apodo de “Rompejuramentos”, un epíteto que la
+deshonró ante su clan pero que le abrió las puertas de su nuevo hogar.
+Lord Vorstag, el patriarca de la Casa Grilletesombrío, vio en ella no
+una traidora, sino a alguien con la fortaleza para tomar las decisiones
+que nadie más se atrevía. Bajo su tutela, Helga canalizó su pena en una
+determinación de acero. Ascendió rápidamente por su brillantez táctica y
+su absoluta falta de sentimentalismo en el cumplimiento del deber, hasta
+convertirse en la Comandante de los Celadores, la fuerza de choque de la
+Casa.</p>
+<p>Helga es la encarnación del lema de su Casa. Su pragmatismo es
+absoluto y, a menudo, brutal. Lidera las cacerías de los ‘Cazadores de
+Sombras’ con una furia fría y supervisa la captura de los ‘Hijos de la
+Luna’ con una eficiencia metódica. Para ella, estos últimos no son almas
+desafortunadas, sino cataclismos andantes, armas vivientes que deben ser
+desmanteladas o encerradas por el bien común. Esta visión la ha puesto
+en conflicto directo con las facciones más compasivas de <a
+href="Valtoria.html">Valtoria</a>, especialmente con los sabios de la
+Torre de las Estrellas y la aristocrática Casa Auris de <a
+href="Eldrador.html">Eldrador</a>, quienes consideran sus métodos
+bárbaros y carentes de compasión.</p>
+<p>Su lado más protector, aunque enterrado bajo capas de deber, se
+manifiesta en su relación con Grylda, una joven Goliath. Helga la
+encontró entre las ruinas humeantes de su tribu, aniquilada por un <a
+href="Mago.html">Mago</a> renegado. La adoptó en la Casa, y aunque la
+lealtad de la Goliath se dirige a Lord Vorstag como figura paterna, es
+Helga quien la ha entrenado, convirtiéndola en un arma precisa y en el
+reflejo viviente de su propia convicción: la magia sin control solo
+engendra cenizas.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Helga es una enana de constitución formidable, con la musculatura
+densa de quien ha pasado su vida entre la forja y el combate. A sus 55
+años, su rostro es un mapa de deber y determinación, enmarcado por una
+espesa trenza de cabello negro como el carbón, cruzada por un único
+mechón blanco como la nieve, recuerdo de la noche en que se ganó su
+nombre. Sus ojos, de un gris tormentoso, no reflejan calidez, sino el
+análisis constante de un estratega.</p>
+<p>Viste una armadura de placas de acero valtoriano, funcional y sin
+adornos innecesarios, teñida de un gris oscuro que la hace casi
+invisible en las profundidades de la montaña. Sobre el peto, grabado con
+discreción, luce el escudo de su Casa: el yunque de obsidiana
+agrietado.</p>
+<ul>
+<li><strong>Martillo de Guerra “Quebrantavotos”:</strong> Un arma
+imponente de cabeza de acero rúnico, forjada por ella misma. No es una
+reliquia brillante, sino una herramienta pesada y funcional, diseñada
+para romper escudos, voluntades y, si es necesario, juramentos
+corruptos.</li>
+<li><strong>Cadenas de Supresión Grilletesombrío:</strong> Al cinto
+lleva siempre un juego de cadenas de plata y obsidiana. Frías al tacto,
+estas cadenas no solo restringen físicamente, sino que están imbuidas de
+<a href="Runas.html">Runas</a> que absorben y neutralizan la magia
+salvaje, causando una intensa <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+a cualquier lanzador de <a href="Conjuros.html">Conjuros</a> que
+aprisionen.</li>
+<li><strong>Sello de Comandante:</strong> Un broche de granito pulido
+con el sigilo de su cargo, que le otorga autoridad sobre todas las
+fuerzas de la Casa Grilletesombrío en el campo.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Helga Rompejuramentos representa la respuesta más dura y pragmática
+de <a href="Valtoria.html">Valtoria</a> a la amenaza de la magia
+incontrolada. Para la Reina Valeria y el Concilio de la Montaña, es un
+mal necesario; la mano firme que realiza el trabajo sucio que garantiza
+la estabilidad del reino. Para los ‘Hijos de la Luna’ y sus
+simpatizantes, es una carcelera despiadada, un símbolo de la opresión y
+el miedo.</p>
+<p>Su legado será, sin duda, controvertido. Los historiadores debatirán
+si fue una heroína que evitó innumerables catástrofes con sus dolorosas
+decisiones, o una tirana que sofocó el potencial arcano por miedo a lo
+desconocido. Helga no busca la gloria ni el perdón. Su única meta es que
+las luces de <a href="Valtoria.html">Valtoria</a> no se apaguen nunca
+más. Sostiene la oscuridad, consciente de que la historia,
+probablemente, nunca la verá como una portadora de luz.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Grilletesombrío.html">Casa Grilletesombrío</a>
+(relevancia: 0.49)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

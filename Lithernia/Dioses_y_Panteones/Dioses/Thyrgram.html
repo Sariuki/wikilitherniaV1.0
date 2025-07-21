@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thyrgram</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Thyrgram</div>
+        <div class="content">
+<h1 id="thyrgram">Thyrgram</h1>
+<h2 id="biografía">Biografía</h2>
+<p>Thyrgram es la encarnación divina de la furia primigenia, una de las
+deidades más antiguas y temidas del panteón Korogrim. Nacido del eco
+violento del Cataclismo del <a href="Lilium.html">Lilium</a>, Thyrgram
+no es un dios de la conquista estratégica ni del dominio territorial; es
+la personificación misma del conflicto, la furia desatada y el glorioso
+caos de la batalla. Mientras otros dioses construían reinos y
+civilizaciones sobre las cenizas del viejo mundo, Thyrgram forjó a los
+<a href="Orcos.html">Orcos</a> a su imagen y semejanza: criaturas
+tenaces, de honor brutal y con una sed innata de combate, destinadas a
+ser el motor de la guerra perpetua que él tanto anhela.</p>
+<p>Su filosofía es simple y aterradora: la paz es estancamiento y la
+guerra es la prueba definitiva de la existencia. Para Thyrgram, un mundo
+sin conflicto es un mundo muerto. Es por ello que se deleita con la Gran
+Guerra que azota Lithernia, viéndola no como una tragedia, sino como la
+más pura expresión de la vitalidad del mundo y una manifestación de su
+propio poder.</p>
+<h3 id="genealogía-divina-y-relaciones">Genealogía Divina y
+Relaciones</h3>
+<p>Como progenitor de una parte significativa del panteón Korogrim, la
+influencia de Thyrgram es innegable, aunque su rol como padre es
+distante y manipulador.</p>
+<ul>
+<li><strong>Sel’thirak, Dios de la Muerte:</strong> Su primogénito,
+Sel’thirak, heredó la frialdad y el final inevitable de la guerra.
+Thyrgram ve la ambición de su hijo por el orden y el control como una
+herramienta útil para generar conflictos a gran escala: ejércitos
+disciplinados, naciones enfrentadas y guerras con un propósito
+definido.</li>
+<li><strong><a href="Lakros.html">Lakros</a>, Dios de la
+Sangre:</strong> Su otro hijo, <a href="Lakros.html">Lakros</a>, es la
+encarnación del corazón frenético y salvaje de la batalla. Representa la
+violencia visceral, la carnicería sin estrategia y la furia pura.
+Thyrgram disfruta de la rivalidad entre sus dos hijos, incitándolos
+constantemente a competir. La tensión entre el orden mortal de
+Sel’thirak y el caos sangriento de <a href="Lakros.html">Lakros</a>
+garantiza que <a href="Mor&#39;dhul.html">Mor’dhul</a> nunca conozca la
+paz, alimentando la interminable pira de la guerra que da poder a
+Thyrgram.</li>
+<li><strong>Nietos (<a href="Kromagul.html">Kromagul</a> y
+Gyth’kai):</strong> Considera a sus nietos como facetas menores pero
+interesantes de su dominio. El dolor y el sacrificio son, para él,
+consecuencias naturales y necesarias de cualquier conflicto digno. Sin
+embargo, su interacción con ellos es prácticamente nula, viéndolos más
+como instrumentos en el juego de poder de sus hijos.</li>
+</ul>
+<p>Thyrgram desprecia a las deidades que promueven la paz, la creación o
+la armonía, como <a href="Yfrit.html">Yfrit</a> o <a
+href="Rokael.html">Rokael</a>, pues sus ideales amenazan su propia
+existencia. Por el contrario, siente un respeto reticente por dioses de
+la destrucción como <a href="Valarios.html">Valarios</a>, reconociendo
+en él una fuerza afín, aunque carente de la “gloria” del combate.</p>
+<h2 id="descripción-física-y-manifestaciones">Descripción Física y
+Manifestaciones</h2>
+<p>Aunque su verdadera forma es un concepto abstracto de furia y
+conflicto sin fin, cuando Thyrgram elige manifestarse ante sus
+seguidores, adopta un avatar imponente y aterrador.</p>
+<ul>
+<li><strong>Forma:</strong> Su avatar es el de un orco colosal y
+ancestral, cuya piel tiene el color de la tierra calcinada y está
+cubierta de cicatrices que narran milenios de batallas. Sus ojos arden
+como brasas incandescentes, y de su mandíbula surgen colmillos afilados
+como la obsidiana. Su sola presencia infunde una mezcla de terror y
+fervor bélico en quienes lo contemplan.</li>
+<li><strong>Equipo:</strong> Viste una armadura forjada con la rabia de
+guerreros caídos y el metal de armas rotas en combate. De ella emana un
+humo constante y un calor sofocante. Su arma es
+<strong>Rompe-Mundos</strong>, un hacha ciclópea que parece cambiar de
+forma, a veces martillo, a veces espada, y cuyo filo resuena con los
+gritos de guerra de todas las batallas de la historia.</li>
+</ul>
+<p>Su manifestación no es sutil. El aire se llena con el eco de acero
+contra acero, el olor a sangre y ozono, y la tierra tiembla bajo sus
+pies. No habla con palabras, sino con órdenes que estallan directamente
+en el alma de los guerreros, impulsándolos a una furia irrefrenable.</p>
+<h2 id="dominios-poder-y-culto">Dominios, Poder y Culto</h2>
+<p>Como dios de la Guerra y el Caos, el poder de Thyrgram reside en el
+conflicto mismo.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e impacto en
+Lithernia</h2>
+<p>El impacto de Thyrgram en el mundo es tan profundo como las
+cicatrices de la Gran Guerra. Es el arquitecto de la cultura marcial de
+los <a href="Orcos.html">Orcos</a> y el principal responsable de la
+inestabilidad perpetua que define al reino de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Su existencia es un pilar
+fundamental del status quo de Lithernia: un mundo dividido y en
+conflicto constante.</p>
+<p>Thyrgram representa una de las mayores amenazas para cualquier
+esperanza de paz duradera. La profecía del retorno del Primer Rey es,
+para él, una herejía que debe ser aplastada, ya que un Lithernia
+unificado significaría el fin de su dominio y, en esencia, su propia
+muerte. Es el antagonista definitivo para cualquier <a
+href="Heroes.html">Heroes</a> que sueñe con un mundo sin guerra,
+planteando una pregunta incómoda y eterna: ¿puede la vida existir
+verdaderamente sin lucha? Para Thyrgram y sus seguidores, la respuesta
+es un rotundo y sangriento “no”.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.44)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eldrador_Ciudades</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Eldrador_Ciudades</div>
+        <div class="content">
+<h1 id="eldrador-ciudades">Eldrador ciudades</h1>
+<p><a href="Eldrador.html">Eldrador</a>, el majestuoso reino de
+Lithernia, es un mosaico vibrante de ciudades que reflejan la
+diversidad, la historia y la magia inherente a esta tierra de guerreros
+y sabios. Cada ciudad de <a href="Eldrador.html">Eldrador</a> es un
+núcleo vital de cultura y poder, donde tradiciones antiguas se
+entrelazan con la innovación y la ambición de un pueblo que ha sabido
+forjar su destino entre el fuego de sus <a
+href="Leyendas.html">Leyendas</a> y la piedra eterna de sus
+fortalezas.</p>
+<h2 id="historia-de-las-ciudades-eldadoras">Historia de las ciudades
+eldadoras</h2>
+<p>Las ciudades de <a href="Eldrador.html">Eldrador</a> nacieron en la
+Era de las Llamas, cuando los primeros linajes guerreros se asentaron
+alrededor de fuentes mágicas llamadas Núcleos de Fuego, fuentes
+naturales de energía arcana que alimentaban no solo el espíritu, sino
+también la prosperidad territorial. A lo largo de los milenios, estas
+urbes crecieron hasta formar un entramado de ciudades-estado, unidas en
+lo político por pactos ancestrales y en lo espiritual por el culto al
+Fénix de Lumbre, el símbolo sagrado del renacimiento y la fortaleza.</p>
+<p>Con la unificación bajo el linaje de los caudillos de <a
+href="Eldrador.html">Eldrador</a>, las ciudades se consolidaron como
+fortalezas fundamentales de la defensa contra invasores del norte y del
+mar, así como centros de cultura y artes que dieron vida a la lengua y
+las artes eldadoras. Hoy, sus muros encierran secretos milenarios,
+mercados bulliciosos repletos de artesanos y magos, y plazas donde se
+refrendan las tradiciones ancentrales que dan forma a la identidad
+eldadora.</p>
+<h2 id="ciudades-principales-de-eldrador">Ciudades principales de
+Eldrador</h2>
+<h3 id="solrith-la-ciudad-del-alba">Solrith, la Ciudad del Alba</h3>
+<p>Situada en la costa sur, Solrith es la puerta dorada al reino de <a
+href="Eldrador.html">Eldrador</a>. Famosa por su faro mágico que nunca
+se apaga, protege y guía a los viajeros del mar embravecido. Sus calles
+de mármol y sus torres reflejan la luz del sol naciente, símbolo de
+esperanza y renovación constante. Solrith es también el corazón
+comercial, donde se celebran los Festivales de Luminaria, que atraen
+comerciantes y artistas de tierras lejanas.</p>
+<h3 id="thalgar-la-fortaleza-de-la-llama">Thalgar, la Fortaleza de la
+Llama</h3>
+<p>Erigiéndose sobre un macizo rocoso, Thalgar es la capital política y
+militar de <a href="Eldrador.html">Eldrador</a>. Su imponente fortaleza
+de piedra volcánica alberga el Trono del Fénix, donde el Soberano
+eldador gobierna con sabiduría y justicia. Thalgar es reconocida por su
+Academia de Guardianes, donde los mejores guerreros y magos se entrenan
+en el uso del fuego sagrado y las artes marciales eldadoras.</p>
+<h3 id="valsendria-la-ciudad-de-los-vientos">Valsendria, la Ciudad de
+los Vientos</h3>
+<p>Famosa por sus altas torres de cristal y sus jardines colgantes,
+Valsendria es la cuna de los estudios de magia aeroespacial y el hogar
+de los sabios que descifran los secretos del cielo. En esta ciudad, los
+festivales de cometas y las ceremonias de los vientos son eventos que
+unen a todos, celebrando la armonía entre la naturaleza y la
+civilización.</p>
+<h3 id="drakhor-la-ciudad-de-las-sombras">Drakhor, la Ciudad de las
+Sombras</h3>
+<p>Alzado en el extremo occidental, Drakhor es un enclave enigmático,
+rodeado de densos bosques y brumas eternas. Conocida por su vinculación
+con la magia oscura y las artes prohibidas, Drakhor guarda secretos
+arcanos en sus calles silenciosas y sus bibliotecas custodiadas por
+sombras vivientes. Su población es orgullosa y reservada, y sus
+costumbres están envueltas en <a href="Leyendas.html">Leyendas</a> de
+resistencia y misterio.</p>
+<h2 id="leyendas-y-tradiciones-urbanas">Leyendas y tradiciones
+urbanas</h2>
+<p><strong>La Llama Eterna de <a
+href="Eldrador.html">Eldrador</a>:</strong> Se dice que en el corazón de
+cada ciudad arde una llama inextinguible que representa el espíritu
+indomable del pueblo eldador. Esta llama es mantenida por un Guardián,
+elegido por méritos y venerado por toda la comunidad.</p>
+<p><strong>La Danza de Fénix:</strong> Fiesta anual que conmemora el
+renacer del reino tras la Gran Tormenta. En cada urbe, las plazas se
+iluminan con fuegos artificiales y danzas de fuego, mientras los bardos
+relatan la epopeya del primer Soberano eldador con tambores y laúd.</p>
+<p><strong>El Compromiso del Guardián:</strong> Ritual que sella la
+alianza entre las ciudades en tiempos de paz y conflicto, donde los
+líderes intercambian símbolos sagrados y juran defensa mutua hasta la
+última chispa de fuego.</p>
+<h2 id="costumbres-eldadoras-urbanas">Costumbres eldadoras urbanas</h2>
+<ul>
+<li><p><strong>El Mercado de las Mil Voces:</strong> Cada quincena, en
+las plazas mayores, artesanos, magos y mercaderes se reúnen para
+intercambiar desde artefactos encantados hasta especias exóticas. El
+mercado es un espectáculo de colores, aromas y sonidos que evocan el
+alma vivaz del reino.</p></li>
+<li><p><strong>La Vigilia de la <a
+href="Herreria.html">Herreria</a>:</strong> Una noche dedicada a la
+creación y renovación de armas y utensilios, donde herreros y artesanos
+trabajan de manera conjunta mientras cantan viejas baladas que invocan
+la bendición del Fénix.</p></li>
+<li><p><strong>El Juramento del Alba:</strong> Ceremonia que marca la
+mayoría de edad en <a href="Eldrador.html">Eldrador</a>. Los jóvenes
+prenden una pequeña antorcha y la llevan hasta su ciudad, simbolizando
+el paso de la oscuridad a la luz, y la responsabilidad de proteger el
+legado ancestral.</p></li>
+</ul>
+<hr />
+<p>Las ciudades de <a href="Eldrador.html">Eldrador</a> no son solo
+puntos en el mapa: son el tejido mismo de la historia y el espíritu de
+Lithernia, lugares donde la llama sagrada nunca se apaga y el destino se
+escribe con el fuego de sus gentes. Explorar sus calles es adentrarse en
+un mundo donde pasado y presente se funden, y donde cada piedra y cada
+sombra cuentan una historia eterna.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Ciudades.html">Ciudades</a> (relevancia: 0.70)</li>
+<li><a href="ciudades.html">ciudades</a> (relevancia: 0.70)</li>
+<li><a href="Ciudades%20de%20Eldrador.html">Ciudades de Eldrador</a>
+(relevancia: 0.36)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faewind</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Faewind</div>
+        <div class="content">
+<h1 id="faewind">Faewind</h1>
+<p>Faewind no es una ciudad construida, sino una exhalación de la magia
+misma, un lugar donde el aire y la voluntad son uno. Suspendida en el
+recóndito Valle de los Suspiros de <a href="Eldrador.html">Eldrador</a>,
+la ciudad es un murmullo perpetuo, un conjunto de estructuras etéreas
+que danzan al compás de una brisa que nunca cesa. No tiene murallas,
+pues su defensa es el viento mismo, que desvía a los viajeros no
+invitados por senderos ilusorios, y el eco de las campanas de cristal
+que advierten de cualquier presencia hostil. Sus edificios son
+pabellones de seda encantada que ondean desde las ramas de sauces
+plateados colosales, conectados por puentes tejidos con luz de luna
+solidificada. Faewind es un santuario para quienes creen que la
+identidad, como el viento, no debe ser contenida.</p>
+<h2 id="historia">Historia</h2>
+<p>La fundación de Faewind fue un acto de rebelión poética. Tras el
+Cataclismo del <a href="Lilium.html">Lilium</a>, mientras la nobleza
+élfica forjaba la rígida sociedad de la Mano de Hierro, un grupo de <a
+href="Eladrin.html">Eladrin</a> y Genasi de Aire rechazó la idea de un
+destino estático. Liderados por una <a href="Eladrin.html">Eladrin</a>
+llamada Lyraella, conocida como “la Primera Brisa”, buscaron un lugar
+donde el alma pudiera fluir libremente. Creían en la filosofía del
+“Viento del Alma”: la identidad y las emociones no son permanentes, sino
+un flujo constante que debe ser expresado y celebrado.</p>
+<p>Guiados por los susurros de <a href="Quiteon.html">Quiteon</a> y la
+bendición de <a href="Arzia.html">Arzia</a>, encontraron el Valle de los
+Suspiros, un lugar donde las corrientes de aire del mundo convergían.
+Allí, Lyraella y sus seguidores no construyeron una ciudad, sino que la
+cantaron a la existencia, persuadiendo a los vientos para que moldearan
+la seda y a la luna para que solidificara sus rayos. Con el tiempo,
+Faewind se convirtió en un refugio para todos aquellos que se sentían
+oprimidos por la tradición: Elfos del Bosque que buscaban una conexión
+más salvaje con la naturaleza, Shadar-kai que encontraban consuelo en la
+belleza de lo efímero, y otros espíritus libres. Hoy, es un enclave de
+independencia tolerado a regañadientes por la corona de <a
+href="Eldrador.html">Eldrador</a>, demasiado esquivo para ser
+conquistado y demasiado bello para ser destruido.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Agujas Silbantes</strong>: El punto más alto de la
+ciudad, un conjunto de esbeltas torres de cristal perforado que se
+elevan desde las copas de los sauces. Estas torres actúan como flautas
+gigantescas, y el viento que pasa a través de ellas crea una melodía
+etérea y cambiante que envuelve toda la ciudad. Es el hogar de los
+Genasi de Aire, que se consideran los directores de esta orquesta
+natural.</p></li>
+<li><p><strong>Los Pabellones de Seda</strong>: El distrito residencial,
+donde las viviendas son capullos de seda encantada que cuelgan de las
+ramas, meciéndose suavemente. Sus paredes translúcidas cambian de color
+según el estado de ánimo de sus habitantes o el tono del cielo, creando
+un paisaje urbano que nunca es el mismo dos veces.</p></li>
+<li><p><strong>Los Senderos Lunares</strong>: La red de puentes y
+pasarelas que conectan los pabellones y las torres. Están hechos de luz
+de luna solidificada, brillando con una suave luminiscencia plateada
+durante la noche. Se dice que caminar sobre ellos es como pisar un
+sueño.</p></li>
+<li><p><strong>El Corazón del Céfiro</strong>: La plaza central de
+Faewind, un anfiteatro natural formado por corrientes de viento
+convergentes. Aquí no hay suelo, sino una esfera de aire en calma en
+cuyo centro se celebran los consejos, los duelos de ingenio y el
+Festival de los Vientos Cambiantes.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Faewind es un reflejo de su filosofía. El arte es una de
+sus expresiones más importantes, pero siempre es efímero: esculturas
+talladas en bloques de hielo que se derriten al amanecer, tapices
+tejidos con hilos de ilusión que se desvanecen con una palabra, y música
+improvisada que nace y muere con la misma brisa.</p>
+<p>En el Festival de los Vientos Cambiantes, que se celebra en cada
+equinoccio, los ciudadanos abandonan sus roles, sus nombres y sus
+vestimentas para adoptar una nueva identidad por un día, celebrando la
+naturaleza transitoria de la existencia. Las disputas no se resuelven
+con acero, sino con duelos de creatividad: concursos de poesía, creación
+de complejas ilusiones o batallas musicales donde gana el más ingenioso.
+Al saludarse, es costumbre ofrecer un regalo momentáneo, como una flor
+exótica que se marchita en segundos o una melodía secreta susurrada al
+oído, apreciando el valor del instante.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Faewind es ligera, aérea y parece desafiar la
+gravedad. Las estructuras se mecen y ondean, vivas y respirando con el
+valle. El ambiente es de una calma dinámica, una serenidad llena de
+movimiento y sonido. El aire siempre transporta el tintineo de miles de
+campanas de cristal y el murmullo de las flautas de las torres. El olor
+es a ozono, a las flores de los sauces plateados y a la extraña y limpia
+fragancia de la magia feérica. El símbolo de la ciudad, una espiral de
+viento de la que emergen alas de mariposa iridiscentes, se puede ver
+tejido en las sedas o dibujado en el aire con luz mágica.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Quietud</strong>: Se cuenta que en las noches de calma
+absoluta, cuando ni una sola hoja se mueve, una tormenta silenciosa
+llamada “La Quietud” puede descender sobre la ciudad. No trae viento ni
+lluvia, sino un silencio tan profundo que puede transportar a cualquiera
+que se encuentre al aire libre directamente al plano feérico. La mayoría
+regresa al instante, desorientada y con un vago recuerdo de colores
+imposibles, pero algunos se pierden para siempre, o regresan años
+después sin haber envejecido un solo día.</p></li>
+<li><p><strong>El Aliento del Durmiente</strong>: Una leyenda más
+antigua susurra que Faewind no está construida sobre un valle, sino
+sobre el pecho durmiente de un antiguo Señor del Viento, una entidad
+primordial de aire y emoción. Las brisas constantes que recorren la
+ciudad no son más que su lenta y acompasada respiración. Los sabios de
+la ciudad temen el día en que pueda despertar, pues su primer suspiro
+podría ser una tormenta que desharía la ciudad, o su primera palabra
+podría dar a Faewind una conciencia propia.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

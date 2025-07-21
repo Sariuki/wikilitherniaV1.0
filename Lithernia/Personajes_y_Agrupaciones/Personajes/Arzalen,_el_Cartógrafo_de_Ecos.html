@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arzalen,_el_Cartógrafo_de_Ecos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Arzalen,_el_Cartógrafo_de_Ecos</div>
+        <div class="content">
+<h1 id="arzalen-el-cartógrafo-de-ecos">Arzalen, el cartógrafo de
+ecos</h1>
+<blockquote>
+<p><em>“Otros dibujan montañas y ríos. Yo cartografío las cicatrices de
+la realidad. Otros escuchan el viento. Yo transcribo los lamentos que
+arrastra a través del Velo roto. Mi obra no es para los vivos, sino para
+que los que vengan después entiendan el precio de la verdad.”</em>
+—Fragmento del diario de Arzalen.</p>
+</blockquote>
+<p><strong>Arzalen</strong>, conocido en los círculos académicos como el
+<strong>Cartógrafo de Ecos</strong>, es un <a
+href="Erudito.html">Erudito</a> renegado y una de las figuras más
+enigmáticas de la era actual. Despojado de su rango y exiliado de los
+salones del saber, Arzalen ha dedicado su vida a una tarea considerada
+herética y peligrosa: mapear las anomalías mágicas que persisten como
+heridas en el mundo y registrar los susurros que se filtran desde más
+allá del <strong>Tejido del Maná</strong>. No busca tesoros ni poder,
+sino la cruda verdad oculta tras el <strong>Cataclismo del <a
+href="Lilium.html">Lilium</a></strong> y las mentiras de los dioses.</p>
+<h2 id="historia-y-orígenes">Historia y Orígenes</h2>
+<h3 id="el-exilio-de-la-torre">El Exilio de la Torre</h3>
+<p>Arzalen fue en su día un prometedor estudioso del <strong>Círculo
+Exterior</strong> en la <strong>Torre de las Estrellas</strong> de
+<strong><a href="Valtoria.html">Valtoria</a></strong>. Dotado de una
+sensibilidad arcana excepcional, no se contentaba con la historia
+aceptada ni con la astronomía tradicional. Su obsesión eran las
+inconsistencias, los lugares donde el <strong>Tejido del Maná</strong>
+se comportaba de forma errática: las cicatrices dejadas por el
+<strong><a href="Lilium.html">Lilium</a></strong>, las zonas de magia
+salvaje y las ruinas pre-cataclísmicas que aún emanaban un poder
+inexplicable.</p>
+<p>Sus teorías, que sugerían que el <strong><a
+href="Lilium.html">Lilium</a></strong> no fue solo un castigo divino
+sino una transformación fundamental de la realidad, fueron consideradas
+peligrosas. Cuando presentó su hipótesis de que era posible “escuchar”
+los ecos de eventos pasivos —incluida la voz del <strong>Primer
+Rey</strong>— en los nodos de maná dañados, el <strong>Círculo
+Interior</strong> lo acusó de coquetear con fuerzas prohibidas. Fue
+declarado un rebelde intelectual, un <strong><a
+href="Cazador.html">Cazador</a> de Sombras</strong>, y exiliado de <a
+href="Valtoria.html">Valtoria</a> bajo la amenaza de ser confinado si
+regresaba.</p>
+<p>Lejos de abandonar su trabajo, Arzalen abrazó su nueva vida como
+nómada, libre de las ataduras del dogma.</p>
+<h2 id="la-cartografía-de-ecos">La Cartografía de Ecos</h2>
+<p>El trabajo de Arzalen trasciende la cartografía convencional. Sus <a
+href="Mapas.html">Mapas</a> no están hechos de simple tinta y pergamino,
+sino que son complejos artefactos arcanos. Utiliza láminas de metales
+resonantes, cristales sintonizados con el flujo de maná y tintas
+alquímicas que cambian de color según la intensidad de la energía
+circundante.</p>
+<p>Su obra se centra en mapear los “Ecos”, las firmas mágicas
+permanentes dejadas por eventos que desgarraron el mundo:</p>
+<ul>
+<li><strong>Ecos del <a href="Lilium.html">Lilium</a>:</strong> Zonas
+donde <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+dejó una marca indeleble. En los <a href="Mapas.html">Mapas</a> de
+Arzalen, estas áreas pulsan con un brillo rojizo y aparecen rodeadas de
+glifos que advierten de una energía estéril y devoradora.</li>
+<li><strong>Ecos del Velo Roto:</strong> Lugares donde las fronteras
+planares son peligrosamente delgadas, resultado del conflicto entre el
+Primer Rey y los dioses. Arzalen los marca con espirales iridiscentes,
+señalando la presencia de magia salvaje, portales espontáneos y los
+susurros de entidades ajenas.</li>
+<li><strong>Ecos Dracónicos:</strong> Campos de batalla de la
+<strong>Era de las Escamas y Fuego</strong>. Estos lugares aún retienen
+la esencia elemental de los grandes <a
+href="Dragones.html">Dragones</a>. Arzalen ha logrado identificar y
+mapear regiones enteras cuya magia sigue influenciada por el aliento de
+<a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+o las tormentas de Tal’vorak.</li>
+<li><strong>Ecos del Primer Rey:</strong> Quizás los más importantes y
+sutiles. Son puntos de inmenso poder conceptual, lugares donde la
+esperanza, la desesperación o la voluntad indomable del Rey dejaron una
+huella. Arzalen cree que conectar estos puntos revelará la ubicación
+exacta de su prisión eterna.</li>
+</ul>
+<h2 id="el-oyente-de-susurros">El Oyente de Susurros</h2>
+<p>Además de cartógrafo, Arzalen es un “oyente”. Mediante una meditación
+profunda y el uso de instrumentos arcanos de su propia invención, es
+capaz de sintonizar con las vibraciones del <strong>Tejido del
+Maná</strong> en los lugares que estudia. En estos trances, percibe
+fragmentos de información atrapados en el tiempo:</p>
+<ul>
+<li>Las últimas órdenes de un general en la <strong>Gran
+Guerra</strong>.</li>
+<li>Los lamentos de los elfos cuyos bosques fueron profanados por
+<strong><a href="Mor&#39;dhul.html">Mor’dhul</a></strong>.</li>
+<li>El juramento de un dios olvidado.</li>
+<li>Fragmentos de la <strong>Profecía del Retorno del Rey</strong>,
+libres de la manipulación de las religiones organizadas.</li>
+</ul>
+<p>Se rumorea que una vez, cerca de una fisura del <a
+href="Lilium.html">Lilium</a>, Arzalen escuchó un eco del mismísimo
+<strong>Sel’thirak</strong> en el momento de sellar al Primer Rey,
+percibiendo no solo triunfo, sino un profundo temor. Esta habilidad lo
+convierte en el custodio de un mosaico de verdades fragmentadas y
+peligrosas que ninguna biblioteca del mundo posee.</p>
+<h2 id="creencias-y-afiliaciones">Creencias y Afiliaciones</h2>
+<p>Arzalen es un solitario por necesidad y convicción. Desprecia a los
+dioses, a quienes ve como arquitectos imperfectos y tiranos celestiales.
+No venera al <strong>Primer Rey</strong> como un <a
+href="Heroes.html">Heroes</a>, sino que lo considera el catalizador de
+la verdad, una fuerza cuya rebelión expuso la verdadera naturaleza del
+cosmos.</p>
+<p>No tiene lealtad a ningún reino: considera que <strong><a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong> perpetúa la tiranía
+divina, que <strong><a href="Eldrador.html">Eldrador</a></strong> se
+ahoga en su propia arrogancia, que <strong><a
+href="Galvorn.html">Galvorn</a></strong> es ciego por su ambición
+material y que <strong><a href="Valtoria.html">Valtoria</a></strong>, su
+antiguo hogar, ha elegido la seguridad de la ignorancia sobre el peligro
+del conocimiento.</p>
+<p>Su única lealtad es a la verdad, sin importar cuán devastadora pueda
+ser.</p>
+<h2 id="apariencia-y-equipo">Apariencia y Equipo</h2>
+<p>Es un hombre de edad indefinida, desgastado por los viajes y la
+constante exposición a energías arcanas. Viste ropas prácticas y
+resistentes, cubiertas por una capa con capucha que oculta su rostro.
+Sus ojos son de un gris pálido y parecen mirar más allá del mundo
+físico.</p>
+<p>Siempre lleva consigo una pesada mochila de cuero que contiene: * Sus
+<a href="Mapas.html">Mapas</a>, enrollados en tubos de metal rúnico. *
+Un astrolabio de maná, para medir la densidad y el flujo del
+<strong>Tejido del Maná</strong>. * Un juego de diapasones de cristal
+que vibran en presencia de diferentes tipos de magia. * Un bastón de
+madera petrificada, que utiliza como herramienta de sondeo y como foco
+para sus peligrosas meditaciones.</p>
+<h2 id="papel-en-el-mundo">Papel en el Mundo</h2>
+<p>Arzalen es un fantasma en el tablero de juego de
+<strong>Lithernia</strong>, pero su conocimiento es de un valor
+incalculable. Facciones como los consejeros de
+<strong>Sel’thirak</strong> o los nobles de <strong><a
+href="Eldrador.html">Eldrador</a></strong> pagarían cualquier precio por
+sus <a href="Mapas.html">Mapas</a>, ya sea para encontrar las
+<strong>Lanzas Celestiales</strong> o para asegurarse de que nadie más
+lo haga.</p>
+<p>Los aventureros podrían buscarlo para encontrar una ruina perdida,
+interpretar un fenómeno mágico o entender un fragmento de la profecía.
+Sin embargo, encontrarlo es solo el primer desafío; convencerlo de
+compartir su conocimiento es una prueba de intenciones, pues Arzalen
+solo ayuda a aquellos que, como él, buscan la verdad por encima de la
+gloria o el poder.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Cazador.html">Cazador</a></li>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.54)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

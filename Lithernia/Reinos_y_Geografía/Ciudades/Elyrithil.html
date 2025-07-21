@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elyrithil</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Elyrithil</div>
+        <div class="content">
+<h1 id="elyrithil">Elyrithil</h1>
+<p>Suspendida en el borde del mundo, Elyrithil es una ciudad que parece
+tallada en un sueño de luz estelar. No se aferra a la tierra, sino que
+se eleva desde los Acantilados Lunares, una serie de farallones de roca
+pálida que se desploman sobre el océano infinito. Sus esbeltas torres de
+cuarzo y piedra lunar perforan el cielo, unidas por etéreos puentes de
+cristal vivo que pulsan con un suave resplandor interior. Elyrithil es
+el corazón de la astromancia y la joya de la nobleza de <a
+href="Eldrador.html">Eldrador</a>, una ciudad donde el destino se lee en
+el firmamento y se plasma en obras de arte forjadas con luz y gema.</p>
+<h2 id="historia">Historia</h2>
+<p>Fundada en los siglos posteriores al Cataclismo del <a
+href="Lilium.html">Lilium</a>, Elyrithil nació de una visión. Su
+fundadora, la archimaga <a href="Eladrin.html">Eladrin</a> Lyra
+Celestine, guio a su pueblo hasta los desolados Acantilados Lunares tras
+una profecía que le mostró un nexo directo con el dominio de <a
+href="Arzia.html">Arzia</a>, la diosa de las estrellas. Allí,
+descubrieron que la propia roca resonaba con energía cósmica. Bajo su
+liderazgo, los primeros colonos no construyeron una ciudad, sino un
+instrumento colosal para observar el cosmos.</p>
+<p>Con el tiempo, la habilidad única de sus artesanos para tejer la luz
+y el cristal en objetos de poder y belleza atrajo la atención de la
+aristocracia de <a href="Eldrador.html">Eldrador</a>. La ciudad
+floreció, convirtiéndose en un centro de poder para las casas nobles más
+ricas y devotas de <a href="Arzia.html">Arzia</a>. Se integró
+perfectamente en el sistema de la Mano de Hierro, donde el estatus de un
+elfo no solo se mide por su linaje, sino por la complejidad y el brillo
+de la joyería celestial que adorna su cuerpo, un mapa de su propio
+destino y poder. Hoy, Elyrithil es un bastión de la tradición
+aristocrática, donde la política y la profecía son dos caras de la misma
+moneda de cristal.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Observatorio Cenital</strong>: El corazón y el cerebro
+de Elyrithil. Se trata de un complejo de cúpulas de cristal y torres de
+piedra lunar en el punto más alto de los acantilados. Aquí, los magos y
+sacerdotes de <a href="Arzia.html">Arzia</a> trazan los movimientos de
+las estrellas y dictan los augurios que guían al reino. Sus lentes
+arcanos son capaces de vislumbrar destinos y futuros lejanos.</p></li>
+<li><p><strong>Los Balcones de Cristal</strong>: El distrito residencial
+de la nobleza. Las mansiones están esculpidas directamente en la roca
+del acantilado, con fachadas de cristal pulido y balcones que cuelgan
+sobre el océano. Están interconectadas por los famosos puentes de luz,
+cuyo brillo cambia de color según la constelación dominante en el cielo
+nocturno.</p></li>
+<li><p><strong>El Bazar del Firmamento</strong>: Un mercado al aire
+libre situado en una amplia meseta a media altura. Aquí, los artesanos
+venden sus creaciones: desde intrincados <a href="Mapas.html">Mapas</a>
+estelares para la nobleza hasta linternas de cristal encantado que
+proyectan patrones de constelaciones en el suelo. El aire está
+impregnado del tintineo de mil campanas de viento de cristal.</p></li>
+<li><p><strong>El Muelle Nebuloso</strong>: En la base de los
+acantilados, oculta por una niebla casi perpetua, se encuentra la zona
+portuaria. Es un lugar de secretos, donde los Genasi de Aire guían a los
+barcos a través de laberintos de rocas y los comerciantes de otras razas
+negocian sus mercancías lejos de la mirada altiva de la
+nobleza.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Elyrithil está dictada por la “Astromancia Artesanal”.
+Cada decisión importante, desde un matrimonio <a
+href="Noble.html">Noble</a> hasta una declaración de guerra, se toma
+solo después de consultar los augurios estelares. La festividad más
+importante es el “Festival de la Lluvia de Cristal”, que se celebra
+durante el paso de un cometa sagrado. Durante este evento, los artesanos
+compiten creando esculturas efímeras hechas puramente de luz encantada,
+que se desvanecen al amanecer.</p>
+<p>Una costumbre profundamente arraigada es el “Voto Silente de la Luna
+Nueva”, una noche en la que toda la ciudad se sumerge en la oscuridad y
+el silencio. Los ciudadanos meditan en los bordes de los acantilados,
+con la esperanza de recibir una visión personal de <a
+href="Arzia.html">Arzia</a>. Los juramentos y contratos se consideran
+inviolables si se sellan bajo el auspicio de una constelación
+específica, pues se cree que las estrellas mismas actúan como testigos y
+garantes del pacto.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Elyrithil es una obra de arte arquitectónica. Las cúpulas de cristal
+de sus edificios pueden retraerse, convirtiendo salones enteros en
+observatorios a cielo abierto. Las calles no están pavimentadas con
+adoquines, sino con losas de piedra lunar que absorben la luz de las
+estrellas y la liberan durante el día, creando una atmósfera de
+crepúsculo perpetuo. El ambiente es a la vez sereno y opresivo. El
+sonido constante es el murmullo del viento marino y el eco melancólico
+de la música de arpas y flautas, amplificado por cámaras de eco de
+cristal especialmente diseñadas. El aire huele a sal, a ozono de la
+magia ambiental y a la fría fragancia de la piedra húmeda.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Corazón de la Estrella Caída</strong>: Se rumorea que
+en las cavernas más profundas bajo los acantilados yace el origen del
+poder de la ciudad: un meteorito de cristal consciente que cayó del
+cielo eones atrás. Se dice que el “Corazón” late con una luz fría y
+susurra profecías a quienes son lo suficientemente valientes o necios
+como para buscarlo, siendo la verdadera fuente de la riqueza mágica de
+Elyrithil.</p></li>
+<li><p><strong>Los Ecos de la Marea</strong>: Los marineros y los
+guardias del Muelle Nebuloso juran que, en noches de niebla espesa, a
+veces aparecen naves fantasmales en la costa. Estas embarcaciones, de un
+diseño desconocido y anterior al <a href="Lilium.html">Lilium</a>,
+navegan en silencio antes de desvanecerse. Se consideran un presagio de
+gran desgracia o de un cambio inminente en el destino de la
+ciudad.</p></li>
+<li><p><strong>Los Tejedores de Sombras</strong>: Se susurra en los
+rincones oscuros del bazar sobre una sociedad secreta de artesanos
+Shadar-Kai. Se dice que estos maestros no solo trabajan el cristal y la
+luz, sino también las sombras y las ilusiones. Supuestamente, pueden
+infundir recuerdos falsos o visiones engañosas en el propio cristal de
+la ciudad, permitiéndoles espiar a la nobleza y manipular la política
+desde las sombras de sus talleres.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venalith</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Venalith</div>
+        <div class="content">
+<h1 id="venalith">Venalith</h1>
+<p>Conocida como ‘La Encrucijada Fluvial’, Venalith no es una ciudad que
+domine la tierra, sino una que danza con el río. Construida a horcajadas
+sobre el ancho y poderoso Río Serpens, es el corazón palpitante del
+comercio interior de <a href="Galvorn.html">Galvorn</a>. Su aire es una
+mezcla constante del aroma a madera húmeda de sus muelles, el olor
+terroso del pescado fresco de río y el perfume exótico de las especias
+que viajan desde las llanuras fértiles hacia la costa. Aquí, el ritmo de
+vida no lo marca el sol, sino la corriente, y la riqueza no se mide en
+tierra, sino en el calado de las barcazas que atracan en sus bulliciosos
+mercados flotantes. Venalith es un monumento a la perseverancia y el
+pragmatismo, una ciudad de gente trabajadora cuya lealtad primera es
+para con el río que les da la vida.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Venalith no están en la conquista, sino en la
+necesidad. Tras el Cataclismo del <a href="Lilium.html">Lilium</a>,
+mientras la capital de <a href="Galvorn.html">Galvorn</a> miraba hacia
+el océano, las comunidades del interior necesitaban una forma de
+conectar sus cosechas y bienes con el creciente poderío marítimo del
+reino. Lo que comenzó como un simple puesto de trueque en un vado seguro
+del Río Serpens, creció orgánicamente. Familias de barqueros <a
+href="Humanos.html">Humanos</a> y <a href="Medianos.html">Medianos</a>
+formaron el “Gremio Fundador”, una cooperativa para regular el tráfico y
+protegerse de los peligros del río.</p>
+<p>Con el tiempo, el Gremio se convirtió en el gobierno de facto.
+Invitaron a maestros canteros <a href="Enanos.html">Enanos</a> de <a
+href="Valtoria.html">Valtoria</a> para erigir puentes que resistieran
+las crecidas anuales y a familias de genasi de agua para que sirvieran
+como los pilotos más fiables del río. Así, Venalith se consolidó no por
+decreto real, sino por la voluntad colectiva de sus gentes. Hoy, el
+Gremio de Barqueros y Comerciantes sigue gobernando la ciudad con una
+mano firme pero justa, y su líder, el Maestro del Gremio, envía a un
+“Capitán Fluvial” al Consejo de Capitanes de la capital, asegurando que
+la voz de las aguas dulces nunca sea ahogada por el rugido del mar.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Los Muelles de Palafitos</strong>: El distrito más
+antiguo y residencial de la ciudad. Una red laberíntica de casas de
+madera oscura construidas sobre robustos pilotes, conectadas por
+pasarelas que crujen bajo los pies. Aquí viven los barqueros y
+pescadores, y el olor a redes secándose y a pescado ahumado es
+omnipresente.</p></li>
+<li><p><strong>El Corazón de Piedra</strong>: El centro comercial y
+administrativo. Separado de las crecidas por un robusto malecón, este
+distrito alberga los almacenes del Gremio, los bancos de los
+comerciantes y las tabernas más ruidosas. Sus edificios son de piedra y
+roble, construidos para perdurar, y sus calles empedradas siempre están
+concurridas.</p></li>
+<li><p><strong>El Mercado Flotante</strong>: El alma de Venalith. Una
+concurrida y colorida aglomeración de botes, balsas y pequeñas barcazas
+amarradas en el centro del río, donde se vende de todo: desde frutas de
+las llanuras y pescado fresco hasta herramientas de metal enano y
+baratijas traídas por viajeros. Negociar aquí es un arte, y a menudo los
+tratos se cierran con un brindis de cerveza de río.</p></li>
+<li><p><strong>El Puente del Susurro</strong>: El más grande y famoso de
+los tres puentes de piedra que unen la ciudad. Su nombre proviene del
+sonido que hace el viento al pasar por los intrincados bajorrelieves que
+decoran sus arcos. Estas tallas narran la historia de <a
+href="Galvorn.html">Galvorn</a> a través de sus criaturas fluviales y
+honran a <a href="Quiteon.html">Quiteon</a>, el dios del viento, con
+símbolos de brisas y remolinos.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Venalith está indisolublemente ligada al río. La religión
+se centra en la veneración práctica de <a href="Yfrit.html">Yfrit</a>,
+madre de todas las aguas, y de <a href="Quiteon.html">Quiteon</a>, cuyos
+vientos impulsan las velas de las barcazas. En el templo principal, se
+reza a <a href="Taladrios.html">Taladrios</a> no por la eternidad, sino
+por ciclos de crecida predecibles y temporadas de comercio
+prósperas.</p>
+<p>El festival más importante es la “Regata del Deshielo”, una
+emocionante y peligrosa carrera de barcazas que celebra el fin del
+invierno y el inicio de la temporada de navegación. Más solemne es el
+“Juramento del Barquero”, un rito de paso donde cada nuevo piloto jura
+ante una reliquia del Gremio ayudar a cualquier embarcación en apuros en
+el río, un código de honor que se respeta a rajatabla.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Venalith es un testimonio de la adaptación. Todo
+está diseñado para coexistir con las poderosas crecidas del Río Serpens.
+Los palafitos se elevan por encima de la marca de la mayor inundación
+registrada, y los edificios de piedra del centro tienen cimientos
+profundos y puertas reforzadas. El símbolo de la ciudad, una barcaza de
+plata navegando bajo un puente de piedra con una moneda de oro en su
+clave, refleja su identidad: un flujo constante de comercio protegido
+por la fuerza y la comunidad. El ambiente es ruidoso, práctico y lleno
+de vida, una ciudad que nunca duerme porque el río nunca descansa.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Cobrador del Río</strong>: Los comerciantes más
+avariciosos y deshonestos temen las noches de niebla espesa. Se susurra
+que en esas noches aparece “El Cobrador del Río”, una figura encapuchada
+que rema en una barca silenciosa hecha de madera de deriva. No busca
+oro, sino que reclama una deuda de alma o vida, arrastrando a los
+culpables a las profundidades heladas como castigo por romper la
+confianza del río.</p></li>
+<li><p><strong>La Melodía Sumergida</strong>: A veces, en las noches más
+tranquilas, aquellos que se detienen en el centro del Puente del Susurro
+pueden oír una canción hermosa y melancólica que parece ascender desde
+el lecho del río. La leyenda atribuye esta música al espíritu de un <a
+href="Bardo.html">Bardo</a> genasi de agua que se ahogó hace siglos
+tratando de salvar a un niño de la corriente. Se dice que su espíritu
+permanece atado al puente, y su canción no es de lamento, sino un
+hechizo protector que refuerza sus cimientos contra la furia del
+río.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.44)</li>
+<li><a href="Arquero.html">Arquero</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

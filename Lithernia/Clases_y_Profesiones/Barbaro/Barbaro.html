@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbaro</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Barbaro</div>
+        <div class="content">
+<h1 id="bárbaro">Bárbaro</h1>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como bárbaro, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d12 por nivel de bárbaro
+<strong>Puntos de Golpe a nivel 1:</strong> 12 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d12
+(o 7) + tu modificador de Constitución por cada nivel de bárbaro después
+del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera, armadura intermedia,
+escudos <strong>Armas:</strong> Armas sencillas, armas marciales
+<strong>Herramientas:</strong> Ninguna <strong>Tiradas de
+Salvación:</strong> Fuerza, Constitución <strong>Habilidades:</strong>
+Elige dos de entre Atletismo, Intimidación, Naturaleza, Percepción,
+Supervivencia y Trato con Animales.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) un hacha grande o (b) cualquier arma marcial cuerpo a
+cuerpo * (a) dos hachas de mano o (b) cualquier arma sencilla * Un
+paquete de explorador y cuatro jabalinas</p>
+<h3 id="sistema-de-maná-del-bárbaro"><strong>Sistema de Maná del
+Bárbaro</strong></h3>
+<p>Tu poder emana de una furia primordial que resuena con el Tejido del
+Maná.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que puedes usar para potenciar tus habilidades. Tu fórmula de maná
+es <strong>4 + (Nivel de Bárbaro × Modificador de
+Constitución)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d8.</li>
+<li><strong>Aptitud Mágica Primordial:</strong> La Constitución es tu
+aptitud para tus rasgos de maná.
+<ul>
+<li><strong>CD de salvación de Maná</strong> = 8 + tu bonificador por
+competencia + tu modificador de Constitución.</li>
+<li><strong>Modificador de ataque de Maná</strong> = tu bonificador por
+competencia + tu modificador de Constitución.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-bárbaro">Tabla de Progresión del
+Bárbaro</h3>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Furia</th>
+<th style="text-align: center;">Daño de Furia</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Furia, Defensa sin Armadura</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">4 + (1 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Ataque Temerario, Sentido del Peligro</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">4 + (2 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Senda Primaria</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">4 + (3 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">4 + (4 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Ataque Extra, Movimiento Rápido</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">4 + (5 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Senda Primaria</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">4 + (6 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Instinto Salvaje</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">4 + (7 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">4 + (8 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Crítico Brutal (1 dado)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">4 + (9 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Rasgo de Senda Primaria</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">4 + (10 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Furia Implacable</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">4 + (11 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">4 + (12 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Crítico Brutal (2 dados)</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">4 + (13 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Rasgo de Senda Primaria</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">4 + (14 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Furia Persistente</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">4 + (15 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">4 + (16 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Crítico Brutal (3 dados)</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">4 + (17 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Poder Indómito</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">4 + (18 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">4 + (19 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;"><a href="Heroes.html">Heroes</a>
+Primordial</td>
+<td style="text-align: center;">Ilimitada</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">4 + (20 × Mod. CON)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sendas-primarias"><strong>Sendas Primarias</strong></h2>
+<h3 id="senda-del-berserker"><strong>Senda del Berserker</strong></h3>
+<h4 id="frenesí"><strong>Frenesí</strong></h4>
+<p>A partir de que eliges esta senda en el nivel 3, puedes entrar en
+frenesí cuando estás en furia. Si lo haces, durante la duración de tu
+furia puedes hacer un único ataque con arma cuerpo a cuerpo como una
+acción adicional en cada uno de tus turnos después de este. Cuando tu
+furia termina, sufres un nivel de agotamiento.</p>
+<h4 id="furia-inconsciente"><strong>Furia Inconsciente</strong></h4>
+<p>A partir del nivel 6, no puedes ser encantado ni asustado mientras
+estás en furia. Si estás encantado o asustado cuando entras en furia, el
+efecto se suspende durante la duración de la furia.</p>
+<h4 id="presencia-intimidante"><strong>Presencia
+Intimidante</strong></h4>
+<p>A partir del nivel 10, puedes usar tu acción para asustar a alguien
+con tu presencia amenazadora. Cuando lo haces, elige una criatura que
+puedas ver a 30 pies de ti. Si la criatura puede verte u oírte, debe
+superar una tirada de salvación de Sabiduría (CD igual a 8 + tu
+bonificador de competencia + tu modificador de Carisma) o quedar
+asustada de ti hasta el final de tu siguiente turno. En los turnos
+siguientes, puedes usar tu acción para extender la duración de este
+efecto en la criatura asustada hasta el final de tu siguiente turno.
+Este efecto termina si la criatura termina su turno fuera de la línea de
+visión contigo o a más de 60 pies de ti.</p>
+<h4 id="represalia"><strong>Represalia</strong></h4>
+<p>A partir del nivel 14, cuando recibes daño de una criatura que está a
+5 pies de ti, puedes usar tu reacción para hacer un ataque con arma
+cuerpo a cuerpo contra esa criatura.</p>
+<h3 id="senda-del-guardián-ancestral"><strong>Senda del Guardián
+Ancestral</strong></h3>
+<h4 id="protectores-ancestrales"><strong>Protectores
+Ancestrales</strong></h4>
+<p>A partir del nivel 3, mientras estás en furia, los espíritus de tus
+protectores ancestrales te rodean. La primera criatura que golpees con
+un ataque en tu turno se convierte en el objetivo de los guerreros, que
+obstaculizan sus ataques. Hasta el comienzo de tu siguiente turno, ese
+objetivo tiene desventaja en cualquier tirada de ataque que no sea
+contra ti, y cuando el objetivo golpea a una criatura que no eres tú con
+un ataque, esa criatura tiene resistencia al daño de ese ataque.</p>
+<h4 id="escudo-espiritual"><strong>Escudo Espiritual</strong></h4>
+<p>A partir del nivel 6, los espíritus guardianes que te ayudan pueden
+proporcionar una protección sobrenatural a aquellos que defiendes. Si
+estás en furia y otra criatura que puedes ver a 30 pies de ti recibe
+daño, puedes usar tu reacción y gastar 3 Puntos de Maná para reducir ese
+daño en 2d6. El número de dados aumenta a 3d6 en el nivel 10 y a 4d6 en
+el nivel 14.</p>
+<h4 id="consultar-a-los-espíritus"><strong>Consultar a los
+Espíritus</strong></h4>
+<p>En el nivel 10, obtienes la capacidad de consultar a tus espíritus
+ancestrales. Cuando lo haces, lanzas el conjuro <em>Augurio</em> o
+<em>Clarividencia</em>, sin usar un espacio de conjuro ni componentes
+materiales. En lugar de crear un sensor esférico, el conjuro crea un
+sensor espiritual. Tu aptitud para lanzar <a
+href="Conjuros.html">Conjuros</a> para estos <a
+href="Conjuros.html">Conjuros</a> es la Sabiduría. Después de lanzar
+cualquiera de los dos <a href="Conjuros.html">Conjuros</a> de esta
+manera, no puedes usar este rasgo de nuevo hasta que termines un
+descanso corto o largo.</p>
+<h4 id="venganza-de-los-ancestros"><strong>Venganza de los
+Ancestros</strong></h4>
+<p>En el nivel 14, tus espíritus ancestrales se vuelven lo
+suficientemente poderosos como para tomar represalias. Cuando usas tu
+rasgo Escudo Espiritual para reducir el daño de un ataque, el atacante
+recibe una cantidad de daño de fuerza igual al daño que previenes.</p>
+<h3 id="senda-del-heraldo-de-la-tormenta"><strong>Senda del Heraldo de
+la Tormenta</strong></h3>
+<h4 id="aura-de-tormenta"><strong>Aura de Tormenta</strong></h4>
+<p>A partir del nivel 3, tu furia te envuelve en un aura mágica y
+elemental. Mientras estás en furia, el aura te rodea en un radio de 10
+pies. Elige uno de los siguientes efectos cuando actives tu furia, que
+persistirá mientras dure: * <strong>Mar:</strong> Al final de cada uno
+de tus turnos, puedes elegir otra criatura dentro de tu aura. El
+objetivo debe hacer una tirada de salvación de Destreza. Recibe 1d6 de
+daño de relámpago si falla la salvación, o la mitad de daño si tiene
+éxito. El daño aumenta a 2d6 en el nivel 10. * <strong>Montaña:</strong>
+Cuando entras en furia, y como acción adicional en cada uno de tus
+turnos posteriores, puedes elegir una criatura dentro de tu aura. Esa
+criatura gana puntos de golpe temporales iguales a 1d6. El número de
+puntos de golpe temporales aumenta a 2d6 en el nivel 10. *
+<strong>Bosque:</strong> Inmediatamente después de que una criatura
+dentro de tu aura te golpee con un ataque, puedes usar tu reacción para
+forzar a esa criatura a hacer una tirada de salvación de Destreza. Si
+falla, recibe 1d8 de daño perforante, como si fuera golpeada por zarzas
+espinosas.</p>
+<h4 id="alma-de-la-tormenta"><strong>Alma de la Tormenta</strong></h4>
+<p>En el nivel 6, tu vínculo con la tormenta se profundiza, otorgándote
+beneficios incluso fuera de la furia. Ganas resistencia a un tipo de
+daño según el entorno de tu Aura de Tormenta: relámpago (Mar),
+contundente (Montaña) o veneno (Bosque). Además, puedes usar tu conexión
+con la naturaleza para adaptarte a climas extremos, como si estuvieras
+bajo el efecto del conjuro <em>Soportar Elementos</em>.</p>
+<h4 id="furia-protectora"><strong>Furia Protectora</strong></h4>
+<p>En el nivel 10, puedes gastar 5 Puntos de Maná cuando activas tu Aura
+de Tormenta. Si lo haces, puedes extender sus beneficios a tus aliados.
+Las criaturas aliadas dentro de tu aura ganan los beneficios del efecto
+de tu aura elegido como si estuvieran en furia.</p>
+<h4 id="ira-de-la-tormenta"><strong>Ira de la Tormenta</strong></h4>
+<p>En el nivel 14, la intensidad de tu tormenta interior aumenta,
+infligiendo daño a tus enemigos. Cuando una criatura te golpea con un
+ataque cuerpo a cuerpo, puedes usar tu reacción para obligarla a hacer
+una tirada de salvación. El tipo de salvación y el efecto dependen de tu
+aura: * <strong>Mar:</strong> La criatura debe hacer una salvación de
+Fuerza. Si falla, es derribada. * <strong>Montaña:</strong> La criatura
+debe hacer una salvación de Fuerza. Si falla, es empujada hasta 15 pies
+lejos de ti. * <strong>Bosque:</strong> La criatura debe hacer una
+salvación de Constitución. Si falla, su velocidad se reduce a 0 hasta el
+final de tu siguiente turno.</p>
+<h3 id="senda-del-fanático-del-lilium"><strong>Senda del Fanático del
+Lilium</strong></h3>
+<h4 id="furia-del-lilium"><strong>Furia del Lilium</strong></h4>
+<p>A partir del nivel 3, cuando entras en furia, puedes elegir canalizar
+el poder del <a href="Lilium.html">Lilium</a>, gastando 2 Puntos de
+Maná. Si lo haces, ganas resistencia al daño de fuego y radiante, y
+emites una luz brillante en un radio de 10 pies y luz tenue en 10 pies
+adicionales. Además, la primera criatura que golpees en cada uno de tus
+turnos mientras esta furia está activa recibe 1d6 de daño de fuego o
+radiante adicional (a tu elección).</p>
+<h4 id="marca-eterna"><strong>Marca Eterna</strong></h4>
+<p>En el nivel 6, puedes usar una acción adicional y gastar 4 Puntos de
+Maná para marcar a una criatura que puedas ver a 30 pies con un sello de
+fuego eterno. La marca dura 1 minuto. Mientras la criatura esté marcada:
+* Tienes ventaja en las tiradas de Percepción (Sabiduría) para
+encontrarla. * El objetivo emite una luz tenue en un radio de 5 pies,
+haciéndolo visible en la oscuridad. * La primera vez que golpees al
+objetivo en cada uno de tus turnos, recibe un daño de fuego adicional
+igual a tu bonificador de competencia.</p>
+<h4 id="alma-abrasadora"><strong>Alma Abrasadora</strong></h4>
+<p>A partir del nivel 10, tu conexión con el <a
+href="Lilium.html">Lilium</a> te permite devolver el dolor con fuego.
+Como reacción cuando recibes daño de una criatura a 30 pies de ti,
+puedes gastar 5 Puntos de Maná para envolver al atacante en llamas
+sagradas. La criatura debe hacer una tirada de salvación de Destreza.
+Recibe 3d8 de daño de fuego y 3d8 de daño radiante si falla la
+salvación, o la mitad de daño si tiene éxito.</p>
+<h4 id="avatar-del-cataclismo"><strong>Avatar del
+Cataclismo</strong></h4>
+<p>En el nivel 14, puedes desatar todo el poder del <a
+href="Lilium.html">Lilium</a> dentro de ti. Como una acción, puedes
+gastar 10 Puntos de Maná para transformarte en un avatar del cataclismo
+durante 1 minuto. Mientras estés transformado, obtienes los siguientes
+beneficios: * Ganas una velocidad de vuelo de 40 pies. * Eres inmune al
+daño de fuego y radiante. * Cualquier criatura hostil que comience su
+turno a 10 pies de ti recibe un daño de fuego y radiante igual a tu
+modificador de Constitución. Una vez que uses este rasgo, no puedes
+volver a usarlo hasta que termines un descanso largo.</p>
+<h3 id="senda-de-la-sangre-de-lakros"><strong>Senda de la Sangre de
+Lakros</strong></h3>
+<h4 id="sed-de-sangre"><strong>Sed de Sangre</strong></h4>
+<p>A partir del nivel 3, tu fervor en la batalla te revitaliza. Cuando
+estás en furia y reduces a una criatura hostil a 0 puntos de golpe con
+un ataque cuerpo a cuerpo, ganas puntos de golpe temporales iguales a tu
+modificador de Constitución + tu nivel de bárbaro.</p>
+<h4 id="rito-de-sangre"><strong>Rito de Sangre</strong></h4>
+<p>En el nivel 6, puedes realizar un breve y doloroso rito para
+potenciar tu poder. Como acción adicional en tu turno, puedes gastar uno
+de tus Dados de Golpe y 4 Puntos de Maná para realizar un corte ritual.
+Tiras el Dado de Golpe y sufres una cantidad de daño igual al resultado
+(este daño no puede ser reducido). Luego, hasta el final de tu siguiente
+turno, tus ataques con armas cuerpo a cuerpo infligen un daño adicional
+igual a tu bonificador de competencia.</p>
+<h4 id="furia-desbordante"><strong>Furia Desbordante</strong></h4>
+<p>A partir del nivel 10, el dolor solo alimenta tu ira. Cuando una
+criatura te asesta un golpe crítico mientras estás en furia, tu sed de
+venganza se desata. En tu siguiente turno, el daño adicional de tu Furia
+se duplica.</p>
+<h4 id="heraldo-sangriento"><strong>Heraldo Sangriento</strong></h4>
+<p>En el nivel 14, te conviertes en un conducto del poder de <a
+href="Lakros.html">Lakros</a>. Como acción, puedes gastar 10 Puntos de
+Maná y señalar a una criatura que puedas ver a 60 pies y que esté por
+debajo de la mitad de sus puntos de golpe máximos. La criatura debe
+hacer una tirada de salvación de Sabiduría. Si falla, queda asustada de
+ti durante 1 minuto. Mientras esté asustada de esta manera, la criatura
+debe usar su acción en cada uno de sus turnos para atacarse a sí misma
+con cualquier arma que esté empuñando, infligiéndose el daño normal. La
+criatura puede repetir la tirada de salvación al final de cada uno de
+sus turnos, terminando el efecto si tiene éxito. Una vez que usas este
+rasgo, no puedes volver a usarlo hasta que termines un descanso
+largo.</p>
+<hr />
+<h3
+id="las-sendas-del-héroe-el-sistema-de-clases-en-lithernia"><strong>Las
+Sendas del Héroe: El Sistema de Clases en Lithernia</strong></h3>
+<p>En el <a href="Título_de_la_nota.html">Título_de_la_nota</a>, marcado
+por la cicatriz del <a href="Lilium.html">Lilium</a> y la sombra de la
+Gran Guerra, un personaje es mucho más que sus habilidades de combate o
+sus proezas mágicas. Es la suma de sus convicciones, su origen y el
+camino que elige para enfrentar un destino incierto. El sistema de
+clases en Lithernia está diseñado para reflejar esta realidad,
+ofreciendo no solo un conjunto de mecánicas, sino una identidad forjada
+en el crisol de un mundo en conflicto.</p>
+<p>Cada clase representa una vocación, una senda de poder y una
+filosofía de vida. Ya sea como un <a href="Sacerdote.html">Sacerdote</a>
+que canaliza la voluntad de los dioses, un <a href="Mago.html">Mago</a>
+que desentraña los secretos del Tejido de Maná o un <a
+href="Caballero.html">Caballero</a> que defiende un código de honor en
+medio del caos, tu elección definirá cómo interactúas con los grandes
+poderes de Lithernia: desde los reinos en guerra hasta las facciones que
+susurran la profecía del retorno del Primer Rey.</p>
+<h4 id="visión-general-del-sistema"><strong>Visión General del
+Sistema</strong></h4>
+<p>El sistema de clases de Lithernia se basa en arquetipos familiares,
+pero con un enfoque temático y mecánico único. Encontrarás clases
+tradicionales como el <strong><a
+href="Guerrero.html">Guerrero</a></strong>, el <strong><a
+href="Mago.html">Mago</a></strong> o el <strong>Pícaro</strong>, junto a
+nuevas sendas nacidas de la historia del mundo, como el <strong><a
+href="Cazador.html">Cazador</a> de <a
+href="Dragones.html">Dragones</a></strong>, el <strong><a
+href="Nigromante.html">Nigromante</a></strong> o <strong>El
+Blasfemo</strong>. Cada clase está diseñada para encajar en el lore,
+ofreciendo una lente única a través de la cual experimentar los
+conflictos y misterios de Lithernia.</p>
+<p>El diseño se centra en tres pilares fundamentales:</p>
+<ol type="1">
+<li><strong>Identidad Temática:</strong> Cada clase está profundamente
+arraigada en la historia y las culturas del mundo. Un <a
+href="Sacerdote.html">Sacerdote</a> de <a
+href="Galvorn.html">Galvorn</a> no será igual que uno de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>; un <a href="Mago.html">Mago</a>
+de la Torre de las Estrellas de <a href="Valtoria.html">Valtoria</a>
+tendrá una visión de la magia muy diferente a la de un <a
+href="Hechicero.html">Hechicero</a> elfo de <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>Mecánicas Distintivas:</strong> La magia y las habilidades
+tienen un coste tangible. El sistema de Maná, Fatiga y Canalización hace
+que el poder se sienta real y arriesgado.</li>
+<li><strong>Progresión Significativa:</strong> A medida que tu personaje
+avanza, no solo se vuelve más poderoso, sino que su influencia en el
+mundo y su dominio de las artes arcanas o marciales se expande de forma
+notable.</li>
+</ol>
+<h4 id="el-maná-y-el-coste-de-la-magia"><strong>El Maná y el Coste de la
+Magia</strong></h4>
+<p>A diferencia de otros sistemas, la magia en Lithernia no es un
+recurso ilimitado ni gratuito. Fluye a través del <strong>Tejido del
+Maná</strong>, y canalizarla exige un esfuerzo físico y mental.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Las clases lanzadoras de <a
+href="Conjuros.html">Conjuros</a> utilizan un sistema flexible de Puntos
+de Maná. Esta reserva de energía representa su capacidad para tirar de
+los hilos del Tejido y moldearlos.</li>
+<li><strong>Dado de Maná:</strong> Cada clase arcana posee un
+<strong>Dado de Maná</strong> único (d6, d8, d10), que representa su
+“firma” o afinidad personal con la magia. Este dado no solo influye en
+la potencia de ciertos efectos, sino que determina el coste físico de
+cada hechizo.</li>
+<li><strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>:</strong>
+Lanzar un conjuro impone una carga. Cada vez que un personaje conjura,
+sufre una <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>
+que se acumula, representando el agotamiento de forzar la energía mágica
+a través de su cuerpo. Abusar de la magia puede llevar a un personaje al
+borde del colapso, haciendo que cada decisión de lanzar un hechizo sea
+tácticamente relevante.</li>
+</ul>
+<p>Este sistema asegura que la magia se sienta poderosa, pero también
+peligrosa, reflejando un mundo donde el poder siempre tiene un
+precio.</p>
+<h4 id="progresión-y-maestría"><strong>Progresión y
+Maestría</strong></h4>
+<p>La progresión en Lithernia se mide en niveles, y cada uno desbloquea
+nuevas habilidades y un mayor dominio de la clase. Este crecimiento no
+es solo numérico; a menudo representa un salto cualitativo en la
+capacidad del personaje para influir en su entorno.</p>
+<p>Un ejemplo claro son los <strong>Círculos de Invocación</strong>. Un
+<a href="Mago.html">Mago</a> novato puede usar Círculos Menores para
+potenciar ligeramente sus hechizos, pero solo al alcanzar hitos de poder
+(niveles 5 y 11) aprenderá a dominar los Círculos Intermedios y Mayores,
+capaces de desatar efectos mágicos de una escala completamente distinta.
+La progresión, por tanto, es un viaje desde el aprendiz hasta el
+maestro, cuyas acciones pueden llegar a cambiar el curso de una batalla
+o incluso el destino de un reino.</p>
+<h4 id="subclases-forjando-una-identidad-única"><strong>Subclases:
+Forjando una Identidad Única</strong></h4>
+<p>Dentro de cada clase principal, existen especializaciones conocidas
+como <strong>subclases</strong>. Estas representan el camino específico
+que un personaje decide seguir, permitiendo una personalización profunda
+y un rol más definido en el mundo. No todos los guerreros luchan igual,
+ni todos los clérigos sirven a su dios de la misma manera.</p>
+<p>Por ejemplo, un <strong><a
+href="Caballero.html">Caballero</a></strong> puede unirse a la Orden de
+la Espada, centrada en el ataque; a la Orden del Escudo, dedicada a la
+protección; o a la Orden de la Montura, especializada en el combate a
+caballo. Un <strong><a href="Sacerdote.html">Sacerdote</a>
+(Clérigo)</strong> elegirá un dominio divino que definirá su propósito,
+como el Dominio de la Vida para un sanador o el Dominio de la Luz para
+un cruzado contra la oscuridad.</p>
+<p>Las subclases son la forma en que tu personaje refina su vocación,
+alineando sus habilidades con su trasfondo, su fe y sus objetivos
+personales.</p>
+<h4 id="el-rol-de-las-clases-en-la-sociedad-y-el-conflicto"><strong>El
+Rol de las Clases en la Sociedad y el Conflicto</strong></h4>
+<p>En Lithernia, tu clase es tu lugar en el mundo. Un <strong><a
+href="Nigromante.html">Nigromante</a></strong> o un
+<strong>Blasfemo</strong> probablemente encontrarán afinidad (o
+conflicto) con los clanes oscuros de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Un <strong><a
+href="Mago.html">Mago</a></strong> podría aspirar a un puesto en la
+prestigiosa Torre de las Estrellas de <a
+href="Valtoria.html">Valtoria</a>. Un <strong><a
+href="Druida.html">Druida</a></strong> o un <strong><a
+href="Guardabosques.html">Guardabosques</a></strong> serán los
+protectores naturales de los bosques de <a
+href="Eldrador.html">Eldrador</a>, mientras que un <strong><a
+href="Bardo.html">Bardo</a></strong> o un <strong>Pícaro</strong>
+prosperarán en los bulliciosos puertos de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>Más importante aún, cada clase ofrece una perspectiva única sobre la
+<strong>Profecía del Retorno del Primer Rey</strong>. Un Paladín podría
+verla como un llamado sagrado para restaurar la justicia. Un <a
+href="Hechicero.html">Hechicero</a> podría sentir el poder latente de
+las Lanzas Celestiales. Un Pícaro podría verla como una oportunidad para
+el caos y el beneficio. Tu clase no solo te da herramientas para la
+aventura; te posiciona como un actor clave en el drama que definirá el
+futuro de Lithernia.</p>
+<p>Elegir una clase es, en esencia, el primer y más importante paso para
+escribir tu propia leyenda en las páginas de la historia de este mundo.
+¿Qué senda escogerás?</p>
+        </div>
+    </div>
+</body>
+</html>

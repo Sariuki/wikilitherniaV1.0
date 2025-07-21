@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Dedo_Polvoriento</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Dedo_Polvoriento</div>
+        <div class="content">
+<h1 id="kaelen-dedo-polvoriento">Kaelen ‘Dedo Polvoriento’</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en los bosques de <a href="Eldrador.html">Eldrador</a> hace
+más de dos siglos, de una madre elfa de la Casa <a
+href="Mirendyl.html">Mirendyl</a> y un padre humano <a
+href="Erudito.html">Erudito</a>, Kaelen fue siempre un alma atrapada
+entre dos mundos. Mientras la rígida sociedad élfica valoraba la
+tradición y la belleza etérea, la sangre humana de Kaelen ardía con una
+curiosidad insaciable por lo tangible, por las verdades enterradas bajo
+el peso de los mitos. Su fascinación por la Era del Primer Rey, un tema
+tabú que la nobleza élfica consideraba una peligrosa afrenta al orden
+divino, le granjeó el desdén de sus mayores. Fue exiliado no por un
+crimen de sangre, sino de pensamiento, acusado de buscar un conocimiento
+que amenazaba con desestabilizar la precaria paz de <a
+href="Eldrador.html">Eldrador</a>.</p>
+<p>Vagando por Lithernia, Kaelen encontró a otros parias que, como él,
+creían que el pasado contenía las llaves del futuro. En las polvorientas
+fronteras de <a href="Mor&#39;dhul.html">Mor’dhul</a>, conoció a <a
+href="Vexia.html">Vexia</a>, una estratega tiefling exiliada de su clan
+por su pragmatismo despiadado, y a un maestro enano en desactivación de
+trampas que había abandonado las minas de <a
+href="Valtoria.html">Valtoria</a> por la emoción de las ruinas. Juntos,
+fundaron <strong>El Sindicato del Eco</strong>, un gremio dedicado no al
+saqueo, sino a la recuperación. Su lema, “Lo que la ceniza esconde, la
+piedra lo recuerda”, se convirtió en el credo de una organización que
+operaba en la peligrosa intersección de la historia, la magia y el
+mercado negro.</p>
+<p>Como Maestro del Gremio, Kaelen ha guiado al Sindicato con una mezcla
+de sabiduría académica y astucia de superviviente. Fue él quien negoció
+el tenso pacto con el <strong>Clan Grimstone</strong>, estableciendo la
+sede del gremio en la ciudad de <a href="Eldurnis.html">Eldurnis</a>, un
+enclave tolerado en el corazón de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. A cambio de descifrar artefactos
+y desactivar defensas arcanas en ruinas antiguas, los <a
+href="Orcos.html">Orcos</a> les proporcionan acceso y una precaria
+protección. Kaelen desprecia su brutalidad, pero entiende que son un mal
+necesario para alcanzar su verdadero objetivo: desenterrar la verdad
+sobre el Cataclismo del <a href="Lilium.html">Lilium</a> y la traición
+de los dioses al Primer Rey.</p>
+<p>Su apodo, ‘Dedo Polvoriento’, no es una burla, sino una marca de
+honor ganada en incontables tumbas olvidadas, con sus dedos siempre
+cubiertos por el polvo de eras. Ahora, en el crepúsculo de su segundo
+siglo, Kaelen siente que el tiempo se agota. Las profecías susurran, los
+viejos poderes se agitan, y cada reliquia que recupera parece una pieza
+más en un rompecabezas que podría salvar a Lithernia o condenarla a
+repetir sus peores errores. Su lucha no es solo contra los guardianes de
+las tumbas, sino contra aquellos que prefieren que la historia
+permanezca enterrada, como el <strong>Círculo Interior de la Torre de
+las Estrellas</strong>, que lo considera un profanador y un hereje.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen posee la grácil complexión de su herencia élfica, pero la
+intemperie y las décadas de exploración han grabado en su rostro una red
+de finas arrugas que hablan más de la determinación humana que de la
+serenidad élfica. Su cabello, de un color castaño ceniciento, está
+surcado por hebras plateadas y suele llevarlo recogido en una práctica
+trenza. Sus ojos, de un verde avellana, son afilados y analíticos,
+capaces de detectar el más mínimo detalle en una inscripción erosionada
+o la más sutil de las mentiras en una negociación. Sus dedos son largos
+y diestros, manchados permanentemente por el polvo y la tinta.</p>
+<p>Viste un abrigo de cuero reforzado, desgastado pero de excelente
+calidad, sobre una túnica de lino oscuro. Sus ropas son funcionales,
+llenas de bolsillos ocultos donde guarda herramientas de precisión:
+pinceles finos, cinceles de plata, una lupa de cristal de roca y
+pergaminos vírgenes. No porta armadura pesada, confiando en su agilidad
+y en la discreción. A su cinturón lleva una espada corta de acero
+élfico, un regalo de su padre que rara vez desenvaina, y un juego de
+ganzúas y sondas de mithril. Su posesión más preciada es el <strong>Ojo
+del Cronista</strong>, un pequeño orbe de obsidiana que, al ser
+presionado contra una superficie, le permite vislumbrar un eco fugaz del
+último evento significativo ocurrido en ese lugar.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelen ‘Dedo Polvoriento’ es una de las figuras más subversivas y, a
+la vez, desconocidas de la era actual. Mientras los reyes y generales
+luchan por el control de las tierras, Kaelen libra una guerra por el
+control de la narrativa de Lithernia. Al desenterrar y difundir
+artefactos de la era pre-<a href="Lilium.html">Lilium</a>, él y su
+Sindicato están proporcionando pruebas tangibles que contradicen la
+historia oficial promulgada por los dioses y sus seguidores.</p>
+<p>Su impacto es doble: por un lado, ha alimentado la llama de los
+<strong>Cultos del Primer Rey</strong>, dándoles no solo fe, sino
+reliquias con las que validar su causa. Por otro, ha creado un peligroso
+mercado negro de poder, donde artefactos de inmenso potencial caen en
+manos de nobles ambiciosos, hechiceros renegados o incluso agentes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>A largo plazo, el legado de Kaelen será definido por el destino del
+conocimiento que ha desenterrado. Si logra encontrar la verdad última
+sobre el Primer Rey —quizás la ubicación de una de las Lanzas
+Celestiales o la crónica real de su rebelión—, podría ser el catalizador
+que inicie una nueva era, ya sea de reunificación o de un conflicto aún
+mayor. Si fracasa, o si el conocimiento que ha reunido es mal utilizado,
+la historia lo recordará como el <a href="Erudito.html">Erudito</a> que,
+en su afán por iluminar el pasado, acabó incendiando el futuro. Es un
+fantasma en los pasillos del poder, un nombre susurrado en bibliotecas
+prohibidas y mercados clandestinos, y la prueba viviente de que la pala
+puede ser, en ocasiones, más poderosa que la espada.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.58)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

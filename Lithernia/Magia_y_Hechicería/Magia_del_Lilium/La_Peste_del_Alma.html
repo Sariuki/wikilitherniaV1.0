@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Peste_del_Alma</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Peste_del_Alma</div>
+        <div class="content">
+<h1 id="la-peste-del-alma">La peste del alma</h1>
+<p>En los rincones más oscuros de Lithernia, donde las cicatrices del <a
+href="Lilium.html">Lilium</a> aún supuran y el eco del dolor de los
+dioses resuena en el silencio, ha nacido una aflicción que no desgarra
+la carne ni quiebra los huesos, sino que devora el alma. Se la conoce en
+susurros como la Peste del Alma, una enfermedad mágica que roba lo que
+define a un ser: sus recuerdos, su voluntad y su propia identidad,
+dejando atrás un cascarón vacío a merced de los vientos del olvido.</p>
+<h3 id="orígenes-y-naturaleza">Orígenes y Naturaleza</h3>
+<p>A diferencia de las plagas mundanas, la Peste del Alma no es un mal
+biológico, sino una corrupción del Tejido del Maná que reside dentro de
+un ser vivo. Sus orígenes se remontan al Cataclismo del <a
+href="Lilium.html">Lilium</a>. En las zonas donde <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+ardió con mayor furia, la agonía del mundo quedó impregnada en la
+tierra, creando bolsas de energía negativa y desesperación. Esta
+corrupción puede infectar el espíritu de quienes se exponen a ella
+durante demasiado tiempo.</p>
+<p>Los sabios de la Torre de las Estrellas y los eruditos de <a
+href="Eldrador.html">Eldrador</a> teorizan que la plaga es una
+manifestación del dolor residual del mundo. Sin embargo, los cultos
+oscuros de <a href="Mor&#39;dhul.html">Mor’dhul</a> ofrecen otras
+explicaciones. Los seguidores de <a href="Kromagul.html">Kromagul</a>,
+el dios del dolor, creen que la peste es una bendición que libera a los
+mortales del sufrimiento de la memoria. Los acólitos de <a
+href="Morgal.html">Morgal</a>, dios de las mentiras, la ven como la
+verdad última: un vacío donde todas las ilusiones de la identidad se
+desvanecen.</p>
+<p>La enfermedad ataca la conexión de un individuo con su propio pasado
+y su voluntad, deshaciendo los hilos de maná que tejen su personalidad.
+Es un mal silencioso, invisible e implacable.</p>
+<h3 id="fases-de-la-enfermedad">Fases de la Enfermedad</h3>
+<p>La Peste del Alma progresa en tres etapas distinguibles, cada una más
+devastadora que la anterior.</p>
+<ol type="1">
+<li><strong>El Susurro del Olvido:</strong> La fase inicial es sutil. La
+víctima comienza a experimentar lapsos de memoria menores: olvida el
+nombre de un conocido, el sabor de su comida favorita o el camino a
+casa. Una persistente apatía se instala en su corazón, y las pasiones
+que antes le movían se apagan, reemplazadas por una fría indiferencia.
+Sienten un cansancio profundo que el sueño no puede aliviar, un “frío en
+el alma”.</li>
+<li><strong>El Desvanecimiento del Ser:</strong> La enfermedad avanza,
+borrando pilares fundamentales de la identidad. Los recuerdos de seres
+queridos, los hitos de la propia vida e incluso habilidades aprendidas
+durante años se desvanecen como la niebla. Un <a
+href="Guerrero.html">Guerrero</a> puede olvidar cómo empuñar su espada;
+un <a href="Mago.html">Mago</a>, las palabras de sus <a
+href="Conjuros.html">Conjuros</a> más simples. La víctima se vuelve
+dócil, confundida y fácilmente manipulable, una sombra de quien fue. En
+esta fase, su conexión con el mundo se vuelve frágil, y a menudo vagan
+sin rumbo, buscando algo que ya no recuerdan.</li>
+<li><strong>El Vacío Silencioso:</strong> En la etapa final, el alma ha
+sido completamente borrada. La persona deja de ser. Lo que queda es un
+<strong>Cascarón</strong>: un cuerpo que respira y camina, pero cuyos
+ojos están vacíos de toda luz y conciencia. Los Cascarones no son
+hostiles; son autómatas silenciosos que deambulan sin propósito, a
+menudo atraídos instintivamente hacia las zonas de alta corrupción
+mágica donde su mal se originó, como si la propia plaga los llamara a
+casa.</li>
+</ol>
+<h3 id="transmisión-y-zonas-de-riesgo">Transmisión y Zonas de
+Riesgo</h3>
+<p>La Peste del Alma no es contagiosa por contacto físico. Se contrae
+por exposición prolongada a lugares donde el Tejido del Maná está
+profundamente corrompido. Los principales focos de infección son:</p>
+<ul>
+<li><strong>Cicatrices del <a href="Lilium.html">Lilium</a>:</strong>
+Cráteres y páramos donde el fuego divino dejó una herida permanente en
+el mundo. El aire mismo está cargado de desesperación.</li>
+<li><strong>Ruinas Malditas:</strong> Ciudades abandonadas como Mirallos
+o Estriedana, donde la muerte violenta y el sufrimiento de sus antiguos
+habitantes han envenenado el ambiente.</li>
+<li><strong>Dominios de los Dioses Oscuros:</strong> Lugares consagrados
+a deidades como <a href="Kromagul.html">Kromagul</a> o Sel’thirak. Se
+rumorea que en Fuempillos, la “Ciudad del Dolor”, la plaga es endémica,
+un testimonio del poder de su dios patrón.</li>
+<li><strong>Influencia de Artefactos:</strong> Se sabe que la proximidad
+a ciertos artefactos de gran poder necrótico o imbuidos de pena puede
+inducir los primeros síntomas. Algunos temen que fragmentos perdidos de
+la Lanza Celestial <strong>Requiem</strong>, la Lanza del Olvido,
+podrían ser una fuente potente de esta aflicción.</li>
+</ul>
+<h3 id="tratamiento-y-posibles-curas">Tratamiento y Posibles Curas</h3>
+<p>La magia de curación convencional es inútil contra la Peste del Alma.
+Un hechizo de <em>Restaurar</em> puede aliviar temporalmente la apatía o
+devolver un recuerdo fugaz, pero no detiene el avance de la enfermedad.
+La búsqueda de una cura es una empresa ardua y peligrosa, el motor de
+muchas expediciones desesperadas.</p>
+<ul>
+<li><strong>Rituales de Purificación:</strong> La única esperanza
+conocida reside en complejos rituales arcanos. Estos requieren la
+intervención de clérigos poderosos (especialmente de dioses de la luz,
+el conocimiento o la vida, como <a href="Harmias.html">Harmias</a> o <a
+href="Lerian.html">Lerian</a>) y componentes raros que solo se
+encuentran en lugares de pureza incontaminada, como el agua del Lago
+Estelar de <a href="Eldrador.html">Eldrador</a> o un Corazón de Montaña
+de <a href="Valtoria.html">Valtoria</a>. El ritual debe realizarse en un
+Lugar de Poder para tener alguna posibilidad de éxito.</li>
+<li><strong>La Paradoja de Requiem:</strong> Algunos sabios proscritos
+han postulado una teoría aterradora: si la Lanza del Olvido pudo borrar
+la memoria del mundo, quizás su poder, invertido a través de un ritual
+prohibido, podría restaurar un alma perdida. Buscar la lanza o un
+fragmento de ella para este propósito es una misión de un peligro
+inimaginable, pues su poder podría destruir al paciente o al propio
+ritualista.</li>
+</ul>
+<h3 id="impacto-en-lithernia">Impacto en Lithernia</h3>
+<p>La Peste del Alma es una de las amenazas más temidas del mundo,
+precisamente por su naturaleza insidiosa.</p>
+<ul>
+<li>En <strong><a href="Mor&#39;dhul.html">Mor’dhul</a></strong>, es
+vista con una mezcla de pragmatismo y oportunidad. El Clan Whisper
+estudia a los Cascarones con la esperanza de controlarlos como un
+ejército sin mente, mientras que facciones como la de Lord Aethel
+podrían verla como un arma perfecta para neutralizar enemigos sin dejar
+rastro de violencia.</li>
+<li>En <strong><a href="Eldrador.html">Eldrador</a></strong>, los
+longevos elfos la consideran el horror definitivo. La pérdida de sus
+vastos recuerdos es un destino peor que la muerte. Sus comunidades
+aíslan y purifican cualquier zona donde se detecte un brote con una
+eficiencia despiadada, usando la más poderosa magia de abjuración.</li>
+<li>En <strong><a href="Valtoria.html">Valtoria</a></strong>, la
+comunidad se une para proteger a los afligidos. Los sabios de la Torre
+de las Estrellas dedican <a href="Recursos.html">Recursos</a>
+considerables a investigar la plaga, viéndola como una enfermedad de la
+propia tierra que debe ser sanada con paciencia y conocimiento.</li>
+<li>En <strong><a href="Galvorn.html">Galvorn</a></strong>, la peste
+alimenta las supersticiones marineras. Se cuentan historias de barcos
+fantasma encontrados a la deriva, con una tripulación de Cascarones de
+mirada vacía, y de islas malditas de las que ningún explorador regresa
+con sus recuerdos intactos.</li>
+</ul>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li>Cicatrices del <a href="Lilium.html">Lilium</a></li>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

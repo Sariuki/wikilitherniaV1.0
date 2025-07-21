@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malthor_el_Retorcido</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Malthor_el_Retorcido</div>
+        <div class="content">
+<h1 id="malthor-el-retorcido">Malthor el Retorcido</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de la traición enana, pocos nombres resuenan con la
+ponzoña silenciosa de Malthor, el susurrante arquitecto del Clan
+Ciemartillo. No es un <a href="Guerrero.html">Guerrero</a> de renombre
+ni un señor de la guerra, sino una plaga ideológica; un chamán que
+retorció el alma de su pueblo hasta hacerla irreconocible.</p>
+<p>Nacido como Malthor de la Casa Dravonis en la orgullosa <a
+href="Valtoria.html">Valtoria</a>, su juventud estuvo marcada por una
+profunda frustración. Mientras sus hermanos aprendían los cantos de la
+forja en honor a <a href="Rokael.html">Rokael</a> y la solidez de la
+piedra de <a href="Cirkon.html">Cirkon</a>, Malthor veía estancamiento.
+Observaba con desprecio cómo la sabiduría de la Torre de las Estrellas
+se abría a otras razas, cómo los <a href="Gnomos.html">Gnomos</a> con
+sus artilugios ganaban favor y cómo la diplomacia con los elfos de <a
+href="Eldrador.html">Eldrador</a> “debilitaba” la pureza enana. Para él,
+la tradición era una cadena y la quietud de la montaña, una tumba.</p>
+<p>Su herejía comenzó en los archivos prohibidos de la Torre, donde
+estudiaba las dualidades del panteón enano. Se obsesionó con <a
+href="Valarios.html">Valarios</a>, el dios de la destrucción. Mientras
+los clérigos tradicionales lo veían como una parte necesaria del ciclo
+de creación, Malthor vio la verdad última: el poder no reside en lo que
+se construye, sino en lo que se puede deshacer. Empezó a predicar esta
+nueva fe en las sombras, atrayendo a otros <a
+href="Enanos.html">Enanos</a> descontentos y resentidos, los que más
+tarde serían conocidos como los ‘Cazadores de Sombras’.</p>
+<p>Su verdadero punto de inflexión, sin embargo, ocurrió en secreto. En
+sus rituales para contactar con <a href="Valarios.html">Valarios</a>,
+sus plegarias de destrucción y poder fueron respondidas, pero no por el
+dios enano. Una conciencia distinta, antigua y sádica, se filtró a
+través de las grietas de su fe. Era <a
+href="Kromagul.html">Kromagul</a>, el Dios del Dolor de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, quien vio en la amargura de
+Malthor un recipiente perfecto. <a href="Kromagul.html">Kromagul</a> le
+enseñó que la destrucción era solo un medio; el verdadero poder emanaba
+del sufrimiento infligido. La piedra no debía ser solo rota, debía
+<em>sentir</em> el golpe.</p>
+<p>Cuando la purga de los Cazadores de Sombras se desató en <a
+href="Valtoria.html">Valtoria</a>, Malthor ya era un devoto converso de
+<a href="Kromagul.html">Kromagul</a>. Utilizó el caos para cimentar su
+posición, guiando al brutal Grakull y a los demás exiliados hacia las
+Cumbres Resquebrajadas. Fue Malthor quien propuso el nombre
+“Ciemartillo”, un insulto directo a los clanes forjadores. Fue él quien
+diseñó el blasfemo escudo del clan y quien eligió a <a
+href="Valarios.html">Valarios</a> como la cara pública de su culto,
+ocultando la verdadera y macabra naturaleza de sus rituales de
+dolor.</p>
+<p>Hoy, Malthor es el poder en la sombra detrás del trono de Grakull.
+Como Consejero Jefe, alimenta la paranoia de su líder con visiones de
+traición y susurros de debilidad, asegurando que Grakull nunca confíe en
+nadie más que en él. Desde la fortaleza de ‘Las Minas Cicatriz’, Malthor
+dirige los rituales secretos que corrompen las vetas de mineral, no para
+forjar armas, sino para imbuirlas con la esencia del tormento. Su
+alianza con los seguidores de <a href="Kromagul.html">Kromagul</a> en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> es el secreto mejor guardado del
+clan, un pacto que les proporciona magia prohibida y conocimiento oscuro
+a cambio de sacrificios y tributos de agonía. Su ambición no es
+meramente gobernar un clan de exiliados, sino transformar la esencia
+misma de la raza enana, forjando un nuevo orden basado en el miedo y el
+dolor, una <a href="Valtoria.html">Valtoria</a> oscura a imagen y
+semejanza de su retorcido corazón.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Malthor es la encarnación física de su fe corrupta. A sus 280 años,
+la magia de las sombras lo ha encorvado y desgastado, dándole una
+silueta asimétrica y frágil que oculta una terrible resiliencia. Su piel
+tiene la palidez cerúlea de una roca magullada, surcada por venas
+oscuras que parecen palpitar con una luz enfermiza. Sus ojos, hundidos y
+pequeños, no reflejan la luz, sino que parecen absorberla, dejando solo
+dos puntos de malicia inteligente. Su barba, otrora un orgullo enano, es
+ahora un nido enmarañado de trenzas desiguales, entre las que ha tejido
+pequeños fetiches de hueso y fragmentos de obsidiana pulidos por el
+sufrimiento.</p>
+<p>Viste túnicas raídas de un color negro hollín, remendadas con cuero
+de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+cazadas en las Cumbres Resquebrajadas. No lleva la armadura pesada de
+sus compatriotas, prefiriendo la movilidad y el sigilo. Su equipamiento
+es más el de un <a href="Sacerdote.html">Sacerdote</a> oscuro que el de
+un chamán de la montaña:</p>
+<ul>
+<li><strong>Báculo de la Agonía Pétrea:</strong> Una vara de madera de
+espino petrificada, retorcida como si hubiera muerto en un tormento
+silencioso. Está coronada por un cristal de cuarzo oscuro que pulsa con
+un tenue brillo rojo cuando canaliza el poder de <a
+href="Kromagul.html">Kromagul</a>.</li>
+<li><strong>Daga Ritual de Sacrificios:</strong> Una hoja corta y cruel
+de hierro frío, sin adornos, utilizada exclusivamente para los rituales
+de sangre que exige su dios secreto.</li>
+<li><strong>Tomo de los Lamentos:</strong> Un grimorio encuadernado en
+piel de origen incierto, donde Malthor anota sus interpretaciones
+heréticas de las <a href="Runas.html">Runas</a> y los efectos de sus
+experimentos con la magia del dolor.</li>
+<li><strong>Bolsa de Componentes:</strong> En lugar de hierbas y musgos,
+la bolsa de Malthor contiene polvo de hueso, fragmentos de metal
+extraídos de armas rotas en batalla y “piedras de dolor”, geodas que,
+según él, almacenan los ecos del sufrimiento de la tierra.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Malthor el Retorcido representa una de las mayores amenazas internas
+para el orden de <a href="Valtoria.html">Valtoria</a> y un peligroso
+catalizador en la política de los reinos independientes. No es un simple
+líder rebelde; es el profeta de una nueva y terrible fe enana. Su
+verdadero impacto no se mide en batallas ganadas, sino en la corrupción
+que siembra.</p>
+<p>Su legado será la creación del Clan Ciemartillo como una entidad
+política y religiosa coherente, una “anti-<a
+href="Valtoria.html">Valtoria</a>” que podría atraer a más descontentos
+de otros reinos. Al fusionar la herética adoración de <a
+href="Valarios.html">Valarios</a> con el culto al dolor de <a
+href="Kromagul.html">Kromagul</a>, está creando un sincretismo oscuro
+que tiene el potencial de extenderse más allá de los <a
+href="Enanos.html">Enanos</a>, ofreciendo poder a todos aquellos
+consumidos por el resentimiento y la ambición.</p>
+<p>Si Malthor tiene éxito, no solo fundará un reino de terror en las
+montañas, sino que demostrará que ni la tradición más sólida ni el honor
+más profundo son inmunes a ser retorcidos y convertidos en armas. Sería
+la prueba viviente de que la sombra de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> puede extenderse no solo por
+conquista, sino también pudriendo desde dentro el corazón de sus
+enemigos.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clan%20Ciemartillo.html">Clan Ciemartillo</a> (relevancia:
+0.32)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

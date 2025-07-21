@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gythkai</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Gythkai</div>
+        <div class="content">
+<h1 id="gythkai">Gyth’kai</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En el panteón sombrío de los Korogrim, donde la muerte, la guerra y
+el dolor son pilares de la divinidad, Gyth’kai ocupa un nicho singular y
+corrosivo. No nació de la colisión de estrellas ni del aliento de un
+primordial; Gyth’kai fue concebida en la desesperación y la sangre. La
+leyenda cuenta que, tras el cataclismo del <a
+href="Lilium.html">Lilium</a>, cuando las razas recién creadas luchaban
+por sobrevivir en un mundo roto, los primeros <a
+href="Goblins.html">Goblins</a> aprendieron una verdad amarga: la vida
+era barata y el poder lo era todo. De sus incontables ritos sangrientos,
+de los pactos susurrados en la oscuridad y de cada vida ofrecida a
+cambio de una pequeña ventaja, se acumuló una energía psíquica que
+cristalizó en una nueva conciencia divina. Así nació Gyth’kai, la diosa
+del sacrificio, no como una creadora, sino como una consecuencia.</p>
+<p>Su genealogía la ancla en el corazón del poder de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Es hija de
+<strong>Sel’thirak</strong>, el Rey-Dios de la Muerte, y nieta de
+<strong><a href="Thyrgram.html">Thyrgram</a></strong>, el furibundo Dios
+de la Guerra. De ellos heredó la afinidad por la muerte y la violencia,
+pero su esencia es distinta. Mientras su tío <strong><a
+href="Lakros.html">Lakros</a></strong> se deleita en el derramamiento de
+sangre indiscriminado y su primo <strong><a
+href="Kromagul.html">Kromagul</a></strong> se alimenta del dolor puro,
+Gyth’kai ve la vida y la muerte como una transacción. Para ella, el
+sacrificio no es un acto de caos, sino el ritual más pragmático y
+sagrado: una ofrenda de vida a cambio de poder, riqueza o supervivencia.
+El caos desatado por el <a href="Lilium.html">Lilium</a> no fue una
+tragedia, sino la apertura del mercado más grande de la historia, y ella
+es su principal corredora.</p>
+<p>Gyth’kai profesa una lealtad fanática a su padre, Sel’thirak. Ve su
+reinado autoritario como el ecosistema perfecto para que sus propios
+cultos prosperen. En las sombras del imperio de la muerte, ella ofrece
+un camino alternativo hacia el poder, uno accesible para los débiles,
+los astutos y los desesperados. Cada conquista de Sel’thirak es una
+oportunidad para que los seguidores de Gyth’kai se infiltren en nuevos
+territorios, estableciendo sus altares secretos y sus redes de
+influencia. Es la hija obediente que, tras bambalinas, corroe el alma
+del reino de su padre con la promesa del beneficio personal a cualquier
+costo.</p>
+<p>Sus seguidores, principalmente los <a href="Goblins.html">Goblins</a>
+que ella misma moldeó con su esencia, son el reflejo perfecto de su
+filosofía. Son oportunistas, tramposos y maestros de la supervivencia,
+operando en las grietas de la sociedad de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. El Clan Gyth’kai no construye
+grandes templos; sus altares son fosas ocultas, sótanos manchados de
+sangre y rincones olvidados de los mercados negros. Para ellos, un
+asesinato bien planeado no es un crimen, sino una ofrenda; una traición
+exitosa no es deshonor, sino una oración respondida.</p>
+<h2 id="descripción-física-y-representación">Descripción Física y
+Representación</h2>
+<p>A diferencia de la imponente majestad de su padre o la brutalidad
+física de su tío, Gyth’kai rara vez se manifiesta en una forma
+grandiosa. Quienes afirman haberla visto en visiones la describen como
+una figura pequeña y encorvada, con la silueta de un goblin pero
+envuelta en sombras que se retuercen como humo aceitoso. Su piel tiene
+un tono enfermizo, entre el verde mugriento y el amarillo bilioso, y sus
+dedos son largos y terminan en garras afiladas, perfectas para cortar
+una garganta o contar monedas.</p>
+<p>Su rasgo más perturbador son sus ojos: dos ascuas brillantes que no
+reflejan luz, sino que parecen contener el parpadeo de cada vela
+encendida en un altar sacrificial. No habla en voz alta; su voluntad se
+manifiesta como un susurro en la mente del suplicante, una idea
+tentadora que se siente como propia, incitando a la codicia y a la
+traición.</p>
+<p>Su símbolo sagrado es una daga ritual curva y serrada, a menudo
+representada goteando sangre sobre una pila de oro. No porta armadura,
+pues su defensa es el engaño y la certeza de que siempre habrá alguien
+dispuesto a morir en su lugar.</p>
+<h2 id="culto-y-dominios">Culto y Dominios</h2>
+<p>El culto a Gyth’kai es tan insidioso como ella. Sus dominios divinos
+son el <strong>Sacrificio</strong>, la <strong>Traición</strong> y la
+<strong>Riqueza</strong> (obtenida por medios oscuros).</p>
+<ul>
+<li><strong>Ritos y Seguidores:</strong> Su clero no está formado por
+sacerdotes, sino por asesinos, chantajistas, envenenadores y maestros
+del espionaje. Sus rituales son contratos de sangre: un comerciante
+ofrece la vida de un competidor para asegurar un monopolio; una tribu
+goblin sacrifica a un prisionero para que sus trampas sean más letales;
+un <a href="Noble.html">Noble</a> menor entrega a un sirviente leal para
+obtener un secreto que lo eleve en la corte. Los sacrificios son
+constantes, pequeños y numerosos, alimentando su poder en un flujo
+incesante.</li>
+<li><strong>Templos:</strong> Sus lugares sagrados son funcionales y
+discretos: un pozo abandonado en las afueras de una ciudad, un matadero
+clandestino, una cámara secreta tras la pared de una taberna. Siempre
+están marcados por el olor a sangre vieja y la presencia de riquezas mal
+habidas.</li>
+<li><strong>Filosofía:</strong> El credo de Gyth’kai es simple y
+universalmente tentador: “Todo tiene un precio, especialmente el poder.
+La vida es el bien más fungible”. Esta filosofía la convierte en una
+amenaza latente no solo en <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+sino en cualquier lugar de Lithernia donde la ambición y la
+desesperación echen raíces.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Aunque es una deidad menor en el gran esquema del panteón, el impacto
+de Gyth’kai en <a href="Mor&#39;dhul.html">Mor’dhul</a> y en el mundo es
+profundo y corrosivo. Ella es la encarnación divina de la ambición sin
+escrúpulos. Mientras otros dioses oscuros promueven la tiranía o la
+destrucción, Gyth’kai fomenta una podredumbre moral desde la base de la
+sociedad.</p>
+<p>En <a href="Mor&#39;dhul.html">Mor’dhul</a>, su influencia mantiene a
+las clases bajas en un estado de traición y conflicto perpetuos, lo que
+paradójicamente solidifica el poder de su padre al impedir cualquier
+forma de unidad entre los oprimidos. Es un cáncer que garantiza la
+estabilidad del cuerpo que consume.</p>
+<p>Más allá de <a href="Mor&#39;dhul.html">Mor’dhul</a>, su doctrina del
+sacrificio pragmático resuena en cualquier alma codiciosa. Un culto a
+Gyth’kai podría surgir en los bajos fondos de una próspera ciudad de <a
+href="Galvorn.html">Galvorn</a> o entre los nobles exiliados de <a
+href="Eldrador.html">Eldrador</a>. Ella representa la oscura tentación
+de que, con el sacrificio adecuado (siempre el de otro), cualquier sueño
+puede hacerse realidad. Su legado es un recordatorio constante de que
+las amenazas más peligrosas no siempre vienen con ejércitos y
+estandartes, sino con un susurro que promete poder a cambio de un
+pequeño corte.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.41)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

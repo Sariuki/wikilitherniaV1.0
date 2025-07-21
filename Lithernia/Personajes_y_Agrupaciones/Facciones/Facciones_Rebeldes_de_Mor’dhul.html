@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facciones_Rebeldes_de_Mor’dhul</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Facciones_Rebeldes_de_Mor’dhul</div>
+        <div class="content">
+<h1 id="facciones-rebeldes-de-mordhul">Facciones Rebeldes de
+Mor’dhul</h1>
+<p>En las sombrías tierras de Mor’dhul, ocultas bajo la eterna penumbra
+de sus bosques negros y montañas sangrantes, surgen las Facciones
+Rebeldes, un mosaico turbulento de guerreros, magos y conspiradores que
+desafían el férreo dominio de Sel’thirak. Estas facciones no sólo luchan
+por la libertad territorial o la abolición de sus opresores, sino que
+llevan motivos secretos, oscuros pactos y anhelos ocultos que moldean el
+destino de Lithernia.</p>
+<h2 id="contexto-histórico">Contexto histórico</h2>
+<p>Sel’thirak, antiguo linaje de señores de la guerra y hechiceros
+imposibles de doblegar, ha impuesto su reinado absoluto sobre Mor’dhul
+durante la Era de los Mil Años. Sin embargo, lejos de la mirada
+vigilante de Sel’thirak, distintas facciones rebeldes han ido tejiendo
+sueños de independencia y venganza, alimentados por la memoria de
+antiguos reinos y bendiciones olvidadas.</p>
+<h2 id="principales-facciones-rebeldes">Principales facciones
+rebeldes</h2>
+<h3 id="la-hermandad-de-las-sombras-errantes">1. La Hermandad de las
+Sombras Errantes</h3>
+<p>También conocidos como “Los Huéspedes del Olvido”, esta hermandad se
+especializa en el espionaje y la subversión. Sus miembros, ocultos bajo
+capas de tinieblas y juramentos de silencio, buscan socavar la autoridad
+de Sel’thirak desde dentro, infiltrando consejeros y despojando secretos
+mágicos. Se rumorea que tienen conexiones con espectros ancestrales de
+Mor’dhul, lo que les otorga una visión más allá del tiempo.</p>
+<ul>
+<li><strong>Motivación oculta:</strong> Restaurar el equilibrio
+ancestral de Mor’dhul, destruido por la magia corrupta de
+Sel’thirak.<br />
+</li>
+<li><strong>Costumbres:</strong> Ritual de la Niebla Silente, donde se
+reafirman sus votos en un conjuro que les vuelve invisibles a ojos
+mortales durante la noche.<br />
+</li>
+<li><strong>Símbolo:</strong> Una daga envuelta en sombras que nunca
+refleja luz.</li>
+</ul>
+<h3 id="el-cónclave-de-las-llamas-caídas">2. El Cónclave de las Llamas
+Caídas</h3>
+<p>Compuesto en su mayoría por magos renegados y desertores del linaje
+de Sel’thirak, el Cónclave busca la aniquilación total del poder vigente
+para reconstruir el imperio con fundamentos más justos y mágicos.
+Emplean magia incendiaria y rituales prohibidos que desafían la
+naturaleza misma.</p>
+<ul>
+<li><strong>Motivación oculta:</strong> La búsqueda de un antiguo
+artefacto llamado “La Chispa Primordial”, capaz de derretir piedras y
+romper maldiciones.<br />
+</li>
+<li><strong>Costumbres:</strong> La Vigilia del Fuego Eterno, donde
+queman símbolos del viejo régimen para absorber su poder.<br />
+</li>
+<li><strong>Símbolo:</strong> Un fénix rojo entre cenizas negras.</li>
+</ul>
+<h3 id="los-hijos-del-lobo-gris">3. Los Hijos del Lobo Gris</h3>
+<p>Guerreros exiliados y tribus nómadas que vivieron siglos en las
+fronteras heladas de Mor’dhul, Los Hijos del Lobo Gris codician la
+recuperación de territorios ancestrales usurpados por Sel’thirak. Su
+lucha es física y espiritual, basada en la fuerza de la manada y la
+fiera conexión con el lobo, su tótem sagrado.</p>
+<ul>
+<li><strong>Motivación oculta:</strong> Vengar la masacre de la Luna
+Sangrienta, un genocidio olvidado cometido por sel’thirakianos hace
+cientos de años.<br />
+</li>
+<li><strong>Costumbres:</strong> La Danza del Lobo, una ceremonia
+guerrera que envuelve guerreros en pieles y tambores para atraer la
+fuerza ancestral.<br />
+</li>
+<li><strong>Símbolo:</strong> Una huella de lobo gris enmarca una luna
+creciente.</li>
+</ul>
+<h2 id="teorías-y-leyendas-sobre-sus-motivos-secretos">Teorías y
+leyendas sobre sus motivos secretos</h2>
+<p>A lo largo de las eras, rumores indican que detrás del conflicto
+abierto existe un juego de alianzas ocultas entre las facciones rebeldes
+y ciertos linajes olvidados de Sel’thirak. Se dice que algunas facciones
+buscan no sólo derrocar a sus opresores sino manipular el poder para
+desencadenar una guerra mágica final que cambie para siempre la faz de
+Lithernia.</p>
+<p>Una antigua leyenda menciona la llamada “Noche del Eclipse Roto”, un
+evento que mezclará las fuerzas del propio Maligno Mor’dhul con las
+energías liberadas por las facciones rebeldes, desatando un apocalipsis
+o una nueva era de luz; nadie sabe con certeza qué desenlace
+triunfará.</p>
+<h2 id="impacto-en-la-era-actual-de-lithernia">Impacto en la era actual
+de Lithernia</h2>
+<p>Las Facciones Rebeldes siguen siendo un símbolo de esperanza para los
+oprimidos y un constante dolor de cabeza para Sel’thirak. Sus actos
+oscilan entre la heroica resistencia y el terror despiadado,
+enfrentándose tanto al invasor como entre sí, cimentando un sinsentido
+aparente que, sin embargo, podría ser la clave de un futuro inesperado
+para Mor’dhul y todo Lithernia.</p>
+<hr />
+<p><em>“Mor’dhul no es solo sombra eterna; es el latido oscuro que nunca
+se rinde.”</em> – Crónicas de Tahl’zir, historiador de la Orden de la
+Luz Perpetua.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Facciones.html">Facciones</a> (relevancia: 0.85)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.63)</li>
+<li><a href="Facciones%20Secretas%20en%20Mor’dhul.html">Facciones
+Secretas en Mor’dhul</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

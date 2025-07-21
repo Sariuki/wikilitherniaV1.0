@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragones</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Dragones</div>
+        <div class="content">
+<h1 id="dragones">Dragones</h1>
+<h3 id="perfil-de-la-criatura">Perfil de la Criatura</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Criatura</strong></td>
+<td style="text-align: left;">Dragón</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Típico</strong></td>
+<td style="text-align: left;">Variable (Metálicos: Legales/Buenos;
+Cromáticos: Caóticos/Malignos)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nivel de Desafío</strong></td>
+<td style="text-align: left;">10 - 30+ (variable por edad y tipo)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Táctico</strong></td>
+<td style="text-align: left;">Peligro Solitario, Controlador de Área,
+Combatiente de Élite</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Entorno Común</strong></td>
+<td style="text-align: left;">Montañas, ruinas, volcanes, abismos,
+guaridas aisladas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Linajes Ancestrales</strong></td>
+<td style="text-align: left;"><a href="tag-Dragones.html">#Dragones</a>
+Ancestrales (<a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+Tal’vorak, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>,
+<a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td style="text-align: left;">Historia / Naturaleza</td>
+<td style="text-align: left;">Identifica a la criatura como un verdadero
+dragón, un ser inteligente y antiguo con un arma de aliento elemental y
+una fuerza formidable.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;">Arcanos / Historia</td>
+<td style="text-align: left;">Diferencia entre los linajes principales:
+los Cromáticos (malignos y destructivos) y los Metálicos (nobles y a
+menudo benévolos). Conoce las vulnerabilidades comunes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>20</strong></td>
+<td style="text-align: left;">Historia</td>
+<td style="text-align: left;">Recuerda <a
+href="Leyendas.html">Leyendas</a> sobre las Guerras Dracónicas, la Caída
+Dragónica y cómo su dominio dio paso a la Era del Primer Rey.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>25</strong></td>
+<td style="text-align: left;">Arcanos / Religión</td>
+<td style="text-align: left;">Conoce la existencia de los cuatro
+Dragones Ancestrales (<a href="tag-Dragones.html">#Dragones</a>
+Ancestrales (<a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+Tal’vorak, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>,
+<a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>))
+y su papel en la <a href="Herreria.html">Herreria</a> del Mundo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="plantilla-de-categoría-de-edad">Plantilla de Categoría de
+Edad</h3>
+<p>Aplica estas modificaciones a una estadística base de Dragón
+<strong>Adulto</strong>.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Edad</th>
+<th style="text-align: left;">Modificador de CR</th>
+<th style="text-align: left;">Puntos de Golpe</th>
+<th style="text-align: left;">Ataque / Daño</th>
+<th style="text-align: left;">CD Salvación</th>
+<th style="text-align: left;">Acciones Legendarias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Cría</strong></td>
+<td style="text-align: left;">-12</td>
+<td style="text-align: left;">× 0.25</td>
+<td style="text-align: left;">-8</td>
+<td style="text-align: left;">-6</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Joven</strong></td>
+<td style="text-align: left;">-7</td>
+<td style="text-align: left;">× 0.5</td>
+<td style="text-align: left;">-4</td>
+<td style="text-align: left;">-3</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Adulto</strong></td>
+<td style="text-align: left;">Base</td>
+<td style="text-align: left;">Base</td>
+<td style="text-align: left;">Base</td>
+<td style="text-align: left;">Base</td>
+<td style="text-align: left;">Sí (3/turno)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Anciano</strong></td>
+<td style="text-align: left;">+6</td>
+<td style="text-align: left;">× 1.75</td>
+<td style="text-align: left;">+5</td>
+<td style="text-align: left;">+4</td>
+<td style="text-align: left;">Sí (3/turno)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ancestral</strong></td>
+<td style="text-align: left;">+10 (Mítico)</td>
+<td style="text-align: left;">× 3.0</td>
+<td style="text-align: left;">+8</td>
+<td style="text-align: left;">+6</td>
+<td style="text-align: left;">Sí (4/turno) + Acciones Míticas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-componentes-de-dragón">Tabla de Componentes de
+Dragón</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Componente</th>
+<th style="text-align: left;">CD de Recolección (Medicina o
+Supervivencia)</th>
+<th style="text-align: left;">Usos Mecánicos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Escamas (1d6)</strong></td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">Pueden ser forjadas en una armadura que
+concede resistencia al tipo de daño del aliento del dragón.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sangre (1d4 viales)</strong></td>
+<td style="text-align: left;">18</td>
+<td style="text-align: left;">Ingrediente para pociones de resistencia
+elemental o tintas para pergaminos de <a
+href="Conjuros.html">Conjuros</a> de alto nivel.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Corazón</strong></td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">Componente de ritual para crear objetos
+mágicos legendarios o para <a href="Conjuros.html">Conjuros</a> de
+resurrección de alto poder.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Diente o Garra</strong></td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">Puede ser forjado como la punta de un arma
+mágica +1.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dragones-ancestrales-ignis-talvorak-fidriel-sariel">Dragones
+Ancestrales (Ignis, Tal’vorak, Fidriel, Sariel)</h3>
+<p>Estas entidades son de poder casi divino (CR 30+ o Mítico) y no
+pueden ser representadas por bloques de estadísticas convencionales. Sus
+acciones son eventos que alteran el mundo.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Ancestro</th>
+<th style="text-align: left;">Alineamiento</th>
+<th style="text-align: left;">Aliento Primordial</th>
+<th style="text-align: left;">Dominio de Influencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a></strong></td>
+<td style="text-align: left;">Legal Bueno</td>
+<td style="text-align: left;">Fuego y Creación</td>
+<td style="text-align: left;"><a href="Herreria.html">Herreria</a>,
+Montañas, Volcanes, Dragones Metálicos</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tal’vorak</strong></td>
+<td style="text-align: left;">Caótico Maligno</td>
+<td style="text-align: left;">Tormenta y Furia</td>
+<td style="text-align: left;">Tempestades, Conquista, Dragones
+Cromáticos</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a></strong></td>
+<td style="text-align: left;">Legal Neutral</td>
+<td style="text-align: left;">Rayo y Sabiduría</td>
+<td style="text-align: left;">Conocimiento, Magia, Inspiración</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a></strong></td>
+<td style="text-align: left;">Neutral Maligno</td>
+<td style="text-align: left;">Sombra y Drenaje Vital</td>
+<td style="text-align: left;">Noche, Nigromancia, Secretos, Dragones
+Vampiros</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bloques-de-estadísticas">Bloques de Estadísticas</h3>
+<p>statblock name: Dragón de las Sombras Adulto size: Enorme type:
+dragón alignment: neutral maligno ac: 18 (Armadura natural) hp: 225
+(18d12 + 108) speed: 40 pies, escalar 40 pies, volar 80 pies stats: [23,
+12, 23, 18, 15, 19] saves: - Dex: +6 - Con: +11 - Sab: +7 - Car: +9
+skills: - Percepción: +12 - Sigilo: +11 damage_immunities: Necrótico
+senses: Vista Ciega 60 pies, Visión en la oscuridad 120 pies, Percepción
+Pasiva 22 languages: Común, Dracónico, Infracomún cr: 16 traits: - name:
+Resistencia Legendaria (3/Día) desc: “Si el dragón falla una tirada de
+salvación, puede elegir tener éxito en su lugar.” - name: Camuflaje de
+Sombras desc: “El dragón tiene ventaja en las pruebas de Destreza
+(Sigilo) hechas para esconderse en penumbra u oscuridad.” actions: -
+name: Multiataque desc: “El dragón puede usar su Presencia Espectral.
+Luego realiza tres ataques: uno con su mordisco y dos con sus garras.” -
+name: Mordisco Vampírico desc: “Ataque de Arma Cuerpo a Cuerpo: +11 a
+impactar, alcance 10 pies, un objetivo. Impacto: 18 (2d10 + 7) de daño
+perforante más 9 (2d8) de daño necrótico. El objetivo debe superar una
+tirada de salvación de Constitución CD 19 o su máximo de puntos de golpe
+se reducirá en una cantidad igual al daño necrótico recibido. El dragón
+recupera puntos de golpe iguales a la mitad del daño necrótico
+infligido.” - name: Garra desc: “Ataque de Arma Cuerpo a Cuerpo: +11 a
+impactar, alcance 5 pies, un objetivo. Impacto: 14 (2d6 + 7) de daño
+cortante.” - name: Presencia Espectral desc: “Cada criatura a elección
+del dragón que esté a 120 pies de él debe superar una tirada de
+salvación de Sabiduría CD 17 o quedará asustada durante 1 minuto. Una
+criatura asustada se siente como si su fuerza vital estuviera siendo
+drenada.” - name: Aliento de Sombras (Recarga 5-6) desc: “El dragón
+exhala una ráfaga de energía de sombras en un cono de 60 pies. Cada
+criatura en esa área debe realizar una tirada de salvación de
+Constitución CD 19, sufriendo 54 (12d8) de daño necrótico si falla la
+tirada, o la mitad si tiene éxito. Una criatura que falle la salvación
+no puede recuperar puntos de golpe hasta el final del próximo turno del
+dragón.” legendary_actions: - name: Paso Sombrío desc: “El dragón se
+teletransporta mágicamente, junto con cualquier equipo que lleve puesto
+o transporte, hasta 120 pies a un espacio desocupado que pueda ver que
+esté en penumbra u oscuridad.” - name: Ataque de Cola desc: “El dragón
+realiza un ataque de cola. (Ataque de Arma Cuerpo a Cuerpo: +11 a
+impactar, alcance 15 pies, un objetivo. Impacto: 16 (2d8 + 7) de daño
+contundente).” - name: Drenar Alma (Cuesta 2 Acciones) desc: “El dragón
+se enfoca en una criatura asustada que pueda ver a 120 pies. El objetivo
+debe superar una tirada de salvación de Carisma CD 17 o recibirá 13
+(3d8) de daño psíquico, y el dragón gana puntos de golpe temporales
+iguales a esa cantidad.”</p>
+        </div>
+    </div>
+</body>
+</html>

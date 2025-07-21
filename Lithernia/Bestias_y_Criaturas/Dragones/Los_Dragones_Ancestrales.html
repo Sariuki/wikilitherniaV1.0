@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Dragones_Ancestrales</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Dragones_Ancestrales</div>
+        <div class="content">
+<h1 id="los-dragones-ancestrales">Los dragones ancestrales</h1>
+<p>En la vasta historia de Lithernia, pocos seres han dejado una huella
+tan profunda y misteriosa como los <a href="Dragones.html">Dragones</a>
+Ancestrales. Estas majestuosas criaturas fueron los titanes de la Era
+Dracónica, una época en la que el mundo se hallaba forjado en llamas y
+magia pura, y cuyo eco todavía resuena en las <a
+href="Leyendas.html">Leyendas</a> y creencias de todos los pueblos.</p>
+<h2 id="origen-en-la-era-escamas-de-fuego">Origen en la Era Escamas de
+Fuego</h2>
+<p>La Era Dracónica, también conocida como la Era Escamas de Fuego, fue
+un periodo donde el poder elemental de los <a
+href="Dragones.html">Dragones</a> compuso el tejido mismo de la
+realidad. Cuenta la historia que en esta era, la Tierra fue gobernada
+por cuatro colosos alados: <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+Tal’vorak, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>
+y <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>.
+Cada uno gobernaba un dominio elemental y espiritual, manteniendo el
+equilibrio natural y el ciclo perpetuo de la vida y la destrucción.</p>
+<h2 id="los-cuatro-colosos-ancestrales">Los Cuatro Colosos
+Ancestrales</h2>
+<h3 id="ignis-el-corazón-ardiente">Ignis, el Corazón Ardiente</h3>
+<p><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+— el Primogénito — era el dragón del fuego y la pasión. Su aliento de
+llamas forjó los valles de lava y los volcanes que conforman ahora las
+Montañas del Crepúsculo. Los antiguos héroes le rindieron tributo como
+símbolo de renacimiento y purificación, pues de sus cenizas nacían las
+civilizaciones y los sueños.</p>
+<h3 id="talvorak-el-vigía-de-las-tormentas">Tal’vorak, el Vigía de las
+Tormentas</h3>
+<p>Tal’vorak dominaba los cielos tormentosos, su poder manifestado en
+rayos y vientos huracanados. Se le atribuía la creación de los grandes
+mares y tempestades que moldearon las costas de Lithernia. Los marineros
+y exploradores solían jurar fidelidad a Tal’vorak para que sus viajes
+fueran protegidos por la furia controlada del dragón celestial.</p>
+<h3 id="fidriel-guardián-de-la-sabiduría-eterna">Fidriel, Guardián de la
+Sabiduría Eterna</h3>
+<p>El dragón <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>
+encarnaba el conocimiento arcano y el tiempo. Sus escamas, de un azul
+profundo y translúcido, se decían contenían la luz de las estrellas y
+los secretos del destino. Los hechiceros ancestrales buscaban meditar en
+sus santuarios enterrados para absorber fragmentos de su sabiduría
+eterna y así guardar la paz entre las razas.</p>
+<h3 id="sariel-la-sombra-del-equilibrio">Sariel, la Sombra del
+Equilibrio</h3>
+<p><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>,
+el último y el más enigmático, era el señor de la oscuridad y la tierra.
+Sus alas oscuras se extendían sobre los bosques y las cavernas
+profundas, lugares donde la esencia de la vida y la muerte se
+entrelazaban. Se le mostró como el balance vital entre creación y
+destrucción, un guardián silencioso de los ciclos naturales.</p>
+<h2 id="leyendas-y-su-influencia-en-la-mitología-actual">Leyendas y su
+influencia en la mitología actual</h2>
+<p>Las historias relativas a estos <a href="Dragones.html">Dragones</a>
+ancestrales han permeado la cultura litherniana a través de epopeyas,
+cantos y rituales. Según antiguas <a href="Leyendas.html">Leyendas</a>,
+cuando la Era Escamas de Fuego llegaba a su ocaso, los <a
+href="Dragones.html">Dragones</a> ascendieron hacia los cielos en una
+última conflagración, dejando tras de sí un legado de fuego, tormenta,
+sabiduría y sombra para que la humanidad y las otras razas pudieran
+aprender y prosperar.</p>
+<p>Se cree que en tiempos de gran peligro, los espíritus de estos
+colosos pueden manifestarse para guiar o castigar, apareciendo en forma
+de fenómenos naturales extraordinarios o en sueños visionarios a los
+elegidos.</p>
+<h2 id="costumbres-y-cultos-asociados">Costumbres y cultos
+asociados</h2>
+<p>En muchas culturas de Lithernia, especialmente en las comunidades que
+habitan las regiones volcánicas, las montañas tormentosas y los bosques
+antiguos, se practican ceremonias en honor a cada uno de los <a
+href="Dragones.html">Dragones</a> Ancestrales. Estas incluyen:</p>
+<ul>
+<li><strong>El Rito del Fuego Renovador</strong>, en honor a <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+donde se queman ofrendas para purificar los hogares y las almas.</li>
+<li><strong>La Vigilia del Trueno</strong>, ceremonia nocturna dedicada
+a Tal’vorak, que busca apaciguar las tormentas y proteger a los
+viajeros.</li>
+<li><strong>Los Días de la Sabiduría Azul</strong>, festivales dedicados
+a <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>,
+donde sabios y aprendices comparten conocimientos y relatos de
+antaño.</li>
+<li><strong>El Silencio de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a></strong>,
+momentos de meditación y recogimiento en los bosques para mantener el
+equilibrio espiritual y respetar el ciclo natural.</li>
+</ul>
+<p>Estas tradiciones no sólo honran a los <a
+href="Dragones.html">Dragones</a>, sino que también fortalecen el tejido
+social y espiritual de Lithernia, recordando siempre la presencia
+constante de los poderosos ancestros alados, cuya era fue el origen de
+la civilización y la magia.</p>
+<hr />
+<p>Los <a href="Dragones.html">Dragones</a> Ancestrales permanecen en la
+memoria viva del mundo, eternos vigilantes y símbolos inquebrantables
+del poder, misterio y belleza ancestral de Lithernia. Su leyenda es una
+puerta abierta a los secretos más profundos del universo y un rastro de
+fuego que guía a quienes buscan comprender su verdadero destino.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="09_Personajes.html">09_Personajes</a> (relevancia:
+0.79)</li>
+<li><a href="Personajes.html">Personajes</a> (relevancia: 0.79)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.73)</li>
+<li><a href="Sariel.html">Sariel</a> (relevancia: 0.67)</li>
+<li><a href="Ignis.html">Ignis</a> (relevancia: 0.55)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

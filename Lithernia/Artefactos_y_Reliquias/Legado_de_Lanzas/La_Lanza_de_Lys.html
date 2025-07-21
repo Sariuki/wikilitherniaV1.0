@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Lanza_de_Lys</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Lanza_de_Lys</div>
+        <div class="content">
+<h1 id="la-lanza-de-lys">La Lanza de Lys</h1>
+<h2 id="la-reliquia-olvidada-de-la-aurora">La Reliquia Olvidada de la
+Aurora</h2>
+<p><strong>La Lanza de Lys</strong>, conocida en textos arcanos como
+<em>Hija del Alba</em>, es uno de los artefactos más enigmáticos de
+Lithernia. Forjada en los albores de la Era del Primer Rey, esta arma
+celestial fue creada no por dioses, sino por los magos <a
+href="Humanos.html">Humanos</a> más brillantes de aquella época de
+unidad, imbuyéndola con la esencia del amanecer y la promesa de
+unificación. A diferencia de las Cuatro Lanzas Celestiales de origen
+divino (Requiem, Ultimatum, Mortum y Chronos), la Lanza de Lys
+representa el ingenio mortal en su máxima expresión: un símbolo de
+esperanza y resistencia ante la arrogancia divina.</p>
+<h2 id="historia">Historia</h2>
+<h3 id="el-éxodo-de-lysendar">El Éxodo de Lysendar</h3>
+<p>Según las <em>Crónicas del Amanecer Silenciado</em>, la lanza debe su
+nombre a la heroína-Lysendra, una guerrera-estudiosa que lideró a los
+magos <a href="Humanos.html">Humanos</a> en la construcción del
+artefacto durante las Guerras de Unificación. Tras la caída del Primer
+Rey y el Cataclismo del <a href="Lilium.html">Lilium</a>, la lanza fue
+ocultada por sus creadores en las Montañas del Alba (actual frontera
+entre <a href="Valtoria.html">Valtoria</a> y <a
+href="Eldrador.html">Eldrador</a>) para evitar que los dioses la
+destruyeran. Durante siglos, su existencia fue considerada un mito,
+hasta que exploradores élficos redescubrieron sus <a
+href="Runas.html">Runas</a> en cavernas sagradas de <a
+href="Eldrador.html">Eldrador</a>.</p>
+<h3 id="la-maldición-de-los-tres-juramentos">La Maldición de los Tres
+Juramentos</h3>
+<p>La leyenda cuenta que quienes porten la lanza están sujetos a los
+Tres Juramentos impuestos por sus creadores: 1. <strong>Juramento de
+Luz</strong>: No podrá ser blandida en ataques no provocados. 2.
+<strong>Juramento de Unidad</strong>: Deberá usarse solo para defender a
+múltiples reinos o razas simultáneamente. 3. <strong>Juramento del
+Sacrificio</strong>: Su portador deberá ofrecer algo de valor
+incalculable al tomarla (un recuerdo, un sentido, o incluso la conexión
+con un ser querido).</p>
+<h2 id="descripción-física">Descripción Física</h2>
+<ul>
+<li><strong>Material</strong>: Adamantio estelar fusionado con cristales
+de maná puro, que brillan con luz solar incluso en oscuridad
+absoluta.</li>
+<li><strong>Longitud</strong>: 2.5 metros, con grabados élficos
+posteriores que narran fragmentos del <em>Poema del <a
+href="Lilium.html">Lilium</a></em>.</li>
+<li><strong>Punta</strong>: Diseñada como un prisma geométrico perfecto,
+capaz de refractar la luz en patrones mágicos complejos.</li>
+</ul>
+<h2 id="poderes-y-capacidades">Poderes y Capacidades</h2>
+<h3 id="convocatoria-de-la-aurora">Convocatoria de la Aurora</h3>
+<p>Cuando se activa (mediante una palabra de poder en lengua
+pre-Cataclismo), la lanza emite un aura de 30 metros donde: - Las
+mentiras son reveladas como sombras distorsionadas. - La magia basada en
+sombras o corrupción se debilita (ventaja en tiradas de resistencia
+contra efectos oscuros). - Las criaturas no muertas reciben daño
+radiante pasivo (1d6 por ronda).</p>
+<h3 id="corte-luminoso">Corte Luminoso</h3>
+<p>Como acción bonus, el portador puede realizar un ataque de energía
+solar contra objetivos voladores o etéreos con alcance de 60 metros (3d8
+daño radiante, CD 15 Constitución para reducir a la mitad).</p>
+<h2 id="ubicación-actual">Ubicación Actual</h2>
+<p>Tras el Saqueo de Moonshadow en el 342 P.L. (Post-<a
+href="Lilium.html">Lilium</a>), la lanza fue robada por <strong>Lord
+Aethel el Cruel</strong>, quien intentó corromperla en los Pozos de <a
+href="Lakros.html">Lakros</a> (<a
+href="Mor&#39;dhul.html">Mor’dhul</a>). Sin embargo, al no poder romper
+el Juramento de Luz, la abandonó en las Ruinas de Valtaris, donde
+actualmente se cree que está custodiada por los <strong>Caballeros del
+Crepúsculo</strong>, una orden secreta de paladines élficos y <a
+href="Humanos.html">Humanos</a> que se turnan para protegerla.</p>
+<h2 id="leyendas-y-profecías">Leyendas y Profecías</h2>
+<h3 id="el-canto-de-lys">El Canto de Lys</h3>
+<p>Una copla popular en <a href="Galvorn.html">Galvorn</a> dice: &gt;
+<em>“Cuando el <a href="Lilium.html">Lilium</a> vuelva a
+rugir,</em><br />
+&gt; <em>y las cuatros Lanzas se alcen en juicio,</em><br />
+&gt; <em>un mortal sin corona ni linaje,</em><br />
+&gt; <em>blandirá a Lys… y romperá el sacrificio.”</em></p>
+<p>Este verso alimenta teorías entre los sabios de la Torre de las
+Estrellas: quien cumpla los Tres Juramentos y use la Lanza de Lys
+durante un nuevo Cataclismo podría alterar el destino previsto por los
+dioses, ofreciendo un camino alternativo a la profecía del Primer
+Rey.</p>
+<h3 id="el-círculo-de-lys">El Círculo de Lys</h3>
+<p>Secta clandestina activa en <a href="Eldrador.html">Eldrador</a> y <a
+href="Galvorn.html">Galvorn</a> que venera a la lanza como “el Quinto
+Sello” capaz de restaurar la gloria mortal sin depender de los dioses.
+Sus miembros se identifican por tatuajes de un sol fracturado en la
+muñeca izquierda y operan encriptando mensajes dentro de canciones de
+taberna.</p>
+<p></br></p>
+<blockquote>
+<p><em>“No es un arma. Es un espejo. Muestra a los dioses lo que los
+mortales pudieron ser… y aún podrían alcanzar.”</em><br />
+<strong>— Archimaga Ilthirya, <em>Reflexiones sobre Artefactos
+Prohibidos</em>, 901 P.L.</strong></p>
+</blockquote>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Leyendas.html">Leyendas</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.54)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

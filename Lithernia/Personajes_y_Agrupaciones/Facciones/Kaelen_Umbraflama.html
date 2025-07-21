@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Umbraflama</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Umbraflama</div>
+        <div class="content">
+<p>¡Absolutamente! Prepárate para conocer al líder de la rebelión que
+podría cambiar el destino de Lithernia.</p>
+<hr />
+<p>nombre: Kaelen Umbraflama rol: El Primer Vástago, Líder Supremo edad:
+152 agrupacion: La Llama del Sauce Roto tipo: Facción Rebelde lema: “De
+las cenizas, renaceremos; de las cadenas, nos liberaremos.” escudo: “Una
+cadena de plata rota enroscada alrededor de una rama de sauce en flor,
+con una pequeña llama ardiendo en su centro sobre un fondo de cielo
+tormentoso.” ciudad_sede: <a href="Thalythil.html">Thalythil</a>
+rivalidades: - Clan Nighthawk (<a href="Mor&#39;dhul.html">Mor’dhul</a>)
+- Casa Auris (<a href="Eldrador.html">Eldrador</a>) - El Culto del
+Silencio Estelar alianzas: - Hijos del Sauce - Los Rompedestinos -
+Facción Rebelde de Chéneras relaciones: - Borin Rompetormentas (Aliado
+Táctico) - <a href="Vexia.html">Vexia</a> Nocheterna (Maestra de Espías)
+tags: [lithernia, personajes, elfo, <a
+href="Sylethra.html">Sylethra</a>, líder, rebelde, La Llama del Sauce
+Roto] # Kaelen Umbraflama</p>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido bajo el crepúsculo perpetuo de los bosques de la Casa <a
+href="Sylethra.html">Sylethra</a>, una rama menor y a menudo ignorada de
+la nobleza élfica de <a href="Eldrador.html">Eldrador</a>, Kaelen no
+conoció la opulencia de las grandes casas, sino la silenciosa
+resignación impuesta por la “Mano de Hierro”. Su linaje, los Umbraflama,
+era conocido por una dualidad ancestral: la quietud de las sombras y una
+pasión interna que ardía como una brasa oculta. Durante su primer siglo
+de vida, Kaelen fue testigo de la arrogancia de la Casa Auris, vio a
+amigos y familiares subyugados, y sintió cómo la rígida estructura de
+castas de <a href="Eldrador.html">Eldrador</a> ahogaba cualquier
+esperanza de un futuro distinto.</p>
+<p>El punto de inflexión llegó con la “Purga de <a
+href="Lyndaleas.html">Lyndaleas</a>”, un acto de brutalidad en el que la
+Casa Auris aplastó un pequeño levantamiento de trabajadores <a
+href="Eladrin.html">Eladrin</a>, entre los que se encontraba la familia
+adoptiva de Kaelen. Esa noche, mientras las cenizas de la aldea aún
+flotaban en el aire, la brasa en su interior se convirtió en una
+hoguera. Abandonó su nombre de casa, adoptando “Umbraflama” como un
+testamento de su nueva identidad: una sombra que albergaría una llama de
+rebelión.</p>
+<p>Viajó por los reinos, uniendo a los descontentos. En las ruinas de un
+santuario antiguo, bajo un sauce centenario partido por un rayo, Kaelen
+reunió a los primeros miembros de su causa: elfos exiliados, <a
+href="Humanos.html">Humanos</a> que habían perdido todo ante <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y <a href="Enanos.html">Enanos</a>
+hastiados de las guerras sin fin de los nobles. Allí, mientras una
+tormenta rugía en el cielo, pronunció el juramento que daría nombre a su
+movimiento: <strong>La Llama del Sauce Roto</strong>.</p>
+<p>Como “Primer Vástago”, Kaelen ha demostrado ser un líder excepcional.
+Su mayor hazaña no ha sido una victoria en el campo de batalla, sino un
+triunfo diplomático que sacudió los cimientos de Lithernia: forjó una
+alianza con la facción rebelde de <a href="Orcos.html">Orcos</a> de
+Chéneras. Unir a elfos oprimidos con <a href="Orcos.html">Orcos</a>
+insurrectos, enemigos históricos, bajo un mismo estandarte fue un acto
+que nadie creía posible y que demostró que la sed de libertad era más
+fuerte que los antiguos odios sembrados por los dioses.</p>
+<p>Ahora, desde la ciudad acuática de <a
+href="Thalythil.html">Thalythil</a>, Kaelen dirige una red de espionaje,
+sabotaje y liberación. Su objetivo es claro y absoluto: encontrar las
+cuatro Lanzas Celestiales, cumplir la Profecía del Retorno del Rey y ver
+a un Lithernia unificado, libre de la tiranía de los dioses y sus nobles
+títeres. Sin embargo, el peso del liderazgo le obliga a caminar por una
+senda peligrosa. Respeta la pericia militar del enano <strong>Borin
+Rompetormentas</strong>, su principal estratega, pero su impaciencia y
+sed de batalla a menudo amenazan con desatar conflictos que la Llama no
+puede permitirse. A su vez, depende de la red de inteligencia de la
+shadar-kai <strong><a href="Vexia.html">Vexia</a> Nocheterna</strong>,
+cuya eficacia es tan innegable como su crueldad. Kaelen lucha a diario
+para que su revolución no se convierta en el mismo monstruo que pretende
+destruir.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen posee la grácil complexión de los elfos, pero con una
+intensidad que lo distingue de la serena nobleza de <a
+href="Eldrador.html">Eldrador</a>. Su piel es pálida como la luz lunar,
+y su cabello, negro como la obsidiana, está surcado por un único mechón
+plateado, recuerdo de la noche en que su vida cambió para siempre. Sus
+ojos, de un profundo color amatista, parecen contener tanto la quietud
+de las sombras como el destello de una llama inquieta. A sus 152 años,
+su rostro aún es joven, pero su mirada carga con la sabiduría y el peso
+de las vidas que dependen de él.</p>
+<p>No viste las sedas ostentosas de la corte élfica, sino un equipo
+funcional y simbólico:</p>
+<ul>
+<li><strong>Armadura de Escamas de Sauce Sombrío:</strong> Una armadura
+de cuero endurecido y escamas de mithril oscurecido, encantada para
+moverse en silencio y difuminar su silueta en la penumbra. Es ligera,
+resistente y no produce destello alguno.</li>
+<li><strong>Ceniza y Alba:</strong> Su espada, una hoja élfica de una
+mano forjada con una aleación desconocida. Su acero parece absorber la
+luz, mostrando un brillo opaco como el de la ceniza. Sin embargo, cuando
+Kaelen la empuña con convicción, un tenue resplandor blanco recorre su
+filo, como la primera luz del amanecer.</li>
+<li><strong>El Sello del Vástago:</strong> Un broche de plata que sujeta
+su capa gris tormenta. Representa el escudo de su facción: una cadena
+rota enroscada en una rama de sauce en flor, con un pequeño ópalo de
+fuego en el centro que parece latir con una luz tenue. Es su única
+concesión a la ornamentación y el símbolo de su autoridad.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Aunque su nombre solo se susurra en las cortes y se grita en los
+callejones, Kaelen Umbraflama ya está dejando una marca indeleble en la
+historia de Lithernia. Es la personificación de una idea peligrosa: que
+las divisiones raciales impuestas por los dioses son una mentira, y que
+los oprimidos, sean elfos, <a href="Orcos.html">Orcos</a> o <a
+href="Humanos.html">Humanos</a>, tienen un enemigo común.</p>
+<p>Para la nobleza de <a href="Eldrador.html">Eldrador</a> y los tiranos
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>, es un terrorista, un
+agitador que amenaza con desmantelar un orden milenario. Para los
+desesperados y los olvidados, es un profeta, la primera chispa de una
+conflagración que podría purgar el mundo.</p>
+<p>Kaelen no es un rey ni un conquistador; es un catalizador. Su
+existencia misma es una afrenta al <em>statu quo</em>. Su búsqueda de
+las Lanzas Celestiales lo ha convertido en el enemigo público de los
+poderes fácticos y en el objetivo de cultos que desean ver la profecía
+fallar. El destino de Lithernia bien podría decidirse no en un campo de
+batalla entre grandes ejércitos, sino en el éxito o fracaso de este elfo
+que lleva en su nombre la promesa de la sombra y el fuego.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+<li><a href="La%20Llama%20del%20Sauce%20Roto.html">La Llama del Sauce
+Roto</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

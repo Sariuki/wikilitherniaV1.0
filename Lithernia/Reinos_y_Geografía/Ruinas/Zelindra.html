@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zelindra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Zelindra</div>
+        <div class="content">
+<h1 id="zelindra">Zelindra</h1>
+<p>Zelindra no es una ciudad construida, sino una cicatriz que se niega
+a sanar. Tallada directamente en la garganta de un cráter dejado por el
+Cataclismo del <a href="Lilium.html">Lilium</a>, es un monumento a la
+supervivencia a través del dolor. No hay murallas, pues el propio páramo
+de ceniza y las tormentas de ascuas son su primera línea de defensa. El
+aire es espeso, cargado con el olor a azufre y a magia quemada, y un
+calor opresivo emana del suelo agrietado. Sus estructuras, angulosas y
+brutales, parecen garras de obsidiana arañando un cielo perpetuamente
+anaranjado. Aquí, la destrucción no es un final, sino el principio de
+todo poder, y sus habitantes son la prueba viviente de que solo lo que
+soporta el fuego merece existir.</p>
+<h2 id="historia">Historia</h2>
+<p>Zelindra nació del fuego y la desesperación. Cuando el <a
+href="Lilium.html">Lilium</a> arrasó el mundo, un grupo de
+supervivientes, en lugar de huir, se arrastró hacia el epicentro de la
+devastación. Atrapados en un mundo destrozado, vieron en la llama eterna
+no la ira de los dioses, sino una purga divina, una fuerza primordial de
+renovación. Estos primeros fatalistas, liderados por un profeta anónimo
+conocido solo como “El Marcado por la Ceniza”, fundaron el Culto del
+Fuego Eterno.</p>
+<p>Con los siglos, su filosofía se convirtió en una sociedad
+meritocrática y brutal. El poder no se hereda; se gana soportando la
+energía residual del <a href="Lilium.html">Lilium</a>. Para sobrevivir
+en el hostil panorama político de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, el culto rinde una obediencia
+superficial a <a href="Kromagul.html">Kromagul</a>, el dios del dolor, y
+a Gyth’kai, la diosa del sacrificio, interpretando sus propios rituales
+de fuego como ofrendas a estos dioses. Sin embargo, en la intimidad de
+sus templos de basalto, sus verdaderas plegarias se dirigen a la “Llama
+Que No Muere”, la esencia misma de su existencia.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de Ceniza</strong>: El centro espiritual y
+político de Zelindra. No es un edificio, sino un vasto anfiteatro a
+cielo abierto excavado en el fondo del cráter. En su centro se alza un
+pilar de fuego eterno que nunca se extingue, lamiendo el cielo con una
+furia silenciosa. Aquí, el Consejo de los Marcados por la Llama toma sus
+decisiones y se celebran los rituales más sagrados.</p></li>
+<li><p><strong>La Forja de Obsidiana</strong>: Los distritos
+residenciales e industriales, un laberinto de edificios angulosos de
+basalto fundido y vidrio volcánico. Las calles son estrechas, diseñadas
+para canalizar las tormentas de ceniza. El martilleo de las fraguas es
+constante, donde los herreros, a menudo Genasi de Fuego, forjan armas
+imbuidas con el calor del cráter.</p></li>
+<li><p><strong>Las Cicatrices Exteriores</strong>: Los barrios
+periféricos que se aferran a los bordes del cráter. Es una zona caótica
+y empobrecida, habitada principalmente por <a
+href="Goblins.html">Goblins</a> que actúan como carroñeros y mano de
+obra barata. Las barracas de la milicia hobgoblin también se encuentran
+aquí, formando un anillo defensivo brutal que mantiene a raya tanto las
+amenazas externas como el descontento interno.</p></li>
+<li><p><strong>El Crisol de Duelos</strong>: Arenas designadas en las
+zonas más calientes del cráter, cerca de fisuras de magma. Aquí es donde
+se resuelven las disputas. No son combates a muerte, sino duelos de
+resistencia mágica y física. El primero en colapsar por el calor y el
+agotamiento pierde el juicio, demostrando no ser digno del poder que
+reclamaba.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Zelindra es una prueba constante. El rito de paso más
+importante es la “Prueba de la Brasa”, donde los jóvenes deben caminar
+sobre un lecho de carbones imbuidos con la energía del <a
+href="Lilium.html">Lilium</a>. Las cicatrices de quemaduras no se
+ocultan; se exhiben con orgullo como marcas de honor y bendiciones de la
+Llama. El arte local es efímero, consistente en complejas esculturas
+hechas de ceniza comprimida que se deshacen con la primera ráfaga de
+viento, simbolizando la transitoriedad de todo salvo el poder. Cada año,
+celebran el aniversario del Cataclismo con el “Festival de la Llama
+Eterna”, una noche de piromancia descontrolada y rituales de fuego que
+ilumina los páramos durante leguas a la redonda.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Zelindra es una declaración de intenciones:
+funcional, sin adornos y capaz de soportar el fin del mundo. Los
+edificios tienen formas irregulares y afiladas, construidos con la misma
+roca que fue fundida por el <a href="Lilium.html">Lilium</a>. No hay
+belleza en el sentido tradicional, solo la imponente majestad de la
+resistencia. El símbolo de la ciudad, una calavera de obsidiana
+agrietada con una llama brotando de su cuenca, adorna las pocas puertas
+y estandartes. El ambiente es tenso e implacable. El aire siempre sabe a
+ceniza y el silencio es a menudo roto por el silbido del viento
+abrasador o el crepitar distante del Corazón de Ceniza.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Llama Consciente</strong>: Se susurra que el pilar de
+fuego en el Corazón de Ceniza no es solo energía, sino un fragmento
+consciente del <a href="Lilium.html">Lilium</a> original. Los más
+devotos afirman que la Llama habla en sus mentes, ofreciendo visiones
+del futuro o secretos de la magia de fuego a cambio de sacrificios de
+vitalidad, consumiendo un poco del alma del suplicante con cada
+revelación.</p></li>
+<li><p><strong>Los Ecos de Fuego</strong>: En las noches más oscuras, se
+dice que en los callejones de Zelindra se forman fantasmas de ceniza y
+brasas. Estos “Ecos de Fuego” no son espíritus, sino la repetición
+agónica de las últimas muertes del Cataclismo, atrapadas en un bucle
+eterno. Ver un eco es considerado un presagio terrible, un recordatorio
+de que la destrucción siempre acecha.</p></li>
+<li><p><strong>El Lamento del Rey Sellado</strong>: La leyenda más
+peligrosa y herética de Zelindra afirma que la ciudad se fundó sobre el
+punto de impacto de una de las Lanzas Celestiales. Los sacerdotes más
+ancianos y dementes juran que, si uno presiona el oído contra las
+fisuras más profundas en las noches sin luna, se puede escuchar el
+gemido del Primer Rey, un lamento de agonía infinita que resuena desde
+las profundidades de la tierra.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

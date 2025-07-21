@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brujo 2</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Brujo 2</div>
+        <div class="content">
+<h1 id="brujo-continuación">Brujo (continuación)</h1>
+<h2 id="rasgos-de-clase">Rasgos de clase</h2>
+<h3 id="pacto-oscuro-nivel-1">Pacto Oscuro (Nivel 1)</h3>
+<p>Al convertirse en brujo, forjas un pacto con una entidad oscura o un
+poder prohibido. Este pacto te otorga acceso a un conocimiento arcano
+prohibido y te concede una habilidad especial que se desarrolla según el
+Sendero del Caos que elijas.</p>
+<h3 id="toque-corruptor-nivel-1">Toque Corruptor (Nivel 1)</h3>
+<p>Tu toque lleva la corrupción del vacío. Como acción, puedes tocar a
+una criatura y gastar 1 punto de Maná para infligir 1d8 puntos de daño
+necrótico. Además, la criatura debe superar una tirada de salvación de
+Constitución CD 13 o quedar maldita durante 1 minuto. Mientras esté
+maldita, la criatura sufre desventaja en las tiradas de salvación contra
+conjuros y efectos mágicos.</p>
+<h3 id="conocimiento-prohibido-nivel-1">Conocimiento Prohibido (Nivel
+1)</h3>
+<p>Obtienes doble bonificación de competencia en las pruebas de
+Inteligencia (Arcana) y tienes ventaja en las tiradas de salvación
+contra ser poseído.</p>
+<h3 id="invocación-menor-nivel-2">Invocación Menor (Nivel 2)</h3>
+<p>Puedes usar tu acción para gastar 2 puntos de Maná e invocar a una
+criatura menor de la oscuridad (con un desafío de 1/4 o menos) que lucha
+a tu lado hasta que sea destruida o hasta que la descartes (no requiere
+acción).</p>
+<h3 id="sendero-del-caos-nivel-3">Sendero del Caos (Nivel 3)</h3>
+<p>Eliges un camino que representa tu pacto con la oscuridad y te
+concede habilidades especiales. Las opciones incluyen:</p>
+<ul>
+<li><strong>Sendero del Abismo</strong></li>
+<li><strong>Sendero del Vacío</strong></li>
+<li><strong>Sendero de la Sangre</strong></li>
+</ul>
+<p>(Detalles específicos de cada sendero no incluidos en este extracto.
+Falta información canónica.)</p>
+<h3 id="canalizar-corrupción-nivel-5">Canalizar Corrupción (Nivel
+5)</h3>
+<p>Puedes canalizar la energía del vacío para realizar efectos
+poderosos. Obtienes un número de usos de Canalizar Corrupción, que se
+recargan tras un descanso prolongado. Puedes usar Canalizar Corrupción
+para realizar las siguientes acciones (cada una tiene un coste de Maná
+específico):</p>
+<ul>
+<li>Toque del Vacío: Tocas a una criatura y le infliges daño necrótico.
+Además, puedes elegir que la criatura quede cegada, ensordecida o
+envenenada durante 1 minuto.</li>
+<li>Explosión de Sombras: Creas una explosión de energía oscura en un
+punto que puedas ver a 60 pies o menos de ti. Cada criatura en un radio
+de 15 pies del punto debe superar una tirada de salvación de Destreza CD
+13 o recibir 3d8 puntos de daño necrótico.</li>
+<li>Aura de Discordia: Creas un aura de energía caótica en un radio de
+15 pies a tu alrededor. Durante 1 minuto, las criaturas en esa área
+tienen desventaja en las tiradas de ataque contra objetivos que no estén
+en el aura.</li>
+</ul>
+<h3 id="aura-profana-nivel-6">Aura Profana (Nivel 6)</h3>
+<p>Tu presencia corrompe la tierra a tu alrededor. Las plantas se
+marchitan, los animales huyen, y el aire se vuelve frío y opresivo. Las
+criaturas a tu elección que se encuentren a 10 pies o menos de ti al
+inicio de su turno deben superar una tirada de salvación de Constitución
+CD 13 o recibir 2d6 puntos de daño necrótico. Una criatura que supere la
+tirada de salvación es inmune a tu Aura Profana durante 24 horas.</p>
+<h3 id="invocación-mayor-nivel-14">Invocación Mayor (Nivel 14)</h3>
+<p>Puedes usar tu acción para gastar 4 puntos de Maná e invocar a una
+criatura de la oscuridad (con un desafío de 2 o menos) para que te sirva
+durante 1 minuto. La criatura aparece en un espacio desocupado que
+puedas ver a 60 pies o menos de ti. La criatura obedece tus órdenes
+verbales y lucha a tu lado hasta que sea destruida o hasta que la
+descartes (no requiere acción).</p>
+<h3 id="resistencia-a-la-magia-divina-nivel-18">Resistencia a la Magia
+Divina (Nivel 18)</h3>
+<p>Obtienes ventaja en las tiradas de salvación contra conjuros y
+efectos mágicos lanzados por clérigos, paladines y otras criaturas que
+canalizan poder divino.</p>
+<h3 id="maestro-del-caos-nivel-20">Maestro del Caos (Nivel 20)</h3>
+<p>Tu dominio sobre la magia prohibida alcanza su cima. Puedes lanzar un
+conjuro de nigromancia de nivel 5 o inferior sin gastar un espacio de
+conjuro. Una vez que uses esta característica, no puedes volver a usarla
+hasta que termines un descanso prolongado.</p>
+<hr />
+        </div>
+    </div>
+</body>
+</html>

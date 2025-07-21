@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Griselda_Manodeacero</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Griselda_Manodeacero</div>
+        <div class="content">
+<h1 id="griselda-manodeacero">Griselda Manodeacero</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida en el corazón de <a href="Valtoria.html">Valtoria</a>, en la
+ciudad-fortaleza de <a href="Valarion.html">Valarion</a>, Griselda
+proviene del Clan Agrietacero, un linaje enano conocido por su devoción
+al dios <a href="Valarios.html">Valarios</a>, el Destructor. Desde
+joven, no encontró consuelo en la forja creativa de <a
+href="Rokael.html">Rokael</a>, sino una fascinación sombría en el ciclo
+de la destrucción. Para ella, el eco de un martillo que quiebra la roca
+era más puro que el que la moldea. Sin embargo, la teología oficial de
+su clan le parecía tibia, una excusa para justificar la violencia
+necesaria en la minería y la guerra. <a
+href="Valarios.html">Valarios</a> destruía para que algo nuevo pudiera
+nacer, pero Griselda sentía en sus huesos que la propia creación estaba
+corrupta.</p>
+<p>Su revelación llegó durante una peregrinación prohibida a las
+Cicatrices del <a href="Lilium.html">Lilium</a>, las tierras baldías aún
+humeantes por el fuego divino que castigó al Primer Rey. Allí, mientras
+el aire abrasaba sus pulmones, no vio la ira de los dioses, sino la
+verdad desnuda: una fuerza purificadora, desapasionada y absoluta. Fue
+entonces cuando los susurros de Kaelen Vex, el profeta del Pacto
+Cinéreo, encontraron tierra fértil en su alma. Vex, un paria de su
+propio clan, le habló de un “Segundo Amanecer”, una purga controlada que
+limpiaría Lithernia de las creaciones fallidas de dioses
+imperfectos.</p>
+<p>Griselda se unió al Pacto con el fervor de una conversa. Su dureza
+enana y su innata afinidad con la destrucción la convirtieron en una
+acólita ejemplar. Ascendió con rapidez, no a través de la intriga, sino
+de la brutalidad inflexible. Se ganó su nombre, “Manodeacero”, no por su
+linaje, sino por el guantelete de hierro negro que se convirtió en el
+instrumento de su fe. Como <strong>Guardiana del Rito</strong>, es la
+responsable de probar la valía de los nuevos iniciados, sometiéndolos a
+pruebas de fuego y dolor que pocos superan. Desprecia la debilidad con
+la pasión de una fanática, viendo a neófitos como <a
+href="Finn.html">Finn</a> no como hermanos, sino como herramientas que
+deben ser templadas o desechadas.</p>
+<p>Su relación con Kaelen Vex es una hoguera de lealtad y ambición. Lo
+venera como el profeta que le abrió los ojos, pero en secreto codicia su
+autoridad. Teme su juicio, pero a la vez cree que Vex podría dudar en el
+momento final. Griselda, en cambio, no lo haría. Anhela ser ella quien
+encienda la pira final, la partera de un mundo renacido de las cenizas,
+sin importar el coste.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Griselda es la personificación de la tenacidad enana llevada al
+extremo. Es más ancha y musculosa que la mayoría de las mujeres de su
+clan, con una postura plantada que desafía al mundo a moverla. Su
+cabello, de un negro azabache, está recogido en una única trenza gruesa,
+adornada con anillos de obsidiana y hierro. Su rostro, enmarcado por una
+mandíbula cuadrada, está surcado por finas cicatrices de quemaduras
+rituales, recuerdos de su devoción al fuego purificador. Sus ojos, de un
+gris acerado, arden con una intensidad fanática que incomoda incluso a
+sus aliados del Clan <a href="Kromagul.html">Kromagul</a>.</p>
+<p>Viste una armadura de placas pesada, pero no es la obra de arte
+pulida de los herreros de Ironforge. La suya está ennegrecida por el
+hollín y el fuego, con los bordes de cada placa afilados y dentados.
+Sobre el peto luce el escudo del Pacto: la llama púrpura surgiendo del
+mundo roto, grabada y rellenada con polvo de amatista.</p>
+<p>Su arma principal es un martillo de guerra de cabeza maciza, tan
+funcional y brutal como ella. Sin embargo, su verdadera seña de
+identidad es su guantelete izquierdo, la <strong>Mano de Acero</strong>.
+Es una pieza de ingeniería tosca y letal, forjada por ella misma, capaz
+de desviar golpes y aplastar cráneos con igual facilidad. Siempre lleva
+consigo los componentes de sus ritos: un frasco con cenizas de herejes,
+pedernal y aceite, y un fragmento de roca vítrea recogido de las
+Cicatrices del <a href="Lilium.html">Lilium</a>, que pulsa con un calor
+antinatural al tacto.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Griselda Manodeacero no es una líder de naciones ni una estratega de
+grandes ejércitos, pero su impacto potencial es igual de devastador.
+Ella es el rostro de la radicalización que bulle en las profundidades de
+<a href="Valtoria.html">Valtoria</a>, una amenaza interna que el reino
+enano prefiere ignorar. Como Guardiana del Rito del Pacto Cinéreo, es la
+forjadora de los futuros agentes del caos, y su influencia en las
+facciones más oscuras de Lithernia, como los Cazadores de Sombras y el
+Clan <a href="Kromagul.html">Kromagul</a>, solidifica alianzas que
+podrían desestabilizar el continente.</p>
+<p>Si Griselda lograra sus objetivos, podría ser la catalizadora de un
+nuevo cataclismo, intentando recrear el poder del <a
+href="Lilium.html">Lilium</a>. Su legado sería el de una destructora
+que, en su búsqueda de la purificación, se convirtió en una plaga. Pero
+incluso si fracasa, su historia servirá como una sombría advertencia:
+que la fe, cuando se retuerce, puede convertir a los hijos más leales de
+la montaña en los arquitectos de su propia ruina. Ella es la prueba
+viviente de que el mayor peligro no siempre viene de reinos enemigos,
+sino del fuego que arde, descontrolado, en el corazón de los propios
+creyentes.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

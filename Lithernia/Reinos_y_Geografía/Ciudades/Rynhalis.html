@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rynhalis</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Rynhalis</div>
+        <div class="content">
+<h1 id="rynhalis">Rynhalis</h1>
+<p>En las alturas más gélidas de <a href="Valtoria.html">Valtoria</a>,
+donde el aire es tan fino que parece cristal, se alza Rynhalis. No es
+una fortaleza excavada en la roca, sino un observatorio del tamaño de
+una ciudad, encaramado en una vasta meseta de las Cumbres de Cristal.
+Sus torres de granito pulido, lisas como espejos, se elevan hacia un
+cielo casi siempre despejado, coronadas por cúpulas de cristal y mithril
+que giran lentamente, siguiendo el movimiento de los astros. De noche,
+Rynhalis no se ilumina con antorchas, sino con el resplandor de miles de
+gemas encantadas incrustadas en sus calles, que replican con precisión
+las constelaciones del firmamento. Es un lugar de ciencia y reverencia,
+un testimonio de la creencia enana y gnómica de que los mayores tesoros
+no solo yacen bajo tierra, sino también sobre sus cabezas.</p>
+<h2 id="historia">Historia</h2>
+<p>Rynhalis nació de una improbable amistad tras la devastación del <a
+href="Lilium.html">Lilium</a>. Mientras los <a
+href="Enanos.html">Enanos</a> reconstruían sus reinos en las entrañas de
+las montañas, el astrónomo gnomo Glimmerwhistle y el maestro tallador de
+gemas enano Rokhand Mirastral buscaron un propósito diferente.
+Descubrieron una meseta aislada con una atmósfera tan pura que las
+estrellas parecían al alcance de la mano. Combinando el ingenio gnomo
+para la óptica y la maestría enana sobre la piedra y el cristal,
+fundaron Rynhalis como un santuario para el estudio del cosmos.</p>
+<p>Su linaje, la Casa Mirastral, ha gobernado la ciudad desde entonces,
+fomentando una cultura única que fusiona la precisión y paciencia enanas
+con la curiosidad insaciable de los <a href="Gnomos.html">Gnomos</a>.
+Con el tiempo, la fama de sus lentes arcanas y sus precisos <a
+href="Mapas.html">Mapas</a> celestes atrajo a eruditos de todo el mundo,
+convirtiendo a Rynhalis en un faro de conocimiento en el corazón del
+Reino de la Montaña y un importante aliado de la Torre de las
+Estrellas.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Cúpula Mayor</strong>: El corazón de Rynhalis. Es el
+observatorio más grande, una estructura colosal de granito y cristal
+encantado. En su interior se encuentra el “Ojo de <a
+href="Rokael.html">Rokael</a>”, un telescopio de poder legendario, cuyas
+lentes fueron talladas en un único diamante encontrado en el corazón de
+la montaña. Es la sede de la Casa Mirastral y el centro de gobierno de
+la ciudad.</p></li>
+<li><p><strong>El Taller de Lentes</strong>: Un laberinto de talleres
+donde resuena el zumbido de las herramientas de precisión. Aquí, <a
+href="Gnomos.html">Gnomos</a> y <a href="Enanos.html">Enanos</a>
+trabajan codo con codo, puliendo cristales y tallando gemas con magia y
+habilidad para crear los instrumentos ópticos más codiciados de
+Lithernia. El aire huele a aceite de pulido y a la tenue chispa del
+maná.</p></li>
+<li><p><strong>El Paseo Estelar</strong>: La avenida principal de la
+ciudad. Es un amplio camino de obsidiana pulida, flanqueado por las
+gemas que iluminan la ciudad, creando un mapa estelar bajo los pies de
+sus habitantes. Es el centro social y comercial, donde los eruditos
+debaten sobre cosmología y los mercaderes venden cristales en bruto y
+cartas astrales.</p></li>
+<li><p><strong>Las Residencias de Granito</strong>: Los barrios
+residenciales de Rynhalis. Son edificios robustos de piedra, diseñados
+para resistir los vientos de la cumbre, pero con grandes ventanas de
+cristal para permitir la observación del cielo desde el interior de cada
+hogar. Están conectados por vertiginosos puentes colgantes de mithril
+que brillan bajo la luz de las estrellas.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Rynhalis está marcada por una disciplina casi monástica
+dedicada al estudio. El evento más importante del año es el “Festival de
+la Gema Estrellada”, una celebración en la que los artesanos presentan
+sus nuevas lentes, telescopios y descubrimientos astronómicos. Durante
+el festival, toda la ciudad se convierte en una galería de arte
+celestial, y se otorgan premios a las innovaciones más brillantes.</p>
+<p>En marcado contraste, también practican el “Silencio de las Cumbres”,
+una semana entera en la que cesa todo trabajo y ruido. Los habitantes se
+dedican en exclusiva a la meditación y a la observación silenciosa del
+cosmos, buscando la inspiración y la sabiduría que, según ellos,
+susurran las estrellas. Veneran al panteón enano como los forjadores del
+mundo que observan, pero han adoptado a <a href="Arzia.html">Arzia</a>,
+la diosa élfica, como la “Guardiana de las Gemas del Cielo”, viendo en
+ella a la arquitecta divina de su campo de estudio.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Rynhalis es una ciudad de contrastes: la solidez del granito enano se
+une a la delicadeza del cristal gnomo. Las estructuras son funcionales
+pero elegantes, diseñadas para canalizar la luz y resistir los
+elementos. No hay árboles ni vegetación en la meseta, solo la roca
+desnuda y el cielo infinito. El ambiente es de una quietud
+sobrecogedora, roto únicamente por el silbido del viento en las cumbres
+y el suave zumbido de los mecanismos arcanos. El frío es perpetuo, pero
+el resplandor de las gemas encantadas y el calor de las forjas
+interiores crean una atmósfera acogedora y mágica.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Susurro de las Cumbres</strong>: Los ancianos de
+Rynhalis afirman que en las noches sin luna, cuando el silencio es
+absoluto, los picos de las montañas circundantes no solo reflejan la luz
+de las estrellas, sino que también susurran los secretos del cosmos. Se
+dice que aquellos con la paciencia y la sensibilidad para escuchar
+pueden aprender fragmentos de la creación, profecías olvidadas o la
+ubicación de vetas de minerales caídos del cielo.</p></li>
+<li><p><strong>El Ojo Ciego del Titán</strong>: En las profundidades de
+la montaña sobre la que se asienta Rynhalis, yace una geoda masiva de
+cristal negro, del tamaño de un castillo. La leyenda la llama el “Ojo
+Ciego del Titán”, y se cree que es el ojo petrificado de una entidad
+primordial que duerme bajo <a href="Valtoria.html">Valtoria</a>. Los
+líderes de la Casa Mirastral prohíben estrictamente cualquier excavación
+en esa zona, pues temen que perturbar la geoda no solo la haría añicos,
+sino que despertaría al titán, cuya mirada furiosa podría desintegrar la
+ciudad y la montaña entera en un instante.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

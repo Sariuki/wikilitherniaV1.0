@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Profecía_del_Silencio</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Profecía_del_Silencio</div>
+        <div class="content">
+<h1 id="la-profecía-del-silencio">La Profecía del Silencio</h1>
+<p>En los susurros de los sabios y en los grimorios más antiguos de
+Lithernia, yace una profecía menos conocida que la del Retorno del Rey,
+pero infinitamente más temida. No habla de un <a
+href="Heroes.html">Heroes</a> ni de una era de paz, sino del sonido que
+preserva al mundo de su propia memoria rota. Es la Profecía del
+Silencio, un augurio atado al tañido incesante de una campana solitaria,
+cuyo cese anunciaría el despertar de las calamidades dormidas. Se dice
+que mientras la Campana del Velo Quebrado resuene, el eco del <a
+href="Lilium.html">Lilium</a> permanece contenido y la furia del Rey
+Sellado duerme. Pero si el silencio cayera sobre la Cima del Eco,
+Lithernia enfrentaría una oscuridad que ni los dioses podrían volver a
+encadenar.</p>
+<h2 id="la-campana-del-velo-quebrado">La Campana del Velo Quebrado</h2>
+<p>Tras el devastador Cataclismo del <a href="Lilium.html">Lilium</a>,
+cuando los dioses contemplaron el mundo arrasado y al Primer Rey sellado
+en su prisión eterna, comprendieron que su victoria había dejado una
+herida incurable en el tejido de la realidad. La agonía inmortal del Rey
+y la energía caótica del <a href="Lilium.html">Lilium</a> generaban un
+“eco psíquico” que envenenaba el maná y amenazaba con volver a desatar
+el caos. Como un acto de contención desesperada, una facción de deidades
+—liderada por <a href="Taladrios.html">Taladrios</a>, el dios del
+tiempo, y <a href="Arzia.html">Arzia</a>, la diosa de las estrellas—
+forjó un artefacto de poder inmenso: la Campana del Velo Quebrado.</p>
+<p>Forjada con metal estelar y templada en las aguas del tiempo, la
+campana fue consagrada en la <strong>Cima del Eco Solitario</strong>, un
+pico inaccesible en las cordilleras que separan <a
+href="Valtoria.html">Valtoria</a> de <a
+href="Eldrador.html">Eldrador</a>. Su propósito no es físico, sino
+arcano: su tañido constante emite una resonancia mágica que calma la
+agitación del Tejido del Maná, adormece la conciencia del Primer Rey en
+su cautiverio y suprime las brasas latentes del <a
+href="Lilium.html">Lilium</a> esparcidas por el mundo.</p>
+<h3 id="los-vigilantes-del-silencio">Los Vigilantes del Silencio</h3>
+<p>La tarea de mantener la campana sonando recae sobre una orden
+monástica conocida como los Vigilantes del Silencio. Fundada por un
+pacto entre las primeras generaciones de mortales que buscaban el
+equilibrio, esta orden está compuesta por ascetas de todas las razas que
+han renunciado a su nombre, su clan y su pasado.</p>
+<ul>
+<li><strong>Voto de Silencio:</strong> Los Vigilantes no hablan,
+comunicándose mediante un complejo lenguaje de signos y escritura. Creen
+que cualquier sonido que no sea el de la campana es una distracción que
+debilita el gran ritual.</li>
+<li><strong>El Ritual del Tañido:</strong> La campana es demasiado
+grande para ser movida por el viento. Es tañida manualmente, día y
+noche, en turnos de meditación y esfuerzo físico. Los monjes utilizan un
+gigantesco mazo de madera de roble ancestral y metal rúnico, y cada
+golpe debe ser preciso para mantener la resonancia armónica.</li>
+<li><strong>Aislamiento:</strong> Viven en el Monasterio del Eco Eterno,
+un complejo tallado en la propia montaña, autosuficientes y aislados del
+mundo. Rara vez reciben visitantes y desconfían de todos los que se
+acercan, pues saben que muchos codician el poder de la campana o el caos
+que su silencio desataría.</li>
+</ul>
+<h2 id="el-augurio-del-silencio">El Augurio del Silencio</h2>
+<p>La profecía en sí no está escrita como un único texto, sino
+recopilada a partir de visiones de oráculos élficos, <a
+href="Runas.html">Runas</a> enanas y cantos de marineros de <a
+href="Galvorn.html">Galvorn</a> que sintieron el cambio en los vientos.
+Describe una secuencia de calamidades que ocurrirían durante siete días
+si la campana enmudeciera.</p>
+<blockquote>
+<p><em>Cuando la campana enmudezca, las lágrimas del <a
+href="Lilium.html">Lilium</a> volverán a caer, y las cadenas del Rey
+Sellado temblarán.</em></p>
+</blockquote>
+<ul>
+<li><strong>El Primer Día de Silencio:</strong> <em>La tierra llorará
+fuego.</em> Las cicatrices del <a href="Lilium.html">Lilium</a> se
+reabrirán. Volcanes inactivos en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y <a
+href="Valtoria.html">Valtoria</a> entrarán en erupción, surgirán
+géiseres de fuego arcano en los bosques de <a
+href="Eldrador.html">Eldrador</a> y el mar alrededor de <a
+href="Galvorn.html">Galvorn</a> hervirá en zonas aleatorias. La magia de
+fuego se volverá inestable y peligrosa.</li>
+<li><strong>El Segundo Día de Silencio:</strong> <em>Las sombras de las
+ruinas se alzarán.</em> Los espíritus de los caídos en la Gran Guerra y
+el cataclismo despertarán. Ciudades malditas como Mirallos y Estriedana
+se convertirán en focos de actividad espectral incontenible. Los muertos
+ya no descansarán, y la necromancia se fortalecerá
+exponencialmente.</li>
+<li><strong>El Tercer Día de Silencio:</strong> <em>La voz del Rey
+Prisionero susurrará en los sueños de los ambiciosos.</em> Sin la
+“canción de cuna” de la campana, la conciencia del Primer Rey
+despertará. Comenzará a proyectar su voluntad, tentando a mortales con
+poder, conocimiento y promesas de venganza contra los dioses. Figuras
+como Lord Aethel y los cultos secretos serían sus primeros
+objetivos.</li>
+<li><strong>Del Cuarto al Sexto Día:</strong> <em>La duda envenenará los
+corazones.</em> El caos creciente y los susurros del Rey fracturarán las
+alianzas. La paranoia se extenderá por los reinos. El Rey de <a
+href="Eldrador.html">Eldrador</a> acusará a <a
+href="Valtoria.html">Valtoria</a> de sabotaje, <a
+href="Galvorn.html">Galvorn</a> cerrará sus puertos y Sel’thirak
+iniciará una purga brutal en <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+temiendo la influencia del Rey en su pueblo.</li>
+<li><strong>El Séptimo Día de Silencio:</strong> <em>Una Lanza Celestial
+cederá su poder.</em> La presión psíquica del Rey, ahora totalmente
+despierto, se concentrará en el eslabón más débil de su prisión. Una de
+las Cuatro Lanzas Celestiales (Requiem, Ultimatum, Mortum o Chronos)
+verá su sello debilitado. La lanza no se romperá por sí sola, pero se
+volverá vulnerable, permitiendo que un mortal digno —o un villano
+poderoso— pueda reclamarla, cumpliendo así la profecía del Retorno del
+Rey en las peores circunstancias posibles.</li>
+</ul>
+<h2 id="facciones-e-intereses">Facciones e Intereses</h2>
+<p>La existencia de esta profecía es un secreto celosamente guardado,
+pero las facciones más poderosas conocen fragmentos de ella, guiando sus
+acciones:</p>
+<ul>
+<li><strong>El Rey Sel’thirak:</strong> Para el Rey-Dios de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, la Profecía del Silencio es la
+prueba de que el Primer Rey debe permanecer sellado a toda costa. El
+silencio de la campana es su peor pesadilla, pues el caos resultante
+podría derrocarlo. Es posible que, en secreto, envíe <a
+href="Recursos.html">Recursos</a> o agentes para proteger a los
+Vigilantes, considerándolos un mal necesario para mantener el orden
+divino.</li>
+<li><strong>Cultos del Primer Rey:</strong> Ciertas facciones de <a
+href="Tieflings.html">Tieflings</a> y <a href="Humanos.html">Humanos</a>
+que veneran al Primer Rey como un mártir ven en la profecía un manual de
+instrucciones. Silenciar la campana es el primer y más crucial paso para
+liberar a su verdadero señor. Un grupo de estos fanáticos podría ser el
+principal antagonista en una campaña centrada en este misterio.</li>
+<li><strong>La Torre de las Estrellas y los Sabios de <a
+href="Eldrador.html">Eldrador</a>:</strong> Eruditos como el Archimago
+Thalios conocen el peligro y buscan formas de reforzar el poder de la
+campana o crear una contramedida. Temen que la profecía sea inevitable y
+estudian formas de mitigar el desastre.</li>
+<li><strong>Lord Aethel “El Cruel”:</strong> Un oportunista como Aethel
+vería el caos desatado por el silencio de la campana como la tormenta
+perfecta para su ascenso. Podría intentar provocarlo para debilitar a
+Sel’thirak y posicionarse para reclamar la Lanza Celestial debilitada,
+creyendo que puede controlar al Rey o usurpar su poder.</li>
+</ul>
+<h2 id="el-silencio-en-campaña">El Silencio en Campaña</h2>
+<p>La Profecía del Silencio ofrece un motor narrativo de alta tensión
+para una campaña en Lithernia.</p>
+<ul>
+<li><strong>La Última Vigilia:</strong> Los aventureros son contactados
+por un Vigilante moribundo o una visión de la diosa <a
+href="Arzia.html">Arzia</a>. Deben viajar a la Cima del Eco Solitario
+para descubrir que la orden ha sido masacrada por un culto y la campana
+está a punto de detenerse. Deben asumir el ritual y defender el
+monasterio de oleadas de enemigos.</li>
+<li><strong>La Cuenta Atrás:</strong> La campaña comienza con la noticia
+de que la campana <em>ha</em> enmudecido. Los PJs tienen siete días para
+llegar al monasterio y restaurar el sonido. Cada día que pasa, el DM
+puede describir cómo el mundo se degrada según los versos de la
+profecía, aumentando la urgencia y el peligro de su viaje.</li>
+<li><strong>El Dilema de la Campana:</strong> Los héroes descubren que
+la resonancia de la campana, si bien protege al mundo, está matando
+lentamente a una tribu inocente que vive en las faldas de la montaña
+(por ejemplo, <a href="Goliaths.html">Goliaths</a> o Genasi de tierra).
+¿Sacrificarán a los pocos para salvar a los muchos, o buscarán una
+tercera opción imposible, como reemplazar la campana con un nuevo
+ritual?</li>
+</ul>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Goliaths.html">Goliaths</a></li>
+<li>La Torre de las Estrellas</li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

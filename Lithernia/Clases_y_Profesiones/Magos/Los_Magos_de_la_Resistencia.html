@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Magos_de_la_Resistencia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Magos_de_la_Resistencia</div>
+        <div class="content">
+<h1 id="los-magos-de-la-resistencia">Los magos de la resistencia</h1>
+<p>En los albores de la Era de las Guerras Divinas, cuando los cielos se
+desgarraron y el suelo de Lithernia se empapó con la ira de los dioses
+en lucha, surgieron grupos dispersos de hechiceros que desafiaron tanto
+la destrucción como el destino. Estos fueron los <strong>Magos de la
+Resistencia</strong>, últimos custodios de la sabiduría arcana que
+sobrevivieron a la catástrofe divina y guardaron, con celo y sacrificio,
+los secretos del arte mágico prohibido y olvidado.</p>
+<h2 id="origen-y-contexto-histórico">Origen y contexto histórico</h2>
+<p>La Gran Guerra Divina devastó las tierras y fracturó las alianzas
+mortales y celestiales. En medio de esta anarquía, la magia corrompida
+por las energías divinas se tornó una fuerza peligrosa y errática, que
+amenazaba con consumir a sus propios practicantes. Solo aquellos
+hechiceros más preparados y resilientes lograron resistir la caída del
+saber y formaron un reducto subterráneo conocido como la
+Resistencia.</p>
+<p>Este grupo no era homogéneo. Provenían de diversas escuelas arcanas,
+desde los alquimistas convertidos en guerreros hasta los eruditos de las
+<a href="Runas.html">Runas</a> antiguas y los adeptos del conjuro
+elemental. Aun así, compartían un objetivo común: preservar la magia que
+los dioses mismos intentaban borrar.</p>
+<h2 id="estructura-y-organización">Estructura y organización</h2>
+<p>La Resistencia no operaba como una orden rígida ni jerárquica, sino
+más bien como una red oculta de círculos conectados por pactos
+individuales y juramentos ancestrales. Sus miembros se conocían por sus
+símbolos secretos y fragmentos codificados de grimorios preservados en
+la clandestinidad.</p>
+<h3 id="elementos-clave-de-su-organización">Elementos clave de su
+organización:</h3>
+<ul>
+<li><strong>El Concilio Espectral</strong>: Un pequeño grupo de seis
+magos que coordinaba las decisiones más importantes y custodiaba los
+relicarios mágicos.</li>
+<li><strong>Los Custodios del Nexo</strong>: Guardianes de los puntos de
+poder ocultos dispersos por Lithernia que sostenían la resistencia
+arcana.</li>
+<li><strong>Los Cronistas de Sombras</strong>: Responsable de registrar
+los hechos ocultos y preservar la historia oral y escrita de la
+resistencia, protegidos bajo juramento de silencio.</li>
+</ul>
+<h2 id="conocimientos-y-secretos">Conocimientos y secretos</h2>
+<p>Los Magos de la Resistencia mantuvieron viejos secretos que se creían
+perdidos para siempre. Entre sus mayores <a
+href="Logros.html">Logros</a> se encuentran:</p>
+<ul>
+<li>La <strong>recuperación del Eter Primigenio</strong>, un flujo de
+energía pura que permitió regenerar hechizos damnificados por la guerra
+divina.</li>
+<li>Las <strong><a href="Runas.html">Runas</a> del Silencio</strong>,
+técnicas arcanas usadas para ocultar o bloquear la detección mágica por
+dioses.</li>
+<li>El dominio de los <strong>Fragmentos de Luz Oscura</strong>, un
+método de equilibrio entre la magia luminosa y sombría, vital para no
+sucumbir a la corrupción divina.</li>
+</ul>
+<h2 id="leyendas-y-mitos-asociados">Leyendas y mitos asociados</h2>
+<p>Se cuenta en las aldeas más remotas que algunos de estos magos fueron
+capaces de resistir a la muerte infinita impuesta por los dioses en
+guerra, mediante pactos que vinculaban sus almas a los ciclos
+elementales de la tierra y el tiempo, permitiendo que resurgieran como
+sombras guerreras en momentos de extrema necesidad.</p>
+<p>Una de las <a href="Leyendas.html">Leyendas</a> más difundidas narra
+la historia de <em>Ithariel</em>, la Maga Espectral, que logró detener
+durante una noche lunar la invasión de una legión celestial usando
+únicamente su voz y un conjuro prohibido escrito en el viento.</p>
+<h2 id="costumbres-y-legado-cultural">Costumbres y legado cultural</h2>
+<p>Aunque ocultos, los magos de la resistencia legaron costumbres que se
+infiltraron en ciertos ritos y tradiciones populares, como:</p>
+<ul>
+<li>El uso del <strong>Amatista Guardián</strong>, una piedra tallada
+que se entrega en tradiciones de iniciación para proteger contra
+maleficios invisibles.</li>
+<li>La ceremonia del <strong>Ecosilencio</strong>, un ritual que se
+practica en aldeas ancestrales para sellar pactos de protección contra
+entidades sobrenaturales.</li>
+<li>Canciones y relatos codificados que sólo pueden ser entendidos por
+aquellos con sensibilidad mágica, transmitidos en susurros al
+anochecer.</li>
+</ul>
+<h2 id="importancia-en-el-mundo-contemporáneo-de-lithernia">Importancia
+en el mundo contemporáneo de Lithernia</h2>
+<p>Aunque el legado directo de los Magos de la Resistencia está
+sumergido en el misterio, su influencia se percibe en la persistencia de
+la magia, la supervivencia de linajes arcanos y la presencia de enclaves
+mágicos protegidos contra la memoria de los dioses.</p>
+<p>Su nombre sigue siendo susurrado en los círculos de hechiceros
+contemporáneos como símbolo de perseverancia, sabiduría oculta y desafío
+contra las fuerzas divinas que alguna vez quisieron borrar a Lithernia
+del cosmos.</p>
+<hr />
+<p><em>“Cuando los dioses yacen rotos, solo la magia escondida puede
+mantener la llama de la esperanza encendida.”</em><br />
+— Fragmento de los Cronistas de Sombras, Archivo Resistente XIV-B.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Mago.html">Mago</a> (relevancia: 0.68)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.65)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

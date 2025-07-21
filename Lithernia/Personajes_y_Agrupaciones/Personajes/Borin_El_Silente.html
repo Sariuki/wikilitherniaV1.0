@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borin_El_Silente</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Borin_El_Silente</div>
+        <div class="content">
+<h1 id="borin-el-silente">Borin ‘El Silente’</h1>
+<h3 id="biografía-completa-y-coherente">Biografía Completa y
+Coherente</h3>
+<p>Nacido en las cumbres más altas e inhóspitas de <a
+href="Valtoria.html">Valtoria</a>, Borin no comparte la sangre enana de
+la casa a la que sirve, sino el linaje ancestral de los <a
+href="Goliaths.html">Goliaths</a>. Su tribu, los Hijos del Pico
+Aullante, practicaba ritos ancestrales ligados a los espíritus de la
+montaña, una fe considerada primitiva y peligrosa por los clanes <a
+href="Enanos.html">Enanos</a> más dogmáticos del Concilio de la Montaña.
+Durante décadas, su pueblo vivió en un frágil equilibrio, hasta que una
+disputa territorial escaló, y la orden de exilio fue dictada contra
+ellos, condenándolos a perecer en las tierras baldías o a ser cazados
+por las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>Fue entonces cuando Theron, un sabio de la enigmática Casa
+Umbracorda, intervino. No con ejércitos ni decretos, sino con
+conocimiento. Theron demostró ante el Concilio que los ritos de la tribu
+de Borin no eran una corrupción, sino una forma arcaica de comunión con
+la tierra, anterior incluso a la veneración del panteón enano. Salvó a
+su pueblo de la aniquilación, y en gratitud, el joven Borin le juró un
+pacto de vida, abandonando su pico natal para convertirse en su escudo y
+su sombra.</p>
+<p>Dentro de la Casa Umbracorda, Borin encontró un propósito que
+trascendía la mera supervivencia. Los ‘Archivistas Silenciosos’
+valoraron su estoicismo y su capacidad para la acción directa,
+cualidades perfectas para un guardián. Su apodo, ‘El Silente’, no nació
+de la mudez, sino de una disciplina autoimpuesta. Borin cree que las
+palabras son viento que puede erosionar los secretos mejor guardados, y
+que el verdadero juramento se honra con hechos, no con discursos. Así,
+ascendió hasta convertirse en el Maestro de Armas de la casa y el
+Protector de la Atalaya, una biblioteca-fortaleza oculta en <a
+href="Elionor.html">Elionor</a> donde Umbracorda custodia sus saberes
+más peligrosos sobre el <a href="Lilium.html">Lilium</a> y las Lanzas
+Celestiales.</p>
+<p>Su lealtad es absoluta, pero no ciega. Cumple su rol como protector
+personal de Lyra, una erudita de la aliada Casa <a
+href="Sylethra.html">Sylethra</a>, en sus delicadas misiones
+diplomáticas y de investigación. Sin embargo, Borin desconfía
+profundamente de la sutileza y las intrigas de los contactos élficos de
+Lyra. Él es una criatura de la roca y el honor directo; los susurros en
+los bosques y las alianzas veladas de los elfos le parecen tan
+inestables y peligrosas como una avalancha inminente. Este conflicto
+interno define su existencia: es la fuerza bruta de las cumbres atada a
+la defensa del conocimiento más sutil y volátil de Lithernia.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Borin es una imponente mole de músculo y piedra. Con la altura y
+corpulencia propias de un goliath, su piel grisácea está cubierta por
+las marcas simétricas y oscuras de su linaje, que narran la historia de
+su tribu. A estos tatuajes natales ha añadido <a
+href="Runas.html">Runas</a> enanas de protección y silencio, grabadas en
+su piel con tinta de obsidiana, un símbolo de su doble identidad. Su
+largo cabello negro está recogido en una única y gruesa trenza, sujeta
+con broches de acero valtoriano. Su rostro, tallado por el viento y la
+severidad, rara vez expresa emoción alguna, y sus ojos, del color del
+hielo en un lago de montaña, observan todo con una calma
+imperturbable.</p>
+<p>No porta las armaduras ostentosas de los caballeros ni las túnicas de
+los magos. Su protección es una amalgama funcional: una coraza de placas
+de acero enano sobre cuero endurecido de bestia montesa. En su hombrera
+izquierda luce el escudo de la Casa Umbracorda, el pico de montaña
+partido por la grieta de obsidiana. Su arma principal es
+<strong>“Guardián del Eco”</strong>, un colosal martillo de guerra
+forjado en Ironforge, cuya cabeza de granito está inscrita con <a
+href="Runas.html">Runas</a> que amortiguan el sonido de sus golpes,
+permitiéndole abatir enemigos con una fuerza devastadora y un silencio
+antinatural. A su espalda lleva un hacha de escalada y pertrechos de
+supervivencia, siempre listo para moverse por los terrenos más
+escarpados de Lithernia.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Borin ‘El Silente’ no será recordado en las grandes crónicas de reyes
+y magos que se leen en la Torre de las Estrellas. Su legado es de
+naturaleza más profunda y callada. Él es la prueba viviente de que la
+lealtad y el honor pueden tender puentes entre las culturas más dispares
+de Lithernia, uniendo la fuerza primal de los <a
+href="Goliaths.html">Goliaths</a> con la disciplina intelectual de los
+custodios <a href="Enanos.html">Enanos</a>.</p>
+<p>Para la Casa Umbracorda, es el pilar sobre el que descansa su
+seguridad. Es el guardián incorruptible de secretos que, de ser
+revelados, podrían desatar una nueva guerra o atraer la ira de los
+dioses. Mientras otros buscan poder en el conocimiento, Borin
+personifica la sabiduría de protegerlo. Su impacto en el mundo no se
+medirá por las batallas que gane, sino por las catástrofes que, gracias
+a su silenciosa vigilia, nunca llegarán a ocurrir. Es el centinela en el
+borde del abismo, el eco silente de un juramento forjado en la roca y la
+gratitud.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Umbracorda.html">Casa Umbracorda</a> (relevancia:
+0.43)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

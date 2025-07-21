@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levbrios</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Levbrios</div>
+        <div class="content">
+<h1 id="levbrios">Levbrios</h1>
+<p>Levbrios es una de las deidades más veneradas del Panteón Enano de <a
+href="Valtoria.html">Valtoria</a>, conocido como el Custodio del Fuego
+de Herrería y el maestro de los secretos insondables de la metalurgia.
+Mientras su hermano <a href="Trovdor.html">Trovdor</a> personifica la
+esencia misma del metal, Levbrios es el dios del proceso, la
+transformación y la voluntad indomable que somete al mineral crudo para
+darle una forma gloriosa y un propósito perdurable.</p>
+<h3 id="biografía-y-origen">Biografía y Origen</h3>
+<p>Nacido en el seno del panteón de <a
+href="Valtoria.html">Valtoria</a>, la genealogía de Levbrios está
+intrínsecamente ligada al acto de dar forma al mundo. Es hermano de <a
+href="Trovdor.html">Trovdor</a>, el dios del metal, y sobrino de <a
+href="Cirkon.html">Cirkon</a>, la Señora de la Roca. Esta herencia lo
+sitúa como un eslabón vital en la cadena de la creación enana: <a
+href="Cirkon.html">Cirkon</a> provee la piedra, <a
+href="Trovdor.html">Trovdor</a> extrae el metal y Levbrios, con su fuego
+sagrado, lo convierte en una obra de arte o en una herramienta de poder.
+Es sobrino-nieto de los dioses gemelos <a href="Rokael.html">Rokael</a>
+y <a href="Valarios.html">Valarios</a>, y su naturaleza refleja la
+dualidad de ambos. De <a href="Rokael.html">Rokael</a>, padre de los <a
+href="Enanos.html">Enanos</a>, heredó el anhelo de construir y la
+paciencia del artesano. De <a href="Valarios.html">Valarios</a>, el
+señor de la destrucción, comprendió que para forjar algo nuevo, a menudo
+es necesario fundir y destruir lo viejo.</p>
+<p>La leyenda más famosa sobre Levbrios narra su regalo a la raza enana.
+Viendo a los primeros <a href="Enanos.html">Enanos</a> luchar por
+moldear los metales preciosos que <a href="Trovdor.html">Trovdor</a> les
+había revelado, Levbrios descendió de los cielos. No les entregó un
+arma, sino una herramienta: el primer martillo de herrero, conocido como
+<strong>Forjacorazones</strong>. Se dice que en su interior ardía una
+chispa del fuego eterno de su propia forja divina, y que cada golpe
+sobre el yunque no solo moldeaba el acero, sino que también enseñaba los
+secretos del calor, la presión y el tiempo. Con este regalo, Levbrios no
+solo les dio la capacidad de crear, sino también la filosofía de su
+pueblo: que la verdadera fuerza y el valor se forjan a través del
+esfuerzo, el fuego y la perseverancia.</p>
+<p>Durante la rebelión del Primer Rey, Levbrios se mantuvo al margen del
+conflicto directo. Como dios del oficio y la creación deliberada,
+observó con desaprobación la arrogancia del Rey y la ira desmedida de
+los otros dioses. Para él, el Cataclismo del <a
+href="Lilium.html">Lilium</a> fue la antítesis de su ser: un fuego
+caótico y destructivo, carente del propósito y el control que él tanto
+valora. Este evento reforzó su convicción de que el poder sin control
+solo conduce a la ruina, una lección que sus sacerdotes predican en cada
+taller de <a href="Valtoria.html">Valtoria</a>.</p>
+<h3 id="descripción-física-y-manifestaciones">Descripción Física y
+Manifestaciones</h3>
+<p>Levbrios rara vez se manifiesta en el plano mortal, pero cuando lo
+hace, no adopta la forma de un rey o un <a
+href="Guerrero.html">Guerrero</a>, sino la de un maestro herrero en la
+cima de su arte. Su figura es la de un enano de constitución formidable,
+con hombros anchos y brazos tan recios como las vigas de una fortaleza.
+Su piel tiene la textura y el brillo del acero templado, y en sus brazos
+se aprecian finas <a href="Runas.html">Runas</a> que brillan con la luz
+de las brasas cuando canaliza su poder. Su barba, larga y majestuosa,
+está trenzada con hilos de oro y mithril fundidos, y sus ojos arden con
+la intensidad constante de un fuego de forja.</p>
+<p>No viste armaduras ostentosas, sino un delantal de cuero de dragón
+que, según se dice, ninguna llama puede quemar. Su única arma y
+herramienta es el martillo divino <strong>Forjacorazones</strong>, que
+en sus manos puede tanto crear las maravillas más delicadas como
+destruir las fortificaciones más imponentes con un solo golpe.</p>
+<h3 id="culto-y-seguidores">Culto y Seguidores</h3>
+<p>El culto a Levbrios es el corazón de la industria y la defensa de <a
+href="Valtoria.html">Valtoria</a>. Sus seguidores no son solo herreros,
+sino también armeros, joyeros, ingenieros, arquitectos y artífices.
+Cualquier enano que trabaje con metal, fuego o piedra para crear algo
+duradero le rinde homenaje.</p>
+<p>Sus templos son siempre forjas activas, cuyo altar central es un gran
+yunque de obsidiana o un corazón de forja que nunca se apaga. Las
+ceremonias en su honor son prácticas y ruidosas: el sonido rítmico de
+los martillos es su himno, y el sudor de los artesanos, su ofrenda más
+sagrada. Los rituales importantes incluyen la bendición de nuevas
+herramientas, la templadura final de una hoja maestra y la
+<strong>Fiesta de la Primera Forja</strong>, donde los aprendices
+presentan sus obras para recibir la bendición del dios.</p>
+<p>Los clérigos de Levbrios, conocidos como “Guardianes de la Llama” o
+“Maestros de Forja”, no solo son líderes espirituales, sino también los
+artesanos más hábiles del reino. Su dogma principal enseña que “un alma
+es como el metal; su verdadero valor se revela en la fragua de las
+dificultades”.</p>
+<h3 id="relaciones-divinas-y-enemigos">Relaciones Divinas y
+Enemigos</h3>
+<ul>
+<li><p><strong>Panteón Enano:</strong> Mantiene una relación de
+colaboración y rivalidad fraternal con <strong><a
+href="Trovdor.html">Trovdor</a></strong>. <a
+href="Trovdor.html">Trovdor</a> entiende la esencia del metal, mientras
+que Levbrios entiende su potencial. Juntos, representan la plenitud del
+arte metalúrgico. Respeta profundamente a su tío-abuelo <strong><a
+href="Rokael.html">Rokael</a></strong>, compartiendo su amor por la
+creación. Con <strong><a href="Valarios.html">Valarios</a></strong>, su
+relación es de cautela y comprensión; Levbrios sabe que la destrucción
+es necesaria para la renovación (como fundir un arma vieja para forjar
+una nueva), pero desprecia la aniquilación sin propósito.</p></li>
+<li><p><strong>Otros Panteones:</strong> Siente un respeto profesional
+por <strong><a href="Solniria.html">Solniria</a></strong>, la diosa
+humana del fuego y la forja, aunque considera sus métodos menos
+disciplinados que los de los <a href="Enanos.html">Enanos</a>. Por el
+contrario, detesta a los dioses del panteón Korogrim, especialmente a
+<strong><a href="Thyrgram.html">Thyrgram</a></strong> y <strong><a
+href="Lakros.html">Lakros</a></strong>. Considera que la cultura de la
+guerra por la guerra es un desperdicio de habilidad y material, y que
+las armas forjadas en <a href="Mor&#39;dhul.html">Mor’dhul</a> son meras
+herramientas de carnicería, carentes del alma y el propósito que él
+infunde en sus creaciones.</p></li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Levbrios es tangible y se puede encontrar en cada rincón
+de <a href="Valtoria.html">Valtoria</a>. Reside en las puertas
+inexpugnables de sus fortalezas, en las hojas de las hachas rúnicas que
+defienden sus fronteras y en las delicadas joyas que adornan a sus
+reinas. Él es el símbolo de la filosofía enana: la creencia en que la
+perfección se alcanza a través del sudor, el fuego y la voluntad
+inquebrantable.</p>
+<p>En la Era Crepuscular, su influencia es más crucial que nunca.
+Mientras el mundo se debate entre profecías de destrucción y salvación,
+las forjas de <a href="Valtoria.html">Valtoria</a>, bendecidas por
+Levbrios, son una de las pocas constantes. Si la profecía del Retorno
+del Rey exigiera la destrucción o reforja de una de las Lanzas
+Celestiales, es casi seguro que tal hazaña solo podría llevarse a cabo
+en una forja santificada en su nombre, bajo la guía de sus más grandes
+maestros. Levbrios representa la fuerza silenciosa y creativa que no
+solo construye reinos, sino que también forja héroes capaces de resistir
+las pruebas más ardientes.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Meta.html">Meta</a> (relevancia: 0.54)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

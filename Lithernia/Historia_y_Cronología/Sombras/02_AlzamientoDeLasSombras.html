@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02_AlzamientoDeLasSombras</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">02_AlzamientoDeLasSombras</div>
+        <div class="content">
+<h1 id="alzamiento-de-las-sombras">Alzamiento de las Sombras</h1>
+<p>La era conocida como el <a
+href="Cultos_y_sectas_del_Alzamiento_de_las_Sombras.html">Cultos_y_sectas_del_Alzamiento_de_las_Sombras</a>
+marcó un antes y un después en la historia de Lithernia. Fue un período
+de oscuridad y desesperanza, donde las viejas estructuras de poder se
+vieron retadas por fuerzas nacidas del miedo y la corrupción, poniendo
+en jaque el equilibrio de todo el continente.</p>
+<h2 id="contexto-histórico">Contexto histórico</h2>
+<p>Tras varias décadas de relativa paz, la estabilidad de Lithernia
+empezó a desmoronarse con la debilitación de la Casa Soliel, institución
+que había gobernado con sabiduría y justicia. La corrupción interna,
+sumada a la aparición de cultos clandestinos dedicados a entidades
+sombrías de antiguos mitos, creó un caldo de cultivo propicio para el
+surgimiento de la sombra en los corazones de la gente.</p>
+<p>Este período, que se extiende aproximadamente desde el año 473 al 503
+de la Cuenta Solar —según cronistas como Maelis de Verdrán—, nos muestra
+una transformación radical del mapa político y espiritual de
+Lithernia.</p>
+<h2 id="los-susurros-que-abrieron-el-portal">Los Susurros que Abrieron
+el Portal</h2>
+<p>Los primeros indicios del Alzamiento fueron conocidos como “Los
+Susurros”: voces que emergían en las noches más oscuras, infectando a
+quienes los escuchaban con una mezcla de desesperación y furia.</p>
+<p>Estas voces provenían de cultos secretos dedicados a Nyxaris, la
+deidad olvidada de la Penumbra, quien según antiguos textos fue sellada
+en la Era Primordial. Se cree que mediante rituales prohibidos, estos
+cultos consiguieron abrir un portal hacia la “Umbra profunda”,
+permitiendo a las sombras del otro mundo infiltrarse en la realidad
+tangible.</p>
+<h2 id="cronología-de-sucesos-clave">Cronología de sucesos clave</h2>
+<ul>
+<li><strong>Año 473 CS:</strong> Primeros reportes oficiales sobre
+desapariciones misteriosas en la ciudad capital de Sevandor.</li>
+<li><strong>Año 478 CS:</strong> El levantamiento de las sectas
+sombreadas en los territorios del sur; ejecución pública de la Gran
+Sacerdotisa Lysara.</li>
+<li><strong>Año 485 CS:</strong> Quema de bibliotecas y templos
+dedicados a la Luz Eterna, simbolizando su colapso espiritual.</li>
+<li><strong>Año 492 CS:</strong> La caída de la Fortaleza de Erindhal
+tras un asedio encabezado por sombras encarnadas, la primera gran
+victoria de las fuerzas oscuras.</li>
+<li><strong>Año 503 CS:</strong> La llegada de la Alianza de los
+Luminarios, que comienza la purga definitiva de las sombras.</li>
+</ul>
+<h2 id="implicaciones-religiosas-y-culturales">Implicaciones religiosas
+y culturales</h2>
+<p>El <a
+href="Cultos_y_sectas_del_Alzamiento_de_las_Sombras.html">Cultos_y_sectas_del_Alzamiento_de_las_Sombras</a>
+provocó una profunda crisis espiritual. Los templos quedaron profanados,
+y muchos habitantes se refugiaron en nuevas interpretaciones religiosas
+o en la magia ancestral. Surgieron nuevas órdenes de guerreros y magos,
+conocidos como los “Luminarios”, dedicados a purgar la oscuridad y
+proteger a los inocentes.</p>
+<h3 id="costumbres-surgidas-durante-la-era">Costumbres surgidas durante
+la era</h3>
+<ul>
+<li><strong>La Vigilia de la Luz:</strong> ceremonia nocturna donde
+comunidades enteras encienden antorchas para mantener a raya las sombras
+y recordar a los caídos.</li>
+<li><strong>El Juramento de la Daga Blanca:</strong> voto de servicio y
+resistencia ante las fuerzas de la oscuridad, adoptado por soldados y
+aventureros.</li>
+<li><strong>El Festival del Silencio:</strong> celebración anual en el
+aniversario de la Gran Caída, donde se guardan horas de silencio en
+memoria de las víctimas del Alzamiento.</li>
+</ul>
+<h2 id="leyendas-y-mitos-populares">Leyendas y mitos populares</h2>
+<p>Entre las historias que se relatan desde entonces destacan:</p>
+<ul>
+<li><strong>El <a href="Cazador.html">Cazador</a> de Sombras:</strong>
+un <a href="Heroes.html">Heroes</a> solitario, enmascarado y vestido con
+ropajes plateados, que según dicen, fue la primera persona en atravesar
+la “Umbra profunda” y regresar con conocimiento destinado a la
+salvación.</li>
+<li><strong>El Espejo de Nyxaris:</strong> un artefacto maldito que
+refleja el lado más oscuro de quien se mira en él, utilizado por los
+líderes de las sectas para manipular a sus fieles.</li>
+<li><strong>Las Lágrimas del Alba:</strong> una leyenda que habla de una
+antigua gema con poder para disipar las sombras y restaurar la esperanza
+en los corazones.</li>
+</ul>
+<h2 id="el-legado-del-alzamiento">El legado del Alzamiento</h2>
+<p>Aunque la oscuridad fue finalmente contenida, las cicatrices de la
+era persisten. Los ecos de aquella época se sienten en la política, la
+religión, la magia y hasta en la arquitectura destruida y reconstruida a
+base de sacrificios. La Memoria del <a
+href="Cultos_y_sectas_del_Alzamiento_de_las_Sombras.html">Cultos_y_sectas_del_Alzamiento_de_las_Sombras</a>
+sigue siendo una advertencia sobre el peligro que acecha en la codicia,
+la desesperación y el desdén por la luz.</p>
+<p>Solo aquellos que recuerdan la historia completa pueden evitar que la
+penumbra vuelva a extender sus dominios en Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Cultos.html">Cultos</a> (relevancia: 0.61)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.58)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

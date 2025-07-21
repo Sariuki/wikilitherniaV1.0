@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Torre_de_las_Estrellas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Torre_de_las_Estrellas</div>
+        <div class="content">
+<h1 id="la-torre-de-las-estrellas">La Torre de las Estrellas</h1>
+<p>En el corazón de <a href="Valtoria.html">Valtoria</a>, erguida como
+un faro de conocimiento y misterio, se alza imponente la Torre de las
+Estrellas. Este majestuoso edificio no solo es un monumento
+arquitectónico, sino el epicentro del sistema de sabiduría y educación
+mágica que ha moldeado la Era Actual en Lithernia. Desde su fundación,
+la Torre ha sido el faro que ilumina el camino de aquellos que buscan
+dominar las artes arcanas y desentrañar los secretos del cosmos.</p>
+<h2 id="historia-de-la-torre">Historia de la Torre</h2>
+<p>La Torre de las Estrellas fue erigida hace casi diez siglos, durante
+el auge de la era de los Arcanos Iluminados, un grupo de sabios y magos
+cuya visión era consolidar y expandir el conocimiento mágico para toda
+Lithernia. Se dice que sus cimientos están grabados con <a
+href="Runas.html">Runas</a> ancestrales, otorgándole una conexión
+directa con los astros y la esencia misma de la magia.</p>
+<p>En sus primeros siglos, la Torre funcionó como un santuario de
+estudios y un centro de investigación para arcanistas de toda la región.
+Con el tiempo, se consolidó como la institución educativa más
+prestigiosa, donde nacieron los principios que rigen la enseñanza y
+práctica de la magia en toda <a href="Valtoria.html">Valtoria</a>.</p>
+<h2 id="organización-y-sistema-de-enseñanza">Organización y Sistema de
+Enseñanza</h2>
+<p>La Torre de las Estrellas no es únicamente una construcción; es un
+sistema entero de sabiduría, informado por siglos de ensayo, error y
+brillantez creativa. Su sistema pedagógico se divide en múltiples
+niveles, cada uno diseñado para expandir las capacidades arcanas de los
+estudiantes a través de la teoría, la práctica y la contemplación
+astral.</p>
+<h3 id="niveles-académicos">Niveles Académicos</h3>
+<ul>
+<li><strong>Iniciación Estelar:</strong> Introducción a los fundamentos
+de la magia y la lectura de constelaciones.</li>
+<li><strong>Conjuración Elemental:</strong> Dominio de los elementos
+primarios y sus fuerzas.</li>
+<li><strong>Manipulación de Energías Arcanas:</strong> Control avanzado
+de hechizos y encantamientos.</li>
+<li><strong>Vinculación Cósmica:</strong> Estudio profundo de los
+vínculos entre el mundo físico y las fuerzas astrales.</li>
+<li><strong>Maestría en Astromancia:</strong> Programas exclusivos para
+los magos más talentosos enfocados en profecías y manipulación del
+tiempo estelar.</li>
+</ul>
+<h3 id="métodos-de-enseñanza">Métodos de Enseñanza</h3>
+<p>La enseñanza se complementa con rituales nocturnos en la terraza de
+observación, experiencias inmersivas en planos etéreos y estudio de
+reliquias mágicas únicas. Además, un consejo de Maestros Astrales
+supervisa cada generación, garantizando que solo los dignos alcancen las
+cumbres del conocimiento.</p>
+<h2 id="influencia-en-la-era-actual">Influencia en la Era Actual</h2>
+<p>La Torre no solo moldeó académicamente a decenas de generaciones,
+sino que cristalizó la forma en que la magia se integra a la vida
+cotidiana y al gobierno en <a href="Valtoria.html">Valtoria</a> y el
+resto de Lithernia. Sus egresados ocupan puestos clave en la
+administración, defensa y diplomacia mágica, guiando el desarrollo
+pacífico y arcano de la sociedad.</p>
+<p>Sus tratados y grimorios se han convertido en textos fundamentales,
+influenciando leyes, costumbres y hasta la filosofía cotidiana. En la
+actual Era de la Luz Renovada, la Torre mantiene su prestigio como cuna
+del saber, enfrentando retos tecnológicos y mágicos sin perder su
+esencia ancestral.</p>
+<h2 id="leyendas-y-tradiciones">Leyendas y Tradiciones</h2>
+<p>La Torre de las Estrellas está envuelta en <a
+href="Leyendas.html">Leyendas</a> que atraviesan generaciones:</p>
+<ul>
+<li><strong>El Guardián Celestial:</strong> Se dice que un espíritu
+ancestral vela por la torre, apareciendo en noches de eclipse para
+proteger los secretos más profundos.</li>
+<li><strong>Las Estrellas Silentes:</strong> Un coro de voces mágicas
+que solo los magos más puros pueden escuchar durante sus rituales
+nocturnos.</li>
+<li><strong>El Reto del Firmamento:</strong> Una prueba mística que pone
+a prueba la mente y alma de los aprendices antes de ser aceptados
+plenamente.</li>
+</ul>
+<p>Cada año, el Festival Astral reúne a alumnos, maestros y visitantes
+en ceremonias que celebran la unión entre la magia y las constelaciones,
+reafirmando el vínculo eterno que la Torre mantiene con el cielo
+nocturno.</p>
+<h2 id="costumbres-derivadas">Costumbres Derivadas</h2>
+<p>La influencia de la Torre ha generado costumbres arraigadas en la
+sociedad de Lithernia, tales como:</p>
+<ul>
+<li>Vestir túnicas bordadas con motivos estelares en eventos
+formales.</li>
+<li>La lectura anual de las Pléyades, un texto profético sobre el
+destino del reino.</li>
+<li>El uso de amuletos hechos con fragmentos de cristales cósmicos
+extraídos en los sótanos secretos de la Torre.</li>
+</ul>
+<h2 id="conclusión">Conclusión</h2>
+<p>La Torre de las Estrellas es mucho más que un monumento o una
+institución educativa: es el alma arcana de <a
+href="Valtoria.html">Valtoria</a>, un pilar de la civilización mágica
+que ha resistido las tempestades del tiempo y la evolución del mundo. Su
+legado sigue irradiando sabiduría, uniendo generaciones bajo la
+influencia eterna de los astros, marcando el rumbo de la Era Actual y
+las eras venideras en Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.71)</li>
+<li><a
+href="Edificios%20y%20Academias%20-%20Torre%20de%20las%20Estrellas.html">Edificios
+y Academias - Torre de las Estrellas</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linajes_Nobles_de_Eldrador</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Linajes_Nobles_de_Eldrador</div>
+        <div class="content">
+<h1 id="linajes-nobles-de-eldrador">Linajes nobles de Eldrador</h1>
+<p>En los vastos y umbríos bosques de <a
+href="Eldrador.html">Eldrador</a>, cuna ancestral de la estirpe élfica,
+residen los linajes más antiguos y poderosos de Lithernia. Estos linajes
+nobles, forjados en tiempos inmemoriales por pactos místicos y batallas
+sangrientas, no solo gobiernan territorios, sino que también marcan el
+pulso político y cultural de todo el reino élfico. El dominio de <a
+href="Eldrador.html">Eldrador</a> es un tapiz complejo entre alianzas
+efímeras, rivalidades heredadas y tradiciones arraigadas en la magia del
+bosque y el arte del diplomático susurro.</p>
+<h2 id="historia-de-los-linajes-nobles">Historia de los linajes
+nobles</h2>
+<p>Los linajes élficos de <a href="Eldrador.html">Eldrador</a>
+descienden de los antiguos Veyndrin, los primeros nobles que pactaron
+con el espíritu del Gran Árbol de Liorath, fuente de su longevidad y sus
+dones arcanos. Durante milenios, estas casas mantuvieron un delicado
+equilibrio, sustentado en matrimonios estratégicos y códigos de honor
+que regulaban el equilibrio del poder. Sin embargo, el corazón de <a
+href="Eldrador.html">Eldrador</a> ha sido escenario de continuas
+disputas, ya sea por la posesión del Bosque de las Sombras o la custodia
+de los Artefactos de Altherion, joyas sagradas que confieren gran poder
+a aquellos que las poseen.</p>
+<h2 id="casas-principales">Casas principales</h2>
+<h3 id="casa-lethariel">Casa Lethariel</h3>
+<p>La Casa Lethariel se reconoce por sus túnicas de hojas plateadas y
+ojos como lagos al amanecer. Gobernantes del Valle del Susurro, son
+maestros en la diplomacia y el arte de la hechicería ilusoria. Su linaje
+ha producido a los grandes Maestros de la Corte Elfídica y ha custodiado
+durante siglos la Alianza de las Hojas, un pacto vital para la paz entre
+reinos elfos.</p>
+<ul>
+<li><strong>Emblema:</strong> Una hoja de plata cruzada por un rayo
+azul.</li>
+<li><strong>Ciudad principal:</strong> Sylvannah, la ciudad en las copas
+de los árboles.</li>
+<li><strong>Costumbre destacada:</strong> “El Rito de las Mil Sombras”,
+ceremonia anual donde los jóvenes de la casa demuestran su valía
+enfrentándose a ilusiones creadas por los ancianos.</li>
+</ul>
+<h3 id="casa-vaelorian">Casa Vaelorian</h3>
+<p>Conocidos por su temple y fuerza inquebrantable, los Vaelorian
+habitan las Montañas de Cristal y son legendarios guerreros y
+protectores del reino. Su rivalidad con la Casa Lethariel es antigua;
+mientras los primeros apuestan por la diplomacia, los Vaelorian
+prefieren la fuerza directa y el dominio bélico.</p>
+<ul>
+<li><strong>Emblema:</strong> Un dragón de ébano envolviendo un escudo
+dorado.</li>
+<li><strong>Ciudad principal:</strong> Drakthyr, fortaleza
+montañosa.</li>
+<li><strong>Costumbre destacada:</strong> “El Desafío del Fuego”, torneo
+donde los combatientes prueban su valor enfrentándose a criaturas ígneas
+en las cavernas.</li>
+</ul>
+<h3 id="casa-enthrelis">Casa Enthrelis</h3>
+<p>Más reservada y mágica, la Casa Enthrelis reside en la región oculta
+del Bosque de las Sombras. Son los guardianes de secretos arcanos y
+poseedores de un legado profético que les permite anticipar las amenazas
+externas y las intrigas internas.</p>
+<ul>
+<li><strong>Emblema:</strong> Un ojo de amatista enmarcado por raíces
+entrelazadas.</li>
+<li><strong>Ciudad principal:</strong> Nymmros, ciudad oculta bajo un
+denso manto de niebla y magia.</li>
+<li><strong>Costumbre destacada:</strong> “El Velar de los Ecos”, ritual
+nocturno en que los Ancianos leen las voces del bosque para predecir el
+destino del reino.</li>
+</ul>
+<h2 id="rivalidades-internas">Rivalidades internas</h2>
+<p>La relación entre las Casas Lethariel y Vaelorian es el eje de muchas
+tensiones políticas y conflictos armados. Aunque la paz se ha mantenido
+en la superficie a través de tratados y matrimonios arreglados, las
+traiciones y conspiraciones son moneda corriente en <a
+href="Eldrador.html">Eldrador</a>. La Casa Enthrelis, contemplando desde
+las sombras, a menudo juega un rol de árbitro, interviniendo de manera
+sutil para mantener el equilibrio o desatar el caos cuando conviene a
+sus propios fines proféticos.</p>
+<h2 id="leyendas-y-tradiciones-comunes">Leyendas y tradiciones
+comunes</h2>
+<p>Una leyenda compartida narra el origen de los linajes: la unión del
+primer rey elfo con el espíritu del bosque, que otorgó a sus
+descendientes su poder y longevidad a cambio de proteger la naturaleza
+sagrada. Este mito fundamenta muchas de sus costumbres, como la
+“Ceremonia de Balance”, que se celebra cada equinoccio para renovar el
+pacto con el bosque y reafirmar la lealtad hacia el Gran Árbol.</p>
+<p>Los linajes nobles de <a href="Eldrador.html">Eldrador</a> no solo
+representan poder y gobierno; son custodios de una cultura milenaria,
+donde la alianza con la naturaleza, la magia y la tradición define el
+destino de todo Lithernia.</p>
+<hr />
+<p>Este compendio es esencial para comprender los lazos y conflictos que
+moldean el destino del reino élfico de <a
+href="Eldrador.html">Eldrador</a>, un pilar fundamental en el <a
+href="Título_de_la_nota.html">Título_de_la_nota</a>.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a
+href="Casas%20Nobles%20de%20Eldrador%20-%20Linajes%20y%20Familias.html">Casas
+Nobles de Eldrador - Linajes y Familias</a> (relevancia: 0.44)</li>
+<li><a href="Noble.html">Noble</a> (relevancia: 0.44)</li>
+<li><a
+href="Casas%20Nobles%20de%20Eldrador%20-%20Cultura%20y%20Tradiciones.html">Casas
+Nobles de Eldrador - Cultura y Tradiciones</a> (relevancia: 0.39)</li>
+<li><a
+href="Casas%20Nobles%20de%20Galvorn%20-%20Linajes%20y%20Leyendas.html">Casas
+Nobles de Galvorn - Linajes y Leyendas</a> (relevancia: 0.30)</li>
+<li><a href="Casas%20Nobles%20de%20Eldrador.html">Casas Nobles de
+Eldrador</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

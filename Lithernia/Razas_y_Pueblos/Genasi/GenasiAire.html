@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenasiAire</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">GenasiAire</div>
+        <div class="content">
+<h1 id="genasiaire">Genasiaire</h1>
+<h3 id="contexto-mecánico">Contexto Mecánico</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Vinculación en Lithernia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Reino de Origen</strong></td>
+<td style="text-align: left;"><a href="Galvorn.html">Galvorn</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Panteón Principal</strong></td>
+<td style="text-align: left;">Panteón Humano (Dioses de <a
+href="Galvorn.html">Galvorn</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidad Patrona</strong></td>
+<td style="text-align: left;"><a href="Quiteon.html">Quiteon</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Social Típico</strong></td>
+<td style="text-align: left;">Marinero, Vigía, Explorador,
+Mensajero.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Trasfondos Sugeridos</strong></td>
+<td style="text-align: left;">Marinero, Forastero, Artista,
+Charlatán.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dote Vinculada</strong></td>
+<td style="text-align: left;">Ascensión de los vientos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resumen-de-rasgos">Resumen de Rasgos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo Clave</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Aumento de
+Característica</strong></td>
+<td style="text-align: left;">+2 Destreza, +1 Carisma</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">35 pies</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Resistencias</strong></td>
+<td style="text-align: left;">Relámpago, Trueno</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencias</strong></td>
+<td style="text-align: left;">Herramientas de navegante, Vehículos
+(acuáticos)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgos Únicos</strong></td>
+<td style="text-align: left;">Lanzamiento de <a
+href="Conjuros.html">Conjuros</a> innato, Velocidad aumentada, Aliento
+interminable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-raciales">Rasgos Raciales</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Incremento de Puntuación de
+Característica</strong></td>
+<td style="text-align: left;">Tu puntuación de Destreza aumenta en 2 y
+tu puntuación de Carisma aumenta en 1.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Edad</strong></td>
+<td style="text-align: left;">Maduran al mismo ritmo que los <a
+href="Humanos.html">Humanos</a> y viven hasta 120 años.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Típico</strong></td>
+<td style="text-align: left;">Tendencia hacia lo Caótico (Bueno,
+Neutral).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tamaño</strong></td>
+<td style="text-align: left;">Mediano.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">Tu velocidad base al caminar es de 35
+pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Aliento Interminable</strong></td>
+<td style="text-align: left;">Puedes aguantar la respiración
+indefinidamente mientras no estés incapacitado.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hijo de la Tormenta</strong></td>
+<td style="text-align: left;">Tienes resistencia al daño de relámpago y
+de trueno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Susurros de <a
+href="Quiteon.html">Quiteon</a></strong></td>
+<td style="text-align: left;">Conoces el truco <em>Ráfaga de Viento
+(Gust)</em>. A partir del nivel 3, puedes lanzar <em>Caída de Pluma</em>
+una vez por descanso largo. A partir del nivel 5, puedes lanzar
+<em>Levitar</em> (solo sobre ti mismo) una vez por descanso largo. El
+Carisma es tu aptitud mágica para estos <a
+href="Conjuros.html">Conjuros</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nacido en la Cofa</strong></td>
+<td style="text-align: left;">Ganas competencia con las herramientas de
+navegante y los vehículos (acuáticos).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Puedes hablar, leer y escribir Común y
+Primordial (dialecto Auran).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="progresión-de-conjuros-raciales">Progresión de Conjuros
+Raciales</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Personaje</th>
+<th style="text-align: left;">Conjuro Obtenido</th>
+<th style="text-align: left;">Frecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><em>Ráfaga de Viento (Gust)</em></td>
+<td style="text-align: left;">A voluntad</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><em>Caída de Pluma</em></td>
+<td style="text-align: left;">1/Descanso Largo</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: left;"><em>Levitar</em> (solo sobre ti
+mismo)</td>
+<td style="text-align: left;">1/Descanso Largo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sinergias-de-clase">Sinergias de Clase</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Sinergia y Rol Sugerido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Pícaro</strong></td>
+<td style="text-align: left;"><strong>Óptima.</strong> +2 DES, velocidad
+de 35 pies y <a href="Conjuros.html">Conjuros</a> de movilidad son
+excelentes para arquetipos como <em>Ladrón</em> o <em>Pícaro
+Arcano</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Monje.html">Monje</a></strong></td>
+<td style="text-align: left;"><strong>Excelente.</strong> La alta
+Destreza y la velocidad adicional se combinan con el movimiento del <a
+href="Monje.html">Monje</a>. <em>Levitar</em> mejora su movilidad
+táctica.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Bardo.html">Bardo</a></strong></td>
+<td style="text-align: left;"><strong>Fuerte.</strong> El aumento a
+Destreza y Carisma encaja en los <em>Colegios del Valor</em> o de las
+<em>Espadas</em>. La movilidad adicional es un gran bono.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Hechicero.html">Hechicero</a> / <a
+href="Brujo.html">Brujo</a></strong></td>
+<td style="text-align: left;"><strong>Buena.</strong> El +1 a CAR es el
+atributo principal. La resistencia y los <a
+href="Conjuros.html">Conjuros</a> innatos proporcionan supervivencia y
+utilidad.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Guardabosques.html">Guardabosques</a> (Ranger)</strong></td>
+<td style="text-align: left;"><strong>Buena.</strong> El +2 a DES es
+ideal para un arquero. La movilidad y la temática del viento encajan con
+un rol de explorador.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnj-de-ejemplo">PNJ de Ejemplo</h3>
+<p>```statblock name: Vigía del Viento Genasiaire size: Mediano type:
+humanoide (genasi) alignment: caótico neutral ac: 15 (Armadura de cuero)
+hp: 44 (8d8 + 8) speed: 35 ft. stats: [11, 18, 12, 10, 13, 14] skills: -
+Acrobacias: +6 - Percepción: +3 - Sigilo: +6 damage_resistances:
+Relámpago, Trueno senses: Percepción Pasiva 13 languages: Común,
+Primordial cr: 2 traits: - name: Lanzamiento de Conjuros Innato desc:
+“La aptitud mágica del vigía es el Carisma (CD de salvación de Conjuros
+12). Puede lanzar los siguientes Conjuros de forma innata:voluntad:
+<em>Ráfaga de viento (Gust)</em>/día: <em>Caída de Pluma</em>” actions:
+- name: Multiataque desc: “El vigía realiza dos ataques con su
+cimitarra.” - name: Cimitarra desc: “Ataque de arma cuerpo a cuerpo: +6
+a impactar, alcance 5 ft., un objetivo. Impacto: 7 (1d6 + 4) de daño
+cortante.” - name: Arco Corto desc: “Ataque de arma a distancia: +6 a
+impactar, alcance 80/320 ft., un objetivo. Impacto: 7 (1d6 + 4) de daño
+perforante.” reactions: - name: Ráfaga Evasiva desc: “Cuando un enemigo
+termina su movimiento a 5 pies del vigía, este puede usar su reacción
+para forzar al enemigo a hacer una tirada de salvación de Fuerza CD 12.
+Si falla, el enemigo es empujado 10 pies hacia atrás y no puede volver a
+acercarse al vigía en este turno.”</p>
+        </div>
+    </div>
+</body>
+</html>

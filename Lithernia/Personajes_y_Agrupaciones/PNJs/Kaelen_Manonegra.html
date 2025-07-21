@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Manonegra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Manonegra</div>
+        <div class="content">
+<hr />
+<p>nombre: “Kaelen ‘Manonegra’” rol: Maestro del Gremio edad: 215
+agrupacion: El Juramento de Obsidiana tipo: Gremio lema: “De la ceniza,
+el orden; del caos, la voluntad.” escudo: “Un yunque de obsidiana
+partido por la mitad, del cual brota una llama púrpura controlada.”
+ciudad_sede: <a href="Valarion.html">Valarion</a> rivalidades: “Culto
+del Fuego Eterno, La Torre de las Estrellas (<a
+href="Valtoria.html">Valtoria</a>)” alianzas: “Clan Agrietacero (<a
+href="Valarion.html">Valarion</a>), Gremio de Exploradores de <a
+href="Galanthil.html">Galanthil</a>” relaciones: “Fundador y líder del
+Juramento; Exiliado del Clan Agrietacero; Seguidor devoto de <a
+href="Valarios.html">Valarios</a>.” tags: [lithernia, personajes,
+Gremio, <a href="Valtoria.html">Valtoria</a>, enano] # Kaelen
+‘Manonegra’</p>
+<h3 id="biografía">Biografía</h3>
+<p>Kaelen no es un <a href="Heroes.html">Heroes</a> de cantares ni un <a
+href="Noble.html">Noble</a> de salones dorados. Es un enano forjado en
+la necesidad, un instrumento de una voluntad tan antigua y temida como
+las propias montañas: la del dios <a href="Valarios.html">Valarios</a>,
+el Destructor. Nacido en el Clan Agrietacero de la ciudad fronteriza de
+<a href="Valarion.html">Valarion</a>, Kaelen mostró desde joven una
+devoción inusual por el aspecto más oscuro del panteón enano. Mientras
+sus hermanos veneraban a <a href="Rokael.html">Rokael</a>, el Creador, y
+a <a href="Trovdor.html">Trovdor</a>, el Herrero, Kaelen encontraba un
+propósito sagrado en el ciclo de la destrucción necesaria para dar paso
+a lo nuevo.</p>
+<p>Su apodo, ‘Manonegra’, no es una metáfora. Es la crónica viva de su
+vocación, grabada en su propia piel. Durante una expedición a una
+cicatriz del <a href="Lilium.html">Lilium</a>, un artefacto corrupto se
+fracturó en sus manos. Soportando un dolor que habría consumido a otros,
+Kaelen contuvo la explosión de energía caótica, pero sus manos quedaron
+permanentemente teñidas de un negro violáceo, agrietadas como la
+obsidiana y frías al tacto, un recordatorio constante de la corrupción
+que juró combatir.</p>
+<p>Este incidente marcó su ruptura con las tradiciones de <a
+href="Valtoria.html">Valtoria</a>. La Torre de las Estrellas, con su
+enfoque en la preservación y el estudio cauteloso, lo vio como un
+radical peligroso. Para ellos, su disposición a manipular y destruir
+reliquias contaminadas era una herejía contra el conocimiento mismo.
+Tras un acalorado debate que casi llegó a las armas, Kaelen fue
+exiliado, acusado de profanar la historia en nombre de un dogma
+extremista.</p>
+<p>Pero el exilio no lo quebró; le dio un propósito. Lejos de las
+rígidas doctrinas de la capital, Kaelen fundó <strong>El Juramento de
+Obsidiana</strong>. Reunió a otros parias, pragmáticos y supervivientes
+que entendían su cruda verdad: el Cataclismo del <a
+href="Lilium.html">Lilium</a> no fue una tragedia a lamentar, sino una
+purga divina que quedó incompleta. Su misión, dictada por los principios
+de <a href="Valarios.html">Valarios</a>, es terminar el trabajo. El
+Juramento se convirtió en una orden de cazadores de monstruos,
+recuperadores de artefactos y eruditos de lo prohibido, operando donde
+otros no se atreven. Kaelen no busca gloria, sino orden, un orden que,
+según él, solo puede nacer de las cenizas de un mundo purificado. Carga
+con el peso de su misión con un estoicismo férreo, convencido de que la
+suya es una carga sagrada que nadie más está dispuesto a soportar.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen posee la complexión robusta y poderosa de los <a
+href="Enanos.html">Enanos</a> de montaña. Su barba, de un color negro
+azabache, está trenzada con sencillez y sujeta con anillos de hierro sin
+pulir. Sus ojos, de un gris profundo, reflejan el peso de los horrores
+que ha presenciado, y su rostro está marcado por la determinación y una
+fatiga que parece trascender los años.</p>
+<p>La característica más llamativa son sus manos. Desde los nudillos
+hasta las yemas de los dedos, su piel tiene un tono antinatural de
+obsidiana agrietada, de la que a veces emana un tenue y frío fulgor
+púrpura en presencia de magia corrupta. Aunque son la fuente de su apodo
+y de un dolor crónico que combate con disciplina, también le otorgan una
+sensibilidad única para detectar la corrupción del <a
+href="Lilium.html">Lilium</a>.</p>
+<p>Viste una armadura de placas funcionales, marcada por incontables
+batallas y reparaciones. Sobre ella, luce el tabardo de su gremio con el
+emblema del yunque partido. Su arma es un martillo de guerra de cabeza
+maciza, forjado por él mismo, con <a href="Runas.html">Runas</a> de
+contención grabadas en el acero. No lleva joyas ni adornos, salvo un
+amuleto de obsidiana con el símbolo de <a
+href="Valarios.html">Valarios</a> que cuelga de su cuello. Siempre porta
+un kit de contención: guanteletes forrados de plomo, pinzas de hierro
+frío y pergaminos rúnicos para neutralizar artefactos inestables.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>En Lithernia, Kaelen ‘Manonegra’ es una figura de temor y respeto a
+partes iguales. Para los reinos establecidos y facciones como la Torre
+de las Estrellas, es un fanático peligroso, un mal necesario en el mejor
+de los casos. Sin embargo, en las tierras fronterizas devastadas por la
+magia corrupta, los miembros del Juramento de Obsidiana son a menudo la
+única esperanza.</p>
+<p>Su legado no será una canción de gestas gloriosas, sino la creación
+de una filosofía brutalmente pragmática que desafía las nociones
+tradicionales del bien y el mal. El Juramento de Obsidiana, bajo su
+liderazgo, se ha convertido en una fuerza silenciosa pero formidable,
+capaz de contener amenazas que los ejércitos y los magos de la corte no
+pueden o no quieren enfrentar.</p>
+<p>Kaelen no se preocupa por la profecía del Primer Rey ni por las
+intrigas de las casas nobles. Considera todo eso como el ruido de un
+mundo moribundo que se niega a aceptar su propia enfermedad. Su impacto
+a largo plazo es una incógnita: si tiene éxito, podría limpiar Lithernia
+de la corrupción del <a href="Lilium.html">Lilium</a>, pero a un costo
+terrible y alterando el equilibrio mágico para siempre. Si fracasa, la
+colección de horrores que su gremio ha acumulado podría desatarse sobre
+el mundo, creando un cataclismo aún mayor. Kaelen ‘Manonegra’ camina por
+el filo de la navaja, y su viaje determinará si es el salvador anónimo
+de Lithernia o el arquitecto de su purga final.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

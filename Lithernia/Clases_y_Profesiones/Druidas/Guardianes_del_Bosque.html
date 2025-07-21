@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardianes_del_Bosque</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Guardianes_del_Bosque</div>
+        <div class="content">
+<h1 id="guardianes-del-bosque">Guardianes del Bosque</h1>
+<p>En las profundidades vivas de <a href="Eldrador.html">Eldrador</a>,
+donde los árboles milenarios entrelazan sus ramas en un manto verde
+nunca visto, existen seres que han jurado proteger la armonía natural y
+las fuerzas ancestrales que descansan en el corazón del bosque. Los
+<strong>Guardianes del Bosque</strong> son las órdenes reverenciadas de
+rangers y druidas que resguardan este vasto reino vegetal, siendo la
+última línea entre la civilización de Lithernia y la naturaleza
+salvaje.</p>
+<h2 id="orígenes-y-propósito">Orígenes y Propósito</h2>
+<p>La fundación de los Guardianes se pierde en las brumas del tiempo,
+cuando <a href="Eldrador.html">Eldrador</a> aún era joven y las primeras
+semillas se arraigaban en la tierra. Surgieron como respuesta a una
+amenaza creciente: la expansión agresiva de las fuerzas oscuras y la
+codicia de ciertos reinos que deseaban extraer poder sin respeto. Así
+nacieron dos órdenes esenciales y complementarias:</p>
+<ul>
+<li><p><strong>Los Ríos Vivos</strong>: una hermandad de rangers
+maestros en las artes del sigilo, el arco y el conocimiento profundo de
+la fauna y la topografía. Son los ojos y oídos de <a
+href="Eldrador.html">Eldrador</a>, expertos en rastrear y neutralizar
+amenazas antes de que afecten el equilibrio.</p></li>
+<li><p><strong>El Círculo de la Raíz Antigua</strong>: una cofradía de
+druidas cuya sabiduría viene de la comunión con los espíritus del
+bosque. Ellos son los sanadores, conjuradores y portadores de la magia
+natural, capaces de comunicarse con los árboles y convocar la furia de
+la tempestad si el bosque es herido.</p></li>
+</ul>
+<p>Ambas órdenes trabajan en perfecta armonía, manteniendo un delicado
+balance entre la conservación y la defensa activa.</p>
+<h2 id="juramento-de-los-guardianes">Juramento de los Guardianes</h2>
+<p>Al incorporarse, todo aspirante debe pronunciar el <strong>Juramento
+del Bosque Eterno</strong>, que sella su compromiso con la vida y la
+preservación:</p>
+<blockquote>
+<p><em>“Por la savia que fluye y el viento que susurra,<br />
+juro proteger <a href="Eldrador.html">Eldrador</a> con mi sangre y
+alma,<br />
+ser escudo contra la destrucción y guía para lo perdido,<br />
+hasta que las raíces alcancen el cielo y las hojas cubran el
+sol.”</em></p>
+</blockquote>
+<p>Este juramento es una tradición milenaria que fortalece la conexión
+espiritual con el bosque y los antepasados guardianes.</p>
+<h2 id="leyendas-destacadas">Leyendas Destacadas</h2>
+<h3 id="la-batalla-de-los-cien-susurros">La Batalla de los Cien
+Susurros</h3>
+<p>Una de las gestas más reverenciadas ocurrió hace un siglo, cuando un
+ejército de sombras intentó invadir <a
+href="Eldrador.html">Eldrador</a>. Liderados por Alarwen, la Gran <a
+href="Guardabosques.html">Guardabosques</a>, los rangers y druidas
+unieron fuerzas convocando vientos huracanados y emboscando a los
+enemigos con flechas de madera encantada. La victoria selló el pacto
+eterno entre ambas órdenes y reafirmó su papel como protectores
+indomables.</p>
+<h3 id="el-árbol-del-aliento">El Árbol del Aliento</h3>
+<p>Se dice que en el corazón del bosque existe un árbol tan antiguo que
+respira al ritmo del mundo. Los druidas lo llaman el “Aliento de <a
+href="Eldrador.html">Eldrador</a>”, y quienes logran contemplarlo
+reciben una visión sagrada: la perspectiva del equilibrio natural y el
+destino del bosque. Sólo los guardianes más puros de espíritu pueden
+encontrarlo.</p>
+<h2 id="costumbres-y-rituales">Costumbres y Rituales</h2>
+<ul>
+<li><p><strong>La Noche de la Savia</strong>: un evento anual en que los
+Guardianes se reúnen a honrar al bosque, compartiendo historias,
+realizando ofrendas y renovando pactos. Se cree que durante esta noche,
+los árboles susurran secretos a quienes escuchan con el
+corazón.</p></li>
+<li><p><strong>El Camino de las Hojas Caídas</strong>: rito de
+iniciación para los aprendices rangers, donde deben recorrer sin armas
+un tramo del bosque bajo la tutela de un maestro, aprendiendo a fundirse
+con el entorno y respetar cada vida.</p></li>
+<li><p><strong>El Ceremonial de la Luna Verde</strong>: los druidas
+realizan danzas y cánticos bajo la luna para solicitar la bendición de
+los espíritus, renovando sus poderes mágicos y curativos.</p></li>
+</ul>
+<h2 id="organización-y-jerarquía">Organización y Jerarquía</h2>
+<p>Los Guardianes del Bosque se estructuran bajo un consejo
+interordenado llamado <strong>El Concilio Verde</strong>, que reúne a
+los líderes de ambas órdenes para decidir estrategias, gestionar
+amenazas y preservar la tradición. Cada orden posee una jerarquía
+propia:</p>
+<ul>
+<li><strong>Ríos Vivos</strong>:
+<ul>
+<li><a href="Guardabosques.html">Guardabosques</a> Maestro</li>
+<li>Centinelas</li>
+<li>Caminantes</li>
+<li>Reclutas</li>
+</ul></li>
+<li><strong>Círculo de la Raíz Antigua</strong>:
+<ul>
+<li>Arbolarca</li>
+<li>Consejeros de la Savia</li>
+<li>Herederos del Aliento</li>
+<li>Novicios</li>
+</ul></li>
+</ul>
+<p>Las decisiones se basan en el consenso, y la sabiduría común
+prevalece para asegurar que <a href="Eldrador.html">Eldrador</a> siga
+intacto y próspero.</p>
+<h2 id="influencia-en-lithernia">Influencia en Lithernia</h2>
+<p>Los Guardianes del Bosque son respetados y temidos por sus
+habilidades y principios estrictos. Su influencia abarca zonas
+silvestres y fronteras con otros reinos, sirviendo muchas veces de
+mediadores naturales entre pueblos y la tierra. Aunque prefieren la
+discreción, sus acciones moldean el destino de Lithernia, pues sin los
+bosques que protegen, el reino perdería su esencia vital.</p>
+<hr />
+<p>Los <strong>Guardianes del Bosque</strong> son más que protectores;
+son la encarnación viva del vínculo sagrado entre humano y naturaleza,
+una fuerza ancestral que perpetúa la leyenda y vida del reino de <a
+href="Eldrador.html">Eldrador</a>. Su historia es un recordatorio
+perpetuo de que en Lithernia, la magia y la tierra son una sola
+alma.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li>Los Guardianes del Bosque</li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Druida.html">Druida</a> (relevancia: 0.44)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

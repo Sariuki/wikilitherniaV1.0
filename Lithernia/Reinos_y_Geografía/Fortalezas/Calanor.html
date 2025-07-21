@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calanor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Calanor</div>
+        <div class="content">
+<h1 id="calanor">Calanor</h1>
+<p>Calanor no es una ciudad; es una herida abierta en la faz de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Tallada en las profundidades del
+Desfiladero de las Espinas, es un monumento al sufrimiento y una
+ciudadela donde el dolor es la única moneda de valor. Sus murallas de
+basalto negro están coronadas con púas de hierro oxidado, y sus calles
+angulosas y opresivas parecen diseñadas para atrapar los ecos de la
+agonía. No hay luz de esperanza en Calanor, solo la sombra proyectada
+por la Ciudadela de Hierro y el resplandor rojizo de las forjas que
+crean herramientas para quebrar cuerpos y voluntades. El aire es pesado,
+impregnado del olor metálico de la sangre, el hollín y un miedo tan
+palpable que se adhiere a la piel. El símbolo de la ciudad, un ojo
+llorando sangre atravesado por tres clavos, ondea en estandartes de
+cuero curtido, un recordatorio constante de que bajo el dominio de <a
+href="Kromagul.html">Kromagul</a>, todo el mundo está vigilado y todo el
+mundo puede sangrar.</p>
+<h2 id="historia">Historia</h2>
+<p>Calanor fue fundada por el Clan <a href="Kromagul.html">Kromagul</a>
+sobre una cicatriz que el <a href="Lilium.html">Lilium</a> dejó en el
+mundo, un lugar donde el velo entre el plano material y el dolor puro es
+peligrosamente delgado. Los <a href="Hobgoblins.html">Hobgoblins</a> del
+clan, devotos del Dios del Dolor, descubrieron que en este desfiladero,
+el sufrimiento se podía sentir, canalizar e incluso moldear. En lugar de
+evitarlo, lo abrazaron. Erigieron una fortaleza para institucionalizar
+la tortura, no como un castigo, sino como una forma de arte, una ciencia
+y una religión.</p>
+<p>Bajo generaciones de líderes sádicos, Calanor se convirtió en el
+principal proveedor de venenos, esclavos y conocimiento oscuro para las
+guerras de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Su actual
+gobernante, el Barón Vexor, un hobgoblin cuya maestría en la magia del
+dolor es legendaria, ascendió al poder no por conquista, sino por
+sobrevivir a un ritual en el que fue torturado por sus tres rivales al
+mismo tiempo, sin emitir un solo sonido. Su silencio le ganó el trono, y
+ahora gobierna con el mismo principio: la fuerza no se mide en la
+capacidad de infligir dolor, sino en la capacidad de soportarlo en
+silencio.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Plaza del Lamento Eterno</strong>: El corazón
+desalmado de Calanor. En su centro se alza el Pilar de los Lamentos, una
+columna de obsidiana de la que cuelgan cadenas y jaulas. Aquí se aplican
+los castigos públicos, que sirven como entretenimiento y advertencia. La
+plaza está rodeada de talleres de “artesanos” que venden herramientas de
+tortura y esclavos con la mirada rota.</p></li>
+<li><p><strong>El Templo del Grito Sagrado</strong>: Principal lugar de
+culto a <a href="Kromagul.html">Kromagul</a>. Más que un edificio, es un
+complejo de cámaras de eco subterráneas donde los “rezos” son los gritos
+de las víctimas sacrificadas. Los sacerdotes del dolor, vestidos con
+túnicas manchadas de sangre, dirigen rituales que canalizan esta agonía
+para potenciar la magia oscura de la ciudad.</p></li>
+<li><p><strong>El Mercado de las Cadenas</strong>: Un bazar al aire
+libre donde el hedor a miedo y desesperación es abrumador. Aquí, los <a
+href="Goblins.html">Goblins</a> venden venenos exóticos, los <a
+href="Orcos.html">Orcos</a> actúan como capataces de esclavos y los <a
+href="Tieflings.html">Tieflings</a> del Clan <a
+href="Kromagul.html">Kromagul</a> negocian la venta de grimorios
+prohibidos y artefactos malditos.</p></li>
+<li><p><strong>La Ciudadela de Hierro y Agonía</strong>: La fortaleza
+personal del Barón Vexor y el cuartel general del Clan <a
+href="Kromagul.html">Kromagul</a>. Es una estructura laberíntica y
+brutalista, sin ventanas en sus niveles inferiores. Se dice que sus
+mazmorras son las más profundas de todo <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y que el propio Barón reside en
+una cámara donde los muros susurran con el dolor acumulado de
+siglos.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La sociedad kromagulina es una jerarquía basada en la crueldad y la
+resistencia. El estatus se demuestra con cicatrices rituales; cuanto más
+elaboradas y dolorosas, mayor es el respeto que se infunde. Los duelos
+son comunes, pero rara vez son a muerte. En su lugar, luchan hasta que
+uno de los combatientes emite un grito de dolor, marcándolo como el
+perdedor y el débil.</p>
+<p>El evento social más importante es el “Festival del Silencio Roto”,
+una celebración anual de una semana en la que los mejores torturadores
+de la ciudad exhiben sus “obras de arte”: víctimas contorsionadas en
+esculturas vivientes o patrones intrincados marcados en la piel. Es un
+honor para una familia que uno de sus miembros sea elegido como
+“lienzo”, aunque rara vez sobreviven a la experiencia.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Calanor es un arma psicológica. Los edificios son
+angulosos, con tejados afilados como cuchillas y muros de roca oscura
+que parecen absorber la luz. El hierro oxidado se usa profusamente en
+rejas, cadenas y adornos con forma de púas. No hay espacio para la
+belleza, solo para la intimidación y la funcionalidad brutal. El
+ambiente sonoro es una cacofonía de cadenas arrastrándose, martillos
+golpeando en las forjas y un murmullo constante de dolor que emana de
+los templos y las prisiones. Incluso el silencio en Calanor se siente
+pesado, expectante del próximo grito.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><strong>El Coleccionista de Gritos</strong>: En las fétidas
+alcantarillas y túneles olvidados bajo la ciudad, se susurra la
+existencia de un espectro conocido como “El Coleccionista de Gritos”. La
+leyenda cuenta que esta entidad incorpórea se siente atraída por la
+agonía más pura y aparece en el momento final de las víctimas de tortura
+para robar su último aliento, aprisionándolo en fragmentos de obsidiana.
+Se dice que quien posee uno de estos “cristales de grito” puede escuchar
+los ecos del sufrimiento atrapado en su interior y, si tiene la voluntad
+suficiente, canalizar ese dolor concentrado para potenciar sus propios
+hechizos oscuros. El Barón Vexor supuestamente posee una vasta
+colección, que es la verdadera fuente de su poder.</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

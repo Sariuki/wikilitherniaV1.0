@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Orden_de_los_Jinetes_de_Grifos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Orden_de_los_Jinetes_de_Grifos</div>
+        <div class="content">
+<h1 id="la-orden-de-los-jinetes-de-grifos">La orden de los jinetes de
+grifos</h1>
+<h2 id="guardianes-de-los-cielos-montañosos">Guardianes de los Cielos
+Montañosos</h2>
+<p><strong>La Orden de los Jinetes de Grifos</strong>, conocida en las
+Crónicas de <a href="Valtoria.html">Valtoria</a> como <em>“Alas de Roca
+Sincronizada”</em>, constituye la fuerza de élite encargada de custodiar
+los cielos del reino enano y salvaguardar sus secretos estratégicos.
+Desde sus perchas excavadas en los picos más inaccesibles, estos
+guerreros montados en grifos forman un bastión viviente contra amenazas
+aéreas y protegen el conocimiento arcano vinculado a las montañas
+sagradas de <a href="Valtoria.html">Valtoria</a>.</p>
+<p>!right|300 <em>“Que el grito del grifo y el brillo de la lanza
+anuncien a los intrusos: aquí solo entra quien ha ganado el
+cielo.”</em><br />
+— Lema de la Orden, inscrito en la Puerta de los Vientos</p>
+<h2 id="orígenes-y-fundación">Orígenes y Fundación</h2>
+<p>La Orden nació en <strong>476 PL (Post-<a
+href="Lilium.html">Lilium</a>)</strong>, tras el <strong>Asedio de las
+Nubes</strong> donde <a href="Dragones.html">Dragones</a> de Mor’dhul
+intentaron incendiar las reservas minerales de las Montañas Llameantes.
+Un grupo de guerreros <a href="Enanos.html">Enanos</a>, liderados por la
+heroína <strong>Gorina Hojacerada</strong>, domesticó a una manada de
+grifos albinos nativos de las Cumbres Nubladas usando <a
+href="Runas.html">Runas</a> de doma forjadas por el dios <strong><a
+href="Trovdor.html">Trovdor</a></strong>. Estos primeros jinetes
+repelieron la invasión, ganándose el título de <strong>“Escamas
+Rotas”</strong> por dejar caer a siete <a
+href="Dragones.html">Dragones</a> de obsidiana desde las alturas.</p>
+<h3 id="pacto-fundacional">Pacto Fundacional</h3>
+<p>Los tres pilares sagrados de la Orden quedaron establecidos: 1.
+<strong>Vigilia Perpetua</strong>: Ningún intruso cruzarán las fronteras
+aéreas de <a href="Valtoria.html">Valtoria</a>.<br />
+2. <strong>Custodia del Saber</strong>: Proteger los archivos celestes
+de la Torre de las Estrellas.<br />
+3. <strong>Hermandad de Sangre y Pluma</strong>: Cada jinete jura
+lealtad a su grifo sobre el <strong>Yunque Celestial</strong>,
+intercambiando una gota de sangre con su montura en ritual ante <a
+href="Cirkon.html">Cirkon</a>, diosa de la roca.</p>
+<h2 id="estructura-y-jerarquía">Estructura y Jerarquía</h2>
+<p>La Orden se divide en cuatro círculos concéntricos, cada uno con
+responsabilidades específicas:</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 39%" />
+<col style="width: 21%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Rango</th>
+<th>Deberes Principales</th>
+<th>Montura</th>
+<th>Sede</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ojos de Tormenta</strong> (Líderes)</td>
+<td>Estrategia global, diplomacia con <a
+href="Dragones.html">Dragones</a></td>
+<td>Grifos dorados ancianos</td>
+<td>Nido del Trueno</td>
+</tr>
+<tr>
+<td><strong>Garras de Granito</strong> (Veteranos)</td>
+<td>Entrenamiento avanzado, misiones críticas</td>
+<td>Grifos de obsidiana</td>
+<td>Fortaleza Alada</td>
+</tr>
+<tr>
+<td><strong>Plumas de Acero</strong> (Jinetes Activos)</td>
+<td>Patrullas aéreas, escoltas reales</td>
+<td>Grifos juveniles</td>
+<td>7 Torres Vigía</td>
+</tr>
+<tr>
+<td><strong>Huevos de Obsidiana</strong> (Neófitos)</td>
+<td>Cuidado de grifos, apoyo logístico</td>
+<td>Sin montura asignada</td>
+<td>Cuna de los Vientos</td>
+</tr>
+</tbody>
+</table>
+<p>El liderazgo recae en el <strong>Triunvirato de Vuelo</strong>:<br />
+1. <strong>Alto Halcón</strong> (Comandante militar)<br />
+2. <strong>Orador de las Nubes</strong> (Enlace con el Concilio de la
+Montaña)<br />
+3. <strong><a href="Forjador.html">Forjador</a> de Vínculos</strong>
+(Maestro de doma)</p>
+<h2 id="deberes-y-operaciones">Deberes y Operaciones</h2>
+<h3 id="defensa-aérea">Defensa Aérea</h3>
+<ul>
+<li><strong>Barrera de Picos</strong>: Patrullas diarias sobre rutas
+críticas: Paso del Colmillo, Garganta de <a
+href="Cirkon.html">Cirkon</a> y Valle de los Primeros Forjadores.<br />
+</li>
+<li><strong>Protocolo Escudo Rúnico</strong>: Activación de defensas
+mágicas incrustadas en montañas durante invasiones.</li>
+</ul>
+<h3 id="custodia-política">Custodia Política</h3>
+<ul>
+<li><strong>Escoltas Celestiales</strong>: Transportan dignatarios y
+artefactos entre la Torre de las Estrellas y ciudades enanas.<br />
+</li>
+<li><strong>Consejo Silencioso</strong>: Tres Ojos de Tormenta tienen
+asiento consultivo en el Concilio de la Montaña, velando por equilibrios
+de poder.</li>
+</ul>
+<h3 id="rituales-ancestrales">Rituales Ancestrales</h3>
+<ul>
+<li><strong>Danza de los Tres Picos</strong>: Ceremonia anual donde
+grifos y jinetes dibujan <a href="Runas.html">Runas</a> en el cielo
+usando humos colorantes, honrando el pacto con <a
+href="Trovdor.html">Trovdor</a>.<br />
+</li>
+<li><strong>Funeral del Aire</strong>: Al morir un grifo, su cuerpo es
+dejado caer desde la Cima Eterna para “regresar a las corrientes del
+viento”.</li>
+</ul>
+<h2 id="entrenamiento-y-vinculación">Entrenamiento y Vinculación</h2>
+<p>Convertirse en jinete exige décadas de preparación:</p>
+<ol type="1">
+<li><strong>Prueba de la Piedra Sin Alas</strong> (5-12 años): Neófitos
+escalan montañas desnudas para demostrar resistencia.<br />
+</li>
+<li><strong>Canto del Hueco</strong> (Ceremonia de Selección): Los
+grifos eligen a su jinete mediante interacción en las Cavernas
+Susurrantes. Solo un 40% supera esta fase.<br />
+</li>
+<li><strong><a href="Herreria.html">Herreria</a> del Vínculo</strong>
+(10 años): Jinete y grifo aprenden combate sincronizado. Las pruebas
+incluyen:
+<ul>
+<li>Recuperar un huevo robado por Gárgolas de Mor’dhul.<br />
+</li>
+<li>Perseguir halcones mecánicos <a href="Gnomos.html">Gnomos</a> en
+complejas maniobras aéreas.</li>
+</ul></li>
+</ol>
+<h2 id="los-grifos-de-valtoria">Los Grifos de Valtoria</h2>
+<p>Majestuosas criaturas adaptadas al entorno montañoso: -
+<strong>Variedades</strong>: Desde grifos alpinos (pelaje blanco,
+resistentes al frío) hasta grifos de magma (plumas rojizas, nidifican en
+volcanes).<br />
+- <strong>Dieta</strong>: Mayormente cabras de roca, aunque ejemplares
+veteranos prefieren hierbas mágicas de los Jardines de <a
+href="Levbrios.html">Levbrios</a>.<br />
+- <strong>Envejecimiento</strong>: Viven hasta 150 años. Al morir, sus
+plumas se petrifican en <strong>“kurkas”</strong> - piedras usadas en
+amuletos de protección.</p>
+<h2 id="conflictos-y-alianzas-notables">Conflictos y Alianzas
+Notables</h2>
+<ul>
+<li><strong>Pacto del Aliento de Fuego</strong> (892 PL): Alianza
+temporal con <a href="Dragonborn.html">Dragonborn</a> valtorianos para
+repeler wyverns de Mor’dhul.<br />
+</li>
+<li><strong>Incidente de la Gema Eólica</strong> (Actualidad): Tensión
+con magos de la Torre de las Estrellas que pretenden crear grifos
+mecánicos.<br />
+</li>
+<li><strong>Pequeña Traición</strong> (634 PL): Un jinete intentó vender
+rutas de patrulla a mercenarios de <a href="Eldrador.html">Eldrador</a>.
+Fue arrojado al vacío por su propio grifo.</li>
+</ul>
+<h2 id="simbología-y-heráldica">Simbología y Heráldica</h2>
+<ul>
+<li><strong>Estandarte</strong>: Griffo rampante sobre fondo de
+montañas, enlazado por una cadena de <a
+href="Runas.html">Runas</a>.<br />
+</li>
+<li><strong>Grito de Batalla</strong>: <em>“¡Por roca y
+remolino!”</em><br />
+</li>
+<li><strong>Armamento</strong>: Lanzas de adamantita con punta imbuida
+para atravesar escamas, y <strong>“raspadora de nubes”</strong> (arma
+corta para cortar redes o cuerdas en vuelo).</li>
+</ul>
+<p>La Orden continúa siendo una de las instituciones más respetadas de
+<a href="Valtoria.html">Valtoria</a>, encarnando la fusión entre
+tradición enana y el indómito espíritu de las alturas. Sus sombras sobre
+los picos mantienen vigente el legado inscrito en el monumento de su
+guarida principal: <em>“Donde otros ven cielo, nosotros dibujamos
+fronteras.”</em></p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Forjador.html">Forjador</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.66)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

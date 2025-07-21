@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dorathil</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Dorathil</div>
+        <div class="content">
+<h1 id="dorathil">Dorathil</h1>
+<p>Suspendida en las Cumbres del Firmamento, donde el aire es fino y
+frío, Dorathil es una ciudad que parece tallada en la propia noche. Es
+un monumento a la precisión cósmica, una espiral galáctica de mármol
+blanco y piedra lunar que se enrosca hacia un pináculo central. No hay
+estruendo ni caos; solo el silencio solemne de la contemplación y el
+tintineo de campanas de cristal que imitan los vientos astrales. Sus
+torres esbeltas se alzan como dedos hacia el cielo, coronadas por
+cúpulas de cristal que se abren para beber la luz de las estrellas. Los
+puentes que conectan sus distritos no son de piedra, sino de luz
+solidificada, arcos iridiscentes que brillan contra el terciopelo del
+cielo. Aquí, la vida se rige por la paciencia y el estudio del destino,
+una sociedad formal y contemplativa donde una demostración pública de
+emoción es la mayor de las vulgaridades.</p>
+<h2 id="historia">Historia</h2>
+<p>Dorathil no nació de la rebelión, sino de la obsesión. Tras el
+Cataclismo del <a href="Lilium.html">Lilium</a>, mientras la mayoría de
+los elfos se afanaban en reconstruir sus glorias pasadas, un <a
+href="Noble.html">Noble</a> Alto Elfo llamado Lyraenus el Contemplador
+se sintió atraído por el orden inmutable de las estrellas. Convencido de
+que la respuesta a la catástrofe y el camino hacia el futuro estaban
+escritos en el firmamento, guio a su casa a las cumbres más altas del
+reino.</p>
+<p>Allí fundaron Dorathil, no como una fortaleza, sino como un
+instrumento. La ciudad entera fue diseñada como un gran observatorio, un
+lugar para estudiar los ciclos cósmicos y desentrañar los hilos del
+destino. Con el tiempo, atrajo a los <a href="Eladrin.html">Eladrin</a>,
+cuya naturaleza feérica resuena con los ciclos y las estaciones, y a los
+Shadar-Kai, custodios de las sombras y los secretos que se ocultan entre
+la luz. Aunque el talento para la adivinación otorga un gran estatus
+social, Dorathil nunca ha desafiado a la Mano de Hierro. Sigue siendo
+una pieza leal, aunque distante y enigmática, del engranaje del reino de
+<a href="Eldrador.html">Eldrador</a>, proveyendo profecías y
+conocimientos que la corona utiliza para mantener su poder.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Pináculo del Augurio</strong>: El centro de la espiral
+y el corazón del poder de la ciudad. Aquí se encuentran los
+observatorios principales, gobernados por la nobleza de los Altos Elfos.
+Sus cúpulas retráctiles se abren cada noche en un ritual silencioso, y
+sus lentes arcanos pueden enfocar la luz de una sola estrella
+lejana.</p></li>
+<li><p><strong>La Espiral Silenciosa</strong>: El distrito residencial
+que serpentea alrededor del pináculo. Aquí viven los <a
+href="Eladrin.html">Eladrin</a> en viviendas elegantes cuyas paredes de
+piedra lunar brillan suavemente. Los jardines no tienen flores de
+colores vivos, sino flora bioluminiscente que recrea constelaciones en
+el suelo, cambiando con las estaciones.</p></li>
+<li><p><strong>Los Archivos de la Penumbra</strong>: Un distrito
+subterráneo, excavado directamente bajo la ciudad, donde la luz estelar
+nunca llega. Es el dominio de los Shadar-Kai. Aquí custodian los
+registros de profecías fallidas, destinos rotos y las verdades incómodas
+que la ciudad prefiere no mirar. Se dice que sus bibliotecas contienen
+las sombras de los libros, no los libros mismos.</p></li>
+<li><p><strong>Los Puentes de Luz</strong>: Una red de pasarelas hechas
+de magia arcana solidificada que conectan las diferentes alturas de la
+ciudad. Cruzarlos es como caminar sobre un arcoíris congelado, y se dice
+que su color cambia según el humor de las estrellas.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Dorathil es un ritual constante. El día comienza y termina
+con la <strong>Vigilia Silenciosa</strong>, un período de meditación
+colectiva donde la ciudad entera se detiene para observar el amanecer o
+el anochecer. El saludo tradicional no es verbal; consiste en trazar en
+el aire la constelación bajo la cual nació la otra persona, un gesto de
+reconocimiento de su destino.</p>
+<p>La mayor celebración es el <strong>Festival de las Estrellas
+Fugaces</strong>, una noche en la que la formalidad se relaja
+ligeramente. Los <a href="Eladrin.html">Eladrin</a> danzan en los
+jardines y liberan deseos escritos en hojas de sicomoro encantadas, que
+se elevan y arden al tocar la atmósfera. Cuando un joven alcanza la
+mayoría de edad, no recibe una herencia material, sino una
+<strong>Lectura de los Hilos</strong>, una ceremonia privada donde los
+videntes más poderosos interpretan su carta astral para guiar su camino
+en la vida.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Dorathil es etérea y funcional. Cada edificio es a
+la vez una obra de arte celestial y una herramienta de observación. Las
+estructuras de mármol blanco están pulidas hasta reflejar el cielo, y la
+piedra lunar absorbe la luz estelar durante la noche para emitir un
+suave resplandor. El ambiente es de una calma casi opresiva. No hay
+mercados bulliciosos ni risas en las calles. El único sonido es el
+viento, las campanas de cristal y el murmullo de los <a
+href="Conjuros.html">Conjuros</a> de adivinación que se tejen
+constantemente en las torres.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Eco del Devorador de Estrellas</strong>: Los
+astrónomos susurran sobre una mancha en el cielo nocturno, un vacío
+absoluto donde ninguna estrella brilla. No es una nebulosa, sino el eco
+de una antigua criatura del vacío que se alimentaba de futuros. La
+leyenda advierte que mirar fijamente a este vacío durante demasiado
+tiempo roba el destino de una persona, dejándola como una cáscara vacía
+sin propósito.</p></li>
+<li><p><strong>La Constelación Llorosa</strong>: Se dice que una vez por
+siglo, una nueva constelación aparece en el cielo durante una sola
+noche. Sus estrellas fugaces no son de fuego, sino lágrimas de cristal
+que se materializan al caer. Quien consiga una de estas lágrimas
+recibirá una visión clara y detallada de una gran tragedia futura, un
+conocimiento que es tanto un don como una maldición.</p></li>
+<li><p><strong>El Observatorio Secreto</strong>: Se rumorea que los
+Shadar-Kai mantienen un observatorio oculto en los Archivos de la
+Penumbra. En lugar de observar las estrellas, este instrumento permite
+espiar los secretos del mundo observando las sombras que se proyectan
+entre ellas. Se dice que desde allí se puede ver una traición antes de
+que ocurra, una mentira antes de ser pronunciada o un asesinato en el
+reflejo de la oscuridad.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

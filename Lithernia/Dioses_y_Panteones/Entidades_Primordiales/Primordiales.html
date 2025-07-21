@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primordiales</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Primordiales</div>
+        <div class="content">
+<h1 id="primordiales">Primordiales</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los albores de la existencia, cuando solo reinaba el Vacío
+infinito y sin forma, surgió una conciencia primigenia conocida como la
+<strong>Voluntad Original</strong>. De esta fuerza insondable nacieron
+los Primordiales, las primeras y más poderosas entidades del cosmos. No
+eran dioses en el sentido que se entiende hoy, sino fuerzas de la
+creación pura, arquitectos cósmicos cuyo propósito era dar forma a la
+nada.</p>
+<p>Durante la era atemporal del <strong>Amanecer Divino</strong>, los
+Primordiales actuaron como los soñadores del universo. Sus pensamientos
+colosales y sus sueños titánicos se manifestaron como los pilares de la
+realidad. Con sus ideas nacieron los conceptos fundamentales que
+regirían toda la existencia: de un pensamiento surgió el <strong>Fuego
+Primordial</strong>, una llama capaz de forjar y destruir mundos; de
+otro, la <strong>Sombra Original</strong>, una oscuridad de la que
+nacerían los secretos y el misterio.</p>
+<p>Su obra magna fue la separación de los planos de existencia. De su
+creación caótica, emergieron el Plano Material, el etéreo Plano Astral y
+el enigmático Plano de las Sombras, junto a otros dominios arcanos,
+estableciendo los cimientos para la vida y los espíritus que los
+poblarían. En este tiempo de creación, las fuerzas cósmicas chocaban y
+se entrelazaban bajo su guía: mares de luz, montañas vivientes y vientos
+conscientes poblaron el tejido del universo.</p>
+<p>De esta misma génesis, y como una consecuencia natural de su obra,
+surgieron los primeros <strong>dioses mayores</strong>: <a
+href="Thirogrim.html">Thirogrim</a>, <a href="Ferion.html">Ferion</a>,
+<a href="Arzia.html">Arzia</a>, y el resto de las deidades que más tarde
+formarían los panteones, nacieron como expresiones más definidas y
+personificadas del poder que los Primordiales habían desatado. Tras el
+Amanecer Divino, durante la <strong>Forja del Mundo</strong>, los
+Primordiales continuaron su labor junto a estos nuevos dioses,
+utilizando el Fuego y la Sombra para modelar el continente de Lithernia,
+encender las estrellas y dar forma a los primeros <a
+href="Dragones.html">Dragones</a> ancestrales. Su existencia es anterior
+a toda guerra, ambición o conflicto conocido; su única motivación fue el
+acto puro de la creación.</p>
+<h2 id="descripción-física-y-poderes">Descripción Física y Poderes</h2>
+<p>Los Primordiales carecen de una forma física definida. Son entidades
+conceptuales cuya manifestación es la propia realidad. No pueden ser
+vistos como un mortal vería a un dios o a un dragón; son el lienzo sobre
+el que se pintó el universo. Su “apariencia” es el brillo de una
+estrella distante, la profundidad de una sombra impenetrable, el calor
+de un volcán y la estructura invisible del <strong>Tejido del
+Maná</strong>.</p>
+<p>Su poder es absoluto y fundacional. No lanzan <a
+href="Conjuros.html">Conjuros</a>, sino que <em>son</em> la fuente de la
+magia. Sus habilidades incluyen:</p>
+<ul>
+<li><strong>Creación de Realidad:</strong> La capacidad de transformar
+el pensamiento puro en materia, energía y leyes físicas.</li>
+<li><strong>Génesis Conceptual:</strong> El poder de dar a luz a
+conceptos abstractos y universales como el fuego, la sombra, la vida y
+la muerte, que luego serían gobernados por los dioses.</li>
+<li><strong>Forja Planar:</strong> La habilidad de tejer y separar los
+planos de existencia, creando dimensiones enteras con sus propias reglas
+y habitantes.</li>
+</ul>
+<p>No tienen enemigos en el sentido mortal, pues su única fuerza opuesta
+fue el Vacío que conquistaron. Son fuerzas de la naturaleza cósmica,
+ajenos a las intrigas de sus creaciones.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e impacto en
+Lithernia</h2>
+<p>El legado de los Primordiales <em>es</em> Lithernia. Cada elemento
+del mundo, desde la roca más humilde hasta el dios más poderoso, es una
+consecuencia directa de su obra creadora. Son la causa primera de todo
+lo que existe, y su impacto es tan fundamental que a menudo pasa
+desapercibido, asumido como la naturaleza misma de las cosas.</p>
+<ul>
+<li><strong>Fuente de Todo Poder:</strong> El <strong>Fuego
+Primordial</strong> que crearon es la fuente última de toda llama,
+incluida la del <strong><a href="Lilium.html">Lilium</a></strong>, <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+que casi destruyó el mundo. El cataclismo del <a
+href="Lilium.html">Lilium</a> puede interpretarse como una manifestación
+corrupta o descontrolada de uno de sus dones más puros y peligrosos. De
+igual manera, la <strong>Sombra Original</strong> es el pozo del que
+beben dioses como <a href="Morgal.html">Morgal</a> y las magias más
+oscuras del panteón Korogrim.</li>
+<li><strong>La Matriz de la Magia:</strong> El Tejido del Maná, que
+conecta a todos los seres vivos, es una reliquia de su proceso creativo,
+el eco de sus sueños resonando a través de la realidad. Cada <a
+href="Mago.html">Mago</a> que tira de sus hilos está, en esencia,
+tocando la obra de los Primordiales.</li>
+<li><strong>Los Progenitores Divinos:</strong> Al dar origen a los
+primeros dioses, establecieron la jerarquía cósmica. Los conflictos y
+alianzas de los panteones actuales son meramente el drama de la “segunda
+generación” de poder en el universo. La rebelión del Primer Rey contra
+los dioses fue, en una escala mayor, una rebelión de la creación contra
+los creados, un eco lejano del orden establecido por los
+Primordiales.</li>
+</ul>
+<p>Aunque no son adorados ni recordados por la mayoría de los mortales,
+los eruditos más sabios y las criaturas más antiguas saben que el
+equilibrio de Lithernia depende de las leyes que ellos establecieron.
+Son el fundamento silencioso y eterno sobre el que se asienta toda la
+historia, presente y futura del mundo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.45)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agujas_de_Sombra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Agujas_de_Sombra</div>
+        <div class="content">
+<h1 id="agujas-de-sombra">Agujas de sombra</h1>
+<h3 id="perfil-del-conjuro">Perfil del Conjuro</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel</strong></td>
+<td style="text-align: left;">Truco (Nigromancia)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Ataque</strong></td>
+<td style="text-align: left;">Ataque de conjuro a distancia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto Principal</strong></td>
+<td style="text-align: left;">Daño necrótico, Bloqueo de curación</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coste de Maná</strong></td>
+<td style="text-align: left;">0 Puntos de Maná</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong></td>
+<td style="text-align: left;">1 × Dado de Maná de la clase</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Progresión</strong></td>
+<td style="text-align: left;">El daño aumenta con el nivel del
+personaje</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Clases Principales</strong></td>
+<td style="text-align: left;"><a href="Brujo.html">Brujo</a>, <a
+href="Mago.html">Mago</a>, <a href="Nigromante.html">Nigromante</a>, El
+Blasfemo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-características">Tabla de Características</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Escuela</strong></td>
+<td style="text-align: left;">Nigromancia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tiempo de
+Lanzamiento</strong></td>
+<td style="text-align: left;">1 acción</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alcance</strong></td>
+<td style="text-align: left;">60 pies</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">V, S</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Duración</strong></td>
+<td style="text-align: left;">Instantáneo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-efectos">Tabla de Efectos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Condición</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Lanzamiento</strong></td>
+<td style="text-align: left;">Realizas un ataque de conjuro a distancia
+contra una criatura dentro del alcance.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Impacto</strong></td>
+<td style="text-align: left;">El objetivo recibe daño necrótico, según
+la tabla de progresión.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto Secundario</strong></td>
+<td style="text-align: left;">Una criatura impactada por este conjuro no
+puede recuperar puntos de golpe hasta el comienzo de tu próximo
+turno.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-progresión-de-daño">Tabla de Progresión de Daño</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Personaje</th>
+<th style="text-align: center;">Daño de Impacto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1 - 4</td>
+<td style="text-align: center;">1d6</td>
+</tr>
+<tr>
+<td style="text-align: center;">5 - 10</td>
+<td style="text-align: center;">2d6</td>
+</tr>
+<tr>
+<td style="text-align: center;">11 - 16</td>
+<td style="text-align: center;">3d6</td>
+</tr>
+<tr>
+<td style="text-align: center;">17+</td>
+<td style="text-align: center;">4d6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="disponibilidad-del-conjuro">Disponibilidad del Conjuro</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Fuente</th>
+<th style="text-align: left;">Clases / Arquetipos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Listas de <a
+href="Conjuros.html">Conjuros</a> de Clase</strong></td>
+<td style="text-align: left;"><a href="Brujo.html">Brujo</a>, <a
+href="Mago.html">Mago</a>, <a href="Nigromante.html">Nigromante</a>, El
+Blasfemo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Acceso por Arquetipo</strong></td>
+<td style="text-align: left;">Pícaro (El culto de la araña abisal) a 3er
+nivel.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vinculación-con-el-lore">Vinculación con el Lore</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Elemento</th>
+<th style="text-align: left;">Asociaciones en Lithernia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Reinos Comunes</strong></td>
+<td style="text-align: left;"><a href="Mor&#39;dhul.html">Mor’dhul</a>
+(muy común), <a href="Eldrador.html">Eldrador</a> (magos oscuros
+secretos)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidades Patronas</strong></td>
+<td style="text-align: left;"><a href="Kromagul.html">Kromagul</a>
+(Dolor), Sel’thirak (Muerte), <a href="Morgal.html">Morgal</a> (Sombras
+y engaño)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Facciones Clave</strong></td>
+<td style="text-align: left;">Clan <a href="Kromagul.html">Kromagul</a>,
+Clan Whisper, El culto de la araña abisal, magos renegados.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="uso-táctico-y-sinergias">Uso Táctico y Sinergias</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Estrategia</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Control de Sanación</strong></td>
+<td style="text-align: left;">Priorizar su uso en enemigos con
+capacidades de regeneración (ej. vampiros del Clan de los Condenados) o
+en objetivos que están siendo sanados por clérigos u otras fuentes. El
+bloqueo de curación asegura que el daño aplicado sea permanente durante
+la ronda.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Asegurar Bajas</strong></td>
+<td style="text-align: left;">Excelente para rematar a un enemigo con
+pocos puntos de golpe. Al impedir que se estabilice con curación, se
+garantiza que el siguiente ataque pueda ser letal.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Presión Psicológica</strong></td>
+<td style="text-align: left;">Contra enemigos inteligentes (<a
+href="Hobgoblins.html">Hobgoblins</a>, nobles <a
+href="Tieflings.html">Tieflings</a>), saber que un objetivo no puede ser
+curado puede forzar al oponente a cambiar de táctica, como una retirada
+forzosa o un gasto de <a href="Recursos.html">Recursos</a>
+defensivos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sinergia con Daño
+Sostenido</strong></td>
+<td style="text-align: left;">Funciona bien con efectos de daño a lo
+largo del tiempo (venenos, quemaduras, maldiciones). El objetivo no
+puede mitigar el daño recurrente con sanaciones mientras el efecto de
+<em>Agujas de sombra</em> esté activo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sinergia de Clases</strong></td>
+<td style="text-align: left;">Un Pícaro (El culto de la araña abisal)
+puede usarlo para preparar a un objetivo para su Ataque Furtivo. Un <a
+href="Brujo.html">Brujo</a> puede combinarlo con <em>Maleficio
+(Hex)</em> para maximizar la presión. Un <a
+href="Nigromante.html">Nigromante</a> lo usa para asegurar que sus
+esbirros no-muertos puedan abrumar a un enemigo sin que este se
+recupere.</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </div>
+</body>
+</html>

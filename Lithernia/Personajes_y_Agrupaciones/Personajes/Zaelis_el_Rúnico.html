@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaelis_el_Rúnico</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Zaelis_el_Rúnico</div>
+        <div class="content">
+<h1 id="zaelis-el-rúnico">Zaelis el Rúnico</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de <a href="Mor&#39;dhul.html">Mor’dhul</a>, el poder
+nace de la sangre, la conquista o la bendición de un dios oscuro.
+Zaelis, sin embargo, encontró el suyo entre el polvo y los ecos de
+mundos olvidados. Hobgoblin de linaje intrascendente, su clan fue una de
+las incontables víctimas colaterales del Cataclismo del <a
+href="Lilium.html">Lilium</a>, borrado de la historia como una nota a
+pie de página en la gran tragedia de Lithernia. Zaelis sobrevivió, no
+por su fuerza, sino por haberse escondido en la cripta de una biblioteca
+en ruinas, aferrado a un único pergamino chamuscado. Esa noche, entre
+cenizas y silencio, comprendió la única verdad que regiría su vida: los
+imperios caen, los dioses traicionan, pero el conocimiento, una vez
+adquirido, es eterno.</p>
+<p>Fue encontrado por Vex el Silente, fundador del Juramento de Ceniza,
+no como un <a href="Guerrero.html">Guerrero</a>, sino como un <a
+href="Erudito.html">Erudito</a> famélico catalogando los fragmentos de
+un pasado aniquilado. Vex vio en los ojos calculadores de Zaelis un arma
+más afilada que cualquier espada y le ofreció un lugar en su nuevo clan,
+una hermandad forjada no en la gloria, sino en la supervivencia
+pragmática. Zaelis abrazó su filosofía con fervor: la lealtad no se
+debía a dioses caprichosos ni a reyes tiranos, sino al clan que te daba
+un propósito.</p>
+<p>Rápidamente, se convirtió en el pilar intelectual del clan. Ascendió
+al puesto de Guardián de Reliquias, un título modesto para el arquitecto
+de la red de inteligencia más sutil de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Desde las bóvedas selladas bajo
+la ciudad-prisión de <a href="Thirawen.html">Thirawen</a>, Zaelis dirige
+expediciones a ruinas de la Era del Primer Rey, descifra <a
+href="Runas.html">Runas</a> que harían enloquecer a otros magos y extrae
+el poder latente de artefactos que el mundo creía perdidos. No busca la
+gloria en batalla como el Clan <a href="Thyrgram.html">Thyrgram</a>, ni
+el éxtasis del dolor como el Clan <a href="Kromagul.html">Kromagul</a>.
+Su dominio se ejerce a través del control de la información, vendiendo
+secretos que derrocan a nobles y verdades que podrían desestabilizar
+reinos.</p>
+<p>Su desdén por los caudillos como Vrak y Ghorak es puramente
+académico; los ve como herramientas contundentes en un juego que
+requiere la precisión de un bisturí. Su verdadera rivalidad es con
+figuras como Lyra de los Nighthawk, cuya red de asesinos y seductores
+considera efectiva pero efímera. “Ella quita una pieza del tablero”,
+musita Zaelis para sí mismo, “yo cambio las reglas del juego”.</p>
+<p>Pero bajo su fría lógica arde una obsesión secreta: la profecía del
+Retorno del Primer Rey. No cree en salvadores ni en destinos escritos.
+Para él, la profecía es la máxima vulnerabilidad del orden actual, un
+arma conceptual esperando a ser empuñada. En su bóveda más profunda,
+guarda un artefacto que cree es la clave: un astrolabio de bronce
+celestial, rescatado de las ruinas del palacio del Primer Rey, cuyas <a
+href="Runas.html">Runas</a> parecen moverse cuando nadie las mira.
+Zaelis no busca liberar al Rey, sino secuestrar su poder. Su objetivo
+final no es servir a un dios ni a un rey, sino volverse tan
+indispensable, tan fundamental a través del conocimiento, que incluso
+Sel’thirak, el Rey-Dios de la Muerte, se vuelva irrelevante.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Zaelis personifica la mente sobre la materia. A diferencia de la
+mayoría de los <a href="Hobgoblins.html">Hobgoblins</a> de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, su complexión es esbelta, casi
+ascética, producto de una vida encorvado sobre textos antiguos en lugar
+de en campos de entrenamiento. Su piel tiene el color de la pizarra
+húmeda, y sus ojos, de un inquietante ámbar, permanecen quietos y
+analíticos, registrando cada detalle con una inteligencia
+depredadora.</p>
+<p>Sus manos son su rasgo más distintivo: dedos largos y ágiles,
+perpetuamente manchados con tintas arcanas y pigmentos de conservación.
+Sobre sus nudillos y antebrazos se entrelazan finos tatuajes rúnicos que
+brillan con una tenue luz violácea cuando canaliza maná o entra en
+comunión con sus reliquias.</p>
+<p>Viste con una elegancia funcional: túnicas de lana oscura y pesada,
+sin más adorno que sutiles bordados de hilo de plata que forman glifos
+protectores. Jamás se le ve sin su cartera de cuero de basilisco, que
+contiene un arsenal de lentes de aumento, estiletes de carbón,
+pergaminos de vitela y delicadas herramientas de precisión para
+manipular artefactos frágiles. Aunque lleva una daga corta y afilada en
+su cinto, es más una herramienta para cortar encuadernaciones que un
+arma. Su verdadera armadura es el conocimiento que custodia, y su arma
+más letal es un secreto susurrado en el momento oportuno.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Zaelis el Rúnico es un fulcro oculto en el gran mecanismo de poder de
+Lithernia. Mientras reyes y generales chocan en batallas que quedarán
+registradas en la historia, él opera desde los silenciosos archivos y
+las tumbas olvidadas, reescribiendo el futuro sin que nadie lo note. Su
+legado no será de estatuas ni de conquistas, sino de revelación y
+control.</p>
+<p>Si tiene éxito, podría ser el artífice de una nueva era: una donde el
+orden divino es desmantelado desde dentro, reemplazado por la fría y
+absoluta lógica del conocimiento arcano. No sería un rey, sino algo más
+peligroso: el primer tirano de la información, un poder detrás de todos
+los tronos. Si fracasa, los volátiles secretos que ha desenterrado
+podrían detonar con la fuerza de un segundo <a
+href="Lilium.html">Lilium</a>, sumiendo al mundo en una nueva edad
+oscura, nacida no del fuego de los dioses, sino del conocimiento
+prohibido de los mortales, desatado sin sabiduría.</p>
+<p>Zaelis es la encarnación última del credo de su clan: <em>De las
+cenizas, renacemos</em>. De las ruinas del viejo mundo, ha cultivado una
+nueva forma de poder: calculador, amoral y absoluto. Y espera
+pacientemente el momento de gobernar con él.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.51)</li>
+<li><a href="Clan%20del%20Juramento%20de%20Ceniza.html">Clan del
+Juramento de Ceniza</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

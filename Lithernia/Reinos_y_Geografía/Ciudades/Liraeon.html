@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liraeon</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Liraeon</div>
+        <div class="content">
+<h1 id="liraeon">Liraeon</h1>
+<p>Conocida como la “Voz del Río”, Liraeon no es una ciudad de guerreros
+ni de nobles pomposos, sino un bastión de creatividad y comercio que
+fluye al ritmo del gran río Iridis. Sus edificios de madera de sauce
+blanco y pulida piedra de río se alzan sobre pilotes a lo largo de las
+riberas, conectados por una intrincada red de puentes de cuerda y madera
+artísticamente tallados. En Liraeon, el sonido del agua se mezcla
+siempre con la música de una flauta o el verso de un <a
+href="Bardo.html">Bardo</a>, pues sus gentes valoran el ingenio y la
+elocuencia por encima del oro. Sus teatros flotantes y sus mercados
+bulliciosos la convierten en el corazón cultural del interior de <a
+href="Galvorn.html">Galvorn</a>, un lugar donde cada historia tiene un
+precio y cada canción puede sellar un destino.</p>
+<h2 id="historia">Historia</h2>
+<p>Liraeon nació de la necesidad y la canción. Tras la devastación del
+<a href="Lilium.html">Lilium</a>, cuando las rutas terrestres eran
+peligrosas, el río Iridis se convirtió en una arteria vital para los
+supervivientes. En una de sus curvas más amplias, un carismático <a
+href="Bardo.html">Bardo</a> y comerciante humano llamado Liron el
+Cuentacuentos fundó una pequeña posta comercial. Liron no solo
+intercambiaba bienes, sino también historias, noticias y canciones,
+convirtiendo su asentamiento en un nudo de información vital.</p>
+<p>Atraídos por la seguridad y el espíritu de comunidad, bardos,
+artesanos y mercaderes de todo <a href="Galvorn.html">Galvorn</a>
+acudieron al lugar. La posta creció hasta convertirse en una ciudad,
+construida en honor a <a href="Quiteon.html">Quiteon</a>, el dios del
+viento errante y la inspiración, cuyos susurros, según Liron, guiaban
+tanto las velas de las barcazas como la pluma de los poetas. Liraeon se
+consolidó como una ciudad donde la palabra es la moneda más fuerte y la
+creatividad es la mayor de las virtudes, un faro de esperanza y cultura
+en el reino marítimo.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Muelle del Cantor</strong>: Es el corazón palpitante
+de Liraeon. Más que un simple puerto, es un mercado fluvial donde las
+barcazas comerciales atracan junto a escenarios flotantes. Aquí, los
+comerciantes pregonan sus mercancías con versos y los bardos compiten
+por la atención del público, contando relatos de tierras lejanas a
+cambio de unas monedas o un pasaje río arriba.</p></li>
+<li><p><strong>El Puente de los Susurros</strong>: El puente más grande
+y antiguo de la ciudad, cuyas vigas están cubiertas por miles de cintas
+de colores. Cada cinta representa una petición o un agradecimiento a <a
+href="Quiteon.html">Quiteon</a>. Es un lugar de encuentro social, donde
+los amantes pasean, los niños juegan y los tratos se cierran con un
+apretón de manos y una promesa susurrada al viento.</p></li>
+<li><p><strong>El Remanso del Sauce</strong>: El principal distrito
+residencial, una tranquila red de casas sobre pilotes construidas a la
+orilla del río. Los jardines flotantes y los pequeños muelles privados
+le dan un aire pacífico, y el sonido del agua meciéndose contra la
+madera es una constante nana para sus habitantes.</p></li>
+<li><p><strong>El Gran Anfiteatro Flotante</strong>: Una maravilla de la
+ingeniería y el arte, esta inmensa plataforma de madera anclada en el
+centro del río es la sede del famoso festival anual de la Canción del
+Viento. Durante el resto del año, alberga las obras de teatro, los
+conciertos y los grandes discursos del Consejo de Gremios.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Liraeon está marcada por la creatividad y la comunidad.
+Los contratos comerciales a menudo se sellan con la composición de una
+canción o un poema que recoge los términos del acuerdo, considerándose
+un acto más honorable que una simple firma. Su mayor celebración es la
+“Regata del Viento Solsticial”, una espectacular carrera de barcazas
+decoradas río abajo, donde la victoria depende tanto de la velocidad
+como de la belleza artística de la embarcación. Es costumbre que los
+viajeros aten una cinta de color a un puente antes de partir, pidiendo a
+<a href="Quiteon.html">Quiteon</a> un viaje seguro e inspiración en su
+camino.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Liraeon es una ciudad en perfecta armonía con su entorno fluvial. Los
+edificios, con sus techos inclinados de tejas color verde musgo, parecen
+nacer del agua y de los sauces que crecen en las orillas. No hay calles
+de adoquines, sino pasarelas de madera y puentes que crujen suavemente
+bajo los pies. El ambiente es vibrante y acogedor; el aire huele a
+madera mojada, a pescado asado y a las flores de los jardines flotantes.
+Banderas con el símbolo de la ciudad —una lira de plata de cuyas cuerdas
+fluye un río azul— ondean en los mástiles de las barcazas, reflejando el
+orgullo de un pueblo que ha hecho del arte una forma de vida.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Lamento del Rey Caído</strong>: Se cuenta que en las
+noches de niebla espesa, una barca silenciosa navega por el Iridis. En
+ella viaja el fantasma de un <a href="Bardo.html">Bardo</a> sin nombre,
+que toca en su laúd una melodía de una tristeza insondable, la misma
+que, según dicen, narra el dolor de la caída del Primer Rey. Quienes
+escuchan la canción son bendecidos con un talento musical inigualable,
+pero quedan marcados para siempre por una melancolía que ni la canción
+más alegre puede borrar.</p></li>
+<li><p><strong>El Guardián del Lecho Fluvial</strong>: Los pescadores
+más viejos susurran historias sobre el “Siluriano de Iridis”, una
+colosal bestia fluvial, mezcla de pez y reptil, que duerme en las fosas
+más profundas del río. La leyenda afirma que la criatura no es maligna,
+sino la guardiana de un tesoro de la era anterior al <a
+href="Lilium.html">Lilium</a>, quizás un artefacto perteneciente al
+mismísimo Liron el Cuentacuentos. Muchos aventureros han intentado
+encontrarlo, pero ninguno ha regresado de las turbias profundidades del
+Iridis.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

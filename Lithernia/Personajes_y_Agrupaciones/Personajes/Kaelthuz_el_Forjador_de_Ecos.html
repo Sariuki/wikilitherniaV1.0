@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelthuz_el_Forjador_de_Ecos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelthuz_el_Forjador_de_Ecos</div>
+        <div class="content">
+<h1 id="kaelthuz-el-forjador-de-ecos">Kael’thuz, el Forjador de
+Ecos</h1>
+<blockquote>
+<p><em>“El <a href="Guerrero.html">Guerrero</a> de <a
+href="Thyrgram.html">Thyrgram</a> grita para infundir miedo. El devoto
+de <a href="Kromagul.html">Kromagul</a> tortura para arrancar gritos.
+Ambos son esclavos del ruido. Mi acero no necesita voz. Su llegada es el
+silencio, y su obra, la paz eterna. Esa es la verdadera
+maestría.”</em></p>
+</blockquote>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en las filas disciplinadas y crueles del Clan <a
+href="Kromagul.html">Kromagul</a>, Kael’thuz fue siempre una anomalía.
+Donde sus hermanos <a href="Hobgoblins.html">Hobgoblins</a> veían el
+dolor como un fin en sí mismo —un tributo sagrado a su dios patrón—,
+Kael’thuz lo percibía como un instrumento burdo e imperfecto. Era un
+artesano de corazón en una cultura de verdugos, un filósofo del acero
+entre brutos. Su fascinación no residía en los gritos de las víctimas,
+sino en la quietud que los precedía y en el silencio absoluto que los
+seguía.</p>
+<p>Esta obsesión lo llevó a cometer la máxima herejía: comenzó a
+experimentar en secreto, buscando no imbuir sus creaciones con la
+esencia del dolor, sino con su antítesis. Intentó forjar el eco de un
+suspiro en una daga, templar una espada en la quietud de la medianoche y
+martillar la esencia del miedo sigiloso en un yelmo. Los ancianos de <a
+href="Kromagul.html">Kromagul</a>, al descubrir sus talleres profanos,
+lo acusaron de debilitar la sagrada pureza del tormento. Para ellos, un
+arma que no celebraba la agonía era una blasfemia.</p>
+<p>Exiliado junto a un puñado de acólitos que compartían su visión,
+Kael’thuz fue condenado a perecer en los desiertos de ceniza de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Pero su destino era otro. Su
+peregrinaje los condujo a las olvidadas Minas de Sombra Susurrante, un
+lugar geológicamente inestable donde el velo que separa el Plano
+Material del Plano de las Sombras es tan fino como una tela de araña.
+Fue allí, en la penumbra perpetua y el silencio opresivo, donde
+Kael’thuz encontró su verdadera fragua. Aprendió a extraer la esencia de
+la sombra misma, a “martillar” el silencio en el metal como si fuera un
+mineral más y a templar sus hojas en la energía entrópica del vacío.</p>
+<p>Así nació el Clan Umbralforge. No se alzaron como una potencia
+militar, pues su número era escaso. Su poder, mucho más sutil y
+profundo, residía en su monopolio. Se convirtieron en los armeros de las
+sombras, los artífices de la muerte silenciosa. Reyes, asesinos, espías
+y generales de todo <a href="Mor&#39;dhul.html">Mor’dhul</a> acuden a <a
+href="Soriel.html">Soriel</a>, su ciudad-forja, no para contratar un
+ejército, sino para adquirir el arma que puede derrocar un imperio sin
+hacer ruido. Kael’thuz comercia con todos, manteniendo una peligrosa
+neutralidad. Sabe que su clan sobrevive no por la fuerza, sino por ser
+indispensable.</p>
+<p>Su ambición actual trasciende la mera supervivencia. Busca
+perfeccionar su arte hasta un nivel metafísico: forjar un “eco del
+alma”, un arma capaz de matar no solo el cuerpo, sino la memoria de su
+portador en el mundo. Para ello, ha tomado bajo su tutela a
+<strong>Ghorak</strong>, un joven y brutal <a
+href="Guerrero.html">Guerrero</a> orco, a quien ve como el lienzo
+perfecto para su obra maestra: un <a href="Heroes.html">Heroes</a> cuya
+leyenda será contada a través de las muertes silenciosas que deja a su
+paso. Su relación con <strong>Lyraxis</strong>, la enigmática
+Shadar-Kai, es una de necesidad mutua. Ella le provee de materiales y
+conocimientos extraídos directamente del Plano de las Sombras, pero
+Kael’thuz nunca olvida que los tratos con los feéricos siempre tienen un
+precio oculto.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>A sus 152 años, Kael’thuz ha sido moldeado tanto por el fuego de la
+forja como por la energía del Plano de las Sombras. Es un hobgoblin de
+una estatura imponente, pero su cuerpo no es el de un bruto, sino el de
+un artesano tenaz. Sus músculos son correosos y definidos, y su piel ha
+adquirido un tono grisáceo pálido, veteado como el granito de su escudo.
+Sus ojos, de un intenso color amatista, rara vez parpadean y parecen
+absorber la luz a su alrededor, reflejando una inteligencia calculadora
+y una paciencia de eras.</p>
+<p>No viste armaduras ostentosas, sino un delantal de cuero de basilisco
+curado, resistente a las llamas y a casi cualquier ácido. Bajo él, lleva
+una cota de mallas de su propia creación, cuyas anillas están forjadas
+para no producir sonido alguno. Sus manos son su rasgo más distintivo:
+grandes, cubiertas de cicatrices y callos, pero sus dedos son largos y
+sorprendentemente diestros, capaces de realizar el más delicado trabajo
+de filigrana o de blandir su martillo con una fuerza devastadora.</p>
+<p>Su herramienta y arma principal es <strong>Silencio</strong>, un
+martillo de forja cuyo cabezal está hecho de una sola pieza de obsidiana
+pulida que parece devorar la luz. Se dice que fue templado en el corazón
+de una sombra y que cada golpe que asesta sobre el yunque no produce
+sonido, sino una onda de quietud palpable. Es el instrumento con el que
+forja los ecos en su acero.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kael’thuz, el <a href="Forjador.html">Forjador</a> de Ecos, es una
+fuerza transformadora en el brutal ecosistema de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Ha desafiado el paradigma de que
+el poder solo reside en la fuerza bruta y la dominación a través del
+miedo explícito. En su lugar, ha introducido un nuevo tipo de terror: la
+certeza de una muerte inevitable, silenciosa e invisible.</p>
+<p>Su clan, Umbralforge, actúa como un eje neutral en las interminables
+guerras entre facciones, lo que le otorga una influencia política
+desproporcionada a su tamaño. Las armas que salen de sus forjas han sido
+responsables de innumerables magnicidios, batallas decantadas por un
+solo golpe sigiloso y la caída de linajes que se creían invulnerables.
+Ha demostrado que el artesano puede ser más poderoso que el general, y
+que la herramienta adecuada en las manos correctas vale más que mil
+soldados.</p>
+<p>Para Lithernia, Kael’thuz representa una faceta diferente de la
+oscuridad. No es la furia caótica de <a
+href="Thyrgram.html">Thyrgram</a> ni el sadismo de <a
+href="Kromagul.html">Kromagul</a>; es la oscuridad fría, inteligente y
+con un propósito del vacío. Su existencia misma es una prueba de que
+incluso en el reino más opresivo, la innovación y la herejía pueden
+florecer para forjar un nuevo tipo de poder, uno que resuena no en
+gritos, sino en el silencio de los que ya no están.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

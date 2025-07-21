@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rynavel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Rynavel</div>
+        <div class="content">
+<h1 id="rynavel">Rynavel</h1>
+<p>Rynavel, la Ciudad Susurrante, es un monumento a la decadencia. Yace
+medio ahogada en las aguas fétidas de los Pantanos del Lamento Sombrío,
+un esqueleto de mármol blanco de una era élfica que el mundo ha
+olvidado. Espiras gráciles, ahora agrietadas y manchadas, emergen de un
+manto de agua estancada y verdín, cubiertas de musgo colgante y las
+cadenas oxidadas de un imperio posterior. Sobre esta belleza profanada,
+sus actuales habitantes han erigido una ciudad parásita: un laberinto de
+pasarelas de madera podrida, toscas fortificaciones de basalto y chozas
+de barro que se aferran a las ruinas como hongos.</p>
+<h2 id="historia">Historia</h2>
+<p>Antes del auge de <a href="Mor&#39;dhul.html">Mor’dhul</a>, Rynavel
+era una joya de la civilización élfica, un centro de estudio de la magia
+del agua y la vida. Su caída fue lenta y agónica. Aislada tras el
+Cataclismo del <a href="Lilium.html">Lilium</a>, la ciudad fue engullida
+gradualmente por el pantano, que se expandió como una plaga, ahogando
+sus jardines y convirtiendo sus canales en ciénagas estancadas. Los
+elfos lucharon, pero la tierra misma parecía decidida a reclamar lo que
+era suyo. Finalmente, la ciudad fue abandonada, y sus habitantes se
+convirtieron en espíritus atrapados, sus lamentos transformados en los
+susurros que dan nombre al pantano.</p>
+<p>Siglos después, tribus de <a href="Goblins.html">Goblins</a> y <a
+href="Orcos.html">Orcos</a> Mirewalker, huyendo de conflictos en otras
+partes de <a href="Mor&#39;dhul.html">Mor’dhul</a>, encontraron las
+ruinas. Se asentaron, adaptándose a una vida anfibia de supervivencia.
+Pero el verdadero poder llegó con el Clan Whisper. Los nigromantes
+hobgoblin no vieron ruinas, sino un recurso: una ciudad entera de almas
+élficas poderosas, listas para ser dominadas. Establecieron el Cónclave
+de los Ecos y, a través de la manipulación de los espíritus, subyugaron
+a los demás habitantes, convirtiendo Rynavel en un feudo de necromancia
+y secretos.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Pasarelas Colgantes</strong>: El corazón palpitante y
+precario de la vida goblin. Es una red caótica de puentes de cuerda y
+tablones de madera podrida que conectan las espiras y edificios que aún
+se mantienen sobre el agua. Aquí se encuentran los mercados
+improvisados, las destartaladas viviendas <a
+href="Goblins.html">Goblins</a> y las tabernas donde se comercia con
+rumores y reliquias oxidadas.</p></li>
+<li><p><strong>El Trono Silente</strong>: La antigua plaza del palacio
+élfico, ahora una isla de mármol inundada en cuyo centro se alza la
+aguja principal, donde el Cónclave de los Ecos tiene sus cámaras. Es una
+zona prohibida para la mayoría, patrullada por espectros élficos atados
+y guardias hobgoblin. El aire aquí es gélido y los susurros son casi
+ensordecedores.</p></li>
+<li><p><strong>El Foso de las Reliquias</strong>: Las secciones más
+profundas y completamente sumergidas de la vieja ciudad. Es aquí donde
+los <a href="Goblins.html">Goblins</a> más valientes (o desesperados)
+practican la “Pesca de Reliquias”, sumergiéndose en la oscuridad
+cenagosa en busca de artefactos élficos, con la esperanza de encontrar
+algo de valor antes de que los encuentre una criatura del pantano o un
+espíritu vengativo.</p></li>
+<li><p><strong>Las Atalayas del Mirewalker</strong>: En los límites de
+la ciudad, los <a href="Orcos.html">Orcos</a> del Clan Mirewalker han
+construido fortificaciones robustas sobre las ruinas de las antiguas
+murallas exteriores. Desde estas atalayas, vigilan las amenazas del
+pantano y controlan las rutas de acceso a Rynavel, actuando como la
+primera y brutal línea de defensa de la ciudad.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Rynavel es una negociación constante con la muerte y la
+superstición. Sus habitantes se desplazan en barcazas de fondo plano,
+remando en silencio por canales anegados para no perturbar a los
+espíritus. Es una costumbre universal dejar ofrendas —dientes, mechones
+de pelo, huesos pequeños— en altares improvisados para apaciguar a los
+“Antiguos Susurrantes”, los espíritus élficos cuya ira puede
+manifestarse como una niebla que ahoga o como manos espectrales que
+tiran de los incautos hacia las profundidades. La moneda más valiosa no
+es el oro, sino los secretos y los artefactos recuperados del Foso de
+las Reliquias, vendidos en un mercado negro que opera en las sombras de
+las pasarelas.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura es una grotesca amalgama. Las elegantes y curvilíneas
+estructuras de mármol y cuarzo, testimonio de la maestría élfica, sirven
+de cimientos para toscas chozas de barro y madera, torres de vigilancia
+de obsidiana y puentes colgantes inestables. Las delicadas <a
+href="Runas.html">Runas</a> élficas que aún se aprecian en las paredes
+han sido desfiguradas con los groseros glifos Korogrim, un insulto
+visual que resume la historia de la ciudad. El ambiente es opresivo,
+cargado con el olor a descomposición del pantano y el zumbido constante
+de los insectos. Un silencio antinatural es a menudo roto por el
+chapoteo de algo bajo el agua o un susurro incorpóreo que parece
+deslizarse directamente en la mente.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Reina Durmiente</strong>: Se susurra que en la cámara
+más profunda de la ciudad, sumergida y sellada con magia antigua, yace
+el trono de la última reina élfica de Rynavel. Dicen que su espíritu, el
+más poderoso de todos, guarda un artefacto capaz de purificar el
+pantano… o de desatar su furia acumulada y ahogar todo <a
+href="Mor&#39;dhul.html">Mor’dhul</a> si se libera
+incorrectamente.</p></li>
+<li><p><strong>La Voz del <a href="Lilium.html">Lilium</a></strong>:
+Algunos sabios y locos afirman que los susurros en la niebla no son de
+los elfos. Creen que son el eco de una entidad antigua atrapada bajo la
+ciudad, una criatura nacida del Cataclismo del <a
+href="Lilium.html">Lilium</a>. Esta entidad no habla con palabras, sino
+con emociones puras, y su lamento constante es lo que enloquece a
+quienes lo escuchan durante demasiado tiempo, alimentando la paranoia y
+la crueldad de la ciudad.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.52)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

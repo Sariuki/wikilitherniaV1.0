@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Velo_Entre_Mundos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Velo_Entre_Mundos</div>
+        <div class="content">
+<h1 id="el-velo-entre-mundos">El velo entre mundos</h1>
+<h3 id="artefacto-fragmento-del-ocaso">Artefacto: Fragmento del
+Ocaso</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Objeto</strong></td>
+<td style="text-align: left;">Artefacto Legendario</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sintonización</strong></td>
+<td style="text-align: left;">Requerida por un lanzador de <a
+href="Conjuros.html">Conjuros</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cargas</strong></td>
+<td style="text-align: left;">El fragmento tiene 1d4 - 1 cargas (mínimo
+1). Recupera 1 carga al amanecer si ha sido bañado en la sangre de una
+criatura extraplanar (aberración, celestial, feérica o infernal) en las
+últimas 24 horas.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Maldición</strong></td>
+<td style="text-align: left;">Mientras estás sintonizado, tienes
+desventaja en las tiradas de salvación contra la locura y los efectos de
+miedo generados por aberraciones o entidades del Vacío Lejano.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mecánica-de-activación">Mecánica de Activación</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Acción</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Acción de
+Lanzamiento</strong></td>
+<td style="text-align: left;">10 minutos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">Sostener el fragmento, trazar un glifo en
+el aire y gastar una carga.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Prueba Requerida</strong></td>
+<td style="text-align: left;">Prueba de Inteligencia (Arcanos) CD
+18.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Éxito en la Prueba</strong></td>
+<td style="text-align: left;">Se abre un desgarro inestable de 10 pies
+de diámetro a un plano aleatorio. Permanece abierto durante 1 minuto.
+Tira en la <strong>Tabla de Destino Planar</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fallo en la Prueba</strong></td>
+<td style="text-align: left;">El fragmento no gasta una carga, pero el
+lanzador debe tirar en la <strong>Tabla de Complicaciones del
+Velo</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-destino-planar-d100">Tabla de Destino Planar
+(d100)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d100</th>
+<th style="text-align: left;">Destino del Desgarro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">01-15</td>
+<td style="text-align: left;"><strong>Plano de las Sombras:</strong>
+Reflejo oscuro de la ubicación actual. La luz brillante se convierte en
+luz tenue. Las criaturas ganan resistencia al daño necrótico y
+vulnerabilidad al daño radiante.</td>
+</tr>
+<tr>
+<td style="text-align: left;">16-25</td>
+<td style="text-align: left;"><strong>El Océano Astral:</strong> Un
+vacío argénteo. Gravedad subjetiva. Se requiere un conjuro como
+<em>Cuerda Astral</em> para sobrevivir.</td>
+</tr>
+<tr>
+<td style="text-align: left;">26-40</td>
+<td style="text-align: left;"><strong>Dominio Feérico:</strong>
+Naturaleza exuberante e impredecible. El tiempo fluye de forma errática
+(el DM tira 1d4: 1=más lento, 2-3=normal, 4=más rápido).</td>
+</tr>
+<tr>
+<td style="text-align: left;">41-55</td>
+<td style="text-align: left;"><strong>Reinos Infernales (Capa
+Aleatoria):</strong> Llanuras de ceniza o laberintos de hueso. Fuerte
+aura de maldad. Las criaturas no malignas tienen desventaja en las
+tiradas de salvación de Carisma.</td>
+</tr>
+<tr>
+<td style="text-align: left;">56-65</td>
+<td style="text-align: left;"><strong>Bolsillo Temporal (Eco del
+Pasado):</strong> Una escena del Cataclismo del <a
+href="Lilium.html">Lilium</a> o la Era del Primer Rey. El área es un
+bucle de 1d6 minutos.</td>
+</tr>
+<tr>
+<td style="text-align: left;">66-75</td>
+<td style="text-align: left;"><strong>Bolsillo Temporal (Eco del
+Futuro):</strong> Una visión de una Lithernia desolada o bajo un nuevo
+tirano. La exposición prolongada puede causar 1 nivel de
+agotamiento.</td>
+</tr>
+<tr>
+<td style="text-align: left;">76-85</td>
+<td style="text-align: left;"><strong>Semipiano de un <a
+href="Mago.html">Mago</a> Olvidado:</strong> Una biblioteca, prisión o
+laboratorio sellado. Puede contener conocimientos arcanos o un guardián
+eterno.</td>
+</tr>
+<tr>
+<td style="text-align: left;">86-95</td>
+<td style="text-align: left;"><strong>El Vacío Lejano
+(Periferia):</strong> Realidad no euclidiana. Cada ronda, una criatura
+debe superar una salvación de Sabiduría CD 15 o sufrir 2d10 de daño
+psíquico y una forma de locura a corto plazo.</td>
+</tr>
+<tr>
+<td style="text-align: left;">96-00</td>
+<td style="text-align: left;"><strong>A discreción del DM:</strong> El
+desgarro conduce a la ubicación de otra de las Lanzas Celestiales, al
+interior de un sueño de una deidad, o a un lugar directamente relevante
+para la trama.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-complicaciones-del-velo-d20">Tabla de Complicaciones
+del Velo (d20)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d20</th>
+<th style="text-align: left;">Complicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1-3</td>
+<td style="text-align: left;"><strong>Retroceso Psíquico:</strong> El
+lanzador sufre 4d10 de daño psíquico.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4-6</td>
+<td style="text-align: left;"><strong>Cicatriz Mágica:</strong> El área
+en un radio de 30 pies se convierte en una <strong>Zona de Velo Roto
+(Inestable)</strong> durante 24 horas.</td>
+</tr>
+<tr>
+<td style="text-align: left;">7-9</td>
+<td style="text-align: left;"><strong>Invocación Parásita:</strong> 1d4
+<strong>Sombras</strong> emergen del suelo y atacan a la criatura viva
+más cercana.</td>
+</tr>
+<tr>
+<td style="text-align: left;">10-12</td>
+<td style="text-align: left;"><strong>Susurros del Vacío:</strong> El
+lanzador debe superar una tirada de salvación de Sabiduría CD 16 o
+sufrirá una forma de locura a largo plazo.</td>
+</tr>
+<tr>
+<td style="text-align: left;">13-15</td>
+<td style="text-align: left;"><strong>Faro Planar:</strong> Una entidad
+poderosa (demonio, archifey, etc.) se percata de la ubicación del
+lanzador y puede enviar agentes o influir en el área.</td>
+</tr>
+<tr>
+<td style="text-align: left;">16-18</td>
+<td style="text-align: left;"><strong>Corrupción Física:</strong> El
+lanzador debe superar una tirada de salvación de Constitución CD 17 o
+una parte de su cuerpo se transforma de forma grotesca (un ojo se vuelve
+un orbe de vacío, la piel se vuelve translúcida, etc.).</td>
+</tr>
+<tr>
+<td style="text-align: left;">19</td>
+<td style="text-align: left;"><strong>Intercambio:</strong> El lanzador
+es teletransportado a un espacio aleatorio en un radio de 1 milla, y una
+criatura hostil de un plano aleatorio (CR igual al nivel del lanzador)
+aparece en su lugar.</td>
+</tr>
+<tr>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;"><strong>Desgarro Permanente:</strong> Un
+portal inestable y permanente se abre en la ubicación. Cada 1d12 horas,
+algo (o alguien) lo cruza.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="zona-de-velo-roto-regla-de-entorno">Zona de Velo Roto (Regla de
+Entorno)</h3>
+<p>En estas áreas, cuando un personaje lanza un conjuro de nivel 1 o
+superior, debe tirar un d20. Con un 1, el conjuro falla y debe tirar en
+la siguiente tabla.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d10</th>
+<th style="text-align: left;">Efecto de Magia Salvaje del Velo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">El conjuro se lanza sobre el propio
+lanzador.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Por 1 minuto, el lanzador emite luz tenue
+en un radio de 10 pies y es incapaz de esconderse.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Aparece un <strong>Mephit de
+Polvo</strong> inofensivo que sigue al lanzador criticando sus
+decisiones durante 1 hora.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">El objetivo del conjuro gana
+vulnerabilidad a un tipo de daño aleatorio hasta el final del próximo
+turno del lanzador.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">El lanzador recupera 1d6 Puntos de Maná o
+un espacio de conjuro de nivel 1.</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Todas las criaturas a 30 pies del lanzador
+(incluido él) deben superar una salvación de Destreza CD 13 o ser
+derribadas.</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">El conjuro crea un fuerte olor a ozono y
+flores marchitas en un radio de 60 pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">El efecto del conjuro se retrasa y ocurre
+al inicio del próximo turno del lanzador.</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">El tipo de daño del conjuro cambia a daño
+de fuerza.</td>
+</tr>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">El conjuro es copiado, como si fuera
+afectado por un <em>Glifo de Custodia</em>, y se activará la próxima vez
+que una criatura entre en el espacio del objetivo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="statblock">Statblock</h3>
+<p>```statblock name: Desgarro Espectral size: Mediano type: aberración
+alignment: caótico neutral ac: 16 (Armadura natural) hp: 93 (11d8 + 44)
+speed: 0 ft., Vuelo 40 ft. (flotar) stats: [6, 20, 18, 14, 12, 16]
+saves: - Dex: +8 - Sab: +4 damage_immunities: Psíquico
+damage_resistances: Contundente, Perforante y Cortante de ataques no
+mágicos. condition_immunities: Agarrado, Apresado, Tumbado, Paralizado
+senses: Visión Verdadera 60 ft., Percepción Pasiva 11 languages:
+Telepatía 120 ft. cr: 7 traits: - name: Existencia Incorpórea desc: “El
+desgarro puede moverse a través de otras criaturas y objetos como si
+fueran terreno difícil. Recibe 5 (1d10) de daño de fuerza si termina su
+turno dentro de un objeto.” - name: Realidad Inestable desc: “Al
+principio de cada uno de sus turnos, el desgarro gana resistencia a un
+tipo de daño aleatorio (tira 1d8: 1.Ácido, 2.Frío, 3.Fuego, 4.Rayo,
+5.Necrótico, 6.Radiante, 7.Trueno, 8.Fuerza) hasta el comienzo de su
+próximo turno.” actions: - name: Multiataque desc: “El desgarro realiza
+dos ataques de Toque Entrópico.” - name: Toque Entrópico desc: “Ataque
+de conjuro cuerpo a cuerpo: +8 a impactar, alcance 5 ft., un objetivo.
+Impacto: 18 (4d8) de daño psíquico.” - name: Desplazamiento Planar
+(Recarga 5-6) desc: “El desgarro se enfoca en una criatura que pueda ver
+a 30 pies. El objetivo debe superar una tirada de salvación de Carisma
+CD 14. Si falla, es desterrado a un semipiano inofensivo y queda
+incapacitado. Al final del próximo turno del desgarro, el objetivo
+reaparece en el espacio que ocupaba o en el espacio desocupado más
+cercano.” reactions: - name: Deshacer Magia desc: “Cuando es objetivo de
+un conjuro de nivel 4 o inferior, el desgarro puede usar su reacción
+para forzar al lanzador a realizar una tirada de su característica de
+lanzamiento de conjuros (CD 14). Si falla, el conjuro se disipa sin
+efecto.”</p>
+        </div>
+    </div>
+</body>
+</html>

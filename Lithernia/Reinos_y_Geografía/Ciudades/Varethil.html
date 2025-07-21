@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varethil</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Varethil</div>
+        <div class="content">
+<h1 id="varethil">Varethil</h1>
+<p>Varethil es el punto donde el océano y el firmamento se encuentran.
+Asentada en la resguardada Bahía de la Luz Estelar, la ciudad es un faro
+de conocimiento y belleza en la costa de <a
+href="Galvorn.html">Galvorn</a>. Sus construcciones de piedra caliza
+blanca y mármol pulido, adornadas con incrustaciones de nácar y conchas
+iridiscentes, brillan bajo el sol del mar. No es una fortaleza de
+murallas imponentes, sino un puerto abierto, protegido por el Arrecife
+Luminoso, una maravilla natural que brilla con vida propia. Por la
+noche, la ciudad se transforma: <a href="Runas.html">Runas</a>
+fosforescentes grabadas en sus calles y edificios cobran vida, imitando
+las constelaciones en un reflejo terrestre del cosmos. Varethil es un
+testimonio de la armonía, un lugar donde el pragmatismo de los marineros
+se entrelaza con la sabiduría mística de los observadores de
+estrellas.</p>
+<h2 id="historia">Historia</h2>
+<p>Varethil fue fundada hace varios siglos, no por conquista, sino por
+un sueño. Su fundador, el semielfo Lianor, el Cartógrafo Celeste, era un
+explorador que había navegado los mares de <a
+href="Galvorn.html">Galvorn</a> y estudiado en los observatorios de <a
+href="Eldrador.html">Eldrador</a>. Angustiado por la eterna Gran Guerra,
+creía que la paz solo se podría encontrar si se entendían las corrientes
+del mar y los caminos de las estrellas como un único mapa del destino.
+Buscó un lugar donde ambos dominios fueran visibles en todo su esplendor
+y lo encontró en la Bahía de la Luz Estelar.</p>
+<p>Allí reunió a un grupo heterogéneo de almas: <a
+href="Semielfos.html">Semielfos</a> que se sentían a caballo entre dos
+mundos, genasi que personificaban el mar y el cielo, <a
+href="Gnomos.html">Gnomos</a> fascinados por la mecánica celestial y <a
+href="Semiorcos.html">Semiorcos</a> que buscaban un propósito más allá
+de la batalla. Juntos, construyeron Varethil, una ciudad dedicada al
+conocimiento compartido y al sincretismo. Su fe combinó la veneración a
+<a href="Yfrit.html">Yfrit</a>, la patrona marítima, y a <a
+href="Arzia.html">Arzia</a>, la diosa élfica de las estrellas, creyendo
+que ambas tejían juntas el destino de los navegantes. La ciudad
+prosperó, convirtiéndose en un refugio para eruditos, astrónomos y
+marineros de todo Lithernia.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Muelle de la Constelación</strong>: El corazón
+comercial de Varethil. Es un puerto extenso donde atracan desde veloces
+balandras semielfas hasta robustos navíos mercantes de <a
+href="Galvorn.html">Galvorn</a>. Los muelles están construidos sobre
+pilotes de roble marino y cada puesto de atraque está marcado con el
+glifo de una constelación. Aquí, el aire huele a sal, a pescado fresco y
+a la tinta de los cartógrafos que venden sus <a
+href="Mapas.html">Mapas</a> celestiales y náuticos.</p></li>
+<li><p><strong>El Observatorio de las Mareas</strong>: El pináculo del
+conocimiento en Varethil. Esta afamada institución es un complejo de
+torres blancas coronadas por cúpulas de cristal encantado. Dentro,
+genios de todas las razas estudian la influencia de los astros en las
+mareas, el clima y la magia. Su biblioteca alberga la colección más
+completa de cartas de navegación y <a href="Mapas.html">Mapas</a>
+estelares de todo el reino.</p></li>
+<li><p><strong>Las Terrazas de Nácar</strong>: El principal distrito
+residencial. Las viviendas están dispuestas en terrazas que descienden
+suavemente hacia la bahía. Los edificios de mármol y caliza blanca están
+adornados con intrincados mosaicos de conchas, y muchos cuentan con
+pequeños observatorios privados y muelles personales donde mecen
+pequeñas embarcaciones.</p></li>
+<li><p><strong>El Arrecife Luminoso</strong>: No es un barrio, sino el
+guardián viviente de la ciudad. Este vasto arrecife de coral
+bioluminiscente protege la bahía de las tormentas y de los monstruos
+marinos. Al anochecer, se ilumina con una luz etérea de tonos azules y
+verdes, un espectáculo que define la identidad de Varethil. Se dice que
+el arrecife responde a la magia de los genasi de agua y a los cantos de
+los sacerdotes de <a href="Yfrit.html">Yfrit</a>.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Varethil es una fusión única. Sus habitantes, conocidos
+como los “Navegantes de Estrellas”, son tan hábiles con un sextante como
+con un telescopio arcano. La vida gira en torno a los ciclos del mar y
+del cielo. Antes de emprender cualquier viaje o empresa importante, es
+costumbre lanzar una flor de loto tallada en cristal al mar, una ofrenda
+tanto para <a href="Yfrit.html">Yfrit</a> como para <a
+href="Arzia.html">Arzia</a>.</p>
+<p>Cada anochecer, los ciudadanos se congregan en los malecones para
+presenciar el “Despertar del Arrecife”, el momento mágico en que el
+coral se ilumina. La festividad más importante es el “Festival de la Luz
+Creciente”, una celebración que coincide con un alineamiento celestial
+clave. Durante el festival, una flota de embarcaciones adornadas con
+farolillos de papel de seda navega por la bahía, formando constelaciones
+flotantes sobre las aguas oscuras, uniendo visualmente el mar y el
+cielo.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Varethil es elegante y funcional. La piedra blanca
+pulida refleja la luz del sol y de las estrellas, mientras que las
+incrustaciones de nácar le dan un brillo iridiscente. Las cúpulas de
+cristal de los observatorios dominan el horizonte. El ambiente es a la
+vez sereno y bullicioso. Se puede escuchar el romper de las olas, el
+canto de las gaviotas y el murmullo de los debates académicos que se
+escapan de las puertas del Observatorio. Por la noche, el suave
+resplandor de las <a href="Runas.html">Runas</a> callejeras y del
+arrecife crea una atmósfera mágica y segura, donde uno puede caminar
+sintiendo la inmensidad del océano bajo sus pies y la del cosmos sobre
+su cabeza.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Espectro del Arrecife</strong>: Se susurra que en las
+noches sin luna, cuando la luz del arrecife es lo único que corta la
+oscuridad, una figura fantasmal camina sobre las aguas. Algunos dicen
+que es el espíritu de una genasi de agua que se sacrificó para despertar
+el poder del arrecife, mientras que otros creen que es un presagio, cuya
+aparición anuncia grandes tormentas o la llegada de un destino
+inevitable.</p></li>
+<li><p><strong>La Perla de los Ecos</strong>: En las cavernas submarinas
+más profundas bajo el Arrecife Luminoso, se dice que yace un artefacto
+de la era pre-<a href="Lilium.html">Lilium</a>: La Perla de los Ecos.
+Esta perla, del tamaño del puño de un gigante, no refleja la luz, sino
+que absorbe los pensamientos y secretos de todos los que navegan sobre
+ella. Los genasi de agua más sensibles afirman que a veces, al
+sumergirse cerca, pueden escuchar los susurros de capitanes perdidos, de
+amores olvidados y de profecías que aún no se han cumplido.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

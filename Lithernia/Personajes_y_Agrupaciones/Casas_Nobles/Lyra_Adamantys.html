@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Adamantys</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Adamantys</div>
+        <div class="content">
+<h1 id="lyra-adamantys">Lyra Adamantys</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En las profundidades de <a href="Valtoria.html">Valtoria</a>, donde
+la piedra canta y los cristales susurran secretos del cosmos, nació
+Lyra, heredera de la Casa Adamantys. Su linaje no fue forjado en el
+fragor de la batalla, sino en el silencio concentrado del taller, bajo
+la luz de las estrellas que se filtraba en la Gran Geoda de <a
+href="Kythlas.html">Kythlas</a>. Descendiente directa de los maestros
+gemólogos que juraron lealtad a <a href="Cirkon.html">Cirkon</a> y <a
+href="Rokael.html">Rokael</a>, Lyra creció rodeada no de acero, sino de
+la belleza inmutable de los cristales. Desde niña, aprendió que el
+verdadero poder de los <a href="Enanos.html">Enanos</a> no residía solo
+en el metal, sino en su capacidad para tallar la luz misma, un arte que
+su casa había perfeccionado durante la Gran Guerra, creando los
+legendarios ‘Corazones de Cristal’ que potenciaron las defensas de todo
+el reino.</p>
+<p>Sin embargo, Lyra nunca fue una tradicionalista. Mientras su padre,
+el severo y respetado Lord Borin Adamantys, le enseñaba las antiguas
+técnicas de tallado rúnico, ella sentía que el conocimiento de su pueblo
+estaba incompleto. Para ella, las prácticas enanas eran precisas y
+poderosas, pero rígidas; una melodía tocada con una sola nota. Su
+ambición, considerada una herejía por el ala conservadora del consejo de
+su Casa, era fusionar la metódica artesanía enana con la fluida y etérea
+magia lumínica de los elfos de <a href="Eldrador.html">Eldrador</a>.
+Soñaba con crear artefactos que no solo canalizaran el poder, sino que
+lo <em>cantaran</em>; gemas que no solo contuvieran la luz, sino que
+danzaran con ella.</p>
+<p>Esta visión la puso en un curso de colisión directo con su padre y
+las tradiciones de su clan. En secreto, inició una peligrosa
+correspondencia con eruditos de la Torre de las Estrellas, incluyendo al
+propio Archimago elfo Thalios Estrella Antigua. A través de misivas
+cifradas y caravanas discretas, intercambiaba muestras de cristal por
+tratados de teoría arcana élfica, un acto que muchos en <a
+href="Kythlas.html">Kythlas</a> considerarían una traición. La tensión
+en el gran salón de la casa es palpable; cada debate con su padre es una
+batalla entre el peso del pasado y la promesa de un futuro incierto.</p>
+<p>A pesar de la oposición, el genio de Lyra es innegable. Su hazaña más
+notable fue la creación de la primera <strong>Lente Estelar</strong>,
+una gema tallada bajo un eclipse que permitía a un <a
+href="Mago.html">Mago</a> canalizar los nuevos <em><a
+href="Conjuros.html">Conjuros</a> Estelares</em> con una claridad sin
+precedentes. Este logro, aunque celebrado en la Torre de las Estrellas,
+solo profundizó la desconfianza en su hogar. Su camino es solitario y
+plagado de peligros: los <strong>Cazadores de Sombras</strong>, que ven
+su investigación como una corrupción de la pureza enana, han intentado
+sabotear sus talleres en más de una ocasión. Mientras tanto, desde <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, los espías del <strong>Clan
+Nighthawk</strong> buscan robar sus secretos, codiciando sus gemas para
+potenciar sus magias de ilusión y oscuridad.</p>
+<p>Lyra se encuentra en una encrucijada. Sabe que el poder latente en la
+fusión de conocimientos podría ser la clave para que <a
+href="Valtoria.html">Valtoria</a> resista las crecientes sombras que se
+ciernen sobre Lithernia. Pero para alcanzar ese futuro, debe desafiar
+todo lo que su pueblo valora: la tradición, el aislamiento y un orgullo
+forjado en la roca.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra posee la complexión robusta y la baja estatura de su estirpe
+enana, pero se mueve con una gracia y precisión más propias de un <a
+href="Erudito.html">Erudito</a> que de un <a
+href="Guerrero.html">Guerrero</a>. Su cabello, de un negro tan profundo
+como la obsidiana, está recogido en complejas trenzas entrelazadas con
+finos hilos de mithril y pequeños cristales que capturan la luz,
+brillando suavemente en la penumbra. Sus manos, aunque fuertes y
+encallecidas por el trabajo, son sorprendentemente ágiles, capaces de
+realizar los cortes más delicados. Sus ojos, de un intenso color
+topacio, parecen contener el brillo facetado de las gemas que tanto ama,
+revelando una inteligencia aguda y una determinación inquebrantable.</p>
+<p>Viste túnicas de artesana de lana gris oscuro de alta calidad,
+reforzadas con cuero tratado y adornadas con bordados geométricos que
+imitan las facetas de un diamante. No lleva armadura pesada, prefiriendo
+la movilidad, aunque una cota de malla de mithril finamente elaborada
+yace oculta bajo sus ropas.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Martillo de
+Gemólogo de Adamantita:</strong> Un martillo de guerra ligero,
+perfectamente equilibrado, que sirve tanto de herramienta de precisión
+como de arma de último recurso. Su cabeza está grabada con <a
+href="Runas.html">Runas</a> de <a href="Cirkon.html">Cirkon</a> que le
+permiten sentir las fisuras en la roca y el cristal. * <strong>Lupa de
+Arcanista:</strong> Una lupa de joyero con lentes de cristal de zafiro
+encantadas, que le permiten ver no solo los defectos físicos de una
+gema, sino también las corrientes de maná que fluyen en su interior. *
+<strong>Juego de Cinceles de Mithril:</strong> Un conjunto de
+herramientas exquisitamente finas, esenciales para el tallado arcano de
+alta precisión. * <strong>Amuleto de Luz Pura:</strong> Un colgante que
+ella misma creó, con un pequeño diamante en su centro. Al canalizar una
+pequeña cantidad de maná, el amuleto emite una luz pura y constante que
+repele a las criaturas de las sombras y puede cegar momentáneamente a
+quienes tienen intenciones oscuras. Es su talismán personal y el símbolo
+de su filosofía.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lyra Adamantys se alza como un fulcro en la balanza del poder de
+Lithernia. Su éxito o fracaso no solo determinará el futuro de su Casa,
+sino que podría cambiar el paradigma de la magia en todo el continente.
+Si logra perfeccionar su arte sincrético, los artefactos resultantes
+podrían proporcionar a las fuerzas de la luz una ventaja decisiva contra
+el poder creciente de <a href="Mor&#39;dhul.html">Mor’dhul</a> y las
+amenazas que susurran las antiguas profecías. Podría forjar un puente de
+entendimiento entre las culturas enana y élfica, dos pueblos cuya
+cooperación podría ser la única esperanza de Lithernia.</p>
+<p>Sin embargo, su camino está lleno de abismos. Un fracaso podría no
+solo costarle la vida, sino provocar un cisma en <a
+href="Valtoria.html">Valtoria</a>, enfrentando a los tradicionalistas
+con los progresistas. La creación de un poder tan nuevo y formidable
+podría, en manos equivocadas, convertirse en un arma de destrucción
+terrible, atrayendo la codicia de dioses y mortales por igual.</p>
+<p>El legado de Lyra Adamantys aún está por escribirse, tallado en la
+presión de la tradición y el brillo de la innovación. Es la
+personificación del lema de su casa: una luz de esperanza que lucha por
+persistir y brillar con más fuerza en la inminente oscuridad. Su
+elección entre el deber a su linaje y su visión para el mundo podría ser
+lo que incline la balanza del destino de Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

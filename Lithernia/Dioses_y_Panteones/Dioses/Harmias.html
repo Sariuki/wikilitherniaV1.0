@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmias</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Harmias</div>
+        <div class="content">
+<h1 id="harmias">Harmias</h1>
+<p>Harmias, la Radiante, es la diosa humana del Sol, la Luz, la Verdad y
+la Vitalidad. Como tercera hija de la poderosa <a
+href="Yfrit.html">Yfrit</a>, <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a>, Harmias
+representa una de las fuerzas más fundamentales y benévolas del panteón
+de <a href="Galvorn.html">Galvorn</a>. En un mundo a menudo oscurecido
+por las cicatrices del <a href="Lilium.html">Lilium</a> y las sombras de
+Mor’dhul, su luz es un faro de esperanza, crecimiento y rectitud
+inquebrantable.</p>
+<h3 id="biografía-y-genealogía">Biografía y Genealogía</h3>
+<p>Nacida del linaje divino de <a href="Galvorn.html">Galvorn</a>,
+Harmias es una figura singular dentro de su propia familia. Mientras su
+madre <a href="Yfrit.html">Yfrit</a> personifica la vastedad y la furia
+del océano, y sus hermanos <a href="Exion.html">Exion</a> y <a
+href="Quiteon.html">Quiteon</a> encarnan la tempestad y el viento,
+Harmias surgió como una antítesis serena: la personificación del sol que
+calma las aguas y nutre la tierra. Es la tercera descendiente de <a
+href="Yfrit.html">Yfrit</a>, más joven que el paciente <a
+href="Taladrios.html">Taladrios</a>, dios del tiempo, y el impetuoso <a
+href="Exion.html">Exion</a>.</p>
+<p>Su nacimiento marcó el fin de la penumbra que siguió al Cataclismo
+del <a href="Lilium.html">Lilium</a>. Las <a
+href="Leyendas.html">Leyendas</a> humanas cuentan que, cuando <a
+href="Yfrit.html">Yfrit</a> lloraba por el mundo devastado, sus lágrimas
+se mezclaron con el primer rayo de sol que logró atravesar las nubes de
+ceniza, y de esa unión nació Harmias. Su primera acción fue bañar las
+tierras fértiles de <a href="Galvorn.html">Galvorn</a> con su luz,
+permitiendo que la vida volviera a florecer y dando a la humanidad una
+razón para reconstruir.</p>
+<p>Desde entonces, su rol ha sido vital para el equilibrio del reino. No
+solo garantiza el ciclo de los días y las estaciones junto a su hermano
+<a href="Taladrios.html">Taladrios</a>, sino que su dominio sobre la
+verdad la convierte en la conciencia moral de su panteón.</p>
+<h3 id="dominios-motivaciones-y-personalidad">Dominios, Motivaciones y
+Personalidad</h3>
+<p>Harmias es una deidad de dualidad benevolente: su luz es tanto física
+como metafórica.</p>
+<ul>
+<li><strong>Sol y Vitalidad:</strong> Como diosa del sol, es la fuente
+de calor y energía que sustenta la vida. Es patrona de la agricultura,
+las cosechas y el crecimiento. Los agricultores de Puebleda y las
+llanuras interiores de <a href="Galvorn.html">Galvorn</a> la veneran por
+encima de todos los demás dioses, pues de su favor dependen sus medios
+de vida. Su personalidad refleja este aspecto: es cálida, generosa y
+fomenta la prosperidad y la comunidad.</li>
+<li><strong>Luz y Verdad:</strong> Su dominio más profundo es el de la
+verdad. La luz de Harmias es aquella que disipa las sombras de la
+ignorancia, la mentira y la corrupción. Para ella, un engaño es una
+oscuridad tan perniciosa como la noche más profunda. Esta convicción la
+convierte en una diosa inflexible y directa, que valora la honestidad,
+la justicia y la claridad por encima de todo. Su principal motivación es
+ver un Lithernia libre de los engaños y las manipulaciones de dioses y
+mortales que perpetúan la Gran Guerra.</li>
+</ul>
+<p>Aborrece la oscuridad del panteón Korogrim, viendo en Sel’thirak no
+solo al dios de la muerte, sino al señor de los secretos y las verdades
+ocultas que envenenan el mundo. Su enemistad con él es absoluta y
+fundamental.</p>
+<h3 id="descripción-física-y-representación">Descripción Física y
+Representación</h3>
+<p>Cuando se manifiesta ante los mortales, Harmias aparece como una
+majestuosa mujer humana de belleza serena y radiante. Su cabello es de
+oro líquido y parece flotar como si fueran rayos solares, y sus ojos
+brillan con la intensidad del sol de mediodía. Viste túnicas de un
+blanco inmaculado, tejidas con hilos de luz pura, y a menudo se la
+representa descalza, para sentir el crecimiento de la tierra que
+nutre.</p>
+<p>No porta armas, pues su propia presencia es un arma contra la
+oscuridad. Su símbolo sagrado es un sol estilizado con un ojo abierto en
+el centro, representando la luz que todo lo ve y la verdad que
+revela.</p>
+<h3 id="adoración-y-seguidores">Adoración y Seguidores</h3>
+<p>El culto a Harmias está extendido por todo <a
+href="Galvorn.html">Galvorn</a> y más allá, especialmente entre
+agricultores, sanadores, jueces y todos aquellos que buscan la
+justicia.</p>
+<ul>
+<li><strong>Templos y Santuarios:</strong> Sus templos suelen ser
+estructuras abiertas, circulares y con grandes cúpulas acristaladas para
+permitir la entrada de la luz solar a todas horas. Se construyen en
+lugares elevados y sus altares suelen ser de piedra blanca pulida. El
+Gran Templo del Sol en Puebleda es su principal centro de culto, famoso
+por sus festivales de la cosecha.</li>
+<li><strong>Clérigos y Paladines:</strong> Sus clérigos (Dominios de la
+Luz y la Vida) son conocidos como los “Iluminados”, y actúan como guías
+espirituales, sanadores y consejeros. Sus paladines, la “Orden de la
+Lanza Solar”, son <a href="Heroes.html">Heroes</a> de la justicia que
+juran lealtad a la verdad. Son famosos cazadores de no-muertos, <a
+href="Demonios.html">Demonios</a> y cultistas de Mor’dhul, y se les
+encomienda a menudo la tarea de desenmascarar conspiraciones y traer la
+luz a los rincones más oscuros de la sociedad.</li>
+<li><strong>Rituales:</strong> Sus fieles celebran el alba con oraciones
+de gratitud y realizan sus juramentos más sagrados al mediodía, cuando
+el sol está en su cénit. Los solsticios y equinoccios son sus
+festividades más importantes, marcando el ciclo eterno de la vida que
+ella gobierna.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Harmias es más que una simple diosa del sol; es el ancla moral del
+panteón humano y una de las principales fuerzas del bien en Lithernia.
+En un mundo definido por la guerra y las ambiciones divinas, ella
+representa la posibilidad de un futuro basado en la honestidad, la
+cooperación y la prosperidad compartida.</p>
+<p>Su existencia proporciona una poderosa narrativa de oposición a las
+fuerzas de Mor’dhul, inspirando a generaciones de héroes a luchar contra
+la tiranía y la oscuridad. Frente a la profecía del Retorno del Primer
+Rey, sus seguidores se muestran cautelosos: anhelan la paz prometida,
+pero temen que la “purga” sea una forma de violencia y no de verdad.
+Antes de apoyar o rechazar al <a href="Heroes.html">Heroes</a>,
+buscarían la verdad inmutable detrás de las palabras de la profecía.</p>
+<p>En la Era Crepuscular, mientras las sombras se alargan y antiguas
+amenazas resurgen, la luz de Harmias es el recordatorio constante de que
+incluso después de la noche más oscura, el amanecer siempre llega.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mor'dhul_Facciones</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Mor'dhul_Facciones</div>
+        <div class="content">
+<h1 id="mordhul-facciones">Mordhul facciones</h1>
+<p><a href="Mor&#39;dhul.html">Mor’dhul</a>, el Reino de la Muerte, es
+una tierra oscura y brutal, donde las fuerzas más implacables y astutas
+compiten en un juego constante de poder y supervivencia. La estructura
+social y política de <a href="Mor&#39;dhul.html">Mor’dhul</a> gira en
+torno a los clanes y facciones, que articulan las alianzas, intrigas y
+conflictos que definen esta región de Lithernia.</p>
+<h2 id="clanes-reales">Clanes Reales</h2>
+<p>Los clanes reales son los centros de poder más fuertes del reino y
+mantienen la autoridad bajo el mando del Rey-Dios Sel’thirak, líder del
+panteón Korogrim.</p>
+<h3 id="clan-selthirak">Clan Sel’thirak</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Tieflings.html">Tieflings</a><br />
+</li>
+<li><strong>Deidad patrona:</strong> Sel’thirak, Dios de la Muerte<br />
+</li>
+<li><strong>Descripción:</strong> Gobernante supremo del reino, este
+clan es arrogante, cruel y enormemente ambicioso. Sus miembros
+acostumbran a portar ropas oscuras adornadas con huesos, realizando
+rituales sangrientos en honor a la muerte.<br />
+</li>
+<li><strong>Objetivos:</strong> Consolidar y expandir el control
+absoluto sobre <a href="Mor&#39;dhul.html">Mor’dhul</a>, usando la
+muerte como instrumento de poder y símbolo de autoridad.</li>
+</ul>
+<h3 id="clan-thyrgram">Clan Thyrgram</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Orcos.html">Orcos</a><br />
+</li>
+<li><strong>Deidad patrona:</strong> <a
+href="Thyrgram.html">Thyrgram</a>, Dios de la Guerra<br />
+</li>
+<li><strong>Descripción:</strong> Feroz y honorable, este clan vive para
+la batalla y la conquista. Sus guerreros están entrenados para el
+combate despiadado bajo un estricto código de lealtad y valentía.<br />
+</li>
+<li><strong>Objetivos:</strong> Expandir las fronteras de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> a través de la fuerza militar y
+establecer un imperio orco dominado por el valor y la fuerza bruta.</li>
+</ul>
+<h2 id="clanes-nobles">Clanes Nobles</h2>
+<p>Estos clanes poseen privilegios y poder, pero están subordinados al
+rey. Se identifican por su relación con dioses menores del panteón
+Korogrim.</p>
+<h3 id="clan-lakros">Clan Lakros</h3>
+<ul>
+<li><strong>Raza:</strong> Semiogros<br />
+</li>
+<li><strong>Deidad patrona:</strong> <a href="Lakros.html">Lakros</a>,
+Dios de la Sangre<br />
+</li>
+<li><strong>Descripción:</strong> Clan brutal que exalta la fuerza y la
+crueldad, sus miembros disfrutan de la sangre derramada y los
+sacrificios sangrientos.<br />
+</li>
+<li><strong>Objetivos:</strong> Extender su dominio por medio de la
+violencia y convertirse en una fuerza dominante en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</li>
+</ul>
+<h3 id="clan-kromagul">Clan Kromagul</h3>
+<ul>
+<li><strong>Raza:</strong> <a
+href="Hobgoblins.html">Hobgoblins</a><br />
+</li>
+<li><strong>Deidad patrona:</strong> <a
+href="Kromagul.html">Kromagul</a>, Dios del Dolor<br />
+</li>
+<li><strong>Descripción:</strong> Crueles y manipuladores, expertos en
+tortura y magia oscura, aseguran el control a través del sufrimiento y
+el miedo.<br />
+</li>
+<li><strong>Objetivos:</strong> Institucionalizar la tortura como forma
+de gobierno y consolidar su dominio sobre <a
+href="Mor&#39;dhul.html">Mor’dhul</a> mediante la agonía y el
+terror.</li>
+</ul>
+<h3 id="clan-gythkai">Clan Gyth’kai</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Goblins.html">Goblins</a><br />
+</li>
+<li><strong>Deidad patrona:</strong> Gyth’kai, Diosa del
+Sacrificio<br />
+</li>
+<li><strong>Descripción:</strong> Astutos y traicioneros, dominan la
+manipulación y el engaño, con una filosofía basada en el sacrificio
+necesario para obtener poder.<br />
+</li>
+<li><strong>Objetivos:</strong> Controlar la riqueza y <a
+href="Recursos.html">Recursos</a> mediante la traición, manteniendo una
+red de influencia oscura sobre <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</li>
+</ul>
+<h2 id="clanes-del-bosque">Clanes del Bosque</h2>
+<p>Dominan las regiones boscosas y explotadas con magia oscura para
+controlar su entorno.</p>
+<h3 id="clan-aethel">Clan Aethel</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Orcos.html">Orcos</a><br />
+</li>
+<li><strong>Descripción:</strong> Guerreros feroces y cazadores
+sigilosos, respetan la naturaleza como terreno de caza pero no la
+veneran.<br />
+</li>
+<li><strong>Objetivos:</strong> Defender sus territorios boscosos y
+expandir su autonomía y poder conquistantras.</li>
+</ul>
+<h3 id="clan-nighthawk">Clan Nighthawk</h3>
+<ul>
+<li><strong>Raza:</strong> <a
+href="Hobgoblins.html">Hobgoblins</a><br />
+</li>
+<li><strong>Descripción:</strong> Dueños de magia de sombras y secretos
+del bosque, actúan entre la noche como magos y espías.<br />
+</li>
+<li><strong>Objetivos:</strong> Dominar las artes oscuras del bosque y
+controlar sus criaturas mediante la información y la manipulación
+arcana.</li>
+</ul>
+<h2 id="clanes-de-las-ruinas">Clanes de las Ruinas</h2>
+<p>Especializados en la búsqueda de reliquias mágicas y conocimiento
+perdido, con fines estratégicos.</p>
+<h3 id="clan-grimstone">Clan Grimstone</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Orcos.html">Orcos</a><br />
+</li>
+<li><strong>Descripción:</strong> Eruditos obsesionados con el pasado,
+raros entre los <a href="Orcos.html">Orcos</a> por su disciplina
+arqueológica.<br />
+</li>
+<li><strong>Objetivos:</strong> Recuperar secretos antiguos para
+fortalecer Mor’dhul y custodiar las reliquias de poder.</li>
+</ul>
+<h3 id="clan-whisper">Clan Whisper</h3>
+<ul>
+<li><strong>Raza:</strong> <a
+href="Hobgoblins.html">Hobgoblins</a><br />
+</li>
+<li><strong>Descripción:</strong> Maestros de la necromancia y la
+manipulación de espíritus, gobiernan regiones con la ayuda de muertos
+vivientes.<br />
+</li>
+<li><strong>Objetivos:</strong> Construir ejércitos de no-muertos y
+dominar la muerte para mantener el miedo y la obediencia.</li>
+</ul>
+<h2 id="clanes-menores">Clanes Menores</h2>
+<p>Pequeños grupos con escasa influencia, que sobreviven en los márgenes
+sociales y políticos.</p>
+<h3 id="clan-razortooth">Clan Razortooth</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Goblins.html">Goblins</a><br />
+</li>
+<li><strong>Descripción:</strong> Expertos en emboscadas y guerrilla,
+buscan riqueza mediante el saqueo y la crueldad.<br />
+</li>
+<li><strong>Objetivos:</strong> Expandir su ámbito de acción a base de
+miedo y conflictos constantes.</li>
+</ul>
+<h3 id="clan-shadowscale">Clan Shadowscale</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Goblins.html">Goblins</a><br />
+</li>
+<li><strong>Descripción:</strong> Espías y manipuladores, dominan el
+arte del sigilo y la información oculta.<br />
+</li>
+<li><strong>Objetivos:</strong> Controlar poderosos hilos desde las
+sombras, extorsionando a los clanes y fuerzas del reino.</li>
+</ul>
+<h2 id="clanes-nómadas">Clanes Nómadas</h2>
+<p>Bandas errantes que patrullan los páramos y desiertos en busca de
+botines y poder.</p>
+<h3 id="clan-bloodfire">Clan Bloodfire</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Orcos.html">Orcos</a><br />
+</li>
+<li><strong>Descripción:</strong> Fanáticos guerreros sedientos de
+guerra y destrucción, impulsivos y violentos.<br />
+</li>
+<li><strong>Objetivos:</strong> Impulsar guerras constantes para
+demostrar su supremacía y sembrar terror.</li>
+</ul>
+<h3 id="clan-ironclaw">Clan Ironclaw</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Orcos.html">Orcos</a><br />
+</li>
+<li><strong>Descripción:</strong> Artesanos y forjadores meticulosos,
+mezclan ferocidad con disciplina para crear armas excelentes.<br />
+</li>
+<li><strong>Objetivos:</strong> Fabricar las armas más poderosas y
+respetadas, construyendo un legado duradero.</li>
+</ul>
+<h2 id="clanes-del-pantano">Clanes del Pantano</h2>
+<p>Dominan las regiones pantanosas y utilizan magia relacionada con la
+naturaleza oscura.</p>
+<h3 id="clan-mirewalker">Clan Mirewalker</h3>
+<ul>
+<li><strong>Raza:</strong> <a href="Orcos.html">Orcos</a> adaptados al
+pantano<br />
+</li>
+<li><strong>Descripción:</strong> Sobrevivientes expertos, tienen una
+conexión profunda con la fauna y flora del pantano.<br />
+</li>
+<li><strong>Objetivos:</strong> Controlar por completo los pantanos y
+extender su influencia mediante la magia acuática.</li>
+</ul>
+<h3 id="clan-whispering-wind">Clan Whispering Wind</h3>
+<ul>
+<li><strong>Raza:</strong> <a
+href="Hobgoblins.html">Hobgoblins</a><br />
+</li>
+<li><strong>Descripción:</strong> Domina el viento y la tormenta, usa
+magia del aire para operaciones rápidas y sorpresivas.<br />
+</li>
+<li><strong>Objetivos:</strong> Gobernar el cielo sobre Mor’dhul y
+emplear tormentas para destruir a sus enemigos.</li>
+</ul>
+<h2 id="descastados-outcasts">Descastados (Outcasts)</h2>
+<p>Personas marginadas y sin afiliación a ningún clan, agrupadas en un
+clan improvisado y heterogéneo.</p>
+<h3 id="clan-outcast">Clan Outcast</h3>
+<ul>
+<li><strong>Raza:</strong> Mixto<br />
+</li>
+<li><strong>Descripción:</strong> Paria que buscan libertad y
+supervivencia fuera del sistema de clanes oficiales.<br />
+</li>
+<li><strong>Objetivos:</strong> Defender su independencia, a veces en
+rebeldía contra la autoridad establecida.</li>
+</ul>
+<h2 id="criaturas-del-inframundo">Criaturas del Inframundo</h2>
+<p>Grupos de seres sobrenaturales que actúan como una facción aparte,
+especialmente vampiros.</p>
+<h3 id="clan-of-the-damned">Clan of the Damned</h3>
+<ul>
+<li><strong>Raza:</strong> Vampiros<br />
+</li>
+<li><strong>Descripción:</strong> Señores de la noche, controlan la
+ciudad de Tones y operan al margen de los clanes mortales.<br />
+</li>
+<li><strong>Objetivos:</strong> Expandir su poder en secreto, dominando
+Mor’dhul desde las sombras.</li>
+</ul>
+<hr />
+<p><a href="Mor&#39;dhul.html">Mor’dhul</a> es un complejo entramado de
+clanes en constante lucha, alianzas fragiles y traiciones permanentes.
+Su sistema garantiza un ambiente tenso y peligroso, ofreciendo una
+amplia gama de posibilidades para historias centradas en la intriga
+política, conflictos bélicos y la lucha por el poder. Los clanes
+interactúan no solo entre ellos sino con las deidades y el legado oscuro
+del <a href="Lilium.html">Lilium</a>, haciendo de Mor’dhul un reino
+donde la supervivencia y la astucia convierten a cada día en una
+batalla.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clanes.html">Clanes</a> (relevancia: 0.75)</li>
+<li><a href="Clanes%20-%20Clan%20Aethel.html">Clanes - Clan Aethel</a>
+(relevancia: 0.51)</li>
+<li><a
+href="Agrupaciones%20-%20Clan%20Umbracarn%20(Los%20Cazadores%20de%20Sombras).html">Agrupaciones
+- Clan Umbracarn (Los Cazadores de Sombras)</a> (relevancia: 0.41)</li>
+<li><a
+href="Agrupaciones%20-%20Clan%20Guardián%20del%20Abismo.html">Agrupaciones
+- Clan Guardián del Abismo</a> (relevancia: 0.37)</li>
+<li><a href="Agrupaciones%20-%20Clan%20Umbralforge.html">Agrupaciones -
+Clan Umbralforge</a> (relevancia: 0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

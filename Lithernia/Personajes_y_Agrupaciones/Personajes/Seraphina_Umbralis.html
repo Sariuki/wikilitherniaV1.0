@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seraphina_Umbralis</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Seraphina_Umbralis</div>
+        <div class="content">
+<h1 id="seraphina-umbralis">Seraphina Umbralis</h1>
+<h2 id="biografía">Biografía</h2>
+<h3 id="orígenes-y-linaje-la-sombra-de-un-legado-roto">Orígenes y
+Linaje: La Sombra de un Legado Roto</h3>
+<p>En la tenebrosa y retorcida <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+donde el poder se mide en sangre y acero, la Casa Umbralis forjó su
+dominio con un arma mucho más sutil y terrible: el recuerdo. Seraphina
+no nació para el trono, sino para el altar de obsidiana. Como
+descendiente directa de la mística Shadar-Kai Lyra Vex, quien descubrió
+cómo aprisionar la esencia psíquica en la obsidiana imbuida por el dolor
+del Cataclismo del <a href="Lilium.html">Lilium</a>, Seraphina fue
+consagrada desde niña al arte más oscuro de su casa.</p>
+<p>Criada en la ciudad secreta de <a href="Nynthil.html">Nynthil</a>,
+una aguja de roca negra oculta en el Cañón de los Susurros, aprendió que
+la lealtad no se juraba con palabras, sino con secretos compartidos y
+miedos expuestos. Es la hermana menor de Lord Malakor, el pragmático y
+ambicioso líder de la Casa Umbralis. Mientras él se encarga de la
+política y las negociaciones, Seraphina es el corazón latente y
+sufriente de su poder: la Maestra de Ecos, la Suma Sacerdotisa cuyo
+talento para el Ritual de Extracción no tiene parangón.</p>
+<h3 id="la-maestra-de-ecos-una-vida-entre-recuerdos-ajenos">La Maestra
+de Ecos: Una Vida entre Recuerdos Ajenos</h3>
+<p>Seraphina es un fantasma que camina entre los vivos. Su mente es un
+laberinto de secretos ajenos, un archivo viviente del dolor, la traición
+y la ambición que corroe <a href="Mor&#39;dhul.html">Mor’dhul</a>.
+Mediante el ritual familiar, es capaz de sumergirse en la mente de un
+sujeto y arrancar sus recuerdos más profundos, cristalizándolos en orbes
+de obsidiana pulida. Ha vivido las últimas palabras de héroes caídos, ha
+sentido el terror de traidores descubiertos y ha compartido la euforia
+de amantes secretos.</p>
+<p>Este “don” es la principal moneda de cambio de su casa. Los secretos
+que extrae para el Rey-Dios Sel’thirak han desmantelado conspiraciones
+antes de nacer y han revelado las debilidades de reinos enemigos. Los
+prisioneros de alto valor capturados por el Clan Nighthawk son su
+lienzo, y el conocimiento que cosecha es el pilar sobre el que se
+sostiene la precaria alianza de su casa con el trono. Sin embargo, cada
+incursión psíquica deja una cicatriz en su alma. El torrente de vidas
+ajenas ha erosionado su propio ser, dejándola con una profunda
+melancolía y un desapego casi absoluto del mundo.</p>
+<h3 id="conflictos-internos-y-relaciones-clave">Conflictos Internos y
+Relaciones Clave</h3>
+<p>La existencia de Seraphina es una paradoja. Sirve a una casa que
+comercia con el dolor, pero anhela el silencio y el olvido.</p>
+<ul>
+<li><p><strong>Lord Malakor:</strong> Su hermano mayor ve en ella la
+herramienta más valiosa de la casa. Su relación es distante, marcada por
+el deber. Malakor respeta su poder, pero no comprende la carga que
+supone. Para él, ella es la guardiana de su arsenal más preciado; para
+ella, él es el carcelero que la ata a un sufrimiento sin fin.</p></li>
+<li><p><strong>Kaelen:</strong> Su sobrino/a y aprendiz. Seraphina se ve
+obligada a enseñarle los secretos del Ritual de Extracción, una tarea
+que la atormenta. Ve en la juventud y curiosidad de Kaelen un reflejo de
+lo que ella perdió, y teme condenar a otro miembro de su sangre a la
+misma jaula eterna de recuerdos. Su mentoría es renuente, un intento
+desesperado por proteger a Kaelen de la oscuridad que a ella la ha
+consumido.</p></li>
+</ul>
+<p>Su lealtad a la Casa Umbralis no nace del honor, sino de una
+resignación pesada como una lápida. Sabe que su poder es lo único que
+mantiene a su familia a salvo en el nido de víboras que es <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, pero sueña con un día en que su
+mente sea solo suya, vacía y en paz.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<h3 id="apariencia">Apariencia</h3>
+<p>Seraphina encarna la esencia sombría de los Shadar-Kai. Es una figura
+alta y delgada, con la gracia lánguida de una sombra. Su piel es pálida,
+casi translúcida, y su largo cabello es negro como la obsidiana pulida,
+a menudo recogido en una trenza intrincada adornada con hilos de plata.
+Sus rasgos son finos y aristocráticos, pero es en sus ojos donde reside
+su verdadera naturaleza: dos pozos de un profundo color violeta,
+cargados con una sabiduría y una tristeza que superan con creces sus
+tres siglos de vida. Rara vez sonríe, y su expresión habitual es de una
+melancolía perpetua, como si su mirada estuviera perdida en un recuerdo
+lejano, que probablemente no es el suyo.</p>
+<p>Viste túnicas de seda de color púrpura oscuro y negro, los colores de
+su casa, finamente bordadas con patrones de plata que evocan el escudo
+de los Umbralis: el reloj de arena fracturado. No porta armadura, pues
+su defensa y su arma son su propia mente.</p>
+<h3 id="equipamiento">Equipamiento</h3>
+<ul>
+<li><strong>Cristales de Eco de Obsidiana:</strong> Siempre lleva
+consigo varios orbes de obsidiana negra, perfectamente esféricos y fríos
+al tacto. Cada uno contiene un recuerdo robado, una vida atrapada. Al
+sostenerlos, puede revivir el eco psíquico que contienen.</li>
+<li><strong>Daga Ritual de Plata:</strong> Una daga ornamentada, no
+diseñada para el combate, sino como un foco para el Ritual de
+Extracción. Su hoja está grabada con <a href="Runas.html">Runas</a>
+psiónicas que ayudan a canalizar y separar los hilos de la memoria.</li>
+<li><strong>El Corazón de <a href="Nynthil.html">Nynthil</a>:</strong>
+Un amuleto de obsidiana que cuelga de su cuello. Es una creación única
+de la casa que le ayuda a anclar su propia conciencia, un escudo frágil
+contra el torrente de identidades que amenaza con ahogarla cada vez que
+realiza el ritual.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Seraphina Umbralis no será recordada en las canciones de los bardos
+ni en las crónicas de los grandes reyes. Su legado es silencioso,
+escrito en la tinta invisible del miedo y la paranoia que impregna la
+corte de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Es la bibliotecaria
+del subconsciente del reino, la arquitecta de victorias que nunca se
+atribuyen a su nombre.</p>
+<p>Su existencia representa una de las verdades más oscuras de
+Lithernia: que el conocimiento, en las manos adecuadas, es un arma más
+letal que cualquier ejército. A través de ella, la Casa Umbralis influye
+en el equilibrio de poder, rivalizando con los nigromantes del Clan
+Whisper por el control del mercado de secretos. Su existencia es la
+antítesis viviente de casas como la Casa Lúmina, que buscan la sabiduría
+para iluminar, mientras ella la utiliza para aprisionar.</p>
+<p>En última instancia, el verdadero impacto de Seraphina podría ser
+profundamente personal. Si alguna vez decidiera usar el vasto océano de
+secretos que guarda para sus propios fines, ya sea para liberar a su
+casa de la tiranía de Sel’thirak o para hundirla en el olvido, podría
+cambiar el destino de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Su
+legado pende de un hilo: ¿permanecerá como la fiel y torturada sirviente
+de su casa, o se convertirá en la catálisis que demuestre que, en
+efecto, <em>el recuerdo es la única jaula eterna</em>… una que ella
+podría, finalmente, decidir romper?</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.51)</li>
+<li><a href="Casa%20Umbralis.html">Casa Umbralis</a> (relevancia:
+0.51)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elwethis</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Elwethis</div>
+        <div class="content">
+<h1 id="elwethis">Elwethis</h1>
+<p>Tallada directamente en los acantilados de piedra caliza que se
+enfrentan al océano infinito, Elwethis no es un puerto bullicioso como
+otros de <a href="Galvorn.html">Galvorn</a>, sino un santuario de
+contemplación. Es una ciudad vertical, una cascada de terrazas blancas y
+puentes colgantes que descienden desde las cumbres barridas por el
+viento hasta las cuevas marinas besadas por la espuma. Sus faros no
+queman aceite, sino que proyectan la luz de cristales mágicos a través
+de cortinas de agua, creando patrones únicos que guían a los navegantes.
+Aquí, la conexión con el mar es tan profunda como la devoción por las
+estrellas, y sus gentes creen que el destino de un barco no lo dicta el
+timón, sino las constelaciones que brillan sobre él.</p>
+<h2 id="historia">Historia</h2>
+<p>Elwethis fue fundada hace siglos, no por conquistadores ni
+mercaderes, sino por un grupo de náufragos liderados por el cartógrafo
+semielfo Lyrion Astranave. Perdidos en una tormenta que habría reclamado
+a cualquier otra tripulación, Lyrion guio a los suyos a la seguridad
+siguiendo el tenue brillo de una constelación desconocida y las
+corrientes de Maná que solo él podía percibir en el agua. Al llegar a
+estos acantilados, juraron honrar al océano y al firmamento por igual.
+En lugar de construir un puerto para desafiar al mar, tallaron su hogar
+en la roca para vivir en simbiosis con él. Así nació Elwethis, una
+ciudad de filósofos, astrónomos y místicos del mar, cuya riqueza no se
+mide en oro, sino en <a href="Mapas.html">Mapas</a> estelares y en el
+conocimiento de las mareas secretas del mundo.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Terrazas Colgantes</strong>: El corazón de la ciudad.
+Una red de terrazas escalonadas donde se encuentran los mercados,
+talleres y la mayoría de las viviendas. Los puentes de cuerda y madera
+encantada se balancean sobre el abismo, y en sus barandillas se cuelgan
+instrumentos de concha que el viento convierte en música
+melancólica.</p></li>
+<li><p><strong>El Observatorio de la Marea</strong>: Situado en el punto
+más alto del acantilado, es un complejo de cúpulas de cristal y
+observatorios al aire libre. Aquí, los Cartógrafos Astrales estudian los
+cielos y el flujo del Maná, trazando las rutas marítimas más seguras y
+prediciendo el clima con una precisión legendaria.</p></li>
+<li><p><strong>El Refugio de Coral</strong>: Los distritos inferiores de
+la ciudad, excavados en las amplias cuevas marinas en la base del
+acantilado. Las viviendas son más humildes, a menudo decoradas con
+corales bioluminiscentes y mosaicos de nácar. Sus habitantes son
+pescadores, buceadores y genasi de agua que sienten una profunda
+conexión con las profundidades.</p></li>
+<li><p><strong>El Santuario del Eco</strong>: El principal centro
+religioso de Elwethis. No es un edificio, sino una inmensa gruta natural
+abierta al mar. Las olas rompen en su interior, y sus paredes están
+recubiertas de cristales que reflejan la luz de la luna, creando un
+espectáculo sobrecogedor. Aquí se rinde culto a <a
+href="Yfrit.html">Yfrit</a>, <a href="Arzia.html">Arzia</a> y <a
+href="Taladrios.html">Taladrios</a>, pidiendo guía en las mareas del
+tiempo y el destino.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Elwethis está dictada por los ciclos del océano y el
+cielo. Cada amanecer comienza con el “Beso de <a
+href="Yfrit.html">Yfrit</a>”, un sencillo ritual donde cada habitante
+toca la superficie del mar para mostrar respeto y gratitud. El comercio
+se realiza a menudo mediante el trueque, donde una historia bien contada
+o un fragmento de un mapa perdido es más valioso que una bolsa de
+monedas. Su festividad más importante es el “Festival de las Mareas
+Vivas”, celebrado dos veces al año, cuando lanzan al océano miles de
+ofrendas hechas con algas luminiscentes, creando un río de luz que,
+según creen, guía a los espíritus de los ahogados de vuelta a las
+estrellas. Su símbolo, una concha de nautilus plateada sobre un fondo de
+tres estrellas azules, se ve por toda la ciudad, recordando su doble
+devoción.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Elwethis es una obra de arte orgánica, donde cada estructura parece
+haber crecido del propio acantilado. Las casas colgantes, las escaleras
+en espiral talladas en la roca y los balcones que se asoman al vacío dan
+la impresión de una ciudad que flota entre el cielo y el mar. El aire
+está siempre cargado con el olor a sal y ozono, y el sonido dominante es
+el rugido rítmico de las olas rompiendo contra la base de la ciudad, un
+latido constante que tranquiliza a sus habitantes. Por la noche, la
+ciudad apenas usa antorchas; se ilumina con el brillo suave de los
+cristales mágicos, las algas luminiscentes y, sobre todo, la abrumadora
+claridad de las estrellas en un cielo sin la contaminación lumínica de
+otras metrópolis.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Gruta del Eco Eterno</strong>: Los ancianos susurran
+que en las cuevas más profundas, sumergidas bajo Elwethis, se encuentra
+una caverna donde las voces del pasado nunca mueren. Se dice que allí
+resuenan los susurros de cada navegante que se ha hecho a la mar, las
+profecías del propio océano y los secretos de <a
+href="Yfrit.html">Yfrit</a>. Escuchar el eco puede otorgar una sabiduría
+inmensa, pero la cacofonía de miles de voces ha llevado a más de un
+buscador a la locura.</p></li>
+<li><p><strong>El Leviatán de Coral</strong>: Se cree que la ciudad no
+solo está protegida por los acantilados, sino también por un guardián
+silencioso. La leyenda habla de un leviatán colosal, una criatura
+ancestral hecha de coral vivo, que duerme en los arrecifes cercanos. Es
+un ser pacífico, pero despertará con una furia elemental si alguna vez
+la ciudad o sus habitantes se ven amenazados por una gran
+maldad.</p></li>
+<li><p><strong>El Corazón de la Tempestad</strong>: Una historia contada
+como advertencia a los ambiciosos. Habla de una gema élfica, dejada en
+la ciudad por un elfo del bosque errante, que tiene el poder de calmar
+cualquier tormenta. Sin embargo, el artefacto está maldito: mientras
+protege de la furia de la naturaleza, atrae la furia de los hombres,
+sembrando la discordia, la envidia y la desgracia en la vida de quien lo
+posea. Se dice que está perdida en algún lugar de las cuevas, esperando
+a su próximo y desventurado dueño.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

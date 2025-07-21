@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elara_Hojacanto</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Elara_Hojacanto</div>
+        <div class="content">
+<h1 id="elara-hojacanto">Elara Hojacanto</h1>
+<h2 id="biografía">Biografía</h2>
+<p>Nacida bajo la sombra de una leyenda, Elara Hojacanto lleva en sus
+venas la sangre y el espíritu indomable de su ancestro, Lyra Hojacanto,
+la exploradora élfica que cofundó La Hermandad del Horizonte Velado.
+Criada en la ciudad neutral de <a href="Yraniar.html">Yraniar</a>, entre
+tomos polvorientos y artefactos de eras olvidadas, la vida de Elara
+nunca fue la de una elfa común de <a href="Eldrador.html">Eldrador</a>.
+Mientras otros de su estirpe perfeccionaban las artes o la diplomacia en
+los bosques milenarios, ella aprendía a leer <a
+href="Mapas.html">Mapas</a> estelares de la Era del Primer Rey y a
+distinguir la mampostería enana pre-cataclismo de la post-<a
+href="Lilium.html">Lilium</a>.</p>
+<p>Su mentor fue Borin Manopiedra, hijo del otro cofundador, un enano
+cuya cautela y rigor académico chocaban constantemente con el ímpetu y
+la audacia de Elara. Donde Borin veía la necesidad de catalogar y
+preservar, Elara sentía la urgencia de descubrir. Esta tensión forjó su
+carácter: una exploradora que valora el conocimiento, pero que no teme
+arriesgarlo todo para desenterrar una verdad más profunda. Su motivación
+trasciende la simple curiosidad; Elara está convencida de que la
+historia de la caída del Primer Rey fue deliberadamente corrompida por
+los dioses y que las Lanzas Celestiales no son solo armas, sino claves
+para entender el cataclismo que dio forma al mundo actual. Busca, en el
+fondo, redimir la historia y evitar que se repita.</p>
+<p>Como Jefa de Expediciones, Elara ha liderado incursiones a algunos de
+los lugares más peligrosos de Lithernia. Se enfrentó al Clan Grimstone
+en las profundidades de las Tumbas de los Reyes Olvidados, compitiendo
+contra los eruditos <a href="Orcos.html">Orcos</a> por el diario de un
+general del Primer Rey. Desmanteló un campamento de los Cazadores de
+Sombras en los picos de <a href="Valtoria.html">Valtoria</a>, quienes
+pretendían destruir un antiguo observatorio enano por considerarlo
+“conocimiento profano”. Su hazaña más notoria fue la “Liberación del
+Códice de Sombras” de la bóveda privada de una casa <a
+href="Noble.html">Noble</a> de <a href="Eldrador.html">Eldrador</a>, una
+acción que le granjeó la enemistad perpetua de las élites élficas,
+quienes la ven como una renegada que expone secretos que deberían
+permanecer ocultos.</p>
+<p>En sus expediciones, Elara confía en un pequeño círculo. Borin
+gestiona la logística y la investigación desde <a
+href="Yraniar.html">Yraniar</a>, enviándole advertencias que ella a
+menudo ignora. Su compañero de campo más cercano es Flink Chispaveloz,
+un gnomo inventor cuyos artilugios, como el <em>Cronom-brújula</em> que
+detecta anomalías temporales o el <em>Resonador Lítico</em> que mapea
+estructuras subterráneas, han salvado a su equipo en innumerables
+ocasiones. Elara no entiende la ciencia tras los inventos de Flink, pero
+su fe en ellos es absoluta, reflejando su pragmatismo: lo que funciona,
+se usa. Carga con el peso de su linaje, impulsada por la necesidad de
+ser digna del nombre Hojacanto y de terminar la misión que su ancestro
+comenzó: descubrir la verdad, sin importar el coste.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Elara posee la grácil constitución de los elfos, pero modelada por
+una vida de esfuerzo físico. Su figura es esbelta y atlética, con la
+resistencia de quien ha escalado montañas y cruzado desiertos. A sus 255
+años, su rostro conserva una juventud intemporal, pero sus ojos, de un
+intenso color esmeralda, reflejan una sabiduría y una determinación que
+desmienten su apariencia. Su cabello, del color del platino, lo lleva
+recogido en una larga y práctica trenza que cae sobre su hombro, a
+menudo manchada por el polvo de ruinas antiguas. Una fina cicatriz le
+cruza la ceja izquierda, recuerdo de una trampa malograda en una cripta
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>Su atuendo es funcional y elegante. Viste una armadura de cuero
+endurecido teñida de verde bosque sobre una cota de malla de mithril,
+ligera y silenciosa. Una capa de viaje con capucha, de un color tierra
+que se mimetiza con el entorno, la protege de los elementos y de miradas
+indiscretas. Sus botas altas de cuero, reforzadas y bien gastadas, han
+pisado las tierras de los cuatro grandes reinos.</p>
+<p><strong>Equipamiento notable:</strong> * <strong>Arco Largo “Viento
+Silbante”:</strong> Un arco compuesto de madera de tejo blanco, una
+reliquia de su linaje. Se dice que sus flechas nunca se desvían por el
+viento. * <strong>Hoja Corta “Silvafilo”:</strong> Una espada corta
+élfica, forjada con un brillo plateado. Su empuñadura está envuelta en
+cuero de basilisco, y su pomo es un jade sin tallar. * <strong>Diario de
+Expedición:</strong> Un grueso volumen de cuero lleno de <a
+href="Mapas.html">Mapas</a> dibujados a mano, bocetos de <a
+href="Runas.html">Runas</a>, notas sobre flora y fauna peligrosa y
+traducciones de lenguajes olvidados. * <strong>Kit de
+Explorador:</strong> Un juego completo de herramientas de cartógrafo, un
+pico de geólogo de acero valtoriano y varias bolsas con raciones de
+viaje, antorchas y cuerdas. * <strong>El Resonador de Flink:</strong> Un
+pequeño dispositivo de latón y cristal que emite un suave zumbido. Al
+colocarlo sobre una superficie, proyecta un mapa topográfico vago del
+área circundante, revelando pasadizos ocultos o cavidades.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Elara Hojacanto es la punta de lanza de una de las facciones más
+disruptivas de Lithernia. Aunque La Hermandad del Horizonte Velado se
+presenta como una organización académica, las acciones de Elara la
+convierten en una fuerza de cambio activa. Cada artefacto que recupera y
+cada texto que traduce tiene el potencial de reescribir la historia y
+alterar el equilibrio de poder.</p>
+<p>Para la Torre de las Estrellas, es una aliada invaluable, una fuente
+de conocimiento primario que alimenta sus bibliotecas. Para las casas
+nobles de <a href="Eldrador.html">Eldrador</a> y los clanes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, es una ladrona y una hereje que
+desentierra verdades que amenazan sus cimientos. Para el pueblo llano,
+es una figura casi mítica, una aventurera que camina por las sendas del
+pasado.</p>
+<p>Su verdadero impacto, sin embargo, reside en su búsqueda de las
+Lanzas Celestiales. Si logra encontrarlas, se enfrentará a una decisión
+que podría definir el futuro del continente: ¿intentará liberar al
+Primer Rey, cumpliendo la profecía? ¿O buscará destruirlas para asegurar
+que ese poder nunca más sea usado? Elara Hojacanto no solo explora la
+historia de Lithernia; está en posición de convertirse en su próximo
+gran capítulo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.54)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

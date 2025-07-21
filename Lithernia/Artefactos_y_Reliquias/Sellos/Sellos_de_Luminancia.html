@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sellos_de_Luminancia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Sellos_de_Luminancia</div>
+        <div class="content">
+<h1 id="sellos-de-luminancia">Sellos de luminancia</h1>
+<h3 id="perfil-del-artefacto">Perfil del Artefacto</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo</strong></td>
+<td style="text-align: left;">Objeto Maravilloso (Sello)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Creador</strong></td>
+<td style="text-align: left;">Lord Aethel “El Cruel”</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Facción Asociada</strong></td>
+<td style="text-align: left;">Conspiración de Aethel</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Propósito Principal</strong></td>
+<td style="text-align: left;">Identificación, Comunicación,
+Vigilancia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Típico</strong></td>
+<td style="text-align: left;">Legal Maligno</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Propiedad Común</strong></td>
+<td style="text-align: left;">Correa de Aethel</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: left;">Historia / Investigación</td>
+<td style="text-align: left;">Identifica estos artefactos como símbolos
+de una conspiración contra el Rey-Dios Sel’thirak. Se sabe que portarlos
+es una sentencia de muerte si se es descubierto.</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: left;">Arcanos</td>
+<td style="text-align: left;">Reconoce la “Luz de Aethel” como una forma
+de magia de encantamiento y adivinación. Entiende que los sellos
+funcionan como una red de comunicación.</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: left;">Perspicacia / Arcanos</td>
+<td style="text-align: left;">Se revela la jerarquía de los sellos
+(Marcas, Anillos, Blasones) y el rumor de que Lord Aethel puede espiar a
+través de ellos (Correa de Aethel).</td>
+</tr>
+<tr>
+<td style="text-align: center;">22</td>
+<td style="text-align: left;">Historia / Religión</td>
+<td style="text-align: left;">Se conoce la teoría de que los sellos
+están sintonizados con la Lanza Celestial Mortum y que Aethel los usa
+como un foco para localizarla.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="marca-del-conspirador">Marca del Conspirador</h3>
+<p><em>Objeto maravilloso, poco común</em></p>
+<p>Este discreto amuleto o broche de obsidiana contiene un cristal de
+sombra que permanece oscuro.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Luz de Identidad</strong></td>
+<td style="text-align: left;">Como acción, puedes pronunciar la palabra
+de mando “Luminancia” para hacer que el cristal emita una tenue luz
+violácea en un radio de 5 pies durante 1 minuto o hasta que uses una
+acción para apagarla.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lealtad Reconocida</strong></td>
+<td style="text-align: left;">Mientras el sello emite luz, tienes
+ventaja en las pruebas de Carisma (Engaño, Intimidación y Persuasión)
+realizadas para interactuar con otros seguidores de Lord Aethel.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Correa de Aethel</strong></td>
+<td style="text-align: left;">Lord Aethel conoce tu ubicación general
+mientras lleves este sello. Además, tienes desventaja en las tiradas de
+salvación contra cualquier conjuro de adivinación que él te lance.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="anillo-de-lealtad">Anillo de Lealtad</h3>
+<p><em>Anillo, raro (requiere sintonización)</em></p>
+<p>Este anillo de obsidiana pulida lleva un cristal de sombra que emite
+un pulso de luz ámbar enfermizo cuando se sintoniza con él.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Luz de Identidad</strong></td>
+<td style="text-align: left;">Como acción, puedes hacer que el cristal
+emita una luz tenue en un radio de 10 pies. La luz dura hasta que la
+apagues (no requiere acción).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lealtad Reconocida</strong></td>
+<td style="text-align: left;">Mientras el anillo emite luz, tienes
+ventaja en las pruebas de Carisma (Engaño, Intimidación y Persuasión)
+realizadas para interactuar con otros seguidores de Lord Aethel.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Susurro de la
+Conspiración</strong></td>
+<td style="text-align: left;">Mientras llevas este anillo, puedes
+comunicarte telepáticamente con cualquier otro portador de un Anillo de
+Lealtad o Blasón del Círculo Íntimo que puedas ver a 120 pies de ti.
+Solo puedes transmitir emociones simples o un concepto de una sola
+palabra (ej. “Peligro”, “Aliado”, “Ahora”).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Correa de Aethel</strong></td>
+<td style="text-align: left;">Lord Aethel puede usar una acción para
+intentar ver a través de tus ojos y oír lo que oyes. Debes realizar una
+tirada de salvación de Sabiduría CD 17. Si fallas, él percibe a través
+de tus sentidos hasta el comienzo de su próximo turno. Además, tienes
+desventaja en las tiradas de salvación contra cualquier conjuro de
+adivinación que él te lance.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Marca del Traidor
+(Maldición)</strong></td>
+<td style="text-align: left;">Si realizas un acto que Lord Aethel
+considere una traición, el cristal del anillo se vuelve negro e inerte.
+A partir de ese momento, tienes vulnerabilidad al daño necrótico y los
+no muertos espectrales (sombras, espectros, etc.) tienen ventaja en las
+tiradas de ataque contra ti. La maldición solo puede ser eliminada por
+un conjuro de <em>Deseo</em>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="blasón-del-círculo-íntimo">Blasón del Círculo Íntimo</h3>
+<p><em>Objeto maravilloso, muy raro (requiere sintonización)</em></p>
+<p>Este blasón de hierro oscuro, diseñado para ser llevado en el pecho,
+contiene un gran cristal de sombra que pulsa con una intensa luz
+violácea.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Propiedades del
+Anillo</strong></td>
+<td style="text-align: left;">Este blasón tiene todas las propiedades
+del <strong>Anillo de Lealtad</strong>, incluyendo la maldición
+<strong>Marca del Traidor</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mente Protegida</strong></td>
+<td style="text-align: left;">Mientras llevas este blasón, eres inmune a
+cualquier efecto que intente sentir tus emociones o leer tus
+pensamientos, así como a cualquier tirada de salvación de Sabiduría
+(Perspicacia). La magia no puede determinar si estás mintiendo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velo de Aethel</strong></td>
+<td style="text-align: left;">El blasón está bajo un efecto permanente
+de <em>No Detección</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Imagen de Engaño</strong></td>
+<td style="text-align: left;">El blasón tiene 3 cargas. Puedes gastar 1
+carga como una acción para lanzar el conjuro <em>Imagen silenciosa</em>
+(CD 17). El blasón recupera 1d3 cargas gastadas diariamente al
+anochecer.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Correa de Aethel
+(Reforzada)</strong></td>
+<td style="text-align: left;">Lord Aethel no necesita una acción para
+ver a través de tus sentidos y es automáticamente consciente de tus
+pensamientos superficiales. Tienes desventaja en las tiradas de
+salvación contra cualquier conjuro de encantamiento o adivinación que él
+te lance.</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </div>
+</body>
+</html>

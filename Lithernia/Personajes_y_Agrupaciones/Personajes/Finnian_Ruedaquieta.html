@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finnian_Ruedaquieta</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Finnian_Ruedaquieta</div>
+        <div class="content">
+<h1 id="finnian-ruedaquieta">Finnian Ruedaquieta</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones de piedra y los túneles resonantes de <a
+href="Valtoria.html">Valtoria</a>, donde la grandeza se mide en la
+profundidad de las minas y la solidez de la barba, la figura de Finnian
+Ruedaquieta es una anomalía y una leyenda. No nació del linaje de la
+montaña, sino de los caminos abiertos, un mediano cuya caravana familiar
+tuvo la fortuna —o el destino— de comerciar en las faldas de <a
+href="Villeshervil.html">Villeshervil</a>. Su vida cambió para siempre
+el día en que un temblor, producto de una excavación imprudente de un
+clan rival, provocó un derrumbe en una de las galerías experimentales de
+la Casa Vaelor. Mientras los robustos <a href="Enanos.html">Enanos</a>
+se veían obstaculizados por los estrechos pasadizos, fue la agilidad y
+el coraje de un joven Finnian los que le permitieron escurrirse entre
+las rocas para guiar hacia la salida a un aterrorizado heredero
+Vaelor.</p>
+<p>Este acto no fue recompensado con oro, sino con algo infinitamente
+más valioso en la cultura enana: el honor y la pertenencia. Adoptado por
+el patriarca de la Casa Vaelor, Finnian creció entre <a
+href="Enanos.html">Enanos</a>, aprendiendo no solo su idioma y sus
+costumbres, sino también sus secretos más profundos. Aunque su físico
+nunca podría igualar la fuerza de sus hermanos adoptivos, su mente
+afilada y su carisma natural de mediano resultaron ser un activo de un
+poder incalculable. Pronto demostró un talento excepcional para el
+comercio, entendiendo que cada negociación era un delicado pulido,
+similar a cómo las aguas de <a href="Villeshervil.html">Villeshervil</a>
+pulen las gemas rúnicas que son el orgullo de su casa.</p>
+<p>Con el tiempo, Finnian se convirtió en el Embajador y Maestro
+Comerciante de Vaelor, una posición de confianza sin precedentes para un
+no-enano. Es él quien viaja a las bulliciosas ciudades de <a
+href="Valtoria.html">Valtoria</a>, quien se sienta en mesas de
+negociación frente a astutos gremialistas y nobles altivos, y quien
+maneja las delicadas alianzas y las feroces rivalidades de su casa. Se
+enfrenta con calma y una sonrisa desarmante a la hostilidad del Clan
+Agrietacero, cuyos miembros le apodan con desdén “el guijarro parlante”,
+solo para ver cómo Finnian cierra tratos que los dejan fuera del
+mercado. Es él quien cultiva la relación simbiótica con los joyeros de
+<a href="Nolindor.html">Nolindor</a> y los sabios de <a
+href="Elionor.html">Elionor</a>, asegurando que el flujo de gemas puras
+y conocimiento celestial nunca cese.</p>
+<p>Su motivación no es la riqueza, aunque la ha amasado para su casa,
+sino una profunda lealtad forjada en la gratitud. Cada contrato firmado,
+cada rivalidad neutralizada, es un pago a la familia que lo acogió.
+Finnian Ruedaquieta, el mediano de la montaña, es la prueba viviente de
+que la voluntad, como una runa perfectamente inscrita, puede otorgar
+fuerza a la piedra más inesperada. Es el único no-enano con un asiento
+en las cámaras del consejo de la Casa Vaelor, un honor que porta con
+humildad y una responsabilidad de hierro.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Finnian posee la complexión compacta y los pies ágiles de su raza,
+pero décadas de vida en la montaña le han otorgado una solidez inusual.
+A sus 72 años, su rostro está surcado de arrugas amables alrededor de
+sus ojos avellana, que brillan con una inteligencia vivaz y una
+paciencia casi geológica. En un gesto de respeto a su cultura adoptiva,
+luce unas patillas largas y meticulosamente trenzadas, sujetas con
+broches de zafiro que él mismo negoció.</p>
+<p>Viste con la elegancia de un mercader próspero, pero con la
+funcionalidad de <a href="Valtoria.html">Valtoria</a>. Suele portar un
+chaleco de cuero de cabra montesa sobre una camisa de lino fino, y sus
+pantalones de lana están rematados con botas robustas, aptas para
+caminar tanto por los salones de un gremio como por los senderos de
+montaña. Su prenda más distintiva es un abrigo de viaje forrado, cuyos
+botones son pequeñas gemas pulidas por la Casa Vaelor, cada una con una
+runa protectora menor.</p>
+<p>Su equipamiento no es el de un <a href="Guerrero.html">Guerrero</a>,
+sino el de un maestro de su oficio: * <strong>El Gran Libro de Cuentas
+de Vaelor:</strong> Un pesado libro encuadernado en cuero, con cierres
+de mithril. Contiene no solo los registros comerciales, sino también
+notas cifradas sobre las personalidades, debilidades y fortalezas de
+cada socio y rival. * <strong>La Noria de la Diplomacia:</strong> Un
+ábaco personal y portátil hecho de plata y nogal petrificado. Las
+cuentas son pequeñas perlas y gemas pulidas, una herramienta de cálculo
+y un símbolo de su estatus. * <strong>Lupa de Claridad Rúnica:</strong>
+Un regalo del Círculo de Sabios, esta lente de cristal encantado por
+Vaelor le permite examinar la pureza de las gemas y la autenticidad de
+los sellos con una precisión infalible. * <strong>Daga de la Corriente
+Silenciosa:</strong> Oculta en su bota, esta daga de hoja corta y
+delgada, forjada con acero infundido en zafiro líquido, es su último
+recurso. Es un arma ligera y silenciosa, tan letal como subestimada, al
+igual que su portador.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Finnian Ruedaquieta no será recordado en las grandes sagas de
+guerreros que parten montañas, sino en las crónicas de los gremios y en
+los susurros de los salones de poder. Su legado es el de ser un puente
+entre culturas, la personificación de que el honor y la lealtad no
+entienden de razas. En un reino tan tradicionalista como <a
+href="Valtoria.html">Valtoria</a>, su ascenso ha abierto, aunque sea
+mínimamente, las puertas a una mayor aceptación de los forasteros,
+demostrando que el valor puede encontrarse en los lugares más
+insospechados.</p>
+<p>Es el arquitecto silencioso del poder económico de la Casa Vaelor,
+transformando su artesanía única en una influencia que rivaliza con la
+de los clanes guerreros más poderosos. Su historia se cuenta en las
+tabernas de <a href="Villeshervil.html">Villeshervil</a> a los niños,
+tanto <a href="Enanos.html">Enanos</a> como <a
+href="Gnomos.html">Gnomos</a>: la leyenda del “Mediano que movió la
+Montaña”, no con fuerza bruta, sino con ingenio, lealtad y una palabra
+bien empleada. Finnian Ruedaquieta ha probado que el lema de su casa es
+cierto: la corriente moldea la piedra, y él es la corriente que ha dado
+una nueva forma al destino de la Casa Vaelor.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Finn.html">Finn</a> (relevancia: 0.50)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

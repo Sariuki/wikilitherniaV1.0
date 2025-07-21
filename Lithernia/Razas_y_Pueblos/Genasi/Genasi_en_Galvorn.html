@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genasi_en_Galvorn</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Genasi_en_Galvorn</div>
+        <div class="content">
+<h1 id="genasi-en-galvorn">Genasi en Galvorn</h1>
+<p>En las costas tormentosas y salinas de <a
+href="Galvorn.html">Galvorn</a>, donde los vientos marinos soplan con
+fuerza y el horizonte se funde en un eterno azul, habitan los Genasi,
+hijos de los elementos y vigías ancestrales del reino. Su existencia
+entre los mortales no solo es un espectáculo de poder natural, sino una
+leyenda viva que entreteje la esencia misma de Lithernia con la furia y
+la calma de los elementos.</p>
+<h2 id="orígenes-elementales">Orígenes Elementales</h2>
+<p>Los Genasi de <a href="Galvorn.html">Galvorn</a> descienden de la
+unión mítica entre los primigenios elementalistas y las tribus humanas
+que habitaron la costa desde tiempos inmemoriales. Cuentan los
+manuscritos más antiguos que, tras la Gran Tormenta que forjó los
+acantilados de <a href="Galvorn.html">Galvorn</a>, los dioses
+elementales infundieron un fragmento de su esencia en ciertos <a
+href="Humanos.html">Humanos</a>, dando vida a seres imbuidos de fuego,
+agua, aire o tierra.</p>
+<p>Estas criaturas no solo portan en su sangre la energía elemental,
+sino que poseen el don innato de manipularla, reflejando el carácter de
+sus ascendientes divinos y la indómita naturaleza marítima que los
+acuna.</p>
+<h2 id="comunidades-costeras">Comunidades Costeras</h2>
+<p>Las comunidades Genasi se encuentran dispersas a lo largo de la
+ribera, desde los acantilados oxidados por el viento hasta las islas
+varadas en la bocana del puerto. Las más destacadas son:</p>
+<ul>
+<li><strong>Vharlund</strong>, asentada en la península ventosa, hogar
+predominante de Genasi de aire, conocidos por sus habilidades para
+prever tormentas y guiar a los marineros.</li>
+<li><strong>Miryas</strong>, ciudad flotante que sirve de refugio para
+los Genasi de agua, que controlan las corrientes y guardan celosamente
+secretos de profundidad inmemorial.</li>
+<li><strong>Pyrrakos</strong>, enclavada en un volcán costero extinto,
+comunidad de Genasi de fuego, forjadores y guardianes de la llama eterna
+que alimenta la <a href="Herreria.html">Herreria</a> ancestral.</li>
+<li><strong>Thrunar</strong>, poblado en los riscos más bajos, donde los
+Genasi de tierra cultivan las fértiles tierras marcadas por la sal
+marina y custodian antiguas inscripciones pétreas.</li>
+</ul>
+<p>Cada comunidad mantiene tradiciones propias, pero todas comparten un
+respeto sacro por el mar y los elementos que definen su alma.</p>
+<h2 id="rol-en-la-sociedad-de-galvorn">Rol en la Sociedad de
+Galvorn</h2>
+<p>En el estrato social del reino, los Genasi son vistos tanto con
+respeto como con cierto recelo. Su capacidad para influir sobre los
+elementos los convierte en aliados poderosos, especialmente para la
+marina de <a href="Galvorn.html">Galvorn</a>, donde sirven como
+guardianes meteorológicos y combatientes en defensa costera. Además, sus
+dones son esenciales para la agricultura y pesca, al aumentar la
+productividad con lluvias controladas o tierra fértil.</p>
+<p>Políticamente, los Genasi suelen actuar como consejeros de los
+Señores Costeros, ofreciendo sabiduría elemental y estrategias basadas
+en las previsiones naturales. Sin embargo, muchos prefieren la autonomía
+de sus clanes, manteniendo una distancia deliberada de las disputas del
+interior del reino.</p>
+<h2 id="leyendas-de-los-elementales">Leyendas de los Elementales</h2>
+<p>Una de las <a href="Leyendas.html">Leyendas</a> más recitadas en las
+noches náuticas es la de <strong>Kaelis, el Viento Errante</strong>. Se
+dice que fue el primer Genasi de aire que surcó los cielos con alas
+forjadas por el dragón del viento, y que aún vela sobre <a
+href="Galvorn.html">Galvorn</a> desde las corrientes más altas,
+protegiendo a su pueblo de las tempestades más mortales.</p>
+<p>Otra historia emblemática es la del <strong>Corazón de las
+Mareas</strong>, una gema líquida custodiada por los Genasi de Miryas,
+capaz de convocar mareas benéficas o destructivas, símbolo de equilibrio
+y poder que recuerda a todos la crucial interdependencia con la
+naturaleza.</p>
+<h2 id="costumbres-y-ritos">Costumbres y Ritos</h2>
+<p>Entre los Genasi, los ritos de paso están íntimamente ligados a la
+comunión con su elemento. Por ejemplo:</p>
+<ul>
+<li>Los Genasi de agua deben sumergirse en las profundidades del mar al
+cumplir veinte años, enfrentando al Leviatán Marino en un desafío de
+bravura y resistencia.</li>
+<li>Los Genasi de fuego se someten a la “<a
+href="Herreria.html">Herreria</a> del Fénix”, donde atraviesan un ritual
+con llamas purificadoras en el cráter de Pyrrakos.</li>
+<li>Los de aire celebran “El Vuelo de las Almas”, un ascenso ceremonial
+a las crestas más altas para captar la bendición del viento.</li>
+<li>Los de tierra organizan la “Siembra de los Ancestros”, una
+plantación conjunta en tierras sagradas para pedir fertilidad y
+protección.</li>
+</ul>
+<p>Estos rituales no solo fortalecen sus poderes, sino que reafirman el
+vínculo indivisible entre su profusa vitalidad elemental y la tierra que
+los vio nacer.</p>
+<hr />
+<p>En definitiva, los Genasi en <a href="Galvorn.html">Galvorn</a>
+encarnan la fuerza eterna de los elementos en una danza perpetua con la
+vida humana. Son custodios de secretos ancestrales y parte
+imprescindible del tejido social y natural que define el espíritu de
+Lithernia.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Genasi%20de%20Aire.html">Genasi de Aire</a> (relevancia:
+0.41)</li>
+<li><a href="Genasi%20de%20Tierra.html">Genasi de Tierra</a>
+(relevancia: 0.40)</li>
+<li><a href="Genasi%20de%20Fuego.html">Genasi de Fuego</a> (relevancia:
+0.40)</li>
+<li><a href="Genasi%20de%20Agua.html">Genasi de Agua</a> (relevancia:
+0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

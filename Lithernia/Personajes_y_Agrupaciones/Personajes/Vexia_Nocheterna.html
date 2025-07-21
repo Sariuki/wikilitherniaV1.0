@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexia_Nocheterna</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vexia_Nocheterna</div>
+        <div class="content">
+<h1 id="vexia-nocheterna">Vexia Nocheterna</h1>
+<p><a href="Vexia.html">Vexia</a> Nocheterna no es una guerrera que
+blande una espada en el campo de batalla, ni una <a
+href="Noble.html">Noble</a> que debate en los salones del poder. Es un
+espectro en los anales de Lithernia, un susurro en los oídos de los
+tiranos y la arquitecta invisible de una rebelión que se extiende como
+una sombra silenciosa por todo el continente. Como Maestra de Espías de
+La Llama del Sauce Roto, su nombre es desconocido para la mayoría, pero
+su influencia es el cimiento sobre el que se construye la esperanza de
+un mundo libre.</p>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida en el seno de la Casa Nocheterna, un linaje menor de elfos
+oscuros de <a href="Eldrador.html">Eldrador</a>, <a
+href="Vexia.html">Vexia</a> creció bajo la opresiva “Mano de Hierro”. Su
+familia, dedicada al estudio de la magia de las sombras y los secretos
+olvidados, fue siempre vista con recelo por las casas más poderosas de
+altos elfos, especialmente por la altiva Casa Auris. Los Nocheterna no
+buscaban poder, sino conocimiento, creyendo que en las sombras se
+ocultaban verdades que la luz cegadora de la nobleza se negaba a
+ver.</p>
+<p>Esta búsqueda de saber fue su condena. Acusada de herejía y de
+practicar artes prohibidas que amenazaban la pureza élfica, la Casa
+Nocheterna fue purgada por orden de la Casa Auris. <a
+href="Vexia.html">Vexia</a>, apenas una joven elfa, fue testigo de la
+aniquilación de su linaje, escapando por poco gracias a los pasadizos
+secretos y las ilusiones que sus padres le habían enseñado. Su hogar fue
+quemado, su familia asesinada y su nombre borrado de los registros de <a
+href="Eldrador.html">Eldrador</a>. Aquella noche, el dolor forjó en ella
+un propósito de acero: desmantelar los sistemas que aplastaban a los
+débiles, sin importar su origen.</p>
+<p>Durante décadas, <a href="Vexia.html">Vexia</a> actuó en solitario,
+una vengadora fantasma que saboteaba las operaciones de la Casa Auris y
+liberaba a los siervos de la tiranía élfica. Fue en esta cruzada
+solitaria donde oyó los primeros rumores de La Llama del Sauce Roto y de
+su carismático líder, Kaelen Umbraflama. Al encontrarlo, <a
+href="Vexia.html">Vexia</a> reconoció en él no solo un deseo de
+venganza, sino una visión: un Lithernia unificado bajo el espíritu del
+Primer Rey, libre de la arrogancia de los dioses y de la tiranía de sus
+sirvientes mortales. En Kaelen encontró una causa más grande que su
+propio odio, y en ella, Kaelen encontró la herramienta perfecta para dar
+forma a su rebelión.</p>
+<p><a href="Vexia.html">Vexia</a> juró lealtad inquebrantable a Kaelen,
+quien la nombró su “Tejedora de Sombras”. Desde entonces, ha sido la
+mente maestra detrás de la red de espionaje de la facción, conocida como
+“La Red del Susurro”. Fue ella quien estableció el contacto y forjó la
+alianza con los <a href="Orcos.html">Orcos</a> rebeldes de Chéneras,
+quien orquestó la infiltración en las filas del Clan Nighthawk para
+robar sus planes de expansión, y quien coordina las operaciones de
+liberación de prisioneros desde las minas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> hasta las servidumbres de <a
+href="Eldrador.html">Eldrador</a>. Su lealtad a Kaelen es absoluta, pues
+ve en él la única llama capaz de guiar a los desposeídos hacia un futuro
+digno. En contraste, considera al ruidoso <a
+href="Guerrero.html">Guerrero</a> Borin Rompetormentas un martillo útil
+pero peligroso; su franqueza y falta de sutileza han estado a punto de
+comprometer innumerables operaciones, obligando a <a
+href="Vexia.html">Vexia</a> a tejer redes de desinformación aún más
+complejas para proteger a su gente.</p>
+<h3 id="descripción-y-equipamiento">Descripción y Equipamiento</h3>
+<p><a href="Vexia.html">Vexia</a> es la personificación de la noche. Su
+piel tiene el tono del ónice pulido y su cabello, largo y lacio, es de
+un blanco plateado que contrasta con la oscuridad de su atuendo. Sus
+ojos, de un violeta profundo, rara vez parpadean y parecen absorber la
+luz, analizando cada detalle con una calma inquietante. Se mueve con una
+gracia fluida y silenciosa, cada gesto medido y económico. No hay
+adornos en su vestimenta; prefiere la funcionalidad a la
+ostentación.</p>
+<p>Su equipo está diseñado para el sigilo y la eficiencia letal: *
+<strong>Armadura de Cuero de Sombra:</strong> Una armadura de cuero
+negro curtido con aceites alquímicos que disipan la luz y amortiguan el
+sonido. Está grabada con <a href="Runas.html">Runas</a> élficas de
+ocultación apenas visibles. * <strong>Dagas Gemelas del
+Silencio:</strong> Dos estiletes de obsidiana forjados en las ruinas de
+su hogar. Se dice que están encantados para no producir sonido al cortar
+el aire o la carne. * <strong>Capa de la Noche Eterna:</strong> Un manto
+tejido con hilos de seda de araña de las cavernas más profundas de <a
+href="Eldrador.html">Eldrador</a>, que le permite fundirse casi por
+completo en cualquier sombra. * <strong>Anillo de la Casa
+Nocheterna:</strong> El único vestigio de su linaje. Un sencillo anillo
+de plata con el símbolo de una luna nueva, que lleva oculto bajo sus
+guantes. Es su recordatorio constante de por qué lucha. * <strong>Equipo
+de Infiltración:</strong> Un conjunto de herramientas de la más alta
+calidad, incluyendo ganzúas de mithril, viales de venenos de acción
+rápida, tintas invisibles y pergaminos cifrados que solo ella y Kaelen
+pueden leer.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Aunque el mundo celebra a los héroes de primera línea, el verdadero
+impacto de <a href="Vexia.html">Vexia</a> Nocheterna se mide en las
+conspiraciones que nunca llegaron a buen puerto, en los tiranos que
+cayeron por “accidentes” inexplicables y en las rebeliones que surgieron
+de la nada con una coordinación impecable. Es la arquitecta de la
+inteligencia de La Llama del Sauce Roto; sin sus ojos y oídos, la
+facción sería una colección de células rebeldes desorganizadas,
+fácilmente aplastadas.</p>
+<p>Su legado no será una estatua en una plaza, sino una red de susurros
+que cambiará el curso de la Gran Guerra. Ella es la prueba de que el
+poder más grande no siempre es el que más ruido hace, sino el que se
+mueve, invisible e imparable, en la oscuridad que precede al amanecer.
+Mientras Kaelen Umbraflama es la llama visible de la rebelión, <a
+href="Vexia.html">Vexia</a> es el aceite que la alimenta y la sombra que
+la protege, asegurando que arda lo suficiente como para consumir el
+viejo orden y dar paso a uno nuevo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.48)</li>
+<li><a href="La%20Llama%20del%20Sauce%20Roto.html">La Llama del Sauce
+Roto</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

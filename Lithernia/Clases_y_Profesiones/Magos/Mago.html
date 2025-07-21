@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mago</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Mago</div>
+        <div class="content">
+<h1 id="mago">Mago</h1>
+<p>Los magos son eruditos arcanos que manipulan el Tejido del Maná a
+través de un estudio riguroso y una disciplina intelectual. En
+Lithernia, son los arquitectos de la magia, capaces de desentrañar los
+secretos del universo, potenciar sus hechizos a través de Círculos de
+Invocación y, en los niveles más altos de maestría, incluso tejer dos <a
+href="Conjuros.html">Conjuros</a> en una sola y poderosa manifestación.
+Su poder no nace del instinto o de un pacto, sino del conocimiento puro
+y la comprensión de las leyes que rigen la energía arcana.</p>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como mago, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d6 por nivel de mago <strong>Puntos
+de Golpe a nivel 1:</strong> 6 + tu modificador de Constitución
+<strong>Puntos de Golpe a niveles superiores:</strong> 1d6 (o 4) + tu
+modificador de Constitución por cada nivel de mago después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Ninguna <strong>Armas:</strong> Dagas,
+dardos, hondas, bastones, ballestas ligeras
+<strong>Herramientas:</strong> Ninguna <strong>Tiradas de
+Salvación:</strong> Inteligencia, Sabiduría
+<strong>Habilidades:</strong> Elige dos de entre Arcanos, Historia,
+Perspicacia, Investigación, Medicina y Religión.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) un bastón o (b) una daga * (a) una bolsa de componentes
+o (b) un foco arcano * (a) un paquete de <a
+href="Erudito.html">Erudito</a> o (b) un paquete de explorador * Un
+libro de <a href="Conjuros.html">Conjuros</a></p>
+<h3 id="sistema-de-maná-del-mago"><strong>Sistema de Maná del
+Mago</strong></h3>
+<p>Tu poder se extrae del estudio metódico del Tejido del Maná,
+canalizado a través de tu intelecto.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que usas para lanzar tus <a href="Conjuros.html">Conjuros</a>. Tu
+fórmula de maná es <strong>8 + (Nivel de Mago × Modificador de
+Inteligencia)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d6. Este dado se utiliza para
+calcular la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+y para realizar pruebas de Canalización.</li>
+<li><strong>Aptitud Mágica:</strong> La Inteligencia es tu aptitud
+mágica para tus <a href="Conjuros.html">Conjuros</a> de mago.
+<ul>
+<li><strong>CD de salvación de <a
+href="Conjuros.html">Conjuros</a></strong> = 8 + tu bonificador por
+competencia + tu modificador de Inteligencia.</li>
+<li><strong>Modificador de ataque de <a
+href="Conjuros.html">Conjuros</a></strong> = tu bonificador por
+competencia + tu modificador de Inteligencia.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo. También puedes
+recuperar una cantidad limitada a través de tu rasgo Recuperación
+Arcana.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-mago">Tabla de Progresión del Mago</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Trucos Conocidos</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Lanzamiento de <a
+href="Conjuros.html">Conjuros</a>, Recuperación Arcana</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8 + (1 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Tradición Arcana</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8 + (2 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8 + (3 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (4 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (5 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Tradición Arcana</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (6 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (7 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (8 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (9 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Rasgo de Tradición Arcana</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (10 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (11 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (12 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (13 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Rasgo de Tradición Arcana</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (14 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (15 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (16 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (17 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Maestría en <a
+href="Conjuros.html">Conjuros</a></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (18 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (19 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Firma de <a
+href="Conjuros.html">Conjuros</a></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (20 × Mod. INT)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tradiciones-arcanas"><strong>Tradiciones Arcanas</strong></h2>
+<h3 id="escuela-de-evocación"><strong>Escuela de Evocación</strong></h3>
+<p>Te enfocas en el estudio de la magia que crea poderosos efectos
+elementales como frío cortante, llamas abrasadoras, truenos retumbantes,
+relámpagos crepitantes y ácido ardiente.</p>
+<h4 id="evocador-erudito"><strong>Evocador Erudito</strong></h4>
+<p>A partir de que eliges esta escuela en el nivel 2, el oro y el tiempo
+que debes gastar para copiar un conjuro de evocación en tu libro de <a
+href="Conjuros.html">Conjuros</a> se reduce a la mitad.</p>
+<h4 id="esculpir-conjuros"><strong>Esculpir Conjuros</strong></h4>
+<p>A partir del nivel 2, puedes crear bolsas de relativa seguridad
+dentro de los efectos de tus <a href="Conjuros.html">Conjuros</a> de
+evocación. Cuando lanzas un conjuro de evocación que afecta a otras
+criaturas que puedes ver, puedes elegir un número de ellas igual a 1 +
+el nivel del conjuro. Las criaturas elegidas tienen éxito
+automáticamente en sus tiradas de salvación contra el conjuro, y no
+reciben daño si normalmente recibirían la mitad de daño en una salvación
+exitosa.</p>
+<h4 id="truco-potente"><strong>Truco Potente</strong></h4>
+<p>A partir del nivel 6, tus trucos dañinos afectan incluso a las
+criaturas que evitan la peor parte del efecto. Cuando una criatura tiene
+éxito en una tirada de salvación contra tu truco, la criatura recibe la
+mitad del daño del truco (si lo hubiera) pero no sufre ningún efecto
+adicional del mismo.</p>
+<h4 id="evocación-potenciada"><strong>Evocación Potenciada</strong></h4>
+<p>A partir del nivel 10, puedes añadir tu modificador de Inteligencia a
+una tirada de daño de cualquier conjuro de evocación de mago que
+lances.</p>
+<h4 id="sobrecarga"><strong>Sobrecarga</strong></h4>
+<p>A partir del nivel 14, puedes aumentar el poder de tus <a
+href="Conjuros.html">Conjuros</a> más simples. Cuando lanzas un conjuro
+de mago de nivel 5 o inferior que inflige daño, puedes infligir el daño
+máximo con ese conjuro. La primera vez que lo haces, no sufres efectos
+adversos. Si usas este rasgo de nuevo antes de terminar un descanso
+largo, recibes 2d12 de daño necrótico por cada nivel del conjuro,
+inmediatamente después de lanzarlo. Cada vez que uses este rasgo de
+nuevo antes de terminar un descanso largo, el daño necrótico por nivel
+del conjuro aumenta en 1d12. Este daño ignora la resistencia y la
+inmunidad.</p>
+<h3 id="escuela-de-adivinación"><strong>Escuela de
+Adivinación</strong></h3>
+<p>Como adivino, te esfuerzas por despegar las capas del espacio, el
+tiempo y la conciencia para poder ver claramente. Te esfuerzas por
+dominar <a href="Conjuros.html">Conjuros</a> de discernimiento, visión
+remota, conocimiento sobrenatural y premonición.</p>
+<h4 id="adivino-erudito"><strong>Adivino Erudito</strong></h4>
+<p>A partir de que eliges esta escuela en el nivel 2, el oro y el tiempo
+que debes gastar para copiar un conjuro de adivinación en tu libro de <a
+href="Conjuros.html">Conjuros</a> se reduce a la mitad.</p>
+<h4 id="portento"><strong>Portento</strong></h4>
+<p>A partir del nivel 2, destellos del futuro comienzan a aparecer en tu
+mente. Cuando terminas un descanso largo, tira dos d20 y anota los
+números obtenidos. Puedes reemplazar cualquier tirada de ataque, tirada
+de salvación o prueba de característica hecha por ti o por una criatura
+que puedas ver con uno de estos resultados premonitorios. Debes elegir
+hacerlo antes de la tirada, y solo puedes reemplazar una tirada una vez
+por turno. Cada resultado premonitorio solo puede usarse una vez. Cuando
+terminas un descanso largo, pierdes cualquier resultado premonitorio no
+utilizado.</p>
+<h4 id="adivinación-experta"><strong>Adivinación Experta</strong></h4>
+<p>A partir del nivel 6, lanzar <a href="Conjuros.html">Conjuros</a> de
+adivinación se vuelve tan fácil para ti que requiere menos esfuerzo
+mágico. Cuando lanzas un conjuro de adivinación de nivel 2 o superior,
+recuperas una cantidad de Puntos de Maná igual al nivel del conjuro -
+1.</p>
+<h4 id="el-tercer-ojo"><strong>El Tercer Ojo</strong></h4>
+<p>A partir del nivel 10, puedes usar tu acción para aumentar tus
+poderes de percepción. Cuando lo haces, elige uno de los siguientes
+beneficios, que dura hasta que estés incapacitado o hasta que comiences
+un descanso largo. No puedes usar este rasgo de nuevo hasta que termines
+un descanso. * <strong>Comprensión Oscura:</strong> Ganas visión en la
+oscuridad de 60 pies. * <strong>Visión Etérea:</strong> Puedes ver en el
+Plano Etéreo hasta 60 pies. * <strong>Mayor Comprensión:</strong> Puedes
+leer cualquier idioma. * <strong>Ver lo Invisible:</strong> Puedes ver
+criaturas y objetos invisibles hasta 10 pies, que están dentro de la
+línea de visión.</p>
+<h4 id="mayores-portentos"><strong>Mayores Portentos</strong></h4>
+<p>A partir del nivel 14, las visiones de tu rasgo Portento se vuelven
+más frecuentes. Tiras tres d20 para tu rasgo Portento, en lugar de
+dos.</p>
+<h3 id="escuela-del-tejedor-de-hechizos"><strong>Escuela del Tejedor de
+Hechizos</strong></h3>
+<p>A diferencia de otros magos que simplemente usan la magia, tú la
+tejes. Ves el Tejido del Maná no como una fuente de poder, sino como un
+tapiz de hilos arcanos que puedes entrelazar, modificar y combinar. Eres
+un artesano de la magia, capaz de alterar la esencia misma de los <a
+href="Conjuros.html">Conjuros</a> para crear efectos únicos.</p>
+<h4 id="aprendiz-de-tejedor"><strong>Aprendiz de Tejedor</strong></h4>
+<p>A partir de que eliges esta tradición en el nivel 2, adquieres un
+conocimiento innato sobre las mecánicas únicas de la magia de Lithernia.
+* Aprendes el truco <strong>Aguja de Trama</strong>. Este truco no
+cuenta para el número de trucos que conoces. * Ganas competencia en las
+pruebas de <strong>Canalización de Maná</strong> (Inteligencia
+(Arcanos)). Usas esta competencia cuando intentas <strong>Potenciar <a
+href="Conjuros.html">Conjuros</a></strong> o <strong>Mezclar <a
+href="Conjuros.html">Conjuros</a></strong>.</p>
+<h4 id="hilo-eficiente"><strong>Hilo Eficiente</strong></h4>
+<p>A partir del nivel 6, tu dominio sobre la manipulación del maná te
+permite reducir el coste físico de tus creaciones. Cuando lanzas un
+conjuro y utilizas las mecánicas de Potenciación de <a
+href="Conjuros.html">Conjuros</a>, Mezcla de <a
+href="Conjuros.html">Conjuros</a> o el truco Aguja de Trama, puedes
+reducir la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+total sufrida en una cantidad igual a tu modificador de Inteligencia
+(mínimo de 1).</p>
+<h4 id="trama-dúplice"><strong>Trama Dúplice</strong></h4>
+<p>A partir del nivel 10, puedes tejer dos <a
+href="Conjuros.html">Conjuros</a> simples en una sola acción. Como una
+acción, puedes intentar lanzar dos <a href="Conjuros.html">Conjuros</a>
+de mago diferentes que conozcas, ambos de nivel 2 o inferior y con un
+tiempo de lanzamiento de 1 acción. Debes gastar los Puntos de Maná para
+ambos <a href="Conjuros.html">Conjuros</a>. Inmediatamente después,
+realiza una prueba de Canalización de Maná (CD 15). Si tienes éxito,
+lanzas ambos <a href="Conjuros.html">Conjuros</a> simultáneamente. Si
+fallas, ambos <a href="Conjuros.html">Conjuros</a> fallan y sufres la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+de ambos. Solo puedes usar este rasgo una vez por descanso corto o
+largo.</p>
+<h4 id="tejido-de-realidad"><strong>Tejido de Realidad</strong></h4>
+<p>En el nivel 14, tu maestría sobre el Tejido del Maná es casi
+absoluta. Cuando realizas una prueba de Canalización de Maná para
+Potenciar, Mezclar o usar tu rasgo de Trama Dúplice y fallas, puedes
+elegir tener éxito en su lugar. Una vez que uses este rasgo, no puedes
+volver a usarlo hasta que termines un descanso largo.</p>
+        </div>
+    </div>
+</body>
+</html>

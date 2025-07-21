@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elionor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Elionor</div>
+        <div class="content">
+<h1 id="elionor">Elionor</h1>
+<p>Enclavada en el corazón del remoto Valle del Silencio Estelar,
+Elionor no es una fortaleza de guerra ni un centro de industria, sino un
+santuario para la mente. Es el alma contemplativa de <a
+href="Valtoria.html">Valtoria</a>, una ciudad donde la paciencia de la
+piedra se encuentra con la inmensidad del cosmos. Sus edificios de
+granito pulido, excavados con maestría en las laderas del valle, parecen
+una extensión natural de la montaña, coronados por techos de hierba
+alpina que susurran con el viento. Puentes de piedra arqueados, tan
+sólidos como el tiempo mismo, conectan distritos enteros, pero la
+verdadera maravilla de Elionor reside en sus cúpulas de cristal
+encantado, observatorios que miran al cielo con una devoción
+inquebrantable. Este es un lugar donde el conocimiento se valora por
+encima del oro y la sabiduría es el mayor de los tesoros, un bastión del
+Círculo Exterior de la Torre de las Estrellas.</p>
+<h2 id="historia">Historia</h2>
+<p>Elionor fue fundada hace siglos, no por un rey o un <a
+href="Guerrero.html">Guerrero</a>, sino por un sabio. El Maestro
+Astrónomo Borin Ojo-de-Cristal, un enano que había pasado su vida
+estudiando tanto las vetas de las montañas como las sendas de las
+estrellas, buscaba un lugar de quietud. Hastiado del ruido de las forjas
+y la política de los grandes salones, creía que para comprender el
+mundo, los <a href="Enanos.html">Enanos</a> debían mirar hacia arriba
+tanto como hacia abajo.</p>
+<p>Llevó a sus seguidores, un ecléctico grupo de <a
+href="Enanos.html">Enanos</a> eruditos, <a href="Gnomos.html">Gnomos</a>
+relojeros y cartógrafos, a un valle oculto bendecido por una quietud
+casi sobrenatural. Allí, en honor a <a href="Cirkon.html">Cirkon</a>, la
+diosa de la roca, excavaron su ciudad. Pero Borin, en un acto que
+sorprendió a muchos, invitó a sabios semi-elfos a unirse a ellos,
+abriendo un canal para el estudio académico de <a
+href="Arzia.html">Arzia</a>, la diosa élfica de las estrellas. Esta
+síntesis cultural única forjó la identidad de Elionor: una ciudad enana
+con un alma cósmica. Con el tiempo, se convirtió en uno de los centros
+de estudio más importantes del Círculo Exterior, un lugar donde la
+paciencia y la precisión son las virtudes más sagradas.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Plaza del Geodo</strong>: El centro neurálgico de
+Elionor. Aquí, en lugar de una estatua, yace un colosal geodo de cristal
+abierto, cuyo interior pulido por generaciones de cuidadores refleja el
+firmamento. Durante el “Festival del Cristal Estelar”, los magos de la
+ciudad canalizan energía en él, creando un mapa tridimensional de las
+constelaciones que flota sobre la plaza.</p></li>
+<li><p><strong>Las Cúpulas de la Paciencia</strong>: El complejo de
+observatorios que corona la ciudad. Cada cúpula alberga un telescopio
+arcano de inmenso poder, atendido por equipos de astrónomos <a
+href="Enanos.html">Enanos</a>, <a href="Gnomos.html">Gnomos</a> y
+semi-elfos. Desde aquí se trazan <a href="Mapas.html">Mapas</a>
+celestes, se registran augurios y se vigila el tejido del Maná.</p></li>
+<li><p><strong>Los Jardines de Raíz Profunda</strong>: Un impresionante
+sistema de cavernas subterráneas donde los druidas de la montaña
+cultivan flora única. Hongos luminosos iluminan jardines botánicos que
+albergan plantas de todo Lithernia, mantenidas vivas por una mezcla de
+magia druídica y una cuidadosa ingeniería enana.</p></li>
+<li><p><strong>Las Salas de las Crónicas</strong>: Una vasta biblioteca
+y archivo donde cada familia de Elionor deposita su “Crónica del Hogar”,
+un libro que registra la historia, los <a href="Logros.html">Logros</a>
+y las genealogías familiares. Es una de las colecciones más completas de
+historia personal y comunitaria de todo el reino.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Elionor transcurre a un ritmo medido. El día a día se
+dedica al estudio, la artesanía de precisión —como la relojería arcana o
+la cartografía— y la contemplación. Los debates filosóficos son una
+forma común de entretenimiento, y los torneos de ajedrez lítico, jugado
+con piezas talladas en diferentes tipos de roca, pueden durar
+semanas.</p>
+<p>La devoción a <a href="Cirkon.html">Cirkon</a> se manifiesta en el
+respeto por la piedra y la montaña, mientras que el estudio de <a
+href="Arzia.html">Arzia</a> es una búsqueda intelectual de patrones en
+el caos del cosmos. Los druidas de la montaña son los encargados de los
+ritos estacionales, asegurando que la ciudad viva en armonía con los
+ciclos naturales. La mayor celebración es el solsticio, cuando toda la
+ciudad se reúne para pulir el gran geodo y renovar su conexión con los
+cielos.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Elionor es un testimonio de la armonía entre la construcción y la
+naturaleza. Los edificios de granito se integran perfectamente en el
+paisaje, sus interiores son cálidos y silenciosos, diseñados para el
+estudio. El aire es puro y frío, y el único sonido que rompe el silencio
+del valle es el murmullo del viento, el goteo del agua en las cavernas
+y, ocasionalmente, el suave zumbido de los mecanismos arcanos de los
+observatorios. De noche, la ciudad apenas utiliza luz artificial; en su
+lugar, confían en la luz de las estrellas, amplificada por las cúpulas
+de cristal y los senderos de piedra lunar que guían los pasos de sus
+habitantes.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Lanza del Lago</strong>: La leyenda más persistente y
+celosamente guardada de Elionor es que en el fondo de su lago central,
+de aguas gélidas e insondables, duerme Chronos, una de las cuatro Lanzas
+Celestiales. Se cree que su poder temporal es lo que mantiene el valle
+oculto y protegido del mundo exterior, ralentizando el paso del tiempo
+dentro de sus límites y creando una atmósfera de paz eterna. Los Sabios
+del Consejo prohíben cualquier intento de investigar el lago, temiendo
+que perturbar la lanza pueda romper el velo que protege a
+Elionor.</p></li>
+<li><p><strong>Los Fantasmas de las Estrellas</strong>: Algunos de los
+astrónomos más ancianos, aquellos que han pasado vidas enteras mirando a
+través de los telescopios, afirman haber presenciado un fenómeno
+aterrador. En noches de claridad excepcional, dicen haber visto los
+“fantasmas” de estrellas y mundos consumidos hace eones por el
+Cataclismo del <a href="Lilium.html">Lilium</a>. No son más que ecos de
+luz, imágenes fantasmales de una gloria perdida, pero su visión es un
+recordatorio tan profundo y melancólico del poder destructivo de los
+dioses que se dice que quien los ve, nunca vuelve a ser el
+mismo.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

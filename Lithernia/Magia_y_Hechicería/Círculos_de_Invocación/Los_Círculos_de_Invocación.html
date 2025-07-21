@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Círculos_de_Invocación</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Círculos_de_Invocación</div>
+        <div class="content">
+<h1 id="los-círculos-de-invocación">Los Círculos de Invocación</h1>
+<p>En la vasta extensión de <a href="Eldrador.html">Eldrador</a>, donde
+la magia fluye como un río invisible bajo la superficie del mundo, los
+Círculos de Invocación se alzan como guardianes ancestrales de poder
+arcano y dominio territorial. Estos loci mágicos, esparcidos
+estratégicamente a lo largo del Reino de Lithernia, son mucho más que
+simples puntos de concentración de energía: son el alma misma de la
+defensa, el crecimiento y la expansión del reino.</p>
+<h2 id="qué-son-los-círculos-de-invocación">Qué son los Círculos de
+Invocación</h2>
+<p>Los Círculos de Invocación son complejas construcciones místicas
+talladas en piedra antigua, cuyas <a href="Runas.html">Runas</a> y
+símbolos encierran la capacidad de canalizar la energía etérea, convocar
+entidades y manipular las fuerzas sobrenaturales. Cada círculo funciona
+como un nexo dimensional, permitiendo a los magos de Lithernia llamar a
+criaturas aliadas, elementales o espíritus guardianes para proteger y
+vigilar las fronteras del reino.</p>
+<p>Están diseñados siguiendo patrones geométricos precisos, que incluyen
+la integración de minerales raros y ambrosías místicas para amplificar
+su fuerza. La armonía entre la colocación de estos círculos y el flujo
+natural de la magia del terreno es fundamental para su efectividad.</p>
+<h2 id="historia-y-origen">Historia y Origen</h2>
+<p>El origen de los Círculos de Invocación se remonta a la Era de las
+Convergencias, un tiempo legendario en que las lunas de <a
+href="Eldrador.html">Eldrador</a> confluyeron y abrieron portales a
+otros planos. Fue durante este periodo que los primeros archimagos de
+Lithernia, guiados por profecías antiguas, diseñaron estos cánones
+mágicos para proteger su patria de las hordas invasoras que llegaban
+desde dimensiones lejanas.</p>
+<p>La edificación del círculo más antiguo conocido, el Círculo de Vael,
+se sitúa en las Montañas de Sombra y fue realizado por el mismísimo
+Arquidruida Elandor. Su poder selló permanentemente un abismo hacia el
+reino de las Sombras, asegurando la paz durante siglos.</p>
+<h2 id="funciones-y-usos">Funciones y Usos</h2>
+<h3 id="defensa">Defensa</h3>
+<p>En caso de amenaza externa, los magos guardianes utilizan los
+círculos para invocar custodios espectrales y <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+elementales que defienden las fortalezas y ciudades clave. Estos seres
+se materializan con una fuerza formidable y permanecen ligados a la
+energía del círculo mientras la amenaza persista.</p>
+<h3 id="expansión-territorial">Expansión Territorial</h3>
+<p>Más allá de la protección, los círculos han permitido a Lithernia
+expandir su influencia. Mediante rituales complejos, es posible extender
+el alcance de la magia territorial, purificando tierras salvajes y
+tornando inhóspitas regiones en fértiles, preparadas para la
+colonización y el establecimiento de nuevas aldeas.</p>
+<h3 id="comunicaciones-mágicas">Comunicaciones Mágicas</h3>
+<p>Los Círculos funcionan también como nodos de comunicación instantánea
+entre los distintos puntos del reino. Los magos pueden entablar
+reuniones espirituales, transmitir mensajes urgentes o coordinar
+movimientos de defensa sin necesidad de desplazamiento físico.</p>
+<h2 id="ubicación-de-los-círculos-clave-en-lithernia">Ubicación de los
+Círculos Clave en Lithernia</h2>
+<ul>
+<li><strong>Círculo de Vael</strong>: Montañas de Sombra — El más
+antiguo y poderoso, protege la frontera oeste.</li>
+<li><strong>Círculo de Lysandor</strong>: Bosques de Lunargenta — Se
+especializa en invocaciones de guardianes animales.</li>
+<li><strong>Círculo de Tareth</strong>: Llanuras del Alba — Centro para
+la expansión de territorios agrestes.</li>
+<li><strong>Círculo de Myrelis</strong>: Costa Dorada — Defensa contra
+incursiones marítimas y conjuraciones abisales.</li>
+</ul>
+<h2 id="leyendas-y-creencias-populares">Leyendas y Creencias
+Populares</h2>
+<p>Se dice que cada círculo tiene un «Corazón de Invocación», un cristal
+arcano capaz de elevar su poder a niveles catastróficos en manos
+equivocadas. Por ello, los archivos de Lithernia relatan vigilias
+eternas y pruebas iniciáticas que sólo los magos dignos deben superar
+para manejar tal responsabilidad.</p>
+<p>Una leyenda muy difundida en las aldeas aledañas cuenta la historia
+de la “Noche de las Mil Llamas”, cuando un grupo de invocadores
+inexpertos despertó una tormenta de fuego espectral a través de un
+círculo abandonado, que fue contenida apenas por la intervención del
+Consejo Arcano. Desde entonces, el respeto y temor hacia estos lugares
+se han convertido en dogma cultural.</p>
+<h2 id="costumbres-y-rituales-asociados">Costumbres y Rituales
+Asociados</h2>
+<p>Cada año, durante el equinoccio de otoño, se celebra la
+<strong>Ceremonia del Renacer</strong>, donde magos y ciudadanos se
+reúnen en uno de los círculos para renovar las energías del lugar. Se
+ofrendan flores de cristal y se entonan cánticos antiguos que, según
+cuentan los sabios, empujan el flujo de magia hacia una nueva era de
+prosperidad.</p>
+<p>Además, los aprendices de <a href="Mago.html">Mago</a> deben realizar
+su primera invocación en un círculo oficial para ser reconocidos por la
+orden arcana, ceremonia que simboliza su compromiso con la protección y
+servicio al reino.</p>
+<hr />
+<p>Los Círculos de Invocación no son meros relieves en piedra, sino
+raíces vivientes del poder de Lithernia, que a través de los siglos han
+tejido una red mágica inquebrantable, vigilando que su luz no se extinga
+y que sus fronteras siempre estén imbuidas de la fuerza ancestral que
+dio forma a un reino inmortal.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

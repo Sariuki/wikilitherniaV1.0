@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fexia_Pústula</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Fexia_Pústula</div>
+        <div class="content">
+<h1 id="fexia-pústula">Fexia Pústula</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En el ecosistema brutal de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+donde el poder se mide en acero y almas cosechadas, Fexia Pústula
+representa una fuerza más insidiosa y paciente: la inevitable victoria
+de la podredumbre. No nació de un linaje <a href="Noble.html">Noble</a>
+ni fue forjada en las arenas de combate. Fexia brotó del fango, una hija
+del miasma y la plaga que dio origen al Clan Vilespore. Como goblin, su
+pequeño tamaño desmiente una mente brillante y una conexión innata con
+el ciclo de la descomposición, que su clan venera como la forma más pura
+de existencia.</p>
+<p>Desde joven, mostró un talento sin parangón para la <a
+href="Alquimia.html">Alquimia</a> de la decadencia. Mientras otros <a
+href="Goblins.html">Goblins</a> aprendían a tender trampas, Fexia
+cultivaba jardines de moho venenoso y catalogaba las esporas más
+letales. Su devoción y agudo intelecto atrajeron la atención de Malakor,
+el actual Hongo-Padre del clan, quien la tomó como su aprendiz
+predilecta. Bajo su tutela, Fexia no solo aprendió los secretos de las
+plagas y los venenos, sino que abrazó la filosofía del clan: la
+putrefacción no es un final, sino un arte; una sinfonía de
+transformación que es a la vez creación y destrucción.</p>
+<p>Su principal motivación es la perfección de este arte macabro. Fexia
+desprecia la nigromancia del Clan Whisper, a quienes considera “artistas
+estériles”. Para ella, levantar un esqueleto es detener el proceso,
+congelar una obra en su estado más aburrido. La verdadera belleza, según
+Fexia, reside en observar cómo un cuerpo es reclamado por el musgo, cómo
+los hongos florecen en la carne y cómo una nueva y vibrante vida tóxica
+emerge de la muerte. Esta rivalidad filosófica la ha llevado a una
+guerra fría de sabotaje y competencia arcana en las calles pantanosas de
+<a href="Rynavel.html">Rynavel</a>.</p>
+<p>Entre sus hazañas se cuenta la creación de la “Peste Silente”, una
+enfermedad que no mata, sino que debilita lentamente los músculos y la
+voluntad, haciendo a las víctimas dóciles y fáciles de capturar. Este
+“regalo” consolidó la alianza con el Clan <a
+href="Kromagul.html">Kromagul</a>, cuyos seguidores ven en el
+sufrimiento prolongado una ofrenda a su dios. Del mismo modo, sus
+venenos sutiles, imposibles de rastrear por medios convencionales, la
+han convertido en un activo invaluable para los espías del Clan
+Nighthawk. Fexia no busca un trono de obsidiana; su ambición es más
+profunda. Desea cultivar una plaga tan perfecta que demuestre al mundo,
+y especialmente al Rey-Dios Sel’thirak, que la lenta y silenciosa
+podredumbre es un poder mucho más absoluto que la muerte misma.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Fexia Pústula es una goblin menuda y encorvada, cuya apariencia
+refleja su vocación. Su piel, de un tono terroso y siempre húmeda, está
+moteada de líquenes y pequeñas pústulas verdosas que, en la penumbra,
+emiten un suave brillo fosforescente. Sus grandes ojos negros no tienen
+pupila visible y brillan con una inteligencia calculadora y una
+curiosidad insana. Su cabello es una mata de filamentos fúngicos de
+color grisáceo que se mueven como si tuvieran vida propia. De ella emana
+un constante olor a tierra mojada, setas y el dulce hedor de la
+descomposición.</p>
+<p>Viste túnicas hechas de cuero curtido y musgo oscuro, reforzadas con
+quitina de insectos gigantes. No lleva metal, pues el óxido es el primer
+síntoma de su dominio. En su lugar, se adorna con huesos pulidos,
+dientes de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+del pantano y gorros de hongos preservados.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Cayado de Raíz
+Pútrida:</strong> Un báculo retorcido de madera de mangle, vivo y en
+constante estado de descomposición controlada. Está cubierto de hongos
+simbióticos que pueden liberar nubes de esporas con diferentes efectos
+(alucinógenas, paralizantes o simplemente tóxicas). * <strong>Alforja de
+Alquimista:</strong> Un cinturón con docenas de viales de cerámica y
+bolsitas de cuero. Contienen sus creaciones: desde venenos de contacto y
+toxinas gaseosas hasta potentes antídotos y catalizadores para acelerar
+el crecimiento fúngico. * <strong>Daga Ceremonial de Obsidiana:</strong>
+Una hoja corta y afilada, no para el combate, sino para recolectar
+muestras y trazar <a href="Runas.html">Runas</a> en sus rituales. Su
+filo está permanentemente cubierto de una pasta corrosiva.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El impacto de Fexia Pústula en Lithernia es el de una enfermedad que
+se extiende en silencio. Mientras los grandes señores de la guerra
+chocan sus ejércitos, ella libra una batalla mucho más fundamental
+contra la vida misma. Representa una faceta del poder en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> que a menudo se subestima: la
+guerra biológica y la corrupción desde dentro.</p>
+<p>Su legado no se medirá en territorios conquistados, sino en la
+cantidad de tierras que queden estériles por sus plagas o en la cantidad
+de linajes nobles extinguidos por sus venenos. Es la mente detrás del
+arsenal más sutil y temido de su clan, y cada nueva creación suya
+amenaza con alterar el equilibrio de poder, no solo en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sino en todo el continente. Si un
+día el Clan Vilespore asciende a una posición de poder real, será
+gracias a la “belleza” letal que Fexia Pústula cultiva en la oscuridad
+de su pantano. Ella es una bomba de tiempo biológica, y su obra maestra
+final podría ser una plaga capaz de arrodillar incluso a los dioses.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+<li><a href="Veneno.html">Veneno</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

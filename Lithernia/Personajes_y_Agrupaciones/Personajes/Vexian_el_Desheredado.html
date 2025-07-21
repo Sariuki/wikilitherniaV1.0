@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexian_el_Desheredado</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vexian_el_Desheredado</div>
+        <div class="content">
+<h1 id="vexian-el-desheredado">Vexian, el Desheredado</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en el seno de una rama menor y deshonrada de la Casa Rellian
+de <a href="Galvorn.html">Galvorn</a>, Vexian nunca conoció la opulencia
+ni el poder. Su linaje fue marcado por la infamia generaciones atrás,
+cuando sus ancestros, devotos cronistas del mar, se atrevieron a
+registrar y difundir fragmentos de la verdadera historia del Primer Rey.
+Fueron declarados herejes, despojados de sus títulos y tierras, y
+condenados a vagar como un eco de su antigua gloria. “El Desheredado” no
+es un apodo que Vexian eligió; es la herencia que corre por sus venas,
+una cicatriz que le recuerda a diario el orden injusto impuesto por los
+dioses usurpadores.</p>
+<p>Su juventud fue una lucha por la supervivencia en los barrios bajos
+de los puertos de <a href="Galvorn.html">Galvorn</a>, donde aprendió que
+la lealtad de los olvidados vale más que el oro de cualquier <a
+href="Noble.html">Noble</a>. Fue allí donde su resentimiento se
+transformó en propósito al encontrar a los <strong>Custodios de la Llama
+Durmiente</strong>. En sus susurros y textos prohibidos, Vexian no
+encontró solo una historia alternativa, sino la promesa de redención: la
+Profecía del Retorno del Rey. Para él, restaurar al monarca legítimo no
+es una ambición, sino un deber sagrado para sanar un mundo fracturado
+por la tiranía divina.</p>
+<p>Con el tiempo, su elocuencia forjada en el debate callejero y su
+fanatismo templado en acero lo convirtieron en el <strong>Heraldo
+Principal</strong> del culto. Es el arquitecto de la rebelión
+silenciosa, el tejedor de alianzas improbables. Su mayor hazaña no fue
+en un campo de batalla, sino en las minas de esclavos de un clan orco
+menor, donde rescató a una joven orca llamada <strong>Ghorza</strong>.
+En ella vio el reflejo de la opresión que sufrían todas las “creaciones
+fallidas” y la tomó como su protegida, demostrando con hechos la visión
+unificadora del Primer Rey.</p>
+<p>Ahora, con base en la ciudad-prisión de <strong><a
+href="Thirawen.html">Thirawen</a></strong>, Vexian aviva las llamas de
+la insurrección. Considera al <strong>Guardián de <a
+href="Thirawen.html">Thirawen</a></strong> un carcelero ciego, un peón
+del sistema que perpetúa el sufrimiento. Su rivalidad es una guerra de
+ideas librada en las sombras, donde cada alma convertida a su causa es
+una victoria contra los dioses. Vexian es consciente del peligro que
+representa, no solo para el Trono de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sino para el equilibrio precario
+de todo Lithernia. Pero a sus 95 años, sabe que el tiempo se agota y
+está dispuesto a sacrificarlo todo para que la Llama Durmiente
+finalmente despierte.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vexian es un hombre de edad avanzada, pero su figura no está
+encorvada por el peso de los años, sino erguida por la fuerza de su
+convicción. Su rostro, surcado por las arrugas de una vida dura, enmarca
+unos ojos grises, penetrantes y llenos de un fuego que desmiente su
+edad. Su cabello, largo y plateado, lo lleva recogido en una sencilla
+trenza.</p>
+<p>Viste con la austeridad de un peregrino: una túnica de lana oscura,
+gastada pero impecable, y un manto pesado para protegerse de los vientos
+fríos de <a href="Thirawen.html">Thirawen</a>. No porta armadura ni
+armas ostentosas. Su único compañero es un bastón de madera de roble
+nudoso, coronado con una pieza de obsidiana sin pulir. Más que un arma,
+es un símbolo de su autoridad como heraldo y un apoyo en sus largos
+viajes.</p>
+<p>Oculto bajo su túnica, lleva un pequeño medallón de plata con el
+escudo del culto grabado, frío al tacto como un recordatorio constante
+de su juramento. También transporta un estuche de cuero sellado que
+contiene pergaminos frágiles: copias de los textos prohibidos sobre la
+profecía y <a href="Mapas.html">Mapas</a> estelares que, según cree,
+señalan la ubicación de las Lanzas Celestiales.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Vexian, el Desheredado, no es un conquistador ni un rey, pero su
+impacto potencial en Lithernia es incalculable. Como Heraldo Principal
+de los Custodios, es el catalizador del cambio más radical que el
+continente podría enfrentar desde el Cataclismo del <a
+href="Lilium.html">Lilium</a>. Si tiene éxito, su nombre será recordado
+como el del profeta que devolvió a su legítimo monarca y puso fin a la
+Gran Guerra, uniendo a todas las razas bajo un mismo estandarte.</p>
+<p>Sin embargo, si fracasa, o si la profecía resulta ser una mentira o
+una trampa, Vexian será recordado como el fanático que desató un caos
+sin precedentes. Su rebelión podría provocar una purga brutal por parte
+de <a href="Mor&#39;dhul.html">Mor’dhul</a> y sus aliados, o peor aún,
+podría ser el detonante de un conflicto que atraiga de nuevo la ira
+directa de los dioses. Su legado, por tanto, pende de un hilo: ser el
+partero de una nueva era de paz o el incendiario que quemó el mundo en
+la búsqueda de un sueño imposible.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Vexia.html">Vexia</a> (relevancia: 0.59)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.56)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

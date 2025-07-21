@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_EraPrimerRey</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">03_EraPrimerRey</div>
+        <div class="content">
+<h1 id="la-era-del-primer-rey">La Era del Primer Rey</h1>
+<p>La Era del Primer Rey marca el alba de la civilización organizada en
+Lithernia, un periodo colmado de <a href="Leyendas.html">Leyendas</a>,
+conquistas y el surgimiento de una identidad soberana. Tras milenios de
+clanes dispersos y rivalidades fragmentarias, este tiempo legendario
+unificó las tierras bajo un solo estandarte y sembró las semillas del
+reino que perduraría por siglos.</p>
+<h2 id="el-origen-del-reinó-unido">El Origen del Reinó Unido</h2>
+<p>Se dice que de entre las tribus dispersas emergió un hombre ungido
+por los dioses: Aelric el <a href="Forjador.html">Forjador</a>. Según
+las tradiciones recogidas en el <em>Códice de Fuegoluz</em>, Aelric no
+solo poseía la fuerza de mil guerreros, sino la visión para tejer
+alianzas y moldear un pueblo indómito en un reino con leyes, cultura y
+propósito común.</p>
+<h3 id="fundación-de-eldrath-la-capital">Fundación de Eldrath, la
+capital</h3>
+<p>Bajo el liderazgo de Aelric, se eligió un lugar en la confluencia de
+los ríos Draven y Mira para erigir Eldrath, la primera capital. Esta
+ciudad fortaleza, con sus torres de piedra negra y murallas
+infranqueables, se convirtió en el núcleo desde donde irradiaría la
+nueva orden política y militar.</p>
+<h2 id="gobernanza-y-doctrina">Gobernanza y Doctrina</h2>
+<p>El gobierno instaurado durante esta era se basó en el concepto del
+“Rey Custodio”, una autoridad suprema encargada de proteger a su pueblo
+y administrar justicia con mano tanto firme como sabia. La corte de
+Aelric instituyó el <strong>Consejo de las Siete Lanzas</strong>, una
+asamblea integrada por jefes tribales y sabios que asesoraban en
+decisiones cruciales.</p>
+<h2 id="batallas-fundacionales-y-expansión">Batallas fundacionales y
+expansión</h2>
+<p>Para consolidar su dominio, el Primer Rey se embarcó en campañas
+militares que, si bien turbulentas, lograron pacificar las regiones
+rebeldes al norte y las tierras fértiles del sur. Entre estas
+contiendas, la <strong>Batalla de Tormenta de Hierro</strong> destaca
+como la más decisiva, donde Aelric empleó tácticas inéditas que aún hoy
+se estudian en la Academia Militar de Lithernia.</p>
+<h2 id="mitos-y-leyendas">Mitos y leyendas</h2>
+<p>Las cronologías se entrelazan con relatos heroicos y hechos
+sobrenaturales. Se cuenta que Aelric fue bendecido por Aelthun, dios del
+sol naciente, quien le entregó la <strong>Corona de Lumbre
+Eterna</strong>, símbolo de soberanía y vínculo divino. Según la
+tradición oral, cada rey sucesivo debe probar su derecho a gobernar
+enfrentando una prueba de valor al amparo de esta corona sagrada.</p>
+<h2 id="costumbres-y-legado-cultural">Costumbres y legado cultural</h2>
+<p>Durante esta era surgieron ritos que definieron la identidad
+litherniana:</p>
+<ul>
+<li><strong>El Día de la Unión</strong>: conmemoración anual que celebra
+la unificación de las tribus, con ceremonias donde los clanes renuevan
+su lealtad al trono.</li>
+<li><strong>El Juramento de las Siete Lanzas</strong>: ritual donde los
+integrantes del consejo sellan sus promesas con símbolos marciales y
+esferas de cristal.</li>
+<li><strong>El canto de Aelric</strong>: antigua balada épica que narra
+las gestas del Primer Rey, interpretada aún en festivales y
+templos.</li>
+</ul>
+<h2 id="el-fin-de-la-era-y-el-legado-perenne">El fin de la era y el
+legado perenne</h2>
+<p>La Era del Primer Rey culminó con la muerte de Aelric, quien fue
+sepultado en el Santuario de las Estrellas, un sitio sagrado que se
+convirtió en lugar de peregrinación. Su reinado sentó un precedente de
+unidad, justicia y fortaleza que moldeó todo lo que Lithernia llegaría a
+ser.</p>
+<p>Las generaciones posteriores recordarían a Aelric no solo como un
+soberano, sino como el <a href="Forjador.html">Forjador</a> de un
+destino compartido, la piedra angular sobre la que se erigirían las <a
+href="Leyendas.html">Leyendas</a> y la historia del reino.</p>
+<hr />
+<p><em>Esta época queda registrada no solo como un periodo histórico,
+sino como la luz eterna que guía el espíritu de Lithernia.</em></p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 1.00)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

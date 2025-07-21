@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flink_Chispabrillante</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Flink_Chispabrillante</div>
+        <div class="content">
+<h1 id="flink-chispabrillante">Flink Chispabrillante</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En las prestigiosas y pulcras academias de <a
+href="Cyndril.html">Cyndril</a>, donde la teoría arcana es ley y la
+experimentación un riesgo calculado, Flink Chispabrillante era a la vez
+un prodigio y un problema. Su mente, afilada como un cristal de cuarzo y
+más rápida que un autómata gnomo desbocado, absorbía los principios de
+la runología y la artimaña arcana con una facilidad que exasperaba a sus
+tutores. Sin embargo, donde ellos veían ecuaciones perfectas, Flink veía
+engranajes que pedían ser ajustados; donde leían sobre la magia de las
+eras pasadas, él sentía un ansia irrefrenable por tocarla, desmontarla y
+comprender el latido de su corazón mecánico.</p>
+<p>Su destino cambió el día que Valdurn Manopiedra, cofundador de la
+Hermandad del Horizonte Velado, visitó <a
+href="Cyndril.html">Cyndril</a> en busca de un experto capaz de
+descifrar los mecanismos de un golem de la Era del Primer Rey. Mientras
+los demás académicos debatían sobre la sintaxis rúnica del artefacto,
+Flink, ignorando todo protocolo, se deslizó bajo el gigante de piedra y,
+con un juego de ganzúas y una lente de aumento, reactivó su núcleo
+energético en menos de una hora. Valdurn no vio a un simple gnomo
+brillante; vio la llave para desenterrar los secretos que el mundo había
+olvidado.</p>
+<p>Reclutado por la Hermandad, Flink encontró su verdadero propósito en
+<a href="Yraniar.html">Yraniar</a>, lejos de las pizarras y los dogmas.
+Como Maestro Artífice y Runólogo, se convirtió en la pieza central de
+las expediciones del gremio. Su genio es la fuerza que transforma un
+hallazgo inerte en un descubrimiento trascendental. Es capaz de leer el
+flujo de maná muerto en un circuito de mil años, de identificar la firma
+de un herrero dracónico en una juntura de metal o de restaurar el canto
+de una runa silenciada por el Cataclismo del <a
+href="Lilium.html">Lilium</a>.</p>
+<p>Su vida en la Hermandad es una dicotomía de éxtasis y exasperación.
+Flink vive para el momento en que sus compañeros, como el robusto enano
+Borin o la ágil elfa Elara, regresan de una ruina olvidada con un nuevo
+tesoro. Pero su alegría se convierte rápidamente en un torrente de
+quejas y murmullos frustrados al ver cómo tratan los delicados
+artefactos como “simples rocas o palos bonitos”. Su constante refunfuñar
+sobre la falta de delicadeza de sus colegas se ha vuelto una leyenda
+dentro del gremio, tan fiable como su propia genialidad.</p>
+<p>La motivación de Flink trasciende la misión académica de la
+Hermandad. Su obsesión personal es la tecnología de los autómatas de <a
+href="Vatilleurs.html">Vatilleurs</a>, cuyos diseños considera el
+pináculo de la ingeniería moderna. Cada artefacto antiguo que repara es
+una lección, una pieza más en el rompecabezas para no solo igualar, sino
+superar a sus rivales no declarados. En secreto, sueña con crear un
+constructo que incorpore la perdida eficiencia energética de la Era del
+Primer Rey, un logro que inscribiría el nombre “Chispabrillante” en la
+historia para siempre. Esta ambición lo empuja a investigar los
+artefactos más peligrosos, incluidas las <a
+href="Leyendas.html">Leyendas</a> sobre las Lanzas Celestiales, no por
+su poder para sellar a un rey, sino por la sublime e incomprensible
+ingeniería divina que representan.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Flink es la personificación de un gnomo cuya mente nunca descansa. Su
+cabello, de un blanco revuelto, parece haber sufrido incontables
+descargas de energía estática, y a menudo se olvida de peinarlo durante
+días cuando está inmerso en un proyecto. Sus grandes ojos, del color del
+lapislázuli, se mueven con una rapidez asombrosa detrás de unas gafas
+multifocales de su propia invención, que pueden pasar de telescopio a
+microscopio con un simple giro.</p>
+<p>Su atuendo es puramente funcional: un mono de cuero resistente,
+cubierto de bolsillos de todos los tamaños que rebosan de cables,
+engranajes y cristales de maná a medio tallar. Siempre lleva puesto un
+cinturón de herramientas pesado y desordenado, del que cuelgan pinzas de
+precisión, un martillo rúnico en miniatura, rollos de alambre de mitril
+y varios destornilladores sónicos. Sus manos, aunque pequeñas, son
+firmes y ágiles, perpetuamente manchadas de grasa, polvo de gemas y
+tintas alquímicas.</p>
+<p>Rara vez se le ve sin “Trasto”, un pequeño autómata con forma de
+araña metálica que corretea sobre sus hombros. Trasto es su ayudante de
+laboratorio móvil, equipado con una luz arcana, un pequeño brazo prensil
+y un dispensador de aceite, y se comunica con Flink a través de una
+serie de clics y zumbidos que solo el gnomo parece entender.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El impacto de Flink Chispabrillante en la Era Actual aún se está
+escribiendo, pero su potencial es inmenso. Para la Hermandad del
+Horizonte Velado, él no es solo un miembro, es el motor de su progreso.
+Sin su toque, las reliquias que recuperan serían meras curiosidades; con
+él, se convierten en ventanas al pasado, fuentes de conocimiento perdido
+y, potencialmente, herramientas para cambiar el futuro.</p>
+<p>Si la Hermandad llegara a encontrar una de las Lanzas Celestiales, no
+serán los guerreros ni los exploradores quienes desvelen sus secretos,
+sino Flink. Él sería el único capaz de analizar su construcción divina,
+de entender cómo canalizan el poder de los dioses y, quizás, de
+encontrar una forma de manejarlas sin desatar otro cataclismo.</p>
+<p>Más allá de la Hermandad, su trabajo amenaza con iniciar una nueva
+revolución tecnológica. Si Flink logra replicar la eficiencia de la
+magia antigua, podría alterar el equilibrio de poder en Lithernia,
+haciendo que la artimaña arcana sea accesible de formas nunca antes
+vistas. Es un faro de innovación en un mundo obsesionado con la
+destrucción, un gnomo gruñón y brillante cuyo legado no estará escrito
+en piedra, sino forjado en metal, grabado en <a
+href="Runas.html">Runas</a> y alimentado por la inagotable chispa de la
+curiosidad.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.50)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

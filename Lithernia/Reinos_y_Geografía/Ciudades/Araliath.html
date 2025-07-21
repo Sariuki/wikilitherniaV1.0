@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araliath</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Araliath</div>
+        <div class="content">
+<h1 id="araliath">Araliath</h1>
+<p>Oculta en las cumbres más altas y remotas de <a
+href="Valtoria.html">Valtoria</a>, Araliath no es una ciudad que se
+descubre por casualidad. Su existencia se revela primero como un
+murmullo en el viento, una nota pura y sostenida que guía a los perdidos
+a través de los picos nevados. La ciudad está tallada en un valle
+escondido, construida en una elegante espiral descendente alrededor de
+un colosal geodo de cuarzo que yace semi-enterrado en el suelo del
+valle. Este es el ‘Corazón de la Montaña’, y de él emana el suave
+zumbido armónico que impregna cada piedra y alma en Araliath. Aquí, la
+roca no es un material inerte, sino un instrumento vivo, y sus
+habitantes, los afinadores.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Araliath son una leyenda para el Clan Cantogris.
+Durante una época de escasez, cuando las viejas vetas se agotaron, un
+grupo de mineros <a href="Enanos.html">Enanos</a> se aventuró más allá
+de las rutas conocidas, siguiendo una extraña vibración que sentían en
+sus huesos. La consideraron una llamada de <a
+href="Cirkon.html">Cirkon</a>, la diosa de la roca. Tras semanas de
+travesía por un terreno implacable, encontraron un valle protegido del
+viento, bañado por una luz suave y lleno de un zumbido que calmaba el
+espíritu. En su centro, el Corazón de la Montaña palpitaba con poder
+arcano.</p>
+<p>Allí fundaron Araliath, no como una fortaleza, sino como un santuario
+dedicado a la armonía de la creación. <a href="Gnomos.html">Gnomos</a>
+ingenieros, atraídos por el fenómeno sónico, se unieron a ellos,
+seguidos por Genasi de Tierra que sentían el latido de la montaña como
+propio, y tribus de Goliatths que encontraron un propósito en proteger
+este lugar sagrado. Juntos, aprendieron a trabajar los cristales de
+cuarzo resonante, no con la fuerza bruta de la minería, sino con la
+precisión de un músico, convirtiendo la ciudad en la principal fuente de
+los más finos instrumentos mágicos y focos arcanos de todo <a
+href="Valtoria.html">Valtoria</a>.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de la Montaña</strong>: El centro neurálgico y
+espiritual de Araliath. Es una inmensa cúpula de geoda abierta al cielo,
+con paredes interiores cubiertas de cristales de cuarzo del tamaño de un
+enano. El aire en su interior vibra con una energía palpable, y es aquí
+donde se celebran los consejos y los rituales más importantes. Meditar
+dentro del Corazón es una de las formas más rápidas de recuperar maná en
+todo el reino.</p></li>
+<li><p><strong>Las Terrazas del Canto</strong>: Los distritos
+residenciales y talleres de la ciudad, dispuestos en terrazas que
+descienden en espiral por las laderas del valle. Los edificios son de
+granito pulido y robusta madera de pino, conectados por puentes de
+piedra y cuerda. Cada estructura incorpora los cristales de cuarzo de
+forma natural, sirviendo como ventanas que emiten una luz cálida y
+difusa o como campanas de viento que se suman a la sinfonía de la
+ciudad.</p></li>
+<li><p><strong>La Veta Madre</strong>: El área minera activa, donde los
+<a href="Enanos.html">Enanos</a> y <a href="Gnomos.html">Gnomos</a>
+extraen el cuarzo resonante. No hay explosiones ni maquinaria ruidosa;
+la extracción se realiza con herramientas de precisión afinadas, usando
+el sonido para encontrar los puntos de fractura perfectos, asegurando
+que cada cristal se extraiga entero y sin dañar su frecuencia
+natural.</p></li>
+<li><p><strong>Las Cámaras de Eco</strong>: Una red de cuevas naturales
+bajo la ciudad, cuyas paredes de cristal amplifican y purifican el
+sonido. Son utilizadas por bardos para componer, por sabios para meditar
+y por sanadores, que creen que ciertas frecuencias armónicas pueden
+acelerar la curación de cuerpo y mente.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Araliath es una de paciencia, precisión y colaboración.
+El símbolo de la ciudad, un martillo de geólogo y un diapasón cruzados
+sobre un cristal, se ve en todas partes, representando la unión del
+trabajo y el arte. El evento más importante es el “Festival del
+Solsticio Resonante”, un día en el que todos los habitantes, desde los
+<a href="Enanos.html">Enanos</a> en las forjas hasta los goliatths en
+las atalayas, cantan al unísono. La resonancia combinada hace que todo
+el valle vibre, en un rito que, según ellos, “afina” el Corazón de la
+Montaña y asegura la prosperidad para el año venidero. La economía no
+solo se basa en los cristales, sino también en sus licores únicos,
+destilados con agua de manantial que ha sido filtrada a través de
+kilómetros de cuarzo, dándole un sabor y unas propiedades revitalizantes
+inigualables.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Araliath es una proeza de ingeniería armónica. Los edificios están
+diseñados para no interrumpir, sino para amplificar la resonancia del
+valle. Las calles empedradas siguen patrones que canalizan el sonido, y
+hasta los desagües están diseñados para gotear en intervalos musicales.
+El ambiente es de una calma industriosa. El constante zumbido de fondo
+es extrañamente tranquilizador, y el aire es puro y frío, con un ligero
+olor a pino y a la energía de la roca viva. Por la noche, la ciudad
+resplandece con la luz suave que emana de los miles de cristales
+incrustados en sus muros.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Huevo del Dragón de Cristal</strong>: La leyenda más
+extendida afirma que el Corazón de la Montaña no es una geoda, sino el
+huevo petrificado de un dragón de cristal primigenio. El zumbido
+constante no sería otra cosa que el eco de su corazón latente, esperando
+el día en que la armonía del mundo sea tan perfecta que pueda nacer. Los
+ancianos temen tanto como anhelan ese día.</p></li>
+<li><p><strong>La Canción Perdida</strong>: Se susurra entre los bardos
+y los sabios que existe una “Canción Perdida”, una melodía de poder
+inimaginable. Si un mortal de corazón puro la cantara en el centro
+exacto del Corazón de la Montaña, no despertaría a un dragón, sino que
+podría hablar directamente con el espíritu de la montaña, <a
+href="Cirkon.html">Cirkon</a> encarnada, y pedir un único deseo. Muchos
+lo han intentado, pero ninguno ha encontrado la melodía
+correcta.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picaro</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Picaro</div>
+        <div class="content">
+<h1 id="pícaro">Pícaro</h1>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como pícaro, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d8 por nivel de pícaro
+<strong>Puntos de Golpe a nivel 1:</strong> 8 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d8
+(o 5) + tu modificador de Constitución por cada nivel de pícaro después
+del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera <strong>Armas:</strong>
+Armas sencillas, ballestas de mano, espadas cortas, espadas largas,
+estoque <strong>Herramientas:</strong> Herramientas de ladrón
+<strong>Tiradas de Salvación:</strong> Destreza, Inteligencia
+<strong>Habilidades:</strong> Elige cuatro de entre Acrobacias,
+Atletismo, Engaño, Interpretación, Intimidación, Investigación,
+Percepción, Perspicacia, Persuasión, Sigilo y Juego de Manos.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) un estoque o (b) una espada corta * (a) un arco corto y
+un carcaj con 20 flechas o (b) una espada corta * (a) un paquete de
+ladrón, (b) un paquete de explorador o (c) un paquete de aventurero *
+Armadura de cuero, dos dagas y herramientas de ladrón</p>
+<h3 id="sistema-de-maná-del-pícaro"><strong>Sistema de Maná del
+Pícaro</strong></h3>
+<p>Tu poder no siempre viene de la magia evidente, sino de una astucia y
+agilidad que tocan sutilmente el Tejido del Maná.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que puedes usar para potenciar tus habilidades. Tu fórmula de maná
+es <strong>4 + (Nivel de Pícaro × Modificador de
+Destreza)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d6.</li>
+<li><strong>Aptitud Mágica Sutil:</strong> La Destreza es tu aptitud
+para tus rasgos de maná.
+<ul>
+<li><strong>CD de salvación de Maná</strong> = 8 + tu bonificador por
+competencia + tu modificador de Destreza.</li>
+<li><strong>Modificador de ataque de Maná</strong> = tu bonificador por
+competencia + tu modificador de Destreza.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-pícaro">Tabla de Progresión del
+Pícaro</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: center;">Dados de Ataque Furtivo</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: left;">Pericia, Ataque Furtivo, Jerga de
+Ladrones</td>
+<td style="text-align: center;">4 + (1 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: left;">Acción Astuta</td>
+<td style="text-align: center;">4 + (2 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">2d6</td>
+<td style="text-align: left;">Arquetipo de Pícaro</td>
+<td style="text-align: center;">4 + (3 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: center;">2d6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (4 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">3d6</td>
+<td style="text-align: left;">Esquiva Asombrosa</td>
+<td style="text-align: center;">4 + (5 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">3d6</td>
+<td style="text-align: left;">Pericia</td>
+<td style="text-align: center;">4 + (6 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">4d6</td>
+<td style="text-align: left;">Evasión</td>
+<td style="text-align: center;">4 + (7 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: center;">4d6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (8 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">5d6</td>
+<td style="text-align: left;">Rasgo de Arquetipo de Pícaro</td>
+<td style="text-align: center;">4 + (9 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">5d6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (10 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">6d6</td>
+<td style="text-align: left;">Talento Infalible</td>
+<td style="text-align: center;">4 + (11 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: center;">6d6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (12 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: center;">7d6</td>
+<td style="text-align: left;">Rasgo de Arquetipo de Pícaro</td>
+<td style="text-align: center;">4 + (13 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: center;">7d6</td>
+<td style="text-align: left;">Mente Escurridiza</td>
+<td style="text-align: center;">4 + (14 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: center;">8d6</td>
+<td style="text-align: left;">Don de la Suerte</td>
+<td style="text-align: center;">4 + (15 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: center;">8d6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (16 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: center;">9d6</td>
+<td style="text-align: left;">Rasgo de Arquetipo de Pícaro</td>
+<td style="text-align: center;">4 + (17 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: center;">9d6</td>
+<td style="text-align: left;">Elusión</td>
+<td style="text-align: center;">4 + (18 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: center;">10d6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (19 × Mod. DES)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: center;">10d6</td>
+<td style="text-align: left;">Golpe de Suerte</td>
+<td style="text-align: center;">4 + (20 × Mod. DES)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="arquetipos-de-pícaro"><strong>Arquetipos de Pícaro</strong></h2>
+<h3 id="embaucador-arcano"><strong>Embaucador Arcano</strong></h3>
+<p>Algunos pícaros mejoran sus habilidades de sigilo y agilidad con la
+magia, aprendiendo trucos de encantamiento e ilusión.</p>
+<h4 id="lanzamiento-de-conjuros"><strong>Lanzamiento de
+Conjuros</strong></h4>
+<p>Cuando alcanzas el nivel 3, obtienes la capacidad de lanzar <a
+href="Conjuros.html">Conjuros</a>. * <strong>Trucos:</strong> Conoces
+tres trucos: <em>Mano de <a href="Mago.html">Mago</a></em> y dos trucos
+más de tu elección de la lista de <a href="Conjuros.html">Conjuros</a>
+del <a href="Mago.html">Mago</a>. Aprendes otro truco de <a
+href="Mago.html">Mago</a> de tu elección en el nivel 10. * <strong><a
+href="Conjuros.html">Conjuros</a> Conocidos:</strong> Aprendes tres <a
+href="Conjuros.html">Conjuros</a> de nivel 1 de <a
+href="Mago.html">Mago</a> de tu elección, dos de los cuales deben ser de
+las escuelas de encantamiento o ilusión. Aprendes <a
+href="Conjuros.html">Conjuros</a> adicionales a medida que subes de
+nivel, como se muestra en la tabla de <a
+href="Conjuros.html">Conjuros</a> del Embaucador Arcano. Un conjuro que
+elijas debe ser de la escuela de encantamiento o ilusión. *
+<strong>Lanzamiento de <a href="Conjuros.html">Conjuros</a>:</strong> La
+Inteligencia es tu aptitud para lanzar tus <a
+href="Conjuros.html">Conjuros</a>. Usas tus Puntos de Maná para lanzar
+estos <a href="Conjuros.html">Conjuros</a>. * <strong>CD de salvación de
+<a href="Conjuros.html">Conjuros</a></strong> = 8 + tu bonificador por
+competencia + tu modificador de Inteligencia. * <strong>Modificador de
+ataque de <a href="Conjuros.html">Conjuros</a></strong> = tu bonificador
+por competencia + tu modificador de Inteligencia.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Pícaro</th>
+<th style="text-align: center;">Trucos Conocidos</th>
+<th style="text-align: center;"><a href="Conjuros.html">Conjuros</a>
+Conocidos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">9</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">11</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">12</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">13</td>
+</tr>
+</tbody>
+</table>
+<h4 id="mano-de-mago-hábil"><strong>Mano de Mago Hábil</strong></h4>
+<p>A partir del nivel 3, cuando lanzas <em>Mano de <a
+href="Mago.html">Mago</a></em>, puedes hacer que la mano espectral sea
+invisible y puedes realizar las siguientes tareas adicionales con ella:
+* Puedes guardar un objeto que la mano sostiene en un contenedor llevado
+por otra criatura. * Puedes recuperar un objeto de un contenedor llevado
+por otra criatura. * Puedes usar herramientas de ladrón para abrir
+cerraduras y desarmar trampas a distancia.</p>
+<p>Puedes realizar una de estas tareas sin ser notado por una criatura
+si tienes éxito en una prueba de Destreza (Juego de Manos) contra una
+prueba de Sabiduría (Percepción) de la criatura. Además, puedes usar la
+acción adicional que te otorga tu Acción Astuta para controlar la
+mano.</p>
+<h4 id="emboscada-mágica"><strong>Emboscada Mágica</strong></h4>
+<p>A partir del nivel 9, si estás escondido de una criatura cuando le
+lanzas un conjuro, esa criatura tiene desventaja en cualquier tirada de
+salvación que haga contra el conjuro este turno.</p>
+<h4 id="ladrón-de-conjuros-versátil"><strong>Ladrón de Conjuros
+Versátil</strong></h4>
+<p>En el nivel 13, obtienes la capacidad de distraer a un objetivo con
+tu <em>Mano de <a href="Mago.html">Mago</a></em>. Como acción adicional
+en tu turno, puedes designar a una criatura a 5 pies de la mano
+espectral creada por el conjuro. Hacerlo te da ventaja en las tiradas de
+ataque contra esa criatura hasta el final del turno.</p>
+<h4 id="ladrón-de-conjuros"><strong>Ladrón de Conjuros</strong></h4>
+<p>En el nivel 17, obtienes la capacidad de robar mágicamente el
+conocimiento de cómo lanzar un conjuro de otro lanzador de <a
+href="Conjuros.html">Conjuros</a>. Inmediatamente después de que una
+criatura lance un conjuro que te tenga como objetivo o que te incluya en
+su área de efecto, puedes usar tu reacción y gastar 10 Puntos de Maná
+para forzar a la criatura a hacer una tirada de salvación con su
+modificador de aptitud para lanzar <a href="Conjuros.html">Conjuros</a>.
+La CD es igual a tu CD de salvación de <a
+href="Conjuros.html">Conjuros</a>. Si falla, niegas el efecto del
+conjuro sobre ti, y robas el conocimiento del conjuro si es de al menos
+nivel 1 y de un nivel que puedas lanzar (no necesita ser un conjuro de
+<a href="Mago.html">Mago</a>). Durante las próximas 8 horas, conoces el
+conjuro y puedes lanzarlo usando tus Puntos de Maná. La criatura no
+puede volver a lanzar ese conjuro hasta que pasen las 8 horas. Una vez
+que uses este rasgo, no puedes volver a usarlo hasta que termines un
+descanso largo.</p>
+<h3 id="asesino"><strong>Asesino</strong></h3>
+<p>Te enfocas en el arte sombrío de la muerte. Aquellos que se adhieren
+a este arquetipo son diversos: mercenarios, espías, cazarrecompensas e
+incluso sacerdotes especialmente entrenados para exterminar a los
+enemigos de su deidad.</p>
+<h4 id="competencias-adicionales"><strong>Competencias
+Adicionales</strong></h4>
+<p>Cuando eliges este arquetipo en el nivel 3, ganas competencia con el
+kit de disfraz y el kit de envenenador.</p>
+<h4 id="asesinar"><strong>Asesinar</strong></h4>
+<p>A partir del nivel 3, eres más letal cuando tomas a tus enemigos por
+sorpresa. Tienes ventaja en las tiradas de ataque contra cualquier
+criatura que no haya tenido un turno en el combate todavía. Además,
+cualquier golpe que aciertes contra una criatura que está sorprendida es
+un golpe crítico.</p>
+<h4 id="infiltración-experta"><strong>Infiltración Experta</strong></h4>
+<p>A partir del nivel 9, puedes crear infaliblemente identidades falsas
+para ti. Debes pasar siete días y 25 po para establecer la historia,
+profesión y afiliaciones de una identidad. No puedes establecer una
+identidad que pertenezca a otra persona. A partir de entonces, si
+adoptas el disfraz, otros creerán que eres esa persona hasta que se les
+dé una razón obvia para no hacerlo.</p>
+<h4 id="impostor"><strong>Impostor</strong></h4>
+<p>En el nivel 13, obtienes la capacidad de imitar el habla, la
+escritura y el comportamiento de otra persona. Debes pasar al menos tres
+horas estudiando estos tres componentes del comportamiento de una
+persona, escuchándola hablar, examinando su escritura y observando sus
+gestos. Tu engaño es indiscernible para el observador casual.</p>
+<h4 id="golpe-mortal"><strong>Golpe Mortal</strong></h4>
+<p>A partir del nivel 17, te conviertes en un maestro de la muerte
+instantánea. Cuando atacas y golpeas a una criatura que está
+sorprendida, esta debe hacer una tirada de salvación de Constitución (CD
+8 + tu modificador de Destreza + tu bonificador de competencia). Si
+falla, duplica el daño de tu ataque contra la criatura.</p>
+<h3 id="infiltrado-de-las-sombras"><strong>Infiltrado de las
+Sombras</strong></h3>
+<p>Te especializas en usar la penumbra y la magia de las sombras, ya sea
+como un espía de <a href="Eldrador.html">Eldrador</a>, un agente del
+Clan Nighthawk de <a href="Mor&#39;dhul.html">Mor’dhul</a> o un
+aventurero que ha hecho un pacto con las fuerzas de la noche.</p>
+<h4 id="magia-de-las-sombras"><strong>Magia de las Sombras</strong></h4>
+<p>En el nivel 3, aprendes el truco <em>Ilusión menor</em>. Además,
+cuando una criatura que puedas ver a 60 pies de ti hace una tirada de
+ataque, puedes usar tu reacción y gastar 2 Puntos de Maná para tejer
+sombras que la distraigan. La criatura debe restar un d6 del resultado
+de su tirada de ataque.</p>
+<h4 id="paso-sombrío"><strong>Paso Sombrío</strong></h4>
+<p>También en el nivel 3, puedes usar una acción adicional y gastar 3
+Puntos de Maná para teletransportarte hasta 30 pies a un espacio
+desocupado que puedas ver. Debes comenzar y terminar tu movimiento en un
+área de luz tenue u oscuridad.</p>
+<h4 id="manto-de-penumbra"><strong>Manto de Penumbra</strong></h4>
+<p>A partir del nivel 9, puedes desvanecerte en las sombras. Como
+acción, puedes gastar 5 Puntos de Maná para volverte invisible. Esta
+invisibilidad dura 1 minuto o hasta que ataques, lances un conjuro o
+entres en un área de luz brillante.</p>
+<h4 id="ataque-espectral"><strong>Ataque Espectral</strong></h4>
+<p>A partir del nivel 13, cuando golpeas a una criatura con tu Ataque
+Furtivo, puedes imbuir tu arma con energía de las sombras. Puedes gastar
+5 Puntos de Maná para infligir 4d6 de daño necrótico adicional. La
+criatura también debe tener éxito en una tirada de salvación de
+Sabiduría o quedar asustada de ti durante 1 minuto.</p>
+<h4 id="forma-de-sombra"><strong>Forma de Sombra</strong></h4>
+<p>En el nivel 17, te has convertido en uno con la oscuridad. Como
+acción, puedes gastar 10 Puntos de Maná para transformarte en una forma
+de sombra durante 1 minuto. Mientras estás en esta forma, ganas los
+siguientes beneficios: * Tienes resistencia a todo el daño excepto
+fuerza y radiante. * Puedes moverte a través de otras criaturas y
+objetos como si fueran terreno difícil. Recibes 1d10 de daño de fuerza
+si terminas tu turno dentro de un objeto. * Tu velocidad de movimiento
+aumenta en 10 pies.</p>
+<p>Una vez que uses este rasgo, no puedes volver a usarlo hasta que
+termines un descanso largo.</p>
+<h3 id="corsario-de-galvorn"><strong>Corsario de Galvorn</strong></h3>
+<p>Eres un maestro del combate con espada y de la audacia, un pirata,
+aventurero o duelista de los mares de <a href="Galvorn.html">Galvorn</a>
+que vive según su propio código de honor y libertad.</p>
+<h4 id="duelo-audaz"><strong>Duelo Audaz</strong></h4>
+<p>Cuando eliges este arquetipo en el nivel 3, tu confianza te impulsa.
+Puedes añadir tu modificador de Carisma a tus tiradas de iniciativa.
+Además, te vuelves un maestro del duelo. Puedes usar tu Ataque Furtivo
+con cualquier ataque de arma cuerpo a cuerpo contra una criatura si no
+hay otras criaturas a 5 pies de ti o del objetivo. Todos los demás
+requisitos del Ataque Furtivo se aplican normalmente.</p>
+<h4 id="audacia-arrogante"><strong>Audacia Arrogante</strong></h4>
+<p>También en el nivel 3, tu encanto y confianza son tus armas. Como
+acción adicional, puedes hacer una prueba de Carisma (Persuasión) contra
+una prueba de Sabiduría (Perspicacia) de una criatura que puedas ver y
+oír. Si tienes éxito, tienes ventaja en las tiradas de ataque contra esa
+criatura durante 1 minuto o hasta que ataques a otra criatura.</p>
+<h4 id="paso-elegante"><strong>Paso Elegante</strong></h4>
+<p>A partir del nivel 9, te mueves con una gracia que frustra a tus
+oponentes. Durante tu turno, si realizas un ataque cuerpo a cuerpo
+contra una criatura, esa criatura no puede realizar ataques de
+oportunidad contra ti durante el resto de tu turno.</p>
+<h4 id="evasión-galante"><strong>Evasión Galante</strong></h4>
+<p>En el nivel 13, puedes proteger a tus aliados con tu agilidad. Cuando
+un atacante que puedes ver realiza una tirada de ataque contra una
+criatura aliada a 5 pies de ti, puedes usar tu reacción y gastar 5
+Puntos de Maná para imponer desventaja en esa tirada de ataque. Debes
+estar empuñando un arma cuerpo a cuerpo.</p>
+<h4 id="maestro-duelista"><strong>Maestro Duelista</strong></h4>
+<p>A partir del nivel 17, tu dominio del combate es legendario. Una vez
+por turno, cuando fallas una tirada de ataque con un arma cuerpo a
+cuerpo, puedes gastar 8 Puntos de Maná para volver a tirar el dado.
+Debes usar el nuevo resultado.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Pícaro.html">Pícaro</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Salones_del_Renombre</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Salones_del_Renombre</div>
+        <div class="content">
+<h1 id="los-salones-del-renombre">Los Salones del Renombre</h1>
+<p>En el vasto tapiz de la historia de Lithernia, tejido con hilos de
+guerra, magia y sacrificio, existe un lugar más allá de los <a
+href="Mapas.html">Mapas</a> mortales y de los dominios de los dioses
+celosos. No es una construcción de piedra o metal, sino un plano de
+existencia forjado con la memoria colectiva, la admiración y la leyenda.
+Se le conoce como los Salones del Renombre, el destino final donde las
+almas de los más grandes héroes no mueren, sino que se convierten en
+eternas constelaciones en el firmamento de la mitología.</p>
+<p>Entrar en los Salones no es un derecho de nacimiento ni una
+recompensa otorgada por los dioses, a quienes muchos de los honrados
+allí desafiaron. Es un honor ganado a través de hazañas que resuenan en
+el alma del mundo, actos de valor tan puros y de sacrificio tan profundo
+que trascienden el ciclo de la vida y la muerte dictado por deidades
+como Sel’thirak. Es el eco inmortal de quienes vivieron y murieron por
+un ideal más grande que ellos mismos.</p>
+<h2 id="origen-y-leyendas">Origen y Leyendas</h2>
+<p>Las crónicas de los sabios de <a href="Valtoria.html">Valtoria</a> y
+los poetas de <a href="Galvorn.html">Galvorn</a> difieren sobre el
+origen de los Salones, aunque todas coinciden en su naturaleza
+trascendental.</p>
+<ul>
+<li><p><strong>El Legado del Primer Rey:</strong> La teoría más
+extendida sostiene que el concepto nació en la era de la Unificación. Se
+dice que el Primer Rey, en su afán por honrar a quienes lucharon a su
+lado contra los <a href="Dragones.html">Dragones</a> y los señores de la
+guerra, decretó la construcción de una gran sala de héroes en su
+capital. Esta estructura física fue arrasada por el <strong>Cataclismo
+del <a href="Lilium.html">Lilium</a></strong>, pero la voluntad del Rey
+y la devoción de su pueblo eran tan fuertes que la idea sobrevivió como
+un eco en el Tejido del Maná. Los Salones actuales serían la
+manifestación etérea de aquel proyecto perdido, un santuario que el
+fuego de los dioses no pudo consumir.</p></li>
+<li><p><strong>El Susurro de <a
+href="Taladrios.html">Taladrios</a>:</strong> Otros eruditos,
+especialmente los <a href="Humanos.html">Humanos</a> devotos de los
+dioses de <a href="Galvorn.html">Galvorn</a>, creen que los Salones son
+un dominio personal de <strong><a
+href="Taladrios.html">Taladrios</a></strong>, el dios del tiempo y la
+historia. Como cronista divino, <a href="Taladrios.html">Taladrios</a>
+preservaría en este lugar las gestas que definen las eras,
+protegiéndolas de la erosión del tiempo o de los intentos de los dioses
+por reescribir la historia a su conveniencia. El guardián de los
+Salones, una figura conocida como el <strong>Cronista Eterno</strong>,
+es considerado por muchos un aspecto del propio <a
+href="Taladrios.html">Taladrios</a>.</p></li>
+<li><p><strong>El Fruto de la Apoteosis:</strong> Durante la <strong>Era
+de los Mil Años</strong>, la fe en los dioses decayó mientras surgían
+héroes mortales cuyas hazañas eran dignas de veneración. Esta “Apoteosis
+de los Héroes” generó una energía psíquica y espiritual tan inmensa que,
+según los magos estelares, creó un demiplano en el mar astral: los
+Salones del Renombre. No fueron creados por un dios, sino por la fe y la
+memoria de los pueblos mortales.</p></li>
+</ul>
+<h2 id="descripción-del-dominio">Descripción del Dominio</h2>
+<p>Quienes han sido bendecidos con una visión de los Salones en sueños o
+en <a href="Velrath.html">Velrath</a> de la muerte los describen no como
+un edificio, sino como un cosmos de gloria.</p>
+<p>El “suelo” es un mar de nubes plateadas, y el “techo” un firmamento
+donde cada estrella es el alma de un <a href="Heroes.html">Heroes</a>.
+En lugar de columnas, se alzan gigantescos tapices de luz tejida que
+narran vívidamente los grandes eventos de la historia: la rebelión del
+Primer Rey contra los cielos, la defensa de <a
+href="Valtoria.html">Valtoria</a> contra las hordas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, la fundación de <a
+href="Galvorn.html">Galvorn</a> sobre las olas.</p>
+<p>Las estatuas de los héroes no son de mármol frío, sino Ecos vivos de
+su leyenda. La figura de un <a href="Guerrero.html">Guerrero</a> orco
+podría estar eternamente trabada en su grito de guerra, con el fulgor de
+la batalla en sus ojos. La efigie de una hechicera élfica podría estar
+rodeada de las <a href="Runas.html">Runas</a> de su conjuro más
+poderoso, un hechizo que salvó a su pueblo. Estos ecos no son meros
+recuerdos; son la esencia destilada del <a
+href="Heroes.html">Heroes</a>, una fuente de inspiración perpetua.</p>
+<p>En el centro de este dominio se encuentra el <strong>Trono del
+Recuerdo</strong>, donde se sienta el Cronista Eterno, una entidad
+encapuchada cuya túnica parece hecha de las páginas de todos los libros
+de historia jamás escritos. Es él quien juzga si una hazaña es digna de
+ser inscrita y quien da la bienvenida a los nuevos héroes.</p>
+<h2 id="el-camino-al-renombre">El Camino al Renombre</h2>
+<p>Nadie puede buscar activamente los Salones del Renombre, pues la
+ambición por la gloria personal es la antítesis de los valores que
+honran. El renombre debe encontrar al <a href="Heroes.html">Heroes</a>.
+Para que un alma sea considerada, debe cumplir con criterios no escritos
+pero universalmente comprendidos:</p>
+<ol type="1">
+<li><strong>La Canción Universal:</strong> Su nombre debe ser conocido
+en los cuatro reinos, cantado por bardos en las tabernas de <a
+href="Galvorn.html">Galvorn</a>, susurrado con temor por los <a
+href="Orcos.html">Orcos</a> de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+grabado en las forjas de <a href="Valtoria.html">Valtoria</a> y
+recordado en las bibliotecas de <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>El Acto que Define una Era:</strong> El <a
+href="Heroes.html">Heroes</a> debe haber realizado una proeza que altere
+el curso de la historia. Esto puede incluir detener una invasión que
+amenazaba a todo un reino, recuperar una de las <strong>Lanzas
+Celestiales</strong> para protegerla del mal, o sacrificarse para cerrar
+una herida dejada por el <a href="Lilium.html">Lilium</a>.</li>
+<li><strong>El Desinterés Absoluto:</strong> El acto debe haber sido
+realizado sin buscar recompensa, a menudo con un gran coste personal. El
+heroísmo que nace de la codicia o el poder se desvanece; el que nace del
+sacrificio, se vuelve eterno.</li>
+</ol>
+<p>Cuando un mortal cumple estas condiciones, en el momento de su muerte
+(o a veces en vida, durante una meditación profunda), el Cronista Eterno
+le extiende una invitación. El alma del <a href="Heroes.html">Heroes</a>
+es entonces guiada a los Salones para tomar su lugar entre las <a
+href="Leyendas.html">Leyendas</a>.</p>
+<h2 id="recompensas-de-la-inmortalidad">Recompensas de la
+Inmortalidad</h2>
+<p>Ser admitido en los Salones del Renombre otorga beneficios que
+trascienden la vida y la muerte, impactando al mundo que el <a
+href="Heroes.html">Heroes</a> dejó atrás.</p>
+<ul>
+<li><strong>El Legado Imperecedero:</strong> La historia del <a
+href="Heroes.html">Heroes</a> queda sellada en los Salones, inmune a ser
+borrada o tergiversada. Ni la magia de un dios mentiroso como <strong><a
+href="Morgal.html">Morgal</a></strong> ni la Lanza Celestial
+<strong>Requiem</strong> pueden tocar las <a
+href="Leyendas.html">Leyendas</a> que aquí se guardan.</li>
+<li><strong>La Bendición del Eco:</strong> Los descendientes del <a
+href="Heroes.html">Heroes</a>, sus aprendices o aquellos que siguen su
+misma causa pueden recibir su bendición. En momentos de extrema
+necesidad, pueden invocar el <strong>Eco del <a
+href="Heroes.html">Heroes</a></strong>, una manifestación espiritual que
+puede ofrecer consejo, otorgar una ventaja momentánea en combate o
+revelar un secreto crucial.</li>
+<li><strong>Fuente de Inspiración:</strong> Paladines, clérigos y bardos
+que veneran los ideales de un <a href="Heroes.html">Heroes</a>
+renombrado pueden canalizar su leyenda. Un <a
+href="Bardo.html">Bardo</a> que cante la balada de un <a
+href="Heroes.html">Heroes</a> de los Salones podría inspirar a sus
+aliados con una valentía sobrenatural. Un clérigo de <strong><a
+href="Yfrit.html">Yfrit</a></strong> podría recibir una visión de un
+capitán legendario antes de una gran batalla naval.</li>
+<li><strong>La Huella en el Maná:</strong> Un <a
+href="Mago.html">Mago</a> cuya leyenda es admitida puede dejar una marca
+en el <strong>Tejido del Maná</strong>. Su conjuro más icónico podría
+convertirse en un <strong>Conjuro Estelar</strong> nombrado en su honor,
+o la afinidad de una escuela de magia podría fortalecerse ligeramente en
+la región donde vivió, como un tributo eterno del mundo a su poder.</li>
+</ul>
+<h2 id="héroes-renombrados-de-leyenda">Héroes Renombrados de
+Leyenda</h2>
+<p>Aunque la lista es incontable, las <a
+href="Leyendas.html">Leyendas</a> hablan de algunos de los residentes
+más célebres de los Salones:</p>
+<ul>
+<li><strong>General Kaelen, la Lanza Rota:</strong> Humano y último
+general del <strong>Primer Rey</strong>. Luchó hasta el final en la
+guerra contra los dioses. Aunque su nombre fue casi borrado por el poder
+de las Lanzas Celestiales, su sacrificio fue tan grande que los Salones
+preservaron su memoria. Su eco es a veces invocado por rebeldes que
+luchan contra la tiranía.</li>
+<li><strong>Valeria de la <a href="Herreria.html">Herreria</a> de
+Almas:</strong> Maestra herrera enana de <a
+href="Valtoria.html">Valtoria</a>. Durante un asedio orco a Ironforge, y
+con la ciudad a punto de caer, fundió su propio corazón en la <a
+href="Herreria.html">Herreria</a> junto a un mineral estelar para crear
+el <em>Aegis de la Montaña</em>, un escudo que se volvió irrompible y
+salvó a su pueblo. Su leyenda inspira a todos los artesanos de <a
+href="Valtoria.html">Valtoria</a>.</li>
+<li><strong>Lyra Vientocantor:</strong> Una barda semielfa de <a
+href="Galvorn.html">Galvorn</a> que, usando solo su voz y su laúd,
+unificó una flota de capitanes rivales y piratas arrepentidos para
+enfrentarse a una flota de no-muertos enviada por <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Su canción, “La Última Marea de
+la Libertad”, todavía se dice que calma las tormentas.</li>
+<li><strong>Elarion del Bosque Silencioso:</strong> Un <a
+href="Druida.html">Druida</a> elfo de <a
+href="Eldrador.html">Eldrador</a> que vio cómo una cicatriz del <a
+href="Lilium.html">Lilium</a> comenzaba a corromper el corazón de su
+bosque ancestral. En lugar de huir, se fusionó con el árbol más antiguo,
+absorbiendo la corrupción en su propio ser y purificando la tierra a
+costa de su propia existencia. Hoy, el bosque donde murió es un lugar de
+paz y sanación.</li>
+</ul>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Leyendas.html">Leyendas</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.44)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

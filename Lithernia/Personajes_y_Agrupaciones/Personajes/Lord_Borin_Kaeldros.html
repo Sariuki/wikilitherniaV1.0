@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lord_Borin_Kaeldros</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lord_Borin_Kaeldros</div>
+        <div class="content">
+<h1 id="lord-borin-kaeldros">Lord Borin Kaeldros</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones de piedra de <a href="Valtoria.html">Valtoria</a>,
+donde cada martillazo sobre el yunque es una oración a <a
+href="Rokael.html">Rokael</a>, el Creador, la Casa Kaeldros representa
+una profunda y vibrante herejía. Lord Borin Kaeldros, su actual
+patriarca, es la encarnación de esta anomalía: un enano cuya fe no
+reside en la construcción, sino en el poder purificador de la
+destrucción; un devoto de <a href="Valarios.html">Valarios</a>, el
+Destructor.</p>
+<p>Nacido en el seno de un linaje que aprendió a ver los volcanes como
+las verdaderas forjas del mundo, Borin fue instruido desde joven en las
+artes de la ‘piromancia telúrica’ y la ‘obsidianurgia’. Heredó no solo
+el liderazgo de la casa, sino también la carga de su fundador: demostrar
+que el caos elemental, cuando es controlado, es la herramienta más
+poderosa para el progreso enano. Bajo su mandato, la Casa Kaeldros ha
+perfeccionado la demolición controlada, abriendo túneles y vetas
+minerales que los clanes más tradicionales consideraban imposibles de
+alcanzar o tabú.</p>
+<p>La mayor hazaña de Borin, y la que cimentó su reputación, fue la
+“Contención del Rugido de Fuego”. Cuando una veta de magma inestable
+amenazó con inundar las minas inferiores de la fortaleza de
+Piedraprofunda, la Casa Dravonis abogó por sellar y abandonar las
+galerías. Borin, en una tensa sesión del Concilio de la Montaña, propuso
+una solución radical: una serie de explosiones calculadas para desviar
+el flujo de lava hacia una caverna subterránea inactiva. Liderando
+personalmente a su equipo, y con el desprecio de los tradicionalistas
+sobre sus hombros, Borin descendió al corazón ardiente de la montaña. El
+éxito de su empresa no solo salvó las minas, sino que la lava
+solidificada reveló un yacimiento de gemas de fuego sin precedentes. A
+pesar de ello, el acto fue visto con tanto temor como admiración.</p>
+<p>La vida de Borin está definida por estas tensiones. Mantiene una
+compleja relación de respeto y rivalidad con Lord Durval Dravonis, a
+quien considera un líder honorable pero ciego, aferrado a tradiciones
+que estancan el verdadero potencial de su pueblo. Sus debates en el
+concilio son legendarios, choques filosóficos entre la creación y la
+destrucción controlada. A su vez, observa con una mezcla de orgullo y
+preocupación a su hermano menor, Gromnir, un talentoso geólogo cuya
+visión idealista busca reconciliar la fe en <a
+href="Valarios.html">Valarios</a> con los dogmas de <a
+href="Rokael.html">Rokael</a>, un equilibrio que Borin considera <a
+href="Noble.html">Noble</a> pero peligrosamente ingenuo. Su mayor
+orgullo es su hija, Helga ‘Corazón de Fuego’, una piromante formidable
+que encarna el futuro audaz y sin concesiones que él imagina para su
+casa.</p>
+<p>En secreto, Lord Borin navega alianzas aún más peligrosas. Mantiene
+contacto con el Clan Agrietacero, exiliados por su fervor extremista
+hacia <a href="Valarios.html">Valarios</a>, intercambiando conocimientos
+sobre el magma a pesar de la desconfianza mutua. Su pacto más arriesgado
+es con el Clan Ironclaw de <a href="Mor&#39;dhul.html">Mor’dhul</a>. A
+cambio de minerales volcánicos únicos y de información vital sobre las
+maquinaciones de los reinos oscuros, los Kaeldros proveen a los <a
+href="Orcos.html">Orcos</a> armas de obsidiana y pasajes seguros por
+túneles secretos. Borin justifica esta traición como un mal necesario,
+una forma de obtener <a href="Recursos.html">Recursos</a> y conocimiento
+que ningún otro clan enano podría conseguir, asegurando así la
+permanencia de su casa en un mundo que la mira con recelo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lord Borin es un enano en la plenitud de su vida, con la complexión
+robusta y la resistencia forjada por generaciones de vida en la montaña.
+Su presencia es imponente, no por su altura, sino por la intensidad de
+su mirada, acostumbrada al brillo incandescente del magma. Su larga
+barba, negra como el carbón, está trenzada con hilos de plata y sujeta
+con anillos de obsidiana pulida. Unas finas cicatrices de quemaduras
+antiguas marcan sus manos callosas, testigos silenciosos de una vida
+dedicada a domar el fuego de la tierra.</p>
+<p>Desdeña las armaduras pesadas y ornamentadas de otros señores <a
+href="Enanos.html">Enanos</a>. En su lugar, viste túnicas de tejido
+oscuro y resistente al calor sobre un jubón de cuero reforzado. Su
+principal herramienta y símbolo de autoridad es
+<strong>Rompevetas</strong>, un martillo de guerra de cabeza de acero
+negro, con un extremo diseñado para pruebas geológicas y un mango de
+madera petrificada inmune al fuego. Siempre lleva consigo un juego de
+lentes de obsidiana ahumada para estudiar el flujo de la lava y un
+pequeño libro de cuero que contiene sus cálculos y diagramas para
+demoliciones. No porta una corona, sino una simple diadema de granito
+que simboliza su conexión con la roca primordial de <a
+href="Valtoria.html">Valtoria</a>.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Lord Borin Kaeldros será el de un reformador audaz o el
+de un hereje que llevó a su pueblo al borde del abismo. Ha consolidado a
+la Casa Kaeldros no como un culto marginal, sino como una facción
+indispensable en <a href="Valtoria.html">Valtoria</a>, demostrando que
+las fuerzas de la destrucción, guiadas por la sabiduría y la pragmática,
+son esenciales para la renovación. Su liderazgo ha empujado las
+fronteras de la ingeniería y la magia enana, logrando proezas que
+aseguran la prosperidad del reino.</p>
+<p>Sin embargo, su impacto más profundo y peligroso reside en sus
+alianzas secretas. El pacto con los <a href="Orcos.html">Orcos</a> de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> es una bomba de tiempo que, de ser
+descubierta, podría fracturar el reino enano y provocar una guerra
+civil. Borin camina sobre el filo de una navaja, convencido de que sus
+acciones, aunque controvertidas, garantizan la supervivencia y
+supremacía de su linaje y, en última instancia, de toda <a
+href="Valtoria.html">Valtoria</a>. Es un guardián de un poder terrible,
+un pragmático que entiende que para forjar un futuro duradero, a veces,
+es necesario empezar por destruir los cimientos del pasado.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Kaeldros.html">Casa Kaeldros</a> (relevancia:
+0.53)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.48)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

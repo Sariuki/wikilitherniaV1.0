@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriarca_Grizelda</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Matriarca_Grizelda</div>
+        <div class="content">
+<h1 id="matriarca-grizelda">Matriarca Grizelda</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En las desoladas y ardientes tierras de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, donde la fuerza bruta es ley y la
+supervivencia se gana con sangre, la Matriarca Grizelda es una anomalía
+geológica viviente. No es una conquistadora en el sentido tradicional
+orco, sino una fuerza de la naturaleza canalizada a través de una
+voluntad inquebrantable. Con dos siglos y medio a sus espaldas, su vida
+no se mide en batallas ganadas, sino en montañas movidas y fortalezas
+erigidas desde la misma entraña de un mundo herido.</p>
+<p>Nacida en las generaciones posteriores a la fundación del Clan
+Moldearroca por el legendario Ghor’ash, Grizelda fue discípula directa
+de los primeros chamanes que aprendieron a escuchar el furioso corazón
+de Lithernia. Mientras otros jóvenes <a href="Orcos.html">Orcos</a> se
+entrenaban con hachas, ella pasaba décadas en meditación solitaria en
+las laderas de volcanes activos, aprendiendo a sentir las líneas de
+magma como si fueran sus propias venas. Su poder no reside en la furia
+de <a href="Thyrgram.html">Thyrgram</a>, sino en la paciencia tectónica
+y la violencia elemental de la creación y la destrucción.</p>
+<p>Su ascenso a Matriarca no fue por conquista, sino por aclamación tras
+su mayor hazaña: la construcción de la Tumba de las Sombras Silenciosas
+para un general caído del Clan Sel’thirak. En lugar de una mera cripta,
+Grizelda moldeó un complejo subterráneo directamente de la roca madre,
+sin una sola junta o bloque tallado. Las paredes de basalto pulido
+absorbían el sonido, y los pasillos estaban diseñados para canalizar las
+corrientes de aire geotérmico, creando susurros fantasmales que
+aterrorizaban a los saqueadores. La obra fue tan magistral que el propio
+Rey-Dios Sel’thirak la convocó, consolidando el estatus del Clan
+Moldearroca como los arquitectos predilectos de la muerte y el poder en
+<a href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>La principal motivación de Grizelda es preservar el alma de su clan.
+Teme que la alianza con Sel’thirak, aunque necesaria para la
+supervivencia, corrompa la filosofía de Ghor’ash. Ve con creciente
+preocupación cómo las nuevas generaciones, encarnadas en su protegido
+<strong>Ur’thok</strong>, valoran más la eficiencia y el poder político
+que la conexión espiritual con la tierra. Ur’thok, a quien crió como a
+un hijo, es un geomante brillante y pragmático, pero Grizelda teme que
+su ambición lo lleve a convertir al clan en meros albañiles de la
+tiranía, olvidando que su poder emana de la voluntad, no de la
+servidumbre.</p>
+<p>Este conflicto se agrava con la presencia de
+<strong>Vor’lag</strong>, un caudillo dentro del clan que aboga por un
+retorno a las “raíces guerreras” y ve la geomancia como una herramienta
+de guerra, no como una disciplina espiritual. Vor’lag es un eco del Clan
+<a href="Thyrgram.html">Thyrgram</a>, la misma brutalidad que el
+fundador del clan rechazó. Grizelda lo considera una enfermedad en el
+corazón de los Moldearroca y una amenaza directa a su legado.</p>
+<p>En medio de estas tensiones, Grizelda encuentra una extraña fuente de
+perspectiva en <strong>Fenris</strong>, un <a
+href="Erudito.html">Erudito</a> humano capturado en una escaramuza
+fronteriza. En lugar de ejecutarlo, lo mantiene como un “huésped”
+forzado en <a href="Valarion.html">Valarion</a>. Sus conversaciones con
+él sobre la historia, la filosofía y las culturas de otros reinos son un
+secreto celosamente guardado. Fenris le ofrece una ventana a un mundo
+más allá de la ceniza y la obsidiana, y ella siente una profunda
+compasión por el conocimiento que su pueblo ha sacrificado en su
+aislamiento.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grizelda no tiene la corpulencia de un <a
+href="Guerrero.html">Guerrero</a> orco. Su cuerpo es enjuto y anguloso,
+como una roca erosionada por milenios de viento. Su piel, de un tono
+gris pétreo, está cubierta de finas fisuras que brillan con un tenue
+fulgor anaranjado cuando canaliza su poder, como si el magma corriera
+bajo su piel. Sus ojos, de un intenso color ámbar, no reflejan la luz,
+sino que parecen emitirla desde una fuente interna. Su cabello, largo y
+blanco como la ceniza, está trenzado con finos hilos de obsidiana y
+huesos de criaturas elementales.</p>
+<p>En lugar de armadura, viste túnicas ceremoniales de tejido basto,
+teñidas con pigmentos minerales y bordadas con las <a
+href="Runas.html">Runas</a> ancestrales del clan. Sus manos y antebrazos
+están cubiertos de tatuajes rúnicos que se mueven y reconfiguran
+lentamente. Su única herramienta es su báculo, una rama de madera
+petrificada coronada por un “Corazón de Montaña”, un cristal de
+obsidiana en bruto que late con una luz cálida al tacto. No porta armas,
+pues para ella, la tierra misma es su arsenal.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El impacto de la Matriarca Grizelda en Lithernia es tan silencioso
+como profundo. Mientras los generales de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> esculpen el mapa con sangre y
+acero, Grizelda y su clan lo hacen con roca y fuego. Las inexpugnables
+ciudadelas, las murallas imposibles y las tumbas sagradas que definen el
+poderío de <a href="Mor&#39;dhul.html">Mor’dhul</a> son, en gran medida,
+fruto de su visión y la de su clan. Ella es la arquitecta silenciosa del
+reino más temido del continente.</p>
+<p>Su verdadero legado, sin embargo, será la supervivencia de una idea:
+que incluso en el corazón de la oscuridad más brutal, puede existir una
+filosofía de poder basada en la armonía con las fuerzas <a
+href="Primordiales.html">Primordiales</a> en lugar de la dominación a
+través de la violencia. El futuro del Clan Moldearroca pende de un hilo,
+dependiendo de si su sucesor seguirá su senda de equilibrio o sucumbirá
+a las presiones de un mundo definido por la Gran Guerra. Si el clan
+mantiene su alma, será gracias a la voluntad de piedra de la Matriarca
+Grizelda. Si cae, la última chispa de una forma diferente de poder orco
+podría extinguirse para siempre en las sombras de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

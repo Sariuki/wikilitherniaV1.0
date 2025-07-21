@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_legado_del_Lilium</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_legado_del_Lilium</div>
+        <div class="content">
+<h1 id="el-legado-del-lilium">El legado del lilium</h1>
+<p>La Caída del Lilium no solo marcó el fin de una era en Lithernia,
+sino que dejó un legado tangible y profundo, que aún resuena en cada
+rincón del mundo. Este legado se manifiesta tanto en las cicatrices
+físicas que surcan el paisaje como en la magia impregnada en la esencia
+misma de la tierra y sus habitantes.</p>
+<h2 id="impactos-físicos-del-cataclismo">Impactos físicos del
+Cataclismo</h2>
+<p>El cataclismo conocido como la Caída del Lilium alteró
+espectacularmente la geografía de Lithernia, dando lugar a formaciones
+que hoy son veneradas o temidas:</p>
+<ul>
+<li><p><strong>Las Grietas de Fuego Eterno</strong>: Zonas donde la
+tierra se fracturó en abismos humeantes, con magma y vapores que emergen
+eternamente. Se dice que estas grietas son las heridas abiertas del
+mundo, emanando la furia residual del Lilium.</p></li>
+<li><p><strong>El Mar de Ceniza</strong>: Una vasta planicie cubierta de
+cenizas manchadas de oscuro carbón mágico. Aquí, la vida vegetal
+desapareció por siglos, y solo especies adaptadas a la aridez y
+oscuridad pudieron sobrevivir.</p></li>
+<li><p><strong>Las Ruinas de Áurea</strong>: Restos de la antigua ciudad
+capital de Lilium, ahora reducida a un conjunto de estructuras
+petrificadas, donde la piedra emana un brillo dorado, reflejo de la
+última magia desplegada durante el desastre.</p></li>
+</ul>
+<h2 id="herencia-mágica-y-espiritual">Herencia mágica y espiritual</h2>
+<p>El Lilium fue tanto fuente de poder como catalizador de destrucción.
+Su caída sembró múltiples legados en la estructura mágica de
+Lithernia:</p>
+<ul>
+<li><p><strong>La Corriente Luminiscente</strong>: Un flujo mágico
+residual que atraviesa el mundo, visible solo bajo ciertos cielos
+nocturnos. Los magos y chamanes lo canalizan para potenciar hechizos de
+vida y renovación.</p></li>
+<li><p><strong>Los Fragmentos de Lilium</strong>: Cristales imbuídos con
+la última esencia del antiguo poder, dispersos por la tierra. Se cree
+que estos fragmentos contienen tanto potencial para la salvación como
+para la ruina, motivo por el cual numerosas facciones los
+buscan.</p></li>
+<li><p><strong>Las Cánticas de la Caída</strong>: Textos o canciones
+transmitidos de generación en generación, que relatan el drama de la
+Caída, y que son utilizadas para rituales de protección y
+recuerdo.</p></li>
+</ul>
+<h2 id="leyendas-y-mitos-derivados">Leyendas y mitos derivados</h2>
+<p>En la tradición oral de Lithernia, el legado del Lilium es motivo de
+historias épicas y reflexiones profundas:</p>
+<ul>
+<li><p><strong>El Guardián de las Ruinas</strong>: Cuenta la leyenda que
+un espíritu ancestral custodia las Ruinas de Áurea, esperando el día en
+que el poder del Lilium pueda restaurar el equilibrio.</p></li>
+<li><p><strong>La Promesa de la Flor Caída</strong>: Se dice que cuando
+una flor blanca, similar al símbolo del Lilium, brote en la cima de las
+Grietas de Fuego Eterno, será señal de renacimiento y esperanza para
+Lithernia.</p></li>
+</ul>
+<h2 id="costumbres-y-rituales-contemporáneos">Costumbres y rituales
+contemporáneos</h2>
+<p>El legado del Lilium persiste también en prácticas culturales y
+espirituales, que buscan honrar o controlar el poder dejado atrás:</p>
+<ul>
+<li><p><strong>El Festival de Ceniza Nueva</strong>: Celebrado
+anualmente en las proximidades del Mar de Ceniza, donde la gente ofrece
+oraciones por la renovación de la vida y renuncia a la destrucción del
+pasado.</p></li>
+<li><p><strong>La Vigilia de los Fragmentos</strong>: Una ceremonia
+guardada por los linajes vinculados a los antiguos sabios, donde se
+custodian y meditan los Fragmentos de Lilium para evitar que caigan en
+manos equivocadas.</p></li>
+<li><p><strong>Ritos de Purificación Luminiscente</strong>: Prácticas
+místicas en las que los iniciados aprenden a sintonizarse con la
+Corriente Luminiscente para sanar heridas y esclarecer la
+mente.</p></li>
+</ul>
+<hr />
+<p>El legado del <a href="Lilium.html">Lilium</a> es, en definitiva, una
+herencia de dualidad: testimonio de la devastación más absoluta y
+semilla de la esperanza eterna. Su recuerdo guía las decisiones de
+reinos, gremios y viajeros, recordándoles que en Lithernia, todo poder
+lleva consigo una responsabilidad inconmensurable.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a
+href="Caída%20de%20Lilium%20-%20Ruinas%20y%20Fragmentos.html">Caída de
+Lilium - Ruinas y Fragmentos</a> (relevancia: 0.53)</li>
+<li><a href="Caída%20de%20Lilium%20-%20Legado%20Cultural.html">Caída de
+Lilium - Legado Cultural</a> (relevancia: 0.53)</li>
+<li><a href="Caída%20de%20Lilium%20-%20Legado.html">Caída de Lilium -
+Legado</a> (relevancia: 0.50)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+<li><a href="Caída%20de%20Lilium%20-%20Sellos%20y%20Rituales.html">Caída
+de Lilium - Sellos y Rituales</a> (relevancia: 0.43)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

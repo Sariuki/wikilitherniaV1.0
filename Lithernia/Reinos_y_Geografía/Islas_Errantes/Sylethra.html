@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylethra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Sylethra</div>
+        <div class="content">
+<h1 id="sylethra">Sylethra</h1>
+<p>Sylethra es una melodía hecha ciudad. Situada en el corazón del
+archipiélago de las “Islas Susurrantes” en <a
+href="Galvorn.html">Galvorn</a>, no es un solo puerto, sino una cadena
+de escarpadas islas unidas por puentes de madera viva y cuerda encantada
+que se mecen con la brisa. Un colosal arrecife de coral, vibrante de
+vida, la abraza y la protege de la furia del océano, creando en su
+interior una laguna de aguas turquesas tan tranquilas como traicioneras
+para el navegante inexperto. La ciudad vive y respira con el viento; de
+cada alero, balcón y torre cuelgan carrillones de viento hechos con
+madera de deriva y “Perlas de Éter”, que tejen un zumbido armónico e
+incesante que es el alma de Sylethra.</p>
+<h2 id="historia">Historia</h2>
+<p>Sylethra nació no de un plan de conquista, sino de un susurro en el
+viento. Tras el Cataclismo del <a href="Lilium.html">Lilium</a>, un
+grupo de exploradores Genasi, conocidos como los “Primeros Viajeros”,
+buscaban un refugio guiados únicamente por las corrientes de aire y la
+fe en su dios patrón, <a href="Quiteon.html">Quiteon</a>. Fue el viento
+quien los llevó a este archipiélago, un lugar donde las tormentas
+parecían calmarse y el cielo se mostraba con una claridad inusual.
+Vieron en la protección del gran arrecife y en la verticalidad de sus
+islas la oportunidad de fundar un hogar que encarnara sus ideales:
+libertad, inspiración y una conexión profunda con los elementos.</p>
+<p>No impusieron su voluntad sobre la roca, sino que construyeron en
+armonía con ella. Con el tiempo, Sylethra se convirtió en un faro para
+todos los que sentían la llamada del horizonte: <a
+href="Humanos.html">Humanos</a> y <a href="Semielfos.html">Semielfos</a>
+cartógrafos en busca de los límites del mundo, genasi de agua que
+encontraron un santuario en su laguna y hasta una comunidad de <a
+href="Halflings.html">Halflings</a> que desarrollaron ingeniosos
+jardines hidropónicos en los tejados. Gobernados por su propia
+sabiduría, los sylethrianos mantienen su lealtad a <a
+href="Galvorn.html">Galvorn</a>, pero se rigen por las leyes del viento
+y el mar, una autonomía respetada en el Consejo de Capitanes.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Muelle de las Cartas</strong>: El corazón comercial y
+académico de Sylethra. En este vibrante muelle, que se extiende sobre
+plataformas de coral pulido, se comercia con las famosas “Cartas de
+Viento”, <a href="Mapas.html">Mapas</a> mágicos que muestran las
+corrientes de aire en tiempo real. Aquí, las academias de navegación
+entrenan a los pilotos más prestigiosos de <a
+href="Galvorn.html">Galvorn</a>. Sin embargo, en sus callejones más
+umbríos se rumorea que opera el “Compás Velado”, un gremio secreto
+sospechoso de vender <a href="Mapas.html">Mapas</a> erróneos a los
+piratas de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</p></li>
+<li><p><strong>La Laguna de las Perlas</strong>: El tranquilo espejo de
+agua protegido por el arrecife. Es un laberinto submarino de jardines de
+coral donde buceadores expertos recolectan las “Perlas de Éter”, gemas
+que pueden almacenar un truco mágico. Aunque es un lugar de inmensa
+belleza, el peligro acecha: las canciones de las arpías que anidan en
+los riscos del arrecife se han vuelto más agresivas, atrayendo barcos
+desprevenidos hacia las rocas.</p></li>
+<li><p><strong>Las Terrazas Colgantes</strong>: El principal distrito
+residencial, construido en la ladera de las islas más altas. Las
+viviendas, esbeltas torres de piedra clara y coral, están conectadas por
+una red de puentes colgantes y escaleras de caracol. Es aquí donde la
+melodía de los carrillones de viento es más intensa, un sonido que
+acompaña cada aspecto de la vida cotidiana.</p></li>
+<li><p><strong>La Espira de los Susurros</strong>: En el punto más alto
+de la isla principal, desafiando a las nubes, se encuentra el gran
+templo de <a href="Quiteon.html">Quiteon</a>. No es un edificio cerrado,
+sino una estructura al aire libre de arcos y pilares de coral blanco,
+diseñada para que el viento fluya a través de ella, creando un zumbido
+meditativo que, según los fieles, son las palabras del propio
+dios.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Sylethra es un himno a la libertad y la inspiración. El
+tiempo no se mide con la urgencia del continente, sino con el ritmo de
+las mareas y el cambio de los vientos. Su mayor celebración es la
+“Primera Ráfaga”, un festival anual que marca el cambio de estación,
+donde los cielos se llenan de cometas de seda en las que los ciudadanos
+escriben poemas, ideas o sueños. El festival culmina con una masiva y
+arriesgada regata alrededor del archipiélago.</p>
+<p>Es costumbre que antes de embarcarse en un largo viaje, un
+sylethriano visite uno de los muchos santuarios de <a
+href="Quiteon.html">Quiteon</a> para dejar una ofrenda no de oro, sino
+de creatividad: una nueva melodía, el boceto de un invento, o un relato
+de una aventura soñada. Creen que la inspiración es la moneda más
+valiosa.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Sylethra es vertical, ligera y desafiante. Las
+esbeltas torres de piedra pálida y coral parecen crecer de la propia
+roca, adornadas con intrincados mosaicos de conchas que brillan con la
+luz del sol. Los balcones abiertos y los puentes colgantes dan a la
+ciudad una sensación de ingravidez. El ambiente es etéreo y sonoro, una
+mezcla del aire salado del océano, el olor de las flores tropicales que
+crecen en los jardines colgantes y, sobre todo, la música perpetua de
+los miles de carrillones de viento.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Turbonada Silenciosa</strong>: Los marineros más
+viejos advierten sobre una tormenta fantasma que no aparece en ninguna
+Carta de Viento. Se dice que puede ser invocada con una melodía
+prohibida tocada en un carillón de éter oscuro. La “Turbonada
+Silenciosa” no trae lluvia ni truenos, sino una niebla espectral que
+roba las voces, los recuerdos y la inspiración de todos los que atrapa
+en su calma mortal, dejándolos como cascarones vacíos.</p></li>
+<li><p><strong>El Tesoro del Primer Rey</strong>: En las profundidades
+del arrecife, más allá de donde se atreven a anidar las arpías, se
+cuenta que yacen los restos de un navío de la flota del Primer Rey,
+hundido antes del Cataclismo del <a href="Lilium.html">Lilium</a>. La
+leyenda susurra que en su camarote, protegido por una magia que el
+tiempo no ha podido erosionar, se encuentra un mapa estelar que no
+conduce a un tesoro de oro, sino a un lugar secreto en el mundo que las
+llamas del <a href="Lilium.html">Lilium</a> nunca tocaron.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

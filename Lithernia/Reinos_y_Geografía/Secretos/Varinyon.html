@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varinyon</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Varinyon</div>
+        <div class="content">
+<h1 id="varinyon">Varinyon</h1>
+<p>Varinyon no es una ciudad que se encuentre en los <a
+href="Mapas.html">Mapas</a>; es un secreto susurrado por el viento y
+guardado por las olas. Oculta en la laberíntica red de cañones marinos
+conocida como las Gargantas de Zafiro, su entrada es un acertijo náutico
+que solo los capitanes más audaces o desesperados pueden resolver. No
+tiene murallas, pues sus defensas son los arrecifes afilados y las
+corrientes impredecibles que han destrozado a incontables navíos
+intrusos. La ciudad misma está tallada en la roca viva de los
+acantilados, una cascada de muelles, casas y tabernas conectadas por
+inestables puentes de cuerda y madera de pecio. Al caer la noche,
+Varinyon cobra vida con un resplandor etéreo y azulado, emitido por
+faroles que contienen algas bioluminiscentes, transformando las oscuras
+gargantas en un santuario de luz fantasmal.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Varinyon no están en la conquista, sino en la
+supervivencia. Hace generaciones, un grupo de exploradores y
+contrabandistas, conocidos como los Primeros Timoneles, huían tanto de
+la armada de <a href="Galvorn.html">Galvorn</a> como de los corsarios de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>. Una tormenta brutal, un regalo
+irónico de <a href="Exion.html">Exion</a>, los arrojó contra la costa
+rocosa, guiándolos a través de una grieta invisible en los acantilados.
+Dentro, descubrieron las Gargantas de Zafiro: una bahía protegida, un
+laberinto natural inexpugnable.</p>
+<p>Allí fundaron Varinyon, no como una ciudad, sino como un refugio. Su
+ley era simple: la habilidad en el timón valía más que el linaje, y la
+audacia era su moneda. Con el tiempo, el secreto atrajo a otros: Genasi
+de Agua que sentían el llamado de las profundidades, Genasi de Aire que
+podían leer los vientos traicioneros, y <a
+href="Halflings.html">Halflings</a> que encontraron en las bulliciosas
+tabernas un hogar tan cálido como cualquier madriguera. El gobierno del
+“Consejo de los Timoneles” se formó de manera orgánica a partir de los
+capitanes más respetados, y aunque juran lealtad a la corona de <a
+href="Galvorn.html">Galvorn</a>, en la práctica, Varinyon solo responde
+al rugido del mar y a la voluntad de su gente.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Muelle del Pecio</strong>: El corazón palpitante de
+Varinyon. Este distrito portuario está construido casi en su totalidad
+con los restos de barcos naufragados. Grúas impulsadas por la marea izan
+mercancías de balandros ágiles mientras los carpinteros de ribera
+trabajan incansablemente, creando nuevos navíos a partir de los viejos.
+El aire huele a sal, alquitrán y oportunidad.</p></li>
+<li><p><strong>Las Galerías Susurrantes</strong>: Tallada en las paredes
+superiores del cañón, esta es la principal zona residencial. Los hogares
+son cuevas ampliadas con fachadas de madera y balcones que se asoman al
+abismo. El viento aúlla constantemente a través de los pasajes, y se
+dice que los Genasi de Aire pueden interpretar sus susurros para
+predecir el clima o la fortuna. Aquí se encuentran las posadas más
+acogedoras, regentadas por familias de <a
+href="Halflings.html">Halflings</a>.</p></li>
+<li><p><strong>La Ensenada Luminosa</strong>: En el nivel más bajo,
+donde las olas rompen suavemente, se encuentra esta ensenada iluminada
+por la constante bioluminiscencia de las algas. Es el dominio de los
+Genasi de Agua y el centro espiritual de la ciudad. Los templos a la
+Tríada del Horizonte no son edificios, sino cuevas marinas sagradas,
+cuyas paredes están cubiertas de corales y ofrendas.</p></li>
+<li><p><strong>La Atalaya del Vigía</strong>: El punto más alto de
+Varinyon, un pináculo de roca escarpada que ofrece una vista inigualable
+de los arrecifes. Es aquí donde un Genasi de Aire entona el sagrado
+“Silbido del Vigía” para guiar a los barcos amigos. En una caverna en su
+base se reúne el Consejo de los Timoneles, tomando decisiones que
+afectan a toda la ciudad.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Varinyon es un baile constante con el peligro. La audacia
+y la pericia náutica son las virtudes más elevadas. Un capitán que
+navega con éxito a través de una tormenta gana más respeto que un
+mercader que trae un cargamento de oro. La religión es pragmática: se
+reza a <a href="Yfrit.html">Yfrit</a> para que proteja el casco, a <a
+href="Exion.html">Exion</a> para que aleje su furia, y a <a
+href="Quiteon.html">Quiteon</a> para que infle las velas. Antes de cada
+nueva construcción, se realiza la “Ofrenda de la Quilla”, colocando un
+coral bendecido en la estructura del barco para asegurar la protección
+de <a href="Yfrit.html">Yfrit</a>.</p>
+<p>Su festividad más importante es el “Festival de la Calma Chicha”, un
+día raro en el que el mar y el viento se aquietan por completo. Varinyon
+estalla en una fiesta desenfrenada, con carreras de botes, concursos de
+nudos, y jarras de ron que pasan de mano en mano, celebrando el breve
+respiro que los dioses les conceden.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Varinyon es un testimonio de la tenacidad humana y elemental. Todo
+está adaptado al entorno vertical y acuático. No hay calles, sino una
+red de escaleras de piedra resbaladiza y puentes colgantes que crujen
+con cada ráfaga de viento. El símbolo de la ciudad —una ola azul
+rompiendo contra un acantilado gris, con una ráfaga de viento sobre
+ella— está tallado en las puertas y ondea en las velas de sus barcos. El
+ambiente es a la vez claustrofóbico y liberador, una mezcla del aire
+confinado de las gargantas y la promesa del océano abierto que espera
+justo más allá de la entrada secreta.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Galeón Fantasma del Capitán Umbra</strong>: Los
+marineros juran que en las noches de niebla espesa, se puede ver la
+silueta del “Cuervo Marino”, el galeón del legendario pirata Capitán
+Umbra. Se dice que su tripulación espectral aún protege un tesoro
+hundido en las profundidades de la garganta. Pero el tesoro no es solo
+oro; se rumorea que incluye el “Corazón del Kraken”, un artefacto que
+permite controlar a las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+marinas.</p></li>
+<li><p><strong>El Sueño del Corazón de la Corriente</strong>: Los sabios
+Genasi creen que las impredecibles corrientes que protegen Varinyon no
+son naturales. Son la respiración de un colosal elemental de agua, el
+“Corazón de la Corriente”, que duerme bajo la ciudad. Los magos de las
+tormentas realizan rituales no para predecir el clima, sino para calmar
+el sueño de la entidad, pues temen que si alguna vez despierta, su ira
+podría arrastrar a Varinyon al fondo del océano.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.50)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

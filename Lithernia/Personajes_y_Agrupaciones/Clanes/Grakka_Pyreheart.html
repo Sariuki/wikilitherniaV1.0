@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grakka_Pyreheart</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grakka_Pyreheart</div>
+        <div class="content">
+<h1 id="grakka-pyreheart">Grakka Pyreheart</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de las grandes casas de Lithernia, pocas historias son
+tan atípicas y forjadas en fuego como la de Grakka, la matriarca orca de
+la Casa Pyreheart. Nacida en las áridas estepas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Grakka no conoció la nobleza de
+cuna, sino el honor del trabajo y la disciplina del Clan Ironclaw, una
+tribu de <a href="Orcos.html">Orcos</a> atípica que había sustituido la
+sed de sangre de <a href="Lakros.html">Lakros</a> por la veneración a la
+forja, inspirados por el dios enano <a href="Trovdor.html">Trovdor</a>.
+Desde joven, demostró un talento innato no solo para moldear el acero,
+sino para escuchar su “canto” y grabar en él las <a
+href="Runas.html">Runas</a> de poder de su clan.</p>
+<p>Su destino cambió cuando, en una misión comercial hacia el reino
+montañoso de <a href="Valtoria.html">Valtoria</a>, su caravana llegó a
+la ciudad-forja de <a href="Valarion.html">Valarion</a>. Allí, presenció
+la prueba del “Foso del Desafío” y conoció a Valerius, el audaz heredero
+de la Casa Pyreheart, hijo del legendario fundador <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>.
+No fue un romance de cortesía, sino una unión de voluntades de acero.
+Valerius vio en Grakka la fuerza y el conocimiento ancestral que su casa
+de advenedizos necesitaba para legitimarse; Grakka vio en él una
+ambición tan ardiente como la lava de la que su casa extraía el poder.
+Su matrimonio fue un cataclismo político y cultural: la unión de una
+orca de un clan renegado con una casa <a href="Noble.html">Noble</a>
+emergente de <a href="Valtoria.html">Valtoria</a>, sellando una poderosa
+alianza entre los Ironclaw y los Pyreheart.</p>
+<p>Su ascenso dentro de la casa no fue fácil. Los miembros más antiguos,
+como Borin Stonehand, el guardián enano de la Forja de Purificación, la
+veían como una influencia externa y bárbara. Pero Grakka demostró su
+valía no con palabras, sino con el martillo. Fusionó las técnicas
+rúnicas de su clan con la brutal filosofía destructora y creadora de los
+Pyreheart, dando a luz a la <strong>Forja Rúnica de Ceniza</strong>.
+Bajo su dirección, las armas de la casa dejaron de ser meramente
+poderosas para convertirse en artefactos imbuidos de una voluntad
+propia, resonando con ecos de furia y renacimiento.</p>
+<p>Hoy, como Maestra Rúnica y Matriarca, Grakka es el pilar sobre el que
+descansa el poder de la Casa Pyreheart. Es la diplomática que mantiene
+el flujo de mineral y guerreros desde <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, la estratega que mide fuerzas con
+la tradicional Casa Hammerthon, y la innovadora que desafía el
+estancamiento del Clan Agrietacero, sus principales rivales en la forja.
+Su motivación es inquebrantable: elevar a la Casa Pyreheart, una casa de
+parias y descastados, al pináculo del poder en <a
+href="Valtoria.html">Valtoria</a>, demostrando a todo Lithernia que la
+verdadera nobleza no se hereda de la sangre, sino que se forja en el
+fuego y renace de sus propias cenizas.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grakka es una figura imponente, incluso para los estándares de los <a
+href="Orcos.html">Orcos</a>. A sus 65 años, el tiempo solo ha cincelado
+su fuerza en una forma más letal y contenida. Su piel, de un verde
+profundo, está marcada no solo por las cicatrices de su juventud en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sino también por finas líneas de
+<a href="Runas.html">Runas</a> que cubren sus brazos y espalda, tatuajes
+rituales de los Pyreheart que brillan con un débil fulgor anaranjado en
+la penumbra de la forja. Su cabello negro, con vetas de ceniza, lo lleva
+recogido en una gruesa trenza funcional, entrelazada con anillas de
+obsidiana y acero. Sus ojos, oscuros e inteligentes, han visto el calor
+de mil hornos y la frialdad de mil intrigas.</p>
+<p>No viste los ropajes opulentos de la nobleza. Su atuendo es el de una
+maestra artesana: un delantal de cuero de draco, resistente al fuego,
+sobre un conjunto de túnicas oscuras de tejido grueso. Sus brazos están
+protegidos por brazales de acero ennegrecido, grabados con las <a
+href="Runas.html">Runas</a> que ella misma ha perfeccionado.</p>
+<p>Su equipamiento es una extensión de su voluntad: * <strong>Martillo
+Rúnico “Rompealmas”:</strong> Un martillo de forja de cabeza de
+obsidiana y mango de fresno petrificado. No es un arma de guerra, sino
+una herramienta de creación tan precisa que se dice que puede grabar una
+runa en un grano de arena. Las <a href="Runas.html">Runas</a> que cubren
+su superficie brillan con intensidad cuando Grakka canaliza su poder. *
+<strong>Cinceles de la Ceniza:</strong> Un juego de cinceles de
+distintos tamaños, forjados con la técnica de purificación de la casa.
+Son capaces de marcar el acero más resistente como si fuera arcilla
+blanda. * <strong>El Corazón de la Matriarca:</strong> Un amuleto que
+lleva al cuello, réplica del escudo de su casa: un corazón de obsidiana
+pulida, agrietado, con una gema de fuego engastada en su interior que
+palpita con un calor suave y constante. Es tanto un símbolo de su
+estatus como un foco para su magia de forja.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Grakka Pyreheart no es simplemente una líder; es una fuerza de
+cambio. Su existencia misma desafía las rígidas estructuras sociales de
+Lithernia. Como orca matriarca de una casa <a
+href="Noble.html">Noble</a> en el corazón del reino enano, representa
+una anomalía que los tradicionalistas desprecian y los ambiciosos
+admiran.</p>
+<p>Su principal legado será, sin duda, la <strong>Forja Rúnica de
+Ceniza</strong>. Esta nueva escuela de encantamiento, que une la
+brutalidad elemental de los Genasi de Fuego con la sabiduría rúnica de
+los <a href="Orcos.html">Orcos</a>, tiene el potencial de crear armas y
+armaduras de un poder sin precedentes. Si la Casa Pyreheart logra su
+ascenso, sus creaciones podrían cambiar el equilibrio de poder en la
+Gran Guerra, equipando ejércitos con acero que no solo corta, sino que
+infunde miedo, desesperación o una furia imparable.</p>
+<p>Políticamente, la alianza que personifica entre la Casa Pyreheart de
+<a href="Valtoria.html">Valtoria</a> y el Clan Ironclaw de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> es un puente inestable pero
+crucial entre dos reinos enemigos. En un mundo al borde del conflicto,
+Grakka podría ser la clave para una paz forjada en hierro o la chispa
+que encienda una guerra devastadora. Su vida es un testamento al lema de
+su casa: una figura que emergió de las cenizas de un origen humilde para
+convertirse en una llama que amenaza con consumir el viejo orden y
+forjar uno nuevo a su imagen.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Pyreheart.html">Casa Pyreheart</a> (relevancia:
+0.67)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

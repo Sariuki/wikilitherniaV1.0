@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borin_Pies-Ligeros</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Borin_Pies-Ligeros</div>
+        <div class="content">
+<h1 id="borin-pies-ligeros">Borin Pies-Ligeros</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Borin no nació al son de los martillos forjando oro ni al calor de
+las grandes celebraciones de <a href="Valtoria.html">Valtoria</a>. Su
+primer aliento fue el aire frío y metálico de <a
+href="Alfor.html">Alfor</a>, la fortaleza-sello excavada en las
+profundidades de las Montañas del Eco Silencioso. Su canción de cuna no
+fue una balada heroica, sino el susurro constante y antinatural de la
+fisura planar que su clan juró contener: el Abismo. Como miembro del
+Clan Guardián del Abismo, su linaje se remonta a Kaelen el Sellador, el
+explorador que cambió el destino de su gente de la búsqueda de riquezas
+a una vigilia eterna contra los horrores del Vacío.</p>
+<p>Criado en la austeridad y el deber, Borin aprendió a leer las <a
+href="Runas.html">Runas</a> de contención antes que los cuentos
+infantiles. Sin embargo, a diferencia de sus mayores, cuya determinación
+se había petrificado en una paranoia sombría tras siglos de aislamiento,
+en Borin ardía una chispa de curiosidad. Mientras los otros <a
+href="Enanos.html">Enanos</a> del clan veían el mundo exterior como una
+distracción peligrosa, él lo veía como una fuente de conocimiento y,
+sobre todo, de esperanza. Su agilidad y sigilo innatos, inusuales para
+un enano, le ganaron el apodo de “Pies-Ligeros” durante sus primeras
+misiones de reconocimiento, donde demostró una habilidad sin igual para
+navegar los traicioneros pasos de montaña sin ser detectado.</p>
+<p>Esta aptitud lo convirtió en el candidato ideal para el puesto más
+ingrato y vital del clan: el Vigía de la Superficie. Siendo el miembro
+más joven del consejo, es el único encargado de aventurarse fuera de <a
+href="Alfor.html">Alfor</a>. Sus misiones lo llevan a las bulliciosas
+ciudades de <a href="Valtoria.html">Valtoria</a>, como Ironforge o la
+propia capital, donde comercia discretamente las gemas rúnicas de su
+clan por suministros esenciales y recopila información sobre las
+amenazas del mundo. Es a través de estos viajes que ha forjado las
+vitales alianzas de su clan: mantiene una comunicación respetuosa con
+los sabios del Círculo Interior en la Torre de las Estrellas,
+compartiendo informes sobre las fluctuaciones planares, y ha encontrado
+un terreno común con los Druidas de <a href="Chaus.html">Chaus</a>,
+quienes entienden la necesidad de proteger el equilibrio natural y
+arcano del mundo.</p>
+<p>Su papel, sin embargo, lo ha convertido en un paria respetado. Los
+ancianos del clan, liderados por el severo Thorgar el Inquebrantable,
+valoran los <a href="Recursos.html">Recursos</a> que trae, pero
+desconfían de su carácter abierto y de sus ideas progresistas. Borin
+argumenta que el aislamiento es una muerte lenta y que solo
+fortaleciendo sus lazos con el exterior podrán sobrevivir a largo plazo,
+especialmente ante amenazas como los <strong>Cazadores de
+Sombras</strong> o la codicia del <strong>Clan Agrietacero</strong>,
+quienes ven al clan como débiles ermitaños sentados sobre vetas sin
+explotar. Este conflicto ideológico define su existencia: es el puente
+de su clan con el mundo, un puente que muchos de sus hermanos
+preferirían ver quemado. Su motivación más profunda no es solo cumplir
+con su deber, sino demostrar que la luz del exterior puede fortalecer
+los sellos de la oscuridad, en lugar de debilitarlos.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>A sus 95 años, Borin es joven para los estándares <a
+href="Enanos.html">Enanos</a>, y su físico lo refleja. Es más esbelto y
+ágil que sus pares, con una complexión fibrosa forjada por años de
+escalada y sigilo en lugar de la corpulencia típica de un <a
+href="Guerrero.html">Guerrero</a> de túneles. Su cabello castaño y su
+barba están trenzados de forma práctica, sin los elaborados adornos de
+los clanes más ricos. Sus ojos, de un gris tormentoso, poseen la
+intensidad de quien ha mirado al abismo, pero también la viveza de quien
+ha visto el sol nacer sobre los picos de <a
+href="Valtoria.html">Valtoria</a>.</p>
+<p><strong>Equipamiento:</strong> * <strong>Armadura de Cuero Tachonado
+Reforzada:</strong> Grabada con <a href="Runas.html">Runas</a> de
+protección menores, es lo suficientemente ligera para no entorpecer su
+movimiento, pero resistente para desviar un golpe inesperado. *
+<strong>Martillo de Guerra de <a href="Alfor.html">Alfor</a>:</strong>
+Un arma heredada, con la cabeza de acero pulido y un mango de roble
+petrificado. Aunque es un explorador, sigue siendo un enano orgulloso de
+su herencia marcial. * <strong>Ballesta Pesada y Virotes
+Rúnicos:</strong> Su arma predilecta. Los virotes, inscritos por los
+herreros rúnicos de su clan, están diseñados para perforar corazas o
+infligir daño elemental a las aberraciones que a veces escapan de la
+fisura. * <strong>Capa de Viajero y Suministros:</strong> Una capa
+gruesa de lana gris que lo camufla entre las rocas de la montaña. Su
+mochila siempre está preparada con raciones, cuerdas, herramientas de
+escalada y un diario de cuero donde anota observaciones del mundo
+exterior, <a href="Mapas.html">Mapas</a> y los extraños patrones que a
+veces percibe en las estrellas, información que comparte con la Torre. *
+<strong>Amuleto del Sello Roto:</strong> Un pequeño fragmento de
+obsidiana atado a una cadena de mithril, símbolo de su clan. Se dice que
+el amuleto se enfría ante la presencia de corrupción planar.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Aunque Borin Pies-Ligeros es una figura prácticamente desconocida
+fuera de los círculos más selectos de <a
+href="Valtoria.html">Valtoria</a>, su importancia potencial para el
+destino del reino —y de Lithernia— es incalculable. Él es el único hilo
+que conecta la sagrada vigilia del Clan Guardián del Abismo con el resto
+del mundo. Si la fisura bajo <a href="Alfor.html">Alfor</a> se
+desestabilizara, convirtiéndose en una amenaza continental, Borin no
+solo sería el primer mensajero, sino el único diplomático capaz de
+movilizar la ayuda del Círculo Interior y los Druidas de <a
+href="Chaus.html">Chaus</a>.</p>
+<p>Su verdadero legado, sin embargo, puede ser la transformación de su
+propio clan. Si logra convencer a los ancianos de que la colaboración es
+más fuerte que el aislamiento, podría sacar a los Guardianes del Abismo
+de las sombras, convirtiéndolos en una orden reconocida y respetada, un
+baluarte contra las amenazas extraplanares. Si fracasa, su clan podría
+extinguirse en su soledad, y Lithernia perdería a los silenciosos
+guardianes que la protegen de un horror que la mayoría ni siquiera sabe
+que existe. Borin camina sobre el filo de la navaja, entre la tradición
+y la supervivencia, y su camino determinará si la luz que forjan en la
+oscuridad ilumina solo su tumba o un futuro más seguro para todos.</p>
+        </div>
+    </div>
+</body>
+</html>

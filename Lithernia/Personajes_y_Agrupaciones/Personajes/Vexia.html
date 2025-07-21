@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vexia</div>
+        <div class="content">
+<h1 id="vexia">Vexia</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida en la asfixiante penumbra de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, en el seno de una casa tiefling
+menor cuyo nombre ha sido engullido por el tiempo y la insignificancia,
+Vexia aprendió desde joven las verdaderas leyes que rigen Lithernia: el
+poder no se hereda, se arrebata; la lealtad es un recurso, no una
+virtud; y el conocimiento es el arma más afilada de todas. Mientras
+otros de su linaje se consumían en pequeñas intrigas por el favor de los
+clanes mayores, Vexia afilaba su intelecto en las sombras, observando
+cómo los secretos y las reliquias del pasado otorgaban a los necios una
+influencia que no merecían.</p>
+<p>Su oportunidad llegó décadas más tarde, cuando el destino la cruzó
+con dos parias tan ambiciosos como ella: Kaelen, un historiador semielfo
+obsesionado con la verdad prohibida del Primer Rey, y Borin
+Martillolesto, un maestro enano expulsado de <a
+href="Valtoria.html">Valtoria</a> por su peligrosa fascinación con las
+trampas ancestrales. Kaelen vio en las ruinas el eco de la historia;
+Borin, la gloria del desafío técnico. Vexia vio algo más tangible: una
+oportunidad de negocio. Juntos, fundaron el Sindicato del Eco, un gremio
+que convertiría la arqueología en un acto de poder.</p>
+<p>Como Jefa de Operaciones, Vexia es la mente estratégica y el puño
+pragmático del Sindicato. Mientras Kaelen persigue sus sueños
+académicos, ella traza las rutas de expedición, evalúa los riesgos,
+gestiona los <a href="Recursos.html">Recursos</a> y, lo más importante,
+negocia la venta de los artefactos recuperados. Su especialidad es su
+rol como Enlace con <a href="Mor&#39;dhul.html">Mor’dhul</a>. Conoce la
+psique de los clanes, habla el lenguaje de la fuerza y la dominación, y
+sabe que una reliquia entregada al clan correcto puede desatar una
+guerra civil que beneficie al Sindicato. Su pacto con el Clan Grimstone
+es una obra maestra de diplomacia coercitiva: les proporciona justo el
+conocimiento que necesitan para sentirse superiores, mientras se guarda
+las verdades más potentes que podrían volverlos una amenaza
+incontrolable.</p>
+<p>La motivación de Vexia no es la codicia vulgar ni la curiosidad
+académica de Kaelen. Su objetivo es la autonomía absoluta. Busca
+convertir al Sindicato del Eco en un poder silencioso, una facción
+indispensable para reyes y señores de la guerra, una entidad que trafica
+con el poder mismo, sin jurar lealtad a ninguna corona ni dios. Para
+ella, el Cataclismo del <a href="Lilium.html">Lilium</a> no fue una
+tragedia, sino una reconfiguración del tablero de juego, y ella pretende
+ser la jugadora que, desde las sombras, mueva las piezas más
+decisivas.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vexia es la personificación de la elegancia depredadora. A sus 98
+años, su herencia tiefling se manifiesta en una piel de un sutil tono
+pizarra y unos ojos de un inquietante color ámbar que analizan todo con
+una calma calculadora. Sus cuernos, delgados y de obsidiana pulida, se
+curvan hacia atrás desde su frente, a menudo ocultos parcialmente por su
+cabello negro azabache, recogido en un peinado severo y práctico. No
+sonríe a menudo, pero cuando lo hace, es una mueca afilada que no llega
+a sus ojos y promete más peligro que calidez.</p>
+<p>Viste con una funcionalidad letal. Prefiere túnicas oscuras de corte
+severo, confeccionadas con sedas resistentes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sobre una armadura de cuero
+reforzado con placas de metal oscuro, ligera y silenciosa. No porta
+armas a la vista, pero quienes la conocen saben que siempre lleva
+consigo un estilete envenenado oculto en su manga y varias dagas de
+lanzamiento equilibradas en su arnés.</p>
+<p>Su equipamiento más valioso, sin embargo, es intangible: su red de
+informantes. Además, siempre lleva consigo un pequeño códice de cuero,
+indescifrable para cualquiera que no conozca sus complejos códigos, que
+contiene los detalles de las deudas, secretos y debilidades de las
+figuras más poderosas de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Se
+rumorea que uno de los anillos que lleva, una simple banda de plata con
+una esquirla de obsidiana, es un artefacto pre-<a
+href="Lilium.html">Lilium</a> que le permite susurrar pensamientos de
+duda en la mente de sus interlocutores.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Vexia representa una nueva fuerza en el gran juego de Lithernia. No
+es una <a href="Noble.html">Noble</a> de una casa ancestral ni una
+sierva de los dioses, sino la arquitecta de un poder basado en el
+conocimiento prohibido y la influencia oculta. Su impacto se mide en las
+tensiones que aviva y en los conflictos que evita, siempre según los
+intereses del Sindicato.</p>
+<p>Bajo su dirección, el Sindicato del Eco se ha convertido en mucho más
+que un grupo de saqueadores de tumbas. Son los agentes del caos y el
+orden, capaces de desenterrar una espada legendaria que corone a un
+nuevo rey o un grimorio maldito que arrase una ciudad. Al comerciar con
+el pasado, Vexia está reescribiendo activamente el futuro de
+Lithernia.</p>
+<p>Su legado será, probablemente, el de haber demostrado que en una era
+definida por la guerra entre grandes reinos, el poder más duradero no
+reside en ejércitos ni castillos, sino en los secretos que la historia
+se niega a olvidar. Es una titiritera magistral, y aunque sus hilos son
+invisibles, sus efectos sacuden los cimientos del continente. El
+verdadero peligro, tanto para ella como para Lithernia, reside en una
+única pregunta: ¿qué ocurrirá cuando uno de esos hilos finalmente se
+rompa?</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

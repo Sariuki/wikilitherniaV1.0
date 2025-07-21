@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Danzantes_del_Dolor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Danzantes_del_Dolor</div>
+        <div class="content">
+<p>ESTRUCTURA DE ARCHIVOS: - Los Danzantes del Dolor 1: Introducción,
+Origen y Sociedad - Los Danzantes del Dolor 2: Cultura, Religión y
+Prácticas - Los Danzantes del Dolor 3: Leyendas, Festividades y
+Personajes Clave</p>
+<p>CONTENIDO:</p>
+<p>—Los Danzantes del Dolor 1— # Los Danzantes del Dolor (Parte 1)</p>
+<h2 id="introducción">Introducción</h2>
+<p>Los Danzantes del Dolor son una enigmática y temida facción dentro
+del reino de Mor’dhul en Lithernia. Su nombre evoca imágenes de
+sufrimiento y sacrificio, y su influencia se extiende a través de la
+magia nigromántica y las artes oscuras. Esta facción está profundamente
+ligada a la adoración de Kromagul, el Dios del Dolor, y se caracteriza
+por una cultura de secretos, tortura y poder obtenido a través del
+tormento.</p>
+<h2 id="origen-y-contexto">Origen y Contexto</h2>
+<p>Los Danzantes del Dolor emergieron tras la Caída del Lilium, en un
+mundo marcado por la oscuridad y la desesperación. En Mor’dhul, un reino
+dominado por la ley del más fuerte y poblado por orcos, goblins,
+hobgoblins y tieflings, esta facción encontró terreno fértil para su
+desarrollo. La sociedad de Mor’dhul es brutal y despiadada, y los
+Danzantes del Dolor encarnan esta realidad al practicar una forma única
+de nigromancia sónica y tortura ritual.</p>
+<h2 id="sociedad-y-composición-étnica">Sociedad y Composición
+Étnica</h2>
+<p>La mayoría de los miembros de los Danzantes del Dolor pertenecen al
+Clan Nighthawk, compuesto principalmente por hobgoblins que forman la
+clase gobernante y mágica. Los tieflings actúan como administradores y
+diplomáticos, mientras que una pequeña pero temida comunidad de
+exiliados Shadar-Kai sirve como asesinos y espías. Los goblins forman la
+base servil de esta sociedad, realizando tareas menores y sirviendo a
+las castas superiores.</p>
+<h2 id="ubicación-geográfica">Ubicación Geográfica</h2>
+<p>La ciudad principal de los Danzantes del Dolor es Aluinel, situada en
+un profundo desfiladero de granito negro. La ciudad está tallada
+directamente en las paredes del cañón, con estructuras de múltiples
+niveles conectadas por puentes de hueso y hierro suspendidos sobre el
+abismo. Las fachadas están adornadas con runas silenciadoras que
+absorben el sonido y brillan con una luz espectral verdosa, reflejando
+la naturaleza silenciosa y letal de sus habitantes.</p>
+<h2 id="gobierno-y-poder">Gobierno y Poder</h2>
+<p>El Clan Nighthawk domina la ciudad y la sociedad, imponiendo un
+régimen militarista y paranoico centrado en la vigilancia y la
+recopilación de secretos. La lealtad se demuestra a través de la
+delación, y la traición es castigada con torturas públicas. La élite
+gobernante practica en secreto el culto a Kromagul, creyendo que los
+secretos obtenidos a través del dolor son la forma más pura de
+poder.</p>
+<p><a href="Los%20Danzantes%20del%20Dolor%202.html">Los Danzantes del
+Dolor 2</a></p>
+<p>—Los Danzantes del Dolor 2— # Los Danzantes del Dolor (Parte 2)</p>
+<h2 id="cultura-y-creencias">Cultura y Creencias</h2>
+<p>La cultura de los Danzantes del Dolor está impregnada de un profundo
+secretismo y una obsesión por el control del conocimiento. La
+información es la moneda más valiosa, y el poder se mide por los
+secretos que uno guarda y los que puede extraer de otros. La sociedad es
+paranoica, donde la confianza es vista como una debilidad mortal.</p>
+<h3 id="magia-y-nigromancia-sónica">Magia y Nigromancia Sónica</h3>
+<p>Una característica única de esta facción es su práctica de la
+nigromancia sónica, una forma de magia que utiliza el sonido y el
+silencio como herramientas de poder y tortura. Los Danzantes emplean
+runas silenciadoras para absorber el sonido y manipular ecos, creando un
+ambiente donde el silencio es tanto un arma como un escudo.</p>
+<h2 id="religión-y-cultos">Religión y Cultos</h2>
+<p>Públicamente, los Danzantes veneran a Sel’thirak, el dios de la
+muerte y el silencio, enfatizando la paz de la tumba y el descanso
+eterno. Sin embargo, en secreto, la élite practica el culto a Kromagul,
+el Dios del Dolor, a quien consideran la fuente verdadera del poder.
+Creen que el sufrimiento y el tormento revelan verdades ocultas y
+desbloquean secretos prohibidos.</p>
+<h3 id="culto-a-kromagul">Culto a Kromagul</h3>
+<p>El culto a Kromagul es oscuro y brutal. Los rituales incluyen
+torturas diseñadas para extraer información y fortalecer la magia de los
+nigromantes. El dolor es visto como un camino hacia la iluminación y el
+dominio, y los sacrificios son comunes para honrar a esta deidad.</p>
+<h2 id="prácticas-sociales-y-rituales">Prácticas Sociales y
+Rituales</h2>
+<h3 id="festival-del-silencio-eterno">Festival del Silencio Eterno</h3>
+<p>Un evento anual donde está prohibido hablar, y toda comunicación se
+realiza mediante gestos o telepatía. Este día simboliza la reverencia
+por el silencio y el control absoluto sobre la palabra.</p>
+<h3 id="confesión-del-eco">Confesión del Eco</h3>
+<p>Un ritual donde los criminales son obligados a gritar sus fechorías
+al cañón, para que sus ecos sean torturados eternamente, sirviendo como
+castigo y advertencia para la sociedad.</p>
+<h3 id="tatuajes-de-lealtad">Tatuajes de Lealtad</h3>
+<p>Los miembros del clan llevan tatuajes de ondas sonoras o labios
+sellados, símbolos visibles de su compromiso con la causa y su sumisión
+al poder del dolor y el silencio.</p>
+<p><a href="Los%20Danzantes%20del%20Dolor%203.html">Los Danzantes del
+Dolor 3</a></p>
+<p>—Los Danzantes del Dolor 3— # Los Danzantes del Dolor (Parte 3)</p>
+<h2 id="leyendas-y-mitos">Leyendas y Mitos</h2>
+<h3 id="el-lamento-del-cañón">El Lamento del Cañón</h3>
+<p>Se cuenta la leyenda de un gemido que emerge de las profundidades del
+cañón, capaz de robar lentamente los recuerdos y secretos de quien lo
+escucha. Este fenómeno es temido y respetado, y se cree que es una
+manifestación del poder de Kromagul.</p>
+<h3 id="la-biblioteca-de-susurros">La Biblioteca de Susurros</h3>
+<p>Un archivo secreto que no contiene libros, sino jarras que almacenan
+las últimas palabras y secretos de los muertos. Se dice que quienes
+acceden a esta biblioteca pueden obtener conocimientos prohibidos y
+poderosos, pero a un alto costo.</p>
+<h3 id="el-primer-eco">El Primer Eco</h3>
+<p>La historia más codiciada es la del “Primer Eco”, la primera palabra
+atrapada en la roca del cañón, pronunciada por el Primer Rey. Se cree
+que contiene un poder inimaginable capaz de cambiar el destino de
+Lithernia.</p>
+<h2 id="personajes-clave">Personajes Clave</h2>
+<ul>
+<li><strong>Lirael, la Última Suma Sacerdotisa Élfica</strong>: Fantasma
+que vaga por los antiguos acueductos de la ciudad, su lamento puede
+volver locos a los hobgoblins. Se dice que protege secretos ancestrales
+y guía a los Danzantes en sus rituales más oscuros.</li>
+<li><strong>Magistrado del Fuego Velado</strong>: Líder supremo de la
+magocracia nigromántica, experto en la contención del Lilium residual y
+maestro de la nigromancia sónica.</li>
+<li><strong>El Archivista Desalmado</strong>: Un hobgoblin condenado a
+catalogar eternamente los lamentos de los torturados, conocido por robar
+recuerdos a cambio de secretos.</li>
+</ul>
+<h2 id="relaciones-con-otros-reinos-y-facciones">Relaciones con Otros
+Reinos y Facciones</h2>
+<p>Los Danzantes del Dolor mantienen relaciones tensas y secretas con
+otras facciones de Mor’dhul y el mundo de Lithernia. Su influencia se
+extiende a través de redes de espionaje y comercio ilícito, y son
+temidos tanto por sus aliados como por sus enemigos.</p>
+<h2 id="advertencia">Advertencia</h2>
+<p>Falta información canónica adicional sobre detalles específicos de
+sus prácticas mágicas, estructura interna y eventos históricos
+relevantes.</p>
+<p><a href="Los%20Danzantes%20del%20Dolor%201.html">Los Danzantes del
+Dolor 1</a> | <a href="Los%20Danzantes%20del%20Dolor%202.html">Los
+Danzantes del Dolor 2</a></p>
+        </div>
+    </div>
+</body>
+</html>

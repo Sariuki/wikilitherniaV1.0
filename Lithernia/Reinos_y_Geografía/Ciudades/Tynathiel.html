@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tynathiel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Tynathiel</div>
+        <div class="content">
+<h1 id="tynathiel">Tynathiel</h1>
+<p>Conocida como la “Joya de las Profundidades”, Tynathiel no es una
+ciudad construida junto al mar, sino nacida de él. Se alza sobre un
+inmenso arrecife de coral petrificado que irradia un suave brillo
+multicolor desde las aguas turquesas de la Costa Esmeralda de <a
+href="Galvorn.html">Galvorn</a>. Aquí no hay calles de adoquines, sino
+canales serenos por los que se deslizan góndolas de concha pulida. Los
+distritos y las torres esculpidas con formas orgánicas se conectan
+mediante elegantes puentes de enredaderas marinas vivientes, que se
+mecen con la marea. Tynathiel es el corazón del comercio de las
+maravillas oceánicas: perlas iridiscentes del tamaño de un puño, corales
+imbuidos de magia protectora y <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+exóticas traídas de las fosas abisales por valientes exploradores.</p>
+<h2 id="historia">Historia</h2>
+<p>La leyenda cuenta que Tynathiel fue fundada por un pacto. Hace
+siglos, el legendario explorador humano, el Capitán Elian Coralian,
+naufragó durante una tormenta desatada por <a
+href="Exion.html">Exion</a>. Cuando se hundía en las profundidades, su
+devoción a <a href="Yfrit.html">Yfrit</a> fue escuchada, pero no por la
+<a href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a>, sino por
+una conciencia más antigua: el Gran Coral, el espíritu primordial del
+arrecife. La entidad salvó a Coralian y a su tripulación, ofreciéndoles
+refugio a cambio de una promesa: construirían una ciudad que viviera en
+simbiosis con el océano, honrando su paciencia y su poder. Así nació
+Tynathiel, una ciudad con dos lealtades: su fe pública en <a
+href="Yfrit.html">Yfrit</a>, patrona de su reino, y su devoción secreta
+y sagrada al coloso durmiente bajo sus cimientos. Los descendientes de
+Coralian y los Genasi de Agua, considerados los intérpretes de los
+sueños del Coral, forman hoy el Consejo del Tridente que gobierna la
+ciudad.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Los Canales del Nautilus</strong>: El distrito central y
+la principal vía de la ciudad. El canal principal traza una espiral
+perfecta, imitando el símbolo de Tynathiel. Aquí se encuentran las
+residencias de los comerciantes más ricos y las embajadas de otros
+puertos, todas esculpidas en coral brillante.</p></li>
+<li><p><strong>El Mercado de la Perla Flotante</strong>: Una red de
+plataformas y pontones anclados en una amplia laguna central. Es un
+bazar bullicioso donde se comercia con todo lo que el océano ofrece. Los
+puestos de los <a href="Medianos.html">Medianos</a> venden pescado
+fresco y ostras, mientras que los <a href="Semielfos.html">Semielfos</a>
+negocian contratos para el comercio de gemas marinas y artefactos
+sumergidos.</p></li>
+<li><p><strong>El Santuario del Letargo</strong>: El corazón espiritual
+de la ciudad. No es un templo, sino una profunda caverna submarina de
+acceso restringido, justo encima del punto donde se cree que yace el
+“corazón” del Gran Coral. Solo los sacerdotes Genasi de Agua pueden
+entrar para realizar los ritos que mantienen al espíritu en un sueño
+pacífico.</p></li>
+<li><p><strong>Los Muelles Sumergidos</strong>: Un barrio construido
+enteramente bajo el agua, donde las edificaciones son burbujas de coral
+y cristal encantado. Es el hogar de la comunidad de tritones y sirenas,
+que actúan como guardianes de las profundidades y socios comerciales
+clave, protegiendo a la ciudad de las amenazas abisales.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Tynathiel es una celebración de la fluidez y la
+paciencia. El arte más sagrado es el “coral-tallado”, una disciplina que
+requiere décadas de práctica y que consiste en guiar el crecimiento del
+coral vivo para crear esculturas y estructuras. Su música, interpretada
+en flautas hechas de grandes caracolas, es melancólica y profunda,
+imitando el canto de las ballenas y los susurros de las mareas. Las
+ciencias más respetadas son la cartografía submarina y la navegación
+estelar, pues los pilotos de Tynathiel se guían tanto por las
+constelaciones del cielo como por las corrientes y formaciones del lecho
+marino.</p>
+<p>Los pactos comerciales y los juramentos personales no se sellan con
+firmas, sino con el intercambio de “lágrimas de coral”, pequeñas gemas
+lisas pulidas por el mar. Cada año, durante el “Festival de la Marea
+Luminosa”, los canales se llenan de medusas bioluminiscentes liberadas
+en honor a <a href="Yfrit.html">Yfrit</a>, creando un espectáculo de luz
+inolvidable. Es una costumbre arraigada dejar una ofrenda de comida para
+los peces en los canales antes de emprender un viaje largo, un ruego de
+buena fortuna y un gesto de respeto al océano que les da la vida.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>El estilo arquitectónico es puramente “arrecifal”. No hay ladrillos
+ni madera, solo coral petrificado esculpido que brilla con tonos
+rosados, azules y verdes. Las torres se retuercen hacia el cielo como
+anémonas gigantes, y las cúpulas imitan las formas de las caracolas. Por
+la noche, la ciudad no se ilumina con antorchas, sino con esferas de
+cristal que contienen colonias de algas bioluminiscentes. Su luz suave y
+cambiante se refleja en el agua de los canales, sumergiendo a Tynathiel
+en una atmósfera onírica y perpetuamente mágica. El aire huele a sal,
+ozono y a la sutil fragancia mineral del coral húmedo.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Latido del Océano</strong>: Los más viejos y los más
+sensibles al mar afirman que, en las noches de luna nueva, si uno pega
+la oreja al suelo de coral, puede escuchar un retumbar lento y profundo:
+el latido del Gran Coral durmiente. Dicen que el ritmo de sus sueños
+predice las grandes tormentas y los grandes acontecimientos del
+reino.</p></li>
+<li><p><strong>El Ladrón de Reflejos</strong>: Se advierte a los niños y
+a los viajeros vanidosos que no se miren demasiado tiempo en los canales
+más oscuros y profundos. La leyenda habla de una criatura acuática,
+sigilosa y solitaria, que no tiene rostro propio. Se desliza bajo la
+superficie y, con un toque invisible, roba el reflejo de su víctima,
+dejándola con un rostro borroso en el agua para siempre.</p></li>
+<li><p><strong>La Ciudad Errante</strong>: Los cartógrafos de otros
+reinos se desesperan al intentar fijar la posición exacta de Tynathiel.
+Los marinos locales sonríen y susurran la verdad: la ciudad no está
+anclada. El arrecife sobre el que se asienta se desplaza
+imperceptiblemente, siguiendo corrientes oceánicas secretas que solo el
+Gran Coral conoce. Tynathiel nunca está dos veces en el mismo
+lugar.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.48)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liraelis</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Liraelis</div>
+        <div class="content">
+<h1 id="liraelis">Liraelis</h1>
+<p>Liraelis es el faro del conocimiento en el vasto reino marítimo de <a
+href="Galvorn.html">Galvorn</a>. No es una ciudad de guerreros ni de
+mercaderes toscos, sino un bastión de erudición tallado en los
+acantilados de la Costa del Horizonte. Sus edificios de piedra lunar,
+pálida y luminosa, descienden en terrazas hacia un mar de un azul
+profundo, desafiando la gravedad con una elegancia funcional. Sobre la
+ciudad, altas torres de observación con cúpulas de cristal y astrolabios
+de bronce giran con el viento, siempre apuntando hacia los dos grandes
+misterios que definen a sus habitantes: el océano sin fin y el cielo
+inexplorado. El símbolo de la ciudad, un sextante de plata sobre una ola
+estilizada, captura su esencia: la búsqueda de la verdad a través de la
+precisa medición de los mares y las estrellas.</p>
+<h2 id="historia">Historia</h2>
+<p>Liraelis fue fundada hace tres siglos, no por un rey o un
+conquistador, sino por una exploradora semielfa llamada Lyra
+Vientestrella. Hija de un capitán humano de <a
+href="Galvorn.html">Galvorn</a> y una astrónoma élfica de <a
+href="Eldrador.html">Eldrador</a>, Lyra sentía la llamada de dos mundos.
+En sus venas corría tanto el anhelo humano por descubrir qué había más
+allá del horizonte como la reverencia élfica por los patrones
+silenciosos del cosmos. Cansada de que el conocimiento del mar y el
+cielo se trataran como disciplinas separadas, buscó un lugar donde ambos
+pudieran ser estudiados como uno solo.</p>
+<p>Encontró un conjunto de acantilados bañados por vientos constantes y
+con una vista despejada del firmamento. Allí fundó Liraelis, una
+ciudad-academia dedicada a la cartografía y la astronomía. Su visión
+atrajo a mentes brillantes de todo Lithernia: <a
+href="Humanos.html">Humanos</a> deseosos de trazar nuevas rutas, <a
+href="Semielfos.html">Semielfos</a> que compartían su doble herencia,
+genasi del aire que podían leer los susurros del viento y <a
+href="Medianos.html">Medianos</a> cuyas manos firmes eran ideales para
+el delicado arte de la caligrafía de <a href="Mapas.html">Mapas</a>.
+Bajo el gobierno del Consejo de Cartógrafos y Astrónomos, Liraelis se
+convirtió en el principal centro de conocimiento geográfico y celestial
+del mundo, un lugar donde cada descubrimiento se celebra como una
+victoria para toda la civilización.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Observatorio del Viento Eterno</strong>: El corazón
+intelectual y físico de Liraelis. Es la torre más alta, coronada por una
+cúpula de cristal encantado que se vuelve transparente a voluntad y un
+enorme astrolabio de bronce que sirve como un reloj celestial para toda
+la ciudad. En su interior, la Gran Biblioteca de <a
+href="Mapas.html">Mapas</a> alberga la colección más completa de cartas
+náuticas y estelares de Lithernia.</p></li>
+<li><p><strong>El Muelle del Sextante</strong>: A diferencia de los
+bulliciosos puertos de <a href="Galvorn.html">Galvorn</a>, el Muelle del
+Sextante es un lugar de orden y precisión. Los embarcaderos están
+perfectamente alineados con los puntos cardinales, y cada puesto de
+atraque está marcado con una runa celestial. Aquí es donde las grandes
+expediciones de exploración comienzan y terminan, y donde los capitanes
+informan de sus hallazgos directamente a los escribas del
+Consejo.</p></li>
+<li><p><strong>Los Acantilados de Luna Pálida</strong>: El distrito
+residencial, donde las casas de piedra blanca están construidas
+directamente en la pared del acantilado, conectadas por escaleras de
+caracol y puentes de cuerda suspendidos sobre el mar. Cada vivienda
+tiene un balcón o un pequeño observatorio personal, pues para un
+liraelita, contemplar el horizonte es una necesidad diaria.</p></li>
+<li><p><strong>La Bahía de las Visiones</strong>: La bahía natural sobre
+la que se asienta Liraelis. Sus aguas son tranquilas y de una claridad
+asombrosa. Es el centro de la vida espiritual de la ciudad,
+especialmente para los devotos de <a href="Arzia.html">Arzia</a>, que
+creen que la diosa dejó parte de su esencia en estas aguas.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Liraelis está marcada por la búsqueda del conocimiento. La
+mayor celebración del año es el “Festival de las Mareas Estelares”, una
+noche en la que miles de farolillos de papel, pintados para imitar las
+constelaciones, se lanzan al mar, creando un reflejo del firmamento
+sobre las olas en honor a <a href="Yfrit.html">Yfrit</a> y <a
+href="Arzia.html">Arzia</a>. Para un cartógrafo, el mayor honor es que
+su trabajo sea añadido al Mapa Maestro, un acto que se celebra con una
+ceremonia pública donde el mapa es presentado ante el Consejo.</p>
+<p>La inspiración de <a href="Quiteon.html">Quiteon</a> y la guía de las
+estrellas son tan importantes que muchos ciudadanos, especialmente los
+navegantes y sabios, llevan tatuadas en la piel las constelaciones que
+han guiado sus viajes o sus descubrimientos más importantes. Un tatuaje
+de una constelación desconocida es un signo de gran prestigio, pues
+significa que su portador ha navegado por mares o cielos que nadie había
+visto antes.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Liraelis es un testimonio de la belleza en la
+funcionalidad. Las estructuras son esbeltas, aerodinámicas y construidas
+para resistir los vientos marinos, pero con un toque de elegancia élfica
+en sus curvas y arcos. El aire siempre está impregnado del olor a sal
+marina mezclado con el de la tinta y el pergamino viejo. El sonido
+predominante no es el de un mercado, sino el murmullo del viento
+silbando a través de los grandes astrolabios y el suave romper de las
+olas contra los acantilados, cientos de metros más abajo. Es un ambiente
+de calma, concentración y una palpable sensación de asombro ante la
+inmensidad del mundo.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>Las Lágrimas de <a href="Arzia.html">Arzia</a></strong>:
+Los ancianos cuentan que en las noches sin luna, la luz bioluminiscente
+de la bahía no proviene del plancton, sino de las “Lágrimas de <a
+href="Arzia.html">Arzia</a>”, fragmentos de luz estelar que cayeron al
+mar cuando la diosa lloró por el destino del Primer Rey. Se dice que
+quien contemple fijamente estas luces puede recibir visiones fugaces del
+pasado o del futuro, aunque el conocimiento que otorgan es a menudo
+críptico y peligroso.</p></li>
+<li><p><strong>El Galeón Silente</strong>: Una historia de advertencia
+para los cartógrafos demasiado ambiciosos. Habla de un barco fantasma
+que aparece envuelto en la niebla, con las velas hechas jirones y sin
+tripulación visible, salvo por una única figura en el puente: un
+cartógrafo maldito que intentó trazar las rutas secretas de los dioses.
+Su castigo es navegar eternamente, siempre a punto de completar su mapa,
+pero sin poder dibujar jamás la última línea. Ver el Galeón Silente se
+considera un presagio de que un gran descubrimiento está cerca, pero a
+un coste terrible.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

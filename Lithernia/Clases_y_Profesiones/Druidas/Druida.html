@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Druida</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Druida</div>
+        <div class="content">
+<h1 id="druida">Druida</h1>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como druida, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d8 por nivel de druida
+<strong>Puntos de Golpe a nivel 1:</strong> 8 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d8
+(o 5) + tu modificador de Constitución por cada nivel de druida después
+del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera, armadura intermedia,
+escudos (los druidas no usarán armaduras ni escudos hechos de metal)
+<strong>Armas:</strong> Dagas, dardos, bastones, cimitarras, clavas,
+hoces, hondas, jabalinas, lanzas, mazas <strong>Herramientas:</strong>
+Kit de herboristería <strong>Tiradas de Salvación:</strong>
+Inteligencia, Sabiduría <strong>Habilidades:</strong> Elige dos de entre
+Arcanos, Medicina, Naturaleza, Percepción, Perspicacia, Religión,
+Supervivencia y Trato con Animales.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) un escudo de madera o (b) cualquier arma sencilla * (a)
+una cimitarra o (b) cualquier arma sencilla cuerpo a cuerpo * Armadura
+de cuero, un paquete de explorador y un foco druídico</p>
+<h3 id="sistema-de-maná-del-druida"><strong>Sistema de Maná del
+Druida</strong></h3>
+<p>Tu magia proviene de la esencia misma de la naturaleza, una profunda
+conexión con el Tejido del Maná que fluye a través de todas las cosas
+vivas.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que puedes usar para lanzar tus <a
+href="Conjuros.html">Conjuros</a>. Tu fórmula de maná es <strong>10 +
+(Nivel de Druida × Modificador de Sabiduría)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d8.</li>
+<li><strong>Aptitud Mágica:</strong> La Sabiduría es tu aptitud mágica
+para tus <a href="Conjuros.html">Conjuros</a> de druida.
+<ul>
+<li><strong>CD de salvación de Maná</strong> = 8 + tu bonificador por
+competencia + tu modificador de Sabiduría.</li>
+<li><strong>Modificador de ataque de Maná</strong> = tu bonificador por
+competencia + tu modificador de Sabiduría.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="lanzamiento-de-conjuros"><strong>Lanzamiento de
+Conjuros</strong></h3>
+<p>Obtienes la capacidad de lanzar <a href="Conjuros.html">Conjuros</a>
+extrayendo energía del Tejido de Maná a través de tu conexión con la
+naturaleza.</p>
+<h4 id="trucos-cantrips"><strong>Trucos (Cantrips)</strong></h4>
+<p>A nivel 1, conoces dos trucos de tu elección de la lista de <a
+href="Conjuros.html">Conjuros</a> de druida. Aprendes trucos de druida
+adicionales de tu elección en niveles superiores, como se muestra en la
+columna Trucos Conocidos de la tabla del Druida.</p>
+<h4 id="preparar-y-lanzar-conjuros"><strong>Preparar y Lanzar
+Conjuros</strong></h4>
+<p>La tabla del Druida muestra cuántos Puntos de Maná tienes para lanzar
+tus <a href="Conjuros.html">Conjuros</a>. Para lanzar uno de tus <a
+href="Conjuros.html">Conjuros</a> de druida, debes gastar una cantidad
+de Puntos de Maná igual al coste del nivel del conjuro (Nivel 1: 2,
+Nivel 2: 3, Nivel 3: 5, Nivel 4: 6, Nivel 5: 7, Nivel 6: 9, Nivel 7: 10,
+Nivel 8: 11, Nivel 9: 13). No puedes lanzar un conjuro de un nivel para
+el cual no tienes espacios de conjuro según la progresión estándar.</p>
+<p>Preparas la lista de <a href="Conjuros.html">Conjuros</a> de druida
+que están disponibles para que los lances, eligiendo de la lista de <a
+href="Conjuros.html">Conjuros</a> de druida. Cuando lo haces, elige un
+número de <a href="Conjuros.html">Conjuros</a> de druida igual a tu
+modificador de Sabiduría + tu nivel de druida (mínimo de un conjuro).
+Los <a href="Conjuros.html">Conjuros</a> deben ser de un nivel que
+puedas lanzar.</p>
+<p>Puedes cambiar tu lista de <a href="Conjuros.html">Conjuros</a>
+preparados cuando terminas un descanso largo.</p>
+<h4 id="foco-de-lanzamiento-de-conjuros"><strong>Foco de Lanzamiento de
+Conjuros</strong></h4>
+<p>Puedes usar un foco druídico como foco de lanzamiento de <a
+href="Conjuros.html">Conjuros</a> para tus <a
+href="Conjuros.html">Conjuros</a> de druida.</p>
+<h3 id="tabla-de-progresión-del-druida">Tabla de Progresión del
+Druida</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Trucos Conocidos</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Druídico, Lanzamiento de <a
+href="Conjuros.html">Conjuros</a></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">10 + (1 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Forma Salvaje, Círculo Druídico</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">10 + (2 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">10 + (3 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Forma Salvaje, Mejora de
+Puntuación de Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">10 + (4 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">10 + (5 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Círculo Druídico</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">10 + (6 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">10 + (7 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Forma Salvaje, Mejora de
+Puntuación de Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">10 + (8 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">10 + (9 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Rasgo de Círculo Druídico</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (10 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (11 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (12 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (13 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Rasgo de Círculo Druídico</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (14 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (15 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (16 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (17 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Cuerpo Atemporal, <a
+href="Conjuros.html">Conjuros</a> de Bestia</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (18 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (19 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Archidruida</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10 + (20 × Mod. SAB)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="círculos-druídicos"><strong>Círculos Druídicos</strong></h2>
+<h3 id="círculo-de-la-tierra"><strong>Círculo de la Tierra</strong></h3>
+<p>Los druidas de este círculo extraen su poder de la conexión con la
+tierra misma.</p>
+<h4 id="truco-adicional"><strong>Truco Adicional</strong></h4>
+<p>Cuando eliges este círculo en el nivel 2, aprendes un truco de druida
+adicional de tu elección.</p>
+<h4 id="recuperación-natural"><strong>Recuperación Natural</strong></h4>
+<p>A partir del nivel 2, puedes recuperar parte de tu energía mágica
+sentándote en meditación y comulgando con la naturaleza. Durante un
+descanso corto, eliges gastar Puntos de Maná para recuperar. El número
+de puntos que puedes recuperar es igual o menor a la mitad de tu nivel
+de druida (redondeado hacia arriba). No puedes usar este rasgo de nuevo
+hasta que termines un descanso largo.</p>
+<h4 id="conjuros-del-círculo"><strong>Conjuros del Círculo</strong></h4>
+<p>Tu conexión mística con la tierra te infunde la capacidad de lanzar
+ciertos <a href="Conjuros.html">Conjuros</a>. En los niveles 3, 5, 7 y
+9, obtienes acceso a <a href="Conjuros.html">Conjuros</a> del círculo
+conectados con el tipo de tierra donde te convertiste en druida. Elige
+un tipo de terreno —Bosque, Montaña, Mar (costa), etc.— y consulta la
+lista de <a href="Conjuros.html">Conjuros</a> asociada. Una vez que
+obtienes acceso a un conjuro de círculo, siempre lo tienes preparado y
+no cuenta para el número de <a href="Conjuros.html">Conjuros</a> que
+puedes preparar cada día.</p>
+<h4 id="paso-de-la-tierra"><strong>Paso de la Tierra</strong></h4>
+<p>A partir del nivel 6, moverte a través de terreno difícil no mágico
+no te cuesta movimiento extra. También puedes pasar a través de plantas
+no mágicas sin ser ralentizado por ellas y sin recibir daño si tienen
+espinas, púas o un peligro similar. Además, tienes ventaja en las
+tiradas de salvación contra plantas que son creadas o manipuladas
+mágicamente para impedir el movimiento.</p>
+<h4 id="custodio-de-la-naturaleza"><strong>Custodio de la
+Naturaleza</strong></h4>
+<p>A partir del nivel 10, no puedes ser encantado ni asustado por
+elementales o feéricos, y eres inmune al veneno y la enfermedad.</p>
+<h4 id="santuario-de-la-naturaleza"><strong>Santuario de la
+Naturaleza</strong></h4>
+<p>A partir del nivel 14, cuando una bestia o criatura planta te ataca,
+debe hacer una tirada de salvación de Sabiduría contra tu CD de
+salvación de <a href="Conjuros.html">Conjuros</a>. Si falla, debe elegir
+un objetivo diferente, o el ataque falla automáticamente. Si tiene
+éxito, la criatura es inmune a este efecto durante 24 horas.</p>
+<h3 id="círculo-de-la-luna"><strong>Círculo de la Luna</strong></h3>
+<p>Los druidas del Círculo de la Luna son fieros guardianes de la
+naturaleza cuya orden se reúne bajo la luna llena para compartir
+noticias y advertencias.</p>
+<h4 id="forma-salvaje-de-combate"><strong>Forma Salvaje de
+Combate</strong></h4>
+<p>Cuando eliges este círculo en el nivel 2, ganas la capacidad de usar
+Forma Salvaje en tu turno como una acción adicional, en lugar de una
+acción. Además, mientras estás transformado por Forma Salvaje, puedes
+usar una acción adicional para gastar Puntos de Maná y recuperar 1d8
+puntos de golpe por cada punto de maná gastado.</p>
+<h4 id="formas-del-círculo"><strong>Formas del Círculo</strong></h4>
+<p>Los ritos de tu círculo te otorgan la capacidad de transformarte en
+<a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+más peligrosas. A partir del nivel 2, puedes usar tu Forma Salvaje para
+transformarte en una bestia con un valor de desafío de hasta 1. Ignoras
+la columna de CR Máx. de la tabla de Formas de Bestia, pero debes
+respetar las otras limitaciones de esa tabla. A partir del nivel 6,
+puedes transformarte en una bestia con un valor de desafío tan alto como
+tu nivel de druida dividido por 3, redondeado hacia abajo.</p>
+<h4 id="golpe-primordial"><strong>Golpe Primordial</strong></h4>
+<p>A partir del nivel 6, tus ataques en forma de bestia cuentan como
+mágicos a efectos de superar la resistencia e inmunidad a los ataques y
+daños no mágicos.</p>
+<h4 id="forma-elemental-salvaje"><strong>Forma Elemental
+Salvaje</strong></h4>
+<p>En el nivel 10, puedes gastar dos usos de Forma Salvaje al mismo
+tiempo para transformarte en un elemental de aire, elemental de tierra,
+elemental de fuego o elemental de agua.</p>
+<h4 id="mil-formas"><strong>Mil Formas</strong></h4>
+<p>A partir del nivel 14, has aprendido a usar la magia para alterar tu
+forma física de maneras más sutiles. Puedes lanzar el conjuro
+<em>Alterar el propio aspecto</em> a voluntad.</p>
+<h3 id="círculo-de-las-estrellas"><strong>Círculo de las
+Estrellas</strong></h3>
+<p>Este círculo de druidas ve la sabiduría en las constelaciones y el
+movimiento de los astros, creyendo que el destino está escrito en el
+cosmos.</p>
+<h4 id="mapa-estelar"><strong>Mapa Estelar</strong></h4>
+<p>En el nivel 2, obtienes un mapa estelar como foco druídico. Aprendes
+el truco <em>Guía</em> y puedes lanzar <em>Proyectil Guía</em> un número
+de veces igual a tu bonificador de competencia por descanso largo sin
+gastar maná.</p>
+<h4 id="forma-estelar"><strong>Forma Estelar</strong></h4>
+<p>Como acción adicional, puedes gastar un uso de Forma Salvaje para
+asumir una forma estelar. Esta forma dura 10 minutos. Mientras estás en
+esta forma, obtienes los siguientes beneficios: * Emites luz brillante
+en un radio de 10 pies y luz tenue 10 pies más allá. * Elige una de las
+siguientes constelaciones para que se manifieste sobre ti: *
+<strong>Arquero:</strong> Puedes hacer un ataque a distancia con
+conjuro, infligiendo 1d8 + tu modificador de Sabiduría de daño radiante.
+* <strong>Cáliz:</strong> Cuando lanzas un conjuro que restaura puntos
+de golpe, tú o una criatura a 30 pies de ti recuperáis puntos de golpe
+adicionales iguales a 1d8 + tu modificador de Sabiduría. *
+<strong>Dragón:</strong> Cuando haces una tirada de salvación de
+Constitución para mantener la concentración en un conjuro, tratas una
+tirada de 9 o menos en el d20 como un 10.</p>
+<h4 id="augurio-cósmico"><strong>Augurio Cósmico</strong></h4>
+<p>En el nivel 6, cuando terminas un descanso largo, puedes tirar un d6
+y registrar el resultado. Como reacción cuando una criatura a 30 pies de
+ti hace una tirada de ataque, de salvación o de característica, puedes
+usar tu reacción para añadir o restar el número que tiraste a su
+tirada.</p>
+<h4 id="centella"><strong>Centella</strong></h4>
+<p>En el nivel 10, las constelaciones de tu Forma Estelar mejoran. El
+daño del Arquero y la curación del Cáliz aumentan a 2d8. El Dragón
+también otorga una velocidad de vuelo de 20 pies y la capacidad de
+flotar.</p>
+<h4 id="plenitud-de-estrellas"><strong>Plenitud de
+Estrellas</strong></h4>
+<p>En el nivel 14, mientras estás en tu Forma Estelar, te vuelves
+parcialmente incorpóreo, lo que te da resistencia al daño contundente,
+perforante y cortante.</p>
+<h3 id="círculo-de-los-bosques-ancestrales"><strong>Círculo de los
+Bosques Ancestrales</strong></h3>
+<p>Los druidas de este círculo protegen los bosques más antiguos de
+Lithernia, actuando como pastores de la vida y guardianes contra la
+corrupción.</p>
+<h4 id="habla-de-las-bestias-y-los-bosques"><strong>Habla de las Bestias
+y los Bosques</strong></h4>
+<p>Cuando te unes a este círculo en el nivel 2, obtienes la capacidad de
+comunicarte con <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+y plantas. Ellas pueden entender tu habla, y tú puedes entender sus
+ruidos y movimientos.</p>
+<h4 id="espíritu-totémico"><strong>Espíritu Totémico</strong></h4>
+<p>En el nivel 2, puedes usar una acción adicional y gastar 3 Puntos de
+Maná para invocar un espíritu totémico en un punto no ocupado que puedas
+ver a 60 pies de ti. El espíritu crea un aura en un radio de 30 pies a
+su alrededor y dura 1 minuto. Como acción adicional, puedes mover el
+espíritu hasta 60 pies a un punto que puedas ver. Elige uno de los
+siguientes efectos: * <strong>Espíritu del Oso:</strong> Cada criatura
+de tu elección en el aura gana puntos de golpe temporales iguales a 5 +
+tu nivel de druida. * <strong>Espíritu del Halcón:</strong> Puedes usar
+tu reacción para otorgar ventaja a una tirada de ataque de un aliado
+contra un objetivo en el aura. * <strong>Espíritu del
+Unicornio:</strong> Cuando lanzas un conjuro de curación, cada criatura
+de tu elección en el aura también recupera puntos de golpe iguales a tu
+nivel de druida.</p>
+<h4 id="guardián-poderoso"><strong>Guardián Poderoso</strong></h4>
+<p>A partir del nivel 6, cualquier bestia o feérico que convoques o
+crees con un conjuro tiene sus puntos de golpe máximos aumentados en 2
+por cada Dado de Golpe que tenga. Además, sus ataques con armas cuentan
+como mágicos.</p>
+<h4 id="guardián-fiel"><strong>Guardián Fiel</strong></h4>
+<p>En el nivel 10, cuando una criatura aliada termina su turno en el
+aura de tu espíritu totémico, puede recuperar puntos de golpe iguales a
+la mitad de tu nivel de druida.</p>
+<h4 id="invocaciones-fieles"><strong>Invocaciones Fieles</strong></h4>
+<p>En el nivel 14, si eres reducido a 0 puntos de golpe o estás
+incapacitado contra tu voluntad, puedes invocar inmediatamente a
+espíritus protectores. Aparecen 4 <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de tu elección con un CR de 2 o inferior en espacios no ocupados a 60
+pies de ti. Actúan como tus aliados y permanecen durante 1 hora. Una vez
+que uses este rasgo, no puedes volver a usarlo hasta que termines un
+descanso largo.</p>
+<hr />
+<h3 id="lista-de-conjuros-del-druida"><strong>Lista de Conjuros del
+Druida</strong></h3>
+<h4 id="trucos-nivel-0"><strong>Trucos (Nivel 0)</strong></h4>
+<ul>
+<li>Crear Llama</li>
+<li>Controlar Llamas</li>
+<li>Druidcraft</li>
+<li>Espina Venenosa</li>
+<li>Guía</li>
+<li>Latigazo de Espinas</li>
+<li>Luz Estelar (Conjuro Estelar)</li>
+<li>Remendar</li>
+<li>Rociada Venenosa</li>
+<li>Saber del Chamán</li>
+</ul>
+<h4 id="nivel-1"><strong>Nivel 1</strong></h4>
+<ul>
+<li>Absorber Elementos</li>
+<li>Amistad con los Animales</li>
+<li>Bayas Buenas</li>
+<li>Crecimiento de Espinas</li>
+<li>Curar Heridas</li>
+<li>Detectar Magia</li>
+<li>Detectar Veneno y Enfermedad</li>
+<li>Fuego Feérico</li>
+<li>Hablar con los Animales</li>
+<li>Hechizar Persona</li>
+<li>Látigo de Espinas</li>
+<li>Niebla de Ocultación</li>
+<li>Ola Atronadora</li>
+<li>Salto</li>
+<li>Susurro Astral (Conjuro Estelar)</li>
+</ul>
+<h4 id="nivel-2"><strong>Nivel 2</strong></h4>
+<ul>
+<li>Arma Mágica</li>
+<li>Crecimiento de Espinas</li>
+<li>Esfera Flamígera</li>
+<li>Forma Gaseosa</li>
+<li>Inmovilizar Persona</li>
+<li>Llama Continua</li>
+<li>Mensajero Animal</li>
+<li>Oscuridad</li>
+<li>Paso Brumoso</li>
+<li>Piel Robliza</li>
+<li>Protección contra el Veneno</li>
+<li>Rayo de Luna</li>
+<li>Ráfaga de Viento</li>
+<li>Sentido de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a></li>
+<li>Vínculo Estelar (Conjuro Estelar)</li>
+</ul>
+<h4 id="nivel-3"><strong>Nivel 3</strong></h4>
+<ul>
+<li>Caminar sobre el Agua</li>
+<li>Conjurar Animales</li>
+<li>Crecimiento Vegetal</li>
+<li>Disipar Magia</li>
+<li>Fusión con la Piedra</li>
+<li>Luz del Día</li>
+<li>Meteoro Menor (Conjuro Estelar)</li>
+<li>Muro de Viento</li>
+<li>Protección contra la Energía</li>
+<li>Respirar Agua</li>
+<li>Revivir</li>
+<li>Tormenta de Aguanieve</li>
+<li>Visión del Destino (Conjuro Estelar)</li>
+</ul>
+<h4 id="nivel-4"><strong>Nivel 4</strong></h4>
+<ul>
+<li>Confusión</li>
+<li>Conjurar Seres del Bosque</li>
+<li>Controlar el Agua</li>
+<li>Enredadera</li>
+<li>Libertad de Movimiento</li>
+<li>Localizar Criatura</li>
+<li>Muro de Fuego</li>
+<li>Piel de Piedra</li>
+<li>Polimorfar</li>
+<li>Tormenta de Hielo</li>
+</ul>
+<h4 id="nivel-5"><strong>Nivel 5</strong></h4>
+<ul>
+<li>Azote de Insectos</li>
+<li>Comunión con la Naturaleza</li>
+<li>Conjurar Elemental</li>
+<li>Curación en Masa</li>
+<li>Muro de Piedra</li>
+<li>Reencarnar</li>
+<li>Restablecimiento Mayor</li>
+<li>Videncia</li>
+</ul>
+<h4 id="nivel-6"><strong>Nivel 6</strong></h4>
+<ul>
+<li>Banquete de Héroes</li>
+<li>Caminar con el Viento</li>
+<li>Curar</li>
+<li>Encontrar el Camino</li>
+<li>Mover la Tierra</li>
+<li>Muro de Espinas</li>
+<li>Rayo de Sol</li>
+<li>Transporte mediante Plantas</li>
+</ul>
+<h4 id="nivel-7"><strong>Nivel 7</strong></h4>
+<ul>
+<li>Invertir Gravedad</li>
+<li>Regenerar</li>
+<li>Tormenta de Fuego</li>
+<li>Viaje entre Planos</li>
+</ul>
+<h4 id="nivel-8"><strong>Nivel 8</strong></h4>
+<ul>
+<li>Antipatía/Simpatía</li>
+<li>Controlar el Clima</li>
+<li>Explosión Solar</li>
+<li>Formas Animales</li>
+<li>Terremoto</li>
+</ul>
+<h4 id="nivel-9"><strong>Nivel 9</strong></h4>
+<ul>
+<li>Cambio de Forma</li>
+<li>Presciencia</li>
+<li>Tormenta de Venganza</li>
+<li>Verdad Absoluta</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

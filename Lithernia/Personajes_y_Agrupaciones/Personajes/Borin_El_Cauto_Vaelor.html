@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borin_El_Cauto_Vaelor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Borin_El_Cauto_Vaelor</div>
+        <div class="content">
+<h1 id="borin-el-cauto-vaelor">Borin ‘El Cauto’ Vaelor</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los grandes salones de <a href="Valtoria.html">Valtoria</a>, donde
+el eco de los martillos sobre el yunque es la música predilecta y la
+gloria se mide en vetas de mineral, Borin Vaelor es una disonancia
+silenciosa y profunda. Segundo hijo de la Casa Vaelor, no nació con la
+sed de batalla de un <a href="Guerrero.html">Guerrero</a> ni la ambición
+expansiva de un señor de la forja, sino con la paciencia de una montaña
+y la claridad de un arroyo alpino. Desde su juventud, mientras su
+hermano mayor Kaelen aprendía a tasar el valor de las gemas en oro,
+Borin aprendía a escuchar su canción interior, el susurro del agua que
+las pulía y el poder latente que dormía en su corazón cristalino.</p>
+<p>Criado bajo el legado dual de Vilesh Cincelpulcro y Hervil
+Ruedadentada, Borin personifica el alma de su casa: la meticulosidad
+enana fusionada con el ingenio gnomo. Se convirtió en el más devoto
+practicante de la <strong>Hidromancia Rúnica</strong>, el arte secreto
+de la Casa Vaelor. Para él, no es una mera técnica, sino una filosofía
+de vida. Pasa décadas en los talleres acuáticos de <a
+href="Villeshervil.html">Villeshervil</a>, no forjando, sino guiando.
+Sus manos no empuñan un martillo, sino que trazan <a
+href="Runas.html">Runas</a> sobre la superficie del agua canalizada,
+inscribiendo poder en zafiros y diamantes con una precisión que ningún
+cincel podría igualar.</p>
+<p>Su apodo, ‘El Cauto’, no nació de la cobardía, sino de la sabiduría.
+Borin es el ancla de la tradición en una casa cada vez más tentada por
+las corrientes del comercio masivo. Liderado por su hermano Kaelen, el
+consejo de la Casa Vaelor busca expandir su influencia y riqueza,
+ofreciendo sus secretos y artefactos a un mercado más amplio. Borin se
+opone firmemente a esta visión. Teme que la comercialización
+indiscriminada no solo devalúe su sagrado arte, sino que también atraiga
+la atención de quienes codician su poder para fines oscuros, como los
+renegados <strong>Cazadores de Sombras</strong> o los brutales herreros
+del <strong>Clan Agrietacero</strong>. Este conflicto ideológico con su
+hermano ha creado una profunda grieta en el corazón de la familia,
+convirtiendo a Borin en una figura respetada pero aislada.</p>
+<p>Su vida social se reduce a dos relaciones complejas. Es el tutor a
+regañadientes de su sobrina <strong>Lyra</strong>, hija de Kaelen. En
+ella ve el mismo fuego impaciente de su padre, pero también una chispa
+de curiosidad genuina. Sus lecciones son un constante pulso entre la
+frustración y la esperanza, intentando inculcarle que el verdadero poder
+de una runa no reside en la rapidez de su trazado, sino en la
+comprensión de su esencia. Fuera de los muros de piedra de <a
+href="Villeshervil.html">Villeshervil</a>, Borin encuentra paz y
+afinidad con los <strong>Genasi de Agua de la Orilla Sagrada</strong>.
+Con ellos comparte una conexión espiritual con el elemento que define su
+vida. En sus meditaciones junto a los lagos puros, no solo perfecciona
+su arte, sino que reafirma su convicción: hay poderes que deben ser
+custodiados, no vendidos.</p>
+<p>Entre sus hazañas más notables, aunque poco celebradas, se cuenta la
+purificación del Lago Espejo tras un intento de corrupción por parte de
+los Cazadores de Sombras. Usando un complejo ritual que duró un ciclo
+lunar, Borin logró restaurar el equilibrio del agua, un acto que salvó a
+<a href="Villeshervil.html">Villeshervil</a> de una catástrofe mágica
+pero que apenas fue reconocido fuera de los círculos más eruditos.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Borin desafía el estereotipo del enano robusto y belicoso. Su
+constitución es sólida, pero sus movimientos son medidos y serenos. Su
+larga barba, de un color castaño profundo con vetas plateadas, está
+trenzada con hilos de mithril y pequeños guijarros de río pulidos que
+parecen absorber la luz. Sus manos, aunque fuertes, son las de un
+artista, con dedos largos y callos finos fruto de décadas de delicado
+trabajo rúnico. Sus ojos, de un azul grisáceo, poseen la calma y
+profundidad de un lago montañoso.</p>
+<p>Viste túnicas de lana de alta calidad, teñidas de azules y grises,
+más propias de un sabio de la Torre de las Estrellas que de un <a
+href="Noble.html">Noble</a> enano. Sobre ellas lleva un tabardo de cuero
+endurecido con el escudo de su casa bordado en hilo de plata: la noria
+de mithril sobre la geoda de zafiro. No porta armas, salvo una pequeña
+daga ceremonial en su cinto, cuyo pomo es un cristal de cuarzo que él
+mismo inscribió con una runa de claridad.</p>
+<p>Su equipamiento más preciado es su juego de <strong>Herramientas de
+Hidromancia</strong>: un conjunto de varillas de fresno blanco y cuernos
+de dragón pulido que utiliza para dirigir las corrientes y enfocar la
+energía rúnica. Siempre lleva consigo una bolsa de cuero con gemas en
+bruto y pigmentos minerales para sus rituales.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El impacto de Borin Vaelor en Lithernia no se medirá en batallas
+ganadas ni en territorios conquistados, sino en la persistencia de la
+sabiduría arcana. Es el guardián de una de las formas de encantamiento
+más puras y estables del continente. Los cristales de poder que salen de
+sus manos son el corazón de los telescopios del <strong>Círculo de
+Sabios de <a href="Elionor.html">Elionor</a></strong> y el núcleo de los
+artefactos de adivinación más precisos de <a
+href="Valtoria.html">Valtoria</a>.</p>
+<p>Representa una corriente filosófica vital dentro de la cultura enana:
+la que aboga por la simbiosis con la naturaleza en lugar de su mera
+explotación. Mientras otros ven la montaña como una fuente de mineral,
+Borin la ve como un ser vivo, cuyas aguas son la sangre y cuyas gemas
+son el alma.</p>
+<p>Su verdadero legado, sin embargo, pende de un hilo. Si logra
+transmitir su reverencia y cautela a su sobrina Lyra, podría asegurar
+que el conocimiento de la Casa Vaelor perdure por generaciones,
+protegido y respetado. Si fracasa, su voz se apagará y los secretos de
+la Hidromancia Rúnica podrían convertirse en una simple mercancía más en
+el vasto mercado de poder de Lithernia, un destino que Borin considera
+peor que el olvido. Él es el dique que contiene la marea de la ambición,
+un recordatorio viviente de que el poder más grande es aquel que se
+ejerce con sabiduría.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

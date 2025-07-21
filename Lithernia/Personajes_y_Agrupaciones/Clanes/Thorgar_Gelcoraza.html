@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thorgar_Gelcoraza</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Thorgar_Gelcoraza</div>
+        <div class="content">
+<h1 id="thorgar-gelcoraza">Thorgar Gelcoraza</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Thorgar no nació en el calor reconfortante de una forja valtoriana,
+sino en el abrazo cortante del glaciar. Como descendiente directo de los
+exiliados del Clan Bronzenhammer, su infancia no estuvo marcada por el
+eco de los martillos sobre el yunque, sino por el aullido del viento en
+las Mesetas del Viento Eterno. En lugar de cuentos sobre <a
+href="Levbrios.html">Levbrios</a> y el fuego sagrado, creció escuchando
+las historias del exilio, de la injusticia sufrida por sus antepasados y
+de la tenacidad que les permitió fundar el Clan Gelcoraza a partir de la
+escarcha y la determinación.</p>
+<p>Desde joven, Thorgar demostró una aptitud que iba más allá de la
+resistencia enana tradicional. Comprendió que la supervivencia de su
+clan no dependía de replicar las viejas costumbres en un entorno hostil,
+sino de dominarlo. Mientras otros <a href="Enanos.html">Enanos</a>
+aprendían los secretos del metal fundido, él estudiaba el alma del
+hielo. Bajo la tutela de la maestra runera <strong>Grelka
+Manohielo</strong>, no solo aprendió las artes rúnicas prohibidas que
+causaron su exilio, sino que las perfeccionó, logrando una simbiosis
+entre la piedra y el frío que sus fundadores apenas habían soñado.</p>
+<p>Su ascenso al liderazgo no fue por herencia, sino forjado en el
+crisol de la batalla. Durante la “Ofensiva del Viento Sibilante”, cuando
+el <strong>Clan Whispering Wind</strong> de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> envió a sus huestes de <a
+href="Hobgoblins.html">Hobgoblins</a> a través de los pasos del norte,
+Thorgar, entonces un joven vigía, demostró una brillantez táctica sin
+igual. Usando su conocimiento del terreno y la criomancia rúnica de su
+clan, tendió emboscadas en ventisqueros, creó barreras de hielo
+infranqueable y coordinó un contraataque devastador junto a sus aliados.
+Fue él quien, luchando codo con codo con <strong>Kaia
+Cuernopeñasco</strong> y sus guerreros Goliath, rompió el asedio a la
+Atalaya de <a href="Verue.html">Verue</a>. Esta hazaña no solo le ganó
+el respeto de su pueblo, sino que consolidó la alianza estratégica con
+los Goliath, quienes vieron en Thorgar no solo a un enano, sino a un
+verdadero “hermano de la montaña”.</p>
+<p>Como líder, Thorgar es pragmático y visionario. Su principal
+motivación es transformar el estigma del exilio en una insignia de
+honor. Busca que el nombre Gelcoraza no sea un susurro de herejía en los
+salones de <a href="Valtoria.html">Valtoria</a>, sino un sinónimo de
+vigilancia y poder indomable. Gobierna desde <a
+href="Verue.html">Verue</a>, una ciudad que es tanto una fortaleza como
+un símbolo de cooperación interracial, manteniendo una relación
+simbiótica con el gremio de artífices <a href="Gnomos.html">Gnomos</a>
+de <strong>Fizztink Ruedalente</strong>. Thorgar les ofrece protección y
+acceso a cristales rúnicos únicos, y a cambio, los <a
+href="Gnomos.html">Gnomos</a> proveen a sus guerreros de maravillas
+criotécnicas: ballestas que disparan virotes de hielo y mecanismos de
+defensa que aprovechan el frío de la montaña.</p>
+<p>Sin embargo, su liderazgo no está exento de conflictos. El
+<strong>Clan Agrietacero</strong>, un clan enano tradicionalista, ve a
+los Gelcoraza con desdén, considerando sus métodos una afrenta a la
+herencia de <a href="Rokael.html">Rokael</a>. Thorgar debe navegar estas
+tensiones políticas con la misma cautela con la que atraviesa una
+cornisa helada, sabiendo que un paso en falso podría aislar a su clan
+una vez más. Su mirada está siempre fija en el norte, en las sombras de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>, consciente de que él y su
+gente son el gélido baluarte que protege el corazón de <a
+href="Valtoria.html">Valtoria</a>.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Thorgar es la viva imagen de las montañas que lo criaron: robusto,
+ancho de hombros y con una presencia tan sólida como la roca madre. A
+sus 215 años, su rostro está curtido por el viento helado, surcado por
+finas arrugas alrededor de unos ojos de un azul pálido y penetrante,
+como el hielo de un glaciar milenario. Su barba, de un color negro
+azabache con vetas de plata, está trenzada con esmero y adornada con
+cuentas de mithril rúnico que a menudo se cubren de una fina capa de
+escarcha por la energía que emana.</p>
+<p>No viste las pesadas armaduras de placas de otras casas enanas. Su
+armadura, una obra maestra de la artesanía Gelcoraza, es la
+<strong>Gelcoraza Rúnica</strong>. Está compuesta por escamas de mithril
+azulado sobre una cota de malla de acero criotratado, lo que la hace
+sorprendentemente ligera pero increíblemente resistente al daño físico y
+mágico. Las <a href="Runas.html">Runas</a> de hielo grabadas en cada
+pieza brillan con una luz fría y sutil, capaces de proyectar un aura de
+frío que ralentiza a sus enemigos.</p>
+<p>Su arma es tan legendaria como él: <strong>Hieloeterno</strong>, una
+colosal hacha de guerra barbada de dos manos. El mango es de madera de
+fresno petrificada y el hacha, forjada por el propio Thorgar, tiene el
+diseño de copo de nieve del escudo de su clan. Inscrita con las <a
+href="Runas.html">Runas</a> de enlace glacial más potentes, se dice que
+la hoja nunca pierde su filo y que su contacto puede congelar la sangre
+en las venas. Además, siempre lleva consigo un cuerno de guerra tallado
+en el colmillo de un remorhaz, cuyo sonido resuena en los picos con la
+furia de una avalancha.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Thorgar Gelcoraza está destinado a ser recordado no como un enano que
+dominó el frío, sino como el líder que redefinió el concepto de “forja”
+para su pueblo. Su legado es la prueba viviente de que la fuerza de los
+<a href="Enanos.html">Enanos</a> no reside únicamente en el fuego y el
+metal, sino en su capacidad de adaptación y en su voluntad
+inquebrantable.</p>
+<p>Bajo su mando, el Clan Gelcoraza ha pasado de ser una nota a pie de
+página de parias a convertirse en un pilar esencial de la defensa de <a
+href="Valtoria.html">Valtoria</a>. Ha demostrado que la cooperación
+entre razas —<a href="Enanos.html">Enanos</a>, <a
+href="Goliaths.html">Goliaths</a> y <a href="Gnomos.html">Gnomos</a>— no
+es una debilidad, sino la clave para la supervivencia y la prosperidad
+en una Lithernia rota por la Gran Guerra.</p>
+<p>Su impacto se sentirá en las generaciones venideras: los jóvenes <a
+href="Enanos.html">Enanos</a> de su clan ya no crecerán con la vergüenza
+del exilio, sino con el orgullo de ser los Guardianes del Norte, los
+maestros de una magia única y los centinelas del baluarte más frío del
+reino. En los anales de Lithernia, Thorgar será el rey de la montaña que
+demostró al mundo que el frío no es el fin de la vida, sino una forma de
+pureza, y que, en efecto, el hielo perdura.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.43)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

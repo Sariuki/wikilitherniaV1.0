@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conjuros</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Conjuros</div>
+        <div class="content">
+<h1 id="conjuros">Conjuros</h1>
+<p>En Lithernia, un conjuro no es un mero acto de poder, sino una forma
+de arte tan peligrosa como sublime. Los lanzadores de conjuros son
+tejedores arcanos que aprenden a percibir y manipular el <strong>Tejido
+del Maná</strong>, una red invisible de energía que fluye a través de
+todos los seres y elementos del mundo. Cada hechizo es una obra efímera,
+creada al tirar de los hilos de esta urdimbre cósmica, dándole forma y
+propósito a través de la voluntad, el conocimiento y el sacrificio.
+Desde la chispa más humilde hasta la tormenta más devastadora, todo
+conjuro es un diálogo con las fuerzas <a
+href="Primordiales.html">Primordiales</a> de la existencia, un acto que
+exige habilidad, concentración y un profundo respeto por el poder que se
+maneja.</p>
+<h2 id="el-tejido-del-maná-y-la-canalización">El Tejido del Maná y la
+Canalización</h2>
+<p>La magia fluye por Lithernia como un río invisible de potencial puro.
+Este flujo, conocido como el Tejido del Maná, es la fuente de todo poder
+arcano. Aquellos con la sensibilidad necesaria, ya sea innata o
+desarrollada a través de un riguroso estudio, pueden aprender a
+canalizar esta energía.</p>
+<p>La <strong>canalización</strong> es el proceso mediante el cual un <a
+href="Mago.html">Mago</a> extrae maná del Tejido y lo moldea a través de
+su propio cuerpo y mente para manifestar un conjuro. Esta no es una
+tarea trivial; el cuerpo del lanzador se convierte en un nexo, un
+conducto temporal para fuerzas que podrían desgarrar a un ser no
+preparado. Los magos más expertos y poderosos desarrollan una
+<strong>Habilidad de Canalización de Maná</strong> superior, lo que les
+permite manejar flujos de energía más intensos con mayor precisión y con
+menor riesgo para sí mismos. La calidad de esta habilidad diferencia a
+un simple aprendiz de un archimago legendario.</p>
+<h2 id="el-costo-de-la-magia-fatiga-y-recuperación">El Costo de la
+Magia: Fatiga y Recuperación</h2>
+<p>La magia en Lithernia nunca es gratuita. Cada vez que un <a
+href="Hechicero.html">Hechicero</a> tira de los hilos del Maná, una
+parte de esa energía deja una marca en su ser, un agotamiento conocido
+como <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>.</p>
+<h3 id="fatiga-de-maná">Fatiga de Maná</h3>
+<p>Cada conjuro lanzado impone una carga al canalizador. Esta fatiga se
+calcula como una tirada del <strong>Dado de Maná</strong> específico de
+la clase del lanzador, a la que se suma el nivel del conjuro. Por
+ejemplo, un <a href="Hechicero.html">Hechicero</a> (dado de maná d8) que
+lanza un <em>Rayo Relampagueante</em> de nivel 3, sufriría una cantidad
+de fatiga igual a 1d8 + 3.</p>
+<p>Este agotamiento es acumulativo. Un <a href="Mago.html">Mago</a> que
+abusa de su poder sin descanso sentirá cómo su mente se nubla y su
+cuerpo se debilita. Si la fatiga acumulada supera los límites de su
+resistencia, el lanzador puede sufrir niveles de
+<strong>Agotamiento</strong> real, quedando vulnerable y exhausto en
+cuerpo y alma. Los aventureros aprenden rápidamente a gestionar su
+energía, pues un <a href="Mago.html">Mago</a> fatigado es una presa
+fácil en las peligrosas tierras de Lithernia.</p>
+<p>Los <strong>Dados de Maná</strong> varían según la afinidad de cada
+clase con el Tejido: - <strong><a href="Mago.html">Mago</a>:</strong> d6
+(Estudio y control metódico) - <strong><a
+href="Hechicero.html">Hechicero</a>:</strong> d8 (Afinidad innata y
+poderosa) - <strong><a href="Brujo.html">Brujo</a>:</strong> d10
+(Canalización de fuentes externas y potentes) - <strong>Clérigo y <a
+href="Druida.html">Druida</a>:</strong> d8 (Conexión con el poder divino
+o natural) - <strong><a href="Bardo.html">Bardo</a>:</strong> d6 (Magia
+a través de la expresión y la armonía)</p>
+<h3 id="recuperación-de-energía-arcana">Recuperación de Energía
+Arcana</h3>
+<p>Para contrarrestar la fatiga y reponer sus reservas de poder, los
+lanzadores de conjuros dependen del descanso y de ciertos métodos
+especializados. En muchas campañas de Lithernia, la energía mágica se
+mide en <strong>Puntos de Maná</strong>, un sistema flexible que
+representa la reserva de poder de un personaje.</p>
+<ul>
+<li><strong>Descansos:</strong> Un <strong>Descanso Largo</strong> es la
+forma más efectiva de recuperación, restaurando la totalidad o la mayor
+parte del maná y eliminando toda la fatiga acumulada. Un
+<strong>Descanso Corto</strong> permite una recuperación menor,
+suficiente para recobrar el aliento en medio de una jornada
+peligrosa.</li>
+<li><strong>Métodos Especiales:</strong> Existen otras vías para
+acelerar la recuperación. Las raras <strong>pociones de éter</strong>,
+la meditación profunda en lugares tranquilos o visitar <strong>Lugares
+de Poder</strong> —zonas donde el Tejido del Maná es especialmente
+denso, como antiguos círculos de piedras o ruinas pre-<a
+href="Lilium.html">Lilium</a>— pueden recargar la energía de un <a
+href="Mago.html">Mago</a>.</li>
+</ul>
+<h2 id="técnicas-arcanas-avanzadas">Técnicas Arcanas Avanzadas</h2>
+<p>Los arcanistas más veteranos han desarrollado técnicas que les
+permiten desafiar los límites convencionales de la magia. Estas artes
+son a menudo complejas, arriesgadas y solo al alcance de los más
+disciplinados.</p>
+<h3 id="círculos-de-invocación">Círculos de Invocación</h3>
+<p>Dispersos por todo el mundo, o dibujados por magos expertos, se
+encuentran antiguos glifos geométricos conocidos como <strong>Círculos
+de Invocación</strong>. Estos patrones sagrados no crean magia, sino que
+actúan como lentes, enfocando y magnificando el flujo de maná ambiental.
+Existen tres niveles de complejidad: - <strong>Círculos Menores (Nivel
+1+):</strong> Símbolos básicos que ofrecen pequeñas mejoras. -
+<strong>Círculos Intermedios (Nivel 5+):</strong> Diseños complejos que
+permiten potenciar conjuros de manera significativa. - <strong>Círculos
+Mayores (Nivel 11+):</strong> Obras maestras de la geometría arcana,
+capaces de canalizar poder para rituales de escala épica.</p>
+<p>Un <a href="Mago.html">Mago</a> que se sitúe dentro de un círculo
+puede intentar lanzar un conjuro por encima de su potencia normal. Sin
+embargo, esto requiere una <strong>prueba de canalización</strong> de
+gran dificultad. El éxito puede dar lugar a efectos espectaculares, pero
+un fallo puede resultar en un conjuro fallido, una fatiga drásticamente
+aumentada o incluso una reacción mágica catastrófica.</p>
+<h3 id="absorción-de-maná">Absorción de Maná</h3>
+<p>Una maniobra tan brillante como temeraria es la <strong>Absorción de
+Maná</strong>. Un <a href="Mago.html">Mago</a> puede intentar extraer
+energía directamente de fuentes externas, como líneas ley, cristales de
+poder o incluso de los hechizos lanzados contra él. Si tiene éxito en su
+prueba de canalización, puede reponer sus reservas de maná o reducir su
+fatiga. Pero el riesgo de una <strong>sobrecarga</strong> es inmenso: un
+error de cálculo puede hacer que la energía cruda lo abrume, causándole
+daño o efectos mágicos incontrolados.</p>
+<h3 id="mezcla-de-conjuros-el-arte-prohibido">Mezcla de Conjuros: El
+Arte Prohibido</h3>
+<p>Considerada una técnica legendaria y, en muchos círculos, prohibida,
+la <strong>Mezcla de Conjuros</strong> es el arte de fusionar dos
+hechizos distintos en una única invocación. Solo los practicantes más
+talentosos y audaces se atreven a intentarlo. Al lanzar dos conjuros
+simultáneamente, un <a href="Mago.html">Mago</a> puede combinar sus
+efectos, como crear una <em>Bola de Fuego</em> que al explotar deja tras
+de sí una <em>Nube de Oscuridad</em>.</p>
+<p>Este arte es increíblemente difícil y peligroso. La compatibilidad
+entre hechizos es crucial; combinar elementos opuestos es casi
+imposible. Un fallo en la compleja prueba de Arcana necesaria puede
+provocar una violenta retroalimentación mágica que dañe al lanzador o
+desate un efecto caótico totalmente impredecible.</p>
+<h2 id="repertorios-de-conjuros-notables">Repertorios de Conjuros
+Notables</h2>
+<p>Además de las escuelas de magia tradicionales, en Lithernia existen
+categorías de conjuros que reflejan su historia y sus misterios
+únicos.</p>
+<h3 id="la-aguja-de-trama">La Aguja de Trama</h3>
+<p>Apodado “El Tejedor de Hechizos”, este truco (cantrip) es un ejemplo
+perfecto de la sutileza de la magia litherniana. Por sí sola, la
+<strong>Aguja de Trama</strong> es un conjuro insignificante. Sin
+embargo, en manos de un <a href="Mago.html">Mago</a> habilidoso
+(generalmente a partir de nivel 5), puede ser “hilada” dentro de otro
+conjuro durante su lanzamiento. Al hacerlo, el <a
+href="Mago.html">Mago</a> puede alterar sutilmente el hechizo principal:
+cambiar su tipo de daño, extender su alcance o añadir un efecto
+secundario menor. Este arte es la marca de un verdadero artesano del
+Maná, alguien que no solo lanza hechizos, sino que los diseña sobre la
+marcha.</p>
+<h3 id="los-conjuros-estelares">Los Conjuros Estelares</h3>
+<p>Un descubrimiento reciente que ha sacudido a las comunidades
+académicas de todo el mundo. Los <strong>Conjuros Estelares</strong> son
+un nuevo repertorio de hechizos inspirados en la energía de los astros,
+el destino y el cosmos. Se cree que su conocimiento fue revelado por la
+contemplación de los cielos tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, como si la propia <a
+href="Arzia.html">Arzia</a>, diosa de las estrellas, ofreciera un nuevo
+camino a los mortales.</p>
+<p>Estos conjuros son poderosos pero enigmáticos, y sus efectos a menudo
+están ligados a alineaciones celestes o ciclos cósmicos. Los sabios de
+la Torre de las Estrellas en <a href="Valtoria.html">Valtoria</a> y los
+adivinos de <a href="Eldrador.html">Eldrador</a> están a la vanguardia
+de su estudio, desvelando lentamente los secretos de esta “nueva magia”
+que promete cambiar el equilibrio de poder en Lithernia.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Bardo.html">Bardo</a></li>
+<li><a href="Brujo.html">Brujo</a></li>
+<li><a href="Druida.html">Druida</a></li>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Hechicero.html">Hechicero</a></li>
+<li><a href="Mago.html">Mago</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

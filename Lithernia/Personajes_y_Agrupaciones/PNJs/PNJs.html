@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNJs</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">PNJs</div>
+        <div class="content">
+<h1 id="pnjs">Pnjs</h1>
+<p>En Lithernia, los personajes no jugadores (PNJs) destacados son
+figuras clave que moldean la política, la historia y la magia del mundo.
+Estos personajes, desde reyes y dioses encarnados hasta generales y
+hechiceros, pueden servir como aliados, antagonistas o fuentes de
+información en cualquier campaña ambientada en este vasto mundo. A
+continuación, se describen los PNJs más relevantes de Lithernia, con
+énfasis en sus roles, motivaciones y posibles interacciones con los
+jugadores.</p>
+<h2 id="el-primer-rey-el-rey-eterno-sellado">El Primer Rey (El Rey
+Eterno Sellado)</h2>
+<ul>
+<li><strong>Raza:</strong> Humano (antiguo)</li>
+<li><strong>Afiliación:</strong> Ninguna (unificó todo Lithernia en la
+Era del Despertar)</li>
+<li><strong>Descripción:</strong> Hombre majestuoso y sabio, con ojos
+que brillaban con un fuego divino.</li>
+<li><strong>Historia:</strong> Unificó Lithernia, desafió a los dioses y
+fue derrotado y sellado con las Cuatro Lanzas Celestiales. Su legado aún
+vive en <a href="Leyendas.html">Leyendas</a> y profecías.</li>
+<li><strong>Importancia:</strong> Centro de la profecía que anuncia su
+posible regreso o el de su <a href="Heroes.html">Heroes</a>, para
+desafiar a los dioses.</li>
+<li><strong>Papel en campaña:</strong> Los jugadores podrían buscar sus
+antiguas tumbas, recuperar las lanzas o liberarlo, enfrentándose al
+dilema sobre si será un salvador o un tirano.</li>
+</ul>
+<h2 id="rey-selthirak-el-dios-de-la-muerte">Rey Sel’thirak, el Dios de
+la Muerte</h2>
+<ul>
+<li><strong>Raza:</strong> Tiefling (deidad encarnada)</li>
+<li><strong>Afiliación:</strong> Rey de Mor’dhul y líder del Clan
+Sel’thirak</li>
+<li><strong>Descripción:</strong> Imponente y severo, piel medianoche y
+ojos rojos penetrantes, adornado con símbolos óseos.</li>
+<li><strong>Historia y Rasgos:</strong> Gobernante teocrático que
+asegura la supremacía del panteón Korogrim y su control absoluto sobre
+Mor’dhul.</li>
+<li><strong>Motivación:</strong> Mantener el orden divino, prevenir el
+retorno del Primer Rey y extender su poder.</li>
+<li><strong>Personalidad:</strong> Calculador, carismático, despiadado y
+convencido de ser el guardián contra otro cataclismo.</li>
+<li><strong>Relaciones:</strong> Rivalidad con sus hermanos divinos y
+desconfianza hacia su consejera Xandria y su general Volrath.</li>
+<li><strong>Tramas:</strong> Puede actuar como villano central o aliado
+temporal, con ambiciones de destruir las lanzas celestiales para impedir
+el regreso del Rey Eterno.</li>
+</ul>
+<h2 id="lady-xandria-la-susurrante">Lady Xandria “La Susurrante”</h2>
+<ul>
+<li><strong>Raza:</strong> Tiefling</li>
+<li><strong>Afiliación:</strong> Consejera y hechicera principal de
+Sel’thirak; líder informal del Clan Whisper</li>
+<li><strong>Descripción:</strong> Elegante, voz baja y persuasiva, ojos
+dorados apagados, tatuajes místicos visibles al conjurar.</li>
+<li><strong>Historia:</strong> Ascendida desde orígenes secretos gracias
+a su maestría en magia mental y manipulación.</li>
+<li><strong>Motivación:</strong> Garantizar la estabilidad del reino y
+evitar que el caos del pasado regrese.</li>
+<li><strong>Personalidad:</strong> Fría, calculadora y manipuladora,
+experta en el control mental.</li>
+<li><strong>Relaciones:</strong> Devota absoluta de Sel’thirak, enemiga
+de Lord Aethel y aliada estratégica de Volrath.</li>
+<li><strong>Tramas:</strong> Mente maestra de conspiraciones, proveedora
+o bloqueadora de información crucial según intereses y lealtades.</li>
+</ul>
+<h2 id="lord-volrath-la-mano-negra">Lord Volrath “La Mano Negra”</h2>
+<ul>
+<li><strong>Raza:</strong> Orco</li>
+<li><strong>Afiliación:</strong> General en jefe del ejército de
+Mor’dhul y comandante de la Guardia Real de Sel’thirak</li>
+<li><strong>Descripción:</strong> Gran orco musculoso, piel verde
+oscura, cicatrices de guerra y armadura de obsidiana.</li>
+<li><strong>Historia:</strong> Ascendido desde soldado raso por su
+disciplina y fiel servicio.</li>
+<li><strong>Motivación:</strong> Proteger la soberanía y estabilidad de
+Mor’dhul bajo Sel’thirak.</li>
+<li><strong>Personalidad:</strong> Directo, leal y honorable, respetuoso
+con la fuerza y la valentía.</li>
+<li><strong>Relaciones:</strong> Respetuoso con Xandria, desconfiado de
+Lord Aethel y enemigo declarado.</li>
+<li><strong>Tramas:</strong> Aliado militar o antagonista en campo de
+batalla, con potencial para conflictos de lealtad interna.</li>
+</ul>
+<h2 id="lord-aethel-el-cruel">Lord Aethel “El Cruel”</h2>
+<ul>
+<li><strong>Raza:</strong> Tiefling</li>
+<li><strong>Afiliación:</strong> Clan <a href="Noble.html">Noble</a>
+propio en Mor’dhul con aspiraciones de poder</li>
+<li><strong>Descripción:</strong> Tiefling severo, piel púrpura, ojos
+amarillos y cuernos rectos hacia atrás.</li>
+<li><strong>Historia:</strong> <a href="Noble.html">Noble</a> ambicioso
+con una red de conspiraciones políticas y magia oscura.</li>
+<li><strong>Motivación:</strong> Derrocar a Sel’thirak y liderar
+Mor’dhul hacia una supremacía absoluta.</li>
+<li><strong>Personalidad:</strong> Astuto, maquiavélico, cruel y
+carismático.</li>
+<li><strong>Poderes:</strong> Poderoso <a
+href="Hechicero.html">Hechicero</a> con posible alianza con fuerzas
+oscuras o poseedor de una Lanza Celestial.</li>
+<li><strong>Relaciones:</strong> Enemigo oculto de Sel’thirak y Xandria,
+aliado oscuro de clanes de la sangre y necromancia.</li>
+<li><strong>Tramas:</strong> Principal antagonista político en Mor’dhul,
+posible usurpador, con conexiones a la profecía y el <a
+href="Lilium.html">Lilium</a>.</li>
+</ul>
+<h2 id="korgath-el-destripador">Korgath “El Destripador”</h2>
+<ul>
+<li><strong>Raza:</strong> Semiogro</li>
+<li><strong>Afiliación:</strong> Líder militar del Clan <a
+href="Lakros.html">Lakros</a> en Medromora</li>
+<li><strong>Descripción:</strong> Gigante brutal y sanguinario, cubierto
+de cicatrices, portador de un látigo espinoso.</li>
+<li><strong>Historia:</strong> <a href="Heroes.html">Heroes</a> <a
+href="Guerrero.html">Guerrero</a> destacado por <a
+href="Lakros.html">Lakros</a> en las arenas de combate.</li>
+<li><strong>Motivación:</strong> Extender la violencia y dar vigor a
+Mor’dhul mediante la guerra y el derramamiento de sangre.</li>
+<li><strong>Personalidad:</strong> Sanguinario, brutal pero tácticamente
+astuto.</li>
+<li><strong>Relaciones:</strong> Fiel a <a
+href="Lakros.html">Lakros</a>, desprecia la magia sutil y a los clanes
+de hechiceros.</li>
+<li><strong>Tramas:</strong> Jefe de guerra en combates o narrativas
+bélicas, figura emblemática de la amenaza directa en campo.</li>
+</ul>
+<h2 id="reina-valeria-bronzebrillo">Reina Valeria Bronzebrillo</h2>
+<ul>
+<li><strong>Raza:</strong> Enana</li>
+<li><strong>Afiliación:</strong> Soberana constitucional de <a
+href="Valtoria.html">Valtoria</a></li>
+<li><strong>Descripción:</strong> Mujer enana sabia y justa, vestida con
+símbolos tradicionales y pequeña corona de mithril.</li>
+<li><strong>Historia:</strong> Elegida por su equilibrio para guiar <a
+href="Valtoria.html">Valtoria</a> en un periodo de democracia y
+reformas.</li>
+<li><strong>Motivación:</strong> Preservar el equilibrio entre tradición
+y progreso, fortalecer la cooperación entre clanes.</li>
+<li><strong>Personalidad:</strong> Justa, humilde, curiosa y próxima a
+su pueblo.</li>
+<li><strong>Relaciones:</strong> Cooperativa con archimagos y consejos;
+mantiene correspondencia diplomática con otros reinos.</li>
+<li><strong>Tramas:</strong> Figura conciliadora que puede promover
+misiones de protección o diplomacia para los jugadores.</li>
+</ul>
+<h2 id="capitán-aurelius-stormsail">Capitán Aurelius Stormsail</h2>
+<ul>
+<li><strong>Raza:</strong> Humano</li>
+<li><strong>Afiliación:</strong> Miembro del Consejo de Capitanes y
+almirante de la flota de <a href="Galvorn.html">Galvorn</a></li>
+<li><strong>Descripción:</strong> Hombre bronceado, cabellera rubia con
+cuentas, prótesis en pierna izquierda, vestimenta naval decorada.</li>
+<li><strong>Historia:</strong> Ex pescador convertido en líder naval
+tras defender exitosamente puertos de ataques piratas.</li>
+<li><strong>Motivación:</strong> Proteger rutas marítimas, erradicar
+piratería y descubrir tierras nuevas.</li>
+<li><strong>Personalidad:</strong> Valiente, carismático, con humor y
+firmeza en el mando.</li>
+<li><strong>Relaciones:</strong> Rivalidades saludables con otros
+capitanes, respeto por enemigos como Volrath.</li>
+<li><strong>Tramas:</strong> Fuente para misiones navales, escoltas,
+exploración o enfrentamientos navales.</li>
+</ul>
+<h2 id="archimago-thalios-estrella-antigua">Archimago Thalios Estrella
+Antigua</h2>
+<ul>
+<li><strong>Raza:</strong> Alto Elfo</li>
+<li><strong>Afiliación:</strong> Líder del Círculo Interior de la Torre
+de las Estrellas en <a href="Valtoria.html">Valtoria</a></li>
+<li><strong>Descripción:</strong> Anciano sabio, vestiduras azules
+bordadas con estrellas, bastón con cristal luminoso.</li>
+<li><strong>Historia:</strong> Originario de <a
+href="Eldrador.html">Eldrador</a>, asumió un rol clave en la educación y
+preservación del conocimiento en <a
+href="Valtoria.html">Valtoria</a>.</li>
+<li><strong>Motivación:</strong> Descubrir y preservar la verdad sobre
+fenómenos ancestrales y profecías.</li>
+<li><strong>Personalidad:</strong> Paciente, humilde y defensor del
+diálogo entre razas.</li>
+<li><strong>Relaciones:</strong> Asesora a la Reina Valeria, mantiene
+distancia con Xandria y sabe de la profecía.</li>
+<li><strong>Tramas:</strong> Mentor para PJs, traductor de artefactos
+antiguos, posible guía en misiones relacionadas con la historia y la
+magia.</li>
+</ul>
+<hr />
+<p>Estos PNJs son pilares esenciales para cualquier campaña en
+Lithernia, y sus complejas motivaciones y relaciones pueden ser
+utilizadas para tramas políticas, épicas, místicas o bélicas. La
+interacción con ellos puede definir el rumbo del mundo y la historia que
+los jugadores ayudarán a escribir.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.64)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.51)</li>
+<li><a href="Personajes.html">Personajes</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

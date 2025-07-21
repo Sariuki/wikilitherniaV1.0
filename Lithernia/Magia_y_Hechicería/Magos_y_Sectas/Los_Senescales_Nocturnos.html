@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Senescales_Nocturnos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Senescales_Nocturnos</div>
+        <div class="content">
+<h1 id="los-senescales-nocturnos">Los Senescales Nocturnos</h1>
+<h2 id="orígenes-malditos">Orígenes Malditos</h2>
+<p>Bajo los pantanos sulfurosos de Mor’dhul, donde ni la luz de las
+estrellas logra penetrar, yacen los <strong>Manantiales de
+Putrefacción</strong> — venas abisales que conectan el mundo de los
+vivos con planos donde la descomposición es ley. Los <strong>Senescales
+Nocturnos</strong>, orden de hechiceros ancestrales, emergieron como
+guardianes no santificados de estas fuentes corruptas tras la Guerra del
+Lamento Eterno (423 P.L.). Fundados por <strong>Vorath el
+Cicatrizado</strong>, un exsacerdote de Sel’thirak que descubrió el
+poder de los manantiales tras ser desterrado por practicar ritos
+prohibidos, los Senescales juraron contener el poder de la putrefacción…
+para luego dominarlo.</p>
+<h2 id="estructura-de-la-carroña">Estructura de la Carroña</h2>
+<p>Los Senescales se organizan en círculos concéntricos de iniciación,
+cada uno con tareas específicas:</p>
+<ol type="1">
+<li><strong>Putrescentes</strong>: Neófitos que custodian los túneles
+externos. Visten túnicas de musgo petrificado y cargan péndulos de hueso
+que detectan filtraciones de energía corrupta.</li>
+<li><strong>Necroforjadores</strong>: Alquimistas que destilan las aguas
+pútridas en esencias usadas para sus rituales. Su símbolo es un crisol
+con gusanos entrelazados.</li>
+<li><strong>Señores de la Quidamnia</strong>: Hechiceros veteranos que
+controlan los flujos de maná corrupto mediante cristales de gangrena
+estabilizada. Solo ellos pueden ingresar al Sanctum Gulmor, cámara
+central donde yace el manantial primigenio.</li>
+<li><strong>Vorath (Único y Eterno)</strong>: Líder inmortal que habita
+en un éter suspendido sobre las aguas madre. Se comunica mediante sueños
+febriles y posee a sus subordinados para dar órdenes.</li>
+</ol>
+<h2 id="rituales-de-la-descomposición-controlada">Rituales de la
+Descomposición Controlada</h2>
+<p>Su magia se basa en tres pilares prohibidos:</p>
+<ul>
+<li><strong>Álgebra de la Pudrición</strong>: Cálculos precisos para
+dosificar la corrupción sin desatar plagues. Dominan epidemias
+matemáticas que infectan solo objetivos designados.</li>
+<li><strong>Reanimación Ecológica</strong>: Usan la energía pútrida para
+regenerar tierras muertas, creando bosques de hongos parlantes que
+vigilan sus dominios.</li>
+<li><strong>Sinfonía de Entropía</strong>: Ritual colectivo donde
+canalizan el maná corrupto en círculos de invocación mayores, logrando
+efectos como acelerar el envejecimiento de ejércitos o petrificar
+construcciones en horas.</li>
+</ul>
+<h2 id="pactos-y-enemistades">Pactos y Enemistades</h2>
+<ul>
+<li><strong>Clan Whisper</strong>: Alianza tensa. Intercambian cadáveres
+“frescos” por esencias de los manantiales, pero los Senescales
+desconfían de su necromancia grosera.</li>
+<li><strong>Guild of the Black Petal</strong>: Enemigos
+irreconciliables. Estos botánicos oscuros buscan purificar los
+manantiales para crear un jardín de flora pútrida móvil.</li>
+<li><strong>Torre de las Estrellas (<a
+href="Valtoria.html">Valtoria</a>)</strong>: Los sabios valtorianos los
+consideran “custodios necesarios”, pero monitorean sus actividades
+mediante espías goliatths infiltrados como putrescentes.</li>
+</ul>
+<h2 id="la-maldición-del-primer-manantial">La Maldición del Primer
+Manantial</h2>
+<p><a href="Leyendas.html">Leyendas</a> en Chega hablan de
+<strong>Aelthra</strong>, heroína shadar-kai que intentó sellar el
+manantial primigenio. Vorath la capturó y la sumergió en las aguas por
+siete siglos, transformándola en el <strong>Árbol de las
+Susurraciones</strong>, un tótem viviente cuyas raíces contienen el 63%
+de la corrupción total. Cada luna negra, los Senescales perforan su
+corteza para extraer savia de pesadillas, usada en sus rituales más
+poderosos.</p>
+<h2 id="decadencia-vigilante">Decadencia Vigilante</h2>
+<p>Aunque su objetivo oficial es evitar que la putrefacción inunde
+Mor’dhul, sus experimentos han creado anomalías: el <strong>Campo del
+Aliento Anegado</strong> (niebla que ahoga sonidos a 5 km del Sanctum),
+y los <strong>Esclavos de la Saliva Eterna</strong> (prisioneros
+convertidos en criaturas gelatinosas que limpian filtraciones). Pese a
+todo, sin su vigilancia, las plagas de los manantiales habrían devorado
+ya el 40% del reino. Como dice su juramento: <em>“Somos el cáncer que
+impide la metástasis”</em>.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Leyendas.html">Leyendas</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+<li><a href="Hechicero.html">Hechicero</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

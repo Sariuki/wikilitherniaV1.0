@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruinas_del_Imperio_Unificado</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ruinas_del_Imperio_Unificado</div>
+        <div class="content">
+<h1 id="ruinas-del-imperio-unificado">Ruinas del Imperio Unificado</h1>
+<p>Más allá de las hojas que susurran en los bosques de Lithernia y bajo
+el cielo que ha visto caer milenios, yacen las imponentes Ruinas del
+Imperio Unificado: vestigios eternos de un reino que gobernó las tierras
+con mano firme y sueños colosales. Estas ruinas no son meros escombros,
+sino las piedras milenarias que guardan la memoria latente del primer
+gran monarca y de una era que marcó para siempre el destino de
+Lithernia.</p>
+<h2 id="el-imperio-unificado-un-breve-retrato-histórico">El Imperio
+Unificado: Un Breve Retrato Histórico</h2>
+<p>El Imperio Unificado fue la gran obra del Primer Rey, conocido en las
+crónicas como Harolth, el de la Corona de Fuego. Tras siglos de
+fragmentación entre clanes y pequeños reinos, Harolth logró no solo
+conquistar estas tierras, sino también amalgamar tradiciones, leyes y
+pueblos dispares bajo un mismo estandarte. Su reinado marcó el comienzo
+de una era de prosperidad, leyes unificadas y expansiones culturales que
+aún influyen en Lithernia.</p>
+<h2 id="ubicación-y-descripción-de-las-ruinas">Ubicación y Descripción
+de las Ruinas</h2>
+<p>Situadas en el Valle de Aerlith, a unos cien kilómetros al suroeste
+de la capital actual, las ruinas cubren una vasta extensión de más de 50
+kilómetros cuadrados. Entre columnas derrumbadas, muros cubiertos de
+enredaderas y vastos patios cuyos mosaicos aún guardan los relatos de
+héroes y dioses, el visitante puede divisar restos de:</p>
+<ul>
+<li><strong>La Ciudadela Central:</strong> El núcleo del poder imperial,
+donde residía la corte y se celebraban los grandes concilios.</li>
+<li><strong>Templos de la Alianza Sagrada:</strong> Santuarios dedicados
+a las deidades invocadas para legitimar la unión de los pueblos.</li>
+<li><strong>La Gran Muralla del Norte:</strong> Construcción defensiva
+que protegía las fronteras del imperio contra invasores del frío.</li>
+<li><strong>Foros y Plazas de Mercado:</strong> Espacios de convergencia
+social donde se fomentaba el comercio y la cultura.</li>
+</ul>
+<h2 id="leyendas-asociadas">Leyendas Asociadas</h2>
+<p>Se cuenta entre los habitantes que las ruinas no están meramente
+muertas. Una antigua leyenda narra que “el aliento de Harolth”, un
+espíritu inquebrantable, aún ronda entre las piedras, oculto en la
+neblina matutina. Se dice que aquel que escuche el eco del primer rugido
+de su corona podrá desentrañar secretos para restaurar la gloria
+perdida.</p>
+<p>Otro mito popular habla de la “Llave de Aerlith”, un relicario mítico
+que abriría las puertas secretas de la Ciudadela y revelaría tesoros y
+conocimientos ocultos. Hasta hoy, exploradores han partido en su
+búsqueda, pero sin éxito confirmado.</p>
+<h2 id="costumbres-y-ritos-en-la-actualidad">Costumbres y Ritos en la
+Actualidad</h2>
+<p>Aunque el Imperio cayó hace más de mil años, las comunidades que
+habitan cerca de las ruinas preservan costumbres vinculadas a este
+pasado glorioso:</p>
+<ul>
+<li><strong>El Festival de las Piedras Caídas:</strong> Cada equinoccio,
+se realizan ofrendas y danzas alrededor de las ruinas en honor a la
+unidad y la fuerza del imperio.</li>
+<li><strong>Cuentacuentos de la Era del Primer Rey:</strong> Narradores
+itinerantes relatan epopeyas del Imperio, transmitiendo valores de
+coraje, justicia y honor.</li>
+<li><strong>El Juramento del Acuerdo Unificado:</strong> Algunos clanes
+aún renuevan simbólicamente este pacto ancestral bajo los arcos
+derruidos de un antiguo palacio.</li>
+</ul>
+<h2 id="importancia-cultural-y-arqueológica">Importancia Cultural y
+Arqueológica</h2>
+<p>Además de su valor histórico, las Ruinas del Imperio Unificado son un
+imán para arqueólogos, historiadores y místicos. Existen decenas de
+inscripciones y artefactos que revelan un avanzado conocimiento en
+ingeniería, astronomía y diplomacia para la época. El estudio de este
+sitio continúa arrojando luz sobre la compleja red de alianzas y
+creencias que conformaron los cimientos de Lithernia.</p>
+<hr />
+<p>Las Ruinas del Imperio Unificado no son solo un recuerdo estático en
+las páginas del tiempo, sino un latido constante en el corazón de
+quienes habitan Lithernia, un recordatorio eterno de que incluso los
+imperios más grandiosos pueden caer, pero nunca se olvidan.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

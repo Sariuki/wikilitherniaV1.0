@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borin_Manorrotas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Borin_Manorrotas</div>
+        <div class="content">
+<h1 id="borin-manorrotas">Borin ‘Manorrotas’</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de la artesanía de Lithernia, pocos nombres resuenan
+con la mezcla de asombro y controversia que evoca Borin ‘Manorrotas’. No
+es un señor de la guerra ni un rey, sino un maestro <a
+href="Forjador.html">Forjador</a> enano cuya vida es un testimonio de
+lealtad, innovación y el doloroso peso del exilio cultural. Nacido en
+una pequeña avanzada minera de <a href="Valtoria.html">Valtoria</a>, su
+linaje se perdió en el polvo y el estruendo de un derrumbe provocado por
+las incursiones de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Huérfano y solo, el joven
+Borin fue encontrado por una caravana gnomo liderada por el mismísimo
+Kaelen ‘Tic-Tac’ Temporis, el fundador de la casa homónima.</p>
+<p>Criado en la ciudad de <a href="Cyndril.html">Cyndril</a>, un bastión
+de innovación paciente, Borin creció entre el tictac de engranajes y el
+aroma de aceites alquímicos, un entorno ajeno a la piedra y la tradición
+de sus ancestros. Su gratitud hacia Kaelen, que se convirtió en su
+mentor y figura paterna, era tan sólida como el granito de las montañas
+que apenas recordaba. En los talleres de la Casa Temporis, el talento
+innato de Borin para la metalurgia floreció de forma espectacular.
+Mientras los <a href="Gnomos.html">Gnomos</a> diseñaban con una
+genialidad caótica, Borin aportaba la paciencia y la perfección metódica
+de su sangre enana. Su apodo, ‘Manorrotas’, no nació de la torpeza, sino
+de su obsesión: se decía que rompía una docena de martillos y tenazas
+por cada pieza que consideraba “casi perfecta”, pues su estándar era la
+impecabilidad absoluta.</p>
+<p>Su hazaña más legendaria es la forja de los “Filamentos del Destino”,
+una serie de cables de mithril y alma de diamante, más finos que un
+cabello pero capaces de soportar tensiones arcanas que habían fundido
+cualquier otro material. Esta creación fue el avance crucial que
+permitió a la Casa Temporis reanudar el trabajo en su obra magna: el
+<strong>Oráculo Mecánico</strong>. Para Borin, este autómata no es solo
+un proyecto; es el monumento a la familia que lo salvó, una catedral de
+metal y lógica dedicada a la visión de su padre adoptivo.</p>
+<p>Sin embargo, su éxito ha tenido un alto precio. Los ‘Canteros
+Silenciosos’, una facción de <a href="Enanos.html">Enanos</a>
+tradicionalistas asentados en <a href="Cyndril.html">Cyndril</a> y con
+fuertes lazos con <a href="Valtoria.html">Valtoria</a>, ven a Borin como
+un traidor. Consideran que su trabajo para los Temporis es una
+blasfemia, un intento de arrancar los secretos del tiempo y el destino,
+dominios que pertenecen a los dioses como <a
+href="Rokael.html">Rokael</a> y a los ciclos de la tierra, no a un
+mecanismo de relojería. La presión es constante y sutil: miradas de
+desaprobación en el mercado, el silencio pétreo cuando entra en una
+taberna enana, y ofertas veladas para que “vuelva a casa” y ponga su
+talento al servicio de clanes como los Bronzebrillo o los Dravonis.
+Borin vive en una encrucijada emocional: su corazón late con la lealtad
+de un hijo agradecido, pero su alma siente el anhelo de la aceptación de
+su propio pueblo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Borin es la encarnación de la fortaleza enana: ancho de hombros, de
+constitución robusta y con una barba castaña oscura, meticulosamente
+trenzada y sujeta con abrazaderas de cobre que él mismo forjó. Sin
+embargo, a diferencia de los guerreros de su raza, sus manos, aunque
+cubiertas de cicatrices de quemaduras y cortes, son sorprendentemente
+ágiles y precisas. Sus ojos, de un profundo color topacio, tienen la
+intensidad de quien ha pasado décadas observando detalles microscópicos
+a través de lentes de aumento.</p>
+<p>Viste un delantal de cuero de draco, resistente al fuego y a los
+ácidos, sobre ropas de trabajo sencillas pero de una calidad
+excepcional. De su cinturón cuelgan herramientas únicas, una amalgama de
+diseño gnomo y artesanía enana: calibradores con <a
+href="Runas.html">Runas</a> de precisión, lupas con cristales encantados
+y pequeños martillos de pesos y aleaciones diversas.</p>
+<p>Su única arma es también su herramienta más preciada:
+<strong>“Precisión”</strong>, un martillo de forja con una cabeza de
+acero valtoriano y un mango de roble petrificado, inscrito con los
+símbolos de la Casa Temporis en un lado y una olvidada runa enana de
+“recuerdo” en el otro. No es un arma de guerra, pero en sus manos,
+podría derribar un muro de piedra o a un hombre con igual facilidad.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El destino de Borin ‘Manorrotas’ está inextricablemente ligado al del
+Oráculo Mecánico. Si la colosal máquina de la Casa Temporis tiene éxito
+y logra predecir el futuro con exactitud matemática, Borin será aclamado
+como un visionario, el enano que trascendió las tradiciones de la piedra
+para ayudar a los mortales a dominar el tiempo mismo. Su historia se
+convertiría en un símbolo de la unidad entre razas y la fusión de la
+magia y la ciencia.</p>
+<p>Sin embargo, si el Oráculo falla o, peor aún, desata una catástrofe
+al interferir con las hebras del destino, Borin será recordado como una
+figura trágica. Sería el paria que le dio la espalda a su herencia por
+un sueño arrogante, un enano cuyas manos legendarias forjaron la ruina.
+Su vida plantea una pregunta fundamental para la era actual de
+Lithernia: ¿debe el futuro descubrirse a través de la fe y la profecía,
+o puede ser construido, medido y descifrado como un gran mecanismo? La
+respuesta, quizás, se está forjando en el yunque de Borin.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lythoria</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lythoria</div>
+        <div class="content">
+<h1 id="lythoria">Lythoria</h1>
+<p>Conocida en todo el mundo como “La Cuna de la Melodía”, Lythoria no
+es una ciudad construida, sino una sinfonía esculpida en la naturaleza.
+Se aferra a las terrazas de una colosal cascada, petrificada por una
+magia arcana en los albores de los tiempos. Sus estructuras, agujas
+etéreas de cristal de cuarzo y madera argéntea, parecen crecer
+directamente de la roca blanquecina, fusionándose con los árboles que
+brotan de sus fisuras. Al caer la noche, puentes de luz sólida se
+materializan sobre los abismos, conectando las terrazas con arcos
+iridiscentes, mientras las torres de los nobles, altas y delgadas,
+parecen cantar con el silbido del viento. Lythoria es la joya cultural
+de <a href="Eldrador.html">Eldrador</a>, un monumento a la búsqueda
+élfica de la perfección.</p>
+<h2 id="historia">Historia</h2>
+<p>Lythoria fue fundada por Lyraelle, la Primera <a
+href="Bardo.html">Bardo</a>, una legendaria elfa que, según los cuentos,
+buscaba un lugar donde su música pudiera resonar con la esencia misma
+del mundo. Descubrió la cascada petrificada y declaró que su silencio
+era el lienzo perfecto para la creación. Bajo la bendición de <a
+href="Lerian.html">Lerian</a>, diosa del conocimiento y las artes, fundó
+la ciudad como un santuario para artistas, poetas y músicos.</p>
+<p>A lo largo de los siglos, Lythoria floreció, atrayendo a los talentos
+más brillantes de <a href="Eldrador.html">Eldrador</a>. Las grandes
+casas nobles compitieron no con ejércitos, sino con el patrocinio de los
+artistas más sublimes, convirtiendo la ciudad en un museo viviente.
+Mientras el resto del mundo se desangraba en la Gran Guerra, Lythoria se
+encerró en su capullo de belleza, perfeccionando sus artes y honrando a
+sus dioses, convencida de que preservar la belleza es la forma más
+elevada de resistencia contra la oscuridad.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Terrazas Resonantes</strong>: El corazón de la
+ciudad, una serie de amplios niveles escalonados que descienden por la
+cara de la cascada. Aquí se encuentran los talleres de los artesanos,
+las academias de música y las plazas donde los bardos compiten en duelos
+de ingenio y melodía. Cada terraza tiene una acústica única, diseñada
+para un tipo diferente de arte.</p></li>
+<li><p><strong>El Santuario del Saber Eterno</strong>: Un imponente
+templo dedicado a <a href="Lerian.html">Lerian</a>, tallado en la base
+de la cascada. No es solo un lugar de culto, sino también la mayor
+biblioteca de artes de <a href="Eldrador.html">Eldrador</a>, donde se
+guardan poemas, partituras y tratados de estética que datan de
+milenios.</p></li>
+<li><p><strong>El Observatorio del Destino</strong>: En la cima de la
+cascada, este templo abierto al cielo está consagrado a <a
+href="Arzia.html">Arzia</a>. Es una estructura de arcos de cristal que
+amplifican la luz de las estrellas. Aquí, los videntes y los artistas
+buscan inspiración en el firmamento, creyendo que cada constelación es
+una estrofa en el poema del cosmos.</p></li>
+<li><p><strong>Las Agujas de los Patronos</strong>: El distrito <a
+href="Noble.html">Noble</a>, situado en las terrazas más altas y
+aisladas. Las familias más poderosas de Lythoria habitan en esbeltas
+torres de cristal que se elevan cientos de metros, cada una con su
+propio color y timbre musical cuando el viento sopla a través de
+ellas.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>En Lythoria, el arte es el lenguaje del alma. Un saludo no es una
+palabra, sino una breve cadencia musical; una disputa no se resuelve con
+espadas, sino con sátiras poéticas. Cada crepúsculo, la ciudad entera se
+detiene para el “Silencio de las Estrellas”, un momento de meditación
+colectiva en honor a <a href="Arzia.html">Arzia</a>, donde el único
+sonido permitido es el del viento.</p>
+<p>La festividad más importante es el “Festival del Eco Anual”. Durante
+este evento, las mejores obras de arte y composiciones del año son
+presentadas ante la élite. Mediante un complejo ritual arcano, estas
+creaciones son “tejidas” en la memoria mágica de la ciudad,
+convirtiéndose en un eco permanente que inspira a las futuras
+generaciones. El estatus social no se mide en oro, sino en el legado
+artístico que uno deja tras de sí.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>El ambiente de Lythoria es de una belleza serena y casi abrumadora.
+El aire está siempre impregnado del leve aroma de las flores de cristal
+que crecen en las grietas de la cascada y del eco distante de laúdes y
+flautas. No hay calles sucias ni desorden; cada rincón es una
+composición cuidadosamente planeada. La ciudad está construida con
+materiales que interactúan con la luz y el sonido, creando un entorno
+que cambia constantemente, reflejando la hora del día, la estación y el
+humor mágico del lugar.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Lamento de Lyaethon</strong>: Se susurra que en las
+noches sin luna, el espíritu de Lyaethon, un <a
+href="Bardo.html">Bardo</a> exiliado por crear una melodía considerada
+demasiado “caótica”, vaga por los puentes de luz. Toca una canción tan
+imbuida de tristeza y anhelo que, según la leyenda, puede literalmente
+romper el corazón de un mortal y dejar a un elfo sumido en una
+melancolía de la que jamás se recupera.</p></li>
+<li><p><strong>La Galería del Olvido</strong>: Bajo la cascada
+petrificada, oculta tras ilusiones y sellos arcanos, se dice que existe
+una cámara secreta. La nobleza la llama la “Galería del Olvido”. Allí no
+guardan tesoros, sino obras de arte consideradas imperfectas,
+subversivas o peligrosas: esculturas que evocan emociones demasiado
+intensas, poemas que cuestionan el orden divino o pinturas que muestran
+verdades incómodas. Es el oscuro secreto de una ciudad obsesionada con
+la perfección, una prisión para el arte que se atrevió a ser
+falible.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.53)</li>
+<li><a href="razas.html">razas</a> (relevancia: 0.30)</li>
+<li><a href="Razas.html">Razas</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

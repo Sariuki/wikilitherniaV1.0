@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gylia_Rioveta</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Gylia_Rioveta</div>
+        <div class="content">
+<h1 id="gylia-rioveta">Gylia Rioveta</h1>
+<h3 id="la-mente-maestra-de-los-canales">La Mente Maestra de los
+Canales</h3>
+<p>En los valles más profundos de <a href="Valtoria.html">Valtoria</a>,
+donde las montañas besan los lagos helados, el poder no siempre se mide
+en la fuerza de un hacha o la antigüedad de un linaje, sino en el
+control del flujo del mundo. Gylia Rioveta, Ingeniera Principal de los
+Acueductos y heredera de la Casa Rioveta, es la personificación de este
+nuevo poder. No es una guerrera ni una sacerdotisa, sino una visionaria
+cuyo campo de batalla son los planos de ingeniería y cuyas armas son la
+presión hidráulica y la precisión arcana.</p>
+<hr />
+<h3 id="biografía">Biografía</h3>
+<p>Nacida del pacto fundacional que dio origen a la ciudad de <a
+href="Villeshervil.html">Villeshervil</a>, Gylia lleva en su sangre la
+dualidad de su casa: la tenacidad de los <a
+href="Enanos.html">Enanos</a> del clan Cincelpulcro y el ingenio febril
+de los <a href="Gnomos.html">Gnomos</a> de la familia Ruedadentada.
+Desde su infancia, mientras otros niños jugaban con espadas de madera,
+Gylia encontraba su fascinación en los talleres, observando cómo la
+fuerza bruta del agua, canalizada con la astucia gnoma, era capaz de
+tallar las gemas más duras de la montaña con una delicadeza que ninguna
+mano mortal podría igualar.</p>
+<p>Su formación no fue en salones de honor, sino en los túneles húmedos
+y resonantes de los acueductos, bajo la tutela de maestros de ambos
+linajes. Aprendió de los <a href="Enanos.html">Enanos</a> la paciencia
+de la piedra y los secretos para leer sus vetas; de los <a
+href="Gnomos.html">Gnomos</a>, la matemática de los fluidos y el arte de
+crear mecanismos que rozaban la magia. Esta educación forjó en ella una
+filosofía pragmática y audaz: para Gylia, la naturaleza de <a
+href="Valtoria.html">Valtoria</a> no es un ente sagrado e intocable como
+predican los druidas, sino un sistema de poder colosal esperando a ser
+optimizado.</p>
+<p>Su ascenso a Ingeniera Principal no fue un regalo de su herencia,
+sino el resultado de su hazaña más notable: el diseño y construcción del
+<strong>“Corazón de Zafiro”</strong>. Este complejo regulador
+hidráulico, una maravilla de engranajes de mithril y lentes de cristal
+encantado, estabilizó el flujo de los acueductos principales, duplicando
+la producción de los talleres de gemas y consolidando el monopolio de la
+Casa Rioveta. Este logro la convirtió en una leyenda entre los gremios
+de artífices, pero también en un foco de recelo para los
+tradicionalistas.</p>
+<p>Gylia mantiene una relación de respeto tenso con su padre,
+<strong>Kaelan Rioveta</strong>. Lo admira como el líder que ha
+mantenido la estabilidad de la casa, pero considera que su enfoque
+conservador es un ancla que impide a los Rioveta alcanzar su verdadero
+potencial. Su desdén, sin embargo, lo reserva para su tío,
+<strong>Borin</strong>. Lo ve como una reliquia, un eco de un pasado
+puramente enano que se niega a aceptar que la fusión de culturas y
+tecnologías es, y siempre ha sido, la mayor fortaleza de <a
+href="Villeshervil.html">Villeshervil</a>.</p>
+<p>Su ambición la ha puesto en rumbo de colisión con la <strong>Casa
+Ferromartillo</strong>, una familia de herreros que aún confía en el
+fuego y el músculo, y que ve la hidro-artesanía de los Rioveta como una
+perversión de la artesanía sagrada. Pero su mayor amenaza son los
+<strong>Cazadores de Sombras</strong>, los rebeldes anti-intelectuales
+de <a href="Valtoria.html">Valtoria</a>. Para ellos, Gylia y su obra
+representan la domesticación de la furia de la montaña, una blasfemia
+que debe ser purgada. Saben que destruir sus acueductos sería decapitar
+no solo a una casa, sino a una nueva forma de entender el poder en el
+reino.</p>
+<h3 id="descripción-y-equipamiento">Descripción y Equipamiento</h3>
+<p>Gylia posee la complexión robusta de su herencia enana, pero con una
+estatura ligeramente inferior y una mirada viva y penetrante, herencia
+de sus ancestros <a href="Gnomos.html">Gnomos</a>. Su cabello oscuro
+está recogido en una trenza práctica y funcional, salpicada de diminutas
+esquirlas metálicas y polvo de gemas, recuerdo perpetuo de su
+trabajo.</p>
+<p>No viste las galas de una <a href="Noble.html">Noble</a>, sino un
+atuendo de función impecable: pantalones de cuero reforzado, una túnica
+de lana gruesa y, sobre todo ello, un delantal de maestro artesano con
+bolsillos repletos de herramientas de precisión, lentes de aumento y
+pequeños cristales de enfoque.</p>
+<p>Su equipamiento más preciado es la <strong>“Llave Maestra de
+Esclusas”</strong>, una compleja herramienta de bronce y acero que ella
+misma diseñó. Es tanto un símbolo de su cargo como un instrumento
+multifuncional capaz de ajustar cualquier mecanismo de los acueducticos
+de <a href="Villeshervil.html">Villeshervil</a>. No porta armas
+ostentosas, apenas una daga de trabajo afilada y bien cuidada, pues
+confía más en su intelecto y en el control de su entorno para
+defenderse.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Gylia Rioveta representa una fuerza de cambio silenciosa pero
+imparable en Lithernia. En un mundo definido por profecías divinas,
+cataclismos mágicos y el choque de ejércitos, su poder nace de la razón,
+la ingeniería y la optimización de los <a
+href="Recursos.html">Recursos</a>.</p>
+<p>Si logra sus objetivos, no conquistará un reino, pero transformará su
+motor económico y tecnológico. Su visión de una <a
+href="Valtoria.html">Valtoria</a> impulsada por una red de energía
+limpia y eficiente podría rivalizar con la magia más espectacular,
+demostrando que el ingenio mortal, la fusión de culturas y el dominio de
+las leyes naturales son una fuerza tan potente como cualquier decreto de
+los dioses.</p>
+<p>Su legado será una red de acueductos que cantan la canción del
+progreso o un montón de ruinas que advierten del peligro de desafiar la
+tradición. En cualquiera de los dos casos, Gylia Rioveta dejará una
+marca indeleble, no con una espada, sino con el flujo imparable del agua
+y la fría dureza de una gema perfectamente tallada.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.45)</li>
+<li><a href="Casa%20Rioveta.html">Casa Rioveta</a> (relevancia:
+0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

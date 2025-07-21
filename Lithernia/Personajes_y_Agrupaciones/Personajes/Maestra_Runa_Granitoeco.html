@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maestra_Runa_Granitoeco</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Maestra_Runa_Granitoeco</div>
+        <div class="content">
+<h1 id="maestra-runa-granitoeco">Maestra Runa Granitoeco</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los silenciosos y resonantes salones de <a
+href="Allotena.html">Allotena</a>, excavados en el corazón de las
+Montañas Resonantes, no todos los <a href="Enanos.html">Enanos</a>
+escuchan el golpeteo del martillo sobre el yunque. Algunos, como los de
+la Casa Granitoeco, escuchan el alma misma de la piedra. Maestra Runa es
+la heredera de este linaje de piedra y eco, una Litosonante cuyo talento
+para la mnemotecnia geológica no tiene parangón en generaciones. Nacida
+bajo la tutela de su tío, el venerable Lord Kaelen, Runa no aprendió a
+leer historia en libros, sino a sentirla vibrar en las vetas de cristal
+y granito que componen su hogar.</p>
+<p>Desde joven, Runa demostró una afinidad prodigiosa con la sinfonía
+pétrea. Donde otros Litosonantes oían murmullos confusos, ella
+distinguía las disonancias de batallas antiguas, las armonías de
+tratados de paz olvidados y los ecos agónicos del propio Cataclismo del
+<a href="Lilium.html">Lilium</a>, un trauma grabado a fuego en la
+memoria geológica de Lithernia. Su habilidad la convirtió rápidamente en
+la Litosonante Principal de la casa, una intérprete de la verdad cuyo
+consejo es buscado incluso por la Reina Valeria Bronzebrillo.</p>
+<p>Sin embargo, su don es también la fuente de su mayor conflicto. Runa
+es la vanguardia de una nueva generación en una casa anclada en la
+tradición. Admira profundamente la sabiduría y cautela de su tío Kaelen,
+pero choca frontalmente con su conservadurismo. Lord Kaelen cree que el
+conocimiento de la casa debe ser un archivo sagrado, un secreto guardado
+para evitar que el pasado envenene el presente. Runa, en cambio, está
+convencida de que su propósito no es solo recordar, sino actuar. Ha
+escuchado ecos de traiciones que podrían repetirse, de debilidades en
+alianzas que parecen sólidas y de profecías que muchos consideran meras
+<a href="Leyendas.html">Leyendas</a>. Para ella, ignorar estas
+advertencias es una negligencia imperdonable; para su tío, revelarlas es
+una imprudencia que podría desestabilizar el reino.</p>
+<p>Esta tensión se extiende a sus alianzas externas. Siente una profunda
+y visceral desconfianza hacia la Torre de las Estrellas. Aunque
+oficialmente son aliados, Runa ve a sus archimagos y eruditos no como
+compañeros en la búsqueda del saber, sino como potenciales explotadores.
+Teme que su método analítico y pragmático despoje a la Lito-mnemotecnia
+de su carácter sagrado, convirtiendo las memorias de la tierra en un
+mero recurso a catalogar y utilizar sin reverencia. Esta fricción la ha
+puesto en una posición delicada, debatiéndose entre la lealtad a su
+casa, el deber hacia su reino y su convicción de que solo un uso audaz
+del conocimiento puede preparar a <a href="Valtoria.html">Valtoria</a>
+para la oscuridad que, según los susurros de la piedra, se avecina.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Runa posee la robustez inherente de los <a
+href="Enanos.html">Enanos</a> de montaña, pero su porte es más el de una
+sabia que el de una guerrera. Con 155 años, se encuentra en la plenitud
+de su madurez enana. Su cabello, de un color negro como la obsidiana,
+está recogido en complejas trenzas entretejidas con finos filamentos de
+mithril que vibran sutilmente en presencia de fuertes ecos psíquicos.
+Sus ojos, de un gris profundo como el granito pulido, parecen contener
+la paciencia de eones y se clavan en sus interlocutores con una
+intensidad que desarma.</p>
+<p>Viste túnicas de lana gruesa en tonos tierra, bordadas con patrones
+geométricos que representan las ondas sónicas y las formaciones
+cristalinas. No porta armadura pesada, prefiriendo la movilidad y la
+sensibilidad a las vibraciones del suelo. Sus manos, aunque fuertes, son
+las de una artesana delicada, a menudo manchadas con el polvo de los
+cristales que talla y estudia.</p>
+<p>Su equipamiento es una extensión de su arte: * <strong>Diapasón de
+Cristal Resonante:</strong> Su principal herramienta. Un diapasón
+forjado por la Casa Dravonis a partir de un cristal único de <a
+href="Allotena.html">Allotena</a>. Al golpearlo suavemente contra una
+superficie de roca, ayuda a enfocar y amplificar los ecos mnemónicos,
+permitiéndole sintonizar con eventos o periodos específicos. *
+<strong>Martillo Ceremonial de Granito:</strong> Un pequeño martillo de
+cabeza de granito pulido y mango de roble petrificado, inscrito con <a
+href="Runas.html">Runas</a> de memoria y silencio. No es un arma, sino
+una herramienta ritual para “despertar” a la piedra antes de una
+lectura. * <strong>Daga de Obsidiana:</strong> Una simple pero
+afiladísima daga que lleva al cinto. Es un regalo de su tío, un
+recordatorio de que, aunque su poder reside en el conocimiento, el mundo
+exterior es un lugar peligroso donde las verdades a menudo deben ser
+defendidas. * <strong>Diario de Ecos:</strong> Un pesado tomo
+encuadernado en cuero en el que transcribe, en un código rúnico propio
+de su casa, las visiones e historias que extrae de la piedra.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Maestra Runa Granitoeco se encuentra en la encrucijada del destino de
+su casa y, potencialmente, de toda Lithernia. Ella representa la
+evolución de la Casa Granitoeco: de ser meros cronistas pasivos a
+convertirse en agentes activos del cambio, guiados por la sabiduría del
+pasado.</p>
+<p>Su conflicto con la tradición y su desconfianza hacia los métodos de
+la Torre de las Estrellas podrían provocar un cisma en las altas esferas
+de <a href="Valtoria.html">Valtoria</a>, redefiniendo el papel del
+conocimiento y la magia en el reino. Sin embargo, su verdadero impacto
+reside en los secretos que custodia. Las piedras recuerdan la verdad
+sobre el Primer Rey, la naturaleza de las Lanzas Celestiales y las
+antiguas rencillas entre los dioses. Si Runa decide que el riesgo de
+actuar es menor que el peligro del silencio, podría revelar verdades
+capaces de deshacer alianzas milenarias, exponer a traidores en las más
+altas cortes o, quizás, ofrecer el conocimiento necesario para cumplir
+—o impedir— la Profecía del Retorno del Rey.</p>
+<p>El legado de Runa no será forjado en metal, sino grabado en la
+historia. Su elección definirá si la Casa Granitoeco permanece como un
+eco silencioso de las eras o si su voz, amplificada por la memoria de la
+propia tierra, se alzará para dar forma al futuro de un mundo al borde
+de la guerra.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Granitoeco.html">Casa Granitoeco</a> (relevancia:
+0.46)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lynaeon</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lynaeon</div>
+        <div class="content">
+<h1 id="lynaeon">Lynaeon</h1>
+<p>Lynaeon es un sueño esculpido en luz y agua. Situada en las serenas
+Orillas del Lago Espejo, en el corazón de <a
+href="Eldrador.html">Eldrador</a>, la ciudad no está construida tanto
+sobre la tierra como sobre una red de estanques sagrados cuyas aguas
+reflejan el firmamento con una claridad sobrenatural. Las estructuras
+son espirales ascendentes de cuarzo luminoso y madera de sauce estelar,
+que parecen crecer del agua misma. Estas torres carecen de tejados,
+diseñadas para una contemplación perpetua de los cielos, y están
+conectadas por etéreos puentes de luz sólida que se materializan bajo
+los pies de quienes los cruzan. La ciudad entera es un observatorio
+viviente, un santuario dedicado a descifrar los susurros del destino. Su
+símbolo, una flor de loto de cuatro pétalos representando las
+estaciones, flota en el centro de su estanque principal, reflejando en
+sus aguas no su propia imagen, sino una constelación de siete
+estrellas.</p>
+<h2 id="historia">Historia</h2>
+<p>Lynaeon nació de una búsqueda de equilibrio tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>. Mientras otros elfos se aferraban a la
+reconstrucción material y al poder marcial, una poderosa archidruida <a
+href="Eladrin.html">Eladrin</a>, conocida como Lyra de las Mil
+Estaciones, guio a sus seguidores hacia un exilio voluntario. Lyra creía
+que el caos del <a href="Lilium.html">Lilium</a> había dejado el tejido
+del destino fracturado y que solo a través de una comunión perfecta con
+los ciclos de la naturaleza y el cosmos se podría sanar al mundo.</p>
+<p>Encontraron el Lago Espejo, un lugar donde el velo entre los planos
+era fino y el maná fluía en armonía con las fases de la luna y el cambio
+de las estaciones. Allí fundaron Lynaeon, no como una fortaleza, sino
+como un instrumento de adivinación a escala de ciudad. El gobierno fue
+encomendado al Consejo de las Estaciones, un cuerpo de cuatro
+archidruidas <a href="Eladrin.html">Eladrin</a> que heredaron el manto
+de Lyra, cada uno tomando el liderazgo según el ciclo estacional
+dominante, asegurando que la ciudad siempre estuviera en sintonía con el
+mundo natural.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón Reflectante</strong>: El centro neurálgico de
+la ciudad, un vasto estanque circular donde se encuentra el Loto de las
+Estaciones. Sus aguas son utilizadas para los ritos de adivinación más
+importantes. Se dice que mirar en su superficie es mirar directamente al
+flujo del tiempo.</p></li>
+<li><p><strong>Las Espirales de Cuarzo</strong>: Los distritos
+residenciales y académicos. Las altas torres de cuarzo y madera de sauce
+estelar albergan las viviendas de los habitantes, así como bibliotecas
+de profecías, talleres de artes astrales y salas de meditación. Cada
+torre está alineada con una constelación específica.</p></li>
+<li><p><strong>El Jardín de los Ecos</strong>: Una serie de islas
+flotantes cubiertas de flora feérica y atravesadas por arroyos de agua
+cristalina. Es en este tranquilo jardín donde se celebra el ‘Solsticio
+de los Ecos’ y donde los habitantes buscan la soledad para interpretar
+sus visiones personales.</p></li>
+<li><p><strong>El Observatorio Desvelado</strong>: La espiral más alta
+de Lynaeon, una torre que se eleva hasta perforar las nubes. No alberga
+telescopios de metal, sino lentes de cristal forjados con lágrimas de
+estrella y estanques encantados que magnifican la luz del cosmos. Aquí
+residen los oráculos más poderosos del Consejo de las
+Estaciones.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Lynaeon es una danza contemplativa con el destino. La
+cultura Estacional es profundamente mística; cada decisión, desde la
+siembra de un jardín hasta la composición de un poema, se toma tras
+consultar los presagios en las estrellas o en el reflejo del agua. El
+arte es una manifestación del ciclo actual: en primavera, las esculturas
+de luz son verdes y vibrantes; en invierno, la música se vuelve lenta,
+etérea y melancólica.</p>
+<p>La festividad más sagrada es el ‘Solsticio de los Ecos’, un ritual
+donde la población se sumerge en los estanques sagrados para recibir
+visiones fragmentadas del pasado y del futuro, compartiéndolas luego en
+un tapiz comunal de profecías. Como ofrenda a <a
+href="Arzia.html">Arzia</a>, es costumbre que los habitantes de Lynaeon
+tejan sus cabellos con hilos de plata encantada, que brillan bajo la luz
+de las estrellas como constelaciones personales.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Lynaeon desafía la gravedad y la lógica mortal. Es
+una ciudad vertical y abierta, diseñada para que el cielo nunca quede
+fuera de la vista. El ambiente es de una paz abrumadora, roto solo por
+el suave tintineo de los cristales de cuarzo movidos por la brisa y la
+música incorpórea que parece emanar del propio aire. El aire huele a
+ozono, a lotos nocturnos y a la magia latente del cosmos. Caminar por
+sus puentes de luz se siente como pasear entre las estrellas, con el
+universo entero reflejado a tus pies.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Estanque Ciego</strong>: Se rumorea que en las noches
+sin luna, los estanques de Lynaeon no reflejan las estrellas, sino un
+vacío oscuro y absoluto. La leyenda advierte que aquellos que miran
+fijamente ese abismo pueden ver el rostro atormentado del Primer Rey en
+su prisión eterna, o peor aún, ser arrastrados por la oscuridad hacia un
+plano de pesadillas del que nadie regresa.</p></li>
+<li><p><strong>La Melodía del Silencio</strong>: Se cuenta que un
+Shadar-Kai errante, un alma melancólica y sin estación, recorre la
+ciudad buscando una melodía perdida. No es una canción de creación, sino
+de anulación; una melodía que, según se dice, tiene el poder de
+silenciar todas las profecías del mundo, devolviendo el destino a un
+lienzo en blanco y liberando a todos los seres de las ataduras del sino.
+Algunos oráculos lo ven como un salvador, otros como el agente del caos
+definitivo.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Crysfjell</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Crysfjell</div>
+        <div class="content">
+<hr />
+<p>nombre: Lyra Crysfjell rol: Archividente y Maestra de la Forja
+Estelar edad: 145 agrupacion: Casa Crysfjell tipo: Casa <a
+href="Noble.html">Noble</a> Menor de <a
+href="Valtoria.html">Valtoria</a> lema: La Montaña No Olvida, Ni
+Perdona. escudo: Un pico de montaña de granito fracturado por una
+estrella de ocho puntas de plata, sobre un campo de azul nocturno.
+ciudad_sede: <a href="Rynhalis.html">Rynhalis</a>, la
+Ciudadela-Observatorio rivalidades: Casa Dravonis, los Cazadores de
+Sombras, puristas del Panteón Enano alianzas: Casa Mirastral, Casa de
+Astellia (<a href="Eldrador.html">Eldrador</a>), gremios de artífices <a
+href="Gnomos.html">Gnomos</a> relaciones: Hija semi-elfa del Thane Borin
+Crysfjell y la erudita elfa Elara de Astellia. Supervisora del ‘Ojo de
+<a href="Rokael.html">Rokael</a>’. tags: [lithernia, personajes, Casa
+Crysfjell, <a href="Valtoria.html">Valtoria</a>, semielfa, maga,
+artesana] # Lyra Crysfjell</p>
+<h2 id="biografía">Biografía</h2>
+<p>Nacida de una alianza tan audaz como su estirpe, Lyra Crysfjell es la
+encarnación viviente del cisma y la profecía de su casa. Es hija del
+Thane Borin Crysfjell, el visionario que guio al antiguo Clan
+Picosombrío lejos de la ortodoxia de <a
+href="Valtoria.html">Valtoria</a>, y de Elara, una archivera de la <a
+href="Noble.html">Noble</a> Casa de Astellia de <a
+href="Eldrador.html">Eldrador</a>, cuyo matrimonio cimentó una de las
+alianzas más insólitas de Lithernia. Su propia existencia —una semielfa
+criada entre <a href="Enanos.html">Enanos</a> que veneran a una diosa
+élfica— la convirtió desde su nacimiento en un símbolo de la nueva senda
+de los Crysfjell y en un blanco para sus detractores.</p>
+<p>Su infancia en la ciudadela de <a href="Rynhalis.html">Rynhalis</a>,
+erigida en una meseta azotada por el viento y barrida por la luz
+estelar, no fue sencilla. Mientras los niños <a
+href="Enanos.html">Enanos</a> aprendían a blandir el martillo, Lyra
+estudiaba las constelaciones con su madre. Mientras las jóvenes enanas
+memorizaban las genealogías de su clan, Lyra aprendía la gracia élfica y
+los secretos del Tejido del Maná. Esta dualidad forjó en ella un
+carácter de acero rúnico: la tenacidad y resistencia de los <a
+href="Enanos.html">Enanos</a>, templada con la paciencia y la visión
+arcana de los elfos. Desde joven, demostró una afinidad sin precedentes
+tanto para la forja como para la magia, viendo no una contradicción,
+sino una sinergia que sus ancestros habían ignorado.</p>
+<p>Su verdadera vocación se reveló cuando, bajo la tutela de su padre,
+comenzó a trabajar con el “Ojo de <a href="Rokael.html">Rokael</a>”, la
+masiva geoda celestial que dio origen a su casa. Lyra no solo la
+estudió; aprendió a <em>escucharla</em>. Comprendió que los metales y
+las gemas poseían una resonancia armónica con los cuerpos celestes, y
+que al forjarlos bajo alineaciones cósmicas específicas, podía imbuirlos
+con propiedades arcanas inimaginables. Así nació la “Astrometalurgia”,
+el arte que ella perfeccionó y elevó a su máxima expresión.</p>
+<p>Su hazaña más notable fue la creación de la <em>Égida de la Estrella
+Polar</em>, un escudo forjado con un meteorito y pulido con polvo de
+diamante bajo el cenit de la estrella más brillante del invierno. Se
+dice que el escudo puede desviar no solo golpes físicos, sino también <a
+href="Conjuros.html">Conjuros</a> de oscuridad y desesperación. Este
+logro la consagró como Maestra de la Forja Estelar, pero también avivó
+las llamas de la rivalidad. La Casa Dravonis, bastión del
+tradicionalismo enano, la acusa de blasfemia, de mancillar la herencia
+sagrada de la roca con “supercherías élficas”. A su vez, los Cazadores
+de Sombras, facciones enanas anti-intelectuales, ven su
+ciudadela-observatorio como un nido de debilidad y la consideran una
+amenaza a la verdadera fuerza de <a
+href="Valtoria.html">Valtoria</a>.</p>
+<p>La motivación de Lyra trasciende la mera artesanía. Cada pieza que
+forja es un argumento en el gran debate sobre el futuro de su pueblo.
+Busca demostrar que la unión de la sabiduría enana y élfica no es una
+herejía, sino el siguiente paso en la evolución de Lithernia, un camino
+para sanar las antiguas heridas dejadas por los dioses y el <a
+href="Lilium.html">Lilium</a>. Supervisa el Ojo de <a
+href="Rokael.html">Rokael</a> no solo como una forja, sino como un
+oráculo, convencida de que en las estrellas se ocultan las claves para
+entender el pasado y evitar que sus errores se repitan.</p>
+<h2 id="descripción-y-equipamiento">Descripción y Equipamiento</h2>
+<p>Lyra posee una belleza inusual que refleja su linaje mixto. Es más
+alta y esbelta que una enana, pero su complexión es más robusta y ancha
+de hombros que la de un elfo. Su cabello, de un negro profundo como la
+obsidiana, lo lleva recogido en complejas trenzas enanas, entrelazadas
+con finos hilos de plata que brillan como estelas de cometas. Sus
+orejas, delicadamente puntiagudas, se asoman entre los mechones, un
+recordatorio perpetuo de su herencia élfica. Pero son sus ojos los que
+cautivan y desarman: de un azul profundo y moteados de esquirlas
+plateadas, parecen contener un firmamento en miniatura, reflejando una
+sabiduría que supera con creces sus 145 años. Sus manos son el
+testimonio de su dualidad: dedos largos y ágiles de maga, pero con los
+callos y la fuerza de una herrera que ha pasado décadas martillando
+metal al rojo vivo.</p>
+<p>Viste un atuendo que es a la vez funcional y elegante. Sobre una
+túnica de lana oscura y resistente, lleva un delantal de cuero de draco
+reforzado con placas de astrometal, cada una grabada con una
+constelación diferente. Sus botas son de factura enana, sólidas y
+prácticas, pero adornadas con filigranas élficas que silencian sus
+pasos.</p>
+<p><strong>Equipamiento Relevante:</strong></p>
+<ul>
+<li><strong>Martillo de la Forja Estelar “Cometa”:</strong> Su
+herramienta y arma personal. Un martillo de guerra de factura enana cuya
+cabeza está forjada con el núcleo de un meteorito. Está cubierto de <a
+href="Runas.html">Runas</a> que brillan con una luz azulada cuando se
+encuentra bajo el cielo nocturno, y se dice que sus golpes resuenan con
+la música de las esferas.</li>
+<li><strong>Monóculo del Astrónomo:</strong> Una lente de zafiro pulido,
+engastada en mithril, que le permite observar los cuerpos celestes con
+una claridad asombrosa y percibir las auras mágicas tejidas en el
+Maná.</li>
+<li><strong>Coraza de la Nebulosa:</strong> Una armadura ligera de su
+propia creación, hecha de una aleación de acero y plata que ha sido
+plegada mil veces bajo la luz de una nebulosa distante. Es ligera como
+la seda pero resistente como el granito, y dispersa la luz mágica
+hostil, otorgándole resistencia a ciertos tipos de <a
+href="Conjuros.html">Conjuros</a>.</li>
+<li><strong>Fragmento del Ojo de <a
+href="Rokael.html">Rokael</a>:</strong> Siempre lleva consigo un pequeño
+fragmento de la geoda original, engastado en un amuleto. Le sirve como
+foco arcano y como conexión constante con el corazón de su hogar y su
+poder.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Lyra Crysfjell no es solo una artesana; es una filósofa del metal y
+una profeta de las estrellas. Su impacto inmediato en Lithernia es la
+creación de una nueva disciplina mágica y artesanal que podría
+revolucionar la tecnología y la guerra. Las armas y armaduras de
+Astrometalurgia son codiciadas por reyes y generales, y temidas por sus
+enemigos. Su trabajo posiciona a la Casa Crysfjell como una potencia
+emergente en <a href="Valtoria.html">Valtoria</a>, capaz de desafiar la
+hegemonía de clanes milenarios.</p>
+<p>A largo plazo, el verdadero legado de Lyra podría ser mucho más
+profundo. Representa un puente viviente entre las culturas enana y
+élfica, dos pueblos cuyas relaciones a menudo han sido tensas. Si su
+filosofía de sinergia prospera, podría inspirar nuevas alianzas y una
+era de cooperación sin precedentes, demostrando que las “creaciones de
+los dioses” no tienen por qué estar eternamente divididas.</p>
+<p>Sin embargo, su camino está lleno de peligros. Su poder y
+conocimiento la convierten en un objetivo para aquellos que desean
+explotar su arte, como los clanes oscuros de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, y para aquellos que desean
+destruirlo, como los puristas de su propia nación. En un mundo al borde
+del cambio, con la profecía del Primer Rey resonando en las sombras, la
+capacidad de forjar el poder de las estrellas en el acero podría ser la
+clave para sellar un destino o desatar un nuevo cataclismo. El nombre de
+Lyra Crysfjell será recordado en Lithernia, ya sea como la visionaria
+que unió la roca y el firmamento, o como la artífice de armas tan
+poderosas que el mundo no estaba preparado para ellas. La montaña, y las
+estrellas, observan en silencio.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.50)</li>
+<li><a href="Meta.html">Meta</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

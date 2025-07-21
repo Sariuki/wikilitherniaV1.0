@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grakon_Matadragones</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grakon_Matadragones</div>
+        <div class="content">
+<h1 id="grakon-matadragones">Grakon ‘Matadragones’</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de los cazadores de monstruos de Lithernia, pocos
+nombres resuenan con la gravedad y el respeto que inspira Grakon, el
+actual jefe del Clan Garra de Sierpe. Nacido goliat en las décadas
+inciertas que siguieron al Cataclismo del <a
+href="Lilium.html">Lilium</a>, Grakon no conoció la nobleza de las
+grandes casas ni la seguridad de las ciudades amuralladas. Su cuna fue
+el clan mismo, un crisol de parias y supervivientes fundado por el
+legendario Kaelen ‘El Primer <a href="Cazador.html">Cazador</a>’. Grakon
+fue adoctrinado desde niño en el único credo que importa en las tierras
+salvajes: el mundo está herido, y son ellos el bisturí que debe extirpar
+la infección.</p>
+<p>Su ascenso no fue por herencia, sino forjado en sangre, sudor y
+estrategia. El apodo de ‘Matadragones’ no es una bravuconada, sino un
+título ganado. Hace cuarenta años, una Sierpe Corrupta —una abominación
+dracónica nacida de la magia residual del <a
+href="Lilium.html">Lilium</a>— emergió en las estribaciones de <a
+href="Valtoria.html">Valtoria</a>, aniquilando patrullas enanas y
+caravanas por igual. Mientras los reinos debatían jurisdicciones y
+costes, el Clan Garra de Sierpe actuó. Grakon, entonces un joven pero
+formidable <a href="Cazador.html">Cazador</a>, ideó un plan audaz:
+atraer a la bestia a un desfiladero estrecho y usar una combinación de
+trampas alquímicas y la fuerza bruta de su equipo para derribarla. La
+batalla duró tres días y costó la vida a muchos, incluido el antiguo
+jefe. Fue Grakon quien asestó el golpe final, hundiendo su hacha en el
+cráneo de la criatura mientras esta se ahogaba en venenos y rocas.</p>
+<p>Como jefe, Grakon ha guiado al clan con una mezcla de pragmatismo
+implacable y un profundo sentido del deber. Su motivación no es la
+gloria ni la riqueza, sino la preservación del equilibrio natural, un
+concepto casi sagrado para él. Ve a las abominaciones del <a
+href="Lilium.html">Lilium</a> no como meros monstruos, sino como
+síntomas de la enfermedad que los dioses dejaron en el mundo. Su
+liderazgo ha consolidado alianzas funcionales, como el contrato con <a
+href="Galvorn.html">Galvorn</a> para limpiar sus rutas marítimas de
+horrores abisales, y ha mantenido la frágil paz con la ciudad de <a
+href="Sylorian.html">Sylorian</a>, que les sirve de refugio y mercado
+negro.</p>
+<p>En el plano personal, Grakon carga con el peso de sus decisiones y
+las vidas perdidas bajo su mando. Su exterior estoico oculta a un mentor
+ferozmente protector, como demuestra su relación con <strong>Lyra
+‘Espina Silente’</strong>, una joven elfa silvana a la que rescató de
+las ruinas de <a href="Silvareth.html">Silvareth</a> y en quien ve la
+futura llama del clan. Su confidente más cercano es <strong>Borin
+‘Corazón de Hierro’</strong>, un maestro alquimista enano que es su
+hermano de batalla y la voz de la razón que atempera su furia. Juntos,
+representan el alma multirracial del clan. Su relación con el
+<strong>Alcaide de <a href="Sylorian.html">Sylorian</a></strong> es un
+juego de ajedrez constante; ambos se necesitan, pero ninguno confía en
+el otro, pues Grakon desprecia la política y el Alcaide teme el poder de
+un ejército que no responde ante ningún rey.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grakon es una imponente figura goliat, superando los dos metros y
+medio de altura, con una complexión que parece tallada en la misma roca
+de las montañas que habita. Su piel es de un tono gris pálido, marcada
+por las vetas oscuras características de su raza y un mapa de cicatrices
+antiguas que cuentan historias de innumerables batallas. A sus 124 años,
+su cabello negro está veteado de un blanco níveo, recogido en una tosca
+trenza. Sus ojos, de un azul gélido, han visto demasiados horrores y
+reflejan una fatiga profunda, pero arden con una determinación
+inquebrantable cuando fija su objetivo.</p>
+<p>No viste las brillantes armaduras de los caballeros de los reinos. Su
+protección es un conjunto de <strong>placas de quitina, escamas y cuero
+endurecido</strong>, tomadas de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+más formidables que ha cazado. Sobre su pecho destaca una placa central
+hecha de la coraza iridiscente de la Sierpe Corrupta que le dio su
+nombre, reforzada con acero enano, un regalo de Borin.</p>
+<p>Su arma principal es <strong>“El Bisturí”</strong>, una colosal hacha
+de batalla de doble filo, cuyo peso haría que la mayoría de los
+guerreros se tambalearan. La hoja, forjada con un metal oscuro y
+desconocido, está cubierta de <a href="Runas.html">Runas</a> funcionales
+que evitan que se melle o se oxide. Su equipo se completa con un surtido
+de viales alquímicos, trampas de acero, un gran cuerno de caza para
+dirigir a su clan y varios trofeos macabros que cuelgan de su cinturón:
+un diente de basilisco, una garra de grifo y un ojo petrificado que,
+según dicen, perteneció a una gorgona.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Grakon ‘Matadragones’ no se escribirá en los libros de
+historia de las grandes casas, sino en las vidas de los granjeros,
+mineros y viajeros que pueden vivir un día más gracias a la labor de su
+clan. Él es el guardián silencioso de las fronteras olvidadas, el muro
+invisible que contiene la marea de pesadillas que los reyes y nobles
+prefieren ignorar.</p>
+<p>Su impacto es doble: por un lado, es una fuerza estabilizadora
+tangible que permite que el comercio y la vida continúen en las zonas
+más peligrosas de Lithernia. Por otro, representa un ideal poderoso en
+un continente dividido: la prueba de que la unidad puede nacer del
+propósito común, no de la sangre o la bandera. El Clan Garra de Sierpe
+es un símbolo de que elfos, <a href="Enanos.html">Enanos</a>, <a
+href="Humanos.html">Humanos</a> y <a href="Goliaths.html">Goliaths</a>
+pueden luchar codo con codo, no por un rey, sino por el mundo mismo.</p>
+<p>Mientras Grakon siga al frente, el clan será el bisturí más afilado
+de Lithernia. Pero su mayor desafío será asegurar que, cuando su tiempo
+termine, la llama de su propósito pase a la siguiente generación, para
+que la plaga siga siendo cortada y el equilibrio, restaurado.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

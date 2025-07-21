@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelith</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelith</div>
+        <div class="content">
+<h1 id="kaelith-la-mano-silenciosa-de-nynthil">Kaelith, la Mano
+Silenciosa de Nynthil</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida bajo el crepúsculo perpetuo de los bosques de <a
+href="Eldrador.html">Eldrador</a>, Kaelith es una hija descarriada de la
+Casa <a href="Sylethra.html">Sylethra</a>, un linaje de elfos del
+crepúsculo conocidos por su sigilo y su conexión con las sombras. Desde
+joven, sintió el peso opresivo de la “Mano de Hierro”, el rígido sistema
+de castas élfico, como una cadena en su alma. Mientras la nobleza de la
+Casa Auris recitaba poemas a las estrellas, Kaelith aprendía a moverse
+sin sonido y a cazar en la penumbra, viendo más verdad en el filo de una
+daga que en los edictos de un rey distante.</p>
+<p>Su desilusión con los dioses élficos —a quienes consideraba tan
+arrogantes y distantes como sus nobles— la llevó a buscar una verdad más
+profunda y terrenal. Las <a href="Leyendas.html">Leyendas</a> prohibidas
+del Primer Rey, un mortal que osó desafiar a los cielos, resonaron en
+ella. Vio en su historia no una herejía, sino un acto de justicia
+suprema. Abandonó <a href="Eldrador.html">Eldrador</a>, dejando atrás un
+legado de conformidad para adentrarse en las tierras más oscuras de
+Lithernia: el opresivo reino de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>Fue en la ciudad secreta de <a href="Nynthil.html">Nynthil</a> donde
+encontró su propósito. No fue la erudición de los Custodios del Primer
+Eco lo que la atrajo, sino la pureza de su objetivo: derrocar a los
+dioses carceleros y liberar al verdadero monarca de Lithernia. Su
+destreza como exploradora y asesina, perfeccionada en los bosques de <a
+href="Eldrador.html">Eldrador</a> y curtida en los peligros de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, la convirtió en un activo
+invaluable. Rápidamente ascendió hasta convertirse en la “Mano
+Silenciosa”, la ejecutora de la voluntad del culto.</p>
+<p>Kaelith es la fuerza motriz tras la fachada de archivistas de los
+Custodios. Mientras su líder, Vexian, descifra antiguos textos y traza
+complejos planes, es Kaelith quien se infiltra en las fortalezas del
+Clan Whisper, quien recupera artefactos de ruinas olvidadas y quien
+silencia a aquellos que amenazan con descubrir sus secretos. Obedece a
+Vexian por su intelecto estratégico, pero a menudo se impacienta con su
+cautela, creyendo que la duda es un lujo que no pueden permitirse. En <a
+href="Grakkul.html">Grakkul</a>, el rudo <a
+href="Guerrero.html">Guerrero</a> de los Custodios, encuentra un
+espíritu afín: ambos son supervivientes forjados en la crueldad de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, unidos por un entendimiento
+tácito de que la libertad solo se gana con sangre y acero.</p>
+<p>Su motivación es visceral. El Cataclismo del <a
+href="Lilium.html">Lilium</a> no fue para ella un castigo divino justo,
+sino el crimen de unos tiranos celestiales contra la aspiración mortal.
+Cada misión que emprende es un golpe contra ese orden, un paso más hacia
+la resonancia final del “Primer Eco” que, según cree, romperá las
+cadenas del mundo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelith posee la gracia letal de su linaje. Es esbelta y de
+complexión atlética, con la piel pálida del color de la ceniza lunar y
+un largo cabello de un tono violeta oscuro, a menudo recogido en una
+trenza práctica. Sus ojos, de un intenso color amatista, son agudos y
+rara vez parpadean, analizando constantemente su entorno en busca de
+amenazas y oportunidades. Sus movimientos son fluidos y económicos,
+desprovistos de cualquier gesto innecesario, como un depredador en su
+propio territorio.</p>
+<p>Su equipo es puramente funcional, una extensión de su propósito: *
+<strong>Armadura de Cuero de Sombra:</strong> Una armadura de cuero
+endurecido, teñida de negro y encantada con <a
+href="Runas.html">Runas</a> sutiles para amortiguar el sonido,
+permitiéndole moverse en un silencio casi absoluto. * <strong>Dagas
+Gemelas “Susurro y Silencio”:</strong> Un par de dagas de acero oscuro,
+perfectamente equilibradas y afiladas como navajas. Las empuñaduras
+están envueltas en cuero de basilisco para un agarre infalible. Se dice
+que el acero fue forjado en el corazón de una estrella caída. *
+<strong>Arco Corto de Tejo Crepuscular:</strong> Un arco élfico
+tradicional de su hogar, ligero pero de una potencia engañosa, con el
+que puede realizar disparos precisos desde las sombras. *
+<strong>Herramientas de la Mano Silenciosa:</strong> Un conjunto de
+ganzúas de hueso, viales de veneno de Sombra-Raíz (un paralizante de
+acción rápida), finos alambres para trampas y una cuerda de seda de
+araña que es a la vez ligera e increíblemente resistente.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelith no busca un lugar en las crónicas de los reyes ni en las
+canciones de los bardos. Su legado se escribirá en las sombras, en los
+vacíos de poder que deja tras de sí y en las puertas que abre para
+otros. Es el agente del cambio, la prueba viviente de que la historia de
+Lithernia no solo la deciden los ejércitos en el campo de batalla, sino
+también las figuras solitarias que operan en el silencio.</p>
+<p>Si los Custodios del Primer Eco tienen éxito, será porque la Mano
+Silenciosa de Kaelith recuperó una de las Lanzas Celestiales, eliminó a
+un rival clave en el momento preciso o aseguró una alianza crucial con
+los rebeldes de Chéneras. Si fracasan, su nombre será solo una nota a
+pie de página en los anales del Consejo de los Ocultos, el de una hereje
+elfa que se perdió en la oscuridad de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>En última instancia, Kaelith personifica el lema de su culto: es la
+acción que resuena cuando el silencio de la opresión se vuelve
+insoportable, la cuchilla silenciosa que podría derrocar a un dios y
+cambiar el destino de un continente.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

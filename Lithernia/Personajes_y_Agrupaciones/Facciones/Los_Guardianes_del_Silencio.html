@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Guardianes_del_Silencio</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Guardianes_del_Silencio</div>
+        <div class="content">
+<h1 id="los-guardianes-del-silencio">Los guardianes del silencio</h1>
+<h3 id="perfil-de-la-facción">Perfil de la Facción</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Símbolo</strong></td>
+<td style="text-align: left;">Una espiral negra que converge en un punto
+central.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Líder</strong></td>
+<td style="text-align: left;">El Primer Oído (Identidad
+Desconocida).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Objetivo Principal</strong></td>
+<td style="text-align: left;">Proteger el “Canto Silente” y mantener el
+equilibrio cósmico, impidiendo que la magia o la guerra desaten un caos
+sónico similar al del Cataclismo del <a
+href="Lilium.html">Lilium</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sedes</strong></td>
+<td style="text-align: left;">Enclaves ocultos y móviles en lugares de
+silencio absoluto (fondos marinos de <a href="Galvorn.html">Galvorn</a>,
+corazones de montañas en <a href="Valtoria.html">Valtoria</a>, bosques
+umbríos de <a href="Eldrador.html">Eldrador</a>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Miembros Típicos</strong></td>
+<td style="text-align: left;">Shadar-kai, Elfos del Bosque, <a
+href="Halflings.html">Halflings</a>, monjes, espías.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Común</strong></td>
+<td style="text-align: left;">Legal Neutral, Neutral Verdadero.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rivales</strong></td>
+<td style="text-align: left;">Lord Aethel, Clan <a
+href="Kromagul.html">Kromagul</a>, seguidores de la profecía del Primer
+Rey, cualquier facción que busque un poder cataclísmico.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="objetivos-tácticos">Objetivos Tácticos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Objetivo Táctico</th>
+<th style="text-align: left;">Método Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Contener la Profecía</strong></td>
+<td style="text-align: left;">Evitar que las Lanzas Celestiales sean
+encontradas o destruidas. Neutralizar a los candidatos a “<a
+href="Heroes.html">Heroes</a> del Rey”.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sabotear la Guerra</strong></td>
+<td style="text-align: left;">Intervenir de forma encubierta para
+impedir que cualquier bando de la Gran Guerra obtenga una ventaja que
+pueda alterar el equilibrio global.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Recuperar Artefactos</strong></td>
+<td style="text-align: left;">Localizar y asegurar artefactos sónicos o
+que manipulen la magia a gran escala, guardándolos en sus bóvedas
+silentes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mantener el Secreto</strong></td>
+<td style="text-align: left;">Eliminar (borrando recuerdos o mediante
+asesinato silencioso) a quienes descubran la existencia de la orden o la
+ubicación del Canto Silente.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="artefacto-primordial-el-canto-silente">Artefacto Primordial: El
+Canto Silente</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Aura de Quietud
+Absoluta</strong></td>
+<td style="text-align: left;">El artefacto proyecta un campo de
+<em>Silencio</em> permanente en un radio de 1 milla. El campo bloquea el
+daño de tipo trueno y los efectos que requieren audición.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nulificación Mágica</strong></td>
+<td style="text-align: left;">Cualquier conjuro lanzado dentro del aura
+(excepto por el portador sintonizado) requiere una prueba de aptitud
+mágica (CD 15 + nivel del conjuro). Si falla, el conjuro se desvanece
+sin efecto y el espacio de conjuro se pierde.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sintonización</strong></td>
+<td style="text-align: left;">Un único portador puede sintonizarse con
+el artefacto tras pasar 1 año en meditación silenciosa en su presencia.
+El portador sintonizado es inmune a los efectos del aura y puede, una
+vez al día, lanzar <em>Contraconjuro</em> a voluntad durante 1
+minuto.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Maldición: El Peso del
+Vacío</strong></td>
+<td style="text-align: left;">Cada vez que el portador sintonizado usa
+el poder del Canto, debe superar una tirada de salvación de Sabiduría CD
+18 o perder permanentemente la capacidad de hablar un idioma que
+conozca. Si se queda sin idiomas, se vuelve un ser catatónico.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arquetipo-de-monje-camino-del-silencio-absoluto">Arquetipo de
+Monje: Camino del Silencio Absoluto</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Nivel</th>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>3º</strong></td>
+<td style="text-align: left;"><strong>Técnicas de la
+Quietud</strong></td>
+<td style="text-align: left;">Aprendes el truco <em>Ilusión menor</em>.
+Además, puedes gastar 2 puntos de ki para lanzar el conjuro
+<em>Silencio</em> sin necesidad de componentes materiales.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3º</strong></td>
+<td style="text-align: left;"><strong>Golpe Anulador</strong></td>
+<td style="text-align: left;">Cuando impactas a una criatura con uno de
+los ataques de tu <em>Ráfaga de Golpes</em>, puedes forzarla a hacer una
+tirada de salvación de Constitución. Si falla, no puede emitir sonido ni
+lanzar <a href="Conjuros.html">Conjuros</a> con componentes verbales
+hasta el inicio de tu próximo turno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>6º</strong></td>
+<td style="text-align: left;"><strong>Paso Inaudible</strong></td>
+<td style="text-align: left;">Te vuelves inmune a ser detectado por
+cualquier medio que dependa del sonido. Tienes ventaja en las pruebas de
+Destreza (Sigilo) que se basen en moverte sin ser oído. Además, puedes
+moverte a través del área de un conjuro de <em>Silencio</em> sin
+impedimentos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>11º</strong></td>
+<td style="text-align: left;"><strong>Manto de Vacío</strong></td>
+<td style="text-align: left;">Como acción, puedes gastar 4 puntos de ki
+para volverte invisible e inaudible durante 1 minuto. La invisibilidad
+termina si atacas, lanzas un conjuro o fuerzas a una criatura a hacer
+una tirada de salvación.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>17º</strong></td>
+<td style="text-align: left;"><strong>Toque del Canto
+Silente</strong></td>
+<td style="text-align: left;">Como acción, puedes tocar a una criatura y
+gastar 6 puntos de ki. El objetivo debe hacer una tirada de salvación de
+Sabiduría. Si falla, queda afligido por una maldición sónica. La
+criatura olvida todos los idiomas que conoce y se vuelve incapaz de
+hablar, leer o escribir. Además, no puede lanzar <a
+href="Conjuros.html">Conjuros</a> con componentes verbales o somáticos.
+Esta maldición solo puede ser eliminada por un conjuro de <em>Deseo</em>
+o por la voluntad del <a href="Monje.html">Monje</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="miembros-de-la-orden-pnjs">Miembros de la Orden (PNJs)</h3>
+<p>statblock name: Eco del Vacío size: Mediano type: humanoide
+(Shadar-kai) alignment: neutral ac: 20 (Sabiduría + Destreza) hp: 153
+(22d8 + 55) speed: 50 ft. stats: [14, 20, 15, 16, 20, 14] saves: - Dex:
++11 - Sab: +11 - Fue: +8 skills: - Sigilo: +17 - Percepción: +11 -
+Perspicacia: +11 damage_immunities: Trueno condition_immunities:
+Ensordecido senses: Visión Verdadera 60 ft., Percepción Pasiva 21
+languages: Todos, Telepatía 120 ft. cr: 16 traits: - name: Aura de
+Distorsión Sónica desc: “Cualquier criatura hostil que comience su turno
+a 30 pies del eco debe superar una tirada de salvación de Sabiduría CD
+19 o sufrirá desventaja en las tiradas de ataque hasta el comienzo de su
+próximo turno.” - name: Resistencia Legendaria (3/Día) desc: “Si el eco
+falla una tirada de salvación, puede elegir tener éxito en su lugar.”
+actions: - name: Multiataque desc: “El eco realiza cuatro ataques de
+Toque Silencioso.” - name: Toque Silencioso desc: “Ataque de arma cuerpo
+a cuerpo: +11 a impactar, alcance 5 ft., un objetivo. Impacto: 11 (2d6 +
+5) de daño contundente más 13 (3d8) de daño psíquico. Una criatura
+impactada no puede emitir sonido durante 1 minuto (salvación de
+Constitución CD 19 para terminar el efecto).” legendary_actions: - name:
+Silenciar Conjuro desc: “El eco se enfoca en un lanzador de conjuros que
+pueda ver. El próximo conjuro que lance esa criatura antes del final del
+próximo turno del eco falla si tiene un componente verbal.” - name: Paso
+de Vacío (Cuesta 2 Acciones) desc: “El eco se teletransporta hasta 60
+pies a un espacio desocupado que pueda ver y lanza el conjuro
+<em>Silencio</em> centrado en sí mismo sin gastar una acción.” - name:
+Oleada de Quietud (Cuesta 3 Acciones) desc: “El eco emite una onda de
+pura negación sónica en un cono de 60 pies. Cada criatura en el área
+debe superar una tirada de salvación de Constitución CD 19 o recibirá 27
+(6d8) de daño de fuerza y quedará aturdida hasta el final del próximo
+turno del eco.”</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grokk_Stonehide</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grokk_Stonehide</div>
+        <div class="content">
+<h1 id="grokk-stonehide">Grokk Stonehide</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Grokk no nació en el seno de una gran casa <a
+href="Noble.html">Noble</a> ni fue ungido por profecía alguna. Su linaje
+es el de la roca y el silencio de las cumbres más altas de las montañas
+que bordean <a href="Valtoria.html">Valtoria</a>, un hijo del clan
+Stonehide, una tribu Goliath que durante generaciones vivió en comunión
+con la piedra, ajena a las guerras de los reinos de abajo. Su juventud
+fue la de un <a href="Cazador.html">Cazador</a>, aprendiendo a leer el
+viento en los picos y a rastrear <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+entre los riscos. Para él, el mundo era simple: proteger al clan, honrar
+a los ancestros y respetar la montaña.</p>
+<p>Esta paz se hizo añicos cuando Grokk contaba con dieciocho inviernos.
+Una antigua cicatriz del <a href="Lilium.html">Lilium</a>, latente bajo
+su montaña sagrada, despertó. No fue un ejército, ni un dragón; fue algo
+peor. De las fisuras de la tierra supuró una manifestación del dolor
+eterno del mundo: una abominación de carne torcida y luz corrupta que
+aullaba con las voces de los muertos en el Cataclismo. El clan
+Stonehide, guerreros formidables contra cualquier enemigo mortal, no
+estaba preparado para combatir una pesadilla. Lucharon con la furia de
+la montaña, pero sus hachas se quebraban contra la irrealidad y su valor
+se desvanecía ante el horror psíquico.</p>
+<p>Grokk fue el único superviviente. No por ser el más fuerte, sino
+porque su voluntad, dura como el granito de su hogar, se negó a
+romperse. Fue encontrado por Kaelen, el Primer <a
+href="Cazador.html">Cazador</a> del Círculo del Eco Púrpura, junto a los
+cuerpos petrificados de su gente. Estaba roto, cubierto de heridas que
+supuraban una corrupción violácea, pero vivo. Kaelen no le ofreció
+consuelo ni venganza. Le ofreció un propósito: tomar el dolor que había
+destrozado su vida y convertirlo en un escudo para que nadie más tuviera
+que sufrir lo mismo.</p>
+<p>Desde ese día, Grokk se convirtió en el Círculo. Su entrenamiento fue
+brutal, no solo físico, sino mental. Aprendió a soportar la corrupción,
+a reconocer las aberraciones del <a href="Lilium.html">Lilium</a> y, lo
+más importante, a interponerse entre ellas y el mundo. Ascendió
+rápidamente, no como estratega ni como líder, sino como lo que siempre
+fue: una roca. Se ganó el título de “Guardián de la Cicatriz”, el
+miembro del Círculo que se planta en la primera línea, el que aguanta el
+golpe que quebraría a cualquier otro.</p>
+<p>Su lealtad a Kaelen es absoluta, una deuda de vida forjada en la
+tragedia. Sin embargo, su papel lo ha puesto en constante proximidad con
+Elara, la Tejedora de Ecos, una arcanista del Círculo que no solo
+combate la corrupción, sino que la estudia y manipula. Grokk la protege
+porque es su deber, pero en sus ojos ve el mismo abismo que devoró a su
+clan. Cada vez que Elara teje los hilos del poder del <a
+href="Lilium.html">Lilium</a>, Grokk siente el eco de los gritos de su
+familia. Vive en una tensión perpetua, siendo el guardián de una mujer
+cuyo poder respeta y teme a partes iguales, siempre preparado para el
+día en que su deber ya no sea protegerla, sino detenerla.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grokk es un testamento viviente de su nombre y su raza. Un Goliath
+imponente que roza los dos metros y medio de altura, con una musculatura
+densa como la roca de la que proviene su clan. Su piel es de un gris
+pétreo, marcada no solo por los patrones tribales de su juventud, sino
+por una red de finas cicatrices violáceas que brillan débilmente en la
+penumbra, recuerdo permanente de su encuentro con el horror del <a
+href="Lilium.html">Lilium</a>. Su cabeza está rapada, y su rostro,
+normalmente una máscara de estoica calma, está dominado por unos ojos
+oscuros y vigilantes que han visto demasiado.</p>
+<p>No lleva las galas de un <a href="Guerrero.html">Guerrero</a> de
+renombre, sino el equipo práctico y desgastado de un <a
+href="Cazador.html">Cazador</a> de pesadillas.</p>
+<ul>
+<li><strong>Armadura del Guardián:</strong> Un conjunto de placas de
+acero oscurecido, abolladas y arañadas, superpuestas sobre cuero
+endurecido de bestia corrupta. La armadura está reforzada con vetas de
+plata y hierro frío, metales que, según los sabios del Círculo,
+perturban las energías del <a href="Lilium.html">Lilium</a>. No busca la
+belleza, sino la máxima funcionalidad y resistencia.</li>
+<li><strong>“Rompecicatrices”:</strong> Su arma es un gigantesco
+martillo de guerra de dos manos, con una cabeza de hierro macizo grabada
+con <a href="Runas.html">Runas</a> de contención. No es un arma
+elegante, sino una herramienta brutal diseñada para un solo fin:
+aplastar y destruir las manifestaciones físicas de la corrupción. El
+mango de fresno está envuelto en cuero gastado, perfectamente amoldado a
+sus manos.</li>
+<li><strong>Equipo del Círculo:</strong> Colgando de su cinturón lleva
+varias bolsas de cuero que contienen bálsamos alquímicos para tratar
+heridas corruptas, cadenas de hierro frío, y viales con polvo de cristal
+purificado. En su cuello, bajo la armadura, lleva el símbolo del
+Círculo: un fragmento de amatista oscura en una cadena de acero, un
+recordatorio constante de su juramento.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Grokk Stonehide nunca será cantado por los bardos en las grandes
+cortes de <a href="Galvorn.html">Galvorn</a> o <a
+href="Eldrador.html">Eldrador</a>. Su nombre no figurará en las crónicas
+de los reyes de <a href="Valtoria.html">Valtoria</a>. Su legado es
+silencioso, invisible para la mayoría de Lithernia, pero no por ello
+menos crucial. Él es el muro de carne y hueso que se interpone entre los
+reinos de la luz y las pesadillas que supuran de las heridas del
+mundo.</p>
+<p>Su impacto se mide en las aldeas que no fueron aniquiladas, en los
+bosques que no se pudrieron desde la raíz y en los viajeros que cruzaron
+un paso de montaña sin saber que una abominación acechaba en él hasta
+que Grokk la eliminó. Es el eco silencioso de un deber cumplido en la
+oscuridad, un símbolo del pragmatismo extremo del Círculo del Eco
+Púrpura.</p>
+<p>Para aquellos que lo conocen, Grokk es la encarnación de la voluntad
+inquebrantable. Para sus enemigos, como los nigromantes del Clan Whisper
+que buscan explotar las cicatrices del <a href="Lilium.html">Lilium</a>,
+es un obstáculo implacable. Su verdadero legado, sin embargo, aún está
+por escribirse. Dependerá de su capacidad para mantener la línea, no
+solo contra los monstruos de fuera, sino también contra la oscuridad que
+amenaza con florecer desde dentro de su propio Círculo a través de las
+manos de Elara. Grokk Stonehide es la prueba viviente de que los mayores
+héroes de Lithernia no son siempre los que portan una corona, sino los
+que cargan con el peso de las cicatrices del mundo.</p>
+        </div>
+    </div>
+</body>
+</html>

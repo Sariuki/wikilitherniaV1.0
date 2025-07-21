@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soriel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Soriel</div>
+        <div class="content">
+<h1 id="soriel">Soriel</h1>
+<p>En el corazón de un cañón estéril conocido como la Letra Muerta, se
+alza Soriel, una ciudad que ha reemplazado la espada por la pluma como
+su arma más letal. No hay aquí el caos brutal de otras urbes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>; en su lugar reina un orden frío y
+despiadado, cimentado en la santidad de la palabra escrita. Sus
+edificios de granito gris se elevan como agujas afiladas, proyectando
+sombras que ocultan una sociedad donde cada favor es una deuda y cada
+promesa, una cadena. Soriel es el centro neurálgico del comercio de
+mercenarios, información y venenos del alma en el reino, un lugar donde
+el honor es un lujo y la supervivencia se firma con sangre y tinta.</p>
+<h2 id="historia">Historia</h2>
+<p>Soriel fue fundada en los siglos posteriores al Cataclismo del <a
+href="Lilium.html">Lilium</a> por el Clan del Edicto Susurrante, una
+facción de <a href="Hobgoblins.html">Hobgoblins</a> que despreciaba la
+ineficiencia de la fuerza bruta. Su líder, un estratega legendario
+llamado Kryll, el Primer Escriba, tuvo una epifanía inspirada por <a
+href="Kromagul.html">Kromagul</a>, el Dios del Dolor: el tormento más
+duradero no era el que se infligía a la carne, sino al espíritu. Bajo
+esta filosofía, Kryll diseñó una sociedad regida por contratos
+mágicamente vinculantes.</p>
+<p>La ciudad se convirtió rápidamente en un imán para quienes buscaban
+poder a través de la manipulación y el secreto. Mercenarios, espías y
+asesinos acudían a Soriel para firmar pactos que garantizaban tanto el
+pago como el silencio. La influencia del clan creció hasta que incluso
+la corona de <a href="Mor&#39;dhul.html">Mor’dhul</a> reconoció la
+utilidad de la ciudad como un centro de control burocrático, un lugar
+para formalizar alianzas oscuras y asegurar lealtades a través de
+juramentos irrompibles.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Archivo de Edictos</strong>: El núcleo de poder de
+Soriel. Es una fortaleza monolítica y sin ventanas en el centro de la
+ciudad, donde se archivan todos los contratos firmados en su historia.
+Los pergaminos, hechos de piel humana, están custodiados por gólems de
+tinta y escribas malditos. Se dice que sus muros susurran los secretos
+de cada alma endeudada en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p></li>
+<li><p><strong>El Zoco del Juramento Roto</strong>: Un mercado al aire
+libre donde el bien más preciado es la obligación. Aquí se compran y
+venden deudas, se contratan mercenarios y se comercia con “tintas de
+juramento anímico”, elaboradas con la esencia vital de sacrificios a
+Gyth’kai para sellar los pactos más importantes.</p></li>
+<li><p><strong>Los Dedales de Granito</strong>: El laberíntico distrito
+residencial. Sus calles estrechas y angulosas están diseñadas para
+desorientar a cualquiera que no conozca sus secretos. Los <a
+href="Hobgoblins.html">Hobgoblins</a> y los nobles <a
+href="Tieflings.html">Tieflings</a> habitan las agujas más altas,
+mientras que los <a href="Goblins.html">Goblins</a> y la población
+esclava se hacinan en los niveles inferiores, viviendo bajo la sombra
+perpetua de sus amos.</p></li>
+<li><p><strong>La Plaza del Lamento Silencioso</strong>: El espacio
+público donde se castiga a los perjuros. El castigo rara vez es físico.
+En su lugar, los devotos de <a href="Kromagul.html">Kromagul</a> emplean
+venenos psicológicos e ilusiones para obligar a los deudores a revivir
+sus peores miedos y fracasos en un bucle sin fin, un espectáculo que
+sirve como advertencia constante para todos los ciudadanos.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Soriel es una red de desconfianza paranoica. La confianza
+no se otorga, se negocia. Cada interacción, desde un préstamo para
+comprar comida hasta una alianza militar, se sella con un contrato
+vinculante. Romper un juramento es el pecado capital, y el miedo al
+“Cobrador de Sombras” que caza a los perjuros es más profundo que el
+miedo a la muerte misma. Los niños hobgoblin aprenden a leer, escribir y
+analizar la letra pequeña de un contrato antes de aprender a usar un
+arma. El estatus social no se mide en fuerza, sino en la cantidad y el
+poder de los contratos que uno posee.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Soriel es angular, opresiva y funcional. Los
+edificios de granito gris veteado parecen garras que se cierran sobre el
+cielo ceniciento de <a href="Mor&#39;dhul.html">Mor’dhul</a>. No hay
+ornamentos, solo la severa belleza de la piedra tallada. El ambiente es
+de un silencio tenso, roto únicamente por el rascar de las plumas sobre
+el pergamino, el viento gélido que silba por los callejones y los
+susurros de negociaciones en las sombras. El aire huele a polvo, a tinta
+vieja y al sutil aroma metálico de la sangre seca utilizada para sellar
+los pactos.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Archivista Desalmado</strong>: La leyenda más contada
+advierte sobre un antiguo hobgoblin, el primer maestro del Archivo de
+Edictos, que intentó crear un contrato para engañar al mismísimo <a
+href="Kromagul.html">Kromagul</a>. Como castigo, fue despojado de su
+alma y condenado a una eternidad en los sótanos del Archivo. Su tarea es
+catalogar incansablemente cada lamento, cada grito de agonía y cada
+susurro de desesperación de aquellos torturados por deudas impagables,
+convirtiendo su sufrimiento en un registro eterno.</p></li>
+<li><p><strong>El Cobrador de Sombras</strong>: Se susurra con pavor que
+aquellos que firman un contrato con su propia sangre y se atreven a
+romperlo son marcados. Al caer la noche, una entidad conocida como el
+Cobrador de Sombras emerge de la tinta de su pacto. No mata a su
+víctima; en su lugar, la arrastra a un plano de pesadilla donde su alma
+es lentamente disuelta y convertida en la tinta misma con la que se
+escribirá el próximo contrato infernal.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

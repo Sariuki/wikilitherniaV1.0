@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Vexia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Vexia</div>
+        <div class="content">
+<h1 id="lyra-vexia">Lyra Vexia</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los anales secretos que sobreviven a la tiranía de los dioses, el
+nombre de Lyra <a href="Vexia.html">Vexia</a> no está grabado en piedra
+ni forjado en acero, sino susurrado en el polvo de bibliotecas
+prohibidas. Como Archivista Principal y Estratega del Eco Roto, Lyra es
+tanto la mente que guía al culto como el corazón que preserva su sagrada
+misión: restaurar la verdad de un mundo fracturado.</p>
+<p><strong>Linaje y Orígenes</strong></p>
+<p>Nacida semielfa hace 145 años, Lyra es el producto de dos mundos en
+conflicto. Su padre era humano, descendiente de una línea de leales al
+Primer Rey que lo perdió todo durante el Cataclismo del <a
+href="Lilium.html">Lilium</a>. Su madre, una erudita elfa de la Casa <a
+href="Tynathiel.html">Tynathiel</a>, fue exiliada de <a
+href="Eldrador.html">Eldrador</a> por considerar que las crónicas nobles
+ocultaban la verdad sobre la guerra contra los dioses. Criada en la
+clandestinidad, Lyra aprendió desde niña que la historia oficial es una
+jaula y que la memoria es la única llave para la libertad. Su familia
+fue perseguida y finalmente ejecutada por agentes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, un trauma que forjó su
+determinación con el fuego del odio y la justicia.</p>
+<p>Huérfana, fue acogida por el legendario <strong>Cronista
+Ciego</strong>, el anciano que lideraba el Eco Roto. Él se convirtió en
+su mentor, enseñándole no solo a leer los textos antiguos, sino a
+interpretar los silencios entre las palabras. Al ser sus ojos, Lyra
+desarrolló una memoria prodigiosa y una capacidad única para conectar
+eventos dispares, viendo el gran tapiz del destino donde otros solo
+veían hilos sueltos.</p>
+<p><strong>Ascenso y Hazañas</strong></p>
+<p>Lyra no ascendió por su destreza en combate, sino por su intelecto
+afilado. Su mayor hazaña fue la recuperación de los <em>Fragmentos de la
+Aurora</em>, un conjunto de pergaminos pre-<a
+href="Lilium.html">Lilium</a> que contenían no solo crónicas del reinado
+del Primer Rey, sino también esquemas parciales sobre la naturaleza de
+las Lanzas Celestiales. Su meticulosa decodificación reveló posibles
+ubicaciones de nodos de poder relacionados con <strong>Chronos</strong>
+y <strong>Requiem</strong>, revitalizando la búsqueda del culto.</p>
+<p>Tras la muerte del Cronista Ciego, Lyra asumió naturalmente su doble
+rol. Como Archivista, es la guardiana de la memoria del culto, la que
+decide qué conocimiento se preserva y cuál se utiliza. Como Estratega,
+traduce ese conocimiento en acción. Es ella quien teje la red de espías,
+coordina las expediciones a ruinas olvidadas y, lo más peligroso de
+todo, mantiene la tensa correspondencia con facciones rebeldes en el
+corazón de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Sabe que para
+desafiar a un dios-rey como Sel’thirak, necesita aliados impensables,
+jugando una partida de ajedrez con el destino del mundo.</p>
+<p><strong>Motivaciones y Conflictos Personales</strong></p>
+<p>La motiva una fe inquebrantable en la profecía, pero su misión es
+profundamente personal: vengar a su familia y liberar a Lithernia de los
+dioses que, según ella, son los verdaderos causantes de milenios de
+sufrimiento. Su conflicto interno reside en la carga de su rol; debe
+tomar decisiones que cuestan vidas, sopesando el sacrificio de unos
+pocos contra la salvación de todos. El lema del Eco Roto, <em>“La
+memoria es la primera lanza”</em>, es su credo, pero sabe que para ganar
+esta guerra, las lanzas de acero y sangre también serán necesarias.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Lyra posee la gracia élfica atemperada por una resolución humana. Es
+esbelta y de estatura media, con largos cabellos de un negro profundo
+surcados por un único mechón plateado, testimonio del peso de sus
+responsabilidades. Sus ojos, de un gris tormentoso, reflejan una
+inteligencia penetrante y una melancolía ancestral. Sus orejas,
+sutilmente puntiagudas, son a menudo lo único que delata su herencia
+mixta.</p>
+<p>Viste con un pragmatismo elegante: túnicas de erudita de color
+carbón, confeccionadas con tela resistente y reforzadas con cuero
+endurecido en hombros y codos. Sus ropajes están diseñados para el
+sigilo y el viaje, no para la ostentación de una corte.</p>
+<p><strong>Equipamiento Relevante:</strong></p>
+<ul>
+<li><strong>El Bastón del Cronista:</strong> Un bastón de madera de tejo
+nudoso, pulido por generaciones de uso. No posee gran magia, pero es el
+símbolo de su autoridad dentro del Eco Roto y se dice que puede revelar
+pasajes ocultos si se golpea en el lugar correcto.</li>
+<li><strong>El Códice Cifrado:</strong> Un pesado tomo encuadernado en
+piel de basilisco, lleno de sus propias notas, <a
+href="Mapas.html">Mapas</a> estelares, genealogías prohibidas y los
+códigos que usa para comunicarse con su red de agentes. Es su
+herramienta más preciada y peligrosa.</li>
+<li><strong>Daga de las Sombras:</strong> Una estilete de obsidiana,
+regalo de un disidente de <a href="Mor&#39;dhul.html">Mor’dhul</a>.
+Siempre la lleva oculta en su manga, un recordatorio constante de que la
+diplomacia y el conocimiento a veces necesitan el respaldo de un filo
+silencioso.</li>
+<li><strong>Bolsa de Reliquias:</strong> Una cartera de cuero que
+siempre lleva consigo, conteniendo pergaminos frágiles, fragmentos de
+tablillas rúnicas y polvo de ruinas antiguas. Para ella, son las
+semillas del futuro de Lithernia.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Lyra <a href="Vexia.html">Vexia</a> no es una heroína de cantares de
+gesta ni una reina en un trono dorado. Es una arquitecta silenciosa del
+cambio, una tejedora de destinos que opera desde las sombras de la
+historia. Su impacto no se medirá en batallas ganadas, sino en verdades
+recuperadas y alianzas forjadas.</p>
+<p>Si tiene éxito, será la figura clave que orquestó el retorno del
+Primer Rey, la estudiosa que descifró el camino hacia la redención de
+Lithernia. Su nombre será sinónimo de la restauración de la verdad y del
+fin de la Gran Guerra.</p>
+<p>Si fracasa, ella y el Eco Roto serán borrados de la historia,
+reducidos a una nota a pie de página en los anales de los vencedores:
+una hereje más que osó desafiar el orden divino. El destino de Lyra <a
+href="Vexia.html">Vexia</a> es el destino de la memoria misma: o se
+convertirá en el cimiento de una nueva era, o se perderá para siempre en
+los ecos de un mundo roto.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

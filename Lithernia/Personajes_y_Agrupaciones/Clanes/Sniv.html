@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sniv</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Sniv</div>
+        <div class="content">
+<p>nombre: Sniv rol: Aprendiz de Alquimista y Probador de Toxinas edad:
+25 agrupacion: Clan Vilethorn tipo: Clan lema: La Sombra Golpea Donde el
+Acero Falla escudo: Una serpiente de obsidiana enroscada mordiendo su
+propia cola en un ouroboros. De su colmillo gotea una única gota de
+veneno púrpura sobre un campo negro. ciudad_sede: <a
+href="Syrenya.html">Syrenya</a> rivalidades: - Clan <a
+href="Vexia.html">Vexia</a> - Clan <a href="Kromagul.html">Kromagul</a>
+alianzas: - Clan Nighthawk - El Cónclave Silencioso de <a
+href="Nynthil.html">Nynthil</a> relaciones: - Xyrak (Maestro Alquimista,
+temor) - Morwenna (Matriarca, lealtad) tags: [lithernia, personajes,
+Clan, Clan Vilethorn, Goblin, <a href="Mor&#39;dhul.html">Mor’dhul</a>]
+# Sniv</p>
+<h3 id="biografía">Biografía</h3>
+<p>En las entrañas pestilentes de las minas de <a
+href="Vanyaran.html">Vanyaran</a>, donde la vida de un goblin vale menos
+que el mineral que extrae, nació Sniv. Su existencia estaba destinada a
+ser corta y brutal, un ciclo de trabajo forzado bajo el látigo de
+capataces <a href="Orcos.html">Orcos</a> hasta que el agotamiento o un
+derrumbe lo reclamaran. Sin embargo, el destino, o quizás una extraña
+mutación en su sangre, tenía otros planes. Cuando un sabotaje del clan
+rival liberó una nube de gas neurotóxico en los túneles, Sniv observó
+cómo sus compañeros caían convulsionando a su alrededor. Él, en cambio,
+solo sintió un leve mareo y el sabor del metal en la boca.
+Sobrevivió.</p>
+<p>Esta improbable hazaña llegó a oídos del Clan Vilethorn, los maestros
+susurrantes del veneno en <a href="Mor&#39;dhul.html">Mor’dhul</a>. No
+vieron a un <a href="Heroes.html">Heroes</a>, sino un instrumento. Un
+emisario del clan lo arrancó de la mugre de las minas, no con una
+promesa de libertad, sino con una oferta que era una condena velada:
+servir al clan como “probador”. En el pútrido puerto de <a
+href="Syrenya.html">Syrenya</a>, Sniv se convirtió en un lienzo viviente
+para las más retorcidas creaciones alquímicas. Cada día es una ruleta de
+toxinas: venenos que inducen al terror, sueros que borran la memoria,
+polvos que pudren la carne desde dentro. Su inusual resistencia natural
+lo mantiene vivo, pero cada prueba lo acerca un poco más al límite.</p>
+<p>Dentro de la jerarquía del clan, Sniv es considerado poco más que una
+herramienta prescindible. Su maestro directo, el Tiefling Xyrak, es un
+sádico que disfruta viendo los efectos de sus creaciones en el cuerpo
+del goblin, recordándole constantemente que su valor reside únicamente
+en su capacidad para no morir. Sniv le teme con un pavor visceral, pero
+el miedo ha afilado su ingenio. Ha aprendido a leer los síntomas, a
+anticipar los efectos y, en secreto, a desarrollar pequeños antídotos
+para las toxinas más comunes, guardados en viales ocultos en su ropa. Su
+astucia y su conocimiento práctico de los ingredientes del bajo mundo,
+recolectados en los muelles y callejones de <a
+href="Syrenya.html">Syrenya</a>, lo han hecho inesperadamente útil para
+Xyrak, una verdad que el maestro alquimista detesta admitir.</p>
+<p>La única luz en su sombría existencia es Morwenna, una de las
+matriarcas Shadar-Kai del clan. A diferencia de Xyrak, ella vio más allá
+de la herramienta. Reconoció en los ojos atentos de Sniv una
+inteligencia superviviente, una mente que no solo resistía el veneno,
+sino que lo comprendía. Morwenna lo ha tomado bajo su protección
+indirecta, asignándole tareas que requieren más sigilo y recolección de
+información que simple resistencia física. A través de ella, Sniv ha
+comenzado a aprender los fundamentos de la <a
+href="Alquimia.html">Alquimia</a>, no solo a soportarla. Esta extraña
+lealtad es su ancla. Por Morwenna, soporta a Xyrak y los tormentos
+diarios, soñando con el día en que su conocimiento de la sombra y el
+veneno le permita, por fin, ser quien sostiene el vial y no quien recibe
+su contenido.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Sniv es pequeño y enjuto, incluso para ser un goblin. Sus años en las
+minas le dejaron una complexión nervuda y una leve cojera en la pierna
+izquierda. Su piel, de un tono verde enfermizo, está cubierta de
+cicatrices queloides y manchas descoloridas, testimonios permanentes de
+incontables pruebas alquímicas. Sus ojos, grandes y de un amarillo
+brillante, rara vez parpadean; son las ventanas de una mente que está
+siempre alerta, calculando, buscando una salida.</p>
+<p>Viste un jubón de cuero endurecido, remendado y manchado por
+incontables salpicaduras de productos químicos. No lleva armadura, pues
+la agilidad es su única defensa. Su equipo es un reflejo de su oficio:
+un cinturón con docenas de pequeños bolsillos y presillas de cuero que
+sujetan viales de cristal, jeringas de hueso y bisturíes de obsidiana.
+Siempre lleva consigo un kit de prueba improvisado con papeles reactivos
+y pinzas, y una pequeña daga oculta en su bota, su único recurso en caso
+de que la diplomacia o la huida fallen. Una máscara de cuero con filtros
+de carbón y musgo encantado, un regalo secreto de Morwenna, a menudo
+cuelga de su cuello, lista para protegerle de los vapores más corrosivos
+del laboratorio o de los callejones de <a
+href="Syrenya.html">Syrenya</a>.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Para el vasto mundo de Lithernia, un goblin probador de venenos es
+una mota de polvo insignificante. Sin embargo, en el juego de sombras
+que define <a href="Mor&#39;dhul.html">Mor’dhul</a>, Sniv representa un
+potencial tan sutil y letal como los venenos que corren por sus venas.
+Su conocimiento del inframundo de <a href="Syrenya.html">Syrenya</a> y
+su comprensión única de la toxicología podrían convertirlo en el mayor
+asesino del reino o, irónicamente, en el creador de los antídotos más
+potentes jamás conocidos.</p>
+<p>Su verdadero impacto reside en su capacidad para encarnar el lema de
+su propio clan: “La Sombra Golpea Donde el Acero Falla”. Sniv no es un
+<a href="Guerrero.html">Guerrero</a> ni un señor, pero podría derrocar a
+ambos. Podría desentrañar las conspiraciones del Clan Vilethorn y
+usarlas para ascender, o filtrar la información correcta al Clan <a
+href="Vexia.html">Vexia</a> para desatar una guerra de clanes que le
+permita desaparecer en el caos. Es el eslabón débil que podría romper la
+cadena, el sirviente que escucha los secretos que nadie debería saber.
+Si sobrevive lo suficiente, Sniv podría no solo labrarse un lugar en el
+mundo, sino envenenar los cimientos del poder en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> desde dentro, demostrando que en
+Lithernia, incluso la criatura más prescindible puede cambiar el curso
+de la historia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Veneno.html">Veneno</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

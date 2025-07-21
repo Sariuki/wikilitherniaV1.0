@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Héroes_a_su_Pesar</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Héroes_a_su_Pesar</div>
+        <div class="content">
+<h1 id="héroes-a-su-pesar">Héroes a su Pesar</h1>
+<p>En el gran tapiz de la historia de Lithernia, tejido con los hilos de
+la ambición divina y la guerra mortal, no todos los héroes portan
+estandartes de nobleza o juramentos sagrados. La crónica está repleta de
+figuras que alcanzaron la gloria no por elección, sino por accidente; no
+por altruismo, sino por egoísmo; no por valor, sino por un desesperado
+instinto de supervivencia. Son los Héroes a su Pesar, individuos
+comunes, exiliados y granujas a quienes el destino, con cruel ironía,
+empujó a la grandeza.</p>
+<p>Desde el caos del Cataclismo del <a href="Lilium.html">Lilium</a>
+hasta las interminables batallas de la Gran Guerra, Lithernia ha
+demostrado que los actos más heroicos a menudo nacen de las intenciones
+más simples. Un ladrón que busca una joya, un mercader que protege su
+cargamento o un ermitaño que solo desea que lo dejen en paz. Sus
+historias son un recordatorio de que, en un mundo gobernado por dioses
+imperfectos, a veces la salvación no llega de la mano de paladines, sino
+de aquellos que nunca pidieron ser héroes.</p>
+<h2 id="salvadores-por-accidente">Salvadores por Accidente</h2>
+<p>En los anales de los reinos, abundan los relatos de individuos que,
+mientras perseguían sus propios y a menudo mezquinos intereses,
+terminaron salvando a comunidades enteras. Estos salvadores accidentales
+son celebrados en canciones de taberna y <a
+href="Leyendas.html">Leyendas</a> populares, aunque ellos mismos a
+menudo renieguen de la fama.</p>
+<h3 id="gregor-el-afortunado-contrabandista-de-galvorn">Gregor “El
+Afortunado”, Contrabandista de Galvorn</h3>
+<p>Gregor era un marino humano de <a href="Galvorn.html">Galvorn</a>
+cuya lealtad solo respondía al oro. Capitaneaba un pequeño navío
+contrabandista, especializándose en eludir tanto a la flota real como a
+los corsarios de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Durante una
+travesía nocturna, su barco fue acorralado por una escuadra de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> que planeaba un ataque sorpresa
+contra el puerto de Poyoranta. Pensando únicamente en salvar su
+cargamento de raro vino élfico, Gregor ordenó arrojar por la borda sus
+redes de pesca lastradas con anclas para aligerar la nave. Por pura
+casualidad, las redes se enredaron en los timones de los barcos
+enemigos, dejándolos ingobernables y a la deriva justo cuando se
+acercaba una patrulla de la armada de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>La escuadra de <a href="Mor&#39;dhul.html">Mor’dhul</a> fue
+capturada, el ataque fue frustrado y Gregor fue aclamado como un genio
+táctico que había tendido una trampa naval brillante. El Consejo de
+Capitanes le otorgó una medalla y una generosa recompensa. Gregor aceptó
+el honor con una sonrisa forzada, lamentando en silencio la pérdida de
+sus redes y el hecho de que ahora todos los guardias del puerto lo
+conocían, complicando para siempre su verdadera profesión.</p>
+<h3 id="anka-la-pastora-de-valtoria">Anka, la Pastora de Valtoria</h3>
+<p>En las faldas de las montañas de <a
+href="Valtoria.html">Valtoria</a>, una joven goliath llamada Anka vivía
+una vida solitaria pastoreando cabras montesas. Era conocida por su mal
+genio y su deseo de evitar a todo el mundo. Un día, una partida de
+guerra del Clan Bloodfire orco se infiltró en <a
+href="Valtoria.html">Valtoria</a> a través de un paso montañoso
+olvidado, con la intención de saquear un asentamiento minero. Anka,
+enfurecida porque los <a href="Orcos.html">Orcos</a> asustaron a su
+rebaño, no pensó en el peligro. Con gritos y pedradas, provocó una
+estampida de sus cabras montaña abajo, directamente hacia los invasores.
+El inesperado torrente de cuernos y pezuñas, combinado con una pequeña
+avalancha de rocas que la estampida desató, diezmó a la partida orca y
+los obligó a una retirada caótica.</p>
+<p>Los mineros <a href="Enanos.html">Enanos</a>, alertados por el
+estruendo, encontraron a los <a href="Orcos.html">Orcos</a> derrotados y
+a una furiosa Anka tratando de reagrupar a sus cabras. Fue declarada
+“Guardiana del Paso” y su hazaña se canta en los grandes salones de <a
+href="Valtoria.html">Valtoria</a>. Anka, por su parte, sigue quejándose
+de que los héroes no reciben suficiente compensación por las cabras
+perdidas en acto de servicio.</p>
+<h2 id="los-héroes-del-exilio">Los Héroes del Exilio</h2>
+<p>Expulsados de sus sociedades, los exiliados a menudo actúan por
+rencor, venganza o un retorcido sentido de la justicia. Sus actos
+heroicos no buscan la redención, sino saldar cuentas personales, aunque
+el resultado beneficie a inocentes.</p>
+<h3 id="el-fantasma-de-la-mano-de-hierro">El Fantasma de la Mano de
+Hierro</h3>
+<p>La estricta sociedad de castas de <a
+href="Eldrador.html">Eldrador</a>, conocida como “La Mano de Hierro”,
+produce muchos exiliados. Uno de ellos fue un shadar-kai llamado Vyren,
+un ilusionista desterrado por practicar magia prohibida que alteraba los
+recuerdos. Viviendo como un paria en las fronteras, Vyren se enteró de
+que un <a href="Noble.html">Noble</a> de una casa rival, responsable de
+su exilio, planeaba envenenar un río sagrado para culpar a los <a
+href="Enanos.html">Enanos</a> de <a href="Valtoria.html">Valtoria</a> y
+provocar una guerra.</p>
+<p>Movido únicamente por el deseo de venganza contra el <a
+href="Noble.html">Noble</a>, Vyren utilizó sus artes prohibidas. Se
+infiltró en el campamento del <a href="Noble.html">Noble</a> y alteró
+los recuerdos de sus secuaces, haciéndoles creer que el veneno era un
+elixir de purificación. Los conspiradores bebieron su propio veneno y el
+plan fracasó. Los druidas de <a href="Ferion.html">Ferion</a>, que
+descubrieron el complot, solo encontraron los cuerpos y una misteriosa
+nota que decía: “La justicia de las sombras es ciega, pero no olvida”.
+Vyren nunca reclamó el crédito, pero la leyenda del “Fantasma Vengador”
+se convirtió en una advertencia para los nobles corruptos de <a
+href="Eldrador.html">Eldrador</a>.</p>
+<h3 id="grolnok-el-descastado-de-mordhul">Grolnok, el Descastado de
+Mor’dhul</h3>
+<p>Los Descastados de <a href="Mor&#39;dhul.html">Mor’dhul</a> son la
+escoria de su sociedad, parias sin clan ni protección. Grolnok era un
+orco que había sido expulsado del Clan <a
+href="Thyrgram.html">Thyrgram</a> por cobardía en batalla. Sobreviviendo
+en las ruinas de la ciudad maldita de Mirallos, descubrió que un liche,
+despertado por las excavaciones del Clan Whisper, planeaba levantar un
+ejército de muertos de las antiguas fosas comunes de la ciudad para
+marchar sobre la capital.</p>
+<p>Aterrado, pero sabiendo que no tenía a dónde huir, Grolnok hizo lo
+único que se le ocurrió. Robó los explosivos alquímicos que los <a
+href="Goblins.html">Goblins</a> usaban en las minas cercanas y, en un
+acto de desesperación suicida, provocó el colapso de las catacumbas
+principales, sepultando al liche y a su naciente ejército bajo toneladas
+de roca. Grolnok murió en la explosión, pero su acción salvó a <a
+href="Mor&#39;dhul.html">Mor’dhul</a> de una catástrofe. Irónicamente,
+el Clan <a href="Thyrgram.html">Thyrgram</a>, al descubrir lo sucedido,
+lo declaró póstumamente un mártir, inscribiendo su nombre en sus salones
+de honor como un ejemplo de sacrificio supremo, sin saber que su “<a
+href="Heroes.html">Heroes</a>” solo actuó por puro pánico.</p>
+<h2 id="el-legado-de-la-desgana">El Legado de la Desgana</h2>
+<p>Las historias de estos héroes involuntarios resuenan con una verdad
+profunda en Lithernia: la grandeza no está reservada a los elegidos de
+los dioses o a los de sangre <a href="Noble.html">Noble</a>. En un mundo
+forjado por la rebelión de un rey y marcado por el fuego de la ira
+divina, el heroísmo es a menudo una chispa que prende en el lugar más
+inesperado.</p>
+<p>Estos personajes demuestran que las acciones tienen más peso que las
+intenciones. Aunque sus motivos fueran egoístas, su legado es innegable.
+Son la prueba viviente de que incluso en la más profunda oscuridad, un
+acto de desesperación, codicia o simple mala suerte puede encender una
+luz que guíe a otros, cambiando el destino de Lithernia para siempre. Su
+fama, aunque no deseada, se convierte en un símbolo de esperanza para
+los desamparados, un eco de que cualquiera puede desafiar a la noche,
+aunque sea por accidente.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li>La Mano de Hierro</li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.53)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Legado_de_la_Guerra_Interminable</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Legado_de_la_Guerra_Interminable</div>
+        <div class="content">
+<h1 id="el-legado-de-la-guerra-interminable">El legado de la guerra
+interminable</h1>
+<p>Durante más de mil años, los reinos de Lithernia estuvieron sumidos
+en un sinfín de conflictos que han quedado registrados en los anales
+como la Guerra Interminable. Este ciclo perpetuo de combate no solo
+moldeó los <a href="Mapas.html">Mapas</a> y las fronteras, sino que
+también dejó una huella indeleble en el alma, la cultura y la estructura
+social de sus pueblos. La Guerra Interminable no fue solo una sucesión
+de batallas, sino un fenómeno que definió generaciones y que sigue
+resonando en cada rincón del continente.</p>
+<h2 id="la-historia-de-un-conflicto-sin-tregua">La historia de un
+conflicto sin tregua</h2>
+<p>El origen de la Guerra Interminable se remonta al período conocido
+como la Era Mil Años, cuando la desaparición de la alianza ancestral
+entre los grandes reinos dejó un vacío fértil para la ambición, la
+desconfianza y las alianzas efímeras. Desde entonces, ejércitos de
+Lithernia se lanzaron en campañas sin descanso, buscando no solo la
+conquista territorial, sino el control absoluto sobre <a
+href="Recursos.html">Recursos</a> mágicos y rutas comerciales
+vitales.</p>
+<p>Pese a los intentos de paz, los conflictos revivían con igual o mayor
+ferocidad, generando un círculo vicioso imposible de romper. Las
+generaciones nacieron en la guerra, y para ellas, la paz era un concepto
+extraño y casi mitológico.</p>
+<h2 id="impactos-sociales-de-la-sombra-a-la-resiliencia">Impactos
+sociales: de la sombra a la resiliencia</h2>
+<h3 id="la-generación-del-acero">La generación del acero</h3>
+<p>Las continuas guerras forjaron una cultura donde la destreza en el
+combate y la preparación para la guerra eran valores supremamente
+venerados. Desde la infancia, los jóvenes aprendían a manejar armas, a
+leer el terreno y a sobrevivir en condiciones adversas. La “Generación
+del Acero”, como se les conoce, refiere a esos clanes y familias que
+vivieron toda su vida en operación bélica, transmitiendo sus
+conocimientos y tradiciones marcadas por el conflicto.</p>
+<h3 id="transformación-de-estructuras-sociales">Transformación de
+estructuras sociales</h3>
+<ul>
+<li><strong>Militarización de las ciudades:</strong> Gran parte de las
+urbes adquirieron características fortificadas, con murallas,
+comandancias y guarniciones que dictaban el ritmo diario.</li>
+<li><strong>Erosión del poder central:</strong> Los señores de la guerra
+y caudillos locales ganaron poder frente a los reyes, generando un
+mosaico político fragmentado y volátil.</li>
+<li><strong>Desplazamientos masivos:</strong> Poblaciones enteras se
+vieron obligadas a migrar para escapar de las batallas o ser reubicadas
+como parte de estrategias de control territorial.</li>
+</ul>
+<h3 id="sociología-del-dolor-y-la-memoria">Sociología del dolor y la
+memoria</h3>
+<p>Los pueblos de Lithernia desarrollaron una sensibilidad colectiva
+hacia la pérdida y la resistencia. La creación de rituales de duelo y la
+veneración a los “Caídos Incontables” fortaleció el sentido de identidad
+y solidaridad entre comunidades.</p>
+<h2 id="legado-cultural-y-espiritual">Legado cultural y espiritual</h2>
+<h3 id="tradiciones-nacidas-en-la-batalla">Tradiciones nacidas en la
+batalla</h3>
+<p>La Guerra Interminable no solo sacó tragedia, sino también dio lugar
+a expresiones culturales únicas:</p>
+<ul>
+<li><strong>El Festival del Fuego Eterno:</strong> Una ceremonia anual
+que enciende grandes piras en honor a las almas guerreras, simbolizando
+el fuego inextinguible del espíritu de lucha.</li>
+<li><strong>Cantos de los Errantes:</strong> Baladas transmitidas a lo
+largo de las caravanas y campamentos que narran hazañas y tragedias,
+mezclando historia y leyenda.</li>
+<li><strong>El Arte del Escudo:</strong> Una elaborada tradición
+artística, donde cada clan plasma en escudos ancestrales símbolos que
+representan su resistencia y honor.</li>
+</ul>
+<h3 id="las-leyendas-del-silencio-y-la-tregua">Las Leyendas del silencio
+y la tregua</h3>
+<p>Entre las historias más evocadoras se encuentran las <a
+href="Leyendas.html">Leyendas</a> del Silencio, relatos que hablan de
+breves momentos de calma absoluta en los campos de batalla, donde
+guerreros de ambos Lados reconocían su humanidad compartida. Estas
+treguas espontáneas fueron luego mitificadas como presagios de una
+posible paz duradera, un ideal que aún impulsa a diplomáticos y sabios
+en la era moderna.</p>
+<h2
+id="consecuencias-a-largo-plazo-y-el-nacimiento-de-la-reconciliación">Consecuencias
+a largo plazo y el nacimiento de la reconciliación</h2>
+<p>Con el fin oficial de la Guerra Interminable, las sociedades
+lithernianas enfrentaron nuevos retos: la reconstrucción, la reparación
+de heridas profundas y la redefinición de identidades que no giraran
+únicamente en torno a la guerra.</p>
+<ul>
+<li><strong>Instituciones de paz:</strong> Surgieron academias y
+consejos dedicados a la diplomacia y el estudio de la guerra con
+objetivo preventivo.</li>
+<li><strong>Memoriales y museos:</strong> Espacios dedicados a preservar
+la memoria histórica, educando a futuras generaciones sobre los costos
+del conflicto.</li>
+<li><strong>Un nuevo humanismo:</strong> Un movimiento cultural y
+filosófico que aboga por la empatía y el entendimiento como máximas
+virtudes.</li>
+</ul>
+<hr />
+<p>La Guerra Interminable dejó una herencia compleja y ambivalente. Su
+legado es un tatuaje indeleble en la piel de Lithernia, un recordatorio
+perpetuo del costo de la discordia pero también una fuente inagotable de
+identidad, cultura y aspiración hacia una era donde la guerra sea solo
+un capítulo superado por la perseverancia de su gente.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 1.00)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

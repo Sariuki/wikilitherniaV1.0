@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glimma_Ruedarruna</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Glimma_Ruedarruna</div>
+        <div class="content">
+<h1 id="glimma-ruedarruna">Glimma Ruedarruna</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones de piedra de <a href="Valtoria.html">Valtoria</a>,
+donde el eco de los martillos cuenta historias de creación, Glimma
+Ruedarruna es la melodía disonante del desmantelamiento. No es una
+guerrera que blande un hacha, sino una artífice cuyo intelecto es el
+arma más afilada del Clan Rompevelos. Como Maestra Artífice y Jefa de
+Contención, ella es la mente brillante detrás de la cruzada del clan: la
+arquitecta de las jaulas que aprisionan pesadillas y la ingeniera de los
+grilletes que silencian la magia corrupta.</p>
+<p>Nacida en el seno del Clan Cortepiedra, el linaje de Glimma estaba
+destinado a la cantería, no a la caza de magos. Sin embargo, su destino
+se quebró cuando una oleada de magia salvaje, un eco tardío del
+Cataclismo del <a href="Lilium.html">Lilium</a>, arrasó el puesto
+avanzado minero donde vivía. Glimma, una niña entonces, sobrevivió
+escondida en una veta de mineral inerte, pero emergió huérfana, con el
+olor a ozono y la visión del Tejido del Maná deshilachado grabados a
+fuego en su memoria. Fue allí donde la encontró Thane Borgrim
+‘Murodeacero’, el fundador de los Rompevelos. Viendo en sus ojos no solo
+el trauma sino una feroz chispa de curiosidad analítica, la tomó bajo su
+protección.</p>
+<p>Bajo la tutela de Borgrim, Glimma se convirtió en la hija que él
+nunca tuvo y en la discípula más brillante del clan. Mientras otros
+aprendían a blandir martillos de guerra, ella aprendía a desarmar
+artefactos malditos. Su genio no residía en la fuerza, sino en la
+comprensión de la “anti-magia”: la ciencia de cómo la materia, las <a
+href="Runas.html">Runas</a> y la geometría podían anular, contener o
+desviar los flujos arcanos. Pronto, sus inventos superaron las viejas
+tácticas del clan. Creó los “Grilletes de Nulidad” que impiden a un <a
+href="Hechicero.html">Hechicero</a> gesticular, las “Jaulas de Eco
+Silente” que atrapan entidades incorpóreas y los “Supresores Rúnicos”
+portátiles que protegen a los escuadrones del clan de ataques mágicos
+directos.</p>
+<p>Su ascenso a Jefa de Contención fue inevitable, pero no sin
+conflictos. Glimma y Borgrim, a quien ella venera como un padre,
+discuten constantemente sobre la ética de sus métodos. Borgrim aboga por
+la simple contención, fiel al pragmatismo enano. Glimma, en cambio, cree
+que para combatir una amenaza tan adaptable como la magia, se deben
+tomar riesgos. Esto la ha llevado a establecer una correspondencia
+secreta con ingenieros de la ciudad libre de <a
+href="Cyndril.html">Cyndril</a>, un nido de innovadores radicales cuyas
+aleaciones y componentes están prohibidos en <a
+href="Valtoria.html">Valtoria</a> por ser “demasiado inestables”. Glimma
+los importa clandestinamente, convencida de que son la clave para sus
+diseños más avanzados, arriesgando la ira de la corona y la de su propio
+mentor.</p>
+<p>Su motivación es visceral: evitar que otras familias sufran el
+destino de la suya. Cada “Hijo de la Luna” que contiene y cada artefacto
+que neutraliza es una victoria personal contra el caos que le robó su
+pasado. Esta dedicación la convierte en un baluarte para <a
+href="Valtoria.html">Valtoria</a>, pero también en un alma solitaria,
+cuya única compañía son los engranajes, los cristales y el zumbido
+silencioso de la magia contenida.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Glimma es menuda para ser enana, con una complexión ágil forjada más
+por la precisión de sus herramientas que por el trabajo en la forja. Su
+cabello, de un negro hollín, está recogido en una compleja trenza
+salpicada de pequeñas bobinas de cobre y engranajes. Sus manos, rara vez
+sin un guante de cuero protector, están manchadas de aceite, reactivos
+alquímicos y polvo de gemas. Sus ojos, de un intenso color topacio, son
+su rasgo más distintivo: siempre analíticos, escudriñando el mundo como
+si fuera un intrincado mecanismo a punto de ser descifrado. Sobre su
+espalda, lleva su creación más preciada: la “Rueda Rúnica”, un
+dispositivo circular de latón y acero que puede desplegar para crear un
+campo de anulación mágica temporal.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Guantelete de
+Contención ‘Mano Quieta’</strong>: Un guantelete de acero rúnico que, al
+activarse, emite un pulso que desestabiliza las energías arcanas
+cercanas, dificultando la concentración de los lanzadores de <a
+href="Conjuros.html">Conjuros</a>. * <strong>Gafas de Taller
+Multilente</strong>: Un par de gafas con lentes intercambiables de
+cristal de <a href="Nolindor.html">Nolindor</a>, que le permiten ver
+rastros de energía mágica residual, firmas arcanas y fallas
+estructurales en artefactos. * <strong>Cinturón de Herramientas del
+Artífice</strong>: Más que un simple cinturón, es un taller en miniatura
+que contiene calibradores de precisión, destornilladores sónicos,
+bobinas de alambre de mithril y viales con polvo de <a
+href="Runas.html">Runas</a> de contención. * <strong>Diario de
+Esquemas</strong>: Un pesado tomo encuadernado en cuero de basilisco
+donde anota sus diseños, teorías sobre la fractura del maná y
+observaciones sobre la resonancia de los artefactos que ha
+neutralizado.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Glimma Ruedarruna será, para bien o para mal, el de
+haber cambiado la naturaleza de la guerra contra la magia. Mientras que
+la Torre de las Estrellas estudia la magia y los guerreros la enfrentan
+con fuerza bruta, Glimma la trata como a una ciencia que puede ser
+sistemáticamente desmantelada. Ella representa la respuesta tecnológica
+y pragmática de <a href="Valtoria.html">Valtoria</a> a un mundo saturado
+de poder arcano.</p>
+<p>Si tiene éxito, será recordada como la “Guardiana de la Razón”, la
+enana que proveyó a los mortales de las herramientas para enfrentarse a
+dioses y <a href="Demonios.html">Demonios</a> en sus propios términos,
+no con más magia, sino con ingenio y acero. Sus diseños podrían sentar
+las bases para una nueva era de seguridad en Lithernia, donde el
+ciudadano común no tenga que temer a los caprichos de un <a
+href="Hechicero.html">Hechicero</a>.</p>
+<p>Sin embargo, su camino es peligroso. Su disposición a usar tecnología
+prohibida y a operar en los límites de la ley podría sentar un
+precedente oscuro. Si sus inventos cayeran en las manos equivocadas
+—como las de los extremistas Cazadores de Sombras— podrían ser usados no
+solo para contener, sino para erradicar y tiranizar. Así, Glimma camina
+sobre el filo de una navaja: cada nuevo invento que la acerca a su meta
+de proteger a <a href="Valtoria.html">Valtoria</a>, también la acerca al
+riesgo de convertirse en la creadora de un nuevo tipo de opresión, una
+donde la ausencia de magia sea el arma más terrible de todas.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

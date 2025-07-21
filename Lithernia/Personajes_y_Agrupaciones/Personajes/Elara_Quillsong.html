@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elara_Quillsong</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Elara_Quillsong</div>
+        <div class="content">
+<h1 id="elara-quillsong">Elara Quillsong</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida de la unión de un <a href="Erudito.html">Erudito</a> humano
+errante y una elfa silvana exiliada de <a
+href="Eldrador.html">Eldrador</a>, la infancia de Elara Quillsong no
+conoció la estabilidad de un reino, sino la crudeza de las tierras
+fronterizas. Su familia fue una de las innumerables víctimas anónimas de
+los horrores que supuran de las cicatrices del <a
+href="Lilium.html">Lilium</a>. Un día, una abominación —un eco retorcido
+de la furia divina— aniquiló su pequeño asentamiento. Elara, apenas una
+niña, sobrevivió escondida entre los escombros, escuchando los gritos de
+la criatura y sintiendo la corrupción psíquica que impregnaba el aire.
+Fue encontrada por una patrulla del Círculo del Eco Púrpura, liderada
+por el veterano Kaelen.</p>
+<p>Criada dentro de los muros ocultos de <a
+href="Valarion.html">Valarion</a>, la sede del Círculo, Elara no
+encontró un hogar, sino un propósito. Mientras otros niños aprendían a
+empuñar una espada o a recitar las glorias de las casas nobles, ella
+devoraba los textos prohibidos del Círculo. Manifestó una aptitud
+extraordinaria no solo para la <a href="Alquimia.html">Alquimia</a>,
+sino para percibir y catalogar los “ecos” psíquicos que las criaturas
+del <a href="Lilium.html">Lilium</a> dejan tras de sí. Donde otros veían
+monstruosidades que debían ser destruidas, Elara veía preguntas que
+debían ser respondidas.</p>
+<p>Su ascenso fue meteórico y controvertido. Se convirtió en la
+Alquimista Principal gracias a sus métodos audaces y peligrosamente
+innovadores. Desafió la doctrina de simple contención del Círculo,
+argumentando que la única forma de combatir la corrupción era entenderla
+desde dentro. Comenzó a destilar la esencia pura del <a
+href="Lilium.html">Lilium</a> a partir de muestras, creando potentes
+antídotos, venenos devastadores y elixires que otorgan atisbos
+temporales a la locura del Cataclismo. Estas hazañas le ganaron tanto el
+respeto de los pragmáticos como el temor de los conservadores,
+encabezados por su propio mentor, Kaelen. Él la ve como la hija que
+nunca tuvo, pero teme que su ambición la consuma, repitiendo el mismo
+error de arrogancia que condenó al Primer Rey.</p>
+<p>Elara, por su parte, respeta a Kaelen, pero considera que su cautela
+es un ancla que arrastra al Círculo hacia la irrelevancia. Cree que los
+dioses cometieron un error y que los mortales deben ser lo
+suficientemente valientes para corregirlo, incluso si eso implica bailar
+al borde del abismo. Su relación con Grokk, el imponente guardián
+goliath asignado a su laboratorio, es un ancla a la realidad. Grokk ha
+salvado su laboratorio (y a ella misma) de explosiones y fugas en más de
+una ocasión, soportando sus experimentos con una paciencia estoica. Para
+Elara, él es la prueba viviente de que la simpleza y la lealtad son
+virtudes tan poderosas como el intelecto más afilado.</p>
+<p>Hoy, Elara Quillsong es una de las figuras más importantes y secretas
+de Lithernia. Mientras los reyes y nobles juegan a su Gran Guerra, ella
+libra una batalla silenciosa en los laboratorios de <a
+href="Valarion.html">Valarion</a>, buscando en sus matraces y alambiques
+la clave para sanar —o armar— un mundo fracturado por la ira de los
+dioses.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Elara posee la grácil complexión de su herencia élfica, pero con una
+intensidad en su mirada gris que delata su lado humano. Su largo
+cabello, de un castaño oscuro con vetas plateadas prematuras, suele
+estar recogido en una trenza práctica y desordenada. Sus manos son su
+rasgo más distintivo: delgadas y de dedos largos, están perpetuamente
+manchadas por químicos y cubiertas de finas cicatrices de cortes y
+quemaduras, testimonio de innumerables horas de trabajo alquímico. Viste
+con una funcionalidad estudiada: túnicas de erudita de lino oscuro bajo
+un delantal de cuero grueso y resistente al ácido.</p>
+<p>Su equipamiento rara vez incluye una armadura pesada. En su lugar,
+confía en su agilidad y en los potentes elixires que cuelgan de su cinto
+en una bandolera de viales de cristal reforzado. Siempre lleva consigo:
+* <strong>El Colector de Ecos:</strong> Un artefacto del Círculo. Es un
+guantelete de cuero con un cristal púrpura opaco en el dorso. Al tocar
+los restos de una criatura corrupta, el cristal absorbe y almacena el
+residuo psíquico, brillando con una luz enfermiza. * <strong>Kit de
+Alquimista de Campo:</strong> Una bolsa de cuero endurecido que contiene
+un alambique portátil, mortero, pinzas de precisión y una colección de
+hierbas raras y reactivos minerales. * <strong>Aguijón de
+Quillsong:</strong> Una daga de acero valtoriano, corta y afilada, con
+un canal en la hoja para aplicar rápidamente sus venenos o toxinas. Es
+su última línea de defensa. * <strong>Diario de Ecos:</strong> Un pesado
+libro encuadernado en piel de basilisco, donde anota sus hallazgos con
+una caligrafía precisa. Sus páginas están llenas de diagramas de
+criaturas aberrantes, fórmulas químicas y reflexiones filosóficas sobre
+la naturaleza de la corrupción.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Elara Quillsong nunca será una heroína cantada por los bardos en las
+cortes de <a href="Galvorn.html">Galvorn</a> o <a
+href="Eldrador.html">Eldrador</a>. Su trabajo es demasiado oscuro,
+demasiado peligroso para ser comprendido por el ciudadano común. El
+Círculo del Eco Púrpura opera en las sombras, y su nombre solo es un
+susurro entre aquellos que tratan con lo prohibido.</p>
+<p>Sin embargo, su impacto es profundo, aunque invisible. Cada plaga que
+no se extiende desde un pantano corrupto, cada abominación que es cazada
+antes de alcanzar una aldea, cada antídoto que salva a un explorador de
+un veneno arcano, es parte de su legado. Ella es la guardiana silenciosa
+de la cordura de Lithernia, la cirujana que extirpa los tumores mágicos
+del mundo.</p>
+<p>Su verdadero legado reside en el conocimiento que está acumulando. Si
+logra sus objetivos, su archivo podría proporcionar a las generaciones
+futuras las herramientas para neutralizar la amenaza del <a
+href="Lilium.html">Lilium</a> para siempre. Pero si fracasa, si su
+audacia la lleva a un error fatal, los mismos venenos que ha creado y
+los ecos que ha coleccionado podrían desatar una catástrofe que haría
+palidecer a las ya existentes. Elara Quillsong camina sobre el filo de
+una navaja: es, a la vez, la mayor esperanza de Lithernia contra su
+herida más profunda y el riesgo latente de abrir una nueva.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

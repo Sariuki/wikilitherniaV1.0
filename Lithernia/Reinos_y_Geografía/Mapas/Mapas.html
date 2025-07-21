@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Mapas</div>
+        <div class="content">
+<h1 id="mapas">Mapas</h1>
+<p>Los <a href="Cartografia.html">Cartografia</a> ofrecen una
+comprensión visual fundamental del complejo y diverso mundo que conforma
+este universo de fantasía. Abarcando desde la vasta geografía del
+continente central y sus reinos hasta los planos y regiones mágicas, el
+atlas cartográfico de Lithernia es clave para la exploración, la
+aventura y la comprensión del equilibrio político y mágico que define al
+mundo.</p>
+<h2 id="geografía-general">Geografía General</h2>
+<p>Lithernia está centrada en un gran continente rodeado por océanos
+infinitos, un legado directo del período de la <a
+href="Herreria.html">Herreria</a> del Mundo. En el corazón de este
+continente se encuentran las principales tierras gobernadas por los
+cuatro grandes reinos: Mor’dhul, <a href="Galvorn.html">Galvorn</a>, <a
+href="Valtoria.html">Valtoria</a> y <a
+href="Eldrador.html">Eldrador</a>, cada uno con fronteras marcadas tanto
+por accidentes geográficos como por líneas políticas y espirituales.</p>
+<h3 id="continente-central">Continente Central</h3>
+<ul>
+<li><strong>Mor’dhul:</strong> Reino sombrío y volcánico, cubierto por
+montañas oscuras de obsidiana y llanuras volcánicas. Mapas muestran
+fuertes contrastes entre sus desiertos estériles y los escasos bosques
+corruptos donde la luz apenas penetra, además de ciudades clave con
+influencias mágicas visibles.</li>
+<li><strong><a href="Galvorn.html">Galvorn</a>:</strong> Se caracteriza
+por sus extensas costas, archipiélagos numerosos y diversas rutas
+marítimas. Los mapas marcan sus puertos estratégicos, islas errantes y
+peligrosos arrecifes que forman parte esencial de la defensa y
+comercio.</li>
+<li><strong><a href="Valtoria.html">Valtoria</a>:</strong> Región
+montañosa con cadenas de picos nevados, valles escondidos y una
+intrincada red de túneles y cavernas subterráneas. El mapa destaca
+asentamientos defensivos, <a href="Recursos.html">Recursos</a> minerales
+y las rutas de conexión curva a través de pasos imposibles.</li>
+<li><strong><a href="Eldrador.html">Eldrador</a>:</strong> Famoso por
+sus bosques milenarios, claros encantados y ríos cristalinos. Los mapas
+representan ciudades elevadas en copas de árboles gigantes y senderos
+invisibles, así como los sitios sagrados que se conectan con planos
+feéricos.</li>
+</ul>
+<h2 id="características-cartográficas-de-próximo-uso">Características
+Cartográficas de Próximo Uso</h2>
+<p>Los <a href="Cartografia.html">Cartografia</a> poseen ciertas
+particularidades que reflejan el trasfondo mítico y mágico del
+territorio:</p>
+<ul>
+<li><strong>Zonas de Cicatrices Mágicas:</strong> Áreas activas donde el
+tejido del maná se encuentra fracturado o alterado, visibles en mapas
+mágicos y usados en campañas para señalar peligros o portales
+espontáneos.</li>
+<li><strong>Líneas Ley y Nudos de Maná:</strong> Regiones con un flujo
+especial de energía mágica, cruciales para magos, druidas y clérigos.
+Estas líneas a menudo se representan como rutas místicas superpuestas al
+mapa físico y determinan la ubicación de antiguos templos o círculos de
+invocación.</li>
+<li><strong>Sitios de las Cuatro Lanzas Celestiales:</strong> Marcados
+en puntos estratégicos, representando la prisión atemporal del Primer
+Rey y alineados con los puntos cardinales del continente.</li>
+<li><strong>Territorios de Clanes y Facciones:</strong> Delineación
+dinámica entre las áreas controladas o disputadas por los clanes de
+Mor’dhul y las jurisdicciones en los otros reinos, útil en campañas de
+política y guerra.</li>
+</ul>
+<h2 id="mapas-políticos-y-sociales">Mapas Políticos y Sociales</h2>
+<h3 id="fragmentación-y-control">Fragmentación y Control</h3>
+<p>El mapa político refleja la complejidad de la Gran Guerra y la
+fragmentación social:</p>
+<ul>
+<li>En <strong>Mor’dhul</strong>, se muestran los dominios claniles
+delineados con bordes intrincados que evidencian alianzas frágiles,
+zonas de influencia, y territorios rebeldes, como la ciudad libre de
+Vallas o la rebelión en Chéneras.</li>
+<li>En <strong><a href="Galvorn.html">Galvorn</a></strong>, destacan las
+rutas navales, puertos comerciales y bastiones militares con especial
+énfasis en los astilleros y ciudades fortificadas como Poyoranta.</li>
+<li><strong><a href="Valtoria.html">Valtoria</a></strong> refleja un
+mapa social y ecológico, con las zonas agrícolas, mineras y espectros
+ecológicos protegidos por tratados y leyes locales, además de sus
+vínculos comerciales con los demás reinos.</li>
+<li><strong><a href="Eldrador.html">Eldrador</a></strong> exhibe mapas
+estratificados no solo geográficamente, sino por castas sociales y rutas
+mágicas que interconectan las ciudades arbóreas.</li>
+</ul>
+<h3 id="ciudades-destacadas-en-mapas-detallados">Ciudades Destacadas en
+Mapas Detallados</h3>
+<p>Cada ciudad principal está representada con mapas dedicados que
+destacan sus fortalezas, distritos, zonas de influencia y
+características especiales:</p>
+<ul>
+<li><strong>Mor’dhul:</strong> Capital Mor’dhul, Noblestevo,
+Fuendavendi, Medromora, entre otras, con sus respectivas áreas de
+control clanil y áreas de peligro mágico.</li>
+<li><strong><a href="Galvorn.html">Galvorn</a>:</strong> Mapa de la
+capital portuaria <a href="Galvorn.html">Galvorn</a>, Trilpinil y rutas
+clave para flotas navales.</li>
+<li><strong><a href="Valtoria.html">Valtoria</a>:</strong> <a
+href="Valtoria.html">Valtoria</a> capital, Ironforge, y los pasos
+montañosos que la protegen.</li>
+<li><strong><a href="Eldrador.html">Eldrador</a>:</strong> <a
+href="Eldrador.html">Eldrador</a> capital, Moonshadow y Sunwood, con
+énfasis en conexiones feéricas y estructuras jerárquicas.</li>
+</ul>
+<h2 id="mapas-de-planos-mágicos">Mapas de Planos Mágicos</h2>
+<p>El concepto de planos primigenios —Material, Sombras, Astral y otros
+— es fundamental en la mitología de Lithernia. Mapas especiales
+representan la relación espacial y los portales entre ellos y el mundo
+material:</p>
+<ul>
+<li><strong>Plano Material:</strong> Superficie y subsuelo de Lithernia,
+con túneles interdimensionales y nexos.</li>
+<li><strong>Plano de Sombras:</strong> Regiones oscuras, zonas malditas
+y áreas dominadas por la corrupción de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>
+y fuerzas del Mal.</li>
+<li><strong>Plano Astral:</strong> Dominio de espíritus, entidades
+extraplanares y hogares de los dioses, accesible solo a través de
+portales específicos y rituales de gran poder.</li>
+</ul>
+<p>Estos mapas sirven para campañas que involucran viajes extraplanares,
+búsquedas interdimensionales o la resolución de enigmas ligados al
+Amanecer Divino y la caída del Primer Rey.</p>
+<h2 id="uso-en-campañas">Uso en Campañas</h2>
+<p>Los <a href="Cartografia.html">Cartografia</a> funcionan no solo como
+herramienta de navegación, sino también como recurso narrativo para:</p>
+<ul>
+<li>Explorar las fronteras de poder entre los reinos y clanes.</li>
+<li>Descubrir sitios arqueológicos, ruinas o templos vinculados al
+misterio de las Cuatro Lanzas.</li>
+<li>Ubicar enclaves de conocimiento o centros mágicos, especialmente
+académicos y círculos de invocación.</li>
+<li>Guiar batallas épicas y asedios en ciudades clave.</li>
+<li>Planificar misiones de infiltración, exploración o diplomacia entre
+territorios variados.</li>
+</ul>
+<p>Los personajes jugadores pueden obtener mapas antiguos o fragmentos
+cartográficos que revelen secretos olvidados o potenciales rutas hacia
+objetos de poder, como los fragmentos del <a
+href="Lilium.html">Lilium</a> o zonas de energía mágica desconocida.</p>
+<hr />
+<p>Los mapas en Lithernia representan el pulso vivo de un mundo donde la
+magia, política y destino convergen. Son guías indispensables para
+quienes deseen navegar sus complejidades y enfrentarse a los retos que
+solo un universo forjado en fuego, sombras y esperanza puede
+ofrecer.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="reinos.html">reinos</a> (relevancia: 0.44)</li>
+<li><a href="Reinos.html">Reinos</a> (relevancia: 0.44)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grakkus_Ignisvar</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grakkus_Ignisvar</div>
+        <div class="content">
+<h1 id="grakkus-ignisvar-la-llama-indómita-de-valarion">Grakkus
+Ignisvar, la Llama Indómita de Valarion</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en el crisol de la ambición y la ceniza, Grakkus Ignisvar es
+la encarnación viviente de la furia y el orgullo de su linaje. Como
+descendiente directo de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+el gran dragón carmesí, Grakkus fue criado no con cuentos de cuna, sino
+con las épicas de un imperio perdido y la humillación del Cataclismo del
+<a href="Lilium.html">Lilium</a>. Su infancia no transcurrió en palacios
+dorados, sino en los campamentos errantes de un pueblo exiliado,
+endurecido por el recuerdo de una gloria que se negaban a olvidar.</p>
+<p>Fue en la ciudad volcánica de <a href="Valarion.html">Valarion</a>
+donde la Casa Ignisvar encontró un nuevo hogar, y donde Grakkus forjó su
+destino. Mientras su hermano mayor, Valerius, aprendía las artes de la
+diplomacia y el gobierno, Grakkus se sumergió en las forjas del Clan
+Agrietacero. Allí, entre el estruendo de los martillos y el aliento de
+la lava, no solo aprendió a blandir el acero, sino a sentir el fuego
+dracónico que corría por sus venas. Su habilidad marcial, combinada con
+una piromancia innata y brutal, rápidamente lo distinguió. No era un <a
+href="Mago.html">Mago</a> de textos y cánticos; su fuego era una
+extensión de su voluntad, una herencia violenta que imponía respeto.</p>
+<p>Su ascenso a <a href="Heroes.html">Heroes</a> de la Casa se cimentó
+al liderar la defensa de una de las minas exteriores de <a
+href="Valarion.html">Valarion</a> contra una bestia de magma
+descontrolada, una criatura que ni los robustos <a
+href="Enanos.html">Enanos</a> del Clan Agrietacero habían podido
+someter. Grakkus, empuñando su gran hacha y envuelto en llamas, se
+enfrentó a la criatura en un combate singular que se ha convertido en
+leyenda en los salones de la ciudad. Este acto le ganó el mando de las
+“Alas de Ceniza”, la fuerza de élite de la Casa Ignisvar.</p>
+<p>Como General, Grakkus es la mano ejecutora de la voluntad de su casa.
+Desprecia la debilidad y la sutileza, lo que le pone en constante
+conflicto con consejeros como Lyra, cuyas redes de espionaje y
+manipulación considera deshonrosas. Para Grakkus, el poder se demuestra
+en el campo de batalla, no en susurros en los pasillos. Su lealtad a su
+hermano Valerius es férrea, pero su verdadera devoción es hacia el
+futuro del linaje, encarnado en su sobrina Seraphina. En ella ve no solo
+una alumna, sino la llama que podría restaurar por completo el honor de
+los Ignisvar, y la entrena con una dureza que raya en la crueldad,
+convencido de que solo el más fuerte sobrevive.</p>
+<p>La Profecía del Retorno del Rey no le inspira una lealtad piadosa.
+Para Grakkus, el Primer Rey es una figura del pasado cuyo fracaso trajo
+la ruina. Sin embargo, ve la profecía como la tormenta perfecta, el caos
+necesario para que el orden actual se quiebre. En un mundo en guerra,
+una casa de sangre de dragón con ejércitos de acero y fuego no solo
+puede sobrevivir, sino reclamar el dominio que le fue arrebatado. Su
+alianza secreta con los Cultos del Retorno es puramente pragmática:
+ellos preparan el camino, y la Casa Ignisvar caminará sobre él hacia el
+poder.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grakkus es una figura imponente, un coloso que parece tallado en la
+misma roca volcánica de <a href="Valarion.html">Valarion</a>. Con más de
+dos metros de altura y una musculatura forjada en el combate y la
+herrería, su presencia es abrumadora. Su piel pálida está surcada de
+finas cicatrices de quemaduras, recuerdo permanente de su afinidad con
+el fuego. Sus rasgos son afilados y severos, con pómulos altos y una
+mandíbula firme que evocan un eco de escamas ancestrales. Sus ojos, de
+un intenso color ámbar, parecen contener brasas latentes que arden con
+más fuerza cuando su ira se enciende. Lleva el cabello negro y largo,
+recogido en una tosca trenza que cae sobre su hombro.</p>
+<p>Viste la <strong>Égida de Ceniza</strong>, una armadura de placas de
+acero ennegrecido, grabada con <a href="Runas.html">Runas</a> dracónicas
+que parecen absorber la luz. Las hombreras están esculpidas con la forma
+de cabezas de dragón estilizadas y una capa de un rojo carmesí profundo,
+el color de su casa, cuelga de su espalda, raída y manchada por
+incontables batallas.</p>
+<p>Su arma es <strong>Furia del Volcán</strong>, un hacha de guerra
+monumental de doble filo, forjada por él mismo con acero de meteorito y
+un núcleo de obsidiana. Se dice que el arma canaliza su piromancia
+innata, y su filo puede arder con un calor blanco al contacto. Como
+amuleto, lleva un colmillo de dragón, una reliquia de sus ancestros, que
+cuelga de su cuello con una cadena de hierro negro.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Grakkus Ignisvar no es un <a href="Heroes.html">Heroes</a> ni un
+villano; es una fuerza de la naturaleza, un eco del poder elemental que
+una vez gobernó el mundo. Para sus aliados en <a
+href="Valarion.html">Valarion</a>, es un baluarte, el martillo que
+protege la ciudad de sus enemigos. Para sus rivales, como la Casa
+Bronzebrillo y los nobles elfos de <a href="Eldrador.html">Eldrador</a>,
+es un presagio de guerra, la prueba viviente de que la ambición de los
+<a href="Dragones.html">Dragones</a> nunca se extinguió del todo.</p>
+<p>Su impacto en Lithernia será, sin duda, escrito en fuego y acero.
+Como General de las Alas de Ceniza y creyente pragmático en la Profecía
+del Retorno, Grakkus está posicionado para ser una pieza clave en los
+conflictos venideros. Su desdén por la diplomacia y su fe en la fuerza
+bruta podrían sumir a su casa y a sus aliados en una guerra total, o
+podría ser precisamente esa determinación implacable la que eleve a la
+Casa Ignisvar de las cenizas de la historia para reclamar un trono entre
+los grandes poderes de Lithernia. Su legado será el de un hombre que se
+negó a dejar que su linaje se convirtiera en un mito, y que estaba
+dispuesto a quemar el mundo para verlo renacer a su imagen.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Ignis.html">Ignis</a> (relevancia: 0.70)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.45)</li>
+<li><a href="Casa%20Ignisvar.html">Casa Ignisvar</a> (relevancia:
+0.42)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

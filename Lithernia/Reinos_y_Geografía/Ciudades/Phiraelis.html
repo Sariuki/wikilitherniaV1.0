@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiraelis</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Phiraelis</div>
+        <div class="content">
+<h1 id="phiraelis">Phiraelis</h1>
+<p>Conocida como la Ciudad de los Espejos Astrales, Phiraelis no es
+tanto una construcción como un reflejo del cosmos. Erigida a orillas del
+Corazón de <a href="Arzia.html">Arzia</a> —un inmenso lago cristalino
+que llena el cráter de un meteorito milenario—, la ciudad es un nexo
+entre el mundo mortal y el firmamento. La magia inherente del cráter
+hace que las aguas del lago reflejen las constelaciones con una nitidez
+imposible, permitiendo su observación incluso bajo la luz del sol. Sus
+elegantes torres de mármol y cuarzo, que parecen flotar sobre la
+superficie, no buscan tocar el cielo, sino ser un lienzo perfecto para
+él. Phiraelis es el mayor centro de peregrinaje para los devotos de <a
+href="Arzia.html">Arzia</a> en todo Lithernia, un lugar donde el destino
+no se lee en libros, sino directamente en el rostro del universo.</p>
+<h2 id="historia">Historia</h2>
+<p>Phiraelis no fue fundada por un <a href="Heroes.html">Heroes</a> o un
+rey, sino por una estrella caída. La leyenda cuenta que, tras el
+Cataclismo del <a href="Lilium.html">Lilium</a>, un fragmento del
+firmamento se desgajó y se estrelló contra el mundo, dejando un cráter
+que de inmediato se llenó con agua de manantiales puros. Los primeros
+elfos que lo descubrieron, guiados por visiones, vieron que el lago era
+un espejo perfecto del cielo, un regalo de su diosa <a
+href="Arzia.html">Arzia</a>.</p>
+<p>Rápidamente, el lugar se convirtió en un santuario sagrado. Los más
+sabios videntes y astrónomos de <a href="Eldrador.html">Eldrador</a> se
+congregaron allí, construyendo observatorios para descifrar los secretos
+del cosmos. Con el tiempo, la ciudad creció a su alrededor, una
+metrópoli dedicada a la contemplación y la adivinación. A diferencia de
+otras ciudades élficas, el poder en Phiraelis no emana del linaje, sino
+de la claridad de la visión profética. Aunque la ciudad es leal a la
+corona de <a href="Eldrador.html">Eldrador</a>, su gobierno, el Cónclave
+de las Constelaciones, obedece primero a los designios que lee en las
+estrellas, una lealtad dual que a menudo genera una tensión silenciosa
+pero palpable con los dictados más terrenales de la monarquía.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de <a href="Arzia.html">Arzia</a></strong>: El
+lago en sí es el alma de la ciudad. Sus aguas son consideradas sagradas
+y se cree que cualquier sonido hecho en su superficie se convierte en un
+eco que resuena en el Plano Astral. Nadie navega en él; solo se
+contempla desde sus orillas de arena plateada.</p></li>
+<li><p><strong>El Cónclave de Cristal</strong>: En una isla central del
+lago se alza el Cónclave, un complejo de torres de cuarzo blanco con
+cúpulas de cristal encantado. Es a la vez el centro de gobierno y el
+mayor observatorio de Lithernia. Aquí reside el Vidente Estelar y se
+reúnen los oráculos <a href="Eladrin.html">Eladrin</a> para interpretar
+los augurios.</p></li>
+<li><p><strong>El Paseo del Crepúsculo</strong>: Un anillo de elegantes
+villas y templos de mármol que rodea la orilla del lago. Es el distrito
+residencial de la élite de videntes y sacerdotes, y el lugar donde los
+ciudadanos se congregan para sus meditaciones vespertinas. Los puentes
+luminiscentes que conectan las villas brillan suavemente, imitando las
+constelaciones.</p></li>
+<li><p><strong>El Anillo Esmeralda</strong>: El bosque que rodea el
+cráter, protegido celosamente por clanes de Elfos Silvanos. Se aseguran
+de que nada perturbe la serenidad del santuario y actúan como guardianes
+contra cualquier amenaza que provenga del exterior. En este cinturón
+verde vive también la casta trabajadora Shadar-Kai, que con silenciosa
+devoción mantiene los templos y la infraestructura de la
+ciudad.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Phiraelis fluye con la cadencia de los cuerpos celestes.
+Cada atardecer, al aparecer la primera estrella, las campanas de cristal
+de los templos tañen suavemente, llamando a los ciudadanos a reunirse en
+las orillas del lago para meditar en silencio, en una práctica conocida
+como los “primeros susurros”. Los ‘Tejedores de Destinos’, bardos <a
+href="Eladrin.html">Eladrin</a> de inmenso prestigio, componen sagas
+épicas personalizadas basadas en la carta astral de un individuo, que
+son consideradas el mayor regalo que se puede recibir.</p>
+<p>Los recién nacidos son sumergidos brevemente en las aguas del Corazón
+de <a href="Arzia.html">Arzia</a> durante la “Bendición del Firmamento”,
+un rito que, según se dice, les otorga un atisbo de su propósito en la
+vida. Crear luces artificiales brillantes que compitan con las estrellas
+se considera la mayor de las blasfemias.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura phiraeliana es un ejercicio de elegancia, luz y
+reflejo. Los edificios de mármol blanco y cuarzo están pulidos hasta
+obtener un brillo especular, diseñados para capturar y multiplicar la
+luz de las estrellas. Las estructuras son esbeltas, con arcos gráciles y
+columnatas que evocan la sensación de un espacio abierto y conectado con
+el infinito. No hay calles congestionadas; en su lugar, amplias
+explanadas y puentes suspendidos sobre el agua garantizan que la vista
+del cielo nunca quede obstruida. El ambiente es de una calma abrumadora
+y mística, impregnado de un silencio reverente que solo se rompe por el
+suave tintineo de los carillones de viento y el murmullo de las
+plegarias a <a href="Arzia.html">Arzia</a>.</p>
+<h2 id="símbolos-y-heráldica">Símbolos y Heráldica</h2>
+<p>El emblema de Phiraelis es una espiral de siete estrellas de plata
+sobre un campo de obsidiana pulida, rodeando una luna creciente. Las
+siete estrellas representan a las ‘Doncellas de <a
+href="Arzia.html">Arzia</a>’, las constelaciones tutelares que velan por
+la ciudad y que, según la fe local, son las primeras en aparecer cada
+noche sobre el Corazón de <a href="Arzia.html">Arzia</a>.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Reflejo Encadenado</strong>: Se susurra que el Corazón
+de <a href="Arzia.html">Arzia</a> no solo refleja el futuro, sino
+también el pasado más profundo y doloroso. La leyenda advierte que si
+una persona de gran voluntad se sumerge en el lago durante un eclipse
+total, no verá su propio destino, sino la imagen del Primer Rey,
+encadenado y sufriendo en su prisión eterna. Se dice que el Cónclave
+conoce este secreto y que cualquiera que lo presencie es silenciado para
+siempre, para evitar que la desesperación de esa visión contamine la
+esperanza de la ciudad.</p></li>
+<li><p><strong>La Profecía Oculta</strong>: El actual Vidente Estelar,
+un Alto Elfo anciano y solitario, se ha vuelto cada vez más paranoico y
+aislado. Los rumores en el Cónclave afirman que no es la edad, sino una
+profecía que oculta al resto: una visión que predice la caída de la
+monarquía élfica a manos de “una sombra nacida de una estrella”.
+Temeroso de la ira del Rey, y de su propio destino, el Vidente manipula
+los augurios para mantener su terrible secreto a salvo.</p></li>
+<li><p><strong>El Devorador de Hado</strong>: En las noches sin luna,
+cuando la oscuridad es casi absoluta, los más supersticiosos temen mirar
+las profundidades del lago. Cuentan que de ellas emerge el ‘Devorador de
+Hado’, una criatura hecha de oscuridad y estrellas robadas. No busca
+vida, sino destino. Se siente atraído por los elfos cuyo porvenir brilla
+con demasiada intensidad y los arrastra a las profundidades para
+consumir su potencial, dejando tras de sí solo un cascarón vacío y sin
+propósito.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

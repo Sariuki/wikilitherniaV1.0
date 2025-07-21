@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grizelda_Puñolito</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grizelda_Puñolito</div>
+        <div class="content">
+<h1 id="grizelda-puñolito">Grizelda Puñolito</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Grizelda Puñolito no es una capitana forjada en el estruendo de las
+grandes batallas de <a href="Valtoria.html">Valtoria</a>, sino en el
+silencio tectónico de sus profundidades. Su vida está anclada a una
+deuda sagrada, un eco de gratitud que resuena más fuerte que cualquier
+martillo sobre un yunque. Nacida en un pequeño clan minero vasallo de la
+codiciosa Casa Dravonis, Grizelda conoció desde niña el miedo a la
+montaña: el crujido de las vigas, los temblores inesperados y el aire
+viciado de los túneles explotados sin piedad. Su destino habría sido una
+tumba de roca, de no ser por la intervención de Valdurn Manopiedra, el
+fundador vidente de la Casa Corazón de Piedra.</p>
+<p>En una visita a las minas, Valdurn escuchó un “lamento” en la piedra,
+una premonición de un colapso inminente. Ignorado por los capataces de
+Dravonis, advirtió en secreto a unas pocas familias, entre ellas los
+Puñolito. Horas después, la galería principal se derrumbó, sepultando a
+docenas. La familia de Grizelda, a salvo gracias a la advertencia, juró
+lealtad eterna a Valdurn y su causa. Se unieron a su éxodo a <a
+href="Chaus.html">Chaus</a> y a la fundación de la Casa Corazón de
+Piedra, donde se les enseñó a respetar la montaña en lugar de
+saquearla.</p>
+<p>Grizelda creció con el peso de esa deuda. Mientras otros niños
+aprendían a tallar gemas, ella aprendía a leer las fisuras en la roca y
+a sentir las vibraciones del suelo. Su apodo, “Puñolito”, que en su
+infancia denotaba su pequeña estatura, se resignificó para describir la
+contundencia de su voluntad. No poseía la sensibilidad mística de
+Valdurn o de su sucesor, Borin, pero su fe en ellos era de granito. Veía
+en sus profecías una verdad tangible, una que había salvado a su
+linaje.</p>
+<p>Su ascenso a Capitana de la Guardia de Granito fue natural.
+Transformó la filosofía geodruídica de su casa en una doctrina militar
+única. Para Grizelda, cada túnel, cada saliente y cada grieta es un arma
+o un escudo. Entrena a sus guardias no solo en el manejo del hacha y el
+martillo, sino en el arte de la guerra simbiótica: usar la geografía
+para crear emboscadas, provocar pequeños derrumbes controlados y moverse
+por la tierra como si fueran una extensión de la misma.</p>
+<p>Su lealtad a Borin Manopiedra, el actual líder de la casa, es
+absoluta e incondicional. Lo ve como el heredero del pacto que salvó a
+su familia y lo protege con una ferocidad que intimida a rivales y
+aliados. Sin embargo, esta devoción genera tensiones. Su pragmatismo
+choca con las alianzas de Borin, especialmente con los Guardianes Verdes
+de <a href="Sylorian.html">Sylorian</a>. Desconfía profundamente de los
+elfos, viendo su longevidad y su magia etérea como algo frívolo y poco
+fiable en comparación con la solidez de la piedra. Su relación con Lyra,
+la embajadora élfica, es una constante prueba de paciencia, un tenso
+equilibrio entre el deber a su señor y su arraigado prejuicio.</p>
+<p>Hoy, Grizelda es el muro de la Casa Corazón de Piedra. Se enfrenta
+tanto a las incursiones de los Cazadores de Sombras en los túneles
+exteriores como a las intrigas políticas de casas como Dravonis, que los
+ven como herejes que desperdician la riqueza de <a
+href="Valtoria.html">Valtoria</a>. Para ella, cada día es una
+reafirmación de su juramento: proteger el Corazón de Piedra y a quienes
+lo escuchan, asegurando que la voluntad de la montaña nunca más sea
+ignorada.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grizelda es la personificación de la roca madre de <a
+href="Valtoria.html">Valtoria</a>: compacta, ancha de hombros y con una
+postura inamovible. Mide poco para una enana, pero su densidad muscular
+y la gravedad de su presencia la hacen parecer un pilar. Su rostro está
+enmarcado por una espesa cabellera negra, recogida en complejas trenzas
+entrelazadas con pequeñas geodas pulidas y cristales vivientes que
+brillan con una luz interna tenue, un don de <a
+href="Chaus.html">Chaus</a>. Sus ojos son de un gris cuarzo ahumado,
+afilados y analíticos. Una fina cicatriz, recuerdo de un entrenamiento
+con una roca afilada, cruza su ceja izquierda.</p>
+<p><strong>Equipamiento:</strong></p>
+<ul>
+<li><strong>Armadura de la Raíz de Piedra:</strong> Un conjunto de
+placas de granito especialmente tratado, unidas por cuero de basilisco y
+reforzadas con <a href="Runas.html">Runas</a> geodruídicas. La armadura
+es más silenciosa de lo que su peso sugiere y sus patrones naturales le
+otorgan un camuflaje excepcional en entornos rocosos.</li>
+<li><strong>Pulso de <a href="Cirkon.html">Cirkon</a>:</strong> Su
+martillo de guerra es una obra de arte y una reliquia de la casa. La
+cabeza es una geoda de obsidiana sin cortar, increíblemente densa, que
+emite un zumbido grave al ser blandida. El mango está hecho de roble
+petrificado del Corazón de Piedra. Se dice que el martillo golpea no
+solo con fuerza física, sino con el propio peso de la montaña.</li>
+<li><strong>El Manto del Silencio:</strong> Una capa de lana de cabra
+montesa teñida con pigmentos minerales. Está encantada para amortiguar
+el sonido de sus pasos y hacerla casi invisible en la penumbra de las
+cavernas.</li>
+<li><strong>Piedra de Pulso:</strong> Siempre lleva en un bolsillo una
+pequeña piedra de ágata lisa y cálida, extraída del centro del Corazón
+de Piedra. La aprieta en momentos de tensión, como si a través de ella
+pudiera sentir el latido constante y tranquilizador de la montaña.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El impacto de Grizelda Puñolito en Lithernia, aunque localizado, es
+profundo. No es una reina ni una archimaga, pero representa algo quizás
+más fundamental: la evolución de una cultura. Ella es la prueba viviente
+de que la filosofía de la Casa Corazón de Piedra no es solo un idealismo
+excéntrico, sino una fuerza pragmática y defendible. Ha convertido la
+sabiduría geodruídica en una ventaja táctica, creando una de las fuerzas
+de guardia más especializadas y efectivas de todo <a
+href="Valtoria.html">Valtoria</a>.</p>
+<p>Su legado será la “Doctrina Puñolito”, un manual no escrito sobre
+cómo luchar en simbiosis con la tierra, una filosofía que podría ser
+crucial para la supervivencia del reino enano si las amenazas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> o los conflictos internos escalan.
+Mientras otras casas confían en murallas de acero y ejércitos
+convencionales, Grizelda ha enseñado que la propia montaña puede ser la
+mayor fortaleza y el arma más letal. En una era de profecías y cambios,
+donde el suelo de Lithernia tiembla con el despertar de viejos poderes,
+una enana que sabe escuchar y comandar el pulso de la roca podría ser
+más decisiva que cualquier rey con una corona de oro.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Corazón%20de%20Piedra.html">Casa Corazón de
+Piedra</a> (relevancia: 0.58)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

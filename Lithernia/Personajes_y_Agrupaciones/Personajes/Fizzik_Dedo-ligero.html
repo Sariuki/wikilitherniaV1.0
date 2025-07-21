@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fizzik_Dedo-ligero</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Fizzik_Dedo-ligero</div>
+        <div class="content">
+<h1 id="fizzik-dedo-ligero">Fizzik ‘Dedo-ligero’</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En las entrañas supurantes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, donde incluso las sombras buscan
+refugio, se encuentra la ciudad de <a href="Selorith.html">Selorith</a>.
+Y en lo más profundo de <a href="Selorith.html">Selorith</a>, yace el
+Sumidero, un laberinto de callejones fétidos y esperanzas rotas. Fue en
+este pozo de miseria donde Fizzik abrió los ojos por primera vez. Como
+un goblin nacido sin clan ni linaje, su única herencia fue el instinto
+de supervivencia afilado hasta convertirse en un arma. No poseía la
+fuerza de un orco ni la magia innata de un tiefling; su poder residía en
+sus oídos, sus ojos y la velocidad de sus pequeños pies.</p>
+<p>Desde niño, Fizzik aprendió que la información era la moneda más
+valiosa del Sumidero. Un susurro escuchado en el momento justo podía
+comprar una hogaza de pan; un secreto bien guardado podía evitar una
+paliza mortal. Se convirtió en un fantasma, un eco en las paredes,
+vendiendo los secretos de matones a comerciantes y las debilidades de
+comerciantes a clanes rivales. Su habilidad para moverse sin ser visto y
+sus dedos, capaces de sustraer una bolsa o una nota sin que nadie se
+percatara, le ganaron el apodo de ‘Dedo-ligero’.</p>
+<p>Su reputación inevitablemente llegó a oídos de <strong>Los
+Recaudadores del Contrato Roto</strong>, el gremio que funcionaba como
+el brazo ejecutor de la despiadada plutocracia de <a
+href="Selorith.html">Selorith</a>. No lo reclutaron; más bien, lo
+acorralaron. Le ofrecieron un contrato que no podía rechazar: poner su
+talento a su servicio o convertirse en el próximo “cobro” para el culto
+de Gyth’kai. Fizzik, siendo un pragmático consumado, aceptó.</p>
+<p>Dentro del gremio, su valía se hizo evidente de inmediato. Mientras
+los matones hobgoblin eran el martillo, Fizzik era el escalpelo. Como
+Rastreador Principal, es el responsable de localizar a los deudores que
+se creen lo suficientemente listos como para desaparecer. Conoce cada
+túnel de contrabando, cada posada clandestina y cada ruta de escape de
+<a href="Selorith.html">Selorith</a>. Su red de informantes, tejida con
+años de miedo y favores, se extiende por toda la ciudad.</p>
+<p>Sin embargo, la lealtad de Fizzik no es para el gremio, sino para el
+oro que este le paga. Su verdadera ambición es acumular la fortuna
+necesaria para comprar su salida, no solo de <a
+href="Selorith.html">Selorith</a>, sino de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> por completo. Sueña con un lugar
+donde los contratos no estén sellados con sangre y donde su pasado no
+pueda encontrarlo. Este secretismo lo ha convertido en un maestro de la
+duplicidad; se rumorea con insistencia que ha vendido información sobre
+las operaciones del gremio a sus rivales, el <strong>Clan del Edicto
+Susurrante</strong>, caminando siempre sobre el filo de una navaja.</p>
+<p>Su mayor temor tiene nombre: <strong>Maestro Vex</strong>, un
+enigmático Tiefling del gremio con una perturbadora habilidad para
+percibir las intenciones ocultas. Bajo la mirada penetrante de Vex,
+Fizzik siente que sus murallas mentales se agrietan, y el pánico helado
+de ser descubierto lo obliga a ser cada vez más cauto, más astuto. Cada
+día es un acto de equilibrio, un juego mortal en el que un paso en falso
+significa no solo la muerte, sino una eternidad de servidumbre como un
+alma más en la balanza de Gyth’kai.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Fizzik es la encarnación de un depredador urbano. Es un goblin
+pequeño y de constitución delgada, con una agilidad nerviosa que lo
+mantiene en perpetuo movimiento. Su piel tiene un tono cetrino, casi
+enfermizo, manchada por la suciedad perpetua de los bajos fondos de <a
+href="Selorith.html">Selorith</a>. Sus grandes ojos, de un amarillo
+brillante y suspicaz, escudriñan constantemente su entorno, captando
+detalles que otros pasarían por alto.</p>
+<p>Viste una armadura de cuero oscuro, curtida y remendada en múltiples
+ocasiones, diseñada para ser silenciosa y flexible. Sobre ella, una capa
+con capucha de color gris mugre le permite fundirse con las sombras de
+los callejones. Ocultos en su atuendo hay docenas de bolsillos y
+compartimentos secretos donde guarda sus herramientas y su botín.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Dagas
+Gemelas:</strong> Un par de estiletes cortos y afilados. Una la mantiene
+a la vista, limpia y amenazante. La otra, oculta en su bota, suele estar
+untada con un veneno paralizante de acción rápida, ideal para capturas
+silenciosas. * <strong>Herramientas de ‘Dedo-ligero’:</strong> Un juego
+de ganzúas y herramientas de ladrón de calidad excepcional, hechas de
+hueso pulido y acero oscuro para no reflejar la luz. * <strong>Mapa de
+<a href="Selorith.html">Selorith</a>:</strong> Un rollo de pergamino
+ajado y manchado, cubierto de anotaciones personales, rutas secretas y
+símbolos crípticos que marcan las guaridas de sus informantes. *
+<strong>Bolsa de Engaños:</strong> Una bolsa de monedas de cobre y plata
+que utiliza para pagar a sus contactos. Su verdadera fortuna está cosida
+en el forro de su capa, en monedas de oro y pequeñas gemas.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Fizzik ‘Dedo-ligero’ nunca aparecerá en las grandes crónicas de
+Lithernia. No es un <a href="Noble.html">Noble</a> de la Casa Hammerthon
+ni un archimago de <a href="Eldrador.html">Eldrador</a>. Su nombre no
+será cantado por los bardos en las cortes de <a
+href="Galvorn.html">Galvorn</a>. Sin embargo, su existencia es un
+testimonio crudo y honesto de la realidad que subyace bajo la épica de
+reyes y dioses. Es un producto del sistema implacable de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, donde el poder se mide en
+contratos y la justicia la dictan los acreedores.</p>
+<p>Su legado, si es que deja alguno, no será de honor, sino de
+supervivencia. Es la prueba viviente de que incluso en el lugar más
+oscuro, la astucia y el pragmatismo pueden forjar un camino. Para
+aquellos que lo conocen, es un recordatorio de que la lealtad es un lujo
+y que cada alma tiene un precio.</p>
+<p>El verdadero impacto de Fizzik en Lithernia es potencial. La
+información que acumula en su mente y en sus <a
+href="Mapas.html">Mapas</a> secretos podría desestabilizar clanes,
+exponer traiciones en las altas esferas del gremio o incluso revelar
+debilidades que sus rivales podrían explotar para desatar una guerra de
+sombras en <a href="Selorith.html">Selorith</a>. Si logra su objetivo de
+escapar, será una pequeña y anónima victoria contra la opresión. Si
+falla, será solo otro contrato cobrado, una gota de sangre más en la
+balanza desequilibrada que define su mundo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

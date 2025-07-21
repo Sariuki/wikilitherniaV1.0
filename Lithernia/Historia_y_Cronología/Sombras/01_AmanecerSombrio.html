@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_AmanecerSombrio</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">01_AmanecerSombrio</div>
+        <div class="content">
+<h1 id="amanecersombrio">01 amanecersombrio</h1>
+<p>El Amanecer Sombrío marca un capítulo doloroso y trascendental en la
+historia de Lithernia, un momento en que el mundo, antaño pleno de luz y
+esperanza, se sumió en una era de sombras y temores. Este período, que
+inicia la Era Crepuscular, es recordado como el preludio de la gran
+transformación interna y externa de las tierras conocidas.</p>
+<h2 id="contexto-histórico">Contexto histórico</h2>
+<p>Después de siglos de paz y prosperidad bajo los Reinos Radiantes, un
+auspicio oscuro comenzó a manifestarse en las fronteras de Lithernia.
+Las antiguas alianzas se rompieron, y la corona de luz que protegía los
+dominios comenzó a desvanecerse lentamente, dando pie a la expansión de
+fuerzas desconocidas y entidades corruptas.</p>
+<p>Este amanecer no es una alborada brillante, sino un eclipse perpetuo
+que cubrió a Lithernia con una penumbra ambigua, mezclando esperanzas
+languidecidas con la incertidumbre sobre el destino.</p>
+<h2 id="sucesos-clave">Sucesos clave</h2>
+<ul>
+<li><strong>La Caída de Esmerandel</strong>: La capital de los Reinos
+Radiantes, cuna de sabiduría y magia pura, fue tomada por sombras
+vivientes provenientes del abismo más hondo. Su derrota simbolizó el fin
+de la era del esplendor.</li>
+<li><strong>La Ruptura del Pacto Eterno</strong>: El tratado sagrado
+entre los elfos y <a href="Humanos.html">Humanos</a>, que garantizaba la
+armonía con la naturaleza, fue quebrantado por la codicia y la
+desesperación, acelerando la desintegración social.</li>
+<li><strong>El Atardecer de los Dioses</strong>: Las deidades que hasta
+entonces velaron por el equilibrio comenzaron a desvanecerse o caer en
+letargo, dejando a mortales y criaturas en un mundo sin guía
+divina.</li>
+</ul>
+<h2 id="consecuencias-y-legado">Consecuencias y legado</h2>
+<h3 id="la-transformación-del-paisaje">La transformación del
+paisaje</h3>
+<p>La tierra se tornó inhóspita y cambió su fisonomía: bosques antes
+vírgenes se convirtieron en selvas sombrías, lagos cristalinos en
+charcas estancadas, y montañas majestuosas en ruinas erosionadas,
+símbolos físicos del desgaste provocado por la era.</p>
+<h3 id="las-nuevas-órdenes-y-cultos">Las nuevas órdenes y cultos</h3>
+<p>Ante la ausencia de luz y la creciente desesperación, surgieron
+sectas y órdenes dedicadas tanto a la luz residual como a la sombra
+dominante. Entre las más destacadas:</p>
+<ul>
+<li><strong>La Hermandad del Crepúsculo</strong>: Un grupo que buscaba
+equilibrar la oscilación entre luz y sombra, mediante rituales que
+honraban el devenir dual de Lithernia.</li>
+<li><strong>El Culto de la Niebla Eterna</strong>: Fanáticos que
+veneraban la oscuridad y buscaban sumergir al mundo en un sueño sin fin,
+creyendo que así renacería purificado.</li>
+</ul>
+<h3 id="leyendas-y-relatos">Leyendas y relatos</h3>
+<p>Las crónicas de este tiempo están plagadas de relatos sobre héroes y
+<a href="Villanos.html">Villanos</a> que intentaron cambiar el curso del
+destino, de pactos fatales, y de luchas épicas entre luz menguante y
+sombra creciente. Algunas <a href="Leyendas.html">Leyendas</a> hablan
+de:</p>
+<ul>
+<li><strong>El Guardián de la Última Luz</strong>, una figura mítica que
+portaba una antorcha eterna capaz de dispersar la oscuridad por corto
+tiempo.</li>
+<li><strong>La Dama del Eclipse</strong>, espíritu ambiguo que ofrecía
+poder a cambio de sacrificios, siendo vista como verdugo o salvadora
+según el relato.</li>
+</ul>
+<h2 id="costumbres-y-memorias">Costumbres y memorias</h2>
+<p>A pesar de la oscuridad que reinó, las culturas de Lithernia
+preservaron rituales ancestrales para protegerse y recordar el día en
+que fue sustituida la luminiscencia por el crepúsculo constante.</p>
+<ul>
+<li><strong>El Día de la Vigilia Oscura</strong>: Una fecha en que las
+comunidades encienden centenares de luces en honor a las almas perdidas
+y renovando la esperanza de un nuevo amanecer real.</li>
+<li><strong>El Canto del Crepúsculo</strong>: Una antigua tradición oral
+que recita poemas y canciones sobre la transición, inspirando paciencia
+y fortaleza ante la adversidad.</li>
+</ul>
+<hr />
+<p>El Amanecer Sombrío no es solo un período de decadencia, sino también
+un punto de inflexión crucial en la mitología y desarrollo espiritual de
+Lithernia, preparando el terreno para la lucha que definiría los siglos
+siguientes. Esta era oscura, aunque amenazante, forjó la esencia
+resiliente de sus pueblos, quienes aprendieron a florecer aun bajo el
+manto tenebroso del crepúsculo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 1.00)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

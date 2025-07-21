@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casas Nobles de Eldrador</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Casas Nobles de Eldrador</div>
+        <div class="content">
+<h1 id="casas-nobles-de-eldrador">Casas Nobles de Eldrador</h1>
+<h2 id="introducción">Introducción</h2>
+<p>Eldrador es un reino de bosques antiguos y magia arcana, hogar de los
+elfos en sus diversas formas, que viven en armonía con la naturaleza y
+los espíritus del bosque. Este reino se distingue por su profunda
+conexión con la magia, la naturaleza, el conocimiento y las estrellas,
+venerando a dioses que representan estos aspectos.</p>
+<p>Las casas nobles de Eldrador son pilares fundamentales en la
+estructura social y política del reino. Estas familias aristocráticas
+mantienen el equilibrio entre la tradición y la innovación, custodiando
+secretos ancestrales y ejerciendo influencia sobre la magia y la cultura
+del reino.</p>
+<h2 id="contexto-histórico">Contexto Histórico</h2>
+<p>Desde tiempos inmemoriales, las casas nobles de Eldrador han sido
+guardianas del legado élfico y de la magia arcana que impregna sus
+bosques y ciudades. La historia de estas casas está marcada por alianzas
+estratégicas, rivalidades ancestrales y una constante búsqueda de
+sabiduría y poder.</p>
+<p>La nobleza de Eldrador no solo se basa en la riqueza o el poder
+militar, sino en la maestría de las artes arcanas, la preservación de la
+naturaleza y la interpretación de los designios estelares. La influencia
+de estas casas se extiende a través de sus vínculos con los dioses y su
+papel en los rituales y festivales que definen la identidad del
+reino.</p>
+<h2 id="importancia-en-lithernia">Importancia en Lithernia</h2>
+<p>En la era actual, conocida como la Era de la Luz Crepuscular, las
+casas nobles de Eldrador juegan un papel crucial en la defensa del reino
+contra las amenazas que emergen de las sombras del pasado. Su
+conocimiento arcano y su habilidad para manipular la magia natural son
+recursos vitales para mantener la estabilidad y la prosperidad en
+Eldrador.</p>
+<p>Estas casas también actúan como centros de aprendizaje y cultura,
+atrayendo a eruditos, magos y artistas que contribuyen al florecimiento
+de la civilización élfica. Su influencia se siente en la política de
+Lithernia, en las alianzas con otros reinos y en la preservación de la
+herencia mágica del mundo.</p>
+<p>Para un estudio detallado de los linajes, símbolos y tradiciones de
+las casas nobles, consulta <a
+href="Casas%20Nobles%20de%20Eldrador%20-%20Linajes%20y%20Familias.html">Casas
+Nobles de Eldrador - Linajes y Familias</a> y <a
+href="Casas%20Nobles%20de%20Eldrador%20-%20Cultura%20y%20Tradiciones.html">Casas
+Nobles de Eldrador - Cultura y Tradiciones</a>.</p>
+<p>—Casas Nobles de Eldrador - Linajes y Familias.md— # Casas Nobles de
+Eldrador - Linajes y Familias</p>
+<h2 id="principales-casas-nobles">Principales Casas Nobles</h2>
+<p>Eldrador cuenta con varias casas nobles destacadas, cada una con su
+linaje, símbolos y especializaciones mágicas o culturales. A
+continuación, se describen las más influyentes:</p>
+<h3 id="casa-luminara">Casa Luminara</h3>
+<ul>
+<li><strong>Linaje:</strong> Descendientes directos de los primeros
+Eladrin que llegaron a Eldrador.</li>
+<li><strong>Símbolo:</strong> Una estrella plateada de ocho puntas sobre
+fondo índigo.</li>
+<li><strong>Especialización:</strong> Astromancia y manipulación de la
+luz estelar.</li>
+<li><strong>Rol:</strong> Custodios de los observatorios y maestros en
+la interpretación del destino a través de las estrellas.</li>
+</ul>
+<h3 id="casa-sylvaris">Casa Sylvaris</h3>
+<ul>
+<li><strong>Linaje:</strong> Antiguos guardianes de los bosques sagrados
+y protectores de los espíritus naturales.</li>
+<li><strong>Símbolo:</strong> Un árbol plateado con raíces entrelazadas
+en un círculo verde esmeralda.</li>
+<li><strong>Especialización:</strong> Magia natural y druidismo.</li>
+<li><strong>Rol:</strong> Protectores de la naturaleza y líderes en
+rituales de comunión con los espíritus del bosque.</li>
+</ul>
+<h3 id="casa-thalorien">Casa Thalorien</h3>
+<ul>
+<li><strong>Linaje:</strong> Familia de magos arcanos reconocidos por su
+dominio en la magia ilusoria y feérica.</li>
+<li><strong>Símbolo:</strong> Un murciélago de cristal con alas
+iridiscentes sobre un fondo azul celeste.</li>
+<li><strong>Especialización:</strong> Ilusiones, encantamientos y
+manipulación del plano feérico.</li>
+<li><strong>Rol:</strong> Maestros de las artes arcanas y diplomáticos
+en las relaciones con otras razas feéricas.</li>
+</ul>
+<h3 id="casa-vaelith">Casa Vaelith</h3>
+<ul>
+<li><strong>Linaje:</strong> Linaje guerrero y arcano, conocidos por su
+destreza en la defensa del reino y la forja de artefactos mágicos.</li>
+<li><strong>Símbolo:</strong> Un guantelete de plata sosteniendo una
+hoja de fresno plateada.</li>
+<li><strong>Especialización:</strong> Combate mágico y creación de
+artefactos.</li>
+<li><strong>Rol:</strong> Protectores militares y artesanos de reliquias
+mágicas.</li>
+</ul>
+<h2 id="relaciones-y-alianzas">Relaciones y Alianzas</h2>
+<p>Las casas nobles mantienen una red compleja de alianzas
+matrimoniales, pactos mágicos y acuerdos políticos. Estas relaciones son
+esenciales para mantener la estabilidad en Eldrador y para enfrentar
+amenazas externas.</p>
+<h2 id="conflictos-internos">Conflictos Internos</h2>
+<p>A pesar de su cooperación, las casas nobles a menudo compiten por el
+favor de los dioses, el control de recursos mágicos y la influencia en
+la corte. Estas rivalidades pueden manifestarse en duelos mágicos,
+intrigas políticas y disputas territoriales.</p>
+<p>Para conocer las costumbres, festivales y tradiciones que unen y
+dividen a estas casas, consulta <a
+href="Casas%20Nobles%20de%20Eldrador%20-%20Cultura%20y%20Tradiciones.html">Casas
+Nobles de Eldrador - Cultura y Tradiciones</a>.</p>
+<p>—Casas Nobles de Eldrador - Cultura y Tradiciones.md— # Casas Nobles
+de Eldrador - Cultura y Tradiciones</p>
+<h2 id="costumbres-y-tradiciones">Costumbres y Tradiciones</h2>
+<p>Las casas nobles de Eldrador están profundamente arraigadas en
+tradiciones que reflejan su conexión con la magia, la naturaleza y las
+estrellas.</p>
+<h3 id="festivales-importantes">Festivales Importantes</h3>
+<ul>
+<li><strong>Festival de la Lluvia de Cristal:</strong> Celebrado durante
+el paso de un cometa, donde los artesanos compiten creando obras
+efímeras con luz encantada.</li>
+<li><strong>El Voto Silente de la Luna Nueva:</strong> Una noche de
+meditación comunal en los acantilados para recibir presagios y renovar
+votos ancestrales.</li>
+<li><strong>Festival de los Vientos Cambiantes:</strong> Donde los
+ciudadanos intercambian roles y vestimentas, resolviendo disputas
+mediante duelos de ingenio y arte.</li>
+</ul>
+<h2 id="ritos-y-juramentos">Ritos y Juramentos</h2>
+<p>Los contratos y juramentos importantes se sellan bajo constelaciones
+específicas, creyendo que su poder cósmico los hace irrompibles. La
+joyería celestial y las obras de cristal son símbolos de estatus y
+compromiso.</p>
+<h2 id="arte-y-cultura">Arte y Cultura</h2>
+<p>La música melancólica, las esculturas efímeras y la joyería con
+motivos estelares son expresiones culturales que reflejan la filosofía
+de cambio y transitoriedad que rige Eldrador.</p>
+<h2 id="influencia-religiosa">Influencia Religiosa</h2>
+<p>El culto a Arzia, diosa de las estrellas y el destino, es
+predominante, con templos que también funcionan como observatorios.
+Otros dioses como Ferion y Morgal tienen cultos respetados que influyen
+en la magia y la política.</p>
+<h2 id="conflictos-y-secretos">Conflictos y Secretos</h2>
+<p>Aunque la nobleza de Eldrador es conocida por su sabiduría y armonía,
+existen sociedades secretas y facciones que buscan manipular el destino
+del reino a través de la magia oculta y la intriga.</p>
+<hr />
+<p>Si se requiere información adicional o específica sobre alguna casa
+noble en particular, sus miembros destacados o eventos históricos
+relevantes, por favor indícalo para ampliar la nota.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casas%20Nobles.html">Casas Nobles</a> (relevancia:
+1.00)</li>
+<li><a href="Noble.html">Noble</a> (relevancia: 0.99)</li>
+<li><a href="Eldrador.html">Eldrador</a> (relevancia: 0.99)</li>
+<li><a
+href="Casas%20Nobles%20de%20Galvorn%20-%20Linajes%20y%20Leyendas.html">Casas
+Nobles de Galvorn - Linajes y Leyendas</a> (relevancia: 0.42)</li>
+<li><a href="Miembros%20de%20Casas%20Nobles.html">Miembros de Casas
+Nobles</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

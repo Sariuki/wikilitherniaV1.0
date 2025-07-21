@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakros</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lakros</div>
+        <div class="content">
+<h1 id="lakros">Lakros</h1>
+<h2 id="biografía">Biografía</h2>
+<p>Lakros es la encarnación divina de la furia ciega y la carnicería sin
+fin, una de las deidades más temidas del panteón Korogrim. Nacido como
+hijo de <strong><a href="Thyrgram.html">Thyrgram</a></strong>, el Dios
+Orco de la Guerra, Lakros heredó la sed de conflicto de su padre, pero
+la despojó de toda estrategia o propósito más allá del acto mismo de la
+matanza. Es el hermano menor de <strong>Sel’thirak</strong>, el Rey-Dios
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>, y arde con un profundo
+resentimiento hacia la autoridad y el control calculado que este ejerce
+sobre el reino. Para Lakros, el orden de su hermano es una forma de
+debilidad, una contención artificial de la verdadera naturaleza del
+poder, que él cree que reside en el caos y el derramamiento de
+sangre.</p>
+<p>Su genealogía divina está marcada por la rivalidad. No solo compite
+ferozmente con su hermano por la supremacía en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sino que también busca superar a
+su propio padre en la propagación del caos sanguinario. Esta competencia
+se extiende a su descendencia: su hijo, <strong><a
+href="Kromagul.html">Kromagul</a></strong>, el sádico dios hobgoblin del
+Dolor, es tanto su vástago como su rival, intentando superarlo en
+ambición y crueldad, buscando dominar a través de la agonía mientras
+Lakros lo hace a través de la brutalidad.</p>
+<p>La filosofía de Lakros es simple y aterradora: la guerra constante y
+la violencia desenfrenada son necesarias para purgar al mundo de toda
+debilidad. No busca conquistar para gobernar, sino para destruir. Cada
+batalla es un ritual, cada vida segada, una ofrenda a su insaciable
+apetito. Se deleita en la carnicería, y su influencia se siente con más
+fuerza en los momentos de mayor violencia, donde los guerreros sucumben
+al frenesí y la batalla se convierte en una masacre sin sentido.</p>
+<p>Mientras que su hermano Sel’thirak participó en el sellado del Primer
+Rey para mantener el orden divino, a Lakros le es indiferente el legado
+del antiguo monarca. Su interés en los eventos históricos se limita a
+cómo pueden generar más conflicto. El Cataclismo del <a
+href="Lilium.html">Lilium</a> no fue para él un castigo divino, sino un
+glorioso espectáculo de destrucción que considera el estado natural al
+que el mundo debería aspirar.</p>
+<h2 id="descripción-física-y-manifestaciones">Descripción Física y
+Manifestaciones</h2>
+<p>Como dios semi-ogro, Lakros se manifiesta como una figura colosal y
+monstruosa, la personificación de la fuerza bruta. Su cuerpo es un
+amasijo de músculos antinaturales, cubierto por una piel gruesa de tono
+rojo oscuro o gris ceniciento, surcada por cicatrices y venas que
+parecen pulsar con sangre hirviendo. Su rostro es una máscara de furia
+perpetua, con colmillos toscos que sobresalen de una mandíbula poderosa
+y ojos que arden con un fuego rojo demencial.</p>
+<p>No se presenta con la elegancia o la armadura ornamentada de otros
+dioses; prefiere ir casi desnudo o cubierto con simples taparrabos y
+arneses de cuero y hierro crudo, a menudo manchados con la sangre seca
+de innumerables víctimas. Cuando se manifiesta en el plano mortal, su
+presencia es abrumadora, acompañada de un calor sofocante y el olor
+metálico de la sangre fresca.</p>
+<h3 id="equipo-y-artefactos">Equipo y Artefactos</h3>
+<p>Lakros no blande armas de precisión, sino herramientas de carnicería.
+Su arma predilecta es <strong>“El Desollador”</strong>, un hacha-gancho
+gigantesca de hierro negro, dentada y perpetuamente cubierta de sangre.
+La leyenda dice que el arma no solo corta la carne, sino que arranca el
+alma de sus víctimas, alimentando la furia de su portador.</p>
+<h2 id="adoración-y-seguidores">Adoración y Seguidores</h2>
+<p>El culto a Lakros es uno de los más violentos y temidos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Sus principales devotos son los
+semiogros del <strong>Clan Lakros</strong>, quienes lo ven como su
+progenitor y patrón. Han establecido su principal centro de poder en la
+ciudad de <strong>Medromora</strong>, construida en las laderas de un
+volcán.</p>
+<ul>
+<li><strong>Clero y Seguidores:</strong> Sus sacerdotes son <a
+href="Heroes.html">Heroes</a>-guerreros y chamanes de sangre que lideran
+a sus fieles en la batalla y en rituales salvajes. El general
+<strong>Korgath “El Destripador”</strong> es el ejemplo perfecto de un
+<a href="Heroes.html">Heroes</a> de Lakros: un ser de pura brutalidad
+que impone la voluntad de su dios.</li>
+<li><strong>Templos y Rituales:</strong> Los templos de Lakros son fosos
+de lucha, arenas de gladiadores y altares de sacrificio al aire libre.
+Los rituales más comunes implican combates a muerte y sacrificios
+masivos, donde la sangre de los caídos se vierte en ofrenda, a menudo
+arrojada al cráter del volcán de Medromora para “saciar” al dios y
+mantener su favor.</li>
+<li><strong>Dogma:</strong> La fe de Lakros se resume en unos pocos
+principios brutales:
+<ul>
+<li>La sangre es la moneda del poder.</li>
+<li>La fuerza se demuestra en la matanza, y la piedad es la mayor de las
+debilidades.</li>
+<li>Sobrevivir no es suficiente; dominar a través de la violencia es el
+único propósito verdadero.</li>
+<li>El mundo debe ser purgado constantemente a través del conflicto para
+evitar que la debilidad lo infecte.</li>
+</ul></li>
+</ul>
+<h2 id="capacidades-y-poderes-avatar-en-el-mundo-mortal">Capacidades y
+Poderes (Avatar en el Mundo Mortal)</h2>
+<p>En el improbable caso de que Lakros manifieste un avatar, sería una
+fuerza de destrucción casi imparable. Aunque no se proporciona un bloque
+de estadísticas formal, sus capacidades incluirían:</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Lakros es una herida abierta en el panteón de Lithernia. Su
+existencia garantiza que <a href="Mor&#39;dhul.html">Mor’dhul</a> nunca
+pueda conocer una paz duradera, ya que su filosofía de violencia
+perpetua alimenta constantes conflictos internos y guerras civiles entre
+los clanes. Es el motor del aspecto más salvaje de la Gran Guerra, el
+recordatorio constante de que, más allá de la estrategia y la ambición,
+la guerra es, en su esencia, un acto de carnicería.</p>
+<p>Su rivalidad con Sel’thirak crea una de las tensiones políticas más
+importantes del reino oscuro: la lucha entre el orden tiránico y el caos
+absoluto. Mientras Sel’thirak representa una amenaza calculada para el
+resto de Lithernia, Lakros es un desastre natural andante, una fuerza
+que, si se desatara sin control, podría consumir no solo a sus enemigos,
+sino a <a href="Mor&#39;dhul.html">Mor’dhul</a> mismo en un torbellino
+de sangre y fuego. En el gran tablero del destino, Lakros es un agente
+del caos puro, una deidad que se deleitaría viendo arder el mundo con
+tal de poder bañarse en sus cenizas ensangrentadas.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

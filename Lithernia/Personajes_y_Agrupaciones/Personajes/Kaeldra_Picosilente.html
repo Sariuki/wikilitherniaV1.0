@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaeldra_Picosilente</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaeldra_Picosilente</div>
+        <div class="content">
+<h1 id="kaeldra-picosilente">Kaeldra Picosilente</h1>
+<h2 id="biografía">Biografía</h2>
+<h3 id="orígenes-en-la-sombra-de-la-montaña">Orígenes en la Sombra de la
+Montaña</h3>
+<p>Kaeldra no nació en una casa de nobleza dorada ni en el estruendo de
+una gran forja. Su linaje, Picosilente, es uno de los pilares
+fundacionales del Clan Rompevelos, descendientes directos de aquellos
+veteranos del Clan Cortepiedra que juraron que la roca de <a
+href="Valtoria.html">Valtoria</a> jamás volvería a temblar por el caos
+de la magia desatada. Su infancia no fue de juegos, sino de lecciones.
+Aprendió a leer las <a href="Runas.html">Runas</a> de contención antes
+que las sagas de héroes y a distinguir la corrupción de un artefacto del
+<a href="Lilium.html">Lilium</a> por su zumbido silencioso, un sonido
+que para otros sería imperceptible.</p>
+<p>Criada en la ciudad-geoda de <a href="Nolindor.html">Nolindor</a>,
+Kaeldra entendió desde joven la frágil dualidad de su mundo: la belleza
+de los cristales puros que iluminaban su hogar y la sombra retorcida que
+la magia corrupta podía proyectar sobre ellos. Su adiestramiento fue
+severo, enfocado en la disciplina, el silencio y la observación.
+Mientras los jóvenes del Clan Bronzenhammer practicaban cargas
+atronadoras, Kaeldra pasaba semanas en meditación, aprendiendo a sentir
+las vibraciones del maná inestable en la piedra, a rastrear cultistas
+por el eco de sus cánticos prohibidos y a desmantelar trampas arcanas
+con la precisión de un tallador de gemas.</p>
+<h3 id="la-campeona-del-silencio">La Campeona del Silencio</h3>
+<p>Su ascenso al título de Campeona no se forjó en una gran batalla
+campal, sino en el corazón de un taller gnómico olvidado. Un antiguo
+autómata de la era pre-<a href="Lilium.html">Lilium</a>, cuya matriz de
+poder se había vuelto inestable, despertó y comenzó a masacrar todo a su
+paso. Un contingente del Clan Bronzenhammer intentó detenerlo con fuerza
+bruta, pero cada golpe de sus martillos solo hacía que la máquina
+liberara ondas de energía caótica que distorsionaban la realidad.</p>
+<p>Fue Kaeldra quien, en solitario, se adentró en el caos. Ignorando los
+ataques directos, estudió los patrones del autómata, identificó las <a
+href="Runas.html">Runas</a> de mando corruptas en su chasis y, con una
+serie de golpes precisos de su martillo rúnico, no lo destruyó, sino que
+rompió los flujos de maná que lo animaban, dejándolo inerte. En el
+proceso, salvó a una joven y aterrorizada gnoma llamada Glimma
+Ruedarruna, que se había escondido bajo una mesa de trabajo. El acto,
+realizado en un silencio casi absoluto en medio del estruendo, le valió
+el respeto de su clan y el título de Campeona. De Glimma obtuvo un
+juramento de silencio y protección que mantiene hasta hoy; la gnoma es
+un recordatorio viviente de lo que su clan juró defender.</p>
+<h3 id="la-guardiana-de-la-bóveda-prohibida">La Guardiana de la Bóveda
+Prohibida</h3>
+<p>Hoy, Kaeldra ostenta uno de los cargos más solitarios y cruciales del
+clan: es la Guardiana de la Bóveda Prohibida. Escondida en las
+profundidades de <a href="Nolindor.html">Nolindor</a>, esta bóveda no
+guarda tesoros, sino pesadillas. En su interior, en celdas selladas con
+las más potentes <a href="Runas.html">Runas</a> de contención, yacen
+artefactos imbuidos con la esencia del <a href="Lilium.html">Lilium</a>,
+tomos que susurran secretos que enloquecen a los sabios y, en ocasiones,
+los propios “Hijos de la Luna” cuya magia es demasiado volátil para el
+mundo exterior.</p>
+<p>Su deber es una vigilia eterna. Pasa la mayor parte de sus días en el
+silencio absoluto de la bóveda, reforzando los sellos, estudiando la
+naturaleza de las amenazas contenidas y resistiendo los susurros
+psíquicos que emanan de los objetos malditos. Su rivalidad con los
+Nighthawk de <a href="Mor&#39;dhul.html">Mor’dhul</a> es personal; en
+más de una ocasión, ha frustrado sus intentos de infiltrarse en <a
+href="Valtoria.html">Valtoria</a> para robar los secretos de la Bóveda,
+enfrentando a sus ilusionistas y asesinos de sombras en duelos
+silenciosos librados en túneles olvidados. Su lealtad a la Reina Valeria
+es inquebrantable, pues ve en el orden de la corona la única estructura
+capaz de evitar que la locura que ella custodia se derrame sobre
+Lithernia.</p>
+<h2 id="descripción-y-equipamiento">Descripción y Equipamiento</h2>
+<h3 id="apariencia">Apariencia</h3>
+<p>Kaeldra Picosilente es una enana de constitución sólida y fibrosa,
+forjada por la disciplina más que por la fuerza bruta. A sus 85 años, su
+rostro es un mapa de concentración serena, con pocas arrugas de
+expresión pero marcado por finas cicatrices de quemaduras rúnicas y
+cortes precisos, testigos de artefactos que casi se le escapan de las
+manos. Su cabello, de un color negro como el basalto, está recogido en
+una única y gruesa trenza funcional, sujeta con broches de acero pulido
+inscritos con <a href="Runas.html">Runas</a> de silencio. Sus ojos son
+de un gris acerado, intensamente observadores, capaces de notar el más
+mínimo cambio en la luz o el aire que delate una presencia mágica. Rara
+vez sonríe, pero su mirada puede transmitir una aprobación férrea o una
+advertencia mortal sin necesidad de palabras.</p>
+<h3 id="equipo-de-la-rompevelos">Equipo de la Rompevelos</h3>
+<p>El equipo de Kaeldra es puramente funcional, cada pieza una
+herramienta para su cruzada.</p>
+<ul>
+<li><strong>Armadura de Contención Rompevelos:</strong> Un conjunto
+completo de armadura de placas de acero con vetas de mithril, más ligera
+de lo que aparenta. No está adornada con relieves de batallas, sino
+grabada con complejas filigranas de <a href="Runas.html">Runas</a> de
+abjuración y contención que brillan con una tenue luz plateada al
+neutralizar energía arcana.</li>
+<li><strong>Silencio de Granito:</strong> Su martillo de guerra, una
+obra maestra del Clan. La cabeza es de granito encantado, inmune a la
+magia de transmutación, y el mango de acero rúnico. Más que un arma, es
+un foco de disrupción. Cada impacto no solo aplasta, sino que libera una
+onda de energía anti-magia que puede hacer fallar <a
+href="Conjuros.html">Conjuros</a> o desestabilizar encantamientos.</li>
+<li><strong>Kit de Guardiana:</strong> En su cinto no lleva cuernos de
+cerveza, sino una serie de herramientas especializadas: jaulas de
+nulificación en miniatura para contener pequeños objetos, grilletes
+rúnicos forjados con cristales de <a href="Nolindor.html">Nolindor</a>,
+polvo de gemas puras para trazar círculos de sellado temporales y una
+serie de lentes calibradas para detectar auras mágicas.</li>
+<li><strong>La Llave de la Bóveda:</strong> No es una llave física, sino
+un complejo amuleto de piedra y acero que cuelga de su cuello. Es el
+foco principal de su autoridad y el catalizador para activar y
+desactivar los sellos de la Bóveda Prohibida. Se dice que está atado a
+su propia fuerza vital.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>El legado de Kaeldra Picosilente no se cantará en las tabernas ni se
+forjará en estatuas doradas. El suyo es un legado de silencio, definido
+por las catástrofes que <em>no</em> ocurrieron, las plagas mágicas que
+fueron purgadas antes de nacer y los cultos apocalípticos desmantelados
+antes de que pudieran invocar a sus oscuros amos.</p>
+<p>Para <a href="Valtoria.html">Valtoria</a>, ella es el muro invisible,
+la centinela impasible que permite que la Torre de las Estrellas estudie
+y que la Reina Valeria gobierne en relativa paz. Es la encarnación de la
+filosofía Rompevelos: una fuerza pragmática y severa que comprende que
+las mayores amenazas no siempre se anuncian con tambores de guerra, sino
+con un susurro en la oscuridad.</p>
+<p>Para los aventureros y héroes de Lithernia, Kaeldra no es una aliada
+fácil de ganar. Desconfía de los lanzadores de <a
+href="Conjuros.html">Conjuros</a> impulsivos y de aquellos que buscan
+poder en ruinas olvidadas. Sin embargo, si la amenaza es lo
+suficientemente grave como para poner en peligro la propia estabilidad
+del Tejido del Maná, podría convertirse en la aliada más formidable y
+decidida, una fuerza de la naturaleza enana cuya voluntad es tan
+inquebrantable como la montaña misma. Su impacto no se medirá en reinos
+conquistados, sino en un mundo que, gracias a ella, ha podido seguir
+existiendo.</p>
+        </div>
+    </div>
+</body>
+</html>

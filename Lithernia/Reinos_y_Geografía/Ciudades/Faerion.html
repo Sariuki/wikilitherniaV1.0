@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faerion</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Faerion</div>
+        <div class="content">
+<h1 id="faerion">Faerion</h1>
+<p>Donde el gran Río Anhelar se ensancha antes de besar el mar, yace
+Faerion, la joya fluvial de <a href="Galvorn.html">Galvorn</a>. No es
+una ciudad de murallas imponentes ni de muelles atestados de navíos de
+guerra, sino un remanso de arte y naturaleza. Sus edificios, una
+elegante fusión de la robusta madera de roble galvornesa y las líneas
+curvas de la estética élfica, se alzan sobre pilotes a lo largo de las
+riberas, conectados por un laberinto de pasarelas de madera y puentes de
+lianas vivas. Es una ciudad que parece flotar sobre las aguas, un lugar
+donde el susurro del viento entre los sauces se mezcla con el rasgueo de
+una lira y el tintineo del cristal soplado. Su símbolo, una lira de
+madera entrelazada con las ramas de un sauce plateado, refleja su alma:
+un santuario para la inspiración y la armonía.</p>
+<h2 id="historia">Historia</h2>
+<p>Faerion nació de un sueño. Siglos después del Cataclismo del <a
+href="Lilium.html">Lilium</a>, cuando los reinos aún se definían con
+hostilidad, el <a href="Bardo.html">Bardo</a> semielfo Faeron el
+Viajero, devoto de <a href="Quiteon.html">Quiteon</a>, buscaba un lugar
+donde el espíritu aventurero humano y la serenidad natural élfica
+pudieran coexistir. Siguió el curso del Río Anhelar tierra adentro,
+lejos de la política tumultuosa de la capital, hasta encontrar una
+arboleda de sauces ancestrales cuyas ramas parecían susurrar historias
+al agua.</p>
+<p>Allí fundó un pequeño asentamiento, atrayendo a poetas, artesanos y
+librepensadores de todo <a href="Galvorn.html">Galvorn</a> y de las
+fronteras de <a href="Eldrador.html">Eldrador</a>. La ciudad creció no
+por conquista, sino por su reputación como un refugio de creatividad.
+Elfos del bosque, cansados de la rigidez de la Mano de Hierro, enseñaron
+a los <a href="Humanos.html">Humanos</a> a tejer puentes vivos; los <a
+href="Humanos.html">Humanos</a>, a su vez, compartieron sus robustas
+técnicas de construcción naval, que los <a
+href="Semielfos.html">Semielfos</a> refinaron hasta convertirlas en un
+arte. Hoy, Faerion es gobernada por el Consejo de los Sauces, una
+asamblea de gremios y sabios que mantiene vivo el espíritu bohemio de su
+fundador, rindiendo tributo al Rey de <a href="Galvorn.html">Galvorn</a>
+pero conservando una preciada autonomía cultural.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Muelle del Poeta</strong>: El corazón comercial de
+Faerion, donde las barcazas fluviales, con sus cascos tallados con
+intrincados motivos de hojas y animales del bosque, atracan para
+comerciar. Los almacenes no son meros edificios, sino galerías de arte
+donde se exhiben las mercancías. Aquí, los genasi de aire usan sus dones
+para guiar los barcos con brisas suaves, y los bardos compiten por ver
+quién narra la mejor historia a cambio de unas monedas.</p></li>
+<li><p><strong>La Arboleda del Consejo</strong>: En una pequeña isla en
+el centro del río se alza la arboleda sagrada que da nombre al gobierno
+de la ciudad. Un círculo de sauces milenarios rodea un claro donde no se
+han construido edificios. En su lugar, el Consejo de los Sauces se reúne
+bajo las ramas, creyendo que la sabiduría de la naturaleza guía sus
+decisiones. Es un lugar de culto a <a href="Ferion.html">Ferion</a> y de
+profunda meditación.</p></li>
+<li><p><strong>Los Talleres de Brisa y Vidrio</strong>: Este distrito,
+perfumado por el humo aromático de las forjas de vidrio, es el hogar de
+los artesanos más renombrados de Faerion. Los talleres están abiertos,
+permitiendo a los transeúntes observar cómo los maestros vidrieros
+soplan delicadas obras que parecen capturar la luz de las estrellas, o
+cómo los carpinteros dan forma a liras que cantan con la voz del
+viento.</p></li>
+<li><p><strong>Las Viviendas del Anhelar</strong>: El distrito
+residencial principal, compuesto por casas de madera y piedra blanca
+construidas sobre pilotes a diferentes alturas sobre el río. Están
+interconectadas por una red de pasarelas y pequeños muelles privados,
+donde cada familia amarra su propia canoa o esquife tallado. Por la
+noche, las luces de los farolillos de las casas se reflejan en el agua,
+creando la ilusión de una ciudad de estrellas flotantes.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La inspiración es la moneda más valorada en Faerion. Un poema bien
+recitado puede pagar una comida, y una talla de madera exquisita es un
+regalo más preciado que el oro. Las disputas a menudo se resuelven no
+con duelos, sino con concursos de ingenio o arte, mediados por los
+sabios del Consejo. La armonía con la naturaleza es fundamental; cada
+árbol talado para la construcción se acompaña de un ritual de
+agradecimiento y la plantación de tres nuevos árboles.</p>
+<p>El evento más importante del año es el ‘Festival de las Luces
+Flotantes’. En el solsticio de verano, al anochecer, toda la ciudad se
+congrega en las orillas del río. Miles de farolillos de papel, cada uno
+con un deseo escrito y encantado con una efímera <em>Luz Danzante</em>,
+son liberados sobre el agua, creando un río de luz que fluye hacia el
+mar como una plegaria colectiva a <a href="Yfrit.html">Yfrit</a> y a los
+espíritus del bosque.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Faerion es la encarnación de la arquitectura orgánica. Las robustas
+vigas de roble se curvan en arcos elegantes, sosteniendo techos
+cubiertos de musgo vivo. Los puentes no son de piedra, sino de lianas y
+raíces hábilmente tejidas por la magia de los elfos del bosque. Las
+torres de los sabios, hechas de piedra blanca pulida y grandes paneles
+de cristal, están diseñadas para capturar hasta el último rayo de luz
+del alba y del crepúsculo. El ambiente es de una calma creativa, donde
+el aire fresco del río se mezcla con el olor a madera trabajada y flores
+silvestres. El sonido predominante es el murmullo del agua, el canto de
+los pájaros y la música que parece emanar de cada esquina.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Barco de los Lamentos</strong>: Se susurra entre los
+barqueros que, en las noches de niebla espesa, un elegante esquife
+élfico tripulado por espectros luminosos navega silenciosamente por el
+Anhelar. La leyenda dice que buscan a una amante perdida, una doncella
+de Faerion que prometió esperar a su amado <a
+href="Guerrero.html">Guerrero</a> de <a
+href="Eldrador.html">Eldrador</a>. Quienes son lo suficientemente
+valientes como para no huir y ofrecer una canción triste al barco
+fantasma, reciben a cambio un don de inspiración divina o una
+premonición crucial sobre su propio destino.</p></li>
+<li><p><strong>La Sombra del Sauce</strong>: Los padres advierten a sus
+hijos que no se adentren solos en la Arboleda del Consejo por la noche.
+Cuentan la historia de la “Sombra del Sauce”, una antigua y malévola
+criatura feérica que duerme entre las raíces de los árboles más viejos.
+Se dice que la criatura despierta con el olor de la codicia o la
+malicia, y que se lleva a quienes dañan el bosque o intentan robar los
+secretos del consejo, arrastrándolos a un reino de sombras del que nunca
+regresan.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.43)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belanor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Belanor</div>
+        <div class="content">
+<h1 id="belanor">Belanor</h1>
+<p>Belanor es un desafío a la furia de los dioses, una ciudad tallada
+sobre el filo de los acantilados que se precipitan hacia el mar
+embravecido. No conoce la paz de un puerto tranquilo; su existencia es
+un diálogo constante con la tormenta. Una intrincada red de puentes de
+cuerda y arcos de piedra conecta los pináculos de roca sobre los que se
+asienta, desafiando a los vientos que aúllan sin cesar. Sus edificios,
+de roca grisácea pulida por la sal y el tiempo, adoptan formas
+redondeadas para desviar las ráfagas más violentas. Belanor no se limita
+a soportar la tempestad: la convierte en arte, en música, en la propia
+alma de su pueblo.</p>
+<h2 id="historia">Historia</h2>
+<p>Belanor nació de un naufragio y una canción. Las <a
+href="Leyendas.html">Leyendas</a> cuentan que, hace siglos, un <a
+href="Bardo.html">Bardo</a> llamado Kaeron el Rompetormentas fue el
+único superviviente de una flota aniquilada por la ira de <a
+href="Exion.html">Exion</a>. En lugar de maldecir al dios, Kaeron se
+aferró a los acantilados y, en mitad del huracán, compuso una epopeya
+tan poderosa que, según se dice, la propia tormenta amainó para
+escucharla.</p>
+<p>Inspirados por su resiliencia, otros náufragos, exploradores y almas
+aventureras se unieron a él. No construyeron un refugio, sino un
+monumento al ingenio. Los <a href="Goliaths.html">Goliaths</a>,
+descendientes de montañeses de <a href="Valtoria.html">Valtoria</a> que
+también naufragaron, usaron su fuerza para asegurar los cimientos y
+tallar los primeros faros. Los genasi de aire encontraron un hogar donde
+su naturaleza era venerada, y los <a href="Humanos.html">Humanos</a> y
+semi-elfos aportaron su arte y diplomacia. Así, Belanor creció hasta
+convertirse en la principal defensora de la costa norte de <a
+href="Galvorn.html">Galvorn</a>, un lugar donde la furia de la
+naturaleza se canaliza en la más pura creatividad.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Púlpito del Viento</strong>: El punto más alto y
+expuesto de Belanor, un saliente de roca que se adentra en el cielo
+sobre el océano. Aquí se encuentra el “Cuerno del Viento”, un colosal
+instrumento de bronce que los barcos hacen sonar antes de zarpar.
+Durante las grandes tempestades, el Vigía de la Tormenta se ata a este
+pináculo para cantar sus sinfonías, un acto de desafío y
+reverencia.</p></li>
+<li><p><strong>La Red Colgante</strong>: El distrito residencial
+principal no está en el suelo, sino suspendido entre los pináculos. Es
+un laberinto de puentes de cuerda, escaleras talladas y plataformas de
+madera reforzada que crujen y se mecen con el viento, habitado por
+aquellos que han aprendido a danzar con el vértigo.</p></li>
+<li><p><strong>El Respiro de los Gemelos</strong>: El templo principal
+de la ciudad, dedicado a <a href="Exion.html">Exion</a> y <a
+href="Quiteon.html">Quiteon</a>. No es un edificio, sino una inmensa
+caverna tallada en la faz del acantilado por el viento y el agua. En su
+interior, el sonido de las olas y las corrientes de aire crean una
+música natural y perpetua. Es un lugar de peregrinación para marineros,
+artistas y Viento-Bardos en busca de inspiración divina.</p></li>
+<li><p><strong>El Taller del Eco</strong>: Un distrito de artesanos
+donde el sonido de los martillos compite con el bramido del mar. Aquí se
+crean las famosas esculturas cinéticas de Belanor, ingenios de metal y
+madera que giran y cantan con el viento, llenando la ciudad de una
+melodía mecánica e hipnótica.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>En Belanor, el clima es el reloj y el calendario. La vida se organiza
+en torno a las mareas y la predicción de tormentas. El mayor honor para
+un artista es convertirse en un “Viento-<a href="Bardo.html">Bardo</a>”,
+un maestro capaz de componer “Sinfonías de la Tempestad” que narran las
+grandes epopeyas de supervivencia en el mar.</p>
+<p>Anualmente se celebra la “Danza de las Cometas”, un vibrante festival
+en honor a <a href="Quiteon.html">Quiteon</a> donde los cielos se llenan
+de cometas de seda de todos los colores y formas, algunas tan grandes
+como un navío pequeño. La costumbre más sagrada es la elección del
+“Vigía de la Tormenta”. Cuando se acerca un temporal de gran magnitud,
+el Consejo de Vigías y Bardos elige al <a href="Bardo.html">Bardo</a>
+más diestro para que suba al Púlpito del Viento. Su misión no es calmar
+la tormenta, sino guiar su furia con su canto, protegiendo a la ciudad y
+honrando el poder de <a href="Exion.html">Exion</a>.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Belanor es defensiva y expresiva a la vez. Las
+ventanas son gruesos ojos de buey de vidrio reforzado con magia, y las
+puertas son pesadas planchas de madera de roble selladas con hierro. Sus
+faros son únicos en Lithernia, pues además de guiar a los barcos,
+funcionan como campanarios melódicos cuyas notas cambian de tono según
+la intensidad del viento, creando un constante y cambiante paisaje
+sonoro. El ambiente es electrizante y vigorizante. El aire huele a sal,
+ozono y piedra mojada. El sonido dominante es una sinfonía de tres
+partes: el rugido del mar abajo, el silbido del viento a través de las
+rocas y la música etérea de las esculturas y los campanarios.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Melodista de la Caverna</strong>: Se susurra que en
+las cuevas marinas bajo los cimientos de la ciudad habita un elemental
+de aire ancestral y caprichoso. No se le puede invocar ni sobornar, pero
+a veces, concede fragmentos de melodías proféticas a los Viento-Bardos
+que meditan en la orilla, canciones que predicen el destino de reyes y
+reinos.</p></li>
+<li><p><strong>El Navío del Desafío</strong>: Cuando la niebla es
+espesa, algunos marineros juran haber visto el barco fantasma del
+capitán Valerius, quien, según la leyenda, se burló de <a
+href="Exion.html">Exion</a> y juró navegar a través del corazón de
+cualquier tormenta. Su aparición es un augurio de naufragio inminente,
+un recordatorio de que la arrogancia siempre es castigada por el
+mar.</p></li>
+<li><p><strong>Los Silbadores de la Grieta</strong>: Los niños de
+Belanor no temen a los monstruos bajo la cama, sino a los “Silbadores de
+la Grieta”. Se dice que son pequeños seres feéricos maliciosos que se
+esconden en las fisuras de los acantilados. Imitan las voces de seres
+queridos para atraer a los desprevenidos al borde del precipicio,
+deleitándose con su caída.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

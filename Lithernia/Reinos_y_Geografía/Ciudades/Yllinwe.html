@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yllinwe</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Yllinwe</div>
+        <div class="content">
+<h1 id="yllinwe">Yllinwe</h1>
+<p>En el corazón de <a href="Eldrador.html">Eldrador</a>, donde las
+montañas lloran ríos de plata, se encuentra Yllinwe, la Ciudad de las
+Cascadas. No es una fortaleza de poderío militar, sino un monumento a la
+armonía entre el agua, la luz y el sonido. La ciudad está tallada en una
+serie de terrazas de piedra blanca que descienden junto a una cascada
+colosal, la Lágrima de Yllin. Sus edificios de cristal pulido y sus
+puentes de luz sólida parecen flotar sobre los canales que serpentean
+por cada nivel, llevando el murmullo del agua a todos los rincones. Por
+la noche, Yllinwe se transforma en un firmamento terrenal, cuando luces
+encantadas en el fondo de sus canales se encienden para imitar las
+constelaciones, creando un espejo del cielo en la tierra.</p>
+<h2 id="historia">Historia</h2>
+<p>Yllinwe fue fundada no por un conquistador, sino por un vidente. Hace
+siglos, un <a href="Eladrin.html">Eladrin</a> llamado Yllin, devoto de
+<a href="Arzia.html">Arzia</a> y <a href="Lerian.html">Lerian</a>, se
+sintió llamado por una melodía que solo él podía oír, emanando de las
+cascadas ocultas en las montañas. La leyenda cuenta que el agua le
+susurró una profecía: que en un mundo gobernado por la rigidez de la
+Mano de Hierro, el conocimiento verdadero y el destino puro solo podrían
+encontrarse en la fluidez.</p>
+<p>Siguiendo esta visión, Yllin y sus seguidores fundaron una ciudad
+dedicada a la adivinación a través del agua y la música. Con el tiempo,
+Yllinwe se convirtió en un faro para artistas, poetas y místicos de todo
+<a href="Eldrador.html">Eldrador</a>. Sus habitantes, los “Cantores del
+Agua”, perfeccionaron el arte de interpretar las profecías ocultas en la
+acústica de las cascadas, ganándose el respeto —y a veces el temor— de
+la corte élfica. Aunque leal al reino, Yllinwe mantiene una distancia
+contemplativa, prefiriendo escuchar los secretos del cosmos a las
+intrigas del poder.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Anfiteatro de la Lágrima</strong>: La terraza más baja
+y amplia de la ciudad, situada justo en la base de la gran cascada.
+Aquí, el agua se estrella contra una poza de cristal, creando una
+acústica natural de una pureza increíble. Es el escenario de los grandes
+conciertos de los Cantores del Agua y el lugar donde se celebran los
+“Bautismos de la Cascada”.</p></li>
+<li><p><strong>Las Terrazas de Cristal</strong>: El principal distrito
+residencial. Las viviendas, talladas en piedra blanca y adornadas con
+fachadas de cristal, se aferran a las laderas de la montaña. Cada casa
+tiene su propio canal de agua que fluye a través de un pequeño jardín
+interior, manteniendo un ambiente de serenidad y frescura
+perpetua.</p></li>
+<li><p><strong>El Mirador del Crepúsculo</strong>: Una vasta plataforma
+en el nivel más alto de la ciudad, orientada perfectamente hacia el
+oeste. Sus suelos de mármol pulido reflejan el cielo con una claridad
+asombrosa. Es aquí donde toda la ciudad se reúne para el “Silencio del
+Crepúsculo”, un ritual diario de meditación mientras las primeras
+estrellas aparecen en el cielo y en los canales a sus pies.</p></li>
+<li><p><strong>Los Canales Sombríos</strong>: En los niveles inferiores
+de la ciudad, lejos de la luz principal, se encuentra una red de canales
+más antiguos y estrechos. El agua aquí es lenta y oscura. Es un secreto
+a voces que en esta zona se encuentran las capillas clandestinas a <a
+href="Morgal.html">Morgal</a>, y se rumorea que en algún lugar de este
+laberinto acuático se oculta el legendario Estanque del Olvido.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Yllinwe fluye al ritmo del agua. La perfección no se mide
+en riqueza, sino en la fluidez de una melodía, la claridad de una visión
+o la armonía de un poema. El símbolo de la ciudad, un sauce de cristal
+llorando sobre tres estrellas reflejadas en el agua, representa esta
+unión de melancolía, belleza y destino.</p>
+<p>La costumbre más sagrada es el “Silencio del Crepúsculo”, un momento
+en que todo trabajo cesa y la ciudad entera se sume en una meditación
+silenciosa, buscando la paz interior y la conexión con el cosmos. El
+rito de paso más importante es el “Bautismo de la Cascada”, donde los
+jóvenes elfos se sitúan bajo el velo de la Lágrima de Yllin para
+interpretar una profecía personal a partir del sonido del agua,
+definiendo así su camino en la vida. Ser un “Cantor del Agua” es la más
+alta vocación, una mezcla de <a href="Sacerdote.html">Sacerdote</a>,
+artista y oráculo.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Yllinwe es una obra de arte arquitectónica diseñada para canalizar y
+celebrar el agua. La piedra blanca pulida y el cristal son los
+materiales predominantes, creando una sensación de ligereza y
+luminosidad. Los puentes no son de madera o piedra, sino arcos de luz
+mágica sólida que cruzan los abismos entre terrazas. El ambiente es
+etéreo y musical. El sonido constante de la cascada no es un estruendo,
+sino un murmullo melódico que lo impregna todo, un recordatorio
+constante del poder y la belleza de la naturaleza. El aire es fresco y
+huele a piedra mojada y a las flores de loto estelares que crecen en los
+canales.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Susurro de la Muerte</strong>: Se cuenta entre los
+habitantes que en las noches sin luna, la Lágrima de Yllin se silencia.
+Su canto melódico cesa y es reemplazado por un susurro apenas audible.
+Aquellos con la sensibilidad para escucharlo no oyen música, sino los
+nombres de quienes morirán antes del próximo ciclo lunar. Los Cantores
+del Agua consideran una maldición y un deber sagrado escuchar este
+lamento, y nunca revelan los nombres que oyen.</p></li>
+<li><p><strong>El Estanque del Olvido</strong>: En los canales más
+profundos y secretos de la ciudad, se dice que existe un estanque oculto
+cuya agua es negra como la tinta y completamente inmóvil. La leyenda
+afirma que quien sumerge un objeto personal de gran valor sentimental en
+sus aguas puede borrar un recuerdo doloroso de su mente. Pero el
+estanque es caprichoso y tiene un precio oculto: a veces, junto con el
+dolor, se lleva también toda la alegría asociada a ese recuerdo, dejando
+un vacío helado en el alma.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azgoth_Aethel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Azgoth_Aethel</div>
+        <div class="content">
+<p>nombre: Azgoth Aethel rol: Archimago Exiliado, Conspirador en las
+Sombras edad: 180 años agrupacion: Casa Aethel (Exiliado) tipo: Casa <a
+href="Noble.html">Noble</a> de <a href="Mor&#39;dhul.html">Mor’dhul</a>
+lema: “El Dominio se Teje con Conocimiento, no se Gana con Cadenas”
+(Lema personal, en desafío al de su casa) escudo: (Personal) Una
+serpiente de obsidiana enroscada alrededor de una lanza rota, sobre un
+campo de seda negra. Simboliza la sabiduría oculta, la traición sufrida
+y la promesa de un poder que resurgirá. ciudad_sede: <a
+href="Thirawen.html">Thirawen</a> (refugio no oficial), anteriormente <a
+href="Daevyra.html">Daevyra</a> rivalidades: - “Lord Aethel ‘El Cruel’
+(Hermano y Usurpador)” - Casa Aethel (Línea principal) - Lady Xandria
+‘La Susurrante’ (Vigila a todos los Aethel con recelo) alianzas: -
+Células rebeldes en <a href="Daevyra.html">Daevyra</a> - Mercenarios y
+espías en <a href="Thirawen.html">Thirawen</a> - Contactos clandestinos
+dentro del Clan Whisper relaciones: - nombre: “Lord Aethel ‘El Cruel’”
+tipo: “Hermano Mayor” estado: “Odio mortal y juramento de venganza”
+descripcion: “Hermano mayor de Azgoth, quien le usurpó el liderazgo de
+la casa tras una violenta purga. Es la encarnación de todo lo que Azgoth
+desprecia: la crueldad por la crueldad, la fuerza bruta sin la guía de
+la astucia.” tags: [lithernia, personajes, Casa Aethel, exiliado,
+tiefling, <a href="Mago.html">Mago</a>, <a
+href="Mor&#39;dhul.html">Mor’dhul</a>] — # Azgoth Aethel</p>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en el seno de la Casa Aethel, un linaje de <a
+href="Tieflings.html">Tieflings</a> regentes en la magocracia de <a
+href="Daevyra.html">Daevyra</a>, Azgoth estaba destinado a una vida de
+intriga y poder. Descendiente del legendario archimago Varkon Aethel,
+fue instruido desde joven en las artes arcanas, demostrando un talento
+innato que rivalizaba, e incluso superaba, al de su hermano mayor.
+Mientras que Lord Aethel se inclinaba por la dominación a través del
+dolor físico y el terror manifiesto —ganándose el apodo de ‘El Cruel’—,
+Azgoth abrazó la filosofía original de su fundador: el verdadero poder
+reside en el conocimiento prohibido, la manipulación sutil y el dominio
+absoluto sobre el Tejido del Maná.</p>
+<p>La rivalidad entre los hermanos definió sus primeras décadas. Azgoth
+era el estratega, el <a href="Erudito.html">Erudito</a> que pasaba
+noches enteras descifrando tomos pre-<a href="Lilium.html">Lilium</a>,
+mientras su hermano forjaba alianzas con los clanes más sanguinarios de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>. La tensión culminó con la
+muerte de su padre. En la inevitable lucha por la sucesión, Azgoth tejió
+una compleja red de alianzas con las facciones más intelectuales de <a
+href="Daevyra.html">Daevyra</a>, planeando un golpe de estado mágico y
+político. Sin embargo, subestimó la brutalidad de su hermano. ‘El Cruel’
+no jugó al ajedrez político; simplemente volcó el tablero. Desató una
+noche de terror sobre <a href="Daevyra.html">Daevyra</a>, ejecutando
+públicamente a los aliados de Azgoth y acusándolo de herejía contra el
+Rey-Dios Sel’thirak.</p>
+<p>Traicionado por uno de sus más cercanos aprendices y superado por la
+violencia descarnada de su hermano, Azgoth fue derrotado. En lugar de
+concederle una muerte rápida, Lord Aethel lo marcó con el sigilo del
+exilio y lo desterró, un acto de humillación diseñado para que muriera
+lentamente en las tierras baldías de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, olvidado y sin poder.</p>
+<p>Pero Azgoth sobrevivió. Su profundo conocimiento de la magia de
+supervivencia y su voluntad de hierro le permitieron llegar a la ciudad
+de proscritos de <a href="Thirawen.html">Thirawen</a>. Allí, en las
+sombras de los mercados negros y las tabernas de espías, el archimago
+caído comenzó a reconstruir su poder. Ahora, Azgoth ya no es solo un <a
+href="Noble.html">Noble</a> despechado; es un depredador paciente. Su
+motivación trasciende la simple venganza. Busca no solo destruir a su
+hermano y reclamar el liderazgo de la Casa Aethel, sino también
+demostrar que su visión de un dominio basado en la inteligencia arcana
+es el verdadero camino hacia la grandeza para <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, un imperio que ni siquiera el
+propio Sel’thirak podría imaginar. En su exilio, se ha convertido en una
+figura de poder clandestina, un susurro en los oídos de los
+descontentos, acumulando favores, artefactos y aliados para el día en
+que su sombra vuelva a caer sobre <a
+href="Daevyra.html">Daevyra</a>.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Azgoth posee la aristocrática y a la vez siniestra belleza de los
+Tiefling de alto linaje. Su piel tiene un tono de amatista profundo, y
+sus ojos, de un dorado intenso, brillan con una inteligencia fría y
+calculadora. A diferencia de los cuernos ostentosos y agresivos de otros
+de su estirpe, los suyos son delgados, de obsidiana pulida, y se curvan
+hacia atrás desde su frente, dándole un perfil regio y serpentino. Su
+cabello es largo, de un blanco plateado que contrasta fuertemente con su
+piel, a menudo recogido en una trenza compleja adornada con pequeños
+sigilos de plata.</p>
+<p>Aunque su exilio le obliga a la austeridad, no ha perdido su porte <a
+href="Noble.html">Noble</a>. Viste túnicas de viajero de color oscuro,
+de buena factura pero desgastadas por el tiempo y el camino. Bajo ellas,
+una armadura de cuero endurecido con placas de metal rúnico le ofrece
+protección sin sacrificar su agilidad.</p>
+<p>Su equipamiento más preciado es su báculo arcano, tallado en madera
+de un árbol petrificado del Bosque de las Lágrimas y coronado con un
+Orbe del Vacío, un cristal que parece absorber la luz a su alrededor. Se
+dice que este báculo le permite canalizar magia de las sombras con una
+potencia devastadora. Además, siempre lleva consigo varias dagas ocultas
+y una bolsa con componentes de <a href="Conjuros.html">Conjuros</a>
+raros y pergaminos con extractos de textos prohibidos, sus verdaderas
+armas en la guerra que libra.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Azgoth Aethel es una bomba de tiempo en el corazón de la política de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>. Su existencia es una espina
+clavada en el orgullo de su hermano, Lord Aethel, y una debilidad que
+rivales como Lady Xandria o los leales a Sel’thirak podrían
+explotar.</p>
+<p>Si fracasa, su historia será una simple nota a pie de página en los
+anales de la Casa Aethel: la de un usurpador fallido, una advertencia
+más sobre los peligros de la ambición.</p>
+<p>Pero si tiene éxito, las consecuencias serían cataclísmicas. La caída
+de Lord Aethel y el ascenso de Azgoth no significarían la paz para <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sino el comienzo de una nueva era
+de tiranía: una más sutil, inteligente y, quizás, mucho más peligrosa.
+Un <a href="Mor&#39;dhul.html">Mor’dhul</a> liderado por un archimago de
+su calibre, obsesionado con el conocimiento arcano y el poder que este
+otorga, podría desenterrar secretos que el mundo ha tratado de olvidar,
+desde reliquias de la era del Primer Rey hasta, quizás, una de las
+Lanzas Celestiales.</p>
+<p>En el gran tapiz de Lithernia, Azgoth Aethel es un catalizador del
+cambio, un rey exiliado en las sombras que representa la disidencia
+intelectual frente a la brutalidad. Es la prueba viviente de que en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, las guerras no solo se libran con
+acero y garras, sino también con susurros, secretos y el poder
+devastador de la magia antigua. Su destino, ya sea la muerte en el
+anonimato o el trono de obsidiana, sin duda dejará una cicatriz
+imborrable en la historia del continente.</p>
+        </div>
+    </div>
+</body>
+</html>

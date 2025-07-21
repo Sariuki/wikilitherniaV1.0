@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghorak_Colmillo-Ceniza</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ghorak_Colmillo-Ceniza</div>
+        <div class="content">
+<h1 id="ghorak-colmillo-ceniza">Ghorak Colmillo-Ceniza</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los páramos corruptos de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+donde la tierra misma respira muerte y el legado del <a
+href="Lilium.html">Lilium</a> ha engendrado pesadillas, pocos nombres
+infunden un respeto tan visceral como el de Ghorak Colmillo-Ceniza. Como
+Maestro de Caza del Clan Cicatriz Vil, Ghorak no es solo un líder; es la
+encarnación viviente de la filosofía de su pueblo: la fuerza no se
+hereda, se arranca de las fauces de criaturas que el propio infierno
+temería.</p>
+<p>Nacido en el seno de una tribu nómada de <a
+href="Orcos.html">Orcos</a>, Ghorak creció en un mundo definido por las
+cenizas del Cataclismo. Aprendió a rastrear antes que a hablar y a matar
+antes que a negociar. Su clan no vio la desolación como una maldición,
+sino como un coto de caza sagrado, un regalo de su dios patrón,
+<strong><a href="Lakros.html">Lakros</a>, el Señor de la
+Sangre</strong>. Cada bestia mutada que acechaba en el Bosque de Vidrio
+Ceniciento era una prueba, y su sangre, un sacramento. Ghorak ascendió
+en las filas no por linaje, sino por las cicatrices que adornan su piel,
+cada una un testamento de una cacería legendaria: el Basilisco de
+Cristal cuya mirada petrificaba la carne, la Mantícora de las Grietas
+Humeantes cuyo aguijón goteaba veneno ígneo, y el temible Ur-Grifo cuyas
+garras podían desgarrar el acero.</p>
+<p>Su liderazgo se forjó al someter a la bestia más grande que su clan
+había visto jamás, una criatura de ceniza y hueso de la que se talló su
+apodo. Con un colmillo de la bestia incrustado en su propia mandíbula
+rota, Ghorak unificó a los cazadores bajo su mando y selló el pacto que
+definiría el futuro del clan: una alianza con los <a
+href="Hobgoblins.html">Hobgoblins</a> de la ciudad fortaleza de
+<strong><a href="Vanyaran.html">Vanyaran</a></strong>. Ghorak,
+pragmático a pesar de su ferocidad, entendió que la fuerza bruta
+necesitaba el filo de la civilización. A cambio de armas de calidad,
+armaduras y un lugar dentro de las murallas, el Clan Cicatriz Vil se
+convirtió en los colmillos y las garras de <a
+href="Vanyaran.html">Vanyaran</a>, sus exploradores en las tierras
+malditas y sus proveedores de los más raros componentes alquímicos.</p>
+<p>La autoridad de Ghorak es absoluta, pero no incontestada. Mantiene
+una tensa alianza con <strong><a href="Vexia.html">Vexia</a> Espinazo
+Roto</strong>, la chamán del clan. Respeta sus visiones y su conexión
+con <a href="Lakros.html">Lakros</a>, pero desconfía de su ambición,
+consciente de que el poder espiritual puede ser tan afilado como una
+hoja. A su lado tiene a <strong>Kaelen Vientofétido</strong>, un joven y
+astuto hobgoblin que actúa como su lugarteniente. Ghorak ve en él la
+inteligencia y la estrategia que a su clan a veces le falta, pero lo
+vigila de cerca, sabiendo que la astucia de un hobgoblin es un arma de
+doble filo que puede volverse contra su amo.</p>
+<p>Ghorak desprecia a sus rivales con una pasión primaria. Considera al
+<strong>Clan Grimstone</strong> una panda de carroñeros que buscan poder
+en los huesos fríos de la historia, mientras que su clan lo bebe
+directamente de la sangre caliente de sus presas. Su odio hacia los
+<strong>elfos silvanos de <a href="Eldrador.html">Eldrador</a></strong>
+es filosófico; ve su armonía con la naturaleza como una debilidad, una
+afrenta a la ley suprema de la supervivencia del más fuerte. Cada
+incursión en sus bosques es una lección sangrienta que imparte con
+gusto.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Ghorak es un orco imponente, cuya edad de 65 años no ha mermado su
+fuerza, sino que la ha destilado en una masa de músculo y tendones duros
+como la roca. Su piel, de un verde oscuro y curtido, es un mapa de
+cicatrices profundas que narran décadas de batallas contra las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+más feroces de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Su rostro está
+dominado por una mandíbula poderosa, de la cual sobresale un colmillo
+derecho de un color gris ceniciento, antinatural y afilado, el trofeo
+que le dio su nombre. Sus ojos, pequeños y penetrantes, son los de un
+depredador que ha pasado más tiempo observando desde las sombras que
+bajo el sol.</p>
+<p><strong>Equipamiento:</strong></p>
+<ul>
+<li><strong>Armadura de Caza Mayor:</strong> Ghorak no viste acero
+común. Su protección es una obra maestra de artesanía brutal, compuesta
+por placas de quitina iridiscente del caparazón de escarabajos
+acorazados, cuero endurecido de basilisco y hombreras talladas en el
+cráneo de una bestia con cuernos. La armadura está adornada con garras y
+dientes de sus presas más notables.</li>
+<li><strong>Lanza “Bebedora de Entrañas”:</strong> Su arma principal es
+una lanza pesada, más larga que un hombre alto. El asta está hecha del
+fémur pulido de un gigante de las cenizas, y su punta es una lasca de
+obsidiana del corazón de un volcán, encantada por el Clan <a
+href="Kromagul.html">Kromagul</a> para infligir un dolor atroz y
+facilitar el desangramiento.</li>
+<li><strong>Hacha de Despiece:</strong> Atada a su espalda, lleva un
+hacha corta y pesada, perfecta para rematar presas caídas o abrirse paso
+en combate cercano. Su hoja está perpetuamente manchada.</li>
+<li><strong>Trofeos:</strong> De su cinturón cuelgan amuletos hechos con
+ojos petrificados, garras de grifo y una trenza de cabello élfico, un
+recordatorio de una escaramuza en la frontera de <a
+href="Eldrador.html">Eldrador</a>.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Ghorak Colmillo-Ceniza no es un rey ni un conquistador de naciones,
+pero su impacto en el ecosistema de poder de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> es innegable. Él y su clan son un
+pilar fundamental para la supervivencia y prosperidad de <a
+href="Vanyaran.html">Vanyaran</a>, convirtiendo el mortífero Bosque de
+Vidrio Ceniciento en un recurso explotable. Su alianza con el Clan <a
+href="Kromagul.html">Kromagul</a> alimenta la maquinaria de guerra y
+tortura de esta facción, proveyéndoles de componentes y criaturas que de
+otro modo serían inalcanzables.</p>
+<p>Para el resto de Lithernia, Ghorak representa la personificación de
+la voluntad salvaje y corrupta que surgió de las cenizas del <a
+href="Lilium.html">Lilium</a>. Es un recordatorio viviente de que la
+naturaleza, cuando se retuerce, puede crear depredadores más astutos y
+letales que cualquier bestia original. Mientras los grandes señores y
+magos juegan sus partidas de poder en tronos y torres, Ghorak demuestra
+que el verdadero dominio reside en la cadena alimentaria.</p>
+<p>Su legado no será de monumentos, sino de miedo. Será la historia que
+los exploradores cuentan en voz baja junto al fuego, la razón por la que
+las patrullas elfas refuerzan sus fronteras, y el ejemplo supremo de
+cómo, en Lithernia, uno puede forjar un reino no sobre la tierra, sino
+sobre los cadáveres de quienes la habitan.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clan%20Cicatriz%20Vil.html">Clan Cicatriz Vil</a>
+(relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

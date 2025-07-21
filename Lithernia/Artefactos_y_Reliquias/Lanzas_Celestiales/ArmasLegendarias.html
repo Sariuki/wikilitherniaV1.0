@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArmasLegendarias</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">ArmasLegendarias</div>
+        <div class="content">
+<h1 id="armaslegendarias">Armaslegendarias</h1>
+<h3 id="artefactos-las-lanzas-celestiales">Artefactos: Las Lanzas
+Celestiales</h3>
+<p>Estas armas son artefactos de poder divino, forjadas para sellar al
+Primer Rey. Cada una requiere sintonización.</p>
+<h4 id="ultimatum-la-lanza-del-destino">Ultimatum, la Lanza del
+Destino</h4>
+<p><em>Arma (Lanza), Artefacto (requiere sintonización por una criatura
+con una voluntad de hierro)</em></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bonificador Mágico</strong></td>
+<td style="text-align: left;">+3 a las tiradas de ataque y daño.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sentencia</strong></td>
+<td style="text-align: left;">Legal Neutral (INT 20, SAB 18, CAR
+22).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Comunicación</strong></td>
+<td style="text-align: left;">Habla directamente a la mente del portador
+con una voz autoritaria e inamovible.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Propósito</strong></td>
+<td style="text-align: left;">Imponer el orden y el destino sobre el
+caos del libre albedrío.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Propiedades de Ultimatum</strong> La lanza tiene las
+siguientes propiedades:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Voluntad Inmutable</strong></td>
+<td style="text-align: left;">Tienes ventaja en todas las tiradas de
+salvación contra ser encantado o asustado. Cualquier intento de leer tus
+pensamientos o adivinar tu futuro falla automáticamente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Decreto del Destino</strong></td>
+<td style="text-align: left;">Como una acción, puedes imponer un mandato
+a una criatura a 60 pies. La criatura debe superar una tirada de
+salvación de Sabiduría CD 20 o caerá bajo los efectos de un conjuro de
+<em>Misión (Geas)</em> de nivel 9. No puedes volver a usar este rasgo
+hasta el próximo amanecer.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Conjuros.html">Conjuros</a></strong></td>
+<td style="text-align: left;">La lanza tiene 10 cargas. Recupera 1d6 + 4
+cargas al amanecer. Puedes usar una acción para gastar cargas y lanzar
+uno de los siguientes <a href="Conjuros.html">Conjuros</a> (CD de
+salvación 20): <em>Comandar</em> (1 carga, lanzado a nivel 5),
+<em>Dominar persona</em> (5 cargas), <em>Sugestión en masa</em> (6
+cargas).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Destrucción</strong></td>
+<td style="text-align: left;">Ultimatum debe ser rota voluntariamente
+sobre el corazón de un ser primordial del caos, negando así su propia
+naturaleza.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="chronos-la-lanza-del-tiempo">Chronos, la Lanza del Tiempo</h4>
+<p><em>Arma (Lanza), Artefacto (requiere sintonización por una criatura
+que no sea nativa del plano material)</em></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bonificador Mágico</strong></td>
+<td style="text-align: left;">+3 a las tiradas de ataque y daño.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sentencia</strong></td>
+<td style="text-align: left;">Neutral Verdadero (INT 22, SAB 22, CAR
+16).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Comunicación</strong></td>
+<td style="text-align: left;">No se comunica con palabras, sino con
+visiones del pasado, presente y futuro simultáneamente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Propósito</strong></td>
+<td style="text-align: left;">Mantener la integridad del flujo temporal
+y anclar los puntos fijos de la historia.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Propiedades de Chronos</strong> La lanza tiene las siguientes
+propiedades:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Ancla Temporal</strong></td>
+<td style="text-align: left;">Eres inmune a los efectos que alteran tu
+edad o te mueven contra tu voluntad en el tiempo. Tienes ventaja en las
+tiradas de iniciativa.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Paradoja Defensiva</strong></td>
+<td style="text-align: left;">Como reacción cuando eres el objetivo de
+un ataque, puedes rebobinar el tiempo un instante. El atacante debe
+repetir la tirada de ataque, usando el segundo resultado. No puedes
+volver a usar este rasgo hasta el inicio de tu próximo turno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Conjuros.html">Conjuros</a></strong></td>
+<td style="text-align: left;">La lanza tiene 10 cargas. Recupera 1d6 + 4
+cargas en un momento aleatorio del día. Puedes usar una acción para
+gastar cargas y lanzar uno de los siguientes <a
+href="Conjuros.html">Conjuros</a> (CD de salvación 20):
+<em>Acelerar</em> (3 cargas), <em>Ralentizar</em> (3 cargas),
+<em>Detener el Tiempo</em> (9 cargas).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Destrucción</strong></td>
+<td style="text-align: left;">Chronos debe ser llevada al inicio del
+tiempo y ser golpeada por la primera onda de la creación, haciéndola
+paradójicamente inexistente.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="armas-legendarias-notables">Armas Legendarias Notables</h3>
+<h4 id="heraldo-del-deber-hacha-de-volrath">Heraldo del Deber (Hacha de
+Volrath)</h4>
+<p><em>Arma (Hacha de guerra), Legendaria (requiere
+sintonización)</em></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bonificador Mágico</strong></td>
+<td style="text-align: left;">+2 a las tiradas de ataque y daño.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Voluntad de
+Obsidiana</strong></td>
+<td style="text-align: left;">El hacha inflige 2d6 de daño por fuego
+adicional en cada golpe.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Grito de Liderazgo (Recarga
+5-6)</strong></td>
+<td style="text-align: left;">Como acción adicional, puedes emitir un
+grito de guerra. Tú y hasta cinco aliados a 30 pies que puedan oírte
+ganáis 2d10 puntos de golpe temporales.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lealtad
+Inquebrantable</strong></td>
+<td style="text-align: left;">Tienes ventaja en las tiradas de salvación
+contra ser encantado o asustado mientras estés a 60 pies del líder de tu
+facción o de un aliado que consideres tu superior.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="el-azote-del-destripador-látigo-de-korgath">El Azote del
+Destripador (Látigo de Korgath)</h4>
+<p><em>Arma (Látigo), Legendaria (requiere sintonización por una
+criatura de alineamiento maligno)</em></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bonificador Mágico</strong></td>
+<td style="text-align: left;">+2 a las tiradas de ataque y daño.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Púas Demoníacas</strong></td>
+<td style="text-align: left;">El látigo tiene un alcance de 15 pies.
+Inflige 1d8 de daño de veneno y 1d8 de daño necrótico adicional en cada
+golpe.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cosecha de Dolor</strong></td>
+<td style="text-align: left;">Una criatura golpeada por el látigo debe
+superar una tirada de salvación de Constitución CD 17 o no podrá
+recuperar puntos de golpe hasta el comienzo de tu siguiente turno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Aura de Terror</strong></td>
+<td style="text-align: left;">Como una acción, puedes hacer crepitar el
+látigo con energía maligna. Cada criatura a tu elección a 30 pies debe
+superar una tirada de salvación de Sabiduría CD 17 o quedará asustada de
+ti durante 1 minuto. Puede repetir la salvación al final de cada uno de
+sus turnos. Una vez usado este rasgo, no puede volver a usarse hasta el
+próximo anochecer.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Leyendas.html">Leyendas</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+<li><a href="Mor&#39;dhul.html">Mor’dhul</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.45)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

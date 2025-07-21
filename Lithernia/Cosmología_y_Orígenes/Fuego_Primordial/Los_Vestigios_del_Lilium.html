@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Vestigios_del_Lilium</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Vestigios_del_Lilium</div>
+        <div class="content">
+<h1 id="los-vestigios-del-lilium">Los vestigios del Lilium</h1>
+<p>En los albores de la Era Crepuscular, cuando el <a
+href="Título_de_la_nota.html">Título_de_la_nota</a> comenzó a temblar
+bajo el influjo moribundo del <a href="Lilium.html">Lilium</a>, quedó
+piedra, tierra y alma marcadas por el paso de aquel fuego eterno. Estos
+vestigios, si bien decrepados y casi olvidados, continúan ardiendo con
+la inextinguible llama del <a href="Lilium.html">Lilium</a>, otorgando
+tanto bendición como peligro a quienes se atreven a acercarse.</p>
+<h2 id="historia-y-origen-del-fuego-eterno">Historia y Origen del Fuego
+Eterno</h2>
+<p>El <a href="Lilium.html">Lilium</a> fue la primera antorcha de la
+creación, nacida en el núcleo mismo de Lithernia durante los días
+finales del Gran Conflicto Celeste. Se dice que fue el don y la
+maldición de los antiguos dioses, un fuego que consumía sin destruir
+totalmente, capaz de purificar y destruir mundos a la vez.</p>
+<p>Cuando la Era Crepuscular llegó, el poder del <a
+href="Lilium.html">Lilium</a> se dispersó en fragmentos errantes, dando
+origen a los vestigios: antiguos lugares impregnados con su fuego, que
+nunca se apaga y que mantiene viva una chispa del poder divino
+original.</p>
+<h2 id="ubicación-y-naturaleza-de-los-vestigios">Ubicación y Naturaleza
+de los Vestigios</h2>
+<p>Los vestigios del <a href="Lilium.html">Lilium</a> se extienden por
+todo Lithernia, ocultos en ruinas, profundidades bajo tierra, y cumbres
+inaccesibles, conformando la red espiritual y física del mundo. Entre
+los más destacados:</p>
+<ul>
+<li><strong>El Cráter de Fyrn</strong>: Un enorme cráter volcánico en el
+corazón del Desierto de Cenizas donde la lava incandescente parece
+danzar eternamente. Se cree que en su interior el fuego del <a
+href="Lilium.html">Lilium</a> late con la fuerza de un latido
+divino.</li>
+<li><strong>Las Ruinas de Eldrahel</strong>: Antigua ciudad que fue
+consumida por la llama perpetua; sus muros y pilares arden con una llama
+azul espectral que no quema la piedra, pero sí el alma de los
+imprudentes.</li>
+<li><strong>La Bruma Ardiente</strong>: Un territorio pantanoso cubierto
+por nieblas incandescentes que queman al contacto, procedentes de un
+fragmento enterrado bajo sus lodos.</li>
+</ul>
+<p>Cada vestigio alberga un núcleo donde la llama nunca se extingue, y
+cuyo poder puede favorecer la fertilidad del suelo, otorgar fuerza
+sobrenatural o, en contraste, desatar plagas y pesadillas en quienes
+intentan apropiarse de ella.</p>
+<h2 id="poderes-y-peligros-de-la-llama-eterna">Poderes y Peligros de la
+Llama Eterna</h2>
+<p>La llama del <a href="Lilium.html">Lilium</a> no es cual fuego común.
+Posee propiedades únicas que han sido objeto de estudio, culto y temor a
+lo largo de las eras:</p>
+<h3 id="poderes">Poderes</h3>
+<ul>
+<li><strong>Vitalidad Rejuvenecedora</strong>: Quienes tocan la llama
+pura sin ser consumidos pueden curar heridas mortales y reforzar sus
+cuerpos más allá de los límites naturales.</li>
+<li><strong>Dominio Elemental</strong>: Algunos sabios y brujos han
+aprendido a canalizar la llama para controlar el fuego, convocando
+llamaradas y escudos ígneos.</li>
+<li><strong>Comunión con los Ancestros</strong>: Se dice que el alma
+arde junto al fuego eterno y que los espíritus antiguos pueden ser
+invocados en sus cercanías.</li>
+</ul>
+<h3 id="peligros">Peligros</h3>
+<ul>
+<li><strong>Corrupción Ígnea</strong>: La llama puede corromper el
+espíritu, transformando a los imprudentes en criaturas de ceniza,
+esclavas del fuego para siempre.</li>
+<li><strong>Cataclismos Incógnitos</strong>: Los vestigios son
+epicentros de fuerzas inestables que pueden desencadenar erupciones,
+incendios descontrolados e incluso abrir portales a planos
+abrasadores.</li>
+<li><strong>Locura del Fénix Caído</strong>: La exposición prolongada a
+la llama puede arrastrar a la locura, haciendo que los visionarios se
+pierdan en delirios de luz y sombra.</li>
+</ul>
+<h2 id="leyendas-y-costumbres">Leyendas y Costumbres</h2>
+<p>Las <a href="Leyendas.html">Leyendas</a> de Lithernia están plagadas
+de relatos de héroes que buscaron <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+para salvar o condenar al mundo:</p>
+<ul>
+<li><strong>La Llama de Serthian</strong>: Un príncipe <a
+href="Guerrero.html">Guerrero</a> que al beber del fuego eterno obtuvo
+la fuerza para contener a las hordas sombrías, pero a costa de su
+humanidad.</li>
+<li><strong>Las Danzas de la Ceniza</strong>: Rituales ancestrales
+celebrados en torno a los vestigios, donde los danzantes llevan
+antorchas bendecidas para honrar a los ancestros y apaciguar la furia
+del fuego.</li>
+</ul>
+<p>Las tribus y pueblos cercanos veneran los vestigios con respeto y
+miedo, organizando peregrinaciones para recoger cenizas bendecidas o
+proteger los fragmentos de la llama contra los saqueadores y
+ambiciosos.</p>
+<h2 id="el-legado-del-lilium-en-la-era-moderna">El Legado del Lilium en
+la Era Moderna</h2>
+<p>Aunque los días de la grandeza incendiaria pasaron, los vestigios del
+<a href="Lilium.html">Lilium</a> siguen siendo focos de poder
+incontrolable y conocimiento arcano. Ciertos órdenes de magos, como los
+<strong>Custodios del Fénix</strong>, han dedicado su existencia a
+vigilar estos lugares, intentando preservar el equilibrio entre la
+salvación y la destrucción que propone <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>.</p>
+<p>En el vasto tapiz histórico de Lithernia, los vestigios del <a
+href="Lilium.html">Lilium</a> son testigos inmortales del pasado,
+puentes místicos hacia el poder primigenio y recordatorios perpetuos de
+que el fuego que da vida también puede arrebatarla.</p>
+<hr />
+<p><em>“Donde arde el <a href="Lilium.html">Lilium</a>, no hay sombra
+que permanezca… ni alma que escape.”</em><br />
+— Crónica ancestral de Eldrahel</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li>El Legado del <a href="Lilium.html">Lilium</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a
+href="Eventos%20Mágicos%20-%20Fuego%20Eterno%20del%20Lilium.html">Eventos
+Mágicos - Fuego Eterno del Lilium</a> (relevancia: 0.54)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.42)</li>
+<li><a
+href="Eventos%20Históricos%20-%20Cataclismo%20del%20Lilium.html">Eventos
+Históricos - Cataclismo del Lilium</a> (relevancia: 0.33)</li>
+<li><a
+href="Caída%20de%20Lilium%20-%20Ruinas%20y%20Fragmentos.html">Caída de
+Lilium - Ruinas y Fragmentos</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

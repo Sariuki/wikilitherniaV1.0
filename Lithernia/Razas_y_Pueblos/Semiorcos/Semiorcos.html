@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semiorcos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Semiorcos</div>
+        <div class="content">
+<h1 id="semiorcos">Semiorcos</h1>
+<h3 id="resumen-de-rasgos">Resumen de Rasgos</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo Clave</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Aumento de
+Característica</strong></td>
+<td style="text-align: left;">+2 Fuerza, +1 Constitución</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">30 pies</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión</strong></td>
+<td style="text-align: left;">Visión en la Oscuridad (60 pies)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencias Clave</strong></td>
+<td style="text-align: left;">Intimidación</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgos Únicos</strong></td>
+<td style="text-align: left;">Resistencia Implacable, Ataques
+Salvajes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="contexto-mecánico">Contexto Mecánico</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Vinculación en Lithernia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Reino de Origen</strong></td>
+<td style="text-align: left;"><a href="Galvorn.html">Galvorn</a>
+(Principal), <a href="Mor&#39;dhul.html">Mor’dhul</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Panteón Principal</strong></td>
+<td style="text-align: left;">Panteón Korogrim (Herencia Ancestral),
+Panteón Humano (Dioses de <a href="Galvorn.html">Galvorn</a>) (Cultura
+Adoptiva)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidades Comunes</strong></td>
+<td style="text-align: left;"><a href="Thyrgram.html">Thyrgram</a>, <a
+href="Yfrit.html">Yfrit</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Típico</strong></td>
+<td style="text-align: left;">Caótico Neutral</td>
+</tr>
+</tbody>
+</table>
+<h3 id="trasfondos-sugeridos">Trasfondos Sugeridos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Trasfondo</th>
+<th style="text-align: left;">Rol Temático Sugerido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Marinero</strong></td>
+<td style="text-align: left;">Miembro robusto de la tripulación de un
+barco de <a href="Galvorn.html">Galvorn</a>, valorado por su
+fuerza.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Soldado</strong></td>
+<td style="text-align: left;">Un mercenario o soldado de infantería en
+los ejércitos <a href="Humanos.html">Humanos</a> o en un clan orco.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Forastero</strong></td>
+<td style="text-align: left;">Un semiorco que vive en los márgenes de la
+sociedad, confiando en su fuerza para sobrevivir.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Gladiador</strong></td>
+<td style="text-align: left;">Un luchador de las arenas, común en los
+enclaves más brutales de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-raciales">Rasgos Raciales</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Incremento de Puntuación de
+Característica</strong></td>
+<td style="text-align: left;">Tu puntuación de Fuerza aumenta en 2 y tu
+puntuación de Constitución aumenta en 1.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Edad</strong></td>
+<td style="text-align: left;">Maduran alrededor de los 14 años. Rara vez
+viven más de 75 años.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento</strong></td>
+<td style="text-align: left;">Tienden al caos por su herencia orca.
+Valoran la libertad personal y la camaradería, siendo a menudo Caótico
+Neutral.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tamaño</strong></td>
+<td style="text-align: left;">Mediano. Miden entre 6 y 7 pies de
+altura.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">Tu velocidad base al caminar es de 30
+pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión en la
+Oscuridad</strong></td>
+<td style="text-align: left;">Puedes ver en luz tenue hasta 60 pies como
+si fuera luz brillante, y en la oscuridad como si fuera luz tenue. Solo
+percibes tonos de gris en la oscuridad.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Amenaza</strong></td>
+<td style="text-align: left;">Ganas competencia en la habilidad de
+Intimidación.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Resistencia
+Implacable</strong></td>
+<td style="text-align: left;">Cuando eres reducido a 0 puntos de golpe
+pero no mueres directamente, puedes elegir quedar con 1 punto de golpe
+en su lugar. No puedes usar este rasgo hasta que termines un descanso
+largo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ataques Salvajes</strong></td>
+<td style="text-align: left;">Cuando obtienes un golpe crítico con un
+ataque de arma cuerpo a cuerpo, puedes tirar uno de los dados de daño
+del arma una vez más y añadirlo al daño extra del golpe crítico.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Puedes hablar, leer y escribir en Común y
+Orco.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sinergias-de-clase">Sinergias de Clase</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Sinergia y Rol Sugerido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bárbaro</strong></td>
+<td style="text-align: left;"><strong>Óptima.</strong> La combinación de
++2 FUE, +1 CON, <code>Resistencia Implacable</code> y
+<code>Ataques Salvajes</code> está perfectamente diseñada para un
+bárbaro.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Guerrero.html">Guerrero</a></strong></td>
+<td style="text-align: left;"><strong>Excelente.</strong> Un combatiente
+de primera línea natural. <code>Ataques Salvajes</code> maximiza el
+potencial de daño de arquetipos como el <a
+href="Heroes.html">Heroes</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Paladín</strong></td>
+<td style="text-align: left;"><strong>Fuerte.</strong> Una opción muy
+resistente para un paladín de primera línea, donde FUE y CON son clave.
+<code>Resistencia Implacable</code> aumenta su durabilidad.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a href="Cazador.html">Cazador</a>
+de <a href="Dragones.html">Dragones</a></strong></td>
+<td style="text-align: left;"><strong>Fuerte.</strong> La clase se
+beneficia directamente del modificador de CON para sus Puntos de Maná,
+haciendo del Semiorco una opción temática y mecánicamente poderosa.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnj-de-ejemplo">PNJ de Ejemplo</h3>
+<p>```statblock name: Bruto Semiorco size: Mediano type: humanoide
+(semiorco) alignment: caótico neutral ac: 13 (Armadura de pieles) hp: 45
+(6d8 + 18) speed: 30 ft. stats: [18, 12, 16, 8, 11, 10] skills: -
+Intimidación: +2 - Atletismo: +6 senses: Visión en la oscuridad 60 ft.,
+Percepción Pasiva 10 languages: Común, Orco cr: 2 traits: - name:
+Resistencia Implacable (1/Día) desc: “Si el semiorco es reducido a 0
+puntos de golpe pero no muere directamente, puede elegir quedar con 1
+punto de golpe en su lugar.” - name: Ataques Salvajes desc: “Cuando el
+semiorco obtiene un golpe crítico con un ataque de arma cuerpo a cuerpo,
+puede tirar uno de los dados de daño del arma una vez más y añadirlo al
+daño extra del golpe crítico.” actions: - name: Gran Hacha desc: “Ataque
+de arma cuerpo a cuerpo: +6 a impactar, alcance 5 ft., un objetivo.
+Impacto: 10 (1d12 + 4) de daño cortante.” - name: Jabalina desc: “Ataque
+de arma a distancia: +6 a impactar, alcance 30/120 ft., un objetivo.
+Impacto: 7 (1d6 + 4) de daño perforante.”</p>
+        </div>
+    </div>
+</body>
+</html>

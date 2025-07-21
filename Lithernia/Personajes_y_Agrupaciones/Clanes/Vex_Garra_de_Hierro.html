@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vex_Garra_de_Hierro</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vex_Garra_de_Hierro</div>
+        <div class="content">
+<h1 id="vex-garra-de-hierro">Vex Garra de Hierro</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de las órdenes más temidas y pragmáticas de Lithernia,
+pocos nombres se pronuncian con el mismo respeto silencioso que el de
+Vex Garra de Hierro. Él es el puño ejecutor de <strong>El Juramento de
+Obsidiana</strong>, el arma viviente que el gremio desata cuando la
+corrupción del <a href="Lilium.html">Lilium</a> amenaza con desbordarse
+más allá de toda contención. Vex no es un líder de discursos, sino un
+orco de acción, cuya voluntad es tan inflexible como el metal que moldea
+y tan letal como las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+que caza.</p>
+<p>Nacido en el seno del <strong>Clan Ironclaw</strong>, un clan nómada
+de <a href="Orcos.html">Orcos</a> herreros, Vex demostró desde joven un
+talento innato para la forja. Pero donde sus hermanos buscaban la pureza
+del acero y la bendición de <a href="Trovdor.html">Trovdor</a>, Vex
+sentía una atracción casi sacrílega por lo impuro. Le fascinaban las
+cicatrices que el <a href="Lilium.html">Lilium</a> había dejado en el
+mundo: los metales deformados por la energía arcana, los cristales que
+lloraban luz corrupta y los huesos de criaturas mutadas. Su obsesión por
+forjar armas con estos materiales “contaminados”, creyendo que el poder
+verdadero residía en dominar el caos en lugar de evitarlo, lo convirtió
+en un hereje. Fue exiliado de su clan a los veinte años, no con ira,
+sino con una fría lástima por un talento que consideraban perdido.</p>
+<p>Vagando por las tierras fronterizas de <a
+href="Valtoria.html">Valtoria</a>, su camino se cruzó con el de
+<strong>Kaelen ‘Manonegra’</strong>, el fundador del Juramento de
+Obsidiana. Kaelen, un exiliado a su vez, vio en Vex no a un paria, sino
+a un igual: un alma que entendía que la destrucción de <a
+href="Valarios.html">Valarios</a> no era un fin, sino una herramienta de
+creación. En el Juramento, Vex encontró su verdadero hogar. La ideología
+del gremio —que el <a href="Lilium.html">Lilium</a> fue una purga
+necesaria pero incompleta, y que su deber era finalizarla— resonó con su
+propia filosofía.</p>
+<p>Rápidamente, ascendió en las filas. Su silencio en las reuniones era
+compensado por una eficacia brutal en el campo. Como
+<strong>Exterminador Jefe</strong>, ha liderado incursiones en las zonas
+más peligrosas de Lithernia. Entre sus hazañas se cuenta la contención
+de un eco espectral en las ruinas de Mirallos, la purga de las criptas
+de la Casa Umbrae infestadas por engendros del <a
+href="Lilium.html">Lilium</a> y la caza del Leviatán de Cristal que
+aterrorizaba las costas cercanas a <a href="Galvorn.html">Galvorn</a>.
+Su lealtad no es ciega; se basa en un profundo respeto por la fuerza y
+la visión de Kaelen, y en la libertad que el Juramento le otorga para
+perfeccionar su arte prohibido. Para Vex, cada misión es una oportunidad
+de recolectar materiales únicos y cada bestia aniquilada, una prueba
+para sus creaciones. No busca gloria ni poder, solo el conocimiento para
+forjar el arma definitiva: una que pueda canalizar la furia del <a
+href="Lilium.html">Lilium</a> y someterla a una voluntad de hierro.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vex es la personificación de la fuerza orca disciplinada. De estatura
+imponente, su piel de un tono verde grisáceo está curtida por el calor
+de la forja y marcada por una red de cicatrices, testimonios de batallas
+contra horrores arcanos. Sus ojos, de un intenso color ámbar, rara vez
+parpadean y observan el mundo con una calma depredadora. La quietud de
+su cuerpo contrasta con la intensidad latente que emana, como un volcán
+dormido.</p>
+<p>Su apodo, <strong>“Garra de Hierro”</strong>, es literal. Su mano
+izquierda es una prótesis de su propia creación, forjada en acero oscuro
+y obsidiana. No es una simple garra, sino una obra de arte funcional:
+los dedos, articulados con precisión, pueden manipular herramientas de
+herrería con delicadeza o aplastar el cráneo de un enemigo con fuerza
+implacable. La lleva no como una marca de pérdida, sino como un emblema
+de su filosofía: la imperfección superada a través de la voluntad y el
+oficio.</p>
+<p>Viste una armadura pesada compuesta por placas de metal rescatado de
+ruinas antiguas y cuero de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+mágicas, todo ello teñido de un negro mate para evitar reflejos. Las
+piezas están ensambladas con una maestría que sacrifica la ornamentación
+por la máxima protección y movilidad. No porta el escudo de ninguna casa
+o nación, solo el símbolo del Juramento de Obsidiana grabado en su
+hombrera: el yunque partido.</p>
+<p>Su arma principal es una obra maestra de su propia y retorcida forja:
+un hacha de guerra masiva llamada <strong>“Lamento del <a
+href="Lilium.html">Lilium</a>”</strong>. El filo, de un metal violáceo
+que parece absorber la luz, está veteado con finas líneas de un material
+cristalizado recuperado de una cicatriz del <a
+href="Lilium.html">Lilium</a>. El arma emite un leve zumbido y un tenue
+resplandor púrpura cuando se blande, un recordatorio del poder caótico
+que Vex ha logrado contener y dirigir.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Vex Garra de Hierro nunca será recordado en las canciones de los
+bardos de <a href="Galvorn.html">Galvorn</a> ni en las crónicas nobles
+de <a href="Eldrador.html">Eldrador</a>. Su legado es uno escrito en las
+sombras, en los lugares que el resto del mundo prefiere olvidar. Para la
+mayoría, es un cuento de terror, el orco silencioso que emerge de las
+tierras malditas. Pero para las pocas comunidades que ha salvado de una
+aniquilación segura, es un guardián tan terrible como las amenazas que
+enfrenta.</p>
+<p>Dentro del Juramento de Obsidiana, es una leyenda. Representa la
+encarnación perfecta de su credo: un ser forjado en el exilio que
+encontró su propósito no en la adoración de dioses o la lealtad a un
+linaje, sino en la confrontación directa con el caos. Sus armas,
+imbuidas con la esencia misma de la destrucción que azota Lithernia, son
+un símbolo de poder y una advertencia: que el orden más fuerte nace del
+dominio sobre las fuerzas más salvajes.</p>
+<p>A largo plazo, el impacto de Vex dependerá del éxito de su búsqueda.
+Si logra su objetivo de forjar un arma que doblegue por completo el
+poder del <a href="Lilium.html">Lilium</a>, podría convertirse en la
+clave para sanar el mundo o en el creador de una nueva y terrible forma
+de tiranía. Su historia es un recordatorio de que en Lithernia, la línea
+entre un salvador y un monstruo es, a menudo, tan fina como el filo de
+un hacha.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

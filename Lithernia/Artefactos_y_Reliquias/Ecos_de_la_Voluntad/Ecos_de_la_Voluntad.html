@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecos_de_la_Voluntad</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ecos_de_la_Voluntad</div>
+        <div class="content">
+<h1 id="ecos-de-la-voluntad">Ecos de la voluntad</h1>
+<h3 id="perfil-de-la-mecánica">Perfil de la Mecánica</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Mecánica</strong></td>
+<td style="text-align: left;">Propiedad de Artefacto, Regla de
+Vínculo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Concepto Central</strong></td>
+<td style="text-align: left;">Conciencia rudimentaria y propósito
+inherente en objetos de poder.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto Principal</strong></td>
+<td style="text-align: left;">Otorga propiedades adicionales al
+sintonizar con la voluntad del objeto; impone penalizaciones si se actúa
+en su contra.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Niveles del Eco</strong></td>
+<td style="text-align: left;">Latente (Sin efecto), Despierto
+(Propiedades base), Dominante (Poder máximo desbloqueado).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fuentes del Eco</strong></td>
+<td style="text-align: left;">Voluntad del Creador, Bendición Divina,
+Huella Histórica, Corrupción del <a href="Lilium.html">Lilium</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-identificación-prueba-de-habilidad">Tabla de
+Identificación (Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>12</strong></td>
+<td style="text-align: left;">Arcanos / Percepción</td>
+<td style="text-align: left;">El objeto posee una “presencia” o
+resonancia mágica inusual. Se identifica que tiene un Eco Latente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>16</strong></td>
+<td style="text-align: left;">Historia / Religión</td>
+<td style="text-align: left;">Se discierne el origen probable del Eco
+(ej: forjado en <a href="Valtoria.html">Valtoria</a>, bendecido por <a
+href="Yfrit.html">Yfrit</a>, usado en la Batalla de las Lágrimas
+Negras).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>20</strong></td>
+<td style="text-align: left;">Investigación / Perspicacia</td>
+<td style="text-align: left;">Se identifica el propósito exacto del Eco
+(su “voluntad”) y los requisitos específicos para despertarlo y
+sintonizar con él.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-voluntad-del-eco-d10">Tabla de Voluntad del Eco
+(d10)</h3>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d10</th>
+<th style="text-align: left;">Voluntad del Eco</th>
+<th style="text-align: left;">Requisito de Sintonía Típico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>Honor y Protección:</strong>
+Proteger al inocente y actuar con nobleza.</td>
+<td style="text-align: left;">Mantener un alineamiento Legal Bueno; no
+atacar a criaturas indefensas.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>Gloria en Batalla:</strong> Buscar
+y derrotar a los oponentes más fuertes.</td>
+<td style="text-align: left;">No rehuir un desafío honorable; derrotar a
+una criatura con un CR superior al nivel del portador.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>Sed de Sangre:</strong> Infligir
+el máximo daño posible sin distinción.</td>
+<td style="text-align: left;">Matar a una criatura con el arma cada
+día.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: left;"><strong>Venganza:</strong> Destruir a un
+tipo específico de criatura o facción.</td>
+<td style="text-align: left;">Cazar y destruir activamente al objetivo
+de su venganza (ej: seguidores del Clan <a
+href="Kromagul.html">Kromagul</a>).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: left;"><strong>Astucia y Engaño:</strong>
+Priorizar el sigilo, la traición y la manipulación.</td>
+<td style="text-align: left;">Superar una prueba de Engaño CD 15 para
+manipular a alguien importante.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: left;"><strong>Acumulación de Poder:</strong>
+Buscar y absorber energía mágica.</td>
+<td style="text-align: left;">Drenar un objeto mágico o absorber un
+conjuro.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>7</strong></td>
+<td style="text-align: left;"><strong>Orden Inquebrantable:</strong>
+Imponer leyes y castigar el caos.</td>
+<td style="text-align: left;">Actuar siempre según un código estricto;
+llevar a un <a href="Criminal.html">Criminal</a> ante la justicia.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>8</strong></td>
+<td style="text-align: left;"><strong>Libertad Absoluta:</strong> Romper
+cadenas, desafiar tiranos, actuar sin restricciones.</td>
+<td style="text-align: left;">Liberar a cautivos; desobedecer una orden
+directa de una figura de autoridad.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>9</strong></td>
+<td style="text-align: left;"><strong>Destrucción Pura:</strong> Anhelar
+la aniquilación y el caos.</td>
+<td style="text-align: left;">Destruir un objeto o estructura de valor
+significativo.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>10</strong></td>
+<td style="text-align: left;"><strong>Preservación del
+Conocimiento:</strong> Proteger tomos antiguos y buscar sabiduría.</td>
+<td style="text-align: left;">Descubrir un secreto perdido o proteger un
+artefacto de conocimiento.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mecánica-de-sintonía">Mecánica de Sintonía</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Estado</th>
+<th style="text-align: left;">Requisito</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Eco Latente</strong></td>
+<td style="text-align: left;">Portar el objeto.</td>
+<td style="text-align: left;">Ninguno. El objeto funciona como su
+equivalente no mágico o mágico base.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Eco Despierto</strong></td>
+<td style="text-align: left;">Cumplir el requisito de sintonía
+inicial.</td>
+<td style="text-align: left;">Desbloquea una propiedad menor (ej: +1 a
+las tiradas de ataque y daño, ventaja en una salvación específica, la
+capacidad de lanzar un truco).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Eco Dominante</strong></td>
+<td style="text-align: left;">Realizar una gran hazaña alineada con su
+voluntad.</td>
+<td style="text-align: left;">Desbloquea su máximo poder (ej: +2 o +3,
+lanzar un conjuro de nivel superior 1/día, un aura activa, una acción
+única).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Conflicto de
+Voluntad</strong></td>
+<td style="text-align: left;">Actuar en contra de la voluntad del
+Eco.</td>
+<td style="text-align: left;">El portador sufre una penalización (ej:
+desventaja en las tiradas de ataque con el arma, 1d6 de daño psíquico al
+usarlo, el objeto se niega a funcionar).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ecos-legendarios-las-lanzas-celestiales">Ecos Legendarios: Las
+Lanzas Celestiales</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Lanza</th>
+<th style="text-align: left;">Voluntad (Propósito Mecánico)</th>
+<th style="text-align: left;">Efecto Pasivo</th>
+<th style="text-align: left;">Penalización por Conflicto de
+Voluntad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Mortum</strong></td>
+<td style="text-align: left;"><strong>Cese Definitivo:</strong> Obliga a
+cualquier criatura impactada a superar una salvación de Constitución (CD
+25) o caer a 0 puntos de golpe.</td>
+<td style="text-align: left;">Inmunidad a efectos de muerte y drenaje de
+energía.</td>
+<td style="text-align: left;">El portador envejece 10d10 años.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ultimatum</strong></td>
+<td style="text-align: left;"><strong>Orden Divina:</strong> Impone la
+condición de <em>paralizado</em> o <em>hechizado</em> (a elección del
+portador) a un objetivo impactado durante 1 minuto, sin salvación.</td>
+<td style="text-align: left;">Inmunidad a ser hechizado y asustado.
+Ventaja en tiradas de Carisma (Intimidación, Persuasión).</td>
+<td style="text-align: left;">El portador es afectado por el conjuro
+<em>Misión (Geas)</em> para servir al panteón que la creó.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Requiem</strong></td>
+<td style="text-align: left;"><strong>Anulación Conceptual:</strong> El
+objetivo impactado es afectado por <em>Modificar Recuerdo</em>, borrando
+su propia identidad si falla una salvación de Inteligencia (CD 25).</td>
+<td style="text-align: left;">Inmunidad a daño psíquico y a efectos que
+lean la mente.</td>
+<td style="text-align: left;">El portador pierde un recuerdo personal
+importante permanentemente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Chronos</strong></td>
+<td style="text-align: left;"><strong>Estasis Temporal:</strong> El
+objetivo impactado es afectado por el conjuro <em>Secuestrar
+(Imprisonment)</em> en su forma de <em>Contención Mínima</em> por 1
+año.</td>
+<td style="text-align: left;">El portador no envejece y es inmune a la
+magia que altera el tiempo.</td>
+<td style="text-align: left;">El portador pierde su siguiente turno en
+combate.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ecos-corruptos-influencia-del-lilium">Ecos Corruptos (Influencia
+del Lilium)</h3>
+<p>Cuando se usa un objeto con un Eco Corrupto, al obtener un 1 natural
+en una tirada de ataque, tira 1d6.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Efecto del Eco Corrupto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>Furia Ciega:</strong> El arma
+obliga al portador a usar su reacción para atacar a la criatura más
+cercana (aliada o enemiga).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>Rechazo Ígneo:</strong> El arma
+inflige 1d10 de daño de fuego al portador.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>Susurro de Ira:</strong> El
+portador debe superar una salvación de Sabiduría CD 15 o quedará
+asustado de su propia arma durante 1 minuto.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: left;"><strong>Apetito de Maná:</strong> El arma
+drena un espacio de conjuro de nivel 1 del portador. Si no tiene, sufre
+1d8 de daño necrótico.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: left;"><strong>Eco de Dolor:</strong> El arma
+emite un chillido psíquico. Todas las criaturas a 10 pies (incluido el
+portador) sufren 1d6 de daño psíquico.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: left;"><strong>Pacto Inestable:</strong> El arma
+ofrece un pacto: inflige un golpe crítico automático en el siguiente
+ataque, pero a cambio el portador gana un nivel de agotamiento.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interacción-cultural-método-de-vínculo">Interacción Cultural
+(Método de Vínculo)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Reino</th>
+<th style="text-align: left;">Método de Vínculo Típico</th>
+<th style="text-align: left;">Prueba de Habilidad (CD Sugerida)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Valtoria.html">Valtoria</a></strong></td>
+<td style="text-align: left;"><strong>Ritual de la <a
+href="Herreria.html">Herreria</a>:</strong> “Recordarle” al arma su
+propósito en el calor del yunque.</td>
+<td style="text-align: left;">Inteligencia (Herramientas de Herrero) CD
+15</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Eldrador.html">Eldrador</a></strong></td>
+<td style="text-align: left;"><strong>Meditación Armónica:</strong>
+Meditar con el objeto durante un descanso largo para alinear
+voluntades.</td>
+<td style="text-align: left;">Sabiduría (Perspicacia) CD 14</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Galvorn.html">Galvorn</a></strong></td>
+<td style="text-align: left;"><strong>Hazaña Demostrada:</strong> Usar
+el objeto con éxito en un momento de gran peligro o necesidad.</td>
+<td style="text-align: left;">No requiere prueba; se activa por la
+narrativa.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong></td>
+<td style="text-align: left;"><strong>Subyugación:</strong> Doblegar la
+voluntad del arma mediante un acto de dominación y crueldad.</td>
+<td style="text-align: left;">Carisma (Intimidación) CD 17</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<ul>
+<li>El Cataclismo del <a href="Lilium.html">Lilium</a></li>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

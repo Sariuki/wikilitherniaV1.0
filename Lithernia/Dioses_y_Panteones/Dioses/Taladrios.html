@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taladrios</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Taladrios</div>
+        <div class="content">
+<h1 id="taladrios">Taladrios</h1>
+<h2 id="biografía">Biografía</h2>
+<p><strong>Origen y Genealogía</strong></p>
+<p>Taladrios es el primogénito de <a href="Yfrit.html">Yfrit</a>, la <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a> y matriarca
+del panteón humano de <a href="Galvorn.html">Galvorn</a>. Nacido del
+primer oleaje del tiempo, él encarna la paciencia del océano y la
+inexorable marcha de la historia. Como Dios del Tiempo y los Ciclos, su
+naturaleza es una de calma contemplativa, un contrapunto sereno a la
+impetuosa furia de su hermano <a href="Exion.html">Exion</a>, dios de
+las tormentas, y a la errante libertad de su otro hermano, <a
+href="Quiteon.html">Quiteon</a>, dios del viento. Mantiene una relación
+armoniosa con su hermana <a href="Harmias.html">Harmias</a>, la diosa
+del sol, pues sus dominios se entrelazan en el ciclo diario y estacional
+que rige la vida mortal.</p>
+<p>Desde su concepción, Taladrios ha sido el observador silencioso de
+Lithernia. Mientras otros dioses actúan con pasión y urgencia, él
+personifica la perspectiva a largo plazo, comprendiendo que toda marea
+sube y baja, y que toda era, por gloriosa o terrible que sea,
+eventualmente cede el paso a la siguiente.</p>
+<p><strong>La Era del Primer Rey y el Cataclismo del <a
+href="Lilium.html">Lilium</a></strong></p>
+<p>La ascensión del Primer Rey representó un profundo dilema para
+Taladrios. Siendo un dios de linaje humano, no pudo evitar sentir un
+reticente orgullo al ver a un mortal unificar Lithernia. Sin embargo,
+como guardián de los ciclos naturales, la ambición del Rey por alcanzar
+la divinidad era una aberración, una ruptura violenta del orden cósmico
+que separaba lo mortal de lo divino.</p>
+<p>Cuando los dioses declararon la guerra al Rey, Taladrios participó no
+por malicia, sino por un trágico sentido del deber. Vio la rebelión del
+Rey no como un acto de liberación, sino como una hybris que amenazaba
+con detener el flujo del tiempo en un único y eterno reinado mortal,
+desequilibrando la balanza del universo. Se unió a su panteón en la
+batalla que culminó en la derrota y el sellado del Rey. La Lanza
+Celestial <strong>Chronos</strong>, forjada para anclar el sello a
+través de las eras, resuena profundamente con su dominio, y se cree que
+Taladrios es su guardián conceptual, el único que comprende plenamente
+el poder temporal que aprisiona al Rey. El posterior Cataclismo del <a
+href="Lilium.html">Lilium</a> es una herida en su memoria; una prueba
+funesta de que la ruptura de los ciclos siempre trae consigo una
+devastación incalculable.</p>
+<p><strong>Motivaciones y Creencias en la Era Crepuscular</strong></p>
+<p>En la actual Era Crepuscular, Taladrios observa la Gran Guerra con
+una melancolía infinita. Para él, este conflicto milenario no es más que
+una estación prolongada y dolorosa, un invierno del espíritu que, como
+todos los inviernos, debe terminar. Su principal motivación es la
+restauración del equilibrio. No busca la victoria para <a
+href="Galvorn.html">Galvorn</a> ni la aniquilación de los otros reinos,
+sino el fin del ciclo de violencia que ha estancado la historia de
+Lithernia.</p>
+<p>Valora la paciencia, la sabiduría extraída del pasado y la
+perseverancia tranquila. Sus enseñanzas sostienen que el tiempo es el
+mayor sanador y el juez más justo, y que las respuestas a los problemas
+del presente a menudo se encuentran en los ecos del pasado. Por ello, es
+el patrón de historiadores, sabios, filósofos y estrategas que
+planifican a largo plazo.</p>
+<p>Frente a la <strong>Profecía del Retorno del Rey</strong>, Taladrios
+mantiene una neutralidad expectante. No la teme ni la ansía, sino que la
+observa como la manifestación de un nuevo ciclo. ¿Será el <a
+href="Heroes.html">Heroes</a> elegido un restaurador que sanará el
+mundo, o un nuevo disruptor que traerá otro cataclismo? Taladrios no
+interviene directamente, pero se cree que susurra en los sueños de los
+sabios y guía a aquellos que buscan comprender la historia para no
+repetirla, con la esperanza de que la profecía se cumpla de la forma más
+armoniosa posible.</p>
+<h2 id="descripción-física-y-representación">Descripción Física y
+Representación</h2>
+<p>Taladrios rara vez se manifiesta en una forma fija. Su apariencia es
+fluida, reflejando la naturaleza misma del tiempo. Quienes lo han visto
+en visiones lo describen como un ser humanoide cuya edad cambia con el
+parpadeo: en un instante es un joven de ojos curiosos, al siguiente un
+adulto en la plenitud de su vida, y finalmente un anciano de rostro
+surcado por la sabiduría de los eones.</p>
+<p>Su vestimenta es sencilla, a menudo túnicas de tonos neutros —gris,
+beige o azul profundo— que parecen tejidas con el polvo de estrellas de
+las constelaciones que marcan las estaciones. No porta armas, pero a
+veces se le ve con un báculo de madera de tejo petrificada o sosteniendo
+un orbe de cristal en cuyo interior fluyen las arenas del tiempo,
+mostrando escenas del pasado, presente y futuro.</p>
+<p><strong>Símbolo:</strong> Su símbolo más común es un reloj de arena
+dentro de un Ouroboros (la serpiente que se muerde la cola),
+representando el tiempo finito contenido dentro del ciclo infinito de la
+eternidad.</p>
+<p><strong>Equipo Relevante:</strong> * <strong>El Cronicon:</strong> Se
+dice que Taladrios es el autor y custodio de un tomo legendario que
+contiene toda la historia de Lithernia. No es un objeto físico que se
+pueda robar, sino un concepto al que sus clérigos más devotos pueden
+acceder en momentos de profunda meditación para recibir vislumbres del
+pasado.</p>
+<h2 id="culto-y-dominios">Culto y Dominios</h2>
+<p>El culto a Taladrios es contemplativo y académico. Sus seguidores no
+construyen catedrales ostentosas, sino bibliotecas, observatorios y
+jardines de meditación donde el paso de las estaciones es el principal
+adorno.</p>
+<ul>
+<li><strong>Seguidores:</strong> Sus devotos son principalmente sabios,
+historiadores, astrónomos, monjes y granjeros. Sin embargo, su más
+curiosa y estrecha asociación es con los <strong><a
+href="Halflings.html">Halflings</a> (<a
+href="Medianos.html">Medianos</a>)</strong> de <a
+href="Galvorn.html">Galvorn</a>. Este pueblo, con su amor por la vida
+sencilla, la paciencia y el respeto por los ciclos de siembra y cosecha,
+encarna perfectamente las virtudes de Taladrios, aunque no siempre lo
+adoren de manera formal.</li>
+<li><strong>Templos:</strong> Sus lugares sagrados son silenciosos y
+pacíficos. Grandes relojes de sol, clepsidras monumentales o antiguos
+círculos de piedra alineados con los solsticios y equinoccios sirven
+como altares. El rito más común es la simple observación y registro del
+paso del tiempo.</li>
+<li><strong>Clérigos (Sacerdotes):</strong> Los clérigos de Taladrios
+son consejeros, guardianes del conocimiento y mediadores. Canalizan
+poder divino de los dominios de <strong>Conocimiento
+(Knowledge)</strong>, <strong>Orden (Order)</strong> y, a veces,
+<strong>Naturaleza (Nature)</strong>. Su magia se especializa en
+adivinación, manipulación del tiempo (<em>Haste, Slow</em>), protección
+y hechizos que revelan la verdad histórica.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Taladrios representa la conciencia silenciosa de Lithernia. En un
+mundo definido por la guerra, la ambición y los conflictos inmediatos,
+él ofrece una perspectiva de calma y eternidad. Su legado es la creencia
+fundamental de que ningún dolor es permanente y que toda era de
+oscuridad lleva en sí la semilla de un nuevo amanecer.</p>
+<p>Su papel en la profecía del Primer Rey lo convierte en una figura
+clave, aunque pasiva, en el destino del mundo. Mientras otros dioses
+luchan por el control, Taladrios espera, observa y registra. Él es el
+guardián de la memoria del mundo, y su mayor impacto es la esperanza
+sutil que infunde en los mortales: la certeza de que, con paciencia y
+sabiduría, el ciclo roto de Lithernia puede ser sanado. En el gran tapiz
+de la historia, Taladrios no es el hilo más brillante, pero es el que
+mantiene unidos a todos los demás.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

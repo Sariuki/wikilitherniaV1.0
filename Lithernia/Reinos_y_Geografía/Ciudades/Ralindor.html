@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ralindor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ralindor</div>
+        <div class="content">
+<h1 id="ralindor">Ralindor</h1>
+<p>Donde otras ciudades de <a href="Galvorn.html">Galvorn</a> son el
+corazón del comercio, Ralindor es su mente y sus ojos. Asentada en los
+acantilados de la Costa de los Vientos, esta ciudad de piedra caliza
+blanca y tejados de pizarra azul es un monumento a la precisión y la
+audacia exploratoria. Sus calles no están diseñadas para el bullicio del
+mercado, sino para la contemplación del horizonte. Aquí, el valor de un
+ciudadano no se mide en oro, sino en la precisión de sus <a
+href="Mapas.html">Mapas</a>, la agudeza de su vista y la cantidad de
+constelaciones que puede nombrar de memoria. Altas torres de
+observatorio con cúpulas de bronce y cristal salpican el paisaje urbano,
+siempre apuntando hacia el cielo o el mar, buscando descifrar los
+secretos que los dioses tejieron en el firmamento y las olas.</p>
+<h2 id="historia">Historia</h2>
+<p>Ralindor nació de la necesidad de comprender un mundo roto. Tras el
+Cataclismo del <a href="Lilium.html">Lilium</a>, cuando los <a
+href="Mapas.html">Mapas</a> antiguos se volvieron inútiles y las
+estrellas parecían haber cambiado de lugar, un legendario navegante
+humano llamado Kaelen Ralindor argumentó que la verdadera libertad no
+vendría de la riqueza, sino del conocimiento. Mientras otros capitanes
+buscaban rutas comerciales, Kaelen reunió a los cartógrafos más dotados,
+a los astrónomos más sabios y a los genasi de aire más sensibles a los
+vientos, y fundó una ciudad con un único propósito: volver a
+cartografiar Lithernia y dominar el arte de la navegación.</p>
+<p>Bajo el gobierno de un Consejo de Cartógrafos y Astrónomos, Ralindor
+se convirtió en el epicentro del saber náutico de <a
+href="Galvorn.html">Galvorn</a>. Sus exploradores no solo buscan nuevas
+tierras, sino que perfeccionan el arte de viajar, considerando cada
+viaje un acto sagrado para honrar a <a href="Yfrit.html">Yfrit</a>, <a
+href="Harmias.html">Harmias</a> y <a href="Quiteon.html">Quiteon</a>. Su
+lema, grabado en la base de su faro, reza: “Lo desconocido es solo un
+mapa que aún no hemos dibujado”.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Faro de la Estrella Polar</strong>: Más que una simple
+guía para barcos, este faro es el alma de Ralindor. Su estructura de
+piedra blanca se eleva cientos de pies sobre el acantilado, coronada por
+una lente mágica forjada con cristal de estrella y lágrimas de un genasi
+de aire. Su haz de luz no solo es visible a leguas de distancia, sino
+que se dice que calma las aguas a su alrededor y ahuyenta a las
+criaturas marinas hostiles.</p></li>
+<li><p><strong>La Colina de las Cúpulas</strong>: El distrito más
+elevado de la ciudad, hogar de las grandes torres de observatorio y del
+Templo del Sextante Dorado. Durante el día, sus cúpulas de bronce
+reflejan la luz de <a href="Harmias.html">Harmias</a>, y por la noche,
+se abren para que los telescopios arcanos escudriñen los cielos. Es un
+lugar de silencio y estudio, donde el único sonido es el susurro del
+viento y el suave girar de los engranajes de los astrolabios.</p></li>
+<li><p><strong>Los Muelles del Compás</strong>: A diferencia de los
+caóticos puertos comerciales, los muelles de Ralindor son un modelo de
+orden. Cada amarradero está perfectamente alineado con los puntos
+cardinales, y los almacenes guardan rollos de <a
+href="Mapas.html">Mapas</a> y suministros de expedición en lugar de
+mercancías comunes. Es aquí donde los capitanes realizan “El Juramento
+del Horizonte” antes de partir, tocando un astrolabio sagrado que
+bendice su viaje.</p></li>
+<li><p><strong>El Gremio del Horizonte</strong>: El centro político y
+social de la ciudad. Este gran edificio circular alberga los salones del
+Consejo de Cartógrafos y Astrónomos, así como la biblioteca de <a
+href="Mapas.html">Mapas</a> más completa de Lithernia. En su patio
+central se celebra anualmente el “Festival de los Horizontes”, donde se
+presentan los descubrimientos del año y se financian las nuevas y más
+audaces expediciones.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Ralindor gira en torno al ciclo de las expediciones. La
+partida de un barco es un evento solemne, mientras que el regreso es
+motivo de celebración comunal. Los marineros veteranos son fácilmente
+reconocibles por los tatuajes de constelaciones que cubren sus brazos,
+cada estrella marcando un viaje lejano o un descubrimiento
+significativo. Al volver a puerto, la primera tradición es “El Brindis
+del Retorno”, donde toda la tripulación se reúne en el muelle y vierte
+la primera copa de ron al océano, un agradecimiento a <a
+href="Yfrit.html">Yfrit</a> por un regreso seguro. El conocimiento no se
+atesora; se comparte. Los gremios son centros de aprendizaje abiertos
+donde los jóvenes aprendices estudian junto a los maestros más
+experimentados, asegurando que el arte de la navegación nunca se
+pierda.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Ralindor es una ciudad de líneas limpias y espacios abiertos. Los
+edificios de piedra caliza blanca resisten el salitre y brillan bajo el
+sol, mientras que los tejados de pizarra azul reflejan el color del mar
+y el cielo. No hay callejones oscuros; en su lugar, amplias avenidas y
+plazas diseñadas para ofrecer una vista despejada del horizonte. El aire
+está impregnado del olor a sal, a ozono y al pergamino de los <a
+href="Mapas.html">Mapas</a>. El ambiente es tranquilo y concentrado, el
+de una comunidad unida por un propósito superior: desvelar los misterios
+del mundo. El símbolo de la ciudad, un sextante dorado sobre olas
+azules, adorna banderas y puertas, recordando a todos su vocación.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Flota Fantasma del Silencio</strong>: Los marineros y
+vigías juran que, en las noches de niebla más espesa, una flota de
+barcos espectrales navega silenciosamente hacia el puerto. Son los
+navíos de expediciones legendarias que se perdieron en lo desconocido,
+cuyas almas intentan una última vez entregar sus <a
+href="Mapas.html">Mapas</a>. Verlos es considerado un presagio funesto,
+una advertencia de que el viaje que se avecina será excepcionalmente
+peligroso.</p></li>
+<li><p><strong>El Corazón de la Corriente</strong>: Se susurra que en
+las profundidades de la bahía, justo debajo del faro, yace una gema del
+tamaño de un corazón humano que fue un regalo de la propia <a
+href="Yfrit.html">Yfrit</a>. Este artefacto, conocido como el Corazón de
+la Corriente, es lo que estabiliza las traicioneras aguas de la costa y
+guía a los marineros de forma segura. Algunos exploradores ambiciosos
+sueñan con recuperarlo, creyendo que quien lo posea podría controlar las
+mareas, sin pensar en las catastróficas consecuencias que su extracción
+podría desatar.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talvorak</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Talvorak</div>
+        <div class="content">
+<h1 id="talvorak">Tal’vorak</h1>
+<h2 id="biografía">Biografía</h2>
+<p><strong>Origen en la Forja del Mundo</strong></p>
+<p>En los albores del tiempo, cuando los dioses y los <a
+href="Primordiales.html">Primordiales</a> daban forma a la existencia,
+nacieron los cuatro <a href="Dragones.html">Dragones</a> ancestrales,
+guardianes del equilibrio elemental del mundo recién forjado. Entre
+ellos se encontraba Tal’vorak, el señor de las tormentas. Mientras su
+rival <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+creaba montañas con fuego y <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>
+tejía sombras en las profundidades, Tal’vorak reclamó los cielos. Su
+aliento no era de llamas, sino de tempestades furiosas; con cada rugido,
+extendía huracanes y relámpagos que esculpían las llanuras y llenaban
+los océanos, personificando la fuerza indomable y caótica de la
+atmósfera.</p>
+<p><strong>Fundación del Imperio Talborak</strong></p>
+<p>Durante el Amanecer Dracónico, la Era de las Escamas y Fuego,
+Tal’vorak no se contentó con ser una mera fuerza de la naturaleza.
+Impulsado por una ambición sin límites de imponer orden en el caos que
+él mismo representaba, se propuso unificar a las feroces y egoístas
+estirpes de <a href="Dragones.html">Dragones</a> cromáticos. Con una
+combinación de poder aterrador y un carisma magnético, subyugó a clanes
+enteros de <a href="Dragones.html">Dragones</a> azules, negros, verdes y
+rojos, además de incontables <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+y razas mortales primitivas que temblaban bajo su sombra.</p>
+<p>Sobre este vasto dominio fundó el <strong>Imperio Talborak</strong>,
+el más poderoso de la era. Sus fortalezas, construidas con piedra oscura
+y relámpagos perpetuos, se alzaban como monumentos a su poder
+invencible. La vida bajo su mandato era brutal y jerárquica, regida por
+la ley del más fuerte, pero también ofrecía una estabilidad férrea en un
+mundo violento. Tal’vorak creía que solo el poder absoluto podía traer
+orden, y su imperio fue el reflejo de esa filosofía.</p>
+<p><strong>Las Guerras Dracónicas y la Caída</strong></p>
+<p>El dominio de Tal’vorak inevitablemente chocó con el de su principal
+rival, <strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a></strong>,
+el dragón carmesí que lideraba a los <a
+href="Dragones.html">Dragones</a> metálicos. Así comenzaron las
+devastadoras Guerras Dracónicas, un conflicto que duró generaciones y
+grabó cicatrices imborrables en la faz de Lithernia. Las batallas entre
+los ejércitos de Tal’vorak e <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+eran de una escala apocalíptica: montañas enteras eran partidas por los
+relámpagos de la tormenta y valles fértiles se convertían en mares de
+lava. Los otros <a href="Dragones.html">Dragones</a> ancestrales, como
+el sabio <strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a></strong>
+y el sombrío <strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a></strong>,
+tejían sus propias intrigas, cambiando de alianzas según sus intereses y
+prolongando el conflicto.</p>
+<p>Pese a su poder, ningún imperio es eterno. Exhausto por siglos de
+guerra incesante, el Imperio Talborak comenzó a desmoronarse desde
+dentro. La lealtad de los <a href="Dragones.html">Dragones</a>
+cromáticos, cimentada en el miedo, se reveló frágil. Sus clanes menores,
+resentidos por la tiranía o tentados por el poder, desertaron y lo
+traicionaron. Al mismo tiempo, las razas mortales subyugadas, que habían
+sufrido bajo su yugo durante eones, aprovecharon la debilidad del
+imperio para alzarse en rebelión.</p>
+<p>La Caída Dragónica no fue un evento singular, sino un lento declive
+que vio a los grandes <a href="Dragones.html">Dragones</a>, incluido
+Tal’vorak, perder su hegemonía. Su destino final se pierde en la
+leyenda; algunos relatos afirman que cayó en una última batalla
+cataclísmica, mientras que otros susurran que, viendo su imperio en
+ruinas, se retiró a un letargo milenario en un lugar oculto, esperando
+el día en que las tormentas volvieran a reclamar el mundo.</p>
+<h2 id="descripción-y-poderes">Descripción y Poderes</h2>
+<p>Tal’vorak era una criatura de tamaño colosal, cuya sola presencia
+alteraba el clima a kilómetros a la redonda. Sus escamas, de un negro
+obsidiana pulido, parecían absorber la luz y crepitaban constantemente
+con una energía eléctrica estática. Sus ojos eran orbes arremolinados de
+pura energía tormentosa, y su voz resonaba como el trueno distante. Sus
+alas eran tan inmensas que, al desplegarse, podían oscurecer el sol y
+generar vientos huracanados.</p>
+<p>No portaba armas ni armaduras, pues su cuerpo era la encarnación de
+una catástrofe natural. Su poder no residía en artefactos, sino en su
+dominio absoluto sobre el clima y la electricidad.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Aunque su imperio se convirtió en polvo y leyenda, el legado de
+Tal’vorak es profundo y duradero.</p>
+<ol type="1">
+<li><strong>Cicatrices Geográficas:</strong> Las batallas de las Guerras
+Dracónicas alteraron permanentemente la geografía de Lithernia. Cañones
+que hoy cruzan el continente fueron tallados por sus rayos, y
+cordilleras enteras no son más que los restos de fortalezas derruidas en
+su guerra contra <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>.</li>
+<li><strong>El Mito del Dragón Tirano:</strong> Tal’vorak encarnó el
+arquetipo del dragón como un conquistador tiránico y un soberano
+absoluto. Las historias de su crueldad y su poder han alimentado el
+miedo y el asombro hacia la estirpe dracónica durante milenios,
+especialmente hacia los <a href="Dragones.html">Dragones</a> cromáticos,
+quienes aún hoy son vistos como herederos de su ambición.</li>
+<li><strong>El Vacío de Poder:</strong> Su caída, junto a la de los
+otros emperadores dracónicos, fue el catalizador que permitió la
+ascensión de las razas mortales. Sin la opresión de los <a
+href="Dragones.html">Dragones</a>, la humanidad y sus aliados tuvieron
+la oportunidad de forjar sus propios reinos, culminando en la Era del
+Primer Rey. De forma irónica, la tiranía de Tal’vorak fue la que, al
+extinguirse, abonó el terreno para la libertad mortal.</li>
+<li><strong>Reliquias Ocultas:</strong> Se rumorea que en las ruinas de
+sus ciudadelas o en guaridas olvidadas aún yacen artefactos de poder
+inmenso o huevos de <a href="Dragones.html">Dragones</a> de tormenta de
+su linaje directo. Estas reliquias son buscadas por eruditos, cultistas
+y aventureros, pues se cree que contienen la clave del dominio sobre las
+tormentas o los secretos de la magia dracónica más antigua.</li>
+</ol>
+<p>Tal’vorak ya no gobierna Lithernia, pero el eco de su tormenta aún
+resuena en las <a href="Leyendas.html">Leyendas</a>, en el paisaje y en
+el corazón temeroso de quienes recuerdan la Era en que el cielo
+pertenecía a los <a href="Dragones.html">Dragones</a>.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 1.00)</li>
+<li><a href="Ignis.html">Ignis</a> (relevancia: 0.47)</li>
+<li><a href="Imperio%20Talborak.html">Imperio Talborak</a> (relevancia:
+0.46)</li>
+<li><a href="09_Personajes.html">09_Personajes</a> (relevancia:
+0.33)</li>
+<li><a href="Personajes.html">Personajes</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

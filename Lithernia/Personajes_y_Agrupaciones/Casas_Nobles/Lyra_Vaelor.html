@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Vaelor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Vaelor</div>
+        <div class="content">
+<h1 id="lyra-vaelor">Lyra Vaelor</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los valles profundos de <a href="Valtoria.html">Valtoria</a>,
+donde los ríos fluyen con la pureza de las cumbres heladas, la Casa
+Vaelor ha perfeccionado un arte que fusiona la paciencia enana con la
+precisión gnoma. Lyra Vaelor es la encarnación más brillante y
+disruptiva de este legado. Nacida como heredera de la casa, hija del
+respetado maestro Kaelen Vaelor, Lyra no se contentó con aprender las
+antiguas tradiciones de la Hidromancia Rúnica; nació para reinventarlas.
+Desde joven, mientras otros de su edad se centraban en la robustez del
+martillo, Lyra observaba el flujo del agua y veía no solo un medio para
+pulir gemas, sino un conductor de poder arcano en estado puro.</p>
+<p>Con tan solo 95 años —una juventud casi insultante para los
+estándares <a href="Enanos.html">Enanos</a>—, Lyra ya es considerada la
+Innovadora Principal de su casa. Ha dominado las técnicas secretas que
+permiten a los Vaelor inscribir <a href="Runas.html">Runas</a> de poder
+en cristales mientras son tallados por corrientes de agua canalizada,
+una proeza que otorga a sus artefactos una estabilidad y potencia
+legendarias. Sin embargo, su visión trasciende la creación de joyas
+exquisitas y cristales para la Torre de las Estrellas. Lyra ve un futuro
+donde la Hidromancia Rúnica no es solo un arte, sino un arma.</p>
+<p>Esta ambición la ha puesto en conflicto directo con su padre, Kaelen,
+y su tío, Borin. Para ellos, el arte de la Casa Vaelor es un legado de
+creación y belleza. Para Lyra, es el siguiente paso en la evolución de
+la defensa de <a href="Valtoria.html">Valtoria</a>. Sueña con golems de
+granito animados por corazones de zafiro rúnico, con balistas que
+disparan proyectiles de cuarzo imbuidos con la furia de un torrente de
+montaña, y con escudos que fluyen como agua para desviar los golpes.
+Considera la visión de su tío Borin un ancla de granito que frena el
+torrente del progreso, una postura que genera constantes fricciones en
+el consejo familiar.</p>
+<p>Ignorando las advertencias de los tradicionalistas, Lyra ha
+establecido una correspondencia secreta con los enigmáticos artífices de
+la ciudad de <a href="Cyndril.html">Cyndril</a>. A través de
+intermediarios y mensajes cifrados, intercambia esquemas de gemas de
+poder por diseños de chasis de autómatas, buscando en secreto construir
+los primeros prototipos de sus “Guardianes de la Corriente”. Es
+consciente de los peligros: sus rivales, como el Clan Agrietacero, se
+burlarían de su “magia suave” hasta que un golem de Vaelor pulverice sus
+forjas. Los Cazadores de Sombras, por su parte, no solo codician sus
+técnicas, sino que ansían corromper las aguas puras de <a
+href="Villeshervil.html">Villeshervil</a>, una amenaza que Lyra pretende
+erradicar con una fuerza que nunca antes han enfrentado.</p>
+<p>Lyra Vaelor no es solo una artesana; es una revolucionaria envuelta
+en el cuerpo de una heredera. Camina sobre el filo de la navaja entre la
+innovación y la herejía, decidida a demostrar que la verdadera fuerza no
+reside en el fuego y la furia, sino en la presión implacable y
+persistente de una corriente que, con el tiempo, puede fracturar la
+montaña más sólida.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra posee la complexión robusta de los <a
+href="Enanos.html">Enanos</a> de montaña, pero sus movimientos tienen
+una fluidez y precisión inusuales. Su cabello, de un color negro tan
+profundo como el granito mojado, está recogido en una compleja serie de
+trenzas entrelazadas con finos hilos de mithril y pequeñas gemas sin
+pulir que emiten un tenue resplandor azulado. Sus ojos, de un intenso
+color zafiro, observan el mundo con la concentración de un gemólogo
+examinando una falla. A diferencia de muchos en su clan, sus manos rara
+vez están cubiertas de hollín; en su lugar, muestran los callos finos de
+quien maneja herramientas delicadas y la piel perpetuamente fresca de
+quien trabaja con agua.</p>
+<p>Viste túnicas de lana de alta calidad en tonos grises y azules,
+protegidas por un delantal de cuero de draco tratado para ser
+completamente impermeable. En su cinturón no cuelgan hachas, sino un
+conjunto de herramientas de artesano maestro: cinceles de adamantina,
+lupas de cristal encantado y pinzas de plata.</p>
+<p>Su único objeto defensivo es un <strong>Guantelete Rúnico de Flujo
+Controlado</strong>, una creación propia. Forjado en mithril y cubierto
+de filigranas que imitan el curso de un río, alberga un gran zafiro en
+el dorso de la mano. Al canalizar una pequeña cantidad de maná, Lyra
+puede proyectar un escudo de fuerza líquida o lanzar un chorro de agua
+presurizada con la fuerza suficiente para derribar a un orco. Es su
+prototipo, su prueba de concepto y una advertencia para quienes la
+subestiman.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Lyra Vaelor está aún por escribirse, pero su impacto
+potencial en <a href="Valtoria.html">Valtoria</a> y en Lithernia es
+inmenso. Representa una nueva era para la magia enana, un puente entre
+la tradición rúnica ancestral y la tecnología arcana del futuro.</p>
+<p>Si tiene éxito, sus innovaciones podrían revolucionar la capacidad
+defensiva de <a href="Valtoria.html">Valtoria</a>, creando ejércitos de
+constructos inmunes al miedo y a la fatiga, y convirtiendo a la Casa
+Vaelor en una potencia militar a la par de los clanes guerreros más
+feroces. Se convertiría en una figura legendaria, la “Forjadora de
+Corrientes”, cuyo nombre sería susurrado con una mezcla de asombro y
+temor desde las forjas de Ironforge hasta las academias mágicas de <a
+href="Eldrador.html">Eldrador</a>.</p>
+<p>Sin embargo, su camino está lleno de peligros. El fracaso podría no
+solo significar su ruina personal, sino también un desastre para su
+casa. Un autómata descontrolado, un pacto imprudente o el robo de sus
+secretos por los Cazadores de Sombras podrían sumir a <a
+href="Villeshervil.html">Villeshervil</a> en el caos. Lyra personifica
+el lema de su casa de la forma más literal: es la corriente de cambio
+que amenaza con remodelar la piedra inmutable de la tradición enana, y
+solo el tiempo dirá si la runa de su voluntad es lo suficientemente
+fuerte como para guiar ese torrente hacia la gloria o la catástrofe.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

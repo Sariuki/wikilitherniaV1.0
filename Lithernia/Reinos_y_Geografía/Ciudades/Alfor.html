@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Alfor</div>
+        <div class="content">
+<h1 id="alfor">Alfor</h1>
+<p>En las profundidades de las Montañas del Eco Silencioso, donde los
+picos de <a href="Valtoria.html">Valtoria</a> se encuentran con los
+bosques ancestrales, yace Alfor. No es una fortaleza excavada en la roca
+ni una ciudad erigida con mortero, sino un milagro de la naturaleza y la
+paciencia. La ciudad entera está tallada verticalmente dentro y sobre el
+tronco de un árbol colosal petrificado hace eones, una maravilla
+geológica conocida como “El Corazón de Kaelen”. Sus calles son las vetas
+de la piedra-madera, sus salones son cavidades naturales pulidas por el
+tiempo, y su luz es el suave resplandor de musgos y hongos
+bioluminiscentes que emiten un perpetuo crepúsculo verde y azul.</p>
+<h2 id="historia">Historia</h2>
+<p>Alfor fue fundada no por conquista, sino por escucha. Tras las
+devastadoras Guerras Dracónicas, un clan de <a
+href="Enanos.html">Enanos</a> y un círculo de druidas, cansados de la
+destrucción, buscaron un lugar donde la permanencia de la piedra y la
+tenacidad de la vida pudieran coexistir en armonía. Fueron guiados por
+Kaelen, un <a href="Druida.html">Druida</a> Genasi de Tierra que
+afirmaba oír una canción lenta y profunda en el viento de las montañas.
+La canción los llevó al titánico árbol petrificado. Los <a
+href="Enanos.html">Enanos</a> vieron en él una fortaleza inexpugnable;
+los druidas, un monumento a la resiliencia de la vida. Juntos,
+establecieron una nueva cultura, la “Petravita”, y fundaron Alfor. En
+lugar de perforar la roca, tallaron con reverencia, siguiendo las formas
+que el árbol les ofrecía. La ciudad se convirtió en un santuario para
+quienes veneran a <a href="Cirkon.html">Cirkon</a>, la diosa de la roca,
+y a <a href="Ferion.html">Ferion</a>, el dios de la naturaleza, creyendo
+que El Corazón de Kaelen es la manifestación sagrada de su unión.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Corteza Madre</strong>: El corazón espiritual y
+geográfico de Alfor. Es una vasta cámara circular en la base del tronco
+donde la textura de la corteza petrificada es más intrincada. Aquí se
+celebran los ritos más importantes, como la bendición de los recién
+nacidos y la resolución de disputas. La acústica del lugar es perfecta
+para el “canto-roca”.</p></li>
+<li><p><strong>Las Galerías de la Veta</strong>: Los distritos
+residenciales de Alfor son una red de túneles y estancias que siguen las
+vetas naturales de la madera fosilizada. Cada hogar es único, con
+relieves tallados por sus habitantes a lo largo de generaciones. Están
+conectados por puentes colgantes hechos de enredaderas vivas, reforzadas
+con magia druídica para soportar el peso.</p></li>
+<li><p><strong>El Jardín Luminoso</strong>: Una serie de cavernas
+húmedas donde los druidas y un pequeño enclave de <a
+href="Gnomos.html">Gnomos</a> cultivan los musgos y hongos
+bioluminiscentes que iluminan la ciudad. Los <a
+href="Gnomos.html">Gnomos</a> utilizan los minerales únicos extraídos de
+la piedra-madera para crear artefactos alquímicos y pociones de una
+potencia singular.</p></li>
+<li><p><strong>La Corona Silenciosa</strong>: La cúspide del árbol
+petrificado, una plataforma natural abierta al cielo de <a
+href="Valtoria.html">Valtoria</a>. Este lugar, a menudo barrido por el
+viento de las cumbres, es donde la ciudad entera se reúne para el
+“Silencio Anual”, un día de meditación para escuchar la voz de la
+montaña y del árbol.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura Petravita venera la paciencia y los ciclos largos. El arte
+principal es el “canto-roca”, una forma de canto gutural y resonante
+que, según creen, armoniza con la memoria de la tierra. Las disputas no
+se resuelven con duelos, sino con “Pruebas de Paciencia”: tareas
+meditativas y prolongadas, como cuidar un jardín de cristales o tallar
+un relieve complejo, donde el primero en perder la calma pierde la
+disputa. Una vez al año, durante el “Silencio Anual”, toda la ciudad
+cesa su actividad y su ruido, sumiéndose en una quietud absoluta para
+“escuchar” los susurros del Corazón de Kaelen. Su símbolo es una hoja
+fosilizada de color gris, perfectamente conservada, rodeada por una
+enredadera verde y viva que forma un círculo a su alrededor,
+representando su filosofía.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Estar en Alfor es como habitar dentro de un ser ancestral. Las
+paredes de piedra-madera son frías al tacto, pero sus patrones orgánicos
+recuerdan a un bosque dormido. No hay esquinas afiladas; todo es curvo y
+fluido. El aire es fresco y huele a tierra húmeda, a ozono y al sutil
+aroma mineral de los hongos luminosos. El único sonido constante, aparte
+del trabajo de los artesanos, es el eco lejano del “canto-roca”, que
+vibra a través de la misma estructura de la ciudad, creando una
+atmósfera de paz profunda y solemne.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Corazón Latente</strong>: Se susurra entre los mineros
+y los druidas más viejos que no todo el árbol se convirtió en piedra. En
+las raíces más profundas, donde nadie se atreve a ir, el corazón de
+Kaelen nunca se petrificó. Se dice que late aún, una vez por año, como
+un orbe de pura energía vital protegido por antiguos elementales de
+tierra que despiertan si alguien con malas intenciones se acerca
+demasiado.</p></li>
+<li><p><strong>La Sombra del Leño Muerto</strong>: No todos en Alfor
+creen en la armonía. Una secta secreta, los “Hijos del Leño Muerto”,
+considera que el espíritu remanente del árbol es una jaula que aprisiona
+un poder inmenso. Buscan en secreto los componentes para un ritual que
+“mataría” definitivamente al espíritu, convencidos de que su liberación
+desataría una fuerza destructiva capaz de remodelar las montañas, un
+poder que ansían controlar.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.69)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

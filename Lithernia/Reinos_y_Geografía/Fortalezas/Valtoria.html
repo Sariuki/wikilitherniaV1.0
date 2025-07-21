@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valtoria</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Valtoria</div>
+        <div class="content">
+<h1 id="valtoria">Valtoria</h1>
+<h2 id="dominios-de-piedra-y-forja">Dominios de Piedra y Forja</h2>
+<p>Anclado en las entrañas de las cordilleras más imponentes de
+Lithernia, Valtoria constituye el bastión indomable del pueblo enano.
+Fundada bajo los auspicios del panteón <a
+href="Forjador.html">Forjador</a> liderado por <a
+href="Rokael.html">Rokael</a> (dios de la creación) y su contraparte <a
+href="Valarios.html">Valarios</a> (dios de la destrucción), esta
+monarquía constitucional equilibra tradición y progreso con mano firme.
+Los profundos túneles de sus ciudades montañas resuenan con el martilleo
+ritual de los herreros, mientras en los valles ocultos brotan cultivos
+milagrosos bajo la vigilancia atenta de druidas de piedra.</p>
+<h3 id="geografía-sublime">Geografía Sublime</h3>
+<p>El reino despliega una geografía de vértigo: picos dentados forjados
+en eras glaciales protegen valles fértiles irrigados por ríos nacidos
+del deshielo. Las montañas no son meras formaciones rocosas, sino
+cuerpos vivos que los <a href="Enanos.html">Enanos</a> interpretan
+mediante el “canto de la roca” - técnica ancestral para detectar vetas
+minerales y grietas telúricas. En las profundidades tapizadas de hongos
+luminiscentes, bosques de piedra albergan especies únicas: cabras de
+cascos adamantinos, gusanos de cristal y murciélagos que tejen hilos de
+plata con sus gritos ultrasónicos.</p>
+<h3 id="sociedad-el-equilibrio-de-la-montaña">Sociedad: El Equilibrio de
+la Montaña</h3>
+<p>Contrario a las rígidas jerarquías de otros reinos, Valtoria opera
+bajo un sistema comunitario donde <em>todo clan tiene voz</em>. La Reina
+(actualmente Valeria Bronzebrillo) ostenta poder ceremonial, mientras el
+<strong>Concilio de la Montaña</strong> gobierna mediante consenso entre
+representantes electos: - <strong>Minero-Clanes</strong>: Especializados
+en extracción sostenible, aplicando técnicas de resonancia mágica para
+no debilitar estructuras geológicas - <strong>Gremios
+Forjantes</strong>: Custodios de fórmulas ancestrales como el <em>bronce
+estelar</em> (aleación capaz de canalizar maná) - <strong>Círculo
+Druídico</strong>: Guardianes de los sagrados bosques de hongos y
+sistemas acuíferos subterráneos - <strong>Escudos de Valtoria</strong>:
+Milicia ciudadana entrenada en <em>keldarim</em> - estilo de combate que
+usa martillos y escudos como extensiones de la tierra misma</p>
+<h3 id="la-torre-de-las-estrellas-pilar-del-saber">La Torre de las
+Estrellas: Pilar del Saber</h3>
+<p>Este colosal bastión de conocimiento combina universidad, biblioteca
+y templo arcano. Su sistema de sabiduría clasifica a los ciudadanos por
+contribución intelectual:</p>
+<p>!right|250 1. <strong>Círculo Interior</strong><br />
+(Archimagos, Sabios Mayores) 2. <strong>Arcanos</strong><br />
+(Magos teóricos, astrónomos) 3. <strong>Historiadores</strong><br />
+(Cronistas oficiales) 4. <strong>Druidas Montañeses</strong> 5.
+<strong>Artífices</strong><br />
+(Ingenieros mágicos) 6. <strong>Sanadores</strong> 7. <strong>Bardos
+Rúnicos</strong><br />
+(Transmisores orales)</p>
+<p>Los “Hijos de la Luna” - nacidos con magia salvaje - son tutelados
+aquí para evitar catástrofes, mientras los “Cazadores de Sombras” (magos
+oscuros) son exiliados por amenazar el equilibrio.</p>
+<h3 id="principales-ciudades">Principales Ciudades</h3>
+<ol type="1">
+<li><strong>Valtoria (Capital)</strong>: Tallada en un macizo de cuarzo
+negro, sus salones están iluminados por cristales que proyectan
+constelaciones móviles. El Trono de Obsidiana Dinámica se reconfigura
+según la estación para alinearse con flujos de maná.</li>
+<li><strong>Ironforge</strong>: Ciudad-<a
+href="Herreria.html">Herreria</a> flotando sobre lagos de lava
+estabilizados mediante sellos de <a href="Levbrios.html">Levbrios</a>.
+Produce las famosas <em>armas cantoras</em> cuya resonancia desgarra
+formaciones enemigas.</li>
+<li><strong>Stonehollow</strong>: Ciudad subterránea donde artesanos
+gnomes y <a href="Enanos.html">Enanos</a> cooperan creando autómatas de
+guerra alimentados por núcleos de geodas. Sus mercados subterráneos
+comercian con <em>hongos memoria</em> que contienen habilidades
+artesanales descargables.</li>
+</ol>
+<h3 id="conflictos-y-tensiones">Conflictos y Tensiones</h3>
+<p>Mientras su geografía inexpugnable ha repelido invasiones de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Valtoria enfrenta desafíos
+internos: - El <strong>Frente de las Raíces Profundas</strong>: Facción
+minera que impulsa excavaciones arriesgadas hacia el <em>Manto
+Inferior</em>, desatando criaturas cristalinas dormidas - <strong>El
+Cisma de las Estrellas</strong>: Debate filosófico entre astrónomos
+sobre si las constelaciones son mensajes de <a
+href="Arzia.html">Arzia</a> (diosa élfica) o patrones mecánicos sin
+divinidad - <strong>Incursiones Umbrías</strong>: Los Cazadores de
+Sombras exiliados realizan ataques terroristas usando <em>gárgolas de
+escoria</em> - criaturas pétreas poseídas por espectros</p>
+<h3 id="cultura-canciones-en-la-roca">Cultura: Canciones en la Roca</h3>
+<p>Los valtorianos conmemoran hitos vitales mediante <em>marcas de
+linaje</em> talladas en su piel y fortalecidas con polvo mineral. Sus
+festividades incluyen: - <strong>Fiesta de la Primera <a
+href="Herreria.html">Herreria</a></strong>: Competencias donde clanes
+forjan obras maestras usando solo metales recuperados de derrumbes -
+<strong>Danza de los Hongos Sombríos</strong>: Ceremonia subterránea
+donde druidas manipulan fluorescencia fúngica para recrear batallas
+históricas - <strong>Concierto de los Abismos</strong>: Bardos golpean
+formaciones rocosas con martillos resonantes, generando sinfonías
+geológicas escuchables en todo el reino</p>
+<h3 id="recursos-únicos">Recursos Únicos</h3>
+<ul>
+<li><strong>Hidromiel de Raíz Profunda</strong>: Fermentado en cuevas
+magnéticas, otorga resistencia temporal a venenos</li>
+<li><strong>Tela de Telaraña Volcánica</strong>: Tejida con seda de
+arañas que habitan conductos de vapor, ignífuga y auto-reparable</li>
+<li><strong>Espejos de Cristal de Commorra</strong>: Superficies
+divulgativas que muestran eventos ocurridos en otros lugares
+rocosos</li>
+</ul>
+<blockquote>
+<p>“La piedra recuerda lo que la carne olvida” - Grabado sobre el Arco
+de los Ancestros en Valtoria Capital</p>
+</blockquote>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li>La Torre de las Estrellas</li>
+<li><a href="Recursos.html">Recursos</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.62)</li>
+<li><a href="Geografía.html">Geografía</a> (relevancia: 0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

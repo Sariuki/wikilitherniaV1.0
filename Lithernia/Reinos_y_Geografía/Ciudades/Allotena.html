@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allotena</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Allotena</div>
+        <div class="content">
+<h1 id="allotena">Allotena</h1>
+<p>En el corazón de las Montañas Resonantes de <a
+href="Valtoria.html">Valtoria</a>, Allotena no es una ciudad que se ve,
+sino una que se siente y se escucha. No fue construida, sino afinada.
+Excavada en las entrañas de una colosal caverna geodésica, sus paredes
+brillan con miles de cristales que atrapan y refractan la luz en un
+perpetuo crepúsculo. La arquitectura es una proeza de litomancia
+acústica: las viviendas y talleres, tallados directamente en la roca,
+están interconectados por túneles pulidos y puentes de cristal que no
+solo unen espacios, sino que amplifican cada sonido, desde el goteo de
+un manantial hasta el canto de un <a href="Bardo.html">Bardo</a>,
+convirtiendo la ciudad entera en un instrumento monumental. Un zumbido
+suave y armónico, el “Gran Canto”, impregna el aire, un recordatorio
+constante de que en Allotena, la vida y la música son una misma
+cosa.</p>
+<h2 id="historia">Historia</h2>
+<p>La fundación de Allotena fue un acto de descubrimiento y devoción.
+Siglos atrás, un maestro artesano y <a href="Bardo.html">Bardo</a> enano
+llamado Gromnir el Litosonante, buscando un lugar donde la creación no
+fuera solo forja y metal, sino también melodía y espíritu, se adentró en
+las profundidades de la tierra. Guiado por un eco que solo él parecía
+oír, encontró la gran geoda. En su interior, descubrió que la piedra no
+era silente; cantaba.</p>
+<p>Junto a sus seguidores, una mezcla de <a
+href="Enanos.html">Enanos</a> artesanos, <a
+href="Gnomos.html">Gnomos</a> fascinados por la física del sonido, y
+bardos <a href="Humanos.html">Humanos</a> y <a
+href="Semielfos.html">Semielfos</a> en busca de la melodía perfecta,
+Gromnir comenzó a “esculpir el sonido”. En lugar de imponer su voluntad
+sobre la roca, aprendieron a seguir sus vetas y resonancias naturales.
+Fundaron Allotena como un santuario a la armonía, un lugar donde la
+colaboración y la paciencia eran las herramientas más preciadas. Hoy, la
+ciudad es un faro de cultura y arte en <a
+href="Valtoria.html">Valtoria</a>, un testimonio de que la creación más
+duradera es la que nace de escuchar a la tierra.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Cúpula del Eco</strong>: Es el corazón de la ciudad,
+la cavidad central de la geoda. Aquí, el sonido viaja en patrones
+perfectos. Los grandes coros cavernosos de Allotena actúan en este
+anfiteatro natural, y las decisiones del Consejo de Maestros Talladores
+se anuncian aquí, pues se dice que la cúpula rechaza las palabras
+falsas.</p></li>
+<li><p><strong>Las Galerías del Canto</strong>: Los distritos
+residenciales y artesanales, compuestos por una red de túneles y cámaras
+más pequeñas. Cada túnel está tallado para llevar las melodías de los
+talleres y los hogares a través de la ciudad, creando una sinfonía
+comunal. Las fachadas de las viviendas están incrustadas con cristales
+resonantes que brillan con una luz suave y emiten un tono único para
+cada familia.</p></li>
+<li><p><strong>El Puente del Diapasón</strong>: Un espectacular puente
+de cristal puro que cruza el abismo central de la caverna. Su estructura
+está diseñada para vibrar con el Gran Canto de la ciudad, y caminar
+sobre él es una experiencia inmersiva, donde uno puede sentir la música
+de Allotena en sus propios huesos.</p></li>
+<li><p><strong>El Santuario del Silencio</strong>: Una pequeña y aislada
+caverna en lo más profundo de la ciudad, forrada con minerales que
+absorben completamente el sonido. Es el único lugar verdaderamente
+silencioso de Allotena. Aquí se celebra el clímax del festival del “Gran
+Silencio”, un día en que los habitantes meditan para “escuchar el latido
+de la montaña”.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Allotena se centra en la búsqueda de la armonía. La
+‘Litomancia Acústica’, una forma de adivinación que interpreta las
+vibraciones de la tierra, es una práctica común para tomar decisiones
+importantes, desde elegir el lugar para una nueva construcción hasta
+prever desprendimientos. Los conflictos se resuelven a través de “duelos
+armónicos”, donde los disputantes deben crear una melodía juntos,
+buscando un consenso en lugar de una victoria.</p>
+<p>El trabajo es una forma de arte. Los herreros golpean el metal al
+ritmo de canciones ancestrales, creyendo que la cadencia de <a
+href="Trovdor.html">Trovdor</a> imbuye de precisión a sus herramientas.
+Los mineros escuchan las canciones de <a href="Cirkon.html">Cirkon</a>
+en la roca para encontrar las vetas más puras. Incluso el viento que se
+cuela por las grietas superiores es venerado como el aliento de <a
+href="Quiteon.html">Quiteon</a>, trayendo nuevas inspiraciones melódicas
+desde el mundo exterior.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>El ambiente de Allotena es de una paz resonante y una belleza
+cristalina. No hay oscuridad completa; los cristales geodésicos emiten
+un resplandor constante que tiñe la ciudad de tonos azules, violetas y
+ambarinos. El aire es fresco y lleva consigo el olor a piedra húmeda y a
+ozono. La ciudad entera vibra con una energía palpable, un murmullo
+subyacente que es a la vez calmante y vigorizante. Cada estructura, cada
+pasadizo, está diseñado no solo para ser funcional, sino para contribuir
+a la gran sinfonía que es Allotena.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Lamento del Dragón Sónico</strong>: Muchos en Allotena
+creen que el “Gran Canto” que envuelve la ciudad no es natural. La
+leyenda dice que es el eco eterno del lamento de un dragón sónico
+ancestral, una criatura de pura melodía que fue derrotada y petrificada
+en la caverna más profunda hace eones. Algunos temen que si el canto
+cesa, el espíritu del dragón despertará en un grito de furia. Otros, más
+osados, buscan la “tumba” del dragón, creyendo que su corazón de cristal
+contiene la esencia de toda la música.</p></li>
+<li><p><strong>La Frecuencia de la Ruptura</strong>: Se susurra entre
+los maestros talladores más ancianos que existe un tono prohibido, una
+frecuencia única capaz de desintegrar la roca y hacer colapsar la propia
+montaña. Este conocimiento, supuestamente heredado del propio Gromnir
+como un arma de último recurso, es el secreto mejor guardado de
+Allotena. Los espías de <a href="Mor&#39;dhul.html">Mor’dhul</a> han
+intentado infiltrarse en la ciudad durante generaciones, no en busca de
+oro o mithril, sino de esta nota devastadora que podría convertir la
+mayor fortaleza de <a href="Valtoria.html">Valtoria</a> en
+polvo.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

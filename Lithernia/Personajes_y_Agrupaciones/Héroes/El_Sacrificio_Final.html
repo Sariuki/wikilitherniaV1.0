@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Sacrificio_Final</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Sacrificio_Final</div>
+        <div class="content">
+<h1 id="el-sacrificio-final">El sacrificio final</h1>
+<p>En las crónicas de Lithernia, existen actos de heroísmo que
+trascienden la vida y la muerte. No son las gestas cantadas en las
+tabernas ni los nombres grabados en monumentos, sino los
+<strong>Sacrificios Finales</strong>: actos de abnegación tan absolutos
+que su costo no es la vida, sino la propia existencia. Son las historias
+de héroes que, para salvar al mundo, aceptaron ser borrados de la
+memoria, del tiempo y, en ocasiones, de la realidad misma.</p>
+<p>Estos sacrificios son los pilares silenciosos sobre los que se
+sostiene la era actual. Son ecos fantasmales en el Tejido del Maná,
+cicatrices inexplicables en la geografía y susurros en profecías que
+nadie comprende del todo. Representan la verdad más profunda y terrible
+de Lithernia: que la salvación a menudo exige un precio que ni la
+historia puede pagar, pues el <a href="Heroes.html">Heroes</a>
+desaparece junto con la amenaza que conjuró.</p>
+<h3 id="el-arquetipo-del-rey-olvidado">El Arquetipo del Rey
+Olvidado</h3>
+<p>El más grande y terrible de todos los Sacrificios Finales es el del
+<strong>Primer Rey</strong>. Su rebelión contra los dioses no fue un
+mero acto de arrogancia, sino una elección deliberada para proteger a su
+pueblo de la tiranía divina. Sabía que el desafío le costaría todo, pero
+lo aceptó. Cuando fue derrotado, los dioses no le concedieron el
+descanso de la muerte. En su lugar, usaron las Lanzas Celestiales para
+infligirle un castigo eterno.</p>
+<p>De las cuatro lanzas, <strong>Requiem, la Lanza del Olvido</strong>,
+fue la más cruel. Su poder no solo selló su cuerpo, sino que desgarró su
+legado de la memoria del mundo. Su nombre, su rostro y la verdadera
+historia de su reinado fueron borrados, reemplazados por una versión
+distorsionada que lo presenta como un tirano que provocó el
+<strong>Cataclismo del <a href="Lilium.html">Lilium</a></strong>. El
+Primer Rey se sacrificó por su gente, y su recompensa fue convertirse en
+el villano de su propia historia, un mártir olvidado por aquellos a
+quienes salvó.</p>
+<p>Sin embargo, ni el poder de los dioses fue absoluto. Fragmentos de su
+recuerdo sobrevivieron, cristalizados en la <strong>Profecía del Retorno
+del Rey</strong>, una chispa de esperanza que demuestra que ningún
+sacrificio es verdaderamente final mientras una sola alma se niegue a
+olvidar.</p>
+<h3 id="crónicas-de-los-héroes-sin-nombre">Crónicas de los Héroes sin
+Nombre</h3>
+<p>Inspirados por el eco de este primer gran acto, otros héroes a lo
+largo de las eras han caminado por la misma senda de olvido voluntario.
+Sus historias no se encuentran en las grandes bibliotecas, sino en las
+anomalías del mundo y en las <a href="Leyendas.html">Leyendas</a>
+fragmentadas.</p>
+<h4 id="los-guardianes-silenciosos-del-lilium">Los Guardianes
+Silenciosos del Lilium</h4>
+<p>Durante el Cataclismo, cuando <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+descendió para purgar el mundo, una orden de magos de todas las razas se
+reunió en secreto. Comprendieron que el <a href="Lilium.html">Lilium</a>
+no podía ser detenido, solo contenido. En las fronteras de lo que hoy es
+<a href="Eldrador.html">Eldrador</a>, realizaron un ritual prohibido,
+tejiendo sus propias almas en el Tejido del Maná para crear un escudo
+arcano. Lograron desviar una porción masiva del fuego divino, salvando
+los bosques milenarios, pero el precio fue su aniquilación total. No
+solo murieron; la magia que usaron los consumió por completo, borrando
+sus nombres, sus rostros, sus linajes y hasta la escuela de magia que
+practicaban. Hoy, en esa región existe el <strong>Claro Mudo</strong>,
+un lugar de inquietante belleza donde la magia no funciona y el silencio
+es absoluto. Es el único monumento a los héroes que nadie recuerda.</p>
+<h4 id="la-tejedora-del-crepúsculo">La Tejedora del Crepúsculo</h4>
+<p>Las <a href="Leyendas.html">Leyendas</a> <a
+href="Eladrin.html">Eladrin</a> hablan de una vidente llamada Lyraelle
+durante el <strong><a
+href="Cultos_y_sectas_del_Alzamiento_de_las_Sombras.html">Cultos_y_sectas_del_Alzamiento_de_las_Sombras</a></strong>.
+Vio un futuro en el que una plaga de oscuridad consumiría <a
+href="Eldrador.html">Eldrador</a> y <a
+href="Valtoria.html">Valtoria</a>, un destino inevitable tejido en el
+cosmos. Desafiando las leyes de su diosa <strong><a
+href="Arzia.html">Arzia</a></strong>, Lyraelle viajó al corazón del
+Plano Astral y encontró el hilo del destino que causaría la catástrofe.
+Con una aguja forjada de su propia alma, cortó el hilo y tejió uno
+nuevo, uno donde la plaga nunca existió. El mundo fue salvado, pero la
+paradoja la consumió. Al alterar el pasado, se borró a sí misma de la
+existencia. Nadie recuerda a Lyraelle, pero los bardos de <a
+href="Eldrador.html">Eldrador</a> a veces cantan baladas sobre una “dama
+de las estrellas” que llora en el firmamento, una tristeza sin nombre
+por una heroína que nunca fue.</p>
+<h4 id="el-guardián-de-la-grieta">El Guardián de la Grieta</h4>
+<p>En la caótica <strong>Era de los Mil Años</strong>, una grieta al
+Abismo se abrió en las profundidades de las montañas de <a
+href="Valtoria.html">Valtoria</a>, vomitando horrores que ni los
+ejércitos <a href="Enanos.html">Enanos</a> podían contener. Un solitario
+<a href="Guerrero.html">Guerrero</a> <a
+href="Dragonborn.html">Dragonborn</a>, cuyo clan había sido exterminado
+por la primera oleada, se plantó ante el portal. Portaba un martillo
+forjado por su dios patrón, <strong><a
+href="Valarios.html">Valarios</a></strong>, el Destructor, y decidió
+usar la destrucción para preservar. Luchó durante días para hacer
+retroceder a las hordas y, cuando su fuerza flaqueó, tomó una decisión
+final. Arrojó su martillo al corazón de la grieta, desatando una
+explosión de energía destructiva y creativa que la selló desde dentro.
+Él mismo fue atrapado en el colapso, su esencia fusionada con la roca y
+el tejido planar para convertirse en el cerrojo eterno. Su sacrificio
+salvó a <a href="Valtoria.html">Valtoria</a>, pero al convertirse en
+parte de la montaña, su historia se desvaneció, convirtiéndose en una
+leyenda local sobre un “corazón de piedra que late” en las
+profundidades, un guardián anónimo cuya vigilancia nunca cesa.</p>
+<h3 id="el-legado-del-olvido">El Legado del Olvido</h3>
+<p>Aunque estos héroes son olvidados, su legado perdura, no en la
+memoria, sino en el propio mundo.</p>
+<ul>
+<li><strong>Cicatrices de la Realidad:</strong> Lugares como el Claro
+Mudo, valles donde las estrellas parecen incorrectas, o montañas que
+emiten un calor antinatural son los únicos testimonios de sus actos. Son
+misterios que atraen a aventureros y eruditos, quienes sienten una
+profunda resonancia sin saber por qué.</li>
+<li><strong>Inspiración Fantasma:</strong> A veces, un <a
+href="Heroes.html">Heroes</a> en la actualidad siente un impulso
+inexplicable, una idea brillante en medio de la batalla o una palabra de
+consuelo que no parece suya. Algunos sabios creen que estos son los ecos
+de los sacrificados, sus voluntades aún impresas en el mundo, guiando a
+quienes continúan la lucha.</li>
+<li><strong>La Advertencia Final:</strong> La existencia de estos
+sacrificios es un recordatorio sombrío para los poderosos. Demuestra que
+hay fuerzas más allá del control de dioses y reyes: la voluntad de un
+mortal dispuesto a renunciar a todo. Para facciones como las que buscan
+cumplir la profecía, es tanto una inspiración como una advertencia del
+posible costo de su búsqueda.</li>
+</ul>
+<p>El Sacrificio Final es la expresión más pura de heroísmo en
+Lithernia. Es la comprensión de que para proteger la luz, a veces uno
+debe convertirse en la sombra que nadie ve, en el silencio que nadie oye
+y en el <a href="Heroes.html">Heroes</a> que nadie recordará jamás.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Dragonborn.html">Dragonborn</a></li>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

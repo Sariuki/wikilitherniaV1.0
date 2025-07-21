@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiryn</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ethiryn</div>
+        <div class="content">
+<h1 id="ethiryn">Ethiryn</h1>
+<p>Ethiryn es la joya negra en la corona rota de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. No es una ciudad de guerreros ni
+de políticos, sino un santuario dedicado a la desesperación artística.
+Ubicada en el melancólico Valle de las Lágrimas Negras, un lugar
+perpetuamente bañado por una llovizna cenicienta, Ethiryn es el corazón
+de la cultura del lamento. Aquí, la fuerza bruta no tiene valor; el
+poder se mide en la profundidad de la tristeza que un artista puede
+invocar. Sus esbeltas torres de obsidiana pulida parecen llorar bajo la
+lluvia eterna, y su símbolo, una rosa negra perfecta de cuyo pétalo más
+bajo cae una única lágrima de plata, encapsula su propósito: encontrar
+la belleza absoluta en el corazón de la pérdida.</p>
+<h2 id="historia">Historia</h2>
+<p>Ethiryn nació de la tragedia. Tras la Batalla de las Lágrimas Negras,
+que dejó el valle estéril y manchado por el dolor, un grupo de <a
+href="Shadar-Kai.html">Shadar-Kai</a> exiliados, liderados por la
+visionaria arquitecta Lyra a’Vael, encontró en la desolación una forma
+de inspiración pura. En lugar de reconstruir con esperanza, decidieron
+honrar la pena. Fundaron Ethiryn como un monumento viviente a la belleza
+de la decadencia.</p>
+<p>Su arte único y evocador no tardó en llamar la atención del Rey <a
+href="Sel&#39;thirak.html">Sel’thirak</a>. Viendo una herramienta de
+control cultural, el Rey-Dios no conquistó la ciudad, sino que la
+adoptó. Instaló a una casta de supervisores <a
+href="Tieflings.html">Tieflings</a> para asegurarse de que la melancolía
+de Ethiryn sirviera a la narrativa del reino: un recordatorio constante
+de que la arrogancia mortal (como la del Primer Rey) solo conduce al
+sufrimiento y que el arte más puro nace de aceptar el orden divino de la
+muerte. Así, Ethiryn se convirtió en una jaula de oro, donde sus
+artistas son celebrados y, al mismo tiempo, prisioneros de su propio
+genio trágico.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Galería de los Ecos</strong>: El distrito principal,
+donde los talleres de los <a href="Shadar-Kai.html">Shadar-Kai</a> se
+alinean en calles sinuosas. Las fachadas de los edificios están
+cubiertas de bajorrelieves que narran historias de héroes caídos y
+amores perdidos. Es un lugar silencioso, donde el único sonido es el
+suave cincelado de la piedra y el goteo de la lluvia.</p></li>
+<li><p><strong>El Zoco Lastimero</strong>: Un mercado bullicioso y
+macabro dirigido por <a href="Goblins.html">Goblins</a>. Aquí se
+comercia con materiales para el arte: pigmentos hechos de cenizas de
+campos de batalla, arcilla extraída de tumbas antiguas, y metales
+oxidados recuperados de armaduras rotas.</p></li>
+<li><p><strong>El Pináculo del Pesar</strong>: Una torre solitaria y
+afilada que perfora el cielo gris, hogar del Supervisor <a
+href="Tiefling.html">Tiefling</a> designado por la corona. Desde sus
+ventanas de vidrio ahumado, el gobierno de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> observa, guía y censura la
+producción artística de la ciudad.</p></li>
+<li><p><strong>El Jardín Olvidado</strong>: Un parque público lleno de
+esculturas incompletas y obras “fallidas”. Sin embargo, incluso en su
+estado abandonado, las estatuas de amantes petrificados y guerreros
+rotos poseen una belleza inquietante. Es un lugar popular entre los
+poetas para buscar inspiración en el fracaso.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Ethiryn es una performance. Sus habitantes, principalmente
+<a href="Shadar-Kai.html">Shadar-Kai</a>, ven la creación de arte
+trágico como el propósito más elevado. Su devoción a <a
+href="Gyth&#39;kai.html">Gyth’kai</a>, la Diosa del Sacrificio, es
+estética; creen que el arte más puro nace del sacrificio de la alegría.
+Las obras maestras no se venden, se ofrecen como rituales en templos
+oscuros.</p>
+<p>Celebran el “Festival de los Colores Moribundos”, donde artistas
+crean murales efímeros con cenizas y pigmentos volátiles que se
+desvanecen por completo al anochecer, simbolizando la fugacidad de la
+belleza. Los juramentos no se sellan con sangre, sino con “Tinta de
+Pesar”, una mezcla de ceniza, agua de lluvia y una lágrima del
+juramentado. Incluso las ejecuciones son un arte: la “Última Escultura”
+es un evento público donde el condenado es inmortalizado en una pose
+trágica a través de la <a href="Alquimia.html">Alquimia</a> o la magia
+petrificante, convirtiéndose en una obra de arte final. Los esclavos <a
+href="Humanos.html">Humanos</a>, a menudo capturados en incursiones, son
+utilizados como “modelos” para estas expresiones de angustia, sus
+rostros congelados en un sufrimiento eterno.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>El estilo de Ethiryn es el gótico decadente. Las torres de obsidiana
+se estiran hacia el cielo como dedos esqueléticos, adornadas con
+filigranas de metal oxidado que imitan zarzas y espinos. No hay color;
+la paleta de la ciudad es una escala de grises, negros y el brillo
+húmedo de la piedra. Los vitrales de los templos y mansiones no muestran
+escenas de gloria divina, sino que representan con doloroso detalle las
+tragedias más famosas de la historia de Lithernia y la devastación del
+<a href="Lilium.html">Lilium</a>. El aire está siempre cargado de un
+olor a tierra mojada, ozono y la sutil fragancia de las rosas negras que
+crecen en los alféizares.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Musa Llorona</strong>: Se susurra que el espectro de
+Lyra a’Vael, la fundadora, todavía vaga por las calles en las noches sin
+luna. Los artistas desesperados por la inspiración la buscan, pues se
+dice que su beso fantasmal concede visiones de arte sublime. El precio
+es alto: a cambio, la musa se lleva una parte de su cordura, dejándolos
+capaces de crear una obra maestra antes de caer en la locura.</p></li>
+<li><p><strong>La Galería Silenciosa</strong>: Bajo el Pináculo del
+Pesar, se rumorea que existe un sótano secreto conocido como la Galería
+Silenciosa. No alberga esculturas de piedra, sino a los verdaderos
+criminales y disidentes de Ethiryn, petrificados por magia oscura. La
+leyenda afirma que en la quietud de la noche, si uno pega la oreja a sus
+fríos cuerpos de piedra, todavía puede oír susurros de arrepentimiento y
+secretos que nunca debieron ser guardados.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malakor_Vilespore</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Malakor_Vilespore</div>
+        <div class="content">
+<h1 id="malakor-vilespore">Malakor Vilespore</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de <a href="Mor&#39;dhul.html">Mor’dhul</a>, donde la
+grandeza se mide en conquistas y sangre derramada, el poder del Clan
+Vilespore es una anomalía silenciosa y putrescente. Su líder, Malakor,
+no blande una espada legendaria ni comanda vastos ejércitos en campo
+abierto. Su poder emana del fango, se propaga en el aire y florece en la
+carne corrupta. Es el Maestro de la Plaga, un alquimista y filósofo de
+la decadencia.</p>
+<p>El linaje de Malakor, como el de todo su clan, se hunde en la ponzoña
+de la Era de las Escamas y Fuego. Cuando el dragón vampírico <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>
+maldijo los pantanos en los confines de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, una tribu de <a
+href="Goblins.html">Goblins</a> y <a
+href="Hobgoblins.html">Hobgoblins</a> no pereció; mutó. Abrazaron la
+plaga que debía aniquilarlos, aprendiendo a cultivarla como una cosecha
+sagrada. De este crisol de enfermedad nació el primer Hongo-Padre, y con
+él, la filosofía nihilista del clan: la putrefacción no es el fin, sino
+la forma más pura de transformación.</p>
+<p>Malakor es el heredero de esta tradición perversa. Nacido en las
+húmedas y fétidas profundidades de la ciudad en ruinas de <a
+href="Rynavel.html">Rynavel</a>, demostró desde joven un intelecto agudo
+y una afinidad innata por la simbiosis entre la vida y la muerte.
+Mientras otros <a href="Hobgoblins.html">Hobgoblins</a> de su edad
+aprendían a manejar la espada, Malakor catalogaba los efectos de mil
+esporas diferentes, observando con paciencia de <a
+href="Erudito.html">Erudito</a> cómo los venenos descomponían la materia
+orgánica. Su ascenso no fue a través de la fuerza bruta, sino de un
+conocimiento letal y una paciencia infinita. Perfeccionó las plagas de
+sus ancestros, creando enfermedades de diseño que no solo mataban, sino
+que infligían un sufrimiento prolongado que llamó la atención del Clan
+<a href="Kromagul.html">Kromagul</a>, convirtiéndose en sus principales
+proveedores de “arte”.</p>
+<p>Como Maestro de la Plaga, Malakor ha consolidado la posición del
+clan. No busca el trono de obsidiana de Sel’thirak, pues lo considera un
+escenario vulgar. Su dominio está en las sombras, en los susurros de
+venenos que derriban a un general en su tienda o en una plaga que diezma
+una guarnición enemiga sin una sola batalla. Esta sutileza le ha
+granjeado la alianza pragmática del Clan Nighthawk, quienes valoran sus
+toxinas indetectables a cambio de información vital.</p>
+<p>Su desdén por la fuerza bruta se extiende a su rivalidad con el Clan
+Ironclaw, a quienes ve como necios aferrados a la ilusión de permanencia
+en el acero. Para Malakor, el óxido es más poderoso que la forja. Su
+desprecio más profundo, sin embargo, lo reserva para el Clan Whisper.
+Considera su nigromancia un arte estéril, una interrupción antinatural
+del sagrado ciclo de la descomposición. “¿De qué sirve un cadáver que no
+alimenta nueva vida?”, se pregunta a menudo. Esta guerra fría filosófica
+se libra en las alcantarillas y catacumbas de <a
+href="Rynavel.html">Rynavel</a>, donde ambos clanes compiten por <a
+href="Recursos.html">Recursos</a> y poder.</p>
+<p>En el ámbito personal, Malakor es un ser de complejas
+contradicciones. Su relación con su aprendiz y amante, Fexia, es una
+mezcla de genuino magisterio y un control posesivo. Ve en ella el futuro
+del clan, un recipiente para su conocimiento, pero también una obra de
+arte que moldea a su antojo. En contraste, trata a su leal ejecutor,
+Grulk, como una herramienta útil pero simple, una extensión de su
+voluntad desprovista de la finura que tanto valora. Su pragmatismo se
+revela en su correspondencia secreta con la Casa <a
+href="Vexia.html">Vexia</a> de <a href="Syrenya.html">Syrenya</a>, un
+arriesgado comercio que le proporciona ingredientes exóticos y demuestra
+que su ambición no conoce fronteras, ni siquiera las de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Malakor es un hobgoblin anciano, cuya edad ha encorvado su espalda
+pero no ha mermado la agudeza de su mirada. Su piel tiene un tono pálido
+y enfermizo, con manchas verdosas que recuerdan al liquen sobre piedra
+húmeda. Sus ojos carecen de pupila, brillando con una suave
+fosforescencia púrpura, similar a los hongos que cultiva en sus jardines
+hundidos. Se mueve con una lentitud deliberada y económica, como el
+inexorable avance de la podredumbre.</p>
+<p>Viste túnicas largas hechas de cuero fúngico tratado, un material
+sorprendentemente resistente e impermeable, teñido de negro y marrón
+oscuro. Un intrincado arnés de cuero cruza su pecho, sosteniendo docenas
+de viales de cristal, cerámica y hueso, cada uno con un tapón sellado
+con cera y marcado con una runa alquímica. Estos contienen su arsenal:
+desde esporas paralizantes y venenos neurotóxicos hasta plagas latentes
+y, curiosamente, sus antídotos. No porta armas convencionales, pero a
+menudo se apoya en un báculo de madera de pantano petrificada, coronado
+por un clúster de hongos bioluminiscentes que pulsan al ritmo de su
+respiración. El aire a su alrededor siempre huele a tierra húmeda, moho
+y a la dulzura enfermiza de la descomposición.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Malakor Vilespore no será recordado en las grandes epopeyas cantadas
+por los bardos. Su nombre no resonará en salones nobles ni en campos de
+batalla gloriosos. Su legado es mucho más insidioso y duradero. Él es la
+encarnación de la entropía, la fuerza silenciosa que corroe los
+cimientos de los imperios, que oxida las espadas de los héroes y que
+convierte los cuerpos de los reyes en alimento para los gusanos.</p>
+<p>En el complejo ecosistema de poder de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Malakor es un pilar oculto.
+Proporciona las herramientas para el asesinato sutil, la tortura
+prolongada y la guerra biológica, lo que lo convierte en un actor
+indispensable para los clanes que valoran el sufrimiento y el
+subterfugio. Su influencia asegura que la política del reino no se
+decida solo con la fuerza, sino también con el veneno en la copa.</p>
+<p>Su impacto final en Lithernia será demostrar que la verdadera
+victoria no pertenece a quienes construyen, sino a quienes descomponen.
+Mientras otros luchan por el poder, la gloria o la supervivencia,
+Malakor Vilespore cultiva pacientemente la decadencia, sabiendo que, al
+final, todo y todos regresarán al fango de donde él extrae su poder. Él
+es el jardinero del fin de todas las cosas, y su cosecha es eterna.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

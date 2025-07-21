@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valtoria_Ciudades</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Valtoria_Ciudades</div>
+        <div class="content">
+<h1 id="valtoria-ciudades">Valtoria ciudades</h1>
+<p><a href="Valtoria.html">Valtoria</a> es el reino enano de Lithernia,
+un bastión montañoso y subterráneo que combina la tradición, la
+artesanía y un profundo respeto por la tierra. Sus ciudades representan
+el corazón político, económico y cultural del reino, así como la
+resistencia ante amenazas externas e internas. A continuación se
+detallan las principales ciudades y su contexto actual.</p>
+<h2 id="ciudad-capital-valtoria">Ciudad Capital: Valtoria</h2>
+<ul>
+<li><strong>Control</strong>: Reina Valeria Bronzebrillo y el Concilio
+de la Montaña<br />
+</li>
+<li><strong>Descripción</strong>: <a href="Valtoria.html">Valtoria</a>
+capital es una imponente ciudad-fortaleza excavada en la profundidad de
+una montaña. Sus vastos salones están iluminados por cristales mágicos
+que irradian una luz tenue, realzando las esculturas y símbolos
+ancestrales <a href="Enanos.html">Enanos</a>. La arquitectura combina
+robustez con detalles artísticos, presentando puentes colgantes, grandes
+pórticos y plazas subterráneas adornadas con estatuas de héroes
+legendarios y deidades de la <a href="Herreria.html">Herreria</a>.
+Murallas naturales y fortificaciones talladas en la roca hacen que la
+ciudad sea casi inexpugnable.<br />
+</li>
+<li><strong>Situación</strong>: Es el centro administrativo y cultural
+más importante de los <a href="Enanos.html">Enanos</a>. Allí se reúnen
+los miembros del Concilio de la Montaña para deliberar sobre leyes,
+comercio y defensa. La ciudad también alberga a las castas de sabios y
+artesanos, unificando tradición e innovación.<br />
+</li>
+<li><strong>Amenazas</strong>:
+<ul>
+<li>Los “Cazadores de Sombras”: <a href="Enanos.html">Enanos</a>
+renegados que rechazan las enseñanzas tradicionales, a menudo buscan
+derrocar la autoridad del Concilio o sabotear investigaciones
+mágicas.<br />
+</li>
+<li>Espionaje externo: agentes de Mor’dhul y bandas duergars intentan
+infiltrarse para descubrir secretos de las minas o sabotear la
+producción.<br />
+</li>
+<li><a href="Leyendas.html">Leyendas</a> hablan de un dragón antiguo que
+duerme bajo la ciudad, custodiando tesoros ancestrales. Cultos
+clandestinos podrían intentar despertarlo, desatando una
+catástrofe.<br />
+</li>
+</ul></li>
+<li><strong>Uso en campaña</strong>:<br />
+Lugar ideal para tramas políticas, diplomáticas o de infiltración.
+Misiones de protección de la ciudad, resolución de conflictos internos o
+investigaciones sobre antiguos secretos pueden desarrollarse aquí.
+También un punto de partida para expediciones a las montañas o minas
+cercanas.</li>
+</ul>
+<h2 id="ironforge">Ironforge</h2>
+<ul>
+<li><strong>Control</strong>: Gremios de herreros bajo supervisión del
+consejo <a href="Noble.html">Noble</a><br />
+</li>
+<li><strong>Descripción</strong>: Ironforge es una ciudad industrial
+dedicada a la <a href="Herreria.html">Herreria</a> y la producción de
+armas y armaduras para todo Lithernia. Ubicada en una extensa red de
+cavernas conectadas por canales de lava controlada, resuena
+constantemente con el sonido de martillos y el crepitar del fuego.
+Talleres, hornos y depósitos de minerales pueblan sus calles
+subterráneas, donde herreros y artífices trabajan sin descanso.<br />
+</li>
+<li><strong>Situación</strong>: Es el motor económico y bélico del reino
+valtoriano. La ciudad goza de gran prestigio por sus artesanos, aunque
+la concentración de maquinaria y fuego constante presenta riesgos. Los
+duros controles de seguridad buscan evitar incendios o explosiones que
+podrían devastar amplias zonas.<br />
+</li>
+<li><strong>Amenazas</strong>:
+<ul>
+<li>Intentos de sabotaje por parte de rivales externos o facciones
+disidentes, quizá vinculados con Mor’dhul o gremios rivales.<br />
+</li>
+<li>Accidentes industriales provocados por experimentos con nuevas
+tecnologías o mecanismos mágicos.<br />
+</li>
+</ul></li>
+<li><strong>Uso en campaña</strong>:<br />
+Escenario perfecto para aventuras con estética steampunk, intrigas
+industriales o misiones de rescate y reparación. Puede incluir desafíos
+de ingeniería, criaturas mecánicas descontroladas o confrontaciones con
+saboteadores.</li>
+</ul>
+<h2 id="stonehollow">Stonehollow</h2>
+<ul>
+<li><strong>Control</strong>: Artesanos y gremios de joyería bajo la
+tutela del Consejo<br />
+</li>
+<li><strong>Descripción</strong>: Stonehollow es un asentamiento
+subterráneo dentro de un sistema de cavernas iluminadas por gemas
+fosforescentes. Sus habitantes son principalmente joyeros, artesanos de
+gemas y diseñadores de artefactos mágicos. Pequeñas tiendas, talleres y
+mercados conforman esta ciudad donde la creatividad y el conocimiento se
+mezclan.<br />
+</li>
+<li><strong>Situación</strong>: Aunque pequeña, Stonehollow es un centro
+vital de innovación y comercio de lujo para toda <a
+href="Valtoria.html">Valtoria</a>. La cooperación con <a
+href="Gnomos.html">Gnomos</a> inventores y magos artesanos mantiene la
+ciudad en constante movimiento e innovación.<br />
+</li>
+<li><strong>Amenazas</strong>:
+<ul>
+<li>Rivalidades corporativas y peligros derivados de experimentos
+fallidos con gemas arcanas.<br />
+</li>
+<li>Posibles incursiones de ladrones o espías que buscan robar secretos
+o piezas valiosas.<br />
+</li>
+</ul></li>
+<li><strong>Uso en campaña</strong>:<br />
+Ideal para tramas de espionaje, búsquedas de artefactos raros o
+resolución de misterios relacionados con magia y joyería.</li>
+</ul>
+<h2 id="pueblos-y-bastiones-menores">Pueblos y Bastiones menores</h2>
+<p>Además de las tres ciudades principales, por las montañas de <a
+href="Valtoria.html">Valtoria</a> se encuentran numerosos pueblos
+mineros y fuertes <a href="Enanos.html">Enanos</a>, así como
+asentamientos de goliatths y enclaves <a href="Gnomos.html">Gnomos</a>.
+Estos lugares más aislados suelen especializarse en oficios específicos
+(orfebrería, minería, herbolaria) y mantienen rutas comerciales con las
+ciudades capitalinas.</p>
+<h3 id="características-destacadas">Características destacadas</h3>
+<ul>
+<li>Vías de comunicación por puentes colgantes y túneles fortificados
+que conectan poblados.<br />
+</li>
+<li>Presidios militares que protegen las fronteras naturales del reino
+ante intentos de invasión desde Mor’dhul.<br />
+</li>
+<li>Enclaves druidas que conservan y protegen la naturaleza
+circundante.</li>
+</ul>
+<h2 id="conflictos-y-tensiones-actuales">Conflictos y tensiones
+actuales</h2>
+<ul>
+<li><strong>Equilibrio ecológico</strong>: Existe una división entre
+facciones que buscan expandir la minería y producción industrial y
+aquellas que defienden la protección ambiental y las tradiciones de
+reverencia hacia la tierra. Esto genera tensiones políticas y
+sociales.<br />
+</li>
+<li><strong>Amenaza externa de Mor’dhul</strong>: Aunque <a
+href="Valtoria.html">Valtoria</a> ha resistido las invasiones por sus
+montañas inaccesibles, las incursiones y sabotajes no son infrecuentes.
+El reino debe estar siempre vigilante.<br />
+</li>
+<li><strong>Caza de Sombras</strong>: El grupo radical de <a
+href="Enanos.html">Enanos</a> que desafía las leyes de la Torre de las
+Estrellas representa un peligro constante para la estabilidad interna y
+la continuidad del conocimiento tradicional.</li>
+</ul>
+<h2 id="la-torre-de-las-estrellas-en-valtoria">La Torre de las Estrellas
+en Valtoria</h2>
+<ul>
+<li>Considerada el corazón del saber y la magia enana, la Torre reúne a
+magos, druidas, artesanos y sabios.<br />
+</li>
+<li>Su Círculo Interior influye directamente en las decisiones del
+Concilio de la Montaña, y sus archivos custodian antiguos textos y
+secretos relativos al <a href="Lilium.html">Lilium</a> y las antiguas
+eras.<br />
+</li>
+<li>Frequentemente ofrece misiones de exploración o defensa a
+aventureros, y es clave en la preparación para grandes conflictos con
+fuerzas oscuras.</li>
+</ul>
+<hr />
+<p><a href="Valtoria.html">Valtoria</a>, con su vasta red de ciudades
+fortificadas y centros de conocimiento, representa la resistencia y la
+esperanza para Lithernia en medio de la Gran Guerra y las amenazas
+mágicas persistentes. Sus ciudades combinan tradición y modernidad,
+ofreciendo numerosos escenarios para historias de honor, intriga,
+exploración y defensa de lo que queda de un mundo fragmentado.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Ciudades.html">Ciudades</a> (relevancia: 0.51)</li>
+<li><a href="ciudades.html">ciudades</a> (relevancia: 0.51)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

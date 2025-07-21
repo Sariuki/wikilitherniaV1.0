@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yndoriel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Yndoriel</div>
+        <div class="content">
+<h1 id="yndoriel">Yndoriel</h1>
+<p>Yndoriel es una ciudad de belleza fracturada, una joya cortada por la
+crueldad. Construida sobre el abismo de un profundo cañón, es el corazón
+de la riqueza cristalina de <a href="Eldrador.html">Eldrador</a> y el
+alma de su opresión. Arriba, en las Cúspides Luminosas, las mansiones de
+cuarzo y los puentes de cristal encantado de la nobleza brillan bajo el
+sol, reflejando una perfección arrogante. Abajo, en la Veta Sombría, las
+viviendas de los mineros se aferran a las paredes de la garganta,
+sumidas en una penumbra perpetua, apenas iluminadas por el resplandor
+distante de la riqueza que extraen pero que nunca poseerán. El aire de
+Yndoriel es una cacofonía: en las alturas, música etérea y risas
+cristalinas; en las profundidades, el eco rítmico de los picos contra la
+roca y lamentos cantados en voz baja.</p>
+<h2 id="historia">Historia</h2>
+<p>La fundación de Yndoriel fue un acto de codicia, no de comunidad.
+Siglos después del Cataclismo del <a href="Lilium.html">Lilium</a>,
+exploradores de la Casa <a href="Noble.html">Noble</a> Valerius, una
+ambiciosa familia de Altos Elfos, descubrieron el Cañón de los Ecos,
+cuyas paredes brillaban con vetas masivas de maná cristalizado,
+reliquias de la magia salvaje que desgarró el mundo. En lugar de
+compartir el hallazgo, lo reclamaron bajo la autoridad de la Mano de
+Hierro.</p>
+<p>Para explotar esta fuente inagotable de riqueza, la Casa Valerius y
+sus aliados sometieron a las tribus locales de <a
+href="Eladrin.html">Eladrin</a> y Shadar-Kai, forzándolas a una
+servidumbre minera generacional. Así nació Yndoriel, una ciudad-estado
+construida sobre un sistema de castas tan rígido como el cristal que
+extrae. Los nobles se hicieron inmensamente ricos, los artesanos Elfos
+del Bosque llegaron para tallar las gemas, y los mineros quedaron
+atrapados en la oscuridad, su destino sellado por la herencia y la
+desesperación.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Cúspides Luminosas</strong>: El nivel superior de
+Yndoriel es el dominio exclusivo de la nobleza. Aquí, mansiones de
+mármol y torres de cuarzo pálido se alzan desafiantes al borde del
+cañón, conectadas por intrincados puentes de cristal que brillan con una
+luz interna. Los jardines colgantes y las terrazas de observación
+ofrecen vistas impresionantes, un recordatorio constante del poder y el
+privilegio de sus habitantes.</p></li>
+<li><p><strong>El Velo de Cristal</strong>: El nivel intermedio,
+habitado por la clase media de artesanos y comerciantes, principalmente
+Elfos del Bosque. Sus talleres y galerías están suspendidos entre las
+cimas y las profundidades, a menudo conectados a los grandes puentes que
+cruzan el cañón. Es un lugar de belleza nerviosa, donde se crean las
+obras de arte más exquisitas bajo la atenta mirada de los nobles de
+arriba y el sordo resentimiento de los mineros de abajo.</p></li>
+<li><p><strong>La Veta Sombría</strong>: El distrito más bajo y poblado,
+donde la ciudad se convierte en una herida en la roca. Las viviendas de
+los mineros <a href="Eladrin.html">Eladrin</a> y Shadar-Kai están
+excavadas directamente en las paredes del cañón, en túneles superpuestos
+y cavernas húmedas. La luz del sol es un lujo raro, y el ambiente es de
+hacinamiento y resignación, solo roto por el brillo azulado de los
+cristales de maná sin refinar.</p></li>
+<li><p><strong>El Anfiteatro de la Resonancia</strong>: Una inmensa
+caverna natural en el centro del cañón, cuyas formaciones cristalinas
+poseen propiedades acústicas únicas. Aquí se celebran los famosos
+‘Conciertos de Resonancia’. La nobleza asiste desde palcos tallados en
+las paredes superiores, mientras que los mineros y artesanos solo pueden
+escuchar desde plataformas inferiores, separados por barreras mágicas.
+La música que se toca para cada casta es radicalmente diferente, pasando
+de las armonías celestiales para los nobles a las melodías melancólicas
+para los trabajadores.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Yndoriel está marcada por rituales que refuerzan la
+jerarquía. El más significativo es el <strong>Rito del Primer
+Fragmento</strong>: un joven minero, tras extraer su primer cristal de
+maná, debe presentarlo como ofrenda a un supervisor <a
+href="Noble.html">Noble</a>. A cambio, recibe una “bendición” que es
+poco más que un gesto condescendiente, un acto de sumisión que alimenta
+un resentimiento silencioso.</p>
+<p>Anualmente se celebra el <strong>Festival de la Luz
+Quebrada</strong>, un evento que exhibe la riqueza de la ciudad. Las
+esculturas de cristal más espectaculares del año se iluminan con magia
+en el centro del cañón. La nobleza las admira desde sus terrazas
+privadas, brindando con vino élfico, mientras las clases bajas observan
+desde la oscuridad de sus túneles, un recordatorio visual de la belleza
+que crean pero que nunca podrán tocar.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura es un reflejo brutal de la sociedad. Arriba, el
+diseño es etéreo, con estructuras de cuarzo y mármol que parecen
+desafiar la gravedad. Abajo, es funcional y opresiva, una madriguera
+excavada con más necesidad que arte. El símbolo de la ciudad es una
+estrella de ocho puntas de plata, emblema de <a
+href="Arzia.html">Arzia</a>, con un cristal de maná azul en su núcleo.
+Sin embargo, los mineros han añadido en secreto un símbolo propio a sus
+amuletos y grafitis: una lágrima de obsidiana que pende de la estrella,
+representando su sufrimiento oculto y eterno.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Eco del <a href="Lilium.html">Lilium</a></strong>: Los
+mineros susurran historias sobre las galerías más profundas y
+abandonadas, donde no solo se encuentra maná, sino también una entidad
+monstruosa. Lo llaman el Eco del <a href="Lilium.html">Lilium</a>, una
+criatura hecha de cristal negro y emociones solidificadas que se
+alimenta de la desesperación. Se dice que su canto, una resonancia baja
+y enloquecedora, es la causa de la melancolía que impregna la Veta
+Sombría y que a veces lleva a los mineros a arrojarse al
+abismo.</p></li>
+<li><p><strong>El Jardín de Cristal Oculto</strong>: Como contrapunto a
+la desesperación, existe una leyenda de esperanza. Se habla de un
+santuario secreto, creado por los primeros mineros rebeldes, en una
+caverna donde los cristales de maná crecen puros, sin la mancha de la
+codicia ni el dolor. Este Jardín de Cristal Oculto, cuya ubicación se
+transmite solo en susurros, es considerado el corazón de la futura
+revuelta, un lugar donde el poder del maná podría ser reclamado por los
+oprimidos para quebrar sus cadenas de piedra y luz.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.43)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

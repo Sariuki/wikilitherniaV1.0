@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arzia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Arzia</div>
+        <div class="content">
+<h1 id="arzia">Arzia</h1>
+<h2 id="biografía">Biografía</h2>
+<p><strong>Orígenes y la Forja del Mundo</strong> Nacida en la quietud
+infinita del <strong>Amanecer Divino</strong>, Arzia es una de las
+deidades <a href="Primordiales.html">Primordiales</a> de Lithernia, una
+conciencia cósmica que tomó forma junto a sus hermanos <a
+href="Thirogrim.html">Thirogrim</a> y <a href="Ferion.html">Ferion</a>.
+Mientras <a href="Thirogrim.html">Thirogrim</a> reclamaba el dominio
+sobre el tejido bruto del Maná y <a href="Ferion.html">Ferion</a>
+insuflaba vida a la tierra, Arzia dirigió su mirada hacia el vacío
+superior. En la era de la <strong>Forja del Mundo</strong>, fue ella
+quien tomó los ecos del fuego de la creación y las brasas moribundas de
+la luz primordial para esparcirlas por el manto de la noche. Así, creó
+las estrellas y las constelaciones, no como meros adornos, sino como un
+mapa viviente del destino, un lenguaje silencioso que narra el pasado,
+el presente y los futuros posibles de Lithernia. Cada estrella es un
+nexo de poder, y el firmamento, su grimorio eterno.</p>
+<p><strong>La Era del Primer Rey y la Tragedia Prevista</strong> Como
+tejedora y guardiana del destino, Arzia fue la única entre los dioses
+que vio con claridad los hilos que conducían a la inevitable rebelión
+del Primer Rey. Observó en el tapiz cósmico cómo la devoción de los
+mortales se convertía en orgullo, cómo el miedo de los dioses se
+transformaba en ira, y cómo ambos caminos convergían en el cataclismo
+del <strong><a href="Lilium.html">Lilium</a></strong>. No participó
+directamente en la guerra; su naturaleza no es la del conflicto, sino la
+de la observación y la comprensión. Para ella, intervenir habría sido un
+acto de arrogancia equivalente al del propio Rey, pues el destino es una
+corriente demasiado vasta para ser contenida por una sola voluntad, sea
+mortal o divina.</p>
+<p>Durante el conflicto, Arzia guardó un silencio solemne, y se dice que
+las estrellas de su firmamento lloraron luz mientras los dioses
+desataban su ira. La caída del Rey y la devastación del <a
+href="Lilium.html">Lilium</a> fueron, para ella, una dolorosa pero
+necesaria puntada en la gran historia del mundo, una lección cósmica
+sobre los límites del poder. El sello impuesto por las Lanzas
+Celestiales no fue un acto que ella celebrara, sino una tragedia que
+quedó grabada a fuego en las constelaciones como una cicatriz de
+advertencia.</p>
+<p><strong>Motivaciones y Creencias</strong> La principal motivación de
+Arzia es la preservación del gran equilibrio cósmico. No cree en un
+destino rígido e inmutable, sino en un tapiz de posibilidades infinitas
+donde las elecciones de mortales y dioses tejen el resultado final. Su
+sabiduría reside en la capacidad de leer estos hilos, de comprender sus
+conexiones y de aceptar el flujo del tiempo.</p>
+<p>Inspira a sus seguidores a buscar el conocimiento no para controlar
+el futuro, sino para navegarlo con sabiduría y aceptación. Enseña que
+cada vida, cada evento, es una estrella en una vasta constelación, y que
+solo comprendiendo el patrón completo se puede encontrar el verdadero
+propósito. Por ello, la adivinación no es para ella una herramienta de
+poder, sino de introspección y guía.</p>
+<p><strong>Culto y Seguidores</strong> El culto a Arzia es más
+prominente en <strong><a href="Eldrador.html">Eldrador</a></strong>,
+donde los elfos, especialmente los eruditos, astrónomos y <a
+href="Eladrin.html">Eladrin</a>, contemplan los cielos en busca de guía.
+Sus templos no son grandes catedrales, sino observatorios a cielo
+abierto, círculos de piedra alineados con las estrellas o bibliotecas
+silenciosas donde se guardan <a href="Mapas.html">Mapas</a> celestes y
+crónicas proféticas. Sus clérigos son videntes, consejeros y filósofos,
+más que guerreros.</p>
+<p>Sin embargo, su influencia trasciende las fronteras élficas. La
+<strong>Torre de las Estrellas</strong> de <a
+href="Valtoria.html">Valtoria</a>, aunque en un reino enano, es un claro
+homenaje a su dominio, demostrando que la búsqueda de sabiduría en los
+cielos es universal. El reciente descubrimiento de los <strong><a
+href="Conjuros.html">Conjuros</a> Estelares</strong> se considera una
+señal de que Arzia está tomando un papel más activo en la Era Actual,
+ofreciendo nuevos caminos de magia a aquellos que buscan entender los
+misterios que se avecinan, especialmente la profecía del retorno del
+Primer Rey.</p>
+<h2 id="descripción-física-y-símbolos">Descripción Física y
+Símbolos</h2>
+<p>Arzia rara vez se manifiesta en una forma física concreta. Quienes
+afirman haberla visto en visiones la describen no como una mujer de
+carne y hueso, sino como una silueta humanoide hecha de polvo de
+estrellas y nebulosas arremolinadas. Sus ojos son descritos como soles
+gemelos en implosión, conteniendo la luz de galaxias enteras, y su
+cabello es una cascada de oscuridad salpicada por el brillo de estrellas
+recién nacidas. Su voz no se oye con los oídos, sino que resuena en la
+mente como una melodía matemática, transmitiendo conocimiento a través
+de visiones, sueños y alineaciones cósmicas.</p>
+<p>No porta armas ni armaduras. Su único instrumento es el <strong>Orbe
+de los Destinos</strong>, un artefacto conceptual que se dice que
+contiene el reflejo de todas las líneas temporales posibles de
+Lithernia.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>El legado de Arzia es tan vasto y silencioso como la noche misma. Es
+la arquitecta del firmamento, la patrona de la adivinación y la
+guardiana de la memoria cósmica de Lithernia. Cada marinero que navega
+guiado por las estrellas, cada adivino que interpreta las cartas y cada
+sabio que busca respuestas en el cielo, rinde homenaje a su poder.</p>
+<p>En la Era Actual, su importancia se ha vuelto crítica. Las
+<strong>Crisis y Profecías</strong> que sacuden el mundo son vistas por
+sus seguidores como el realineamiento de las estrellas, un preludio a un
+cambio monumental. La profecía del Retorno del Primer Rey es el nexo de
+destino más grande desde el <a href="Lilium.html">Lilium</a>, y se cree
+que solo los augurios de Arzia pueden ofrecer pistas sobre su verdadero
+significado y sus consecuencias. Es la fuente última de esperanza para
+quienes buscan evitar que la historia se repita, y el faro que guía a
+los héroes destinados a forjar el próximo capítulo en el gran tapiz del
+destino de Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

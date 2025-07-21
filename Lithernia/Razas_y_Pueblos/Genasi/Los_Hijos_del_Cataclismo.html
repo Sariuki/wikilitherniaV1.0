@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Hijos_del_Cataclismo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Hijos_del_Cataclismo</div>
+        <div class="content">
+<h1 id="los-hijos-del-cataclismo">Los Hijos del Cataclismo</h1>
+<p>En los rincones más sombríos de Lithernia, en las tierras baldías
+donde el suelo aún susurra con el dolor del fuego eterno, caminan los
+Hijos del Cataclismo. No son una raza creada por los dioses, sino un eco
+viviente de la era que precedió a la Gran Guerra, un testamento de la
+furia divina y la indomable voluntad de supervivencia mortal. Son los
+descendientes de aquellos que no perecieron bajo el <a
+href="Lilium.html">Lilium</a>, sino que fueron deshechos y rehechos por
+su poder caótico, marcados en cuerpo y alma por la tragedia que dio
+forma al mundo actual.</p>
+<h2 id="origen-ecos-de-un-mundo-roto">Origen: Ecos de un Mundo Roto</h2>
+<p>Cuando los dioses, en su cólera, desataron el <a
+href="Lilium.html">Lilium</a> sobre el mundo para castigar la rebelión
+del Primer Rey, la mayor parte de la humanidad ancestral fue borrada de
+la existencia. Sin embargo, no todos murieron. En los lugares donde la
+energía del cataclismo fue más extraña y volátil, algunos mortales
+fueron imbuidos por <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>.
+Sus cuerpos y almas se convirtieron en crisoles donde la esencia de la
+vida mortal luchó contra la magia divina pura y destructiva.</p>
+<p>Los que sobrevivieron a esta agonizante transformación dieron a luz a
+un nuevo linaje. Estos son los Hijos del Cataclismo, portadores de una
+herencia que no proviene de ninguna deidad del panteón actual, sino del
+propio evento que dividió la historia. Su sangre recuerda un mundo
+unificado, y su existencia misma es una afrenta silenciosa a los dioses
+que intentaron borrar todo rastro del legado del Rey.</p>
+<h2 id="rasgos-físicos-y-habilidades-innatas">Rasgos Físicos y
+Habilidades Innatas</h2>
+<p>Los Hijos del Cataclismo son tan variados como las llamas del <a
+href="Lilium.html">Lilium</a>, pero todos portan las marcas de su
+origen.</p>
+<ul>
+<li><strong>Marcas del <a href="Lilium.html">Lilium</a>:</strong> Su
+apariencia es un mosaico de rasgos <a href="Humanos.html">Humanos</a>
+alterados. La mayoría tiene cicatrices que brillan débilmente en la
+oscuridad con un fulgor ambarino o carmesí, como brasas moribundas. Su
+piel puede tener la textura de la obsidiana agrietada o la palidez de la
+ceniza. Sus ojos a menudo carecen de pupila, ardiendo con una luz
+interna que refleja su estado de ánimo: un rojo furioso en la ira, un
+azul frío en la tristeza.</li>
+<li><strong>El Fuego Interior:</strong> La energía del <a
+href="Lilium.html">Lilium</a> corre por sus venas. Esto les confiere una
+asombrosa resistencia al fuego y al calor, como si las llamas comunes
+fueran un mero recuerdo de la conflagración que les dio origen. En
+momentos de gran emoción o peligro, esta energía puede desatarse de
+forma incontrolada, manifestándose como un aura de calor abrasador o
+ráfagas de poder arcano en bruto que emanan de sus cuerpos.</li>
+<li><strong>Afinidad con la Desolación:</strong> Se sienten extrañamente
+en casa en las tierras devastadas por el Cataclismo. En estos parajes
+malditos, donde otros sienten la opresión de la muerte y la desolación,
+ellos encuentran una extraña serenidad e incluso pueden extraer energía
+del entorno para sanar sus heridas o fortalecer su poder latente.</li>
+</ul>
+<h2 id="cultura-y-sociedad-parias-de-la-nueva-era">Cultura y Sociedad:
+Parias de la Nueva Era</h2>
+<p>La sociedad de Lithernia, forjada por los dioses tras el Cataclismo,
+no tiene un lugar para sus Hijos. Son vistos con una mezcla de miedo,
+desprecio y superstición.</p>
+<ul>
+<li><strong>En <a href="Mor&#39;dhul.html">Mor’dhul</a>:</strong> Son
+considerados abominaciones, fracasos de la creación que el <a
+href="Lilium.html">Lilium</a> no logró purgar. Sin embargo, su poder
+innato los convierte en esclavos o herramientas valiosas para los clanes
+más crueles, que buscan explotar su resistencia y su magia caótica.</li>
+<li><strong>En <a href="Galvorn.html">Galvorn</a>:</strong> Los
+marineros supersticiosos los ven como presagios de desastre,
+encarnaciones vivientes de la ira divina que puede hundir barcos y
+desatar tormentas. Rara vez se les permite permanecer en los bulliciosos
+puertos por mucho tiempo.</li>
+<li><strong>En <a href="Valtoria.html">Valtoria</a>:</strong> Los <a
+href="Enanos.html">Enanos</a>, amantes del orden y la tradición, los
+perciben como una corrupción de la naturaleza, una afrenta a la
+estabilidad de la roca y la montaña. Son una anomalía que debe ser
+evitada o expulsada.</li>
+<li><strong>En <a href="Eldrador.html">Eldrador</a>:</strong> En el
+rígido sistema de castas élfico, simplemente no existen. Son parias sin
+lugar, considerados inferiores incluso a los exiliados, pues su misma
+existencia recuerda a los elfos la fragilidad de su mundo perfecto.</li>
+</ul>
+<p>Debido a este rechazo universal, muchos Hijos del Cataclismo viven
+como ermitaños en las tierras baldías. Algunos han formado pequeñas
+comunidades nómadas y secretas, clanes de supervivientes que se protegen
+mutuamente y preservan las tradiciones orales de un mundo olvidado.
+Otros encuentran refugio entre los Descastados de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, donde su condición de paria es,
+irónicamente, la norma.</p>
+<h2 id="conexión-con-la-profecía">Conexión con la Profecía</h2>
+<p>Los Hijos del Cataclismo ocupan un lugar único y ambiguo en la
+Profecía del Retorno del Rey. El augurio afirma que el <a
+href="Heroes.html">Heroes</a> elegido “purgará el mundo de las
+creaciones fallidas de los dioses”. Para muchos Hijos del Cataclismo,
+esta frase es un faro de esperanza. Ellos no son una creación de los
+nuevos dioses; son los últimos vestigios de la humanidad del Rey.</p>
+<p>Creen que están destinados a ser los aliados naturales del <a
+href="Heroes.html">Heroes</a>, los únicos que comprenden verdaderamente
+la injusticia cometida por el panteón divino. Se susurra entre ellos que
+solo alguien con la sangre del <a href="Lilium.html">Lilium</a> puede
+tocar sin ser destruido los artefactos de la era del Primer Rey o
+soportar la energía liberada al quebrar una de las Lanzas Celestiales.
+Por ello, muchos buscan activamente señales del cumplimiento de la
+profecía, listos para ofrecer su lealtad y su poder a la causa que
+podría devolverles su lugar en el mundo o, en su defecto, vengar el que
+les fue arrebatado.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+<li><a
+href="Eventos%20Históricos%20-%20Cataclismo%20del%20Lilium.html">Eventos
+Históricos - Cataclismo del Lilium</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

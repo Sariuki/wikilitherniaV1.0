@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Aethel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Aethel</div>
+        <div class="content">
+<h1 id="kaelen-aethel">Kaelen Aethel</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En el crisol de intrigas y poder arcano que es <a
+href="Daevyra.html">Daevyra</a>, la ciudad de los secretos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, pocos nombres infunden un respeto
+tan gélido como el de Kaelen Aethel. Como heredero de la temida Casa
+Aethel, Kaelen no es un mero reflejo de la ambición de su padre, el
+infame Lord Aethel ‘El Cruel’, sino su perfeccionamiento: una mente
+estratégica donde la crueldad ha sido destilada en pura y aterradora
+eficiencia.</p>
+<p>Nacido bajo el legado de Varkon Aethel, el archimago fundador que
+creía en el conocimiento prohibido como la única vía al poder verdadero,
+Kaelen fue criado lejos de la brutalidad descerebrada de los clanes <a
+href="Orcos.html">Orcos</a>. Su educación no se centró en la furia del
+campo de batalla, sino en la estrategia, la historia y la sutil
+manipulación de la psique. Aprendió que el miedo, el lema de su casa, no
+es una emoción para ser disfrutada, sino una herramienta de precisión
+quirúrgica para desmantelar enemigos desde dentro.</p>
+<p>Su ascenso como Comandante Militar de las legiones Aethel no fue un
+regalo de su linaje, sino el resultado de victorias innegables. Durante
+la <strong>Batalla de las Lágrimas Negras</strong>, en la frontera con
+<a href="Eldrador.html">Eldrador</a>, Kaelen lideró a sus tropas con una
+disciplina de hierro, cumpliendo sus objetivos tácticos mientras
+observaba con desdén el caos y el desperdicio de vidas de sus “aliados”
+del Clan <a href="Thyrgram.html">Thyrgram</a>. Fue allí donde su
+convicción se solidificó: <a href="Mor&#39;dhul.html">Mor’dhul</a>, bajo
+el estancado reinado del Rey-Dios Sel’thirak y la inestable ambición de
+los clanes, estaba condenado a devorarse a sí mismo.</p>
+<p>La relación con su padre es el eje de su conflicto interno. Kaelen
+obedece las órdenes de Lord Aethel, ejecutando sus campañas con una
+eficacia que roza lo sobrenatural. Teme el poder arcano de su padre y la
+furia de su temperamento, pero desprecia profundamente la crueldad
+gratuita que este ejerce, viéndola no como una muestra de fuerza, sino
+como una debilidad que genera inestabilidad y enemigos innecesarios.
+Kaelen no busca ser “bueno”; busca ser invencible. Su visión para <a
+href="Mor&#39;dhul.html">Mor’dhul</a> es la de un imperio unificado bajo
+un orden absoluto, donde la lealtad se imponga no por capricho, sino por
+la certeza ineludible de las consecuencias.</p>
+<p>En la corte de <a href="Mor&#39;dhul.html">Mor’dhul</a>, Kaelen se
+mueve con una cautela depredadora. Ve a la consejera del rey,
+<strong>Lady Xandria</strong>, como su principal rival en el juego de
+las sombras, una tejedora de intrigas cuyo poder mental respeta y cuya
+influencia busca neutralizar. Sus alianzas, como la pactada con el
+<strong>Clan <a href="Kromagul.html">Kromagul</a></strong>, son
+puramente pragmáticas; utiliza su maestría en el dolor como un arma
+psicológica en sus campañas, pero sin permitir que su sadismo contamine
+la disciplina de sus legiones. En secreto, espera pacientemente. Cada
+orden que cumple, cada batalla que gana, es un paso más hacia el día en
+que pueda tomar las riendas, no solo de su Casa, sino del destino de
+todo <a href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen es un Tiefling de presencia imponente pero contenida. A
+diferencia de la ostentación de otros nobles de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, su apariencia es un estudio de
+pragmatismo letal. Su piel es de un gris ceniciento, casi pétreo, y sus
+cuernos, de un negro mate, se curvan hacia atrás desde su frente de
+forma afilada y directa, sin los adornos enjoyados que prefiere su
+padre. Sus ojos, de un intenso color ámbar, carecen de la locura sádica
+de Lord Aethel; en su lugar, arden con una inteligencia fría y
+calculadora.</p>
+<p>Viste una armadura de placas de acero ennegrecido, forjada en las
+mejores fraguas de <a href="Valtoria.html">Valtoria</a> y adaptada por
+los artífices de <a href="Daevyra.html">Daevyra</a>. Es funcional y
+carece de ornamentos superfluos, a excepción del guantelete de obsidiana
+que aplasta una corona de hueso, el emblema de la Casa Aethel, grabado
+con sobriedad en su peto.</p>
+<p>Su arma principal es <strong>“Sentencia”</strong>, una espada larga
+de hoja oscura que parece absorber la luz. Se rumorea que está encantada
+para infligir un frío antinatural en las heridas que abre, un reflejo de
+la propia naturaleza de su portador. Siempre lleva consigo un sello de
+mando de su Casa y <a href="Mapas.html">Mapas</a> tácticos detallados de
+las regiones fronterizas, testimonio de su mente perpetuamente en
+guerra.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El verdadero impacto de Kaelen Aethel en la historia de Lithernia aún
+está por escribirse, y pende del filo de su ambición. Si lograra usurpar
+a su padre y, eventualmente, desafiar el trono de Sel’thirak, no sería
+simplemente otro tirano para <a href="Mor&#39;dhul.html">Mor’dhul</a>.
+Kaelen representa una amenaza de un orden completamente nuevo para los
+otros reinos. Un <a href="Mor&#39;dhul.html">Mor’dhul</a> unificado bajo
+su mando no sería una horda caótica, sino un imperio militarizado,
+eficiente y estratégicamente brillante, capaz de llevar la Gran Guerra a
+una conclusión devastadora para <a href="Eldrador.html">Eldrador</a>, <a
+href="Valtoria.html">Valtoria</a> y <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>Para los héroes y facciones que se oponen a la oscuridad, Kaelen es
+un antagonista mucho más peligroso que un simple monstruo. Es un villano
+con una lógica, un propósito y una visión. Derrotarlo no requerirá solo
+fuerza bruta, sino superar su intelecto, desbaratar sus alianzas y
+explotar la única debilidad que podría tener: el frágil equilibrio entre
+su deber filial y su propio y gélido concepto del destino.</p>
+<p>Kaelen Aethel no busca heredar un legado; busca corregirlo, forjando
+un imperio donde el miedo no sea un capricho, sino la arquitectura
+precisa del poder absoluto.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Aethel.html">Casa Aethel</a> (relevancia: 0.41)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

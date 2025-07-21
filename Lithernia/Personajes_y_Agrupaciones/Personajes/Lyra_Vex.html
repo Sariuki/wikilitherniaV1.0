@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Vex</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Vex</div>
+        <div class="content">
+<h1 id="lyra-vex-el-susurro-de-sombras">Lyra Vex, el Susurro de
+Sombras</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida bajo una luna eclipsada en las profundidades de los bosques
+fronterizos de <a href="Eldrador.html">Eldrador</a>, Lyra Vex es el eco
+de una promesa rota y la encarnación de una vigilia milenaria. Su
+linaje, la Casa Vex, fue una vez una familia menor de elfos de las
+sombras que se negó a someterse a la rígida jerarquía de “La Mano de
+Hierro”. Por su disidencia, fueron declarados exiliados, despojados de
+su nombre y condenados a vagar por las tierras salvajes. Fue en este
+exilio donde encontraron un nuevo propósito: se unieron a la recién
+formada <strong>Custodia Argéntea</strong>, la hermandad secreta de
+leales al Primer Rey.</p>
+<p>Lyra nunca conoció la luz de las ciudades élficas ni el calor de un
+hogar reconocido. Fue criada en <a href="Thelyrion.html">Thelyrion</a>,
+la ciudadela oculta de la Custodia, y entrenada desde niña para
+convertirse en un arma silenciosa al servicio de la Profecía. Su
+infancia no fue de juegos, sino de lecciones de sigilo, criptografía,
+combate con dagas y la sutil manipulación del Tejido del Maná para crear
+ilusiones y velar pensamientos. Adoptó el título de “Susurro de
+Sombras”, un rol que la define por completo: es los ojos y oídos de la
+Custodia en los rincones más oscuros de Lithernia.</p>
+<p>A lo largo de sus dos siglos y medio de vida, las hazañas de Lyra se
+han convertido en <a href="Leyendas.html">Leyendas</a> susurradas dentro
+de la hermandad. Fue ella quien se infiltró en las cocinas de la
+Ciudadela de Obsidiana en <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+robando los <a href="Mapas.html">Mapas</a> de patrulla de la guardia
+personal de <strong>Sel’thirak</strong>. Fue ella quien recuperó un
+fragmento de las crónicas del Primer Rey de una bóveda sellada bajo
+Sunwood, en <a href="Eldrador.html">Eldrador</a>, desafiando a los
+videntes de la Casa Auris. Y fue ella quien estableció el primer
+contacto con los <strong>Rebeldes de Chéneras</strong>, ofreciéndoles
+apoyo táctico a cambio de información sobre los movimientos de las
+tropas orcas.</p>
+<p>Su motivación trasciende la simple lealtad. En el ideal del Primer
+Rey, Lyra ve la antítesis de la tiranía que exilió a su familia: un
+mundo sin castas, donde el valor se mide por los actos y no por la
+sangre. Esta convicción la ha convertido en una agente implacable y
+eficiente, dispuesta a cualquier sacrificio por la causa.</p>
+<p>Actualmente, su misión es la más crucial de su vida. Trabaja en
+estrecha colaboración con <strong>Kaelen Valerius</strong>, el
+comandante de campo de la Custodia, cuya audacia complementa su sigilo.
+Juntos, forman el núcleo operativo de la organización. Sin embargo, su
+tarea más importante es la protección y guía de <strong>Arion
+Corinth</strong>, el joven descendiente de la Casa del Primer Rey y la
+mayor esperanza para el cumplimiento de la Profecía. Para Lyra, Arion no
+es solo un protegido; es el símbolo viviente de todo por lo que ha
+luchado. Siente el peso de la historia sobre sus hombros, consciente de
+que un solo error por su parte podría condenar el futuro de Lithernia a
+la oscuridad perpetua.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra posee la gracia etérea pero afilada de su herencia élfica. Es
+alta y esbelta, con una musculatura fibrosa forjada en años de
+movimiento constante. Su piel es pálida como la luz de luna, y su
+cabello, de un blanco plateado, suele llevarlo recogido en una trenza
+funcional que no obstaculice su visión. Sus ojos son su rasgo más
+inquietante: de un profundo color violeta, observan el mundo con una
+calma analítica que revela poco de sus pensamientos. Rara vez sonríe, y
+cuando lo hace, es una mueca fugaz y afilada.</p>
+<p>Su atuendo es la definición de pragmatismo. Viste una armadura de
+cuero endurecido de color negro y gris oscuro, tratada con aceites
+alquímicos para silenciar sus movimientos y resistir la humedad. No
+lleva insignias ni adornos, salvo un pequeño broche de plata con la
+forma de una lanza rota que oculta bajo su capa.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Dagas Gemelas del
+Ocaso:</strong> Un par de estiletes de acero ennegrecido, perfectamente
+equilibrados y grabados con <a href="Runas.html">Runas</a> élficas que
+amortiguan el sonido. Se dice que una de sus hojas está impregnada de un
+veneno sutil que induce el sueño. * <strong>Arco Corto de Tejo
+Sombrío:</strong> Un arco compacto hecho de la madera de un árbol
+crecido en una zona de maná inestable, lo que le confiere una tensión y
+precisión inusuales. Sus flechas tienen puntas de obsidiana de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. * <strong>Manto de las
+Sombras:</strong> Una capa de viaje tejida con hilos encantados que se
+mezclan con la penumbra, otorgándole un camuflaje casi perfecto en la
+noche o en entornos oscuros. * <strong>Kit de Infiltración:</strong> Un
+conjunto de ganzúas, alambres, venenos, antídotos y pequeños cristales
+de cuarzo que puede usar para crear breves distracciones ilusorias o
+enviar mensajes codificados a otros agentes de la Custodia.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El nombre de Lyra Vex no aparecerá en las crónicas de los reinos. No
+habrá estatuas en su honor ni baladas que canten sus proezas en las
+tabernas de <a href="Galvorn.html">Galvorn</a>. Su legado es silencioso,
+tejido en el entramado de secretos que sostiene la resistencia contra la
+tiranía.</p>
+<p>Es la arquitecta invisible de la esperanza. Cada pieza de información
+que obtiene, cada ruta segura que traza y cada enemigo que neutraliza en
+las sombras es un paso más hacia la reunificación de Lithernia. Mientras
+Kaelen Valerius es la lanza que golpea y Arion Corinth es la llama que
+inspira, Lyra Vex es la sombra que garantiza que ambos puedan cumplir su
+destino. Si la Profecía del Retorno del Rey se cumple, será gracias a
+los cimientos que ella, y otros como ella, construyeron en la más
+absoluta oscuridad, demostrando que la voluntad de un solo individuo,
+afilada como una daga, puede cambiar el curso de la historia.</p>
+        </div>
+    </div>
+</body>
+</html>

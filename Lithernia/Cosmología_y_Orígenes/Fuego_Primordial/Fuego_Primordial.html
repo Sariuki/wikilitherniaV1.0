@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuego_Primordial</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Fuego_Primordial</div>
+        <div class="content">
+<h1 id="fuego-primordial">Fuego Primordial</h1>
+<h2 id="biografía-y-naturaleza-cósmica">Biografía y Naturaleza
+Cósmica</h2>
+<p>El Fuego Primordial no es una deidad en el sentido personalista que
+adoran los mortales, sino una de las dos fuerzas fundamentales y
+conscientes que surgieron de la Voluntad Original en el Amanecer Divino.
+Junto a su opuesto conceptual, la Sombra Original, constituye el pilar
+sobre el que se tejió la existencia. Es la encarnación de la energía, el
+cambio, la creación a través de la fusión y la destrucción a través del
+consumo. No posee voluntad, ambición ni una forma estable; es el
+principio activo del universo, el calor que anida en el corazón de las
+estrellas, la furia de los volcanes y la chispa que enciende la pasión
+en el alma de los seres vivos.</p>
+<p>Durante la era de la <strong>Forja del Mundo</strong>, los primeros
+dioses y los <a href="Primordiales.html">Primordiales</a> aprendieron a
+canalizar esta fuerza indómita. Usando el Fuego Primordial, fundieron la
+materia caótica del Vacío, separaron los elementos y dieron forma a
+Lithernia. De su aliento surgieron las cordilleras ígneas y las
+profundas vetas de mineral fundido que los <a
+href="Enanos.html">Enanos</a> aprenderían a amar. Su luz dio origen a
+los primeros astros, guiados por la mano de <a
+href="Arzia.html">Arzia</a>, y su calor nutrió los océanos primigenios
+de los que brotaría la vida.</p>
+<p>Aunque es una fuerza impersonal, el Fuego Primordial ha tenido
+encarnaciones y canalizadores que actúan como sus avatares en el plano
+mortal:</p>
+<ul>
+<li><strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+el Dragón Ancestral:</strong> Durante la Era de las Escamas y Fuego, el
+gran dragón carmesí <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+se convirtió en la manifestación más directa y poderosa del Fuego
+Primordial. Su aliento no era simple llama, sino la esencia pura de la
+forja, capaz de crear y destruir montañas. A través de él, el Fuego
+Primordial impuso un orden basado en la fuerza y la pureza del
+metal.</li>
+<li><strong><a href="Solniria.html">Solniria</a> y <a
+href="Levbrios.html">Levbrios</a>:</strong> En los panteones modernos,
+diosas como <a href="Solniria.html">Solniria</a>, guardiana del fuego
+sagrado humano, y <a href="Levbrios.html">Levbrios</a>, custodio de la
+forja enana, actúan como filtros divinos. Ellos refinan y domestican la
+energía caótica del Fuego Primordial, entregándola a los mortales en
+formas más seguras y controlables: la pasión que impulsa a un <a
+href="Guerrero.html">Guerrero</a>, el calor del hogar o el fuego del
+taller de un artesano.</li>
+<li><strong>El <a href="Lilium.html">Lilium</a>:</strong> La
+manifestación más terrible y recordada del Fuego Primordial es, sin
+duda, el <a href="Lilium.html">Lilium</a>. Cuando los dioses castigaron
+la rebelión del Primer Rey, no crearon un fuego nuevo, sino que abrieron
+una herida en la realidad para desatar el Fuego Primordial en su forma
+más pura y destructiva. El Cataclismo del <a
+href="Lilium.html">Lilium</a> no fue un acto de maldad, sino la
+consecuencia natural de liberar una fuerza cósmica sin control sobre el
+frágil mundo mortal. Su poder no solo arrasó la civilización, sino que
+reescribió el Tejido del Maná, dejando cicatrices permanentes y zonas de
+magia salvaje que perduran hasta hoy.</li>
+</ul>
+<p>En la Era Actual, los hechiceros que dominan la piromancia, los
+Genasi de Fuego y los clérigos de deidades ígneas no hacen más que tirar
+de los hilos de esta vasta y antigua energía, canalizando un eco
+infinitesimal de la fuerza que forjó y casi destruyó el mundo.</p>
+<h2 id="manifestaciones-y-apariencia">Manifestaciones y Apariencia</h2>
+<p>El Fuego Primordial carece de una forma física única. Se manifiesta
+según la escala y la pureza de su energía. Los mortales que han
+vislumbrado su esencia lo describen de diversas maneras:</p>
+<ul>
+<li>Como un <strong>océano de luz líquida y dorada</strong> en el
+corazón de la creación, donde nacen las estrellas.</li>
+<li>Como un <strong>torbellino de plasma blanco y cegador</strong>, la
+temperatura y la pureza en su estado absoluto, capaz de consumir la
+materia y el alma por igual.</li>
+<li>Como el <strong>corazón de un volcán</strong>, una masa pulsante de
+magma y roca fundida que late con el pulso del propio mundo.</li>
+<li>En su forma más destructiva, el <a href="Lilium.html">Lilium</a>, se
+manifestó como una <strong>cortina de llamas etéreas e
+incoloras</strong> que descendía del cielo, borrando todo lo que tocaba
+sin dejar cenizas, solo un vacío resonante.</li>
+</ul>
+<p>No utiliza equipo ni armas, pues él mismo es la energía que las forja
+y el poder que las destruye.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>El impacto del Fuego Primordial en Lithernia es absoluto y
+definitorio. Su legado es una dualidad que impregna cada aspecto del
+mundo:</p>
+<ol type="1">
+<li><strong>El Motor de la Creación:</strong> Es la fuerza constructora
+por excelencia. Sin él, las montañas no se habrían alzado, los metales
+no podrían ser forjados y la luz de las estrellas no iluminaría la
+noche. Toda la civilización, desde la primera hoguera hasta la más
+poderosa espada encantada, depende de un fragmento de su poder.</li>
+<li><strong>La Memoria del Cataclismo:</strong> A través del <a
+href="Lilium.html">Lilium</a>, el Fuego Primordial es también el origen
+del mayor trauma de Lithernia. El evento no solo destruyó un imperio,
+sino que dio forma a la sociedad actual, creando los reinos,
+justificando el poder de los dioses y sembrando las semillas de la Gran
+Guerra. El miedo a un segundo cataclismo es una herramienta política que
+los dioses y tiranos usan para mantener el control.</li>
+<li><strong>La Fuente de Magia y Poder:</strong> Es la fuente última de
+toda la magia de fuego, la pasión y la furia. Clases como los Hechiceros
+de linaje dracónico, los Magos piromantes o los Brujos con patrones
+elementales extraen su poder directamente de esta fuente. Facciones como
+los clanes de la forja de <a href="Valtoria.html">Valtoria</a> o cultos
+solares en <a href="Galvorn.html">Galvorn</a> le deben su razón de
+ser.</li>
+<li><strong>Una Advertencia Eterna:</strong> La existencia del Fuego
+Primordial, y especialmente el recuerdo del <a
+href="Lilium.html">Lilium</a>, sirve como una advertencia perpetua sobre
+la arrogancia. Demuestra que existen poderes en el cosmos que
+trascienden la comprensión de mortales y dioses por igual, y que
+intentar controlarlos sin sabiduría y respeto solo puede conducir a la
+aniquilación.</li>
+</ol>
+<p>En última instancia, el Fuego Primordial es el pulso silencioso de
+Lithernia: una fuerza que da calor y vida, pero cuyo poder desatado
+amenaza con consumirlo todo en un instante.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.42)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

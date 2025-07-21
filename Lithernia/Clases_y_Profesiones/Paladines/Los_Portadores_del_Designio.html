@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Portadores_del_Designio</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Portadores_del_Designio</div>
+        <div class="content">
+<h1 id="los-portadores-del-designio">Los portadores del designio</h1>
+<h3 id="perfil-de-la-mecánica">Perfil de la Mecánica</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Mecánica</strong></td>
+<td style="text-align: left;">Plantilla de Personaje Legendario</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Prerrequisito</strong></td>
+<td style="text-align: left;">Vincularse con una de las cuatro Lanzas
+Celestiales (Requiem, Ultimatum, Mortum o Chronos).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto Principal</strong></td>
+<td style="text-align: left;">Otorga al personaje acceso a un conjunto
+de poderes temáticos que progresan en tres niveles de vínculo
+(Despertado, Armonizado, Ascendido).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Regla Clave</strong></td>
+<td style="text-align: left;">Un personaje solo puede ser Portador de
+una lanza a la vez. La lanza puede abandonar a un portador si sus actos
+contradicen de forma fundamental su esencia.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fuente</strong></td>
+<td style="text-align: left;">Profecía del Retorno del Primer Rey</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lanza-celestial-ultimatum-el-juez-del-destino">Lanza Celestial:
+Ultimatum, El Juez del Destino</h2>
+<h3 id="ficha-del-artefacto">Ficha del Artefacto</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo</strong></td>
+<td style="text-align: left;">Pica, Legendaria (requiere sintonización
+por un Portador elegido)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Daño</strong></td>
+<td style="text-align: left;">1d10 perforante</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Propiedades</strong></td>
+<td style="text-align: left;">A dos manos, Alcance, Mágica (+3 a tiradas
+de ataque y daño)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Esencia</strong></td>
+<td style="text-align: left;">Ley, Juicio, Orden, Consecuencia.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Latente</strong></td>
+<td style="text-align: left;">Legal Neutral</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Prerrequisito de
+Vínculo</strong></td>
+<td style="text-align: left;">El portador debe tener un código de honor
+o ley inquebrantable y actuar siempre con convicción absoluta.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="progresión-del-vínculo-ultimatum">Progresión del Vínculo:
+Ultimatum</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Nivel de Vínculo</th>
+<th style="text-align: left;">Poder Adquirido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel 1: Despertado</strong></td>
+<td style="text-align: left;"><strong>Sentencia Ineludible:</strong>
+Cuando impactas a una criatura con Ultimatum, puedes usar una acción
+adicional para lanzar <em>Orden imperiosa</em> sobre ella (sin gastar
+espacio de conjuro).<br><strong>Mirada del Juez:</strong> Ganas
+competencia y ventaja en las pruebas de Sabiduría (Perspicacia).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nivel 2: Armonizado</strong></td>
+<td style="text-align: left;"><strong>Rompedora de Sellos:</strong> Los
+ataques realizados con Ultimatum ignoran resistencias al daño de <a
+href="Conjuros.html">Conjuros</a> y bonificaciones a la CA de fuentes
+mágicas (como los <a href="Conjuros.html">Conjuros</a> <em>Escudo</em> o
+<em>Armadura de <a href="Mago.html">Mago</a></em>).<br><strong>Zona de
+Verdad:</strong> Puedes usar una acción para crear un área de 30 pies de
+radio con los efectos del conjuro <em>Zona de la verdad</em> (CD 18)
+durante 10 minutos. No requiere concentración. 1/descanso largo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nivel 3: Ascendido</strong></td>
+<td style="text-align: left;"><strong>Edicto del Destino:</strong>
+Puedes lanzar el conjuro <em>Misión (Geas)</em>. El objetivo tiene
+desventaja en la tirada de salvación. Una vez usado, no puedes volver a
+usarlo hasta el siguiente amanecer.<br><strong>Juicio Final:</strong>
+Cuando obtienes un golpe crítico con Ultimatum, el objetivo debe superar
+una tirada de salvación de Carisma (CD 18) o ser afectado por el conjuro
+<em>Destierro</em> durante 1 minuto.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lanza-celestial-chronos-el-tejedor-del-tiempo">Lanza Celestial:
+Chronos, El Tejedor del Tiempo</h2>
+<h3 id="ficha-del-artefacto-1">Ficha del Artefacto</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo</strong></td>
+<td style="text-align: left;">Tridente, Legendario (requiere
+sintonización por un Portador elegido)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Daño</strong></td>
+<td style="text-align: left;">1d6 perforante (una mano), 1d8 perforante
+(dos manos)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Propiedades</strong></td>
+<td style="text-align: left;">Arrojadiza (20/60), Versátil, Mágica (+3 a
+tiradas de ataque y daño)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Esencia</strong></td>
+<td style="text-align: left;">Causalidad, Visión, Historia,
+Destino.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Latente</strong></td>
+<td style="text-align: left;">Caótico Neutral</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Prerrequisito de
+Vínculo</strong></td>
+<td style="text-align: left;">El portador debe ser un erudito o
+estratega que valore el conocimiento por encima del poder y busque
+activamente desentrañar los misterios del pasado.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="progresión-del-vínculo-chronos">Progresión del Vínculo:
+Chronos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Nivel de Vínculo</th>
+<th style="text-align: left;">Poder Adquirido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel 1: Despertado</strong></td>
+<td style="text-align: left;"><strong>Precognición Táctica:</strong>
+Tienes ventaja en las tiradas de iniciativa. No puedes ser sorprendido
+mientras estés consciente.<br><strong>Visión del Pasado:</strong> Puedes
+lanzar <em>Identificar</em> y <em>Comprensión idiomática</em> a
+voluntad.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nivel 2: Armonizado</strong></td>
+<td style="text-align: left;"><strong>Burbuja Temporal:</strong> Como
+acción, puedes crear una esfera de 20 pies de radio donde el tiempo se
+ralentiza (como el conjuro <em>Ralentizar</em>, CD 18) o se acelera
+(aliados obtienen los beneficios de <em>Prisa</em> sin los efectos
+negativos). Dura 1 minuto y no requiere concentración. 1/descanso
+largo.<br><strong>Rebobinar:</strong> Como reacción a recibir daño,
+puedes forzar al atacante a repetir la tirada de ataque. Debes usar el
+nuevo resultado. 3/descanso largo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nivel 3: Ascendido</strong></td>
+<td style="text-align: left;"><strong>Maestría Temporal:</strong> Puedes
+lanzar el conjuro <em>Detener el tiempo</em> una vez. Recuperas el uso
+de este rasgo después de 7 días.<br><strong>Conocimiento de
+Eras:</strong> Ganas competencia experta en la habilidad de Historia.
+Puedes realizar una prueba de Historia CD 25 para obtener una respuesta
+directa del DM sobre un evento pasado, como si usaras el conjuro
+<em>Conocimiento de <a href="Leyendas.html">Leyendas</a></em>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnj-antagonista-portador-oscuro">PNJ Antagonista: Portador
+Oscuro</h3>
+<p>```statblock name: Lord Aethel, Portador de Mortum size: Mediano
+type: humanoide (tiefling) alignment: neutral maligno ac: 19 (Armadura
+de placas +1) hp: 204 (24d8 + 96) speed: 30 ft. stats: [20, 14, 18, 16,
+15, 20] saves: - Fue: +11 - Con: +10 - Car: +11 skills: - Arcanos: +9 -
+Engaño: +11 - Intimidación: +11 - Percepción: +8 damage_resistances:
+Frío, Necrótico damage_immunities: Fuego, Veneno condition_immunities:
+Asustado, Envenenado senses: Visión en la oscuridad 60 ft., Percepción
+Pasiva 18 languages: Común, Infernal, Mórdhûlico cr: 18 traits: - name:
+Resistencia Legendaria (3/Día) desc: “Si Aethel falla una tirada de
+salvación, puede elegir tener éxito en su lugar.” - name: Aura de Miedo
+(Vínculo de Mortum) desc: “Como acción adicional, Aethel puede activar
+un aura de miedo de 15 pies. Cada criatura hostil que empiece su turno
+en el aura debe superar una salvación de Sabiduría CD 19 o quedará
+asustada de él durante 1 minuto. Una criatura puede repetir la salvación
+al final de cada uno de sus turnos.” - name: Lanzamiento de Conjuros
+desc: “Aethel es un lanzador de conjuros de nivel 12. Su aptitud mágica
+es el Carisma (CD de salvación 19, +11 a impactar). Tiene los siguientes
+conjuros de brujo preparados:(a voluntad): <em>Descarga sobrenatural,
+Mano de mago, Ilusión menor</em>-5 (3 espacios de nivel 5): <em>Armadura
+de Agathys, Maleficio, Contagio, Disipar magia, Miedo, Puerta
+dimensional</em>” actions: - name: Multiataque desc: “Aethel realiza
+tres ataques con Mortum.” - name: Mortum, La Sombra del Fin desc:
+“Ataque de arma cuerpo a cuerpo: +14 a impactar, alcance 10 ft., un
+objetivo. Impacto: 14 (1d10 + 8) de daño cortante más 9 (2d8) de daño
+necrótico. Una criatura reducida a 0 PV por este daño no puede ser
+revivida por medios no legendarios.” - name: Cosecha de Almas (5 Cargas)
+desc: “Cuando un humanoide muere a 60 pies de Aethel, Mortum gana 1
+carga. Aethel puede gastar 3 cargas como una acción para lanzar
+<em>Crear no-muerto</em>.” legendary_actions: - name: Atacar desc:
+“Aethel realiza un ataque con Mortum.” - name: Lanzar un Conjuro (Cuesta
+2 Acciones) desc: “Aethel lanza un conjuro de su lista de conjuros.” -
+name: Orden del Tirano (Cuesta 3 Acciones) desc: “Aethel se enfoca en
+una criatura que pueda ver a 60 pies y que esté asustada por él. El
+objetivo debe superar una salvación de Sabiduría CD 19 o quedar dominado
+por Aethel como si fuera por el conjuro <em>Dominar persona</em>. El
+efecto dura hasta el final del próximo turno de Aethel.”</p>
+        </div>
+    </div>
+</body>
+</html>

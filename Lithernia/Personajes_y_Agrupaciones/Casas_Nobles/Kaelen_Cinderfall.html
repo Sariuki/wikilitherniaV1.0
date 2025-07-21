@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Cinderfall</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Cinderfall</div>
+        <div class="content">
+<hr />
+<p>nombre: Kaelen Cinderfall rol: Heredero y <a
+href="Heroes.html">Heroes</a> de la Forja Corazón edad: 45 agrupacion:
+Casa Cinderfall tipo: Casa <a href="Noble.html">Noble</a> lema: De la
+ceniza, resurgimos; en el fuego, reinamos. escudo: Un volcán de
+obsidiana en erupción arrojando ceniza negra sobre un yunque agrietado,
+sobre un fondo rojo magma. ciudad_sede: <a
+href="Valarion.html">Valarion</a> alineamiento: Legal Neutral (con
+tendencias a Maligno) rivalidades: - Casa Dravonis (Desprecio
+ideológico) - Clan Nighthawk (Conflicto por influencia y métodos)
+alianzas: - Clan Agrietacero (Fundadores y socios) - Clan Ironclaw
+(Respeto mutuo y comercio de armas) relaciones: - <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+Cinderfall (Padre y actual Señor de la Casa) tags: [lithernia,
+personajes, Casa <a href="Noble.html">Noble</a>, <a
+href="Valtoria.html">Valtoria</a>, <a
+href="Dragonborn.html">Dragonborn</a>] # Kaelen Cinderfall</p>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de las grandes casas de Lithernia, pocas han ascendido
+con la furia y el desdén por la tradición que caracterizan a la Casa
+Cinderfall. Kaelen no es un heredero de sangre azul y privilegios
+ancestrales; es un producto del fuego, la ceniza y la voluntad indomable
+de <a href="Valarion.html">Valarion</a>. Nacido como un Dracónido de
+escamas color obsidiana, su linaje es un crisol de parias: su padre, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+un formidable <a href="Dragonborn.html">Dragonborn</a> que lideró a los
+fundadores, y su madre, una Genasi de Fuego cuyo espíritu ardía con la
+misma intensidad que el núcleo del volcán que les da hogar.</p>
+<p>Criado a la sombra de la montaña humeante, Kaelen aprendió desde niño
+la filosofía de su casa: la destrucción no es un final, sino una
+purificación necesaria. El viejo mundo, con sus nobles <a
+href="Enanos.html">Enanos</a> aferrados a tradiciones muertas y sus
+elfos ensimismados en la belleza estéril, debía ser consumido por el
+fuego para que algo más fuerte pudiera nacer de sus cenizas. Su infancia
+no fue de estudios en bibliotecas, sino de pruebas en el ‘Foso del
+Desafío’ de <a href="Valarion.html">Valarion</a>, donde la sangre y el
+acero dictan la valía. Allí, Kaelen no solo sobrevivió, sino que
+prosperó, demostrando una afinidad natural tanto para el combate brutal
+como para la disciplina de la forja.</p>
+<p>Su título, “<a href="Heroes.html">Heroes</a> de la Forja Corazón”, no
+es hereditario. Se lo ganó a los treinta años al presentar en el torneo
+anual de <a href="Valarion.html">Valarion</a> una hoja forjada con la
+técnica secreta de la casa: la <em>forja de ceniza</em>. El arma, un
+mandoble llamado <em>Corazón de la Montaña</em>, fue imbuida con polvo
+del núcleo volcánico, creando un acero de negrura profunda, casi
+irrompible y con un filo que, según los herreros, “susurraba la canción
+de <a href="Valarios.html">Valarios</a>”.</p>
+<p>Hoy, Kaelen es la encarnación de la ambición de Cinderfall. Mientras
+su padre, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+se contenta con solidificar el poder de la casa dentro de <a
+href="Valarion.html">Valarion</a>, Kaelen mira más allá. Ve a Lithernia
+como un continente estancado, debilitado por la complacencia. Su
+desprecio por la Casa Dravonis es casi una cruzada personal; en sus
+salones de piedra y sus barbas trenzadas, Kaelen ve la decadencia de un
+pueblo que ha olvidado que el hierro debe ser templado en el fuego más
+violento. Su objetivo es claro: llevar la filosofía de Cinderfall al
+resto del mundo, expandir su dominio y demostrar que la verdadera
+nobleza no se hereda, se forja. Esta ambición genera una tensión
+palpable con su padre, un conflicto entre la prudencia del fundador y la
+impaciencia del heredero que anhela ver el mundo arder para poder
+reconstruirlo a su imagen.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen es una figura imponente que personifica la fuerza primordial
+de su casa. Como Dracónido, su cuerpo está cubierto de escamas de un
+negro mate, como la obsidiana enfriada, surcadas por finas líneas
+carmesí que brillan con un leve fulgor cuando su ira o pasión se
+encienden. Mide más de dos metros y su complexión es la de un <a
+href="Guerrero.html">Guerrero</a> forjado en el calor y el combate
+diario. Su rostro, anguloso y severo, está marcado por una cicatriz que
+desciende desde su ceja izquierda hasta la mandíbula, recuerdo de un
+duelo en el Foso contra un <a href="Heroes.html">Heroes</a> del Clan
+Agrietacero que le ganó el respeto de los <a
+href="Enanos.html">Enanos</a> más brutales. Sus ojos son de un color
+ámbar fundido, intensos y analíticos, reflejando tanto una inteligencia
+calculadora como un temperamento volcánico.</p>
+<p><strong>Equipamiento:</strong> * <strong>Armadura de la Forja de
+Ceniza:</strong> Su armadura completa es una obra maestra de la
+artesanía Cinderfall. Forjada con la técnica de la casa, las placas de
+acero negro están infundidas con polvo de obsidiana y ceniza volcánica.
+No brilla; absorbe la luz, dándole una presencia sombría y amenazante.
+Está adornada con motivos de lava agrietada y el emblema del volcán en
+erupción de su casa grabado en el peto. * <strong>Corazón de la
+Montaña:</strong> Su mandoble personal, el arma que le valió su título.
+La hoja es de un negro profundo e impecable, con un filo legendariamente
+afilado. Se dice que el arma es cálida al tacto y que emite un leve
+zumbido en presencia de una gran fuente de calor o poder elemental. La
+empuñadura está envuelta en cuero de basilisco y el pomo es un fragmento
+de roca de lava sin pulir. * <strong>El Manto de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>:</strong>
+Una capa de un rojo oscuro y pesado, regalo de su padre. Aunque
+simbólica, está tejida con fibras resistentes al fuego, otorgándole
+protección adicional contra las llamas.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelen Cinderfall no es solo un heredero; es una fuerza de cambio, un
+catalizador de conflictos que amenaza con romper el frágil equilibrio de
+poder en Lithernia. Representa el auge de un nuevo tipo de nobleza:
+pragmática, brutal y sin lealtad a las antiguas tradiciones que, en su
+opinión, han debilitado al continente.</p>
+<p>Su impacto potencial es inmenso. Si logra imponer su visión, podría
+unificar a las facciones más belicosas y marginadas bajo un estandarte
+de fuerza y purificación, desafiando directamente el orden establecido
+por los reinos de <a href="Valtoria.html">Valtoria</a> y <a
+href="Eldrador.html">Eldrador</a>. Podría ser el señor de la guerra que
+finalmente rompa el estancamiento de la Gran Guerra, aunque
+probablemente lo haga sumergiendo a Lithernia en un conflicto aún más
+sangriento.</p>
+<p>Para las casas antiguas como Dravonis, Kaelen es un presagio del fin
+de su era. Para facciones como el Clan Nighthawk, es un rival directo
+cuyo poder manifiesto choca con sus métodos de subterfugio. Y para los
+suyos, es la promesa de un futuro donde los parias de ayer se
+convertirán en los reyes del mañana. El destino de Kaelen Cinderfall y
+el de su casa están inexorablemente ligados al fuego: o se elevarán como
+un fénix de las cenizas de sus enemigos, o su propia ambición los
+consumirá, dejando nada más que un montón de escombros humeantes en la
+historia de Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Cinderfall.html">Casa Cinderfall</a> (relevancia:
+0.38)</li>
+<li><a href="Ignis.html">Ignis</a> (relevancia: 0.35)</li>
+<li><a href="Personajes.html">Personajes</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profecías_del_Retorno</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Profecías_del_Retorno</div>
+        <div class="content">
+<h1 id="profecías-del-retorno">Profecías del retorno</h1>
+<p>Desde tiempos inmemoriales, en los anales antiguos y en las voces de
+los más sabios, han resonado las enigmáticas <em>Profecías del
+Retorno</em>. Estas augurios hablan del regreso del Primer Rey de
+Lithernia y su <a href="Heroes.html">Heroes</a>, heraldos de una era de
+renacimiento y gloria que avivarán la esperanza en los corazones de su
+pueblo.</p>
+<h2 id="origen-y-contexto-histórico">Origen y contexto histórico</h2>
+<p>La primera mención escrita de las Profecías aparece en los
+<strong>Pergaminos de Valtheran</strong>, textos sagrados descubiertos
+en las ruinas de la vieja capital tras la caída del Imperio de la Luz.
+Se cree que fueron dictadas por las sacerdotisas del Oráculo de
+Celesthir, cuya visión alcanzaba los velos del destino. Estas profecías
+surgieron tras la consumación de la Época de Oscuridad, cuando el Primer
+Rey desapareció durante la batalla contra los Señores del Caos, dejando
+a Lithernia sumida en un perpetuo exilio espiritual.</p>
+<h2 id="interpretaciones-y-versiones">Interpretaciones y versiones</h2>
+<p>Las Profecías del Retorno han dado lugar a múltiples interpretaciones
+a lo largo de las eras, muchas veces divergentes o contradictorias según
+las escuelas de pensamiento, tradiciones y zonas geográficas dentro de
+Lithernia.</p>
+<h3 id="versión-del-círculo-de-los-sabios">Versión del Círculo de los
+Sabios</h3>
+<ul>
+<li>Hablan de la “Estrella del Alba”, un astro que resurgirá rojo y
+brillante en el firmamento, señal inequívoca del retorno del Rey.</li>
+<li>El <a href="Heroes.html">Heroes</a>, nacido bajo la misma
+constelación, empuñará la mítica <strong>Espada de Luminaria</strong>,
+arrebatada al vacío por el Primer Rey y custodiada por los últimos <a
+href="Dragones.html">Dragones</a>.</li>
+<li>La alianza de ambos restaurará la armonía entre los reinos <a
+href="Humanos.html">Humanos</a> y las fuerzas elementales.</li>
+</ul>
+<h3
+id="interpretación-de-los-custodios-del-bosque-eterno">Interpretación de
+los Custodios del Bosque Eterno</h3>
+<ul>
+<li>Proclaman que el retorno no es literal sino simbólico: el líder que
+renazca será “agua y raíz”, hablando en lenguas antiguas y guiando con
+sabiduría hacia la unión con la naturaleza.</li>
+<li>El <a href="Heroes.html">Heroes</a> será identificado por el
+surgimiento de un lobo albino, criatura sagrada en su culto.</li>
+<li>Enfatizan la necesidad de purificación y renacimiento espiritual
+antes de cualquier retorno físico.</li>
+</ul>
+<h3 id="leyendas-populares">Leyendas populares</h3>
+<p>En aldeas y campamentos, se narran historias vividas por testigos
+presuntos del Retorno. Se habla de una figura encapuchada que apareció
+en tormentas y nieblas, proclamando volver “cuando las luces caigan y
+los vientos canten”. Los relatos cantados por bardos advierten que el
+Destino juzgará la pureza del espíritu de quienes evoquen las viejas
+glorias.</p>
+<h2 id="símbolos-y-costumbres-relacionadas">Símbolos y costumbres
+relacionadas</h2>
+<ul>
+<li><strong>La Vigilia del Alba</strong>: ceremonia anual en la que los
+habitantes de Lithernia encienden antorchas al amanecer para recibir la
+Estrella del Alba, esperando la señal del retorno.</li>
+<li><strong>Los Sellos de Esperanza</strong>: amuletos con <a
+href="Runas.html">Runas</a> antiguas que representan la Espada de
+Luminaria y el lobo albino, llevados por los creyentes para protegerlos
+del mal y atraer la fortuna.</li>
+<li><strong>Los Cantos del Rey y su <a
+href="Heroes.html">Heroes</a></strong>: himnos solemnes entonados en
+rituales y festivales, evocando sus hazañas pasadas y el ansiado
+retorno.</li>
+</ul>
+<h2 id="significado-y-legado-cultural">Significado y legado
+cultural</h2>
+<p>Las Profecías del Retorno no solo alimentan la fe en un futuro mejor,
+también moldean la identidad colectiva de Lithernia. Se convierten en un
+faro de inspiración durante tiempos sombríos y una guía moral en la
+búsqueda de la justicia y el equilibrio. Así, el relato del Primer Rey y
+su <a href="Heroes.html">Heroes</a> trasciende la historia para devenir
+en mito fundacional que aún late en el alma de la nación.</p>
+<hr />
+<p><em>“Y cuando la Estrella del Alba se tiña de rojo, y la Espada de
+Luminaria brille una vez más, el Reino despertará de su sueño
+eterno.”</em> — Fragmento del Oráculo de Celesthir</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Profecías.html">Profecías</a> (relevancia: 0.74)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.65)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

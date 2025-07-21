@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02_ForjaDelMundo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">02_ForjaDelMundo</div>
+        <div class="content">
+<h1 id="forja-del-mundo">02 Forja del Mundo</h1>
+<p>La <a href="Herreria.html">Herreria</a> del Mundo es una era
+primordial en la historia de Lithernia, el momento en que las fuerzas
+divinas y <a href="Primordiales.html">Primordiales</a> trabajaron juntas
+para dar forma definitiva a la tierra y sus elementos. Este periodo
+fundacional marcó el nacimiento del continente central de Lithernia, la
+división de planos y la instauración de las primeras estructuras
+naturales y mágicas que sostendrían la vida futura.</p>
+<h2 id="contexto-y-antecedentes">Contexto y Antecedentes</h2>
+<p>Tras <a href="01_AmanecerDivino.html">01_AmanecerDivino</a>, en el
+que la Voluntad Original y los <a
+href="Primordiales.html">Primordiales</a> crearon los planos y dieron
+origen a los dioses mayores, comenzó la tarea concreta de moldear el
+mundo físico. La realidad, aún maleable y caótica, debía ser asentada
+sobre fundamentos estables para permitir la aparición de la vida y las
+civilizaciones.</p>
+<p>Los dioses, junto a los <a href="Dragones.html">Dragones</a>
+ancestrales y seres <a href="Primordiales.html">Primordiales</a>,
+unieron sus energías en un balance de fuego y sombra para fragmentar y
+organizar el caos. Esta etapa fue definida por la divergencia y
+estructuración elemental, la creación de tierras, océanos y cielos, y la
+cristalización de la magia misma en redes invisibles conocidas como
+líneas de maná.</p>
+<h2 id="los-elementos-forjados">Los Elementos Forjados</h2>
+<h3 id="montañas-y-valles">Montañas y Valles</h3>
+<p>Con la ayuda del Fuego Primordial, montañas surgieron como columnas
+gigantes de roca encendida que todavía hoy se yerguen imponentes. Los
+valles se formaron como canales vitales para los ríos que llevarían el
+maná y el aliento de vida por todo el mundo. Estos relieves marcaron las
+fronteras naturales que más tarde dividirían reinos y territorios.</p>
+<h3 id="los-mares-y-ríos">Los Mares y Ríos</h3>
+<p>Los océanos nacieron del agua arcana condensada, rodeando el
+continente central que emergía lentamente. Los dioses invocaron
+corrientes y mareas para mantener el ciclo de la vida. Los ríos
+constituyeron arterias sagradas de maná y sustento, serpenteando entre
+tierras fértiles y bosques que pronto llenaron de vida.</p>
+<h3 id="los-cielos-y-las-estrellas">Los Cielos y las Estrellas</h3>
+<p><a href="Arzia.html">Arzia</a>, diosa de las estrellas, fue
+responsable de encender las primerísimas luces en el firmamento. Estas
+constelaciones, guardianes nocturnos del destino, no solo ofrecieron
+guía sino que también anclaron el paso del tiempo y la magia estelar.
+Así se establecieron los ciclos solares y lunares, pilares del
+calendario y las profecías.</p>
+<h2 id="los-grandes-planos">Los Grandes Planos</h2>
+<p>Durante la <a href="Herreria.html">Herreria</a> del Mundo, los dioses
+definieron y separaron los planos que existirían en paralelo pero con
+esferas propias:</p>
+<ul>
+<li><strong>Plano Material:</strong> Morada de mortales, animales y
+plantas, donde rige el tiempo y la física común.<br />
+</li>
+<li><strong>Plano de las Sombras:</strong> Reino de penumbras, espíritus
+y fuerzas ocultas; cuna de magias oscuras y secretos ancestrales.<br />
+</li>
+<li><strong>Plano Astral:</strong> Dominio de ideas, energía pura y
+entidades cósmicas; fuente primaria del maná y la inspiración
+mágica.</li>
+</ul>
+<p>Esta organización permitió el equilibrio entre vida, muerte y magia,
+y sentó las bases para la coexistencia de diversas criaturas y planos
+paralelos.</p>
+<h2 id="los-dragones-ancestrales-y-la-modelación-del-mundo">Los Dragones
+Ancestrales y la Modelación del Mundo</h2>
+<p>Cuatro <a href="Dragones.html">Dragones</a> ancestrales desempeñaron
+un papel trascendental en la configuración física y mística de
+Lithernia. Sus alientos forjaron relieves y fuerzas naturales:</p>
+<ul>
+<li><strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+el Dragón Carmesí:</strong> <a href="Forjador.html">Forjador</a> de
+volcanes y montañas ígneas, representó el poder del fuego y la creación
+material.<br />
+</li>
+<li><strong>Tal’vorak, Señor de las Tormentas:</strong> Sus tempestades
+moldearon valles y llanuras, insuflando vida a través del viento y la
+lluvia.<br />
+</li>
+<li><strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>,
+Maestro del Rayo y la Sabiduría:</strong> Inspiró la energía mágica que
+fluye en el mundo y la chispa de la inteligencia.<br />
+</li>
+<li><strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>,
+Dragón Vampiro de las Profundidades Nocturnas:</strong> Concebido para
+modelar las cavernas salvajes y los secretos ocultos, aportó la sombra y
+el misterio.</li>
+</ul>
+<p>Cada dragón dejó su huella imborrable en la tierra viviente,
+enfrentándose en ocasiones en batallas legendarias que crearon ríos y
+montañas por igual.</p>
+<h2 id="bendiciones-y-regalos-divinos">Bendiciones y Regalos
+Divinos</h2>
+<p>Durante la <a href="Herreria.html">Herreria</a>, los dioses
+infundieron vida en los bosques y las aguas, otorgando esencia vital y
+sagrada. <a href="Ferion.html">Ferion</a> talló bosques vivos poblados
+de espíritus guardianes, iariza tejió estrellas para proteger y guiar, y
+Lerián susurró al viento sabiduría oculta en el susurro de las hojas y
+las mareas.</p>
+<p>Con este acto, la magia del mundo quedó enlazada al propio tejido de
+la vida —maná que permea cada roca, árbol y criatura, configurando así
+el fundamento energético para futuras generaciones.</p>
+<h2 id="legado-y-relevancia">Legado y Relevancia</h2>
+<p>La <a href="Herreria.html">Herreria</a> del Mundo es recordada en <a
+href="Leyendas.html">Leyendas</a> y himnos ancestrales como el acto
+supremo de creación donde la voluntad, el poder y la armonía se unieron
+para dar lugar a Lithernia como un mundo único y complejo.</p>
+<p>Desde las profundidades de las montañas hasta la vastedad de los
+océanos y las estrellas que siguen guiando a los pueblos, esta era
+define el equilibrio esencial entre los elementos, la magia y la
+vida.</p>
+<p>Este periodo sella el origen de las líneas de maná que hoy los magos
+manipulan, las maravillas naturales que asombran a viajeros y
+exploradores, y el fundamento para la historia épica que seguirá con el
+Amanecer Dracónico y la Era del Primer Rey.</p>
+<p>La memoria de la <a href="Herreria.html">Herreria</a> del Mundo,
+aunque distante en el tiempo, sigue siendo una inspiración eterna para
+artesanos, magos y aventureros que buscan comprender las raíces de
+Lithernia y su magia tan profunda como la tierra misma.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.41)</li>
+<li><a href="Personajes.html">Personajes</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

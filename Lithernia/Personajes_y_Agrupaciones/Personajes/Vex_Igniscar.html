@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vex_Igniscar</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vex_Igniscar</div>
+        <div class="content">
+<h1 id="vex-igniscar">Vex Igniscar</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En las entrañas del Volcán del Yunque Roto, donde la furia de la
+tierra se templa en vidrio volcánico, no solo se forjan armas, sino
+también almas. Vex es un producto de este crisol. Nacido entre los
+exiliados <a href="Dragonborn.html">Dragonborn</a> que fundaron la Casa
+Igniscar, no heredó su estatus, sino que lo arrancó del corazón de la
+montaña con sus propias manos. Desde joven, su silencio no fue signo de
+simpleza, sino de una concentración aterradora, una cualidad que le
+permitió dominar por igual el arte de la lucha y los secretos de la
+forja de obsidiana, el oficio sagrado de su casa.</p>
+<p>Su ascenso fue una leyenda forjada en sangre y ceniza. En el Foso del
+Desafío, la arena donde la Casa Igniscar dirime sus disputas y demuestra
+su valía, Vex se convirtió en una fuerza de la naturaleza. No luchaba
+como un simple bruto; su estilo era una manifestación del lema de su
+casa: una danza letal de fuerza abrumadora y precisión incandescente.
+Cada golpe de su maza era tan deliberado y perfecto como los que se dan
+al vidrio volcánico al rojo vivo. Se proclamó <a
+href="Heroes.html">Heroes</a> no por aclamación, sino por la ausencia de
+rivales que se atrevieran a permanecer en pie ante él.</p>
+<p>Hoy, Vex es el Guardián del Foso y el arma viviente de la Casa
+Igniscar. Su lealtad a Kaelen, el patriarca que vio en él la encarnación
+de sus ideales, es absoluta y se manifiesta en una obediencia silenciosa
+y letal. Sin embargo, bajo esa fachada de control monolítico, arde un
+fuego secreto. Está fascinado por Lyra, la impetuosa líder de la aliada
+Casa Cinderfall. En la audacia de ella, en su fuego descontrolado y su
+ambición sin bridas, Vex ve el reflejo de la furia primordial que él ha
+pasado toda una vida conteniendo. Es una atracción peligrosa, una grieta
+en la obsidiana de su disciplina.</p>
+<p>Su única y verdadera ambición, no obstante, trasciende las intrigas
+internas. Desprecia la arrogancia del Clan Agrietacero y la
+condescendencia de los maestros herreros <a
+href="Enanos.html">Enanos</a> de <a href="Valtoria.html">Valtoria</a>.
+Su objetivo es un desafío singular y definitivo: derrotar al <a
+href="Heroes.html">Heroes</a> personal del Forjamayor Durval Dravonis.
+Para Vex, este no es un combate por la gloria personal, sino una cruzada
+para demostrar que la obsidiana, nacida de la furia y perfeccionada por
+la voluntad, es superior al acero forjado por la tradición. Es la
+declaración final de que la Casa Igniscar no es una simple nota al pie
+en la historia de <a href="Valtoria.html">Valtoria</a>, sino una fuerza
+destinada a reescribirla.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vex es la viva imagen de un monolito volcánico. Su imponente figura
+de <a href="Dragonborn.html">Dragonborn</a> está cubierta por escamas de
+un tono basalto pulido, tan oscuras que parecen absorber la luz. Las
+cicatrices de incontables duelos en el foso marcan su cuerpo, no como
+imperfecciones, sino como <a href="Runas.html">Runas</a> que narran su
+historia de dominio. Sus ojos, raramente vistos tras la visera de su
+yelmo, brillan como ascuas de amatista, una pista de las llamas púrpuras
+que definen su linaje y el escudo de su casa.</p>
+<p><strong>Equipamiento:</strong></p>
+<ul>
+<li><strong>Armadura de Placas de Obsidiana:</strong> Forjada por él
+mismo, esta obra maestra no es simple metal, sino placas de vidrio
+volcánico endurecido con magia ígnea. Cada pieza está interconectada con
+eslabones de hierro negro del Clan Ironclaw y grabada con glifos que
+brillan con una luz púrpura cuando Vex canaliza su furia. El yelmo,
+réplica del escudo de su casa, es su símbolo de autoridad y terror.</li>
+<li><strong>Maza “Rompe-Yunques”:</strong> Su arma principal es una maza
+colosal de obsidiana sólida, con un núcleo de magma encantado que late
+en su interior. Se dice que el arma permanece perpetuamente caliente al
+tacto y puede desatar una onda de calor conmocionadora en el impacto. Es
+tan brutal como elegante, diseñada para quebrar tanto armaduras como
+voluntades.</li>
+<li><strong>Aliento Dracónico (Llama de Amatista):</strong> Su herencia
+se manifiesta en un aliento de fuego sobrenatural de un intenso color
+púrpura. Es una llamarada concentrada y corrosiva, capaz de derretir el
+acero y cristalizar la arena, que utiliza con una precisión quirúrgica
+en el combate.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Vex Igniscar no es un simple <a href="Guerrero.html">Guerrero</a>; es
+un argumento andante. En un mundo definido por linajes ancestrales y
+tradiciones inamovibles, él representa el poder disruptivo de los
+marginados que se niegan a someterse. Es el testamento viviente de que
+el valor y la habilidad pueden forjar un lugar en el mundo que ni el
+acero ni la nobleza pueden negar.</p>
+<p>Su presencia en <a href="Valarion.html">Valarion</a> es una fuente
+constante de tensión y respeto a regañadientes con los clanes <a
+href="Enanos.html">Enanos</a>. Cada una de sus victorias en el Foso es
+una declaración política que eleva el prestigio de las casas no
+tradicionales y desafía el monopolio de poder de las antiguas dinastías
+de <a href="Valtoria.html">Valtoria</a>.</p>
+<p>A largo plazo, el destino de Vex podría inclinar la balanza de poder
+en la región. Si logra su objetivo de derrotar al <a
+href="Heroes.html">Heroes</a> del Forjamayor, podría iniciar una nueva
+era de respeto —o una guerra abierta— entre la forja de obsidiana y la
+de acero. Si cae, su leyenda podría servir como una advertencia sobre
+los peligros de desafiar el orden establecido. En cualquier caso, el
+nombre de Vex Igniscar quedará grabado en las crónicas de Lithernia, no
+con tinta, sino con el fuego y la furia contenida de una casa nacida de
+la rebelión.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Ignis.html">Ignis</a> (relevancia: 0.47)</li>
+<li><a href="Casa%20Igniscar.html">Casa Igniscar</a> (relevancia:
+0.43)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

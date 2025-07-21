@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Umbraephon</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Umbraephon</div>
+        <div class="content">
+<h1 id="kaelen-umbraephon">Kaelen Umbraephon</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En la ciudad lacustre de <a href="Elmarion.html">Elmarion</a>, donde
+la belleza es un arma y la reputación un campo de batalla, Kaelen
+Umbraephon es una melodía disonante en un coro de perfección. Como
+heredero y Cantor Principal de la Casa Umbraephon, lleva sobre sus
+hombros el peso de un legado manchado y la maestría de un arte tan
+temido como cautivador. Nacido un siglo después de la caída en desgracia
+de su linaje, Kaelen no conoció la gloria de su casa, solo su eco
+vergonzoso y las miradas de desdén de la nobleza élfica.</p>
+<p>Su infancia no fue de juegos en los claros soleados, sino de un
+riguroso adiestramiento en salones sombríos bajo la tutela de su madre,
+la matriarca Lyraelle. Ella no solo le enseñó las técnicas tradicionales
+de las ‘Canciones de Cristal’, sino que lo introdujo en los secretos que
+llevaron a su exilio: las ‘canciones prohibidas’. Kaelen aprendió que la
+música no solo podía evocar belleza, sino también manipular el alma.
+Aprendió a tejer notas que podían sembrar la duda en una mente segura,
+despertar una ambición latente en un corazón leal o desenterrar una
+verdad dolorosa que un rival preferiría mantener enterrada. Su formación
+fue doble: de día, un artista consumado en la corte; de noche, un
+acólito de <a href="Morgal.html">Morgal</a>, el dios de las mentiras,
+cuyo culto su familia abrazó para sobrevivir en las sombras.</p>
+<p>La motivación de Kaelen es un fuego frío y constante: restaurar el
+honor de la Casa Umbraephon. No busca la redención, sino el poder.
+Anhela el día en que el nombre de su casa no sea susurrado con
+desprecio, sino con un miedo reverencial. Este propósito lo consume,
+pero el camino para alcanzarlo es un campo de minas emocional. Su madre,
+Lyraelle, aboga por la paciencia y la sutileza, ganando influencia a
+través de favores y secretos acumulados lentamente. Sin embargo, su tía,
+Seraphina, una figura más audaz y resentida, le susurra al oído que la
+cautela de su madre es cobardía. Seraphina lo incita a usar todo el
+poder de las canciones prohibidas, a no solo manipular, sino a doblegar;
+a no solo influir, sino a quebrar. Kaelen se encuentra atrapado entre la
+estrategia calculadora de su madre y la ambición temeraria de su tía,
+una dualidad que se refleja en su propia música.</p>
+<p>En los salones de <a href="Elmarion.html">Elmarion</a>, Kaelen ya es
+una leyenda incipiente. Sus actuaciones en los duelos armónicos son
+inolvidables, no por su perfección técnica —terreno de sus rivales de la
+Casa Seraphiel—, sino por su impacto visceral. Ha provocado que nobles
+se retiren de competiciones importantes sumidos en una súbita
+melancolía, ha hecho que alianzas se tambaleen por una desconfianza
+sembrada con una simple balada y ha desafiado la creencia en el destino
+inmutable de la Casa Aethelgard al demostrar cómo una melodía puede
+alterar el curso de la voluntad. Cada actuación es un movimiento
+calculado en un juego de poder a largo plazo, una nota más en la
+sinfonía de la resurrección de los Umbraephon.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen posee la gracia inherente de los Altos Elfos, pero su porte es
+sombrío y magnético. Es de estatura alta y esbelta, con la piel pálida
+como el mármol lunar y el cabello negro como las aguas de obsidiana del
+escudo de su casa. Sus ojos, de un profundo color violeta, parecen
+absorber la luz y rara vez revelan sus verdaderas intenciones. Sus manos
+son su rasgo más expresivo: largas, pálidas y ágiles, capaces de danzar
+sobre su instrumento con una precisión sobrenatural.</p>
+<p>Viste con la opulencia discreta que caracteriza a su casa. Prefiere
+los tejidos suntuosos como el terciopelo y la seda en tonos nocturnos:
+negro, índigo y plata oscura. Sus túnicas están adornadas con sutiles
+bordados que imitan patrones de ondas en el agua o la forma de una nota
+musical rota, el emblema de su linaje.</p>
+<p>Su principal posesión y su arma más letal es su <strong>Arpa de
+Cristal de Sombras</strong>, bautizada <em>Susurro Roto</em>. No es un
+instrumento de madera y cuerda, sino una escultura arcana de cristales
+resonantes, extraídos en secreto por sus aliados Shadar-Kai de las fosas
+más profundas y peligrosas del Lago Espejo de <a
+href="Arzia.html">Arzia</a>. Cada cristal ha sido afinado para vibrar no
+solo con el sonido, sino con las emociones humanas, permitiendo a Kaelen
+canalizar su poder directamente en el alma de quien lo escucha. Aunque
+lleva consigo una daga ceremonial con empuñadura de obsidiana como
+símbolo de su estatus, rara vez la necesita; su música es un arma mucho
+más afilada.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El destino de Kaelen Umbraephon está inextricablemente ligado al de
+su casa y, potencialmente, al equilibrio de poder en <a
+href="Eldrador.html">Eldrador</a>. No es un <a
+href="Guerrero.html">Guerrero</a> ni un archimago, pero su influencia
+puede ser igual de devastadora. Representa una nueva forma de poder en
+Lithernia, una que no se basa en el acero ni en la magia elemental, sino
+en el control sutil de las voluntades y las verdades.</p>
+<p>Si sigue el camino de su madre, podría elevar a los Umbraephon a una
+posición de eminencia gris, convirtiéndolos en los titiriteros
+silenciosos de <a href="Elmarion.html">Elmarion</a>. Si, por el
+contrario, sucumbe a las tentaciones de su tía, podría repetir el
+escándalo de su antepasado a una escala mucho mayor, desatando el caos
+en la corte y llevando a su casa a una destrucción definitiva.</p>
+<p>Su legado será el de demostrar que las armas más peligrosas no
+siempre son las que matan el cuerpo, sino las que envenenan el espíritu.
+Kaelen es la prueba viviente de que, en un mundo de profecías y dioses,
+una simple canción, entonada en el momento adecuado, puede cambiar el
+curso de la historia. El futuro de la armonía en <a
+href="Eldrador.html">Eldrador</a> bien podría depender de la nota final
+que Kaelen decida tocar.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Umbrae.html">Casa Umbrae</a> (relevancia: 0.39)</li>
+<li><a href="Casa%20Umbraephon.html">Casa Umbraephon</a> (relevancia:
+0.39)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

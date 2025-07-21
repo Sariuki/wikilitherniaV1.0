@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exion</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Exion</div>
+        <div class="content">
+<h1 id="exion">Exion</h1>
+<h2 id="biografía-y-origen">Biografía y Origen</h2>
+<p>Exion es el dios humano de las tormentas y la guerra, una de las
+deidades más poderosas y temidas del panteón de <a
+href="Galvorn.html">Galvorn</a>. Es el segundo hijo de <strong><a
+href="Yfrit.html">Yfrit</a></strong>, la <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a> y líder del
+panteón, nacido de la furia primigenia de los océanos. Su hermano gemelo
+es <strong><a href="Quiteon.html">Quiteon</a></strong>, el dios del
+viento, con quien comparte un vínculo tan profundo como antagónico:
+mientras <a href="Quiteon.html">Quiteon</a> representa la brisa que
+impulsa a los barcos y susurra inspiración, Exion es el huracán que los
+destroza y el grito de guerra que ensordece.</p>
+<p>Nacido en una era de reconstrucción tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, Exion encarna la violencia inherente al
+nuevo mundo. Su esencia es impetuosa, caótica y feroz. Durante la
+legendaria guerra contra el Primer Rey, Exion fue una fuerza de
+vanguardia para el panteón divino. Se deleitó en la batalla contra los
+ejércitos mortales, viendo en la rebelión del Rey no solo una herejía,
+sino un desafío glorioso. Se dice que sus tempestades y rayos fueron
+responsables de diezmar legiones enteras y que su risa tronaba en los
+cielos con cada victoria divina. Considera el sello del Primer Rey un
+acto de justicia necesario, pero en el fondo lamenta que un adversario
+tan formidable fuera apartado del campo de batalla.</p>
+<p>Su relación con su familia divina es un reflejo de su propia
+naturaleza conflictiva. Admira la fuerza de su madre <a
+href="Yfrit.html">Yfrit</a>, pero desprecia la diplomacia y la paciencia
+que ella a veces demuestra. Choca constantemente con su hermano mayor
+<strong><a href="Taladrios.html">Taladrios</a></strong>, el dios del
+tiempo, cuya naturaleza metódica y serena es un insulto para el espíritu
+impulsivo de Exion. Siente una rivalidad natural con su hermana
+<strong><a href="Harmias.html">Harmias</a></strong>, diosa del sol,
+cuyas mañanas despejadas son una afrenta a sus nubes de tormenta. Con su
+tía <strong><a href="Solniria.html">Solniria</a></strong>, diosa del
+fuego, comparte un respeto mutuo por la pasión y el poder destructivo,
+viendo en el fuego de la forja y en el rayo de la tormenta dos
+manifestaciones de una misma energía primordial.</p>
+<h2 id="descripción-física-y-manifestaciones">Descripción Física y
+Manifestaciones</h2>
+<p>Cuando Exion elige manifestarse en el plano mortal, lo hace como un
+<a href="Guerrero.html">Guerrero</a> humano de proporciones colosales.
+Su cuerpo es un tapiz de músculos y cicatrices de batalla, con una piel
+bronceada por el viento y la sal, pero surcada por venas que brillan con
+energía eléctrica. Sus ojos son orbes de pura electricidad blanca, y su
+cabello, oscuro y enmarañado, se agita como si un vendaval perpetuo lo
+azotase. Su voz es el retumbar de un trueno distante, capaz de
+convertirse en un estruendo ensordecedor cuando se enfurece.</p>
+<p>Rara vez se le ve sin su armadura, forjada con nubes de tormenta
+solidificadas y acero templado por relámpagos. Se dice que porta una
+lanza llamada <strong>Fulgor</strong>, tallada en un único rayo, o un
+martillo de guerra masivo, <strong>Tempestad</strong>, cuyo impacto crea
+ondas de choque atronadoras. Su llegada siempre es anunciada por un
+cambio drástico en el clima: el cielo se oscurece, el viento aúlla y el
+olor a ozono impregna el aire.</p>
+<h2 id="culto-y-adoradores">Culto y Adoradores</h2>
+<p>El culto a Exion es dual: se le venera tanto por devoción como por
+miedo.</p>
+<ul>
+<li><strong>Guerreros y Soldados:</strong> Los ejércitos de <a
+href="Galvorn.html">Galvorn</a> y los mercenarios de todo el reino le
+rinden homenaje antes de la batalla. Sus clérigos, a menudo de la
+subclase <strong>Dominio de la Tempestad</strong>, son capellanes de
+guerra que bendicen las armas y desatan la furia del cielo sobre sus
+enemigos. Sus rituales no son de silenciosa oración, sino de gritos de
+guerra, percusión atronadora y sacrificios de armas capturadas.</li>
+<li><strong>Marineros y Pescadores:</strong> Los habitantes de la costa
+de <a href="Galvorn.html">Galvorn</a> temen a Exion más de lo que lo
+adoran. Hacen ofrendas en santuarios costeros situados en acantilados
+azotados por las olas, arrojando objetos de valor o parte de su pesca al
+mar embravecido para aplacar su ira y rogar por un viaje seguro. Para un
+marinero, ver una nube de tormenta con la silueta de un <a
+href="Guerrero.html">Guerrero</a> es el peor de los presagios.</li>
+</ul>
+<p>Sus templos son estructuras austeras y robustas, construidas en
+lugares expuestos a los elementos, como cimas de montañas o promontorios
+rocosos. A menudo incorporan altas agujas de metal para atraer los
+rayos, considérandose una bendición cada vez que una tormenta eléctrica
+impacta el templo.</p>
+<h2 id="dominio-divino-y-habilidades">Dominio Divino y Habilidades</h2>
+<p>Como dios mayor, el poder de Exion es inmenso y se centra en la
+destrucción y el caos elemental.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Exion es un pilar fundamental del poder y la identidad de <a
+href="Galvorn.html">Galvorn</a>. Es el recordatorio constante de que la
+libertad y la prosperidad del reino marítimo dependen de su capacidad
+para dominar un entorno hostil. Es la fuerza que impulsa a sus guerreros
+y la amenaza que mantiene humildes a sus marineros.</p>
+<p>Su existencia plantea una paradoja teológica: el pueblo de <a
+href="Galvorn.html">Galvorn</a> reza a <a href="Yfrit.html">Yfrit</a>
+por la calma del mar, a <a href="Quiteon.html">Quiteon</a> por vientos
+favorables y a <a href="Harmias.html">Harmias</a> por días soleados,
+pero es el poder destructivo de Exion el que a menudo garantiza su
+supremacía militar. En la psique de Lithernia, Exion representa la furia
+indomable de la naturaleza y el caos inherente a la guerra. Es una
+fuerza del mundo que no puede ser ignorada ni erradicada, solo
+respetada, temida y, en los momentos más desesperados, desatada contra
+los enemigos del panteón humano. Mientras haya una nube de tormenta en
+el horizonte o una espada desenvainada para la batalla, la influencia de
+Exion perdurará.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

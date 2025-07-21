@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armonías_con_la_Naturaleza</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Armonías_con_la_Naturaleza</div>
+        <div class="content">
+<h1 id="armonías-con-la-naturaleza">Armonías con la naturaleza</h1>
+<p>En Lithernia, la conexión sagrada entre los habitantes y los vastos
+bosques que adornan su territorio se manifiesta a través de las
+<strong>Armonías con la Naturaleza</strong>, un conjunto ancestral de
+prácticas, creencias y ceremonias que protegen y fortalecen el bosque
+sagrado. Este vínculo es especialmente reverenciado por los gremios de
+druidas y rangers, guardianes silenciosos que velan por el equilibrio
+entre vida y magia.</p>
+<h2 id="el-bosque-sagrado-corazón-de-lithernia">El Bosque Sagrado:
+Corazón de Lithernia</h2>
+<p>El bosque sagrado, conocido como <strong>El Velo Verde</strong>, no
+es simplemente una extensión de árboles y claros, sino una entidad viva
+con alma propia, fuente de poder místico y hogar de espíritus antiguos
+llamados <strong>Ánimas Selváticas</strong>. Las Armonías determinan el
+respeto y la cautela con la que se debe tratar este espacio — un
+santuario donde la naturaleza dicta las leyes y las criaturas, humanas o
+no, colaboran para sostener un ciclo eterno.</p>
+<h3 id="leyendas-fundacionales">Leyendas fundacionales</h3>
+<p>Según la tradición oral, hace milenios una dríade llamada
+<strong>Eylara</strong> negoció un pacto con los espíritus del bosque
+para protegerlo contra invasores. Su alma fue fundida en el gran Árbol
+de Luz, el mayor conductor de magias arcanas en el bosque. Desde
+entonces, sus descendientes, los Druidas de la Hoja Plateada, mantienen
+ese juramento a través de rituales conocidos como <em>Susurros del
+Viento</em>, que fortalecen las raíces del árbol y despiertan la
+vigilancia de las Ánimas Selváticas.</p>
+<h2 id="prácticas-esenciales-de-los-guardianes">Prácticas esenciales de
+los guardianes</h2>
+<p>Las Armonías con la naturaleza comprenden rituales y técnicas que los
+druidas y rangers aplican para preservar la salud y el equilibrio del
+bosque sagrado.</p>
+<h3 id="la-vigilia-del-alba">1. La Vigilia del Alba</h3>
+<p>Un ritual práctico y espiritual donde los guardianes se internan al
+amanecer en las profundidades del bosque para escuchar y purificar las
+energías disturbadas, curando a las criaturas heridas o resurgiendo
+brotes antiguos mediante hechizos rituales.</p>
+<h3 id="el-danza-de-las-raíces">2. El Danza de las Raíces</h3>
+<p>Un baile sagrado efectuado durante los equinoccios, que simboliza la
+unión con la tierra y el flujo de la energía vital. Los participantes
+canalizan las fuerzas elementales para regenerar zonas dañadas o para
+prevenir enfermedades arbóreas.</p>
+<h3 id="pacto-del-guardabosques">3. Pacto del Guardabosques</h3>
+<p>Ceremonia de iniciación que dota de un vínculo espiritual al iniciado
+con un espíritu animal guía. Este pacto no solo otorga habilidades
+singulares sino que obliga un compromiso eterno de protección y respeto
+hacia el bosque y sus habitantes.</p>
+<h2 id="códigos-de-conducta-y-creencias">Códigos de conducta y
+creencias</h2>
+<ul>
+<li><strong>No tomar más de lo necesario:</strong> Cada planta, piedra o
+criatura tiene su lugar y función. Alterar ese equilibrio puede traer
+calamidades.</li>
+<li><strong>Comunión diaria con el bosque:</strong> A través de
+meditaciones y cantos, los guardianes mantienen un vínculo fluido con la
+naturaleza.</li>
+<li><strong>Respeto por la vida:</strong> Incluso en la caza o defensa,
+se promueve la bondad y la mínima alteración del entorno.</li>
+<li><strong>Sabiduría ancestral:</strong> La transmisión oral y escrita
+de los secretos del bosque es sagrada y limitada a los iniciados.</li>
+</ul>
+<h2 id="influencia-cultural-y-política">Influencia cultural y
+política</h2>
+<p>Los druidas y rangers de Lithernia poseen gran influencia tanto en
+asentamientos rurales como en la corte del reino. Su palabra en asuntos
+relacionados con el bosque es casi ley y su consejo es requerido en la
+aprobación de nuevas expansiones o explotaciones naturales. En tiempos
+de crisis, estos guardianes forman alianzas con el ejército real para
+proteger los límites del Velo Verde.</p>
+<h2 id="conclusión">Conclusión</h2>
+<p>Las <strong>Armonías con la Naturaleza</strong> en Lithernia no solo
+representan una filosofía de conservación ecológica, sino una verdadera
+religión del equilibrio y reciprocidad con el mundo vivo. A través de
+sus prácticas ancestrales, los druidas y rangers perpetúan un legado de
+respeto, magia y vida que sostendrá la esencia del bosque sagrado para
+todas las generaciones futuras.</p>
+<hr />
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Druida.html">Druida</a> (relevancia: 0.49)</li>
+<li><a href="Rituales.html">Rituales</a> (relevancia: 0.42)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

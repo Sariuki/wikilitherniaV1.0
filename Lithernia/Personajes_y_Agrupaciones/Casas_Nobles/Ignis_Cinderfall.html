@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ignis_Cinderfall</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ignis_Cinderfall</div>
+        <div class="content">
+<hr />
+<p>nombre: <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+Cinderfall rol: Señor de la Ceniza, Patriarca de la Casa Cinderfall
+edad: 152 agrupacion: Casa Cinderfall tipo: Casa <a
+href="Noble.html">Noble</a> (Crisol Volcánico) lema: “De la ceniza,
+resurgimos; en el fuego, reinamos.” escudo: “Un volcán de obsidiana en
+erupción arrojando ceniza negra sobre un yunque agrietado, sobre un
+fondo rojo magma.” ciudad_sede: <a href="Valarion.html">Valarion</a>
+rivalidades: Casa Dravonis, Clan Nighthawk alianzas: Clan Agrietacero,
+Clan Ironclaw relaciones: Kaelen Cinderfall (hijo y heredero), Lyra “La
+Tejedora” (aliada secreta y rival) tags: [lithernia, personajes, Casa <a
+href="Noble.html">Noble</a>, <a href="Valtoria.html">Valtoria</a>,
+Genasi de Fuego] # Ignis Cinderfall</p>
+<h3 id="biografía">Biografía</h3>
+<p><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+Cinderfall no es un señor de linaje, sino de convicción. Su nombre, como
+el de su casa, no fue heredado, sino forjado en el corazón ardiente de
+<a href="Valarion.html">Valarion</a>, una ciudad que vive al borde de la
+creación y la aniquilación. Como Genasi de Fuego, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+personifica la dualidad de su hogar: una calma superficial que oculta un
+poder elemental devastador. Sus ancestros no eran nobles, sino un
+conglomerado de parias —Genasi exiliados como él, Dracónidos despojados
+de su clan y <a href="Enanos.html">Enanos</a> del Clan Agrietacero cuya
+devoción por <a href="Valarios.html">Valarios</a>, el dios de la
+destrucción, rozaba la herejía. En ellos, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+encontró no solo refugio, sino un propósito.</p>
+<p>Fue <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+quien articuló la filosofía de la Casa Cinderfall. Vio la decadencia en
+las antiguas casas de <a href="Valtoria.html">Valtoria</a>, como la Casa
+Dravonis, a quienes consideraba petrificadas por la tradición y el culto
+a la creación estática de <a href="Rokael.html">Rokael</a>. Para <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+la verdadera fuerza no residía en preservar, sino en demoler lo débil
+para que algo más fuerte pudiera nacer. La ceniza del <a
+href="Lilium.html">Lilium</a> no fue una tragedia para él, sino una
+lección: el universo purga lo que ya no sirve.</p>
+<p>Su ascenso fue brutal y metódico. Lideró a los suyos en “El Foso del
+Desafío” de <a href="Valarion.html">Valarion</a>, no solo venciendo a
+guerreros, sino quebrando la voluntad de sus rivales. Fue él quien
+perfeccionó la legendaria técnica de la “forja de ceniza”, infundiendo
+acero con polvo volcánico para crear armas y armaduras de una
+resiliencia y filo sobrenaturales, un secreto que le granjeó alianzas
+pragmáticas con clanes como el Ironclaw. Su hazaña más notoria fue la
+forja de la <em>Quebrantadora de Juramentos</em>, un mazo de guerra que,
+según se dice, puede agrietar armaduras rúnicas enanas con un solo
+golpe.</p>
+<p>Como patriarca, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+es un estratega paciente. Gobierna con la lógica fría del magma que
+fluye lento pero inexorable. Su relación con su hijo, Kaelen, es una
+prueba constante de su paciencia. Ve en el joven la furia desenfrenada
+de un volcán en erupción, una fuerza que podría elevar la casa a nuevas
+alturas o consumirla en su propia imprudencia. <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+lo moldea, no con afecto, sino con presión, convencido de que solo bajo
+el peso de la responsabilidad el acero se templa.</p>
+<p>Su alianza con Lyra, una figura de alto rango en el rival Clan
+Nighthawk, es el secreto más peligroso que guarda. Es un pacto nacido no
+de la confianza, sino del respeto mutuo por la astucia y la ambición del
+otro. Ambos ven un tablero de juego más grande en Lithernia, y entienden
+que a veces, para derrocar a un rey, hay que aliarse con el diablo del
+reino vecino. <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+valora la red de espías de Lyra y su conocimiento de la magia de las
+sombras, mientras que ella ve en la fuerza bruta de Cinderfall una
+herramienta perfecta para sembrar el caos.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+Cinderfall es la encarnación de un volcán latente. Su piel de Genasi de
+Fuego tiene la textura y el color de la obsidiana recién enfriada,
+surcada por finas vetas carmesí que brillan con un calor interno cuando
+su ira o concentración se agudizan. A sus 152 años, su cuerpo es robusto
+y denso como la roca, sin la agilidad de los elfos, pero con una
+presencia imponente y una fuerza que parece anclada al mismo núcleo del
+mundo. Su cabello es una corona de humo oscuro y ascuas flotantes, y sus
+ojos son dos pozos de magma líquido, donde la sabiduría y una capacidad
+infinita para la destrucción arden a fuego lento.</p>
+<p>Viste una <strong>Armadura de Placas de Forja de Ceniza</strong>, una
+obra maestra de su propia casa. El metal oscuro parece absorber la luz,
+y sus juntas están adornadas con <a href="Runas.html">Runas</a> de <a
+href="Valarios.html">Valarios</a> que pulsan con un tenue resplandor
+rojizo. La armadura no solo es una defensa formidable, sino un símbolo
+de la supremacía de su casa sobre las técnicas tradicionales.</p>
+<p>Su arma es <strong>Corazón de la Montaña</strong>, un colosal
+martillo de guerra de dos manos cuya cabeza es un único bloque de hierro
+volcánico. Se dice que el martillo sigue tibio al tacto, sin importar el
+clima, y que en el fragor de la batalla puede desatar una onda de calor
+que hace vacilar a sus enemigos.</p>
+<p>Como símbolo de su estatus, porta el <strong>Sello de la
+Ceniza</strong>, un anillo de obsidiana y oro fundido con una gema de
+lava solidificada en su centro. Es la llave de las bóvedas de la casa y
+la marca indiscutible de su autoridad como Señor de la Ceniza.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+Cinderfall es una fuerza disruptiva en el orden establecido de
+Lithernia. En un mundo dominado por linajes ancestrales y favores
+divinos, él representa un nuevo tipo de poder: uno forjado a través de
+la voluntad, la fuerza y la adaptación a un entorno implacable. Es la
+prueba viviente de que la nobleza puede ser arrancada de las entrañas de
+la tierra en lugar de ser heredada.</p>
+<p>Su existencia es una afrenta directa a las casas tradicionales de <a
+href="Valtoria.html">Valtoria</a> y un recordatorio incómodo para la
+aristocracia de toda Lithernia de que el poder puede surgir de los
+lugares más inesperados. Su filosofía de “destrucción creativa” resuena
+con los descontentos y los marginados, convirtiéndolo en una figura
+potencialmente revolucionaria o en un tirano en ciernes.</p>
+<p>El verdadero legado de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+está aún por escribirse y dependerá de dos factores inestables: la
+capacidad de su hijo Kaelen para heredar su visión sin sucumbir a su
+furia, y el resultado de su peligrosa partida de ajedrez con sus rivales
+y aliados secretos. <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+Cinderfall podría ser recordado como el hombre que redujo el viejo orden
+a cenizas para construir un imperio más fuerte, o simplemente como el
+que encendió la pira funeraria de su propio mundo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Ignis.html">Ignis</a> (relevancia: 1.00)</li>
+<li><a href="Personajes.html">Personajes</a> (relevancia: 0.72)</li>
+<li><a href="09_Personajes.html">09_Personajes</a> (relevancia:
+0.59)</li>
+<li><a href="Casa%20Cinderfall.html">Casa Cinderfall</a> (relevancia:
+0.41)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

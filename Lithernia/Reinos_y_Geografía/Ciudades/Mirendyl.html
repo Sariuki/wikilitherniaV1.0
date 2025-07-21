@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirendyl</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Mirendyl</div>
+        <div class="content">
+<h1 id="mirendyl">Mirendyl</h1>
+<p>Mirendyl no es una ciudad construida junto al mar; es una ciudad
+nacida del mar. Erigida sobre el esqueleto colosal de un arrecife de
+coral petrificado, sus estructuras no son de piedra ni de madera, sino
+de formaciones coralinas esculpidas por la magia y el tiempo. Conectada
+por puentes de cuerda que se mecen con la brisa salada y pasarelas de
+madera flotante, la ciudad es un laberinto vertical de belleza
+sobrecogedora. Durante el día, sus paredes de coral blanco y rosado
+resplandecen bajo el sol; por la noche, faroles hechos con algas
+bioluminiscentes y conchas iridiscentes la bañan en un etéreo resplandor
+azul y verde, convirtiéndola en una joya que flota en la oscuridad del
+océano. Gobernada por el pragmatismo de los mercaderes y la sabiduría de
+los magos de agua, Mirendyl es un bastión de la cultura marítima de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Mirendyl se hallan en la desesperación y la
+providencia. Hace siglos, un convoy de refugiados <a
+href="Humanos.html">Humanos</a> liderado por la audaz Capitana Lyra
+“Rompeolas” huía de un ataque de corsarios de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Su flota, diezmada y perdida, se
+adentró en aguas desconocidas durante una feroz tormenta desatada por el
+dios <a href="Exion.html">Exion</a>. Cuando toda esperanza parecía
+perdida, los marineros comenzaron a escuchar un canto melancólico y
+sobrenatural que calmaba las olas. Guiados por la misteriosa melodía,
+que el <a href="Mago.html">Mago</a> genasi Corallion identificó como el
+llamado de sirenas ancestrales, llegaron a un inmenso arrecife de coral,
+tan grande como una montaña.</p>
+<p>Allí fundaron Mirendyl, no como una fortaleza contra el mar, sino
+como un santuario en comunión con él. Corallion y los demás genasi de
+agua usaron su magia para dar forma al coral, creando viviendas y
+pasajes sin dañar su esencia, mientras que los <a
+href="Humanos.html">Humanos</a>, <a href="Medianos.html">Medianos</a> y
+<a href="Semielfos.html">Semielfos</a> aplicaron su ingenio para
+establecer rutas comerciales y una sociedad próspera. La ciudad creció
+como un testimonio de la colaboración entre razas y el respeto por el
+océano, gobernada por el Cónclave de las Mareas, una asamblea que
+perpetúa el equilibrio entre comercio, magia y supervivencia.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de la Marea</strong>: La sede del Cónclave y
+plaza central de la ciudad. Es un anfiteatro natural en la cima del
+arrecife, abierto al cielo. Desde aquí, las decisiones que afectan a
+Mirendyl se toman con el murmullo constante de las olas como testigo. En
+el centro, un gran mosaico de nácar representa el emblema de la ciudad:
+un nautilo de plata entrelazado con una rama de coral azul.</p></li>
+<li><p><strong>El Mercado Flotante de la Brisa</strong>: Un bullicioso
+distrito comercial que se extiende sobre una red de muelles flotantes y
+balsas ancladas al arrecife. Aquí, los mercaderes venden perlas
+luminosas, mariscos exóticos, sedas teñidas con pigmentos de criaturas
+abisales y potentes componentes mágicos cosechados por valientes
+buceadores genasi.</p></li>
+<li><p><strong>Las Cámaras Iridiscentes</strong>: El principal distrito
+residencial. Las viviendas son cavidades pulidas en el interior del
+coral, cuyas paredes brillan con los colores del arcoíris. Las mansiones
+de los mercaderes de perlas y los capitanes retirados se encuentran en
+los niveles superiores, con balcones que ofrecen vistas espectaculares
+del océano, mientras que las familias de pescadores y artesanos viven en
+los niveles inferiores, con acceso directo a las calas y pozas de
+marea.</p></li>
+<li><p><strong>La Capilla del Silencio Profundo</strong>: El centro
+espiritual de Mirendyl no es un edificio, sino una serie de grutas
+submarinas sagradas. Para rendir culto a <a href="Yfrit.html">Yfrit</a>
+y honrar a las sirenas ancestrales, los devotos deben sumergirse en las
+aguas cristalinas, entrando en un mundo de silencio y luz azulada. Las
+ofrendas se dejan en altares de coral vivo y las oraciones se elevan
+como hileras de burbujas hacia la superficie.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Mirendyl está intrínsecamente ligada a los ciclos de las
+mareas, que dictan las horas de comercio, pesca y rituales. La mayor
+celebración anual es el “Festival del Coral Luminoso”, una ceremonia
+nocturna en la que los ciudadanos sueltan al mar esporas de algas
+mágicas que florecen en una explosión de luz, un acto de gratitud a <a
+href="Yfrit.html">Yfrit</a> por la protección y generosidad del
+arrecife.</p>
+<p>Los pactos y contratos no se firman con tinta, sino que se sellan con
+el “Juramento de la Concha”. Las partes involucradas intercambian
+conchas grabadas con los términos del acuerdo. Romper dicho juramento es
+una ofensa grave, no solo contra el socio comercial, sino contra el
+espíritu del océano mismo, y se cree que acarrea una terrible mala
+suerte en el mar.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Mirendyl es orgánica y fluida, una extensión del
+arrecife que la acoge. No hay calles pavimentadas, sino senderos de
+coral liso y puentes colgantes que crujen suavemente con el viento. El
+ambiente es siempre húmedo y salado, y el aire está impregnado del olor
+de la sal, las algas y las extrañas flores que crecen en los jardines de
+coral. El sonido predominante es el perpetuo vaivén de las olas
+rompiendo contra la base del arrecife, una canción de cuna para la
+ciudad. La sensación es la de estar en un lugar a la vez antiguo y
+vibrante, un ecosistema viviente habitado por mortales.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Vigía de Coral</strong>: Se susurra entre los más
+ancianos que Mirendyl tiene un guardián secreto. En las profundidades
+bajo el arrecife yace el “Vigía de Coral”, un golem colosal formado por
+los restos de barcos naufragados, coral vivo y la angustia de los
+marineros perdidos. La leyenda afirma que solo despertará para defender
+la ciudad de una amenaza existencial. Sin embargo, su despertar es un
+augurio agridulce, pues se dice que cada vez que se alza para salvar
+Mirendyl, una parte de la ciudad debe ser sacrificada al mar como pago
+por su protección.</p></li>
+<li><p><strong>La Fosa de los Ecos</strong>: Debajo de la ciudad existe
+una grieta abisal conocida como la “Fosa de los Ecos”. En las noches sin
+luna, se dice que de sus profundidades emanan los lamentos de todos los
+marineros que se han ahogado en los mares de <a
+href="Galvorn.html">Galvorn</a>. Algunos creen que son ecos psíquicos
+atrapados en el tiempo, mientras que otros temen que sea el cebo de una
+criatura abisal que se alimenta de la curiosidad y la pena de quienes se
+asoman demasiado cerca del borde para escuchar.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

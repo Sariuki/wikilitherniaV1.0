@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tipo_PersonajesyAgrupaciones_Personajes_SinTipo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">tipo_PersonajesyAgrupaciones_Personajes_SinTipo</div>
+        <div class="content">
+<h1 id="tipo-sintipo">📑 Tipo: SinTipo</h1>
+<blockquote>
+<p><a href="Home.html">🏠 Home</a> / <a
+href="categoria_PersonajesyAgrupaciones.html">Personajes y
+Agrupaciones</a> / <a
+href="subcategoria_PersonajesyAgrupaciones_Personajes.html">Personajes</a>
+[!tip] Muchas entradas. Usa pestañas o busca en el índice.</p>
+</blockquote>
+<hr />
+<h2 id="índice-de-archivos">Índice de archivos</h2>
+<ul>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Rey_Kaelen_Stormwind.html">“Rey
+Kaelen Stormwind”</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/09_Personajes.html">09_Personajes</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Alaric_Finnsworn.html">Alaric
+Finnsworn</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Alaric_Draven.html">Alaric_Draven</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Archimago_Thalios_Estrella_Antigua.html">Archimago
+Thalios Estrella Antigua</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Arelthra_Mithrilbraid.html">Arelthra
+Mithrilbraid</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Arlin_Barrojarillo.html">Arlin_Barrojarillo</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Arzalen,_el_Cartógrafo_de_Ecos.html">Arzalen,_el_Cartógrafo_de_Ecos</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Bromir_Piedra_Lumínica.html">Bromir
+Piedra Lumínica</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Brynna_Holcil.html">Brynna
+Holcil</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Caelen_Marwen.html">Caelen
+Marwen</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Caelia_Merrisail.html">Caelia
+Merrisail</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Calendrel_Aelthorn.html">Calendrel
+Aelthorn</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Capitán_Aurelius_Stormsail.html">Capitán
+Aurelius Stormsail</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Darvask_the_Hollow.html">Darvask</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/El_Legado_de_Morgal.html">El_Legado_de_Morgal</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elandra_Marethys.html">Elandra
+Marethys</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elandriel_Moonshade.html">Elandriel
+Moonshade</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elara_Windwhisper.html">Elara
+Windwhisper</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elarion_Silvopleamar.html">Elarion
+Silvopleamar</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eldira_Bronceental.html">Eldira
+Bronceental</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eldrek_Forjahondo.html">Eldrek
+Forjahondo</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eldric_Aranwë.html">Eldric
+Aranwë</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eldrin_Bronzumbral.html">Eldrin
+Bronzumbral</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eldrin_Copperbeard.html">Eldrin
+Copperbeard</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eldrin_Fierrohan.html">Eldrin
+Fierrohan</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eldrin_Martelar.html">Eldrin
+Martelar</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eldrin_Stonewatch.html">Eldrin
+Stonewatch</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eldryn_Cuervaluna.html">Eldryn
+Cuervaluna</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elenar_Brazo_de_Mithril.html">Elenar
+Brazo de Mithril</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elenaris_Valgunaar.html">Elenaris_Valgunaar</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Eleniel_Starweaver.html">Eleniel
+Starweaver</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elydris_Faelthariel.html">Elydris
+Faelthariel</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyndor_Lathwenn.html">Elyndor
+Lathwenn</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyndra_Cuernopiedra.html">Elyndra
+Cuernopiedra</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyndra_Marelith.html">Elyndra
+Marelith</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyndra_Marisiwen.html">Elyndra
+Marisiwen</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyndra_Mirlisse.html">Elyndra
+Mirlisse</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyndra_Solestelar.html">Elyndra
+Solestelar</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyndra_Sylveralma.html">Elyndra
+Sylveralma</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyndra_Vaelen.html">Elyndra_Vaelen</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyndra_Vaelith.html">Elyndra_Vaelith</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elyra_Gemacantas.html">Elyra
+Gemacantas</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elysandra_Bronzetooth.html">Elysandra
+Bronzetooth</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elysara_Meldryn.html">Elysara
+Meldryn</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Elytheria_Moonwhisper.html">Elytheria
+Moonwhisper</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Erelith_Valandor.html">Erelith
+Valandor</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Evandriel_Marethiel.html">Evandriel
+Marethiel</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Faelin_Elarion.html">Faelin
+Elarion</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Faelith_Moonshadow.html">Faelith
+Moonshadow</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Fidriel.html">Fidriel</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Ignis.html">Ignis</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Kaelen_Drathir.html">Kaelen
+Drathir</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Kaelen_Mahrin.html">Kaelen
+Mahrin</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Kaelen_Vryzzik.html">Kaelen
+Vryzzik</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Kaelen_Umbraflor.html">Kaelen_Umbraflor</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Karnis_Vhalgor.html">Karnis
+Vhalgor</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Korgath_El_Destripador.html">Korgath
+‘El Destripador’</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Lady_Xandria_La_Susurrante.html">Lady
+Xandria ‘La Susurrante’</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Lareth_Vorindel.html">Lareth
+Vorindel</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Lerian.html">Lerian</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Lianna_Virelle.html">Lianna
+Virelle</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Liora_Suncall.html">Liora
+Suncall</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Lord_Aethel_El_Cruel.html">Lord
+Aethel ‘El Cruel’</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Lyra_Sombraviento.html">Lyra_Sombraviento</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Lysandra_la_Tejesombras.html">Lysandra_la_Tejesombras</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Maelis_Ironmantle.html">Maelis
+Ironmantle</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Mira_Solforge.html">Mira
+Solforge</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Miriel_Lazo_Marino.html">Miriel_Lazo_Marino</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Nymera_Luminálida.html">Nymera_Luminálida</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Primer_Rey.html">Primer
+Rey</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Rey_Aerion_Starlight.html">Rey
+Aerion Starlight</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Rey_Selthirak.html">Rey
+Sel’thirak</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Sariel.html">Sariel</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Selindor_Aranath.html">Selindor
+Aranath</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seliora_Marbreeze.html">Seliora
+Marbreeze</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Selirith_Amlarë.html">Selirith_Amlarë</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Selrin_Moonwhisper.html">Selrin
+Moonwhisper</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphina_Forjahonda.html">Seraphina
+Forjahonda</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphina_Marelen.html">Seraphina
+Marelen</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphina_Marell.html">Seraphina
+Marell</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphina_Marelle.html">Seraphina
+Marelle</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphina_Tidewater.html">Seraphina
+Tidewater</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphina_Valerius_la_Portadora_del_Alba.html">Seraphina
+Valerius, la Portadora del Alba</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphina_Altaire.html">Seraphina_Altaire</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphina_Varlyn.html">Seraphina_Varlyn</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphine_Dunwald.html">Seraphine
+Dunwald</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphine_Kandrael.html">Seraphine
+Kandrael</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seraphine_Vhal.html">Seraphine
+Vhal</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Serek_Ilthar.html">Serek
+Ilthar</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Serelis_Vaelin.html">Serelis
+Vaelin</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Serelyndra_Moonveil.html">Serelyndra
+Moonveil</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seren_Alarion.html">Seren
+Alarion</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seren_Ithilaren.html">Seren
+Ithilaren</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Serenia_Marwind.html">Serenia
+Marwind</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Sereniel_Luminara.html">Sereniel
+Luminara</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seressiel_Lunevel.html">Seressiel
+Lunevel</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seretha_Vhoril.html">Seretha_Vhoril</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Seriah_Teloren.html">Seriah
+Teloren</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Serila_Tidewhisper.html">Serila
+Tidewhisper</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Serilda_Vintermask.html">Serilda_Vintermask</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Silvara_Moonwhisper.html">Silvara
+Moonwhisper</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Siraryn_Vaelithar.html">Siraryn
+Vaelithar</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Sorina_Velarys.html">Sorina
+Velarys</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Sylena_Vireth.html">Sylena
+Vireth</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Syrina_MarSable.html">Syrina
+MarSable</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Talvorak.html">Tal’vorak</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Thalesh_Vrook.html">Thalesh_Vrook</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Thalorina_Brillentormenta.html">Thalorina
+Brillentormenta</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Therric_Durnhammer.html">Therric
+Durnhammer</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Vaelar_Drakkis.html">Vaelar_Drakkis</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Varis_Kamdark.html">Varis
+Kamdark</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Varis_Melwind.html">Varis
+Melwind</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Velkra_Shadris.html">Velkra
+Shadris</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Velrath.html">Velrath
+Gorath</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Veshra_Mornbrand.html">Veshra
+Mornbrand</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Lord_Volrath_La_Mano_Negra.html">Volrath</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Vorzath_Drek.html">Vorzath_Drek</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Xandria_“La_Susurrante”.html">Xandria_“La_Susurrante”</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/Zhalric_Vyrnar.html">Zhalric
+Vyrnar</a></li>
+<li><a
+href="Lithernia/Personajes_y_Agrupaciones/Personajes/home.html">home</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Lithernia%20Clases%201.html">Lithernia Clases 1</a>
+(relevancia: 1.00)</li>
+<li><a
+href="Agrupaciones%20-%20Clan%20Guardián%20del%20Abismo.html">Agrupaciones
+- Clan Guardián del Abismo</a> (relevancia: 1.00)</li>
+<li><a href="Reinos%20de%20Lithernia.html">Reinos de Lithernia</a>
+(relevancia: 1.00)</li>
+<li><a href="Lithernia%20Razas.html">Lithernia Razas</a> (relevancia:
+1.00)</li>
+<li><a href="Lithernia%20Index.html">Lithernia Index</a> (relevancia:
+1.00)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

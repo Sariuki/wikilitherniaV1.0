@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elmarion</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Elmarion</div>
+        <div class="content">
+<h1 id="elmarion">Elmarion</h1>
+<p>Elmarion no flota sobre el agua; danza con ella. Asentada sobre las
+aguas cristalinas y profundas del lago Espejo de <a
+href="Arzia.html">Arzia</a>, en el corazón de <a
+href="Eldrador.html">Eldrador</a>, la ciudad es un milagro de mármol
+blanco y madera plateada, cuyas torres y pabellones parecen suspendidos
+en un sueño. Es mundialmente famosa por sus “Canciones de Cristal”, una
+forma de arte etérea que combina sonido, agua e ilusiones para tejer
+melodías que pueden inspirar éxtasis o quebrar el alma. Sin embargo,
+bajo esta belleza se esconde la fría y competitiva sociedad de la
+“armonía efímera”, donde la perfección artística define el estatus
+social bajo la estricta jerarquía de la Mano de Hierro. Su símbolo es un
+cisne de plata con una estrella brillante reflejada en su ojo, nadando
+sobre aguas oscuras y tranquilas, encarnando la gracia, el destino y la
+magia que fluye a través de su hogar lacustre.</p>
+<h2 id="historia">Historia</h2>
+<p>Elmarion fue fundada hace siglos por el legendario cantor <a
+href="Eladrin.html">Eladrin</a>, Lyrion Cantoastral. Él fue el primero
+en descubrir que los cristales únicos del lecho del lago Espejo de <a
+href="Arzia.html">Arzia</a> respondían al sonido, vibrando no solo con
+música, sino con la intención mágica del intérprete. Lyrion y sus
+seguidores construyeron las primeras plataformas flotantes como un
+santuario para perfeccionar este nuevo arte.</p>
+<p>La nobleza de los Altos Elfos no tardó en ver el potencial de las
+Canciones de Cristal como la máxima expresión de estatus. Invirtieron
+fortunas para convertirse en patrones de los mejores cantores,
+transformando el humilde santuario en una deslumbrante metrópolis. La
+ciudad se convirtió en un campo de batalla social, donde las casas
+nobles ascienden o caen no por la espada, sino por la perfección de las
+melodías que patrocinan. Así, Elmarion se consolidó como una joya en la
+corona de <a href="Eldrador.html">Eldrador</a>, un lugar de belleza sin
+parangón y de una crueldad igualmente refinada.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Terrazas Resonantes</strong>: El distrito más
+elevado, donde se asientan las villas de las casas nobles de los Altos
+Elfos. Cada mansión es una obra de arte arquitectónica, con auditorios
+privados donde sus cantores ensayan día y noche, y sus melodías se
+derraman suavemente sobre el resto de la ciudad.</p></li>
+<li><p><strong>El Anfiteatro de la Marea</strong>: Una colosal concha de
+mármol y cristal que flota en el centro del lago. Es el escenario
+principal para los “Duelos Armónicos”, donde los artistas compiten ante
+toda la élite de la ciudad. Sus asientos están dispuestos en espirales
+que descienden hasta casi tocar el agua.</p></li>
+<li><p><strong>El Muelle de Cristal</strong>: El distrito trabajador,
+anclado a las orillas del lago. Aquí, en condiciones mucho más humildes,
+viven los mineros Shadar-Kai que extraen los valiosos cristales de las
+profundidades, y los Elfos del Bosque que protegen las marismas
+circundantes de intrusos. Es un mundo de silencio y trabajo duro, en
+marcado contraste con el brillo de arriba.</p></li>
+<li><p><strong>El Santuario del Firmamento</strong>: Una isla sagrada en
+el centro del lago, conectada a la ciudad por un único puente de luz
+sólida que solo se materializa en noches de ceremonias. Alberga los
+templos a <a href="Arzia.html">Arzia</a> y <a
+href="Lerian.html">Lerian</a>, y es aquí donde se celebra el Festival
+del Reflejo Astral.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Elmarion es una actuación perpetua. El estatus lo es todo,
+y se mide por la pureza y complejidad de la Canción de Cristal que uno
+puede crear o patrocinar. Los “Duelos Armónicos” son eventos cruciales;
+no son letales, pero una nota disonante o una ilusión imperfecta pueden
+significar la ruina social para un artista y su patrón.</p>
+<p>El culto a <a href="Arzia.html">Arzia</a>, diosa del destino, es
+fundamental. Se cree que el lago es su espejo y que las estrellas que se
+reflejan en él dictan el flujo de la magia y la vida. <a
+href="Lerian.html">Lerian</a>, diosa del conocimiento, es venerada por
+los complejos estudios que se requieren para dominar el arte de la
+ciudad. En secreto, los ilusionistas más audaces y transgresores rinden
+culto a <a href="Morgal.html">Morgal</a>, buscando crear “canciones
+prohibidas” que manipulan la mente y desafían las rígidas convenciones
+estéticas. El mayor evento cívico es el “Festival del Reflejo Astral”,
+una celebración que tiene lugar durante las alineaciones celestes, en la
+que los oráculos <a href="Eladrin.html">Eladrin</a> guían a la ciudad en
+la creación de una gran visión colectiva en la superficie del lago,
+buscando presagios para el futuro.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La ciudad parece haber sido cantada para que existiera. Torres
+esbeltas se curvan hacia el cielo como lirios, y los pabellones abiertos
+están diseñados para capturar y amplificar el sonido. Los puentes que
+conectan las plataformas están hechos de luz sólida, cuyo color y brillo
+cambian según el estado de ánimo musical de la ciudad. Toda la
+arquitectura está orientada a reflejar la luz de las estrellas sobre la
+superficie del lago, creando un paisaje de brillo etéreo y perpetuo. El
+ambiente es de una calma tensa, siempre impregnado por el tintineo
+lejano de los cristales, un recordatorio constante de la competencia que
+define a Elmarion.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Llama Ahogada</strong>: Se susurra entre los mineros
+Shadar-Kai que en lo más profundo del lago, donde ni la luz de las
+estrellas llega, yace una “Llama Ahogada”. Creen que es un eco corrupto
+del Cataclismo del <a href="Lilium.html">Lilium</a>, una brasa de fuego
+eterno atrapada en el agua. La leyenda advierte que una canción lo
+suficientemente disonante, una nota de puro caos, podría despertarla y
+hacer que el lago hierva, consumiendo la ciudad desde abajo.</p></li>
+<li><p><strong>Los Sin Reflejo</strong>: En las noches sin luna, algunos
+afirman haber visto figuras espectrales caminando sobre la superficie
+del agua, figuras que no proyectan reflejo alguno. Son “Los Sin
+Reflejo”, los fantasmas de los mineros Shadar-Kai que murieron en las
+profundidades, olvidados por la nobleza a la que servían. Se dice que
+buscan venganza, arrastrando al fondo del lago a aquellos artistas cuya
+música es demasiado soberbia, ahogando su armonía en un silencio
+eterno.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Vientoveloz</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Vientoveloz</div>
+        <div class="content">
+<h1 id="lyra-vientoveloz">Lyra Vientoveloz</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Lyra Vientoveloz no es una <a href="Noble.html">Noble</a> de <a
+href="Eldrador.html">Eldrador</a> ni una comerciante de <a
+href="Galvorn.html">Galvorn</a>. Su nobleza se forjó en el fango de
+fronteras olvidadas y su riqueza se mide en <a
+href="Mapas.html">Mapas</a> trazados sobre piel de monstruo. Nacida en
+el seno de una rama menor y exiliada de los elfos silvanos de <a
+href="Eldrador.html">Eldrador</a>, la familia de Lyra fue repudiada por
+su pragmatismo. Mientras las grandes casas debatían sobre profecías y
+linajes, sus ancestros abogaban por una acción directa contra las
+abominaciones que supuraban de las cicatrices del <a
+href="Lilium.html">Lilium</a>, una postura considerada vulgar y carente
+de la sutileza élfica.</p>
+<p>Su juventud quedó marcada por la tragedia que confirmó las creencias
+de su familia. Un Devorador de Ecos, una bestia aberrante nacida de la
+magia corrupta del cataclismo, aniquiló su pequeño enclave en los
+bosques fronterizos. Lyra, apenas una joven elfa, sobrevivió gracias a
+su instinto y a la velocidad que le daría su apellido. Fue encontrada
+por Korgan, un veterano enano de la Casa Bronzebrillo y uno de los
+fundadores de los Guardianes del Colmillo de Acero. En ella, Korgan no
+vio a una víctima, sino la brasa de una voluntad inquebrantable. La
+acogió, la entrenó y se convirtió en la figura paterna que había
+perdido.</p>
+<p>Dentro del Gremio, Lyra encontró su verdadero propósito. Su agilidad
+élfica, combinada con una tenacidad forjada en la pérdida, la
+convirtieron en una exploradora sin par. Trazó rutas seguras a través de
+los Pantanos Susurrantes de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+documentó los nidos del Clan <a href="Kromagul.html">Kromagul</a> en las
+montañas del norte y lideró la cacería que abatió a la Quimera de las
+Cenizas, una criatura que aterrorizaba las rutas comerciales hacia <a
+href="Valtoria.html">Valtoria</a>. Su ascenso a Jefa de Exploradores no
+fue una cuestión de política, sino de mérito, ganado con sangre y
+sigilo.</p>
+<p>Hoy, Lyra es el corazón operativo de los Guardianes. Mientras otros
+ven la Gran Guerra como el conflicto definitorio de la era, ella sabe
+que es una distracción mortal. El verdadero enemigo no lleva estandartes
+ni negocia tratados; acecha en la oscuridad, hambriento e irracional. Su
+lealtad no es para con un rey o una casa, sino para con los inocentes
+que viven en los márgenes del mundo, aquellos a quienes los tronos han
+olvidado. Su relación con Grak, el semiorco, es un testimonio de esta
+filosofía: donde el mundo ve un monstruo, ella ve un hermano de armas, y
+juntos son la encarnación del lema del Gremio: una unión forjada en la
+necesidad y afilada contra el verdadero enemigo. Exasperada a menudo por
+la testarudez de Korgan y agobiada por el peso de las vidas que dependen
+de su juicio, Lyra carga con una determinación fría, tan afilada y
+silenciosa como las flechas de su carcaj.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra es la personificación de la gracia letal de los elfos silvanos,
+adaptada a una vida de dureza. Es alta y esbelta, con la musculatura
+fibrosa de una depredadora. Su piel, de un pálido tono olivo, está
+curtida por el sol y el viento, y surcada por cicatrices finas como
+hilos de plata. La más notable es una que roza su ceja izquierda,
+recuerdo de un encuentro cercano con las garras de un Grifo Sombrío. Sus
+ojos, de un verde profundo como el musgo de un bosque primigenio, son
+agudos y rara vez pierden detalle, reflejando una inteligencia
+calculadora y una melancolía perenne. Su largo cabello, del color de la
+corteza de abedul, lo lleva recogido en una trenza compleja y funcional
+que no obstaculiza su visión.</p>
+<p>Viste una armadura de cuero endurecido, teñida en tonos tierra y
+musgo para un camuflaje perfecto. Está reforzada con placas de quitina
+de Bestia de Carapacho, pulidas hasta obtener un brillo oscuro y
+resistente. Sobre el hombro lleva el emblema del Colmillo de Acero, no
+como un adorno ostentoso, sino como una marca de identidad y
+advertencia.</p>
+<p>Su equipamiento es una extensión de su ser: * <strong>Arco Largo
+“Susurro del Bosque”:</strong> Una obra maestra de tejo de <a
+href="Eldrador.html">Eldrador</a>, herencia de su familia. Es ligero,
+silencioso y su tensión es tal que pocos en el Gremio, aparte de ella,
+pueden manejarlo con eficacia. Sus flechas están emplumadas con plumas
+de Halcón de las Cimas y sus puntas son de acero de <a
+href="Valarion.html">Valarion</a>, forjadas por el propio Korgan. *
+<strong>Dagas Gemelas “Silencio” y “Sombra”:</strong> Dos hojas cortas y
+curvas, perfectas para el combate cercano. Las empuñaduras están
+envueltas en cuero de basilisco para un agarre firme, y las guarda en
+vainas en la parte baja de su espalda para un acceso rápido y fluido. *
+<strong>Equipo de Explorador:</strong> Su mochila de viaje contiene lo
+esencial para la supervivencia: <a href="Mapas.html">Mapas</a>
+detallados que ella misma ha dibujado, un juego de herramientas para
+desactivar trampas, cataplasmas de hierbas curativas que aprendió a
+preparar de sus contactos silvanos, y un pequeño catalejo para otear el
+horizonte.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>En una Lithernia obsesionada con las disputas entre casas nobles y la
+sombra de los dioses, el legado de Lyra Vientoveloz es el de una heroína
+pragmática. No busca la gloria en los campos de batalla de la Gran
+Guerra, sino que libra una contienda más silenciosa y, para muchos, más
+importante: la guerra contra la oscuridad que consume las tierras
+salvajes.</p>
+<p>Su impacto es tangible en las vidas salvadas: caravanas que llegan a
+su destino, aldeas fronterizas que sobreviven otra estación, y secretos
+de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+corruptas que ahora tienen un counter. Los <a
+href="Mapas.html">Mapas</a> que traza son más valiosos que el oro para
+los reinos que se atreven a comerciar a través de las fronteras, aunque
+pocos conocen el verdadero precio de esa información.</p>
+<p>Lyra representa una nueva forma de poder en Lithernia: uno que no
+emana de la sangre, la fe o la corona, sino de la competencia, el coraje
+y un propósito claro. Es un símbolo de la unidad nacida no de la
+política, sino de un enemigo común. Si la Gran Guerra llegara a consumir
+a los grandes reinos, o si las profecías desataran un mal aún mayor
+sobre el mundo, facciones como los Guardianes del Colmillo de Acero,
+lideradas por figuras como Lyra, podrían ser la última y más sólida
+línea de defensa de la civilización. Su nombre no se cantará en las
+grandes cortes, pero se susurrará con gratitud y respeto en las tabernas
+y puestos de guardia de las fronteras más peligrosas del continente.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.42)</li>
+<li><a href="Guardianes%20del%20Colmillo%20de%20Acero.html">Guardianes
+del Colmillo de Acero</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valtoria_Facciones</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Valtoria_Facciones</div>
+        <div class="content">
+<h1 id="valtoria-facciones">Valtoria facciones</h1>
+<p><a href="Valtoria.html">Valtoria</a>, el Reino de la Montaña, es una
+tierra de tradición, trabajo arduo y respeto por la naturaleza. En este
+reino enano, las facciones sociales, gremios y clanes definen la
+estructura del poder tanto política como culturalmente. A continuación
+se describen las principales facciones que moldean la vida en <a
+href="Valtoria.html">Valtoria</a>, sus objetivos, características y
+relaciones entre ellas.</p>
+<h2 id="el-concilio-de-la-montaña">El Concilio de la Montaña</h2>
+<p>El Concilio de la Montaña es la máxima autoridad política y social en
+<a href="Valtoria.html">Valtoria</a>, compuesta por representantes
+electos de los diversos clanes, gremios y castas ciudadanos. Su función
+es coordinar las decisiones generales del reino, equilibrando el poder
+entre la monarquía y las organizaciones civiles.</p>
+<ul>
+<li><strong>Composición:</strong> Incluye delegados de mineros,
+artesanos, militares, druidas y eruditos.</li>
+<li><strong>Funciones:</strong> Legislación en temas de minería,
+comercio, defensa y protección ambiental. Regula las políticas de
+reforestación, explotación de <a href="Recursos.html">Recursos</a> y
+educación.</li>
+<li><strong>Relación con la Reina:</strong> La Reina Valeria
+Bronzebrillo actúa como mediadora y figura unificadora, pero el Concilio
+tiene considerable voz en asuntos administrativos.</li>
+<li><strong>Conflictos Internos:</strong> Existen tensiones entre
+facciones que impulsan la expansión intensiva de la minería y grupos que
+defienden la conservación del medio ambiente.</li>
+</ul>
+<h2 id="los-clanes-familiares">Los Clanes Familiares</h2>
+<p>Los clanes familiares son el pilar tradicional de la sociedad
+valtoriana, estructurando su identidad, el oficio y la lealtad.</p>
+<ul>
+<li><strong>Clanes Artesanales:</strong> Cada clan suele especializarse
+en un oficio concreto, como <a href="Herreria.html">Herreria</a>,
+orfebrería, minería o herrería. El prestigio de un clan depende de la
+calidad de sus productos y la historia de sus antepasados.</li>
+<li><strong>Ejemplo:</strong> Clanes reconocidos como la Casa
+Bronzebrillo (realeza), o clanes dedicados a la joyería y producción de
+armamento.</li>
+<li><strong>Papel social:</strong> Dan soporte mutuo en grandes
+proyectos y fiestas tradicionales. Sirven también como estructuras de
+protección y justicia interna.</li>
+<li><strong>Códigos de honor:</strong> La palabra empeñada en un clan es
+sagrada; romper un juramento es una deshonra grave que puede desembocar
+en expulsiones.</li>
+</ul>
+<h2 id="la-torre-de-las-estrellas">La Torre de las Estrellas</h2>
+<p>La Torre de las Estrellas es el centro del saber en <a
+href="Valtoria.html">Valtoria</a>, un complejo que alberga academias,
+bibliotecas y templos dedicados a la sabiduría, la magia y la historia
+ancestral.</p>
+<ul>
+<li><strong>Círculo Interior:</strong> Formado por archimagos, sabios y
+historiadores principales que asesoran al Concilio y a la Reina.</li>
+<li><strong>Arcanos y Druidas:</strong> Especialistas en magia astral,
+la naturaleza y transmutación, que investigan las estrellas y rituales
+mágicos.</li>
+<li><strong>Adeptos y Bardos:</strong> Aprendices y artistas que
+preservan la cultura a través de la enseñanza y la tradición oral.</li>
+<li><strong>Funciones:</strong> Investigación científica y mágica,
+custodia de registros históricos, y formación de nuevos talentos.</li>
+<li><strong>Influencia política:</strong> Aunque no un cuerpo político
+formal, ejerce influencia al proveer conocimiento y consejos
+especialmente en asuntos de magia y defensa.</li>
+</ul>
+<h2 id="los-gremios-artesanales-y-comerciales">Los Gremios Artesanales y
+Comerciales</h2>
+<p>Los gremios representan los intereses económicos y profesionales de
+<a href="Valtoria.html">Valtoria</a>, coordinando el comercio de
+productos y servicios.</p>
+<ul>
+<li><strong>Gremios clave:</strong> Herreros, mineros, orfebres,
+constructores, artesanos de joyería y alquimistas.</li>
+<li><strong>Poder económico:</strong> Muchos gremios poseen considerable
+riqueza y controlan rutas comerciales con otros reinos.</li>
+<li><strong>Disputas internas:</strong> A veces rivalizan por contratos
+o acceso a depósitos minerales; el Concilio busca mediar para mantener
+el equilibrio.</li>
+<li><strong>Relación con la política:</strong> Los gremios influyen en
+las elecciones de delegados y en las políticas comerciales.</li>
+</ul>
+<h2 id="los-druidistas-de-la-montaña">Los Druidistas de la Montaña</h2>
+<p>Un grupo dedicado a la preservación del equilibrio natural y
+espiritual de las montañas, los druidas disfrutan de gran respeto
+social.</p>
+<ul>
+<li><strong>Rol:</strong> Custodian bosques, manantiales y valles,
+velando para que la minería y la expansión humana no destruyan el
+ecosistema.</li>
+<li><strong>Rituales:</strong> Organizan ceremonias estacionales y
+bendiciones a la tierra.</li>
+<li><strong>Conflictos:</strong> Frecuentemente se enfrentan política y
+socialmente con clanes más interesados en la explotación intensiva de <a
+href="Recursos.html">Recursos</a>.</li>
+<li><strong>Colaboración:</strong> Cooperan con la Torre de las
+Estrellas y el Concilio en campañas de restauración ecológica.</li>
+</ul>
+<h2 id="los-escudos-de-valtoria">Los Escudos de Valtoria</h2>
+<p>Facción militar compuesta por guerreros <a
+href="Enanos.html">Enanos</a> y aliados goliatth que defienden el reino
+de amenazas internas y externas.</p>
+<ul>
+<li><strong>Funciones:</strong> Guardia fronteriza, escolta de
+caravanas, defensa ante incursiones de Mor’dhul o saqueadores.</li>
+<li><strong>Entrenamiento:</strong> Exigente y riguroso, basado en
+disciplina y conocimiento detallado del terreno montañoso.</li>
+<li><strong>Reputación:</strong> Son famosos por su valentía y
+resistencia; su orgullo está en mantener la seguridad de <a
+href="Valtoria.html">Valtoria</a>.</li>
+<li><strong>Relaciones:</strong> Trabajan cercanamente con el Concilio y
+la Reina para planificar la defensa y respuesta en crisis.</li>
+</ul>
+<h2 id="las-cofradías-secreta-y-los-cazadores-de-sombras">Las Cofradías
+Secreta y Los Cazadores de Sombras</h2>
+<ul>
+<li><strong>Cazadores de Sombras:</strong> Rebeldes y exiliados que
+rechazan el sistema tradicional y recurren a la magia oscura o métodos
+ilegales para obtener poder.</li>
+<li><strong>Amenaza interna:</strong> Son perseguidos activamente por
+las autoridades, considerados un peligro para la estabilidad.</li>
+<li><strong>Desafíos para la Corona:</strong> Sus acciones subversivas e
+incursiones en túneles y minas incrementan la inseguridad.</li>
+<li><strong>Cofradías Secretas:</strong> Incluyen grupos de magos,
+alquimistas y eruditos que actúan de forma clandestina, a veces con
+fines políticos propios o agendas ocultas.</li>
+</ul>
+<h2 id="tensiones-y-relaciones-entre-facciones">Tensiones y Relaciones
+entre Facciones</h2>
+<p>La dinámica interna de <a href="Valtoria.html">Valtoria</a> está
+marcada por el equilibrio entre la tradición y la necesidad de avanzar,
+así como por el respeto a la naturaleza frente a los intereses
+económicos.</p>
+<ul>
+<li><strong>Expansión vs Conservación:</strong> Clanes mineros y gremios
+presionan para aumentar la extracción, mientras la Torre de las
+Estrellas y los druidas exigen moderación.</li>
+<li><strong>Política y sabiduría:</strong> El Concilio trata de mediar,
+pero no siempre con éxito; hay disputas continuas que pueden escalar a
+conflictos sociales o experimentos fallidos.</li>
+<li><strong>Amenazas externas:</strong> La constante presión militar y
+la ambición de Mor’dhul afectan la prioridad y <a
+href="Recursos.html">Recursos</a> destinados a la defensa.</li>
+<li><strong>Cooperación:</strong> Existen momentos de unidad,
+especialmente en crisis, donde gremios, militares y la monarquía se unen
+para proteger el reino.</li>
+</ul>
+<hr />
+<p><a href="Valtoria.html">Valtoria</a> es, en esencia, un reino
+enraizado en la cooperación respetuosa entre sus diversos grupos, donde
+la historia ancestral y el cuidado del entorno se enfrentan a los
+desafíos contemporáneos de la supervivencia y la influencia política. Un
+lugar donde la tradición y la innovación conviven en constante tensión,
+forjando el futuro de Lithernia en la roca sólida de sus montañas y en
+la sabiduría de sus gentes.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clanes.html">Clanes</a> (relevancia: 0.49)</li>
+<li><a href="Gremios.html">Gremios</a> (relevancia: 0.49)</li>
+<li><a href="Facciones.html">Facciones</a> (relevancia: 0.45)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

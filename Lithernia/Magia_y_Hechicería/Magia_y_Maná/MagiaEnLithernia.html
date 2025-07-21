@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MagiaEnLithernia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">MagiaEnLithernia</div>
+        <div class="content">
+<h1 id="magia-en-lithernia">Magia en Lithernia</h1>
+<p>La magia en Lithernia es una fuerza omnipresente pero compleja,
+profundamente entrelazada con la historia, la naturaleza y los planes
+divinos del mundo. Este artículo detalla su naturaleza, sistema de uso,
+manifestaciones y particularidades únicas que distinguen a Lithernia de
+otros mundos fantásticos.</p>
+<h2 id="el-tejido-del-maná">El Tejido del Maná</h2>
+<p>La energía mágica que fluye por Lithernia se conoce como el
+<strong>Tejido del Maná</strong>. Es un entramado invisible que conecta
+todos los seres vivos, la tierra y los planos de existencia, permitiendo
+la conjuración y manipulación de la realidad mediante el esfuerzo
+arcano.</p>
+<ul>
+<li><strong>Canalización</strong>: Los magos y arcanistas canalizan maná
+desde este tejido a través de la concentración y entrenamiento, dando
+forma a hechizos que transforman el entorno y afectan a aliados o
+enemigos.</li>
+<li><strong>Sensibilidad Arcana</strong>: No todos los seres pueden
+percibir o manipular el maná, requiriéndose entrenamiento o dones
+innatos para hacerlo efectivamente.</li>
+</ul>
+<h2 id="dado-de-maná-y-fatiga">Dado de Maná y Fatiga</h2>
+<p>Cada lanzador de <a href="Conjuros.html">Conjuros</a> posee un
+<strong>Dado de Maná</strong> propio, que refleja su resistencia física
+y mental al esfuerzo mágico. Ejemplos comunes:</p>
+<table>
+<thead>
+<tr>
+<th>Clase</th>
+<th>Dado de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="Mago.html">Mago</a></td>
+<td>1d6</td>
+</tr>
+<tr>
+<td><a href="Hechicero.html">Hechicero</a></td>
+<td>1d8</td>
+</tr>
+<tr>
+<td><a href="Brujo.html">Brujo</a></td>
+<td>1d10</td>
+</tr>
+<tr>
+<td>Clérigo</td>
+<td>1d8</td>
+</tr>
+<tr>
+<td><a href="Druida.html">Druida</a></td>
+<td>1d8</td>
+</tr>
+<tr>
+<td><a href="Bardo.html">Bardo</a></td>
+<td>1d6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fatiga-de-maná">Fatiga de Maná</h3>
+<ul>
+<li>Cada conjuro lanzado inflige <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>,
+calculada como una tirada del dado de maná más el nivel del conjuro (ej.
+1d8 + 2 para un conjuro nivel 2).</li>
+<li>Esta fatiga representa el estrés no letal pero acumulativo en cuerpo
+y mente, que debe gestionarse para evitar niveles de agotamiento
+físico.</li>
+</ul>
+<h3 id="manejo-de-la-fatiga">Manejo de la Fatiga</h3>
+<ul>
+<li>La fatiga se recupera principalmente mediante descansos (descanso
+corto para pequeñas curaciones, descanso largo para restablecimiento
+completo).</li>
+<li>Pociones especiales, meditación profunda y visitar <strong>Lugares
+de Poder</strong> aceleran la recuperación.</li>
+<li>Abusar de la magia puede dejar al lanzador vulnerable o
+incapacitado.</li>
+</ul>
+<h2 id="puntos-de-maná">Puntos de Maná</h2>
+<p>Complementando al dado, Lithernia puede utilizar un sistema de
+<strong>Puntos de Maná</strong> para medir la energía mágica disponible,
+similar a puntos de hechizo pero adaptado a clases y niveles.</p>
+<ul>
+<li>Se gasta maná para lanzar o potenciar <a
+href="Conjuros.html">Conjuros</a>.</li>
+<li>Se recupera al descansar o a través de métodos especiales.</li>
+<li>Añade flexibilidad y profundidad a la gestión mágica en la
+aventura.</li>
+</ul>
+<h2 id="absorción-de-maná">Absorción de Maná</h2>
+<p>Magos entrenados pueden intentar <strong>absorber maná</strong> de
+fuentes externas como cristales, nodos de energía, líneas ley o <a
+href="Conjuros.html">Conjuros</a> enemigos bajo el riesgo de sufrir:</p>
+<ul>
+<li>Daño por sobrecarga.</li>
+<li><strong>Wild magic surge</strong> (eventos caóticos e
+impredecibles).</li>
+<li>Derribo temporal o efectos secundarios adversos.</li>
+</ul>
+<p>Esta técnica, aunque arriesgada, es vital para sobrevivir en zonas de
+maná fragmentado o ante oponentes poderosos.</p>
+<h2 id="círculos-de-invocación">Círculos de Invocación</h2>
+<p>Antiguos símbolos mágicos plantilla que amplifican la conexión con el
+Tejido del Maná y mejoran el lanzamiento de hechizos.</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 26%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Nivel mínimo de acceso</th>
+<th>Características principales</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Menores</td>
+<td>1</td>
+<td>Incrementan modestamente el poder del conjuro, con un manejo
+sencillo.</td>
+</tr>
+<tr>
+<td>Intermedios</td>
+<td>5</td>
+<td>Potencian <a href="Conjuros.html">Conjuros</a> de mayor nivel pero
+exigen pruebas rigurosas de canalización.</td>
+</tr>
+<tr>
+<td>Mayores</td>
+<td>11</td>
+<td>Facilitadores de hechizos excepcionales y efectos extendidos, muy
+complejos de usar.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="uso-y-riesgo">Uso y Riesgo</h3>
+<ul>
+<li>Dibujar o activar un círculo requiere tiempo y <a
+href="Recursos.html">Recursos</a>.</li>
+<li>Se realiza una prueba de canalización cuyo nivel de dificultad
+aumenta con el círculo y en función del conjuro potenciado.</li>
+<li>Éxito aumenta el efecto y alcance de hechizos.</li>
+<li>Fracaso duplica la fatiga o puede desencadenar efectos no
+deseados.</li>
+</ul>
+<p>Los círculos pueden ser escritos en pergaminos, esteras o asentados
+en Lugares de Poder.</p>
+<h2 id="potenciación-de-conjuros">Potenciación de Conjuros</h2>
+<p>Además de los círculos, un lanzador puede invertir mana extra y
+fatiga para intentar sobrecargar un conjuro haciendo una prueba con el
+dado de maná.</p>
+<ul>
+<li>Se gana potencia adicional si la tirada supera la CD de
+dificultad.</li>
+<li>En caso de fallo el conjuro puede fallar, tener efectos caóticos o
+producir fatiga exagerada.</li>
+<li>Permite creatividad y riesgo calculado en el combate o situaciones
+críticas.</li>
+</ul>
+<h2 id="mezcla-de-conjuros">Mezcla de Conjuros</h2>
+<p>Una técnica reservada para magos veteranos y dotes especiales,
+permite fusionar dos <a href="Conjuros.html">Conjuros</a> compatibles en
+un único lanzamiento.</p>
+<ul>
+<li>Se gasta el costo completo de ambos hechizos (slots o maná).</li>
+<li>Requiere una prueba de Arcana con CD variable acorde a la dificultad
+de la combinación.</li>
+<li>Ejemplo: Bola de Fuego + Nube de Niebla crea un área incendiaria con
+cobertura de humo.</li>
+<li>Fallar la prueba puede causar retroceso mágico o efectos
+descontrolados.</li>
+</ul>
+<p>Esta mecánica fomenta la experimentación estratégica y aumenta la
+profundidad táctica mágica.</p>
+<h2 id="aguja-de-trama-cantrip-especial">Aguja de Trama (Cantrip
+Especial)</h2>
+<p>El “<strong>Needle of the Weave</strong>” es un cantrip único que
+puede incorporarse a otros <a href="Conjuros.html">Conjuros</a> para
+alterar o mejorar sus efectos.</p>
+<ul>
+<li>Por sí solo, inflige bajo daño o tiene efecto sutil.</li>
+<li>Al tejerlo dentro de un conjuro, permite cambiar el tipo de daño,
+extender alcance o añadir pequeños efectos secundarios.</li>
+<li>Su uso requiere acción adicional o gasto extra de maná, y una prueba
+de Inteligencia (Arcana) CD 15.</li>
+<li>Simboliza cómo algunos magos en Lithernia manipulan activamente el
+tejido mágico para personalizar su magia.</li>
+</ul>
+<h2 id="feats-dotes-mágicas-únicas-de-lithernia">Feats (Dotes) Mágicas
+Únicas de Lithernia</h2>
+<p>Para especializarse en estas mecánicas, se ofrecen dotes
+temáticas:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr>
+<th>Dote</th>
+<th>Efecto principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Afinidad de Maná</td>
+<td>Aumenta la reserva de puntos de maná y reduce fatiga al
+conjurar.</td>
+</tr>
+<tr>
+<td>Tejedor de Hechizos</td>
+<td>Permite mezcla de <a href="Conjuros.html">Conjuros</a>, da ventaja
+en pruebas de Arcana para ello y otorga Aguja de Trama.</td>
+</tr>
+<tr>
+<td>Regulación de Maná</td>
+<td>Reduce en 1 punto la fatiga de cada conjuro y acelera
+recuperación.</td>
+</tr>
+<tr>
+<td>Recuperación Arcana</td>
+<td>Permite recuperar espacios o puntos de maná adicionales una vez por
+día.</td>
+</tr>
+<tr>
+<td>Lanzador Resistente</td>
+<td>Aumenta <a href="Velrath.html">Velrath</a> para sufrir agotamiento
+por fatiga y mejora tiradas para evitar colapsos por agotamiento.</td>
+</tr>
+</tbody>
+</table>
+<p>Estas dotes enriquecen la experiencia mágica, incentivando
+especializaciones y estilos de lanzadores únicos.</p>
+<h2 id="conjuros-estelares">Conjuros Estelares</h2>
+<p>Una línea única de hechizos vinculados a la energía de las estrellas
+y cuerpos celestes.</p>
+<ul>
+<li>Ejemplos: <strong>Luz de <a href="Lilium.html">Lilium</a></strong>
+(daño radiante y fuego concentrado), <strong>Bendición de la
+Aurora</strong> (buff grupal en amanecer), <strong>Lanza
+Celestial</strong> (invocación de réplica menor de lanzas legendarias
+para sellar enemigos).</li>
+<li>Estos <a href="Conjuros.html">Conjuros</a> emergen tras el
+Cataclismo del <a href="Lilium.html">Lilium</a>, fruto de estudios
+recientes en <a href="Valtoria.html">Valtoria</a> y <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li>Amplían la oferta mágica, explorando nuevos planos y fuentes de
+poder.</li>
+</ul>
+<h2 id="consideraciones-para-el-dungeon-master">Consideraciones para el
+Dungeon Master</h2>
+<p>Esta compleja red de mecánicas permite a los DMs introducir:</p>
+<ul>
+<li>Tensión narrativa mediante los costos y riesgos del uso mágico.</li>
+<li>Incentivos para misiones que busquen círculos de invocación o
+artefactos relacionados.</li>
+<li>Oportunidades para que jugadores exploten la mezcla y
+personalización creativa de magia.</li>
+<li>Conflictos por el control y uso de maná en lugares estratégicos o
+durante la Guerra.</li>
+<li>Eventos especiales con sobrecargas, fallos mágicos o rompimientos en
+el tejido arcano.</li>
+</ul>
+<p>El manejo de la magia en Lithernia dota a la ambientación de realismo
+fantástico, donde el poder siempre viene con un precio y la
+incertidumbre está siempre presente.</p>
+<hr />
+<p><em>Explorar y dominar la magia en Lithernia es caminar en la fina
+frontera entre la creación y el caos, y cada conjuro puede ser un
+triunfo glorioso o una caída precipitada en la oscuridad.</em></p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

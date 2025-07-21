@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Velo_Entre_Mundos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Velo_Entre_Mundos</div>
+        <div class="content">
+<p>ESTRUCTURA DE ARCHIVOS: - El_Velo_Entre_Mundos 1: Introducción,
+contexto general y resumen del fenómeno. - El_Velo_Entre_Mundos 2:
+Detalles sobre la naturaleza del Velo, sus efectos y manifestaciones. -
+El_Velo_Entre_Mundos 3: Impacto en las razas, culturas y magia de
+Lithernia. - El_Velo_Entre_Mundos 4: Eventos históricos relacionados y
+leyendas. - El_Velo_Entre_Mundos 5: Teorías, estudios y posibles
+futuros.</p>
+<p>CONTENIDO:</p>
+<p>—El_Velo_Entre_Mundos 1— # El Velo Entre Mundos</p>
+<h2 id="introducción">Introducción</h2>
+<p>El Velo Entre Mundos es un fenómeno místico y arcano que permea la
+realidad de Lithernia, actuando como una barrera sutil pero poderosa
+entre el plano material y los planos espirituales y mágicos. Su
+existencia es fundamental para la estructura del mundo, afectando la
+magia, la vida y la muerte, y moldeando el destino de las razas y reinos
+que habitan Lithernia.</p>
+<h2 id="contexto-general">Contexto General</h2>
+<p>Desde la Caída del Lilium, el fuego eterno que arrasó el mundo, el
+Velo Entre Mundos ha sido un elemento constante y enigmático. Nacido de
+las cenizas y las sombras que quedaron tras el cataclismo, el Velo actúa
+como un filtro que regula el flujo de energías mágicas y espirituales
+entre los planos. Su influencia es palpable en la magia que impregna la
+realidad, en la presencia de criaturas espectrales y en la conexión que
+los vivos mantienen con los espíritus y las fuerzas divinas.</p>
+<h2 id="importancia-en-lithernia">Importancia en Lithernia</h2>
+<p>El Velo no es solo una barrera, sino también un puente y un campo de
+batalla. A través de él, los dioses comunican sus voluntades, los magos
+canalizan sus conjuros y las almas transitan hacia su destino final. Sin
+embargo, el Velo también es frágil y susceptible a rupturas, que pueden
+provocar la aparición de fenómenos sobrenaturales, la invasión de
+entidades de otros planos y la alteración del equilibrio natural.</p>
+<p>—El_Velo_Entre_Mundos 3— # Impacto en Razas, Culturas y Magia</p>
+<h2 id="influencia-en-las-razas">Influencia en las Razas</h2>
+<ul>
+<li><strong>Elfos y Eladrin:</strong> Su conexión con el Plano Astral y
+la naturaleza feérica los hace especialmente sensibles al Velo. Cambios
+en el Velo afectan sus estados de ánimo y poderes.</li>
+<li><strong>Shadar-Kai:</strong> Su vínculo con el Plano de las Sombras
+les otorga habilidades para manipular el Velo, incluyendo
+teletransportación y resistencia a la necromancia.</li>
+<li><strong>Nigromantes y Blasfemos:</strong> Exploran y manipulan el
+Velo para controlar a los no-muertos y acceder a magias prohibidas.</li>
+<li><strong>Humanos y Semielfos:</strong> Su adaptabilidad les permite
+estudiar el Velo y desarrollar técnicas para protegerse o aprovechar sus
+efectos.</li>
+</ul>
+<h2 id="impacto-cultural">Impacto Cultural</h2>
+<ul>
+<li>En Mor’dhul, la sociedad gira en torno al control y explotación del
+Velo, con cultos que veneran a dioses oscuros y practican nigromancia
+sónica.</li>
+<li>En Eldrador, el Velo es fuente de inspiración artística y
+espiritual, con festivales que celebran su influencia y buscan armonía
+con sus ciclos.</li>
+<li>En Valtoria, los enanos y gnomos estudian el Velo para mejorar sus
+artesanías mágicas y proteger sus ciudades de influencias
+corruptoras.</li>
+</ul>
+<h2 id="magia-y-el-velo">Magia y el Velo</h2>
+<p>La magia en Lithernia está intrínsecamente ligada al Velo. Los
+conjuros, especialmente los que involucran planos, espíritus o energías
+elementales, dependen de la estabilidad y grosor del Velo. Los magos y
+sacerdotes más poderosos pueden manipular el Velo para potenciar sus
+habilidades o abrir portales entre mundos.</p>
+<p>—El_Velo_Entre_Mundos 5— # Teorías, Estudios y Posibles Futuros</p>
+<h2 id="teorías-sobre-el-origen">Teorías sobre el Origen</h2>
+<ul>
+<li>Algunos eruditos creen que el Velo es una manifestación residual del
+Lilium, una capa protectora creada por los dioses para contener el fuego
+eterno.</li>
+<li>Otros sostienen que el Velo es un tejido vivo, en constante cambio,
+que responde a las emociones y acciones de las criaturas de
+Lithernia.</li>
+</ul>
+<h2 id="estudios-actuales">Estudios Actuales</h2>
+<ul>
+<li>Magos de Galvorn y Eldrador colaboran en investigaciones para
+estabilizar el Velo y prevenir rupturas catastróficas.</li>
+<li>En Mor’dhul, nigromantes y blasfemos exploran métodos para manipular
+el Velo con fines de poder, a menudo con consecuencias
+imprevisibles.</li>
+</ul>
+<h2 id="posibles-futuros">Posibles Futuros</h2>
+<ul>
+<li>La Era de la Luz Crepuscular podría culminar en una nueva
+transformación del Velo, ya sea su fortalecimiento o su ruptura
+definitiva.</li>
+<li>La reaparición de dragones o entidades primordiales podría alterar
+el Velo, desencadenando eventos que cambiarán el destino de
+Lithernia.</li>
+<li>Aventureros y héroes podrían descubrir secretos para cruzar el Velo,
+explorando planos desconocidos y enfrentando amenazas más allá de la
+realidad material.</li>
+</ul>
+<hr />
+<h1 id="referencias">Referencias</h1>
+<ul>
+<li>Manual de Lithernia, Capítulos 1 a 6.</li>
+<li>Crónicas de Mor’dhul y Eldrador.</li>
+<li>Leyendas orales y registros arcanos de Galvorn y Valtoria.</li>
+</ul>
+<h1 id="véase-también">Véase también</h1>
+<ul>
+<li><a href="Magia%20en%20Lithernia.html">Magia en Lithernia</a></li>
+<li><a href="Planos%20de%20Existencia.html">Planos de
+Existencia</a></li>
+<li><a href="Nigromancia.html">Nigromancia</a></li>
+<li><a href="Eladrin.html">Eladrin</a></li>
+<li><a href="Shadar-Kai.html">Shadar-Kai</a></li>
+<li><a href="Dragones%20en%20Lithernia.html">Dragones en
+Lithernia</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clan%20del%20Velo%20de%20Ceniza.html">Clan del Velo de
+Ceniza</a> (relevancia: 0.45)</li>
+<li><a href="La%20Orden%20del%20Velo%20Gris.html">La Orden del Velo
+Gris</a> (relevancia: 0.45)</li>
+<li><a href="Agrupaciones%20-%20Clan%20Velo%20Cenizo.html">Agrupaciones
+- Clan Velo Cenizo</a> (relevancia: 0.45)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

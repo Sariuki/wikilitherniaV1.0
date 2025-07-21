@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrak_Manoceniza</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vrak_Manoceniza</div>
+        <div class="content">
+<h1 id="vrak-manoceniza">Vrak Manoceniza</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de <a href="Mor&#39;dhul.html">Mor’dhul</a>, donde los
+linajes se miden por la sangre derramada y la devoción a dioses oscuros,
+la historia de Vrak Manoceniza es una herejía susurrada. No desciende de
+nobles, ni de <a href="Heroes.html">Heroes</a> bendecidos por <a
+href="Thyrgram.html">Thyrgram</a> o Sel’thirak. Vrak es un producto de
+las cenizas, un hobgoblin cuyos antepasados fueron borrados por el
+Cataclismo del <a href="Lilium.html">Lilium</a>. Su único legado era la
+supervivencia, y su única fe, el pragmatismo.</p>
+<p>Nacido en el seno del incipiente Clan del Juramento de Ceniza, Vrak
+creció bajo la tutela de su fundador, Vex el Silente. Aprendió la
+doctrina del clan: que los dioses eran amos caprichosos y los reyes,
+tiranos con coronas distintas. El verdadero poder no residía en la
+fuerza bruta ni en la fe ciega, sino en el conocimiento, en los secretos
+que los demás temían desenterrar y en la información que podía derribar
+imperios. Mientras Vex se aferraba a la supervivencia, Vrak anhelaba el
+dominio. Veía la cautela de su mentor como una debilidad que condenaría
+al clan a la irrelevancia.</p>
+<p>Su ascenso al poder fue una obra maestra de la manipulación, digna de
+un hobgoblin. No retó a Vex a un combate singular; lo desmanteló pieza
+por pieza desde las sombras. Usó la ambición de otros, sembró la duda
+sobre la capacidad de Vex para proteger al clan y, finalmente, forzó una
+votación que lo exilió, dejándole el liderazgo sin derramar una sola
+gota de sangre de su propia gente. Fue entonces cuando adoptó el nombre
+de “Manoceniza”, un recordatorio perpetuo de que de la nada se puede
+forjar un imperio y que su toque convertiría en polvo los planes de sus
+enemigos.</p>
+<p>Su primera gran hazaña como Señor del Clan fue la toma de <a
+href="Thirawen.html">Thirawen</a>. La ciudad-prisión, un pozo de
+desesperación controlado por un guardián del Clan <a
+href="Kromagul.html">Kromagul</a>, era un símbolo del orden brutal de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Vrak no la asaltó; la infiltró.
+Usando a sus espías <a href="Goblins.html">Goblins</a> para incitar una
+revuelta masiva entre los prisioneros, creó un caos que desbordó a la
+guarnición. Justo en el clímax de la masacre, las fuerzas del Juramento
+de Ceniza emergieron, no como conquistadores, sino como “pacificadores”.
+Aniquilaron a los guardias restantes y a los líderes de la revuelta,
+estableciéndose como los nuevos amos de la ciudad.</p>
+<p>Hoy, Vrak gobierna <a href="Thirawen.html">Thirawen</a> con una
+eficiencia fría. Utiliza al clan como una herramienta de precisión en el
+tablero de Lithernia. Su “Puño de Ceniza”, el orco <strong>Ghorak
+Colmillo Roto</strong>, lidera a sus mercenarios en misiones que
+requieren una fuerza abrumadora. Sus “Ojos de Ceniza”, la red de espías
+bajo el mando de la enigmática <strong>Lyra la Silente</strong>, le
+traen los secretos de cortes reales y clanes rivales. Y su “Mente de
+Ceniza”, el ambicioso <a href="Hechicero.html">Hechicero</a> tiefling
+<strong>Zaelis</strong>, descifra los artefactos y la magia de la era
+pre-<a href="Lilium.html">Lilium</a> que recuperan de las ruinas. Vrak
+equilibra a estos tres pilares con una desconfianza calculada,
+consciente de que la misma ambición que los hace útiles podría volverse
+en su contra. Su objetivo final no es sentarse en un trono, sino ser el
+tejedor invisible que mueve los hilos de quienes lo hacen.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vrak es un hobgoblin que ha superado el siglo, y su cuerpo lleva las
+marcas de una vida de lucha y maquinación. Es alto para su especie, con
+una postura erguida que irradia una autoridad tranquila y amenazante. Su
+piel tiene el tono gris ceniciento de una brasa apagada, y su rostro
+está surcado por finas arrugas y una vieja cicatriz que le cruza la ceja
+izquierda. Sus ojos, de un naranja intenso y penetrante, rara vez
+parpadean, analizando cada gesto y cada palabra con una inteligencia
+depredadora.</p>
+<p>Su rasgo más distintivo es su mano derecha, la que le da su nombre.
+Desde los dedos hasta la muñeca, su piel está permanentemente teñida de
+un negro hollín, con una textura similar a la del cuero agrietado,
+resultado de un antiguo juramento de sangre y cenizas que lo ligó al
+destino del clan.</p>
+<p>Viste una armadura de placas de acero oscurecido, funcional y sin
+adornos, sobre un gambesón de cuero negro. No lleva capa ni joyas
+ostentosas; su única insignia de poder es un pesado anillo de sello de
+obsidiana con el fénix del clan, que utiliza para marcar contratos y
+sentencias de muerte. A su cinto cuelga una falcata de excelente
+factura, un arma práctica y letal. Sin embargo, quienes lo conocen saben
+que su verdadera arma es la daga envenenada que siempre lleva
+oculta.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Vrak Manoceniza representa una nueva y peligrosa fuerza en el
+ecosistema de poder de <a href="Mor&#39;dhul.html">Mor’dhul</a>. En un
+reino dominado por la fuerza bruta de los <a href="Orcos.html">Orcos</a>
+y la tiranía divina de Sel’thirak, Vrak ha demostrado que la información
+es un arma más afilada que cualquier hacha y que la lealtad comprada con
+pragmatismo puede ser más fuerte que la impuesta por el miedo.</p>
+<p>Es una afrenta andante al orden establecido. Su clan, compuesto por
+parias de todas las razas, es la prueba viviente de que se puede
+prosperar sin dioses y sin linajes. Para las grandes casas, es un mal
+necesario: un maestro de espías y un proveedor de mercenarios sin igual,
+cuyas manos están manchadas con los secretos más oscuros de Lithernia.
+Para sus rivales, es una sombra que corroe los cimientos de su
+poder.</p>
+<p>El legado de Vrak no será el de un conquistador, sino el de un
+arquitecto del poder en la sombra. Su influencia se extiende mucho más
+allá de las murallas de <a href="Thirawen.html">Thirawen</a>, llegando a
+las cortes de <a href="Eldrador.html">Eldrador</a> y los puertos de <a
+href="Galvorn.html">Galvorn</a>. En la gran guerra que define la era,
+Vrak Manoceniza no elige un bando; juega con todos, asegurándose de que,
+sin importar quién caiga, el Juramento de Ceniza siempre resurja de las
+cenizas.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clan%20del%20Juramento%20de%20Ceniza.html">Clan del
+Juramento de Ceniza</a> (relevancia: 0.57)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.51)</li>
+<li><a href="Clan%20Corazón%20de%20Ceniza.html">Clan Corazón de
+Ceniza</a> (relevancia: 0.39)</li>
+<li><a href="Clan%20del%20Velo%20de%20Ceniza.html">Clan del Velo de
+Ceniza</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

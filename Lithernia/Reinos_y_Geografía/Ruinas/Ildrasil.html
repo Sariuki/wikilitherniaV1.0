@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ildrasil</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ildrasil</div>
+        <div class="content">
+<h1 id="ildrasil">Ildrasil</h1>
+<p>En las desoladas Llanuras de la Memoria Petrificada, donde el viento
+no encuentra hojas que hacer susurrar, se alza Ildrasil. No es una
+ciudad construida, sino una ciudad habitada, tallada en la monumental
+forma de un árbol titánico convertido en piedra. Sus ramas, ahora
+cristalizadas y mudas, se extienden hacia el cielo como los dedos de un
+gigante dormido, y sus raíces, gruesas como murallas, se aferran a la
+tierra con una permanencia antinatural. Ildrasil es una paradoja
+viviente: un bosque de un solo árbol, un monumento de madera hecho de
+roca, y un bastión de vida dentro de un caparazón de muerte. Sus calles
+son pasadizos excavados en el duramen fosilizado, iluminados no por el
+sol, sino por el suave resplandor de venas de cuarzo que recorren su
+interior como un sistema circulatorio de luz.</p>
+<h2 id="historia">Historia</h2>
+<p>Las <a href="Leyendas.html">Leyendas</a> de Ildrasil son anteriores a
+sus habitantes élficos. Cuentan que, tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, una plaga de corrupción mágica comenzó a
+devorar los bosques del este de <a href="Eldrador.html">Eldrador</a>.
+Para detener su avance, un antiguo y poderoso espíritu del bosque,
+conocido solo como Ildras, realizó el sacrificio definitivo. Atrajo toda
+la plaga hacia sí mismo y, en un acto de voluntad final, detuvo su
+propia vida, cristalizando su esencia y convirtiendo su cuerpo colosal
+en piedra para encerrar la corrupción para siempre.</p>
+<p>Durante siglos, el árbol petrificado permaneció como un solitario y
+silencioso monolito. Fue descubierto por un clan de Elfos del Bosque y
+<a href="Eladrin.html">Eladrin</a>, liderado por la <a
+href="Noble.html">Noble</a> Casa Silvanus de los Altos Elfos, que
+buscaban un refugio contra las crecientes tensiones políticas de <a
+href="Eldrador.html">Eldrador</a>. Vieron en el árbol no una tumba, sino
+un santuario de resistencia y perdurabilidad. Con un respeto
+reverencial, comenzaron a tallar su hogar en la madera fosilizada,
+fundando una ciudad que honraría la memoria y el sacrificio del espíritu
+que les dio cobijo. Con el tiempo, una pequeña comunidad de <a
+href="Semielfos.html">Semielfos</a> comerciantes se estableció en sus
+raíces, creando un nexo vital con el mundo exterior.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Trono Silente</strong>: El corazón político y social
+de Ildrasil. Es un vasto salón cavernoso tallado en la base del tronco,
+donde las vetas naturales de la madera petrificada forman un estrado y
+un trono para el señor de la Casa Silvanus. El eco de cada palabra
+resuena en la quietud, otorgando una solemnidad ineludible a cada
+decreto.</p></li>
+<li><p><strong>Las Galerías del Recuerdo</strong>: Los niveles medios de
+la ciudad, un laberinto de talleres y residencias donde viven los
+artesanos. Las paredes no son lisas, sino un lienzo comunal en constante
+evolución, donde los escultores tallan la historia de su pueblo y las <a
+href="Leyendas.html">Leyendas</a> del árbol. Es un museo viviente que
+crece con cada generación.</p></li>
+<li><p><strong>El Mirador de las Ramas</strong>: Las zonas residenciales
+más altas, excavadas en las ramas cristalizadas que se arquean sobre la
+ciudad. Aquí viven los <a href="Eladrin.html">Eladrin</a> y la nobleza,
+en cámaras con ventanas de cuarzo pulido que ofrecen vistas
+espectaculares de las llanuras. Se dice que desde aquí, en las noches
+claras, se puede sentir la conexión con el dominio de <a
+href="Arzia.html">Arzia</a>.</p></li>
+<li><p><strong>El Zoco de la Raíz</strong>: Un animado mercado al aire
+libre, protegido por las enormes raíces expuestas del árbol. Los puestos
+de los comerciantes <a href="Semielfos.html">Semielfos</a> ofrecen un
+estallido de color y ruido que contrasta con la solemne quietud del
+resto de la ciudad. Aquí se pueden encontrar bienes de reinos lejanos,
+imposibles de hallar en las profundidades de <a
+href="Eldrador.html">Eldrador</a>.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura Ildrasiana está definida por la paciencia y el legado.
+Valoran la memoria por encima de la innovación y la artesanía lenta
+sobre la producción rápida. Un escultor puede pasar toda su vida
+perfeccionando un solo relieve en las paredes de las galerías.</p>
+<p>La costumbre más sagrada es el “Festival del Duramen Silente”,
+celebrado una vez cada década. Durante tres días, la ciudad entera cesa
+toda actividad y entra en un estado de meditación colectiva, intentando
+“escuchar” los ecos atrapados en la memoria del árbol. Los <a
+href="Eladrin.html">Eladrin</a> más sensibles afirman percibir imágenes
+fugaces de un mundo verde y vivo, anterior al sacrificio.</p>
+<p>Hacer un juramento en Ildrasil es un acto de gran peso. En lugar de
+contratos escritos, se intercambian pequeñas astillas pulidas de la
+madera petrificada del árbol. Se cree que este regalo sella el juramento
+con la misma permanencia que el árbol, y romperlo es la ofensa más grave
+imaginable.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Ildrasil es una ciudad de silencio y luz fría. La ausencia de hojas
+elimina el susurro del viento, y los sonidos principales son el eco de
+los pasos, el tintineo de los cinceles de los artesanos y la música
+melancólica de los bardos <a href="Eladrin.html">Eladrin</a>. La
+arquitectura es orgánica y curvada, siguiendo las vetas naturales del
+árbol. No hay ladrillos ni mortero, solo madera de piedra y puentes de
+ramas cristalizadas que brillan con luz propia. El ambiente es
+introspectivo y reverencial, como si se viviera dentro de una catedral
+natural.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Corazón Durmiente</strong>: La leyenda más extendida
+afirma que en las profundidades del tronco, más allá de cualquier
+pasadizo conocido, se encuentra el corazón de cristal del espíritu
+Ildras. Se dice que este corazón aún late, una única y poderosa vez cada
+siglo. Este latido envía una onda de energía vital que fortalece la
+magia protectora de la ciudad y hace que las venas de cuarzo brillen con
+una intensidad cegadora durante una noche entera.</p></li>
+<li><p><strong>El Ancla del Tiempo</strong>: Una teoría más herética,
+susurrada entre los eruditos, sugiere que el sacrificio de Ildras no fue
+lo único que detuvo la plaga. Dicen que los primeros elfos descubrieron
+una cámara secreta en las raíces más profundas, donde yace un fragmento
+de la Lanza Celestial Chronos. Según esta leyenda, la lanza es la
+verdadera razón por la que el árbol está congelado en el tiempo,
+actuando como un ancla que detuvo no solo la corrupción, sino el tiempo
+mismo para el árbol. Si fuera cierto, Ildrasil no sería solo un refugio,
+sino una de las claves para desentrañar la profecía del Primer
+Rey.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+<li><a href="Elfos.html">Elfos</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

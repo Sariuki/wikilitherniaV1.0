@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gromnir_El_Inextinguible_Pyreforge</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Gromnir_El_Inextinguible_Pyreforge</div>
+        <div class="content">
+<h1 id="gromnir-el-inextinguible-pyreforge">Gromnir ‘El Inextinguible’
+Pyreforge</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en las entrañas humeantes de <a href="Douchy.html">Douchy</a>,
+en el corazón de <a href="Valtoria.html">Valtoria</a>, Gromnir Pyreforge
+no fue criado con canciones de cuna, sino con el rugido constante de las
+forjas geotérmicas y el siseo de la <a href="Alquimia.html">Alquimia</a>
+volcánica. Como segundo hijo de la Casa Pyreforge, una estirpe enana que
+encontró la divinidad no en la creación de <a
+href="Rokael.html">Rokael</a> sino en el poder controlado de la
+destrucción de <a href="Valarios.html">Valarios</a>, Gromnir estaba
+destinado a una vida de servicio, no de gobierno. Esta posición, lejos
+de ser una carga, le otorgó una libertad que su hermano mayor Kaeldrak,
+el estratega y político, nunca conoció. Mientras Kaeldrak aprendía a
+navegar los complejos debates del Concilio de la Montaña, Gromnir
+aprendía a leer el flujo del magma y a sentir las tensiones en la roca
+viva.</p>
+<p>Su apodo, ‘El Inextinguible’, no es un mero título honorífico; fue
+forjado en fuego y dolor. Hace un siglo, un sabotaje perpetrado por
+fanáticos del Clan Agrietacero provocó la ruptura catastrófica de uno de
+los conductos de magma principales que alimentaban <a
+href="Douchy.html">Douchy</a>. Mientras otros huían del torrente de roca
+fundida, Gromnir se mantuvo firme. Usando su propio cuerpo como escudo y
+un conocimiento instintivo de la ingeniería de su Casa, logró desviar el
+flujo principal hacia un canal de alivio, soportando un calor que habría
+desintegrado a cualquier otro. Salió de la cámara con cicatrices que
+brillaban como vetas de oro en la penumbra y una reputación legendaria.
+No solo había sobrevivido, había domado la catástrofe.</p>
+<p>Este acto de valor lo catapultó al liderazgo de la Guardia de Magma,
+la fuerza de élite de la Casa Pyreforge. No son meros soldados; son
+ingenieros-guerreros que protegen las cámaras de magma, mantienen la
+estabilidad de las forjas y actúan como primera línea de defensa contra
+cualquier amenaza, ya sea de las profundidades o de la superficie. Bajo
+su mando, la Guardia se ha convertido en una fuerza disciplinada y
+temida, un reflejo de su propio carácter: pragmático, implacable y
+absolutamente leal a su Casa.</p>
+<p>La principal motivación de Gromnir es la protección de su linaje y su
+filosofía. Ve la veneración ciega del Clan Agrietacero como un peligro
+para la supervivencia de <a href="Valtoria.html">Valtoria</a>, una
+invitación al caos incontrolado. Su objetivo no es la guerra, sino el
+orden a través de la fuerza, la prueba de que el poder más destructivo
+del mundo puede ser contenido y utilizado para el progreso. Sin embargo,
+su mayor devoción es personal: su sobrina Brynja. En ella ve no solo a
+la futura líder de la Casa, sino la personificación de todo lo que ha
+jurado proteger. Cualquier amenaza a Brynja es una afrenta directa a
+Gromnir, capaz de encender en él una furia tan ardiente como el magma
+que custodia.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Gromnir es la montaña hecha enano. De constitución ancha y poderosa,
+su presencia llena cualquier sala con un aura de calor y solidez. Su
+piel, curtida por una vida junto a las forjas, tiene la textura del
+basalto. Su barba, una magnífica trenza negra salpicada de canas, parece
+tejida con hebras de obsidiana y ceniza; en la penumbra, las puntas de
+algunas hebras quemadas aún parecen retener un débil resplandor rojizo,
+recuerdo de hazañas pasadas. Sus ojos son de un marrón profundo, como
+carbones ardientes, capaces de evaluar a un enemigo o una falla
+estructural con la misma intensidad penetrante. Viejas cicatrices de
+quemaduras serpentean por sus brazos y cuello, testimonios silenciosos
+de su leyenda.</p>
+<p><strong>Equipamiento Relevante:</strong></p>
+<ul>
+<li><strong>Armadura de Placas de Magma:</strong> Forjada personalmente
+por él, esta armadura completa no es de simple acero. Las placas de
+basalto tratado están superpuestas sobre una malla de acero volcánico,
+con <a href="Runas.html">Runas</a> de disipación térmica grabadas en
+cada juntura. La armadura es pesada e intimidante, diseñada para
+soportar temperaturas extremas y golpes devastadores.</li>
+<li><strong>Corazón de Furia:</strong> Su martillo de guerra geotérmico
+es una obra maestra de la ingeniería Pyreforge. El arma está conectada a
+un núcleo alquímico en miniatura que, al activarse, canaliza un calor
+inmenso a través de venas de mithril hasta la cabeza del martillo. Un
+golpe de <em>Corazón de Furia</em> no solo aplasta, sino que puede
+derretir armaduras inferiores y cauterizar heridas al instante.</li>
+<li><strong>Escudo de Engranajes:</strong> Un pesado escudo de torre de
+bronce y hierro, con el emblema de su Casa. Su diseño de engranajes no
+es meramente decorativo; puede bloquearse en el suelo para crear una
+barricada móvil o expandir placas menores para ofrecer una cobertura más
+amplia.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Gromnir ‘El Inextinguible’ Pyreforge es más que un capitán; es el
+símbolo viviente de la filosofía de su Casa y una fuerza disruptiva en
+la tradicional sociedad enana de <a href="Valtoria.html">Valtoria</a>.
+Representa la peligrosa pero prometedora senda de la innovación
+pragmática frente al conservadurismo religioso. Para sus aliados en la
+Casa Dravonis y el Gremio de Artífices, es un pilar de estabilidad y un
+proveedor de poder sin igual. Para sus rivales del Clan Agrietacero, es
+un blasfemo, un hereje cuya existencia misma es una afrenta a los
+dioses.</p>
+<p>Su impacto resuena en los pasillos del poder de <a
+href="Valtoria.html">Valtoria</a>. Su Guardia de Magma ha redefinido las
+capacidades defensivas de <a href="Douchy.html">Douchy</a>, convirtiendo
+a la ciudad en una fortaleza casi inexpugnable, pero también ha avivado
+las llamas de un posible cisma ideológico. En la historia de Lithernia,
+Gromnir no será recordado como un rey o un gran señor, sino como un
+guardián inquebrantable, un maestro de la furia contenida. Su legado
+será el de un enano que miró al corazón destructivo de la montaña y, en
+lugar de retroceder, lo convirtió en su yunque y su fuerza, demostrando
+que el verdadero poder no reside en desatar la destrucción, sino en
+saber cómo y cuándo contenerla.</p>
+        </div>
+    </div>
+</body>
+</html>

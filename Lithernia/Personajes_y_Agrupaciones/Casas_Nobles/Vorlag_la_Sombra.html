@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorlag_la_Sombra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vorlag_la_Sombra</div>
+        <div class="content">
+<hr />
+<p>nombre: “Vorlag, la Sombra” rol: “Capitán de la Guardia y Sicario
+Principal de la Casa Kaelarn” edad: 420 agrupacion: “Casa Kaelarn” tipo:
+“Casa <a href="Noble.html">Noble</a> (Elfos / Shadar-Kai)” lema: “La
+Presión Crea Diamantes, el Sufrimiento Crea Poder.” escudo: “Un cristal
+de maná azul oscuro, fracturado, del que emanan zarcillos de sombra
+negra sobre un campo de plata pulida.” ciudad_sede: “<a
+href="Yndoriel.html">Yndoriel</a>, <a href="Eldrador.html">Eldrador</a>”
+rivalidades: “Casa Valerius, Jardineros de Cristal Oculto” alianzas:
+“Clan Nighthawk (<a href="Mor&#39;dhul.html">Mor’dhul</a>), Casa
+Nocthelios (<a href="Lorawynn.html">Lorawynn</a>)” relaciones: “Lord
+Theron Kaelarn (maestro y patrón), Lord Kaelen Valerius (rival
+principal)” tags: [lithernia, personajes, Casa Kaelarn, <a
+href="Eldrador.html">Eldrador</a>, Shadar-Kai, sicario] # Vorlag, la
+Sombra</p>
+<h3 id="biografía">Biografía</h3>
+<p>En los opresivos y oscuros túneles de la ciudad minera de <a
+href="Yndoriel.html">Yndoriel</a>, donde la belleza de los cristales de
+maná contrasta con la brutalidad de la servidumbre, pocos nombres
+infunden tanto terror como el de Vorlag. Conocido en susurros como “la
+Sombra de Kaelarn”, Vorlag es el puño de hierro y la daga en la
+oscuridad de la ascendente Casa Kaelarn. Su historia no es una de <a
+href="Noble.html">Noble</a> cuna, sino de una escalada implacable
+forjada en la crueldad del sistema de castas de la ciudad.</p>
+<p>Nacido como un Shadar-Kai en los niveles más bajos de <a
+href="Yndoriel.html">Yndoriel</a>, Vorlag experimentó de primera mano la
+arrogancia de la Casa Valerius y la desesperanza de su pueblo. Pero
+donde otros veían solo sufrimiento, Vorlag veía una debilidad sistémica
+y una oportunidad. Su desdén no era solo para sus opresores, sino
+también para sus iguales que aceptaban su destino con resignación. Él
+creía en el poder, y estaba dispuesto a pagar cualquier precio por
+él.</p>
+<p>Su ascensión comenzó cuando sus brutales pero eficientes métodos como
+supervisor de bajo rango llamaron la atención de Lord Theron Kaelarn, el
+ambicioso patriarca de una casa menor que veía el futuro de <a
+href="Eldrador.html">Eldrador</a> no en la tradición, sino en el control
+pragmático. Theron vio en el joven Shadar-Kai un reflejo de su propia
+filosofía: una herramienta perfecta, afilada por el resentimiento y
+despojada de compasión.</p>
+<p>Vorlag se convirtió en mucho más que un guardaespaldas. Fue el
+arquitecto de la seguridad de Kaelarn, entrenando a una guardia de
+élite, las “Sombras de Kaelarn”, compuesta principalmente por Shadar-Kai
+y elfos descontentos a los que prometió poder a cambio de lealtad
+absoluta. Fue él quien personalmente silenció a los líderes de las
+huelgas mineras, quien recuperó secretos de la Casa Valerius en
+incursiones nocturnas y quien forjó la crucial alianza con el Clan
+Nighthawk de <a href="Mor&#39;dhul.html">Mor’dhul</a>, reconociendo en
+su magia de sombras un eco de la suya propia.</p>
+<p>Se rumorea que Vorlag fue uno de los primeros en descender al “Eco
+del <a href="Lilium.html">Lilium</a>” descubierto por la casa, una
+cicatriz de magia corrupta en las profundidades de la mina. Allí no solo
+sobrevivió, sino que aprendió a canalizar esa energía caótica,
+volviéndose más letal y resistente. No sirve a Lord Kaelarn por mera
+lealtad, sino por una simbiosis perfecta: Vorlag es la encarnación
+viviente del lema de su casa, un ser creado por la presión y el
+sufrimiento, cuyo único propósito es infligir ambos para asegurar el
+poder de su patrón.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vorlag es la personificación de una amenaza contenida. Su físico de
+Shadar-Kai es esbelto y fibroso, con la piel pálida y cenicienta
+característica de su linaje, marcada por finos tatuajes geométricos que
+serpentean por sus brazos y cuello, símbolos de pactos y lealtades
+juradas en la penumbra. A sus 420 años, no muestra signo de vejez, solo
+una intensidad atemporal en sus ojos oscuros, que parecen absorber la
+luz a su alrededor. Se mueve con una gracia fluida y silenciosa, ya sea
+en las lujosas salas de la mansión Kaelarn o en los traicioneros
+andamios de la Veta Sombría.</p>
+<p>Su equipo es una extensión de su propósito: la eficiencia mortal. *
+<strong>Armadura:</strong> Viste una cota de malla élfica ennegrecida,
+tratada alquímicamente para no producir sonido alguno. Sobre ella, jubón
+y pantalones de cuero oscuro que le permiten una flexibilidad total. *
+<strong>Armas:</strong> Sus armas predilectas son dos estiletes gemelos
+de obsidiana y plata, llamados <strong>Silencio</strong> y
+<strong>Pesar</strong>. Son hojas estrechas diseñadas para encontrar
+huecos en la armadura y silenciar a sus objetivos con una precisión
+quirúrgica. Oculta en su muñeca izquierda, lleva una ballesta de mano de
+repetición, cargada con virotes cuya punta está untada con una
+neurotoxina extraída de hongos de las profundidades, un secreto
+celosamente guardado por los herbolarios de la casa. *
+<strong>Símbolo:</strong> Prendido en su capa, lleva un pequeño broche
+de plata pulida: un cristal de maná fracturado, réplica del escudo de su
+casa y regalo personal de Lord Theron. Es un recordatorio constante de
+su pacto y de la fuente de su poder.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Aunque Vorlag no es un rey ni un general que comande vastos ejércitos
+en los campos de batalla de la Gran Guerra, su impacto en la política
+interna de <a href="Eldrador.html">Eldrador</a> es innegable. Es el
+engranaje principal en la maquinaria de poder de la Casa Kaelarn, la
+fuerza que ha permitido a una casa menor desafiar a la dinastía reinante
+de <a href="Yndoriel.html">Yndoriel</a>.</p>
+<p>Para la Casa Valerius y sus aliados, es una sombra que acecha, la
+razón por la que sus nobles no caminan solos de noche. Para los
+Shadar-Kai y las castas inferiores, es una figura dual: un traidor a su
+pueblo para algunos, un ejemplo del único camino hacia el poder para
+otros.</p>
+<p>Su existencia es una prueba viviente de que la influencia en
+Lithernia no siempre se gana con linajes antiguos o diplomacia, sino a
+menudo con una hoja bien colocada en la oscuridad. Mientras Vorlag sirva
+a la Casa Kaelarn, su ascenso continuará, y la guerra fría por el
+control de los cristales de maná de <a href="Yndoriel.html">Yndoriel</a>
+se librará no en salones de consejo, sino en los callejones oscuros y
+los túneles silenciosos donde la Sombra ejerce su dominio.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Kaelarn.html">Casa Kaelarn</a> (relevancia:
+0.63)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

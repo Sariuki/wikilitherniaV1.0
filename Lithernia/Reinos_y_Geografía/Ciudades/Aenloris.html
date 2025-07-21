@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aenloris</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Aenloris</div>
+        <div class="content">
+<h1 id="aenloris">Aenloris</h1>
+<p>Aenloris no es una ciudad que descanse; es una ciudad que trabaja,
+que canta y que huele a mar y a madera recién cortada. Situada en la
+resguardada Bahía del Constructor, en la costa de <a
+href="Galvorn.html">Galvorn</a>, es el corazón palpitante de la
+supremacía naval del reino. Aquí, el aire salado se mezcla con el aroma
+del pino y el roble, y el constante sonido de martillos y sierras se
+armoniza con los profundos y rítmicos “Cantos de Astillero”, melodías
+que los carpinteros entonan para marcar el ritmo de su labor. No es una
+ciudad de grandes monumentos de piedra, sino un monumento vivo a la
+artesanía, donde cada viga y cada clavo son un tributo a los dioses del
+mar, el viento y la forja. Su símbolo, una rosa de los vientos con un
+albatros, ondea en cada mástil, una promesa de viajes seguros nacida en
+sus muelles.</p>
+<h2 id="historia">Historia</h2>
+<p>Aenloris fue fundada por necesidad y por arte. En los albores del
+Reino Marítimo, cuando <a href="Galvorn.html">Galvorn</a> comenzaba a
+soñar con horizontes lejanos, el maestro carpintero de ribera semielfo,
+Lorien Aenar, vio que la ambición del reino necesitaba barcos que
+estuvieran a su altura. Eligió una bahía natural, protegida de las
+peores tormentas y rodeada de bosques densos, y allí estableció el
+primer gran astillero. No buscaba crear una fortaleza, sino un taller a
+escala de ciudad.</p>
+<p>Junto a sus aprendices <a href="Humanos.html">Humanos</a> y <a
+href="Semielfos.html">Semielfos</a>, Aenloris creció con cada barco que
+botaba. Su reputación atrajo a los mejores artesanos del reino: genasi
+de aire que sabían leer los vientos para diseñar las velas perfectas,
+genasi de agua que probaban la estanqueidad de los cascos, y herreros
+devotos de <a href="Solniria.html">Solniria</a> cuya forja nunca se
+enfriaba. La ciudad se convirtió en sinónimo de calidad y orgullo naval,
+el lugar donde se construían los navíos que defendían las rutas
+comerciales y exploraban lo desconocido. Su gobierno evolucionó
+naturalmente hacia un Consejo de Gremios, donde los maestros
+carpinteros, veleros y herreros toman las decisiones, asegurando que el
+espíritu de excelencia artesanal nunca se pierda.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Los Astilleros del Alba</strong>: El alma de Aenloris. Es
+una vasta extensión de diques secos, andamios y talleres a cielo abierto
+donde los esqueletos de futuros galeones se alzan como catedrales de
+madera. El trabajo aquí comienza antes del amanecer y no cesa hasta el
+crepúsculo, siempre al compás de los cantos de los
+trabajadores.</p></li>
+<li><p><strong>El Distrito del Mástil Reciclado</strong>: Un laberinto
+de calles estrechas donde las tabernas, posadas y talleres están
+construidos con los restos de barcos viejos. Las vigas curvas de
+antiguas quillas sostienen los techos, y las puertas están hechas de
+portones de camarote. Es el barrio más ruidoso y animado, el hogar de
+marineros y artesanos.</p></li>
+<li><p><strong>La Terraza del Viento</strong>: Asentada en los
+acantilados que dominan la bahía, esta es la zona más <a
+href="Noble.html">Noble</a> de la ciudad. Aquí viven los maestros de
+gremio y los ricos comerciantes <a href="Semielfos.html">Semielfos</a>.
+Sus casas, con balcones tallados con motivos de olas y tejados de
+cerámica azul, disfrutan de la mejor brisa y las vistas más
+espectaculares del océano.</p></li>
+<li><p><strong>El Templo de las Mareas</strong>: En el corazón del
+puerto, se alza el gran templo de <a href="Yfrit.html">Yfrit</a>.
+Construido con mármol blanco y decorado con incrustaciones de nácar y
+conchas gigantes, su altar principal es un cuenco de agua de mar que
+nunca se aquieta. Es el centro espiritual de la ciudad, donde capitanes
+y tripulaciones buscan la bendición de la diosa antes de
+zarpar.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Aenloris está ligada al mar y a la madera. El estatus no
+se mide en oro, sino en la habilidad de las manos. Un maestro carpintero
+es más respetado que un mercader rico. La tradición más sagrada es la
+“Botadura del Alba”. Cuando un nuevo barco está listo, toda la ciudad se
+reúne al amanecer. Entre cantos y vítores, el capitán rompe una botella
+de vino espumoso de Puebleda contra el casco mientras un <a
+href="Sacerdote.html">Sacerdote</a> de <a href="Yfrit.html">Yfrit</a> lo
+consagra. Los niños de la ciudad participan colgando pequeños pájaros de
+madera tallada en el aparejo, amuletos para asegurar que el barco
+siempre encuentre el camino a casa. Los “Cantos de Astillero” son más
+que canciones de trabajo; son crónicas orales que cuentan la historia de
+los barcos famosos construidos en la ciudad y de los héroes que los
+navegaron.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Aenloris es funcional y hermosa a la vez, un
+reflejo de la unión cultural entre <a href="Humanos.html">Humanos</a> y
+<a href="Semielfos.html">Semielfos</a>. Los edificios son robustos,
+hechos de madera de roble y pino sobre cimientos de piedra, diseñados
+para resistir el viento y la sal. Sin embargo, la influencia semielfa se
+aprecia en los detalles: elegantes tallas de aves marinas y olas adornan
+los balcones, y los tejados de tejas verdes y azules imitan los colores
+del mar. El ambiente es de una energía constante y productiva. La brisa
+marina recorre cada calle, llevando consigo el olor a brea, sal y
+serrín, y el eco incesante del trabajo que forja el futuro de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Muelle Silente</strong>: Se susurra que los restos del
+“Silente”, un legendario barco fantasma que desapareció con toda su
+tripulación hace un siglo, se usaron sin saberlo para construir el
+Muelle 7. Los marineros veteranos se niegan a atracar allí de noche,
+pues juran escuchar lamentos que surgen de la madera y ver figuras
+espectrales caminando por las cubiertas de sus barcos. Se cree que el
+muelle está maldito y que cualquier navío que permanezca amarrado a él
+demasiado tiempo está destinado a perderse en su primer viaje.</p></li>
+<li><p><strong>El Corazón del Roble Rey</strong>: La leyenda cuenta que
+Lorien Aenar, el fundador, construyó el primer gran navío de la ciudad,
+el “Albatros”, con la madera de un roble milenario bendecido por <a
+href="Ferion.html">Ferion</a>. Se dice que el corazón de ese árbol, un
+nudo de madera duro como el acero y cálido al tacto, fue guardado por
+Aenar como un talismán. La creencia popular es que el “Corazón del Roble
+Rey” sigue oculto en algún lugar de los astilleros, y que el artesano
+que lo encuentre será capaz de construir un barco que no pueda ser
+hundido por ninguna tormenta o arma mortal.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.42)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

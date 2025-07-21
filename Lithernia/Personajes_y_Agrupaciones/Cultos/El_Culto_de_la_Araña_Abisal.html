@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Culto_de_la_Araña_Abisal</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Culto_de_la_Araña_Abisal</div>
+        <div class="content">
+<h1 id="el-culto-de-la-araña-abisal">El culto de la araña abisal</h1>
+<h3 id="perfil-de-la-facción">Perfil de la Facción</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Símbolo</strong></td>
+<td style="text-align: left;">Una estilizada araña de ocho ojos, cada
+uno representando un hilo del destino.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Líder</strong></td>
+<td style="text-align: left;">El Corazón de la Telaraña (identidad
+desconocida).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidad Patrona</strong></td>
+<td style="text-align: left;">Athrak’na, la Tejedora del Vacío (Entidad
+primordial).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sedes</strong></td>
+<td style="text-align: left;">Células secretas en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y <a
+href="Eldrador.html">Eldrador</a>, ruinas pre-<a
+href="Lilium.html">Lilium</a>, El bazar crepuscular.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Miembros Típicos</strong></td>
+<td style="text-align: left;"><a
+href="ElfosOscuros.html">ElfosOscuros</a>, Shadar-Kai, <a
+href="Tieflings.html">Tieflings</a>, espías, asesinos, hechiceros,
+pícaros.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Común</strong></td>
+<td style="text-align: left;">Legal Maligno, Neutral Maligno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rivales</strong></td>
+<td style="text-align: left;">Seguidores de Sel’thirak, Órdenes de
+Paladines, ecos de La dama del velo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="objetivos-tácticos-y-métodos">Objetivos Tácticos y Métodos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Objetivo Táctico</th>
+<th style="text-align: left;">Método Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Controlar la
+Profecía</strong></td>
+<td style="text-align: left;">Adquirir o destruir las Lanzas
+Celestiales. Manipular o eliminar a los candidatos a “<a
+href="Heroes.html">Heroes</a> del Rey”.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Debilitar a los
+Dioses</strong></td>
+<td style="text-align: left;">Asesinar a clérigos de alto rango.
+Profanar lugares sagrados. Interceptar o robar artefactos divinos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Acumular Poder
+Oculto</strong></td>
+<td style="text-align: left;">Recuperar tomos y artefactos de la era
+pre-<a href="Lilium.html">Lilium</a>. Realizar rituales en Zonas de Velo
+Roto.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Manipulación
+Política</strong></td>
+<td style="text-align: left;">Usar el chantaje, el engaño y el asesinato
+para colocar agentes en posiciones de poder en los cuatro reinos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="trasfondo-tejedor-de-la-red">Trasfondo: Tejedor de la Red</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Engaño, Sigilo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Kit de envenenador, Kit de disfraz.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Un idioma exótico de tu elección (Abisal,
+Infernal o Infracomún).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo</strong></td>
+<td style="text-align: left;">Un kit de envenenador, un conjunto de
+ropas oscuras comunes, un símbolo del culto (discretamente oculto) y una
+bolsa con 15 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Hilos Ocultos</strong></td>
+<td style="text-align: left;">Conoces las señales y contraseñas secretas
+del culto. En cualquier ciudad o asentamiento grande, puedes encontrar
+un contacto que te proporcionará un lugar seguro para descansar e
+información sobre figuras de poder locales, guardias o rutas de escape a
+cambio de un servicio.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arquetipo-de-pícaro-araña-abisal">Arquetipo de Pícaro: Araña
+Abisal</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Nivel</th>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>3º</strong></td>
+<td style="text-align: left;"><strong>Toque Venenoso</strong></td>
+<td style="text-align: left;">Ganas competencia con el kit de
+envenenador. Como acción adicional, puedes aplicar veneno a un arma
+cortante o perforante. Además, aprendes el truco Agujas de sombra. Este
+no cuenta para tu límite de trucos conocidos. La característica para
+lanzarlo es la Inteligencia.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3º</strong></td>
+<td style="text-align: left;"><strong>Paso de Araña</strong></td>
+<td style="text-align: left;">Ganas una velocidad de escalada igual a tu
+velocidad de movimiento. Puedes moverte por superficies verticales y
+techos sin necesidad de una prueba de habilidad.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>9º</strong></td>
+<td style="text-align: left;"><strong>Hilos del Destino</strong></td>
+<td style="text-align: left;">Cuando una criatura que puedas ver a 30
+pies de ti realice una tirada de ataque, una prueba de habilidad o una
+tirada de salvación, puedes usar tu reacción para darle ventaja o
+desventaja en esa tirada. Puedes usar este rasgo un número de veces
+igual a tu bonificador de competencia, y recuperas todos los usos
+gastados después de un descanso largo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>13º</strong></td>
+<td style="text-align: left;"><strong>Manto de Sombras</strong></td>
+<td style="text-align: left;">Cuando estás en penumbra u oscuridad,
+puedes usar una acción para volverte invisible. Permaneces invisible
+hasta que realices un ataque, lances un conjuro o entres en un área de
+luz brillante.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>17º</strong></td>
+<td style="text-align: left;"><strong>Mordedura
+Paralizante</strong></td>
+<td style="text-align: left;">Cuando golpeas a una criatura con tu
+Ataque Furtivo, puedes forzarla a hacer una tirada de salvación de
+Constitución (CD 8 + tu bonificador de competencia + tu modificador de
+Destreza). Si falla, queda paralizada durante 1 minuto. La criatura
+puede repetir la tirada de salvación al final de cada uno de sus turnos,
+terminando el efecto si tiene éxito. Una vez que usas este rasgo, no
+puedes volver a usarlo hasta que termines un descanso largo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ganchos-de-misión">Ganchos de Misión</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Misión del Culto</th>
+<th style="text-align: left;">Objetivo Táctico Vinculado</th>
+<th style="text-align: left;">Pruebas Clave Sugeridas (CD)</th>
+<th style="text-align: left;">Complicación Potencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Asesinar a un oráculo de <a
+href="Arzia.html">Arzia</a> en <a href="Eldrador.html">Eldrador</a> que
+ha previsto los movimientos del culto.</td>
+<td style="text-align: left;">Debilitar a los Dioses</td>
+<td style="text-align: left;">Sigilo (18), Engaño (16), Combate</td>
+<td style="text-align: left;">El oráculo está protegido por <a
+href="Eladrin.html">Eladrin</a> guardianes.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Robar un tomo pre-<a
+href="Lilium.html">Lilium</a> de una bóveda secreta en la Torre de las
+Estrellas en <a href="Valtoria.html">Valtoria</a>.</td>
+<td style="text-align: left;">Acumular Poder Oculto</td>
+<td style="text-align: left;">Arcanos (19), Herramientas de Ladrón
+(18)</td>
+<td style="text-align: left;">La bóveda está custodiada por un golem
+rúnico.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Chantajear a un <a
+href="Noble.html">Noble</a> de Mor-dhul para que apoye a un agente del
+culto en la corte.</td>
+<td style="text-align: left;">Manipulación Política</td>
+<td style="text-align: left;">Investigación (17), Persuasión (19)</td>
+<td style="text-align: left;">El <a href="Noble.html">Noble</a> es un
+devoto fanático de Sel’thirak.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Identificar y eliminar a un agente de una
+facción rival que se ha infiltrado en el culto.</td>
+<td style="text-align: left;">Autopreservación</td>
+<td style="text-align: left;">Perspicacia (18), Investigación (17)</td>
+<td style="text-align: left;">El agente ya conoce tu identidad.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Sabotear las negociaciones de paz entre <a
+href="Galvorn.html">Galvorn</a> y <a
+href="Eldrador.html">Eldrador</a>.</td>
+<td style="text-align: left;">Mantener el Caos</td>
+<td style="text-align: left;">Engaño (18), Persuasión (17)</td>
+<td style="text-align: left;">Un semielfo diplomático detecta la
+manipulación.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Realizar un ritual en una Zona de Velo
+Roto para contactar con Athrak’na.</td>
+<td style="text-align: left;">Acumular Poder Oculto</td>
+<td style="text-align: left;">Arcanos (20), Supervivencia (16)</td>
+<td style="text-align: left;">El ritual atrae a guardianes planares o a
+Coleccionistas de lamentos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="miembros-del-culto-pnjs">Miembros del Culto (PNJs)</h3>
+<p>statblock name: Tejedor de Sombras size: Mediano type: humanoide
+(elfo oscuro) alignment: neutral maligno ac: 15 (Armadura de cuero
+tachonado) hp: 78 (12d8 + 24) speed: 30 ft. stats: [12, 18, 14, 14, 13,
+16] saves: - Dex: +7 - Int: +5 skills: Acrobacias: +7 Engaño: +6
+Percepción: +4 Sigilo: +10 damage_resistances: Veneno senses: Visión en
+la oscuridad 120 ft., Percepción Pasiva 14 languages: Común, Élfico,
+Infracomún cr: 5 traits: - name: Lanzamiento de Conjuros Innato desc:
+“La aptitud mágica del tejedor es el Carisma (CD de salvación de
+conjuros 14). Puede lanzar los siguientes conjuros de forma
+innata:voluntad: Agujas de sombra, Ilusión Menor/día cada uno:
+Invisibilidad, Red, Sugestión” - name: Ataque Furtivo (1/Turno) desc:
+“El tejedor inflige 10 (3d6) de daño adicional cuando impacta a un
+objetivo con un ataque de arma y tiene ventaja en la tirada de ataque, o
+cuando el objetivo está a 5 pies de un aliado del tejedor que no está
+incapacitado y el tejedor no tiene desventaja en la tirada de ataque.” -
+name: Evasión desc: “Si el tejedor es sometido a un efecto que le
+permite hacer una tirada de salvación de Destreza para recibir solo la
+mitad del daño, en su lugar no recibe ningún daño si tiene éxito en la
+tirada de salvación, y solo la mitad del daño si falla.” actions: -
+name: Multiataque desc: “El tejedor realiza dos ataques con su espada
+corta.” - name: Espada Corta desc: “Ataque de arma cuerpo a cuerpo: +7 a
+impactar, alcance 5 ft., un objetivo. Impacto: 7 (1d6 + 4) de daño
+perforante más 7 (2d6) de daño de veneno.” reactions: - name:
+Desvanecerse desc: “Cuando es impactado por un ataque, el tejedor puede
+volverse invisible y moverse hasta la mitad de su velocidad sin provocar
+ataques de oportunidad. La invisibilidad dura hasta el comienzo de su
+próximo turno o hasta que ataque o lance un conjuro.”</p>
+        </div>
+    </div>
+</body>
+</html>

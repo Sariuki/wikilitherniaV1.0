@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenyra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lenyra</div>
+        <div class="content">
+<h1 id="lenyra">Lenyra</h1>
+<p>Lenyra no es una ciudad construida sobre la tierra, sino tallada en
+su corazón. Excavada en las paredes vertiginosas de un cañón conocido
+como la Garganta de Cristal, la ciudad es una proeza de ingeniería y
+arte. Sus edificios son facetas de la propia montaña, unidas por una red
+de puentes de cuerda y madera reforzada que desafían el abismo. En el
+fondo, el río Lenyra ruge, un eco constante de la fuerza de la
+naturaleza. La luz del sol rara vez toca el lecho del río directamente,
+pero es capturada y refractada por enormes cristales de cuarzo
+incrustados en los techos de las cavernas, bañando los grandes salones
+en un resplandor etéreo y perpetuo. Lenyra es un testimonio de la
+tenacidad enana y el ingenio gnomo, una joya escondida en las entrañas
+de <a href="Valtoria.html">Valtoria</a>.</p>
+<h2 id="historia">Historia</h2>
+<p>La fundación de Lenyra es una leyenda de perseverancia. Tras el
+Cataclismo del <a href="Lilium.html">Lilium</a>, cuando los clanes <a
+href="Enanos.html">Enanos</a> buscaban nuevos hogares en las
+profundidades de las montañas, el maestro cantero Korbin Cristalbarba
+descubrió la Garganta de Cristal. Vio en sus paredes de granito veteado
+no un obstáculo, sino un lienzo, y en sus vetas de cuarzo, una fuente de
+luz eterna. Junto a un gremio de ingenieros <a
+href="Gnomos.html">Gnomos</a>, se propuso una tarea considerada
+imposible: construir una ciudad que descendiera en lugar de
+ascender.</p>
+<p>Durante décadas, el sonido de los picos y los cánticos de forja
+resonaron en el cañón. Tallaron sus hogares y talleres directamente en
+la roca, honrando a <a href="Cirkon.html">Cirkon</a> con cada golpe.
+Pronto, la belleza y seguridad de Lenyra atrajeron a otros. <a
+href="Medianos.html">Medianos</a> de las colinas establecieron posadas
+en los niveles más bajos, <a href="Goliaths.html">Goliaths</a> juraron
+proteger las sendas superiores y genasi de tierra encontraron un
+parentesco con la roca viva de la ciudad. Lenyra se convirtió así en un
+próspero centro de artesanía, famoso en todo <a
+href="Valtoria.html">Valtoria</a> por su dominio del cristal y su
+acústica inigualable.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de Cristal</strong>: El centro cívico y
+espiritual de la ciudad, ubicado en la caverna más grande. Aquí se
+encuentra el Templo Principal, tallado en el interior de una geoda
+colosal cuyas paredes brillan con miles de cristales. También alberga el
+salón del Consejo de Gremios y la plaza principal donde se celebra el
+Festival del Eco Resonante.</p></li>
+<li><p><strong>Los Balcones Colgantes</strong>: El distrito residencial
+principal, compuesto por innumerables viviendas talladas en la pared del
+cañón a diferentes alturas. Sus fachadas están adornadas con balcones de
+secuoya alpina y jardines colgantes que caen en cascada, creando franjas
+de verde y color contra la roca gris.</p></li>
+<li><p><strong>El Lecho del Río</strong>: La zona más baja y bulliciosa
+de Lenyra. A lo largo de las orillas del río se alinean molinos de agua
+que alimentan las forjas, muelles para las barcazas de los pescadores y
+un animado mercado donde los <a href="Medianos.html">Medianos</a> venden
+productos de las tierras altas. Es un lugar ruidoso, lleno del olor a
+pescado ahumado y metal caliente.</p></li>
+<li><p><strong>La Veta Resonante</strong>: Un laberinto de túneles y
+talleres dedicados a la artesanía. Aquí, los joyeros tallan gemas bajo
+la luz refractada, los herreros forjan herramientas con el eco de sus
+martillos y los ingenieros <a href="Gnomos.html">Gnomos</a> experimentan
+con nuevos artilugios. La acústica de esta zona es tan perfecta que se
+dice que una nota cantada en el taller correcto puede oírse en toda la
+ciudad.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Lenyra está marcada por un profundo respeto por la
+creación, ya sea por la mano de los dioses o por la de un artesano. El
+“Festival del Eco Resonante” es el evento más importante del año, una
+competición musical donde coros de <a href="Enanos.html">Enanos</a> y
+bardos <a href="Gnomos.html">Gnomos</a> utilizan la acústica del cañón
+para crear sinfonías que, según se dice, pueden hacer vibrar los propios
+cristales.</p>
+<p>Las disputas no se resuelven con violencia, sino con “Competiciones
+de Talla”. Los representantes de los clanes enfrentados deben esculpir
+la obra más bella en un bloque de granito; el juicio de los maestros
+artesanos es inapelable. Es costumbre que cada recién nacido sea
+“presentado al cañón”, arrojando una gema tallada al río para pedir la
+bendición de <a href="Cirkon.html">Cirkon</a>. Al cruzar un puente por
+primera vez, un viajero siempre deja una moneda de cobre en un nicho
+como ofrenda para un paso seguro, un gesto de respeto a los ingenieros
+que lo construyeron.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Lenyra es monolítica y orgánica a la vez. No hay
+edificios independientes; la ciudad es una única escultura habitable.
+Las estructuras de roca sólida se suavizan con la calidez de la madera
+de secuoya y la vitalidad de los jardines colgantes. El ambiente es de
+una laboriosidad reverente. El aire transporta el olor a piedra húmeda,
+el humo de las forjas y el aroma de las flores alpinas. El sonido
+dominante es una sinfonía industrial y natural: el rugido constante del
+río en el fondo, el repique rítmico de los martillos y, a veces, el
+canto profundo de los coros <a href="Enanos.html">Enanos</a> que
+practican en los salones cavernosos.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Canto del Río</strong>: Se susurra que en las noches
+sin luna, una melodía melancólica y de otro mundo emana de las
+profundidades del río Lenyra. Los optimistas creen que es el canto de un
+antiguo espíritu del agua que custodia un yacimiento de gemas puras. Los
+más temerosos, sin embargo, afirman que es el lamento de un “Hijo de la
+Luna”, un individuo con un poder mágico incontrolable que fue confinado
+en una caverna sumergida hace siglos. Dicen que su poder inestable es la
+causa de que los cristales de la ciudad, a veces, resuenen con una luz
+extraña y peligrosa.</p></li>
+<li><p><strong>La Última Talla de Korbin</strong>: La leyenda cuenta que
+el fundador, Korbin Cristalbarba, no murió. En sus últimos días, se dice
+que usó su maestría para tallarse a sí mismo en la propia pared del
+cañón, fundiéndose con la roca para convertirse en su guardián eterno.
+Los ciudadanos afirman que, si se mira con atención durante el solsticio
+de invierno, se puede distinguir su rostro barbudo en las formaciones de
+granito, velando por la seguridad de su obra maestra.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forjador</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Forjador</div>
+        <div class="content">
+<h1 id="forjador">Forjador</h1>
+<h3 id="perfil-del-trasfondo">Perfil del Trasfondo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Historia, Persuasión</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de herrero, un tipo de
+herramientas de artesano a tu elección.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo</strong></td>
+<td style="text-align: left;">Un martillo de herrero, un juego de
+herramientas de herrero, un recuerdo de tu obra maestra (ej. una daga
+rota, un broche), un conjunto de ropa de viajero y una bolsa con 15
+po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo</strong></td>
+<td style="text-align: left;">Gremio del Martillo y el Yunque</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgo-gremio-del-martillo-y-el-yunque">Rasgo: Gremio del
+Martillo y el Yunque</h3>
+<p>Como miembro del gremio de artesanos, tienes una red de contactos en
+el mundo de la herrería y la artesanía. Puedes encontrar un lugar para
+alojarte y trabajar de forma gratuita en cualquier asentamiento que
+tenga una comunidad de forjadores, aunque a cambio podrías tener que
+realizar algún trabajo. Tienes acceso a forjas y herramientas, y los
+demás artesanos suelen tratarte con respeto, compartiendo rumores o
+información que no confiarían a un forastero, especialmente si están
+relacionados con la nobleza local, las milicias o la calidad de los
+minerales de la zona.</p>
+<h3 id="características-sugeridas">Características Sugeridas</h3>
+<p>Los forjadores están moldeados por su oficio, con una perspectiva
+práctica y a menudo directa. Su historia personal está ligada a sus
+creaciones y al lugar donde aprendieron los secretos del metal.</p>
+<h4 id="rasgos-de-personalidad-d8">Rasgos de Personalidad (d8)</h4>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d8</th>
+<th style="text-align: left;">Rasgo de Personalidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Mido el valor de una persona por la
+calidad de su equipo.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Soy increíblemente terco. Una vez que
+empiezo un proyecto, no puedo parar hasta que esté perfecto.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Veo soluciones a los problemas en términos
+de construir, reforzar o destruir.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Mis manos nunca están verdaderamente
+limpias; siempre hay algo de hollín o grasa bajo mis uñas.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Hablo con franqueza y desprecio las
+sutilezas de la corte. El acero no miente, y yo tampoco.</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Me maravillo ante las formaciones rocosas
+y los metales raros, y puedo pasar horas admirando una buena veta de
+mineral.</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">Siempre estoy “mejorando” el equipo de mis
+compañeros, lo quieran o no.</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Cada cicatriz en mis manos cuenta la
+historia de un error del que aprendí.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ideales-d6">Ideales (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d6</th>
+<th style="text-align: left;">Ideal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>Creación (Bueno).</strong> Mi
+propósito es crear objetos que protejan y ayuden a los demás, no que
+destruyan.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>Tradición (Legal).</strong> Las
+técnicas de los antiguos maestros deben ser preservadas y honradas. (Ej:
+<a href="Valtoria.html">Valtoria</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>Innovación (Caótico).</strong> El
+verdadero arte está en descubrir nuevos métodos y materiales, rompiendo
+con lo establecido. (Ej: <a href="Galvorn.html">Galvorn</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>Perfección (Neutral).</strong> Mi
+único objetivo es alcanzar la maestría absoluta en mi oficio, sin
+importar el coste.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>Poder (Maligno).</strong> Las
+mejores armas deben estar en las manos más fuertes, y yo decidiré
+quiénes son dignos. (Ej: <a href="Mor&#39;dhul.html">Mor’dhul</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>Comunidad (Cualquiera).</strong>
+Mi fragua es el corazón de mi comunidad, y mi trabajo la mantiene segura
+y próspera.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vínculos-d6">Vínculos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d6</th>
+<th style="text-align: left;">Vínculo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Busco un metal legendario, como el corazón
+de una estrella caída o una escama de dragón, para forjar mi obra
+definitiva.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Mi taller y mi familia fueron destruidos
+en la Gran Guerra, y busco vengarme del clan o reino responsable.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Creé un arma para un tirano y ahora debo
+redimirme asegurándome de que nunca más sea utilizada para el mal.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Debo lealtad al maestro que me enseñó todo
+lo que sé, y cumpliré una promesa que le hice en su lecho de
+muerte.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Una de mis creaciones fue robada y ahora
+está en manos de un poderoso enemigo. Debo recuperarla.</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Mientras reparaba una reliquia, descubrí
+un secreto sobre el Primer Rey o el Cataclismo del <a
+href="Lilium.html">Lilium</a> que debo proteger a toda costa.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="defectos-d6">Defectos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d6</th>
+<th style="text-align: left;">Defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Desprecio en secreto cualquier trabajo que
+no sea el mío, considerándolo de calidad inferior.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Soy demasiado posesivo con los objetos que
+creo. Me cuesta desprenderme de ellos.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">La codicia me ciega. Haría cualquier cosa
+por adquirir un material raro o una herramienta de calidad
+superior.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Confío más en la dureza del acero que en
+la lealtad de las personas.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Un error en la fragua causó un terrible
+accidente en el pasado, y ahora temo el fuego descontrolado.</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Mi orgullo es mi mayor debilidad. Nunca
+admitiré que un trabajo es demasiado difícil para mí.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="backlinks">Backlinks</h3>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+<li><a href="Mor&#39;dhul.html">Mor’dhul</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

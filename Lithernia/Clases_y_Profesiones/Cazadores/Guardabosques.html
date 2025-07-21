@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardabosques</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Guardabosques</div>
+        <div class="content">
+<h1 id="guardabosques">Guardabosques</h1>
+<p>Los guardabosques de Lithernia son los ojos y oídos de las tierras
+salvajes, maestros de la supervivencia que caminan entre la civilización
+y la indómita naturaleza. Desde los bosques ancestrales de <a
+href="Eldrador.html">Eldrador</a>, protegidos por centinelas elfos,
+hasta las escarpadas cumbres de <a href="Valtoria.html">Valtoria</a>,
+vigiladas por rastreadores goliat, los guardabosques son la primera
+línea de defensa contra las criaturas corrompidas por el <a
+href="Lilium.html">Lilium</a> y las incursiones de reinos hostiles.
+Entienden el lenguaje del viento, las huellas de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+y los secretos susurrados por los árboles antiguos. Ya sea cazando
+monstruos para proteger un asentamiento, guiando a viajeros a través de
+parajes peligrosos o acechando a los enemigos de su pueblo, el
+guardabosques es un <a href="Guerrero.html">Guerrero</a> adaptable y un
+custodio del equilibrio natural en un mundo que lo ha perdido hace mucho
+tiempo.</p>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como guardabosques, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d10 por nivel de guardabosques
+<strong>Puntos de Golpe a nivel 1:</strong> 10 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d10
+(o 6) + tu modificador de Constitución por cada nivel de guardabosques
+después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera, armadura intermedia,
+escudos <strong>Armas:</strong> Armas sencillas, armas marciales
+<strong>Herramientas:</strong> Ninguna <strong>Tiradas de
+Salvación:</strong> Fuerza, Destreza <strong>Habilidades:</strong> Elige
+tres de entre Atletismo, Latrocinio, Percepción, Perspicacia, Sigilo,
+Supervivencia y Trato con Animales.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) cota de escamas o (b) armadura de cuero * (a) dos
+espadas cortas o (b) dos armas sencillas cuerpo a cuerpo * (a) un
+paquete de explorador de mazmorras o (b) un paquete de explorador * Un
+arco largo y un carcaj con 20 flechas</p>
+<h3 id="sistema-de-maná-del-guardabosques"><strong>Sistema de Maná del
+Guardabosques</strong></h3>
+<p>Tu magia proviene de una profunda conexión con el mundo natural,
+permitiéndote canalizar el poder del Tejido de Maná a través de tu
+voluntad y sabiduría.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná para lanzar tus <a href="Conjuros.html">Conjuros</a>. Tu fórmula de
+maná es <strong>6 + (Nivel de Guardabosques × Modificador de
+Sabiduría)</strong>. Comienzas a tener acceso a esta reserva a partir
+del nivel 2.</li>
+<li><strong>Dado de Maná:</strong> 1d8.</li>
+<li><strong>Aptitud Mágica:</strong> La Sabiduría es tu aptitud mágica
+para tus <a href="Conjuros.html">Conjuros</a> de guardabosques.
+<ul>
+<li><strong>CD de salvación de <a
+href="Conjuros.html">Conjuros</a></strong> = 8 + tu bonificador por
+competencia + tu modificador de Sabiduría.</li>
+<li><strong>Modificador de ataque de conjuro</strong> = tu bonificador
+por competencia + tu modificador de Sabiduría.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-guardabosques">Tabla de Progresión del
+Guardabosques</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;"><a href="Conjuros.html">Conjuros</a>
+Conocidos</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Enemigo Predilecto, Explorador
+Natural</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Estilo de Combate, Lanzamiento de <a
+href="Conjuros.html">Conjuros</a></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6 + (2 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Arquetipo de Guardabosques, Conciencia
+Primaria</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6 + (3 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6 + (4 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Ataque Extra</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (5 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Enemigo Predilecto y Explorador
+Natural</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (6 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Arquetipo de Guardabosques</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (7 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de Característica,
+Paso Terrestre</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (8 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">6 + (9 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Explorador Natural, Ocultarse a
+Plena Vista</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">6 + (10 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Rasgo de Arquetipo de Guardabosques</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6 + (11 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6 + (12 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">6 + (13 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Enemigo Predilecto,
+Desvanecerse</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">6 + (14 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Rasgo de Arquetipo de Guardabosques</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">6 + (15 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">6 + (16 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">6 + (17 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Sentidos Férreos</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">6 + (18 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">6 + (19 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Asesino de Enemigos</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">6 + (20 × Mod. SAB)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="enemigo-predilecto"><strong>Enemigo Predilecto</strong></h3>
+<p>A partir del nivel 1, has dedicado tiempo a estudiar, rastrear y
+cazar a un tipo específico de enemigo. Elige un tipo de enemigo
+predilecto: aberraciones, <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>,
+celestiales, constructos, <a href="Dragones.html">Dragones</a>,
+elementales, feéricos, gigantes, humanoides (elige dos razas),
+monstruosidades, cienos, muertos vivientes o plantas. Obtienes ventaja
+en las pruebas de Sabiduría (Supervivencia) para rastrear a tus enemigos
+predilectos, así como en las pruebas de Inteligencia para recordar
+información sobre ellos. Al elegir este rasgo, también aprendes uno de
+los idiomas de tus enemigos predilectos, si es que hablan alguno. Eliges
+un enemigo predilecto adicional, así como un idioma asociado, en los
+niveles 6 y 14.</p>
+<h3 id="explorador-natural"><strong>Explorador Natural</strong></h3>
+<p>Estás particularmente familiarizado con un tipo de entorno natural y
+eres experto en viajar y sobrevivir en tales regiones. Elige un tipo de
+terreno predilecto: ártico, costa, desierto, bosque, montaña, pantano,
+pradera o el Underdark. Cuando hagas una prueba de Inteligencia o
+Sabiduría relacionada con tu terreno predilecto, tu bonificador por
+competencia se duplica si estás usando una habilidad en la que eres
+competente. Mientras viajas durante una hora o más en tu terreno
+predilecto, obtienes los siguientes beneficios: * El terreno difícil no
+ralentiza el viaje de tu grupo. * Tu grupo no puede perderse excepto por
+medios mágicos. * Incluso cuando estás ocupado en otra actividad
+mientras viajas (como buscar comida, navegar o rastrear), permaneces
+alerta al peligro. * Si viajas solo, puedes moverte sigilosamente a un
+ritmo normal. * Cuando buscas comida, encuentras el doble de lo normal.
+* Mientras rastreas a otras criaturas, también aprendes su número
+exacto, sus tamaños y cuánto tiempo hace que pasaron por la zona. Eliges
+un terreno predilecto adicional en los niveles 6 y 10.</p>
+<h3 id="estilo-de-combate"><strong>Estilo de Combate</strong></h3>
+<p>En el nivel 2, adoptas un estilo de combate particular como tu
+especialidad. Elige una de las siguientes opciones. No puedes elegir un
+Estilo de Combate más de una vez, incluso si más tarde tienes la opción
+de elegir otro. * <strong>Arquería:</strong> Ganas un bonificador de +2
+a las tiradas de ataque que hagas con armas a distancia. *
+<strong>Defensa:</strong> Mientras lleves armadura, ganas un bonificador
+de +1 a la CA. * <strong>Duelo:</strong> Cuando empuñas un arma cuerpo a
+cuerpo en una mano y ninguna otra arma, ganas un bonificador de +2 a las
+tiradas de daño con esa arma. * <strong>Lucha con Dos Armas:</strong>
+Cuando luchas con dos armas, puedes añadir tu modificador de
+característica al daño del segundo ataque.</p>
+<h3 id="lanzamiento-de-conjuros"><strong>Lanzamiento de
+Conjuros</strong></h3>
+<p>Cuando alcanzas el nivel 2, aprendes a usar la esencia mágica de la
+naturaleza para lanzar <a href="Conjuros.html">Conjuros</a>.</p>
+<p><strong><a href="Conjuros.html">Conjuros</a> Conocidos:</strong>
+Conoces dos <a href="Conjuros.html">Conjuros</a> de nivel 1 de tu
+elección de la lista de <a href="Conjuros.html">Conjuros</a> de
+guardabosques. La columna <a href="Conjuros.html">Conjuros</a> Conocidos
+de la tabla del Guardabosques muestra cuándo aprendes más <a
+href="Conjuros.html">Conjuros</a>. Debes elegir los <a
+href="Conjuros.html">Conjuros</a> de un nivel para el que tengas la
+capacidad de lanzar.</p>
+<p><strong>Aptitud Mágica:</strong> La Sabiduría es tu aptitud para
+lanzar <a href="Conjuros.html">Conjuros</a>, ya que tu magia proviene de
+tu conexión con la naturaleza.</p>
+<h3 id="arquetipo-de-guardabosques"><strong>Arquetipo de
+Guardabosques</strong></h3>
+<p>En el nivel 3, eliges un arquetipo que te esfuerzas por emular: el <a
+href="Cazador.html">Cazador</a>, el Maestro de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>,
+el Caminante del Horizonte o el Vigilante de las Sombras, todos
+detallados al final de la descripción de la clase. Tu elección te otorga
+rasgos en el nivel 3, y de nuevo en los niveles 7, 11 y 15.</p>
+<h3 id="conciencia-primaria"><strong>Conciencia Primaria</strong></h3>
+<p>A partir del nivel 3, puedes usar tu acción y gastar 2 Puntos de Maná
+para enfocar tu conciencia en la región circundante. Durante 1 minuto,
+puedes sentir si los siguientes tipos de criaturas están presentes a
+menos de 1 milla de ti (o hasta 6 millas si estás en tu terreno
+predilecto): aberraciones, celestiales, <a
+href="Dragones.html">Dragones</a>, elementales, feéricos, infernales y
+muertos vivientes. Este rasgo no revela la ubicación ni el número de las
+criaturas.</p>
+<h3 id="mejora-de-puntuación-de-característica"><strong>Mejora de
+Puntuación de Característica</strong></h3>
+<p>Cuando alcanzas el nivel 4, y de nuevo en los niveles 8, 12, 16 y 19,
+puedes aumentar una puntuación de característica de tu elección en 2, o
+puedes aumentar dos puntuaciones de característica de tu elección en 1.
+Como es habitual, no puedes aumentar una puntuación de característica
+por encima de 20 usando este rasgo.</p>
+<h3 id="ataque-extra"><strong>Ataque Extra</strong></h3>
+<p>A partir del nivel 5, puedes atacar dos veces, en lugar de una,
+siempre que realices la acción de Atacar en tu turno.</p>
+<h3 id="paso-terrestre"><strong>Paso Terrestre</strong></h3>
+<p>A partir del nivel 8, moverte a través de terreno difícil no mágico
+no te cuesta movimiento extra. También puedes pasar a través de plantas
+no mágicas sin ser ralentizado por ellas y sin recibir daño si tienen
+espinas, pinchos o un peligro similar. Además, tienes ventaja en las
+tiradas de salvación contra plantas que son creadas o manipuladas
+mágicamente para impedir el movimiento.</p>
+<h3 id="ocultarse-a-plena-vista"><strong>Ocultarse a Plena
+Vista</strong></h3>
+<p>A partir del nivel 10, puedes pasar 1 minuto creando un camuflaje
+para ti. Debes tener acceso a barro fresco, tierra, plantas, hollín y
+otros materiales naturales con los que crear tu camuflaje. Una vez que
+estés camuflado de esta manera, puedes intentar esconderte poniéndote
+contra una superficie sólida, como un árbol o una pared, que sea al
+menos tan alta y ancha como tú. Ganas un bonificador de +10 a las
+pruebas de Destreza (Sigilo) mientras permanezcas allí sin moverte ni
+realizar acciones. Una vez que te mueves o realizas una acción o una
+reacción, debes camuflarte de nuevo para obtener este beneficio.</p>
+<h3 id="desvanecerse"><strong>Desvanecerse</strong></h3>
+<p>A partir del nivel 14, puedes usar la acción de Esconderte como una
+acción adicional en tu turno. Además, no puedes ser rastreado por medios
+no mágicos, a menos que elijas dejar un rastro.</p>
+<h3 id="sentidos-férreos"><strong>Sentidos Férreos</strong></h3>
+<p>En el nivel 18, obtienes sentidos sobrehumanos que te ayudan a luchar
+contra criaturas que no puedes ver. Cuando atacas a una criatura que no
+puedes ver, tu incapacidad para ver no impone desventaja en tus tiradas
+de ataque contra ella. También eres consciente de la ubicación de
+cualquier criatura invisible a 30 pies de ti, siempre que la criatura no
+esté escondida de ti y no estés cegado o ensordecido.</p>
+<h3 id="asesino-de-enemigos"><strong>Asesino de Enemigos</strong></h3>
+<p>En el nivel 20, te conviertes en un <a
+href="Cazador.html">Cazador</a> sin igual de tus enemigos. Una vez en
+cada uno de tus turnos, puedes añadir tu modificador de Sabiduría a la
+tirada de ataque o a la tirada de daño de un ataque que hagas contra uno
+de tus enemigos predilectos. Puedes elegir usar este rasgo antes o
+después de la tirada, pero antes de que se apliquen los efectos de la
+tirada.</p>
+<hr />
+<h2 id="arquetipos-de-guardabosques"><strong>Arquetipos de
+Guardabosques</strong></h2>
+<h3 id="cazador"><strong>Cazador</strong></h3>
+<p>Emular el arquetipo del <a href="Cazador.html">Cazador</a> significa
+aceptar tu lugar como un baluarte entre la civilización y los terrores
+de las tierras salvajes.</p>
+<h4 id="presa-del-cazador"><strong>Presa del Cazador</strong></h4>
+<p>En el nivel 3, obtienes uno de los siguientes rasgos de tu elección.
+* <strong>Asesino de Colosos.</strong> Tu tenacidad puede derribar a los
+enemigos más potentes. Cuando golpeas a una criatura con un ataque de
+arma, la criatura recibe 1d8 de daño adicional si está por debajo de su
+máximo de puntos de golpe. Solo puedes infligir este daño adicional una
+vez por turno. * <strong>Asesino de Gigantes.</strong> Cuando una
+criatura Grande o mayor a 5 pies de ti te golpea o falla con un ataque,
+puedes usar tu reacción para atacar a esa criatura inmediatamente
+después de su ataque, siempre que puedas ver a la criatura. *
+<strong>Destructor de Hordas.</strong> Una vez en cada uno de tus
+turnos, cuando haces un ataque de arma, puedes hacer otro ataque con la
+misma arma contra una criatura diferente que esté a 5 pies del objetivo
+original y dentro del alcance de tu arma.</p>
+<h4 id="tácticas-defensivas"><strong>Tácticas Defensivas</strong></h4>
+<p>En el nivel 7, obtienes uno de los siguientes rasgos de tu elección.
+* <strong>Escapada del Enjambre.</strong> Los ataques de oportunidad
+contra ti se hacen con desventaja. * <strong>Defensa contra Ataques
+Múltiples.</strong> Cuando una criatura te golpea con un ataque, ganas
+un bonificador de +4 a la CA contra todos los ataques posteriores hechos
+por esa criatura durante el resto del turno. * <strong>Voluntad de
+Acero.</strong> Tienes ventaja en las tiradas de salvación contra ser
+asustado.</p>
+<h4 id="ataque-múltiple"><strong>Ataque Múltiple</strong></h4>
+<p>En el nivel 11, obtienes uno de los siguientes rasgos de tu elección.
+* <strong>Descarga.</strong> Puedes usar tu acción para hacer un ataque
+a distancia contra cualquier número de criaturas a 10 pies de un punto
+que puedas ver dentro del alcance de tu arma. Debes tener munición para
+cada objetivo, como es habitual, y haces una tirada de ataque separada
+para cada objetivo. * <strong>Ataque Torbellino.</strong> Puedes usar tu
+acción para hacer un ataque cuerpo a cuerpo contra cualquier número de
+criaturas a 5 pies de ti, con una tirada de ataque separada para cada
+objetivo.</p>
+<h4 id="defensa-superior-del-cazador"><strong>Defensa Superior del
+Cazador</strong></h4>
+<p>En el nivel 15, obtienes uno de los siguientes rasgos de tu elección.
+* <strong>Evasión Asombrosa.</strong> Cuando un atacante que puedes ver
+te golpea con un ataque, puedes usar tu reacción para reducir a la mitad
+el daño del ataque contra ti. * <strong>Esquivar.</strong> Cuando estás
+sujeto a un efecto que te permite hacer una tirada de salvación de
+Destreza para recibir solo la mitad del daño, en su lugar no recibes
+ningún daño si tienes éxito en la tirada de salvación, y solo la mitad
+del daño si fallas. * <strong>Girar la Marea.</strong> Si una criatura
+te falla con un ataque, puedes usar tu reacción para forzar a esa
+criatura a repetir el mismo ataque contra otro objetivo de tu elección
+(que no seas tú).</p>
+<h3 id="maestro-de-las-bestias"><strong>Maestro de las
+Bestias</strong></h3>
+<p>El arquetipo del Maestro de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+encarna una conexión profunda con el mundo natural, forjando un vínculo
+de por vida con una criatura de las tierras salvajes.</p>
+<h4 id="compañero-del-guardabosques"><strong>Compañero del
+Guardabosques</strong></h4>
+<p>En el nivel 3, obtienes un compañero animal que te acompaña en tus
+aventuras y está entrenado para luchar a tu lado. Elige una bestia que
+no sea más grande que Mediana y que tenga un valor de desafío de 1/4 o
+inferior. Añade tu bonificador de competencia a la CA, tiradas de
+ataque, tiradas de daño, así como a cualquier tirada de salvación y
+habilidad en la que sea competente. Sus puntos de golpe máximos son
+iguales al número indicado en sus estadísticas o cuatro veces tu nivel
+de guardabosques, lo que sea mayor. La bestia obedece tus órdenes lo
+mejor que puede. Toma su turno en tu iniciativa, aunque no realiza
+ninguna acción a menos que tú se lo ordenes. En tu turno, puedes ordenar
+verbalmente a la bestia dónde moverse (sin que te cueste una acción).
+Puedes usar tu acción para ordenar verbalmente que realice la acción de
+Atacar, Correr, Destrabarse, Esquivar o Ayudar. Una vez que obtienes el
+rasgo Ataque Extra, puedes hacer un ataque con arma cuando ordenas a tu
+compañero que realice la acción de Atacar.</p>
+<h4 id="entrenamiento-excepcional"><strong>Entrenamiento
+Excepcional</strong></h4>
+<p>A partir del nivel 7, en cualquiera de tus turnos cuando tu compañero
+animal no ataca, puedes usar una acción adicional para ordenarle que
+realice la acción de Correr, Destrabarse, Esquivar o Ayudar en su
+turno.</p>
+<h4 id="furia-bestial"><strong>Furia Bestial</strong></h4>
+<p>A partir del nivel 11, tu compañero animal puede realizar dos ataques
+cuando le ordenas que use la acción de Atacar.</p>
+<h4 id="compartir-conjuros"><strong>Compartir Conjuros</strong></h4>
+<p>A partir del nivel 15, cuando lanzas un conjuro que te afecta a ti,
+también puedes hacer que el conjuro afecte a tu compañero animal si la
+bestia está a 30 pies de ti.</p>
+<h3 id="caminante-del-horizonte"><strong>Caminante del
+Horizonte</strong></h3>
+<p>Los Caminantes del Horizonte protegen el mundo de las amenazas que se
+originan en otros planos o que buscan romper las barreras planares. Son
+guardianes de los caminos entre mundos.</p>
+<h4 id="magia-del-caminante-del-horizonte"><strong>Magia del Caminante
+del Horizonte</strong></h4>
+<p>A partir del nivel 3, aprendes un conjuro adicional cuando alcanzas
+ciertos niveles en esta clase, como se muestra en la tabla. El conjuro
+cuenta como un conjuro de guardabosques para ti, pero no cuenta para el
+número de <a href="Conjuros.html">Conjuros</a> de guardabosques que
+conoces. * <strong>Nivel 3:</strong> <em>protección contra el bien y el
+mal</em> * <strong>Nivel 5:</strong> <em>paso brumoso</em> *
+<strong>Nivel 9:</strong> <em>celeridad</em> * <strong>Nivel
+13:</strong> <em>destierro</em> * <strong>Nivel 17:</strong> <em>círculo
+de teletransporte</em></p>
+<h4 id="detectar-portal"><strong>Detectar Portal</strong></h4>
+<p>En el nivel 3, ganas la habilidad de detectar la presencia de
+portales planares. Como una acción, puedes detectar la distancia y
+dirección al portal planar más cercano a 1 milla de ti. Una vez que usas
+este rasgo, no puedes volver a usarlo hasta que termines un descanso
+corto o largo.</p>
+<h4 id="guerrero-planar"><strong>Guerrero Planar</strong></h4>
+<p>En el nivel 3, aprendes a obtener energía de los planos para
+potenciar tus ataques. Como una acción adicional, puedes gastar 2 Puntos
+de Maná para imbuir tus ataques con fuerza. Durante 1 minuto, la primera
+vez que golpeas a una criatura con un ataque de arma en tu turno, todo
+el daño infligido por el ataque se convierte en daño de fuerza, y la
+criatura recibe 1d8 de daño de fuerza adicional. Este daño adicional
+aumenta a 2d8 en el nivel 11.</p>
+<h4 id="paso-etéreo"><strong>Paso Etéreo</strong></h4>
+<p>En el nivel 7, puedes atravesar el Plano Etéreo. Como una acción
+adicional, puedes gastar 5 Puntos de Maná para lanzar el conjuro
+<em>intermitencia</em>.</p>
+<h4 id="defensa-distante"><strong>Defensa Distante</strong></h4>
+<p>En el nivel 11, tu dominio del movimiento te permite tomar
+represalias. Cuando una criatura te falla con un ataque, puedes usar tu
+reacción para teletransportarte hasta 10 pies a un espacio desocupado
+que puedas ver. Si lo haces, puedes hacer un ataque con arma contra esa
+criatura.</p>
+<h4 id="espectro-veloz"><strong>Espectro Veloz</strong></h4>
+<p>En el nivel 15, puedes pasar entre los planos en un abrir y cerrar de
+ojos. Cuando realizas la acción de Atacar, puedes teletransportarte
+hasta 10 pies antes de cada ataque.</p>
+<h3 id="vigilante-de-las-sombras"><strong>Vigilante de las
+Sombras</strong></h3>
+<p>Los Vigilantes de las Sombras son maestros del sigilo y la emboscada,
+acechando en la oscuridad de las cavernas, los bosques sombríos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> o los callejones de las
+ciudades.</p>
+<h4 id="magia-del-vigilante-de-las-sombras"><strong>Magia del Vigilante
+de las Sombras</strong></h4>
+<p>A partir del nivel 3, aprendes un conjuro adicional cuando alcanzas
+ciertos niveles en esta clase, como se muestra en la tabla. El conjuro
+cuenta como un conjuro de guardabosques para ti, pero no cuenta para el
+número de <a href="Conjuros.html">Conjuros</a> de guardabosques que
+conoces. * <strong>Nivel 3:</strong> <em>disfrazarse</em> *
+<strong>Nivel 5:</strong> <em>oscuridad</em> * <strong>Nivel 9:</strong>
+<em>respirar bajo el agua</em> * <strong>Nivel 13:</strong>
+<em>invisibilidad mayor</em> * <strong>Nivel 17:</strong>
+<em>confusión</em></p>
+<h4 id="emboscador-tenebroso"><strong>Emboscador Tenebroso</strong></h4>
+<p>En el nivel 3, eres un maestro de la emboscada. Ganas un bonificador
+a tus tiradas de iniciativa igual a tu modificador de Sabiduría. Al
+comienzo de tu primer turno de cada combate, tu velocidad al caminar
+aumenta en 10 pies, lo que dura hasta el final del turno. Si realizas la
+acción de Atacar en ese turno, puedes hacer un ataque con arma adicional
+como parte de esa acción. Si ese ataque golpea, el objetivo recibe un
+daño adicional de 1d8.</p>
+<h4 id="ojos-de-la-oscuridad"><strong>Ojos de la Oscuridad</strong></h4>
+<p>En el nivel 3, obtienes visión en la oscuridad hasta un alcance de 60
+pies. Si ya tienes visión en la oscuridad por tu raza, su alcance
+aumenta en 30 pies. Además, eres experto en evitar ser visto. Mientras
+estás en la oscuridad, eres invisible para cualquier criatura que
+dependa de la visión en la oscuridad para verte en esa oscuridad.</p>
+<h4 id="voluntad-de-hierro"><strong>Voluntad de Hierro</strong></h4>
+<p>En el nivel 7, has perfeccionado tu habilidad para resistir los
+efectos que afectan tu mente. Ganas competencia en las tiradas de
+salvación de Sabiduría. Si ya eres competente, en su lugar ganas
+competencia en las tiradas de salvación de Inteligencia o Carisma (a tu
+elección).</p>
+<h4 id="acechador-espectral"><strong>Acechador Espectral</strong></h4>
+<p>En el nivel 11, aprendes a esquivar ataques como una sombra. Cuando
+una criatura te ataca y no tiene ventaja en la tirada, puedes usar tu
+reacción para imponer desventaja en esa tirada.</p>
+<h4 id="mago-de-las-sombras"><strong>Mago de las Sombras</strong></h4>
+<p>En el nivel 15, has aprendido a tejer las sombras a tu alrededor.
+Cuando estás en penumbra u oscuridad, puedes usar tu acción y gastar 8
+Puntos de Maná para volverte invisible. Permaneces invisible hasta que
+realizas un ataque, lanzas un conjuro, entras en un área de luz
+brillante o usas tu acción para terminar la invisibilidad.</p>
+<h2 id="lista-de-conjuros-de-guardabosques">Lista de Conjuros de
+Guardabosques</h2>
+<h4 id="nivel-1">Nivel 1</h4>
+<ul>
+<li>Alarma</li>
+<li>Absorber elementos</li>
+<li>Curar heridas</li>
+<li>Detectar magia</li>
+<li>Detectar veneno y enfermedad</li>
+<li>Enmarañar</li>
+<li>Fuego feérico</li>
+<li>Hablar con los animales</li>
+<li>Marca del <a href="Cazador.html">Cazador</a></li>
+<li>Salto</li>
+<li>Zancada prodigiosa</li>
+<li><strong>Luz Estelar (Conjuro Estelar)</strong></li>
+<li><strong>Susurro Astral (Conjuro Estelar)</strong></li>
+</ul>
+<h4 id="nivel-2">Nivel 2</h4>
+<ul>
+<li>Apertura</li>
+<li>Arma mágica</li>
+<li>Aumentar característica</li>
+<li>Crecimiento espinoso</li>
+<li>Encontrar trampas</li>
+<li>Localizar animal o planta</li>
+<li>Localizar objeto</li>
+<li>Paso sin rastro</li>
+<li>Piel robliza</li>
+<li>Protección contra veneno</li>
+<li>Restablecimiento menor</li>
+<li>Sentido animal</li>
+<li>Visión en la oscuridad</li>
+<li><strong>Vínculo Estelar (Conjuro Estelar)</strong></li>
+<li><strong>Escudo de Constelaciones (Conjuro Estelar)</strong></li>
+</ul>
+<h4 id="nivel-3">Nivel 3</h4>
+<ul>
+<li>Andar por el agua</li>
+<li>Conjurar animales</li>
+<li>Conjurar descarga de proyectiles</li>
+<li>Flecha relámpago</li>
+<li>Luz del día</li>
+<li>Muro de viento</li>
+<li>Nube apestosa</li>
+<li>Protección contra la energía</li>
+<li>Respirar bajo el agua</li>
+<li>Viento mensajero</li>
+<li><strong>Meteoro Menor (Conjuro Estelar)</strong></li>
+<li><strong>Visión del Destino (Conjuro Estelar)</strong></li>
+<li><strong>Danza de las Constelaciones (Conjuro Estelar)</strong></li>
+</ul>
+<h4 id="nivel-4">Nivel 4</h4>
+<ul>
+<li>Conjurar seres boscosos</li>
+<li>Crecimiento de plantas</li>
+<li>Guardían de la naturaleza</li>
+<li>Libertad de movimiento</li>
+<li>Localizar criatura</li>
+<li>Piel de piedra</li>
+</ul>
+<h4 id="nivel-5">Nivel 5</h4>
+<ul>
+<li>Comunión con la naturaleza</li>
+<li>Conjurar descarga de volea</li>
+<li>Curación en masa</li>
+<li>Paso arbóreo</li>
+<li>Rápidez de la serpiente</li>
+</ul>
+<hr />
+<h3
+id="las-sendas-del-héroe-el-sistema-de-clases-en-lithernia"><strong>Las
+Sendas del Héroe: El Sistema de Clases en Lithernia</strong></h3>
+<p>En el <a href="Título_de_la_nota.html">Título_de_la_nota</a>, marcado
+por la cicatriz del <a href="Lilium.html">Lilium</a> y la sombra de la
+Gran Guerra, un personaje es mucho más que sus habilidades de combate o
+sus proezas mágicas. Es la suma de sus convicciones, su origen y el
+camino que elige para enfrentar un destino incierto. El sistema de
+clases en Lithernia está diseñado para reflejar esta realidad,
+ofreciendo no solo un conjunto de mecánicas, sino una identidad forjada
+en el crisol de un mundo en conflicto.</p>
+<p>Cada clase representa una vocación, una senda de poder y una
+filosofía de vida. Ya sea como un <a href="Sacerdote.html">Sacerdote</a>
+que canaliza la voluntad de los dioses, un <a href="Mago.html">Mago</a>
+que desentraña los secretos del Tejido de Maná o un <a
+href="Caballero.html">Caballero</a> que defiende un código de honor en
+medio del caos, tu elección definirá cómo interactúas con los grandes
+poderes de Lithernia: desde los reinos en guerra hasta las facciones que
+susurran la profecía del retorno del Primer Rey.</p>
+<h4 id="visión-general-del-sistema"><strong>Visión General del
+Sistema</strong></h4>
+<p>El sistema de clases de Lithernia se basa en arquetipos familiares,
+pero con un enfoque temático y mecánico único. Encontrarás clases
+tradicionales como el <strong><a
+href="Guerrero.html">Guerrero</a></strong>, el <strong><a
+href="Mago.html">Mago</a></strong> o el <strong>Pícaro</strong>, junto a
+nuevas sendas nacidas de la historia del mundo, como el <strong><a
+href="Cazador.html">Cazador</a> de <a
+href="Dragones.html">Dragones</a></strong>, el <strong><a
+href="Nigromante.html">Nigromante</a></strong> o <strong>El
+Blasfemo</strong>. Cada clase está diseñada para encajar en el lore,
+ofreciendo una lente única a través de la cual experimentar los
+conflictos y misterios de Lithernia.</p>
+<p>El diseño se centra en tres pilares fundamentales:</p>
+<ol type="1">
+<li><strong>Identidad Temática:</strong> Cada clase está profundamente
+arraigada en la historia y las culturas del mundo. Un <a
+href="Sacerdote.html">Sacerdote</a> de <a
+href="Galvorn.html">Galvorn</a> no será igual que uno de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>; un <a href="Mago.html">Mago</a>
+de la Torre de las Estrellas de <a href="Valtoria.html">Valtoria</a>
+tendrá una visión de la magia muy diferente a la de un <a
+href="Hechicero.html">Hechicero</a> elfo de <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>Mecánicas Distintivas:</strong> La magia y las habilidades
+tienen un coste tangible. El sistema de Maná, Fatiga y Canalización hace
+que el poder se sienta real y arriesgado.</li>
+<li><strong>Progresión Significativa:</strong> A medida que tu personaje
+avanza, no solo se vuelve más poderoso, sino que su influencia en el
+mundo y su dominio de las artes arcanas o marciales se expande de forma
+notable.</li>
+</ol>
+<h4 id="el-maná-y-el-coste-de-la-magia"><strong>El Maná y el Coste de la
+Magia</strong></h4>
+<p>A diferencia de otros sistemas, la magia en Lithernia no es un
+recurso ilimitado ni gratuito. Fluye a través del <strong>Tejido del
+Maná</strong>, y canalizarla exige un esfuerzo físico y mental.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Las clases lanzadoras de <a
+href="Conjuros.html">Conjuros</a> utilizan un sistema flexible de Puntos
+de Maná. Esta reserva de energía representa su capacidad para tirar de
+los hilos del Tejido y moldearlos.</li>
+<li><strong>Dado de Maná:</strong> Cada clase arcana posee un
+<strong>Dado de Maná</strong> único (d6, d8, d10), que representa su
+“firma” o afinidad personal con la magia. Este dado no solo influye en
+la potencia de ciertos efectos, sino que determina el coste físico de
+cada hechizo.</li>
+<li><strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>:</strong>
+Lanzar un conjuro impone una carga. Cada vez que un personaje conjura,
+sufre una <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>
+que se acumula, representando el agotamiento de forzar la energía mágica
+a través de su cuerpo. Abusar de la magia puede llevar a un personaje al
+borde del colapso, haciendo que cada decisión de lanzar un hechizo sea
+tácticamente relevante.</li>
+</ul>
+<p>Este sistema asegura que la magia se sienta poderosa, pero también
+peligrosa, reflejando un mundo donde el poder siempre tiene un
+precio.</p>
+<h4 id="progresión-y-maestría"><strong>Progresión y
+Maestría</strong></h4>
+<p>La progresión en Lithernia se mide en niveles, y cada uno desbloquea
+nuevas habilidades y un mayor dominio de la clase. Este crecimiento no
+es solo numérico; a menudo representa un salto cualitativo en la
+capacidad del personaje para influir en su entorno.</p>
+<p>Un ejemplo claro son los <strong>Círculos de Invocación</strong>. Un
+<a href="Mago.html">Mago</a> novato puede usar Círculos Menores para
+potenciar ligeramente sus hechizos, pero solo al alcanzar hitos de poder
+(niveles 5 y 11) aprenderá a dominar los Círculos Intermedios y Mayores,
+capaces de desatar efectos mágicos de una escala completamente distinta.
+La progresión, por tanto, es un viaje desde el aprendiz hasta el
+maestro, cuyas acciones pueden llegar a cambiar el curso de una batalla
+o incluso el destino de un reino.</p>
+<h4 id="subclases-forjando-una-identidad-única"><strong>Subclases:
+Forjando una Identidad Única</strong></h4>
+<p>Dentro de cada clase principal, existen especializaciones conocidas
+como <strong>subclases</strong>. Estas representan el camino específico
+que un personaje decide seguir, permitiendo una personalización profunda
+y un rol más definido en el mundo. No todos los guerreros luchan igual,
+ni todos los clérigos sirven a su dios de la misma manera.</p>
+<p>Por ejemplo, un <strong><a
+href="Caballero.html">Caballero</a></strong> puede unirse a la Orden de
+la Espada, centrada en el ataque; a la Orden del Escudo, dedicada a la
+protección; o a la Orden de la Montura, especializada en el combate a
+caballo. Un <strong><a href="Sacerdote.html">Sacerdote</a>
+(Clérigo)</strong> elegirá un dominio divino que definirá su propósito,
+como el Dominio de la Vida para un sanador o el Dominio de la Luz para
+un cruzado contra la oscuridad.</p>
+<p>Las subclases son la forma en que tu personaje refina su vocación,
+alineando sus habilidades con su trasfondo, su fe y sus objetivos
+personales.</p>
+<h4 id="el-rol-de-las-clases-en-la-sociedad-y-el-conflicto"><strong>El
+Rol de las Clases en la Sociedad y el Conflicto</strong></h4>
+<p>En Lithernia, tu clase es tu lugar en el mundo. Un <strong><a
+href="Nigromante.html">Nigromante</a></strong> o un
+<strong>Blasfemo</strong> probablemente encontrarán afinidad (o
+conflicto) con los clanes oscuros de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Un <strong><a
+href="Mago.html">Mago</a></strong> podría aspirar a un puesto en la
+prestigiosa Torre de las Estrellas de <a
+href="Valtoria.html">Valtoria</a>. Un <strong><a
+href="Druida.html">Druida</a></strong> o un
+<strong>Guardabosques</strong> serán los protectores naturales de los
+bosques de <a href="Eldrador.html">Eldrador</a>, mientras que un
+<strong><a href="Bardo.html">Bardo</a></strong> o un
+<strong>Pícaro</strong> prosperarán en los bulliciosos puertos de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>Más importante aún, cada clase ofrece una perspectiva única sobre la
+<strong>Profecía del Retorno del Primer Rey</strong>. Un Paladín podría
+verla como un llamado sagrado para restaurar la justicia. Un <a
+href="Hechicero.html">Hechicero</a> podría sentir el poder latente de
+las Lanzas Celestiales. Un Pícaro podría verla como una oportunidad para
+el caos y el beneficio. Tu clase no solo te da herramientas para la
+aventura; te posiciona como un actor clave en el drama que definirá el
+futuro de Lithernia.</p>
+<p>Elegir una clase es, en esencia, el primer y más importante paso para
+escribir tu propia leyenda en las páginas de la historia de este mundo.
+¿Qué senda escogerás?</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Heraldo_de_los_Méritos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Heraldo_de_los_Méritos</div>
+        <div class="content">
+<h1 id="el-heraldo-de-los-méritos">El Heraldo de los Méritos</h1>
+<p>En un mundo fracturado por la Gran Guerra y marcado por las
+cicatrices del <a href="Lilium.html">Lilium</a>, donde la historia es un
+arma y la verdad un tesoro, viaja una figura solitaria conocida como el
+Heraldo de los Méritos. No es un rey ni un general, pero su palabra
+puede forjar imperios y derribar tiranos. El Heraldo es el cronista
+errante de Lithernia, un testigo imparcial cuyo único propósito es
+observar, registrar y proclamar los actos que definen a los mortales,
+para bien o para mal. Su llegada a una ciudad es un presagio; su
+partida, una sentencia. Son la memoria viviente de un mundo que lucha
+por no olvidar el significado del honor.</p>
+<h3 id="orígenes-y-leyenda">Orígenes y Leyenda</h3>
+<p>La tradición del Heraldo se remonta a la Era del Primer Rey. Las <a
+href="Leyendas.html">Leyendas</a> cuentan que el propio Rey Unificador
+designó al primer Heraldo, un sabio llamado Ovidius “la Pluma de Oro”,
+para que recorriera el reino unificado y registrara las grandes hazañas
+de sus gentes. El objetivo del Rey era que la historia no fuera solo el
+relato de monarcas y dioses, sino el tapiz tejido con los hilos de cada
+acto de valor, compasión y sacrificio. Los Heraldos eran un símbolo de
+unidad, su palabra era ley y su protección, sagrada.</p>
+<p>Tras el Cataclismo del <a href="Lilium.html">Lilium</a>, la
+institución se desvaneció, pero la idea sobrevivió. En la oscuridad que
+siguió, la reputación se convirtió en la moneda más valiosa. Un <a
+href="Guerrero.html">Guerrero</a> no era nada sin las historias de sus
+victorias; una comunidad no era nada sin las <a
+href="Leyendas.html">Leyendas</a> de su resiliencia. Fue entonces cuando
+individuos de todas las razas, sintiendo el peso de la historia sobre
+sus hombros, tomaron el manto por su cuenta. Se convirtieron en los
+nuevos Heraldos, no por decreto de un rey, sino por una vocación de
+preservar la verdad en un mundo ahogado en mentiras.</p>
+<h3 id="el-rol-del-heraldo">El Rol del Heraldo</h3>
+<p>Un Heraldo de los Méritos no es un simple <a
+href="Bardo.html">Bardo</a> o un escriba. Su deber va más allá de contar
+historias. Son jueces de la reputación, y su método es a la vez mundano
+y profundamente mágico.</p>
+<ul>
+<li><strong>El Testimonio:</strong> Un Heraldo viaja de incógnito,
+observando los acontecimientos de primera mano. Se infiltra en campos de
+batalla, se sienta en las tabernas más humildes y escucha en los salones
+del poder. Rara vez interviene, pues su rol es ser un espejo de las
+acciones del mundo.</li>
+<li><strong>El Registro Arcano:</strong> Las crónicas de un Heraldo no
+se escriben con tinta común. Utilizando una técnica ancestral, se dice
+que “tejen” la esencia de un acto en el propio Tejido del Maná. Sus
+pergaminos, a menudo imbuidos con una gota de su propia sangre, resuenan
+con la verdad de lo que describen, haciendo casi imposible falsificar
+sus registros o negar sus proclamaciones. Este acto consume su propia
+energía vital, uniendo al Heraldo al destino de las historias que
+cuenta.</li>
+<li><strong>La Proclamación:</strong> Tras reunir suficientes
+testimonios, el Heraldo revela su identidad y realiza la Proclamación.
+En la plaza de una ciudad, ante la corte de un rey o en el fragor de un
+campamento militar, su voz resuena con una autoridad sobrenatural. Sus
+palabras pueden legitimar a un líder rebelde, desenmascarar a un <a
+href="Noble.html">Noble</a> corrupto, consagrar a un <a
+href="Heroes.html">Heroes</a> o condenar a un cobarde al ostracismo
+eterno.</li>
+</ul>
+<h3 id="manifestaciones-en-los-reinos">Manifestaciones en los
+Reinos</h3>
+<p>La figura del Heraldo es interpretada de forma muy distinta en cada
+uno de los cuatro grandes reinos, reflejando sus valores y
+tensiones.</p>
+<ul>
+<li><strong>En <a href="Galvorn.html">Galvorn</a>:</strong> El Heraldo
+es una celebridad. Su llegada a un puerto es motivo de fiesta. Los
+capitanes del Consejo compiten por su atención, esperando que sus
+hazañas navales sean inmortalizadas. Sus proclamaciones se realizan
+entre cánticos marineros y rondas de ron, y las historias de héroes que
+proclama inspiran a nuevas generaciones de aventureros a zarpar en busca
+de gloria. Aquí, el Heraldo es el <a href="Heroes.html">Heroes</a> de la
+libertad y el mérito individual.</li>
+<li><strong>En <a href="Valtoria.html">Valtoria</a>:</strong> Es una
+figura casi sagrada. Sus crónicas son consideradas documentos históricos
+de valor incalculable, custodiados en la Torre de las Estrellas junto a
+las más grandes obras del saber enano. La Reina Valeria y el Concilio de
+la Montaña escuchan su juicio con reverencia, pues un Heraldo confirma
+si un clan ha actuado con el honor y la tradición que tanto valoran los
+<a href="Enanos.html">Enanos</a>. Su palabra es sólida como la roca de
+sus montañas.</li>
+<li><strong>En <a href="Eldrador.html">Eldrador</a>:</strong> Su
+presencia es incómoda y peligrosa. La nobleza de la “Mano de Hierro”
+intenta sobornarlo o manipularlo para que sus proclamaciones refuercen
+el rígido sistema de castas. Un Heraldo que se atreva a registrar los
+méritos de un <a href="Eladrin.html">Eladrin</a> de clase baja o a
+exponer las intrigas de una casa <a href="Noble.html">Noble</a> se
+convierte en un objetivo. Para las clases oprimidas, es una llama de
+esperanza; para la aristocracia, una amenaza al orden establecido.</li>
+<li><strong>En <a href="Mor&#39;dhul.html">Mor’dhul</a>:</strong> Ser un
+Heraldo es una sentencia de muerte. En el reino teocrático de
+Sel’thirak, la única verdad es la que dicta el Rey-Dios. Un cronista
+independiente es un hereje. Los Heraldos que osan entrar en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> actúan desde las sombras, aliados
+de rebeldes en ciudades como Cheneras o Vallas. Sus proclamaciones son
+grafitis anónimos que aparecen al amanecer, panfletos secretos o
+susurros en los mercados negros. Son cazados sin piedad por la guardia
+de Volrath y los espías de Xandria, pero su sacrificio inspira una
+resistencia silenciosa contra la tiranía.</li>
+</ul>
+<h3 id="el-heraldo-y-la-profecía">El Heraldo y la Profecía</h3>
+<p>En la era actual, con los ecos de la Profecía del Retorno del Rey
+resonando por todo el mundo, el papel del Heraldo es más crucial que
+nunca. Si un día aparece el “<a href="Heroes.html">Heroes</a> elegido”
+para desafiar a los dioses, no será su poder el que una al mundo, sino
+la historia de sus actos. Será un Heraldo de los Méritos quien,
+arriesgando su vida, proclame la legitimidad del <a
+href="Heroes.html">Heroes</a>, quien dé testimonio de sus sacrificios y
+convierta a un simple mortal en un faro de esperanza para toda
+Lithernia.</p>
+<p>Por ello, tanto los que anhelan el retorno del Rey como los que lo
+temen buscan a los Heraldos. Unos para protegerlos, otros para
+silenciarlos. Pues en el destino de Lithernia, la batalla final no se
+librará solo con espadas y magia, sino también con la verdad, y el
+Heraldo de los Méritos es su más valiente guardián.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 1.00)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.42)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

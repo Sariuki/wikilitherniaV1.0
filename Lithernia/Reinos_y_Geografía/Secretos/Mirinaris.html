@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirinaris</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Mirinaris</div>
+        <div class="content">
+<h1 id="mirinaris">Mirinaris</h1>
+<p>Mirinaris no es una ciudad que se descubre, sino un secreto en el que
+se tropieza. Oculta en la costa norte de <a
+href="Galvorn.html">Galvorn</a>, la ciudad está perpetuamente envuelta
+en una niebla antinaturalmente densa, un regalo de su dios patrón que la
+protege de <a href="Mapas.html">Mapas</a> y miradas indiscretas. No hay
+grandes muelles ni plazas bulliciosas. En su lugar, una serie de calas
+ocultas albergan construcciones de piedra gris y madera oscura de pecio,
+aferradas a los acantilados como percebes. Las casas, conectadas por
+precarios puentes de cuerda y pasarelas que cuelgan sobre un mar
+embravecido, están diseñadas para fundirse con la roca y el vapor. En
+Mirinaris no gobierna el sol, sino el brillo fosforescente de los
+líquenes que trazan caminos en la penumbra. Es un bastión de pragmatismo
+y discreción, un refugio para quienes desean que el mundo los
+olvide.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Mirinaris son tan turbios como sus nieblas. No fue
+fundada por un decreto real, sino que coalesció a lo largo de décadas
+como un santuario para aquellos que escapaban de algo: la ley, la
+guerra, un pasado sangriento o la rígida sociedad de otros reinos. Los
+primeros habitantes, un colectivo de contrabandistas, piratas retirados
+y exiliados políticos conocidos como los “Primeros Silentes”,
+descubrieron que las nieblas de la zona, guiadas por el dios del viento
+<a href="Quiteon.html">Quiteon</a>, ofrecían el camuflaje perfecto.</p>
+<p>Pronto establecieron una sociedad basada en una única ley no escrita,
+el “Pacto del Silencio”: lo que se ve u oye en Mirinaris, allí se queda.
+Esta discreción atrajo a más gente, desde <a
+href="Semielfos.html">Semielfos</a> huyendo de las intrigas de <a
+href="Eldrador.html">Eldrador</a> hasta genasi que encontraban consuelo
+en el abrazo húmedo del aire. Con el tiempo, una devoción secreta a <a
+href="Morgal.html">Morgal</a>, el dios élfico de las mentiras, echó
+raíces entre los espías y comerciantes, que veían en él al patrón
+perfecto para una ciudad construida sobre secretos. Hoy, Mirinaris es un
+puerto neutral de facto, un lugar donde la información es la moneda más
+valiosa y el silencio es la armadura más fuerte.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Los Muelles Susurrantes</strong>: El corazón comercial de
+la ciudad, aunque carece del estruendo típico de un puerto. Las
+mercancías se cargan y descargan en un silencio casi absoluto, usando un
+complejo lenguaje de silbatos, campanas de barco y señales con
+farolillos. Es el principal centro de contrabando de la costa norte,
+donde se pueden conseguir bienes prohibidos de todos los
+reinos.</p></li>
+<li><p><strong>El Nido del Acantilado</strong>: El principal distrito
+residencial. Las casas están talladas directamente en la faz del
+acantilado o construidas precariamente sobre salientes rocosos. Los
+tejados inclinados canalizan la constante llovizna, y las pequeñas
+ventanas se cubren con gruesos postigos para protegerse del viento
+aullante. Moverse por el Nido es un ejercicio de equilibrio sobre
+pasarelas resbaladizas y puentes de cuerda que se mecen con el
+viento.</p></li>
+<li><p><strong>La Fosa del Leviatán</strong>: Una profunda fosa oceánica
+situada justo a la salida de las calas de la ciudad. Las aguas aquí son
+negras y gélidas. Los marineros de Mirinaris evitan esta zona a toda
+costa, pues las <a href="Leyendas.html">Leyendas</a> afirman que es la
+guarida de una bestia abisal ancestral. Es la razón última del silencio
+autoimpuesto de la ciudad.</p></li>
+<li><p><strong>El Templo del Viento Oculto</strong>: Más que un
+edificio, es un santuario al aire libre en el punto más alto de los
+acantilados. Es un simple círculo de monolitos de piedra pulida por el
+viento, cubiertos de campanas de bronce que tintinean suavemente con la
+brisa. Aquí, los habitantes rinden tributo a <a
+href="Quiteon.html">Quiteon</a>, no con oraciones a viva voz, sino
+dejando ofrendas de seda y cintas para que el viento las
+reclame.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Mirinaris es un ejercicio de sigilo. Sus habitantes,
+apodados los ‘Navegantes de la Niebla’, valoran la astucia y la
+autosuficiencia. El símbolo no oficial de la ciudad, un farol de barco
+plateado medio oculto por volutas de niebla, se puede ver tallado
+discretamente en las puertas o como tatuaje en los marineros.</p>
+<p>La festividad más importante es el ‘Festival de los Faroles Velados’.
+Durante la noche más oscura del año, cada habitante lanza un pequeño
+bote de madera con un farol cubierto por un velo al mar. Se cree que
+estas luces guían a las almas de los marineros perdidos a través de la
+niebla hasta el más allá. La comunicación es clave para la
+supervivencia; en la niebla, donde la vista es inútil, han desarrollado
+un lenguaje de señales sonoras, usando diferentes tonos de silbatos y
+ritmos de campana para transmitir mensajes complejos a través de las
+calas sin necesidad de gritar.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La ciudad es un monumento a la funcionalidad y el camuflaje. La
+piedra gris extraída de los propios acantilados y la madera oscura
+recuperada de naufragios son los únicos materiales de construcción. No
+hay adornos superfluos. El ambiente es opresivo y melancólico para los
+forasteros, pero reconfortante para sus habitantes. El aire es frío,
+salado y permanentemente húmedo. El sonido dominante es el del mar
+rompiendo contra las rocas y el gemido del viento, un telón de fondo
+constante que hace que cualquier voz humana parezca una intrusión.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Silente</strong>: Los marineros juran haber visto un
+barco fantasma en las noches de luna nueva, una nave de velas negras que
+se desliza por el agua sin dejar estela ni hacer ruido. Lo llaman ‘El
+Silente’. La leyenda dice que no es un presagio de muerte, sino un
+guardián. Su tripulación espectral recoge las almas de los ahogados,
+pero también se dice que aborda los barcos que rompen el ‘Pacto del
+Silencio’, llevándose a los indiscretos para que se unan a su eterna y
+silenciosa travesía.</p></li>
+<li><p><strong>El Leviatán de Ojo Ciego</strong>: La leyenda más temida
+de Mirinaris habla de una colosal bestia abisal que duerme en la Fosa.
+Se dice que es una criatura de tiempos <a
+href="Primordiales.html">Primordiales</a>, ciega, y que caza guiándose
+únicamente por el sonido. El silencio de la ciudad no es solo una
+costumbre cultural, sino una medida de supervivencia. Creen que un solo
+grito fuerte, el estruendo de un cañón o el estallido de un hechizo
+ruidoso podría despertar al leviatán y traer la destrucción total sobre
+la ciudad, arrastrándola a las profundidades.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

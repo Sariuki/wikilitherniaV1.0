@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seraphina_Umbravel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Seraphina_Umbravel</div>
+        <div class="content">
+<h1 id="seraphina-umbravel">Seraphina Umbravel</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de <a href="Mor&#39;dhul.html">Mor’dhul</a>, el nombre
+Umbravel no se encuentra en antiguos pergaminos de linajes Tiefling ni
+se grita en los campos de batalla. Es un nombre susurrado, un eco en los
+corredores oscuros de <a href="Nynthil.html">Nynthil</a>, la ciudad
+laberinto. Seraphina es la encarnación de ese susurro. De origen
+Shadar-Kai, su historia comienza como un misterio: una niña encontrada
+en las ruinas de un santuario fronterizo donde el velo entre mundos era
+peligrosamente delgado, única superviviente de una tragedia desconocida.
+En lugar de ser una víctima, fue vista como una herramienta. Lord
+Valerius Corvus, el patriarca de la emergente Casa Corvus, reconoció en
+sus ojos la afinidad innata de su raza con la penumbra y la tomó bajo su
+tutela.</p>
+<p>Su infancia no fue de juegos, sino un crisol diseñado para forjar el
+arma perfecta. Mientras otros <a href="Tieflings.html">Tieflings</a>
+aprendían a conjurar fuego infernal, a Seraphina se le enseñó el
+lenguaje de las sombras, el arte de descifrar códigos, la psicología de
+la manipulación y la historia oculta que los dioses y reyes preferirían
+mantener enterrada. Su mente se convirtió en una fortaleza y su memoria
+en una biblioteca viviente. Su lealtad a la Casa Corvus se cimentó no
+con cadenas, sino con propósito. Le dieron un nombre, un hogar y un
+poder más sutil y duradero que cualquier hacha de guerra: el control
+sobre la verdad.</p>
+<p>Hoy, a sus noventa años —apenas una joven adulta para su linaje
+élfico—, Seraphina es la Archivista de Secretos, la guardiana de la
+Biblioteca Silente de la Casa Corvus. Este no es un simple archivo; es
+un arsenal de chantajes, traiciones documentadas, debilidades de nobles,
+pactos olvidados y conocimiento prohibido que podría desestabilizar
+reinos enteros. Fue ella quien descubrió la correspondencia secreta que
+probaba la traición de un general del Clan <a
+href="Thyrgram.html">Thyrgram</a>, entregando a la Casa Corvus una
+victoria política sin levantar una espada. Fue ella quien compiló la
+genealogía bastarda de la Casa Aethel, una bomba de tiempo que espera el
+momento perfecto para detonar.</p>
+<p>Sin embargo, su lealtad es una jaula de seda. En la quietud de su
+archivo, su sangre Shadar-Kai le susurra sobre un mundo diferente, un
+eco del Plano Feérico o de las melancólicas extensiones del Shadowfell.
+A veces, entre el olor a pergamino viejo y tinta de sangre, percibe el
+aroma de flores nocturnas que nunca han crecido en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Este conflicto interno es su
+única debilidad y su más profundo secreto: la niña huérfana anhela un
+pasado que no recuerda, mientras la mujer forjada en la oscuridad sirve
+a un futuro que no cuestiona… todavía.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Seraphina posee la belleza etérea y sombría de los Shadar-Kai. Su
+piel es del color de la ceniza pálida, un marcado contraste con su
+cabello negro como la obsidiana, que suele llevar recogido en una trenza
+intrincada. Sus ojos son de un violeta profundo y brumoso, revelando una
+inteligencia antigua y una profunda melancolía. Es esbelta y ágil,
+moviéndose con un silencio antinatural que le permite transitar por los
+pasillos de <a href="Nynthil.html">Nynthil</a> sin ser detectada.</p>
+<p>Su cuerpo está adornado con finos tatuajes de tinta negra que
+serpentean por sus brazos y espalda. No son meramente decorativos; son
+glifos arcanos de protección, silencio y ocultación, y algunos actúan
+como llaves cifradas para acceder a las secciones más secretas de la
+biblioteca.</p>
+<p>Viste con una elegancia funcional y austera. Prefiere túnicas de seda
+gris oscuro o negro, cortadas para permitir el movimiento sin
+restricciones y sin adornos que puedan hacer ruido.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>La Llave de
+Plata:</strong> Una llave ornamentada que cuelga de su cuello. Es el
+símbolo de su cargo y la única llave física que abre la cámara más
+profunda del archivo. Se dice que está encantada para quemar la mano de
+cualquiera que no sea un Corvus o no tenga el permiso de Seraphina. *
+<strong>Daga de Estilete Umbrío:</strong> Una daga delgada y negra,
+forjada con metal extraído de una roca de sombra. Su hoja no refleja la
+luz y está permanentemente cubierta de un veneno que causa un sueño
+profundo y sin sueños. La usa únicamente para la autodefensa. *
+<strong>El Archivo Portátil:</strong> Un pequeño libro encuadernado en
+piel de basilisco que contiene un resumen cifrado de los secretos más
+importantes. El código solo puede ser leído por ella y por Lord Corvus.
+* <strong>Reliquia Shadar-Kai:</strong> Oculto en un compartimento
+secreto de su túnica, lleva un pequeño colgante de cuarzo ahumado que
+contiene una hoja petrificada de un árbol del Shadowfell, el único
+vestigio de su posible origen. A veces, al tocarlo, siente un escalofrío
+que no pertenece a <a href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Seraphina Umbravel, aunque desconocida para las masas, es una de las
+figuras más influyentes de <a href="Mor&#39;dhul.html">Mor’dhul</a>. No
+ostenta títulos ni lidera ejércitos, pero las decisiones tomadas en los
+salones del poder a menudo se basan en un pergamino que ella ha
+recuperado o en un secreto que ha desvelado. Es el corazón negro de la
+inteligencia de la Casa Corvus, una arma silenciosa cuya existencia
+asegura que la Casa siempre juegue con cartas marcadas.</p>
+<p>Su verdadero impacto potencial reside en su dualidad. Si su lealtad a
+los Corvus permanece inquebrantable, continuará siendo la arquitecta
+invisible de su ascenso, tejiendo el destino de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> desde las sombras. Sin embargo, si
+el llamado de su herencia Shadar-Kai se hiciera más fuerte, o si
+descubriera la verdad sobre la tragedia de sus padres, podría volverse
+contra sus amos. Una archivista que conoce cada debilidad, cada secreto
+y cada vulnerabilidad de su casa no es solo un activo; es la amenaza
+definitiva. El día que Seraphina Umbravel decida escribir su propia
+historia, los cimientos de <a href="Mor&#39;dhul.html">Mor’dhul</a>
+podrían temblar hasta derrumbarse.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.80)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

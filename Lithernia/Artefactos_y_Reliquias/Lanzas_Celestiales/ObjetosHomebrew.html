@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ObjetosHomebrew</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">ObjetosHomebrew</div>
+        <div class="content">
+<h1 id="objetoshomebrew">Objetoshomebrew</h1>
+<h3 id="lanzas-celestiales">1. Lanzas Celestiales</h3>
+<p>Artefactos de poder inmenso forjados para sellar al Primer Rey. Cada
+uno posee un vínculo directo con el Cataclismo del <a
+href="Lilium.html">Lilium</a>.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Objeto</th>
+<th style="text-align: left;">Tipo / Rareza</th>
+<th style="text-align: left;">Requisito de Sintonía</th>
+<th style="text-align: left;">Descripción Mecánica y Coste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Mortum</strong></td>
+<td style="text-align: left;">Arma (Lanza), Artefacto</td>
+<td style="text-align: left;">Sí</td>
+<td style="text-align: left;">Esta lanza +3 inflige 2d10 de daño
+necrótico adicional. <strong>Toque del Fin:</strong> Si obtienes un
+golpe crítico, el objetivo debe superar una tirada de salvación de
+Constitución CD 20 o caer a 0 puntos de golpe. Si ya estaba en 0, su
+cuerpo se desintegra. <strong>Maldición:</strong> Mientras estés
+sintonizado, no puedes recuperar puntos de golpe mediante magia de nivel
+5 o inferior. El portador sufre 2d6 de <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+cada vez que el <code>Toque del Fin</code> se activa.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ultimatum</strong></td>
+<td style="text-align: left;">Arma (Lanza), Artefacto</td>
+<td style="text-align: left;">Sí</td>
+<td style="text-align: left;">Esta lanza +3 concede ventaja en pruebas
+de Carisma (Intimidación y Persuasión). <strong>Voluntad
+Divina:</strong> Como acción, puedes lanzar <em>Dominar persona</em> (CD
+22). Puedes usar esta propiedad 3 veces por descanso largo.
+<strong>Maldición:</strong> Cada vez que usas
+<code>Voluntad Divina</code>, tu alineamiento se desplaza un paso hacia
+Legal. Si te vuelves Legal Maligno, la lanza te domina.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Requiem</strong></td>
+<td style="text-align: left;">Arma (Lanza), Artefacto</td>
+<td style="text-align: left;">Sí</td>
+<td style="text-align: left;">Esta lanza +3 inflige 2d8 de daño psíquico
+adicional. <strong>Bruma del Olvido:</strong> Al impactar, puedes forzar
+al objetivo a superar una salvación de Sabiduría CD 20 o perder el
+recuerdo de la última hora. <strong>Maldición:</strong> Al final de cada
+descanso largo, el portador debe superar una salvación de Sabiduría CD
+15 o perder permanentemente un recuerdo personal importante (a
+discreción del DM).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Chronos</strong></td>
+<td style="text-align: left;">Arma (Lanza), Artefacto</td>
+<td style="text-align: left;">Sí</td>
+<td style="text-align: left;">Esta lanza +3 permite al portador usar la
+acción de Reacción para añadir su modificador de Destreza a su CA,
+incluso si ya lo ha hecho. <strong>Ancla Temporal:</strong> Como acción,
+puedes lanzar <em>Ralentizar</em> (CD 20). <strong>Maldición:</strong>
+Cada vez que usas <code>Ancla Temporal</code>, envejeces 1d4 años. Si un
+1 natural es sacado en una tirada de ataque con la lanza, el portador
+pierde su próximo turno.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="artefactos-dracónicos">2. Artefactos Dracónicos</h3>
+<p>Objetos imbuidos con el poder de los <a
+href="Dragones.html">Dragones</a> ancestrales que gobernaron en la Era
+de las Escamas y Fuego.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Objeto</th>
+<th style="text-align: left;">Tipo / Rareza</th>
+<th style="text-align: left;">Requisito de Sintonía</th>
+<th style="text-align: left;">Descripción Mecánica y Coste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Corazón de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a></strong></td>
+<td style="text-align: left;">Objeto maravilloso, Legendario</td>
+<td style="text-align: left;">Sí</td>
+<td style="text-align: left;">Otorga resistencia al daño por fuego.
+Puedes lanzar <em>Manos Ardientes</em> (a nivel 3) a voluntad, con un
+coste de 1d6 de <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>.
+Una vez por día, puedes lanzar <em>Muro de Fuego</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cetro de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a></strong></td>
+<td style="text-align: left;">Vara, Legendaria</td>
+<td style="text-align: left;">Sí (por un lanzador de <a
+href="Conjuros.html">Conjuros</a>)</td>
+<td style="text-align: left;">Funciona como un foco arcano +2. Contiene
+10 cargas. Puedes gastar cargas para lanzar: <em>Rayo
+Relampagueante</em> (3 cargas), <em>Relámpago en Cadena</em> (6 cargas).
+Recupera 1d6+4 cargas al amanecer. Si gastas la última carga, tira un
+d20. Con un 1, el cetro se destruye.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Runa de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a></strong></td>
+<td style="text-align: left;">Objeto maravilloso, Muy Raro</td>
+<td style="text-align: left;">Sí</td>
+<td style="text-align: left;">Te permite lanzar <em>Animar a los
+muertos</em> una vez por día. Como acción, puedes intentar controlar a
+un no-muerto con un VD de 2 o inferior que puedas ver a 30 pies. Debe
+superar una salvación de Sabiduría CD 17 o estará bajo tu control
+durante 1 hora. <strong>Coste:</strong> Cada uso te impone
+vulnerabilidad al daño radiante durante 1 minuto.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Amuleto de Tal’vorak</strong></td>
+<td style="text-align: left;">Objeto maravilloso, Muy Raro</td>
+<td style="text-align: left;">Sí</td>
+<td style="text-align: left;">Puedes lanzar <em>Paso del trueno</em> a
+voluntad, pero cada uso inflige 1d8+3 de <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>.
+Una vez por semana, puedes intentar lanzar <em>Controlar el clima</em>
+(solo para crear una tormenta). Esto inflige 4d10 de <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+y un nivel de agotamiento.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reliquias-del-primer-rey">3. Reliquias del Primer Rey</h3>
+<p>Vestigios del poder del monarca que desafió a los dioses. Su poder a
+menudo está latente, esperando al “Elegido” de la profecía.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Objeto</th>
+<th style="text-align: left;">Tipo / Rareza</th>
+<th style="text-align: left;">Requisito de Sintonía</th>
+<th style="text-align: left;">Descripción Mecánica y Coste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Espada Escamada</strong></td>
+<td style="text-align: left;">Arma (Espada larga), Artefacto</td>
+<td style="text-align: left;">Sí (por un Humano con un destino
+profético)</td>
+<td style="text-align: left;">Esta espada +3 ignora resistencias e
+inmunidades a daño no mágico. En manos de su portador legítimo, emite
+luz brillante en 30 pies y puede lanzar <em>Destierro</em> (CD 18) una
+vez al día.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Anillo de Unión</strong></td>
+<td style="text-align: left;">Anillo, Legendario</td>
+<td style="text-align: left;">Sí</td>
+<td style="text-align: left;">Como acción, puedes elegir hasta 6
+criaturas voluntarias a 60 pies. Durante 1 hora, todos los miembros del
+pacto pueden comunicarse telepáticamente y tienen ventaja en las tiradas
+de ataque contra un objetivo si otro miembro del pacto está a 5 pies de
+él. Se puede usar una vez por semana.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cáliz del Sacrificio</strong></td>
+<td style="text-align: left;">Objeto maravilloso, Legendario</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Una criatura puede beber del cáliz para
+recibir los beneficios de un conjuro de <em>Curación</em> (Heal).
+<strong>Coste:</strong> El bebedor pierde permanentemente 1 punto de una
+puntuación de característica a su elección.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pergamino de Olvido</strong></td>
+<td style="text-align: left;">Pergamino, Muy Raro</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Uso único. Como acción, lees el pergamino
+y nombras una criatura. Debe superar una salvación de Sabiduría CD 18 o
+un hecho específico (definido por el DM) es borrado de su memoria.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="objetos-de-manipulación-de-maná">4. Objetos de Manipulación de
+Maná</h3>
+<p>Herramientas para interactuar con el sistema de magia de Lithernia,
+como los Círculos de Invocación.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Objeto</th>
+<th style="text-align: left;">Tipo / Rareza</th>
+<th style="text-align: left;">Requisito de Sintonía</th>
+<th style="text-align: left;">Descripción Mecánica y Coste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Pergamino de Círculo
+Menor</strong></td>
+<td style="text-align: left;">Pergamino, Común</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Requiere 1 minuto para inscribir un
+Círculo Menor de 10 pies de diámetro. El círculo dura 1 hora y potencia
+un tipo de daño específico (+1d4) o la duración de un conjuro (+1
+ronda).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Estandarte de Escudo
+Arcano</strong></td>
+<td style="text-align: left;">Objeto maravilloso, Raro</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Al plantarlo, crea un área de 15 pies de
+radio. Los aliados dentro ganan un +1 a la CA. El estandarte tiene CA 15
+y 25 PV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cristal de Absorción de
+Maná</strong></td>
+<td style="text-align: left;">Objeto maravilloso, Poco común</td>
+<td style="text-align: left;">Sí (por un lanzador de <a
+href="Conjuros.html">Conjuros</a>)</td>
+<td style="text-align: left;">Como reacción cuando eres objetivo de un
+conjuro de nivel 5 o inferior, puedes forzar una prueba de Canalización
+de Maná (CD 10 + nivel del conjuro). Si tienes éxito, el conjuro es
+negado y recuperas Puntos de Maná igual al nivel del conjuro. Si fallas,
+recibes el efecto del conjuro y 1d6 de <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+adicional.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="artefactos-de-valtoria">5. Artefactos de Valtoria</h3>
+<p>Creaciones que combinan la maestría artesanal de los <a
+href="Enanos.html">Enanos</a> y <a href="Gnomos.html">Gnomos</a> con la
+magia de la montaña.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Objeto</th>
+<th style="text-align: left;">Tipo / Rareza</th>
+<th style="text-align: left;">Requisito de Sintonía</th>
+<th style="text-align: left;">Descripción Mecánica y Coste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Autómata de la Torre de las
+Estrellas</strong></td>
+<td style="text-align: left;">Constructo, Raro</td>
+<td style="text-align: left;">Sí (mediante un amuleto de control)</td>
+<td style="text-align: left;">Un guardián mecánico que obedece las
+órdenes de su portador. Usa el bloque de estadísticas adjunto.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Martillo de <a
+href="Levbrios.html">Levbrios</a></strong></td>
+<td style="text-align: left;">Arma (Martillo de guerra), Muy Raro</td>
+<td style="text-align: left;">Sí (por un personaje con competencia en
+herramientas de herrero)</td>
+<td style="text-align: left;">Este martillo de guerra +1 puede usarse
+durante un descanso largo para otorgar a un arma no mágica una propiedad
+a elegir: +1 al ataque, +1 al daño, o la capacidad de emitir luz. El
+efecto dura 24 horas. <strong>Coste:</strong> Cada uso consume 2d8
+Puntos de Maná del portador.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Gafas del Observador</strong></td>
+<td style="text-align: left;">Objeto maravilloso, Raro</td>
+<td style="text-align: left;">Sí</td>
+<td style="text-align: left;">Mientras las llevas puestas, tienes
+ventaja en pruebas de Inteligencia (Investigación). Puedes lanzar
+<em>Detectar Magia</em> a voluntad.</td>
+</tr>
+</tbody>
+</table>
+<p>```statblock name: Autómata de la Torre size: Mediano type:
+constructo alignment: sin alineamiento ac: 17 (Armadura natural) hp: 75
+(10d8 + 30) speed: 30 ft. stats: [18, 10, 16, 6, 10, 1]
+damage_immunities: Veneno, Psíquico condition_immunities: Hechizado,
+Agotamiento, Asustado, Envenenado senses: Visión en la oscuridad 60 ft.,
+Percepción Pasiva 10 languages: Entiende Enano pero no puede hablar cr:
+4 traits: - name: Vínculo Rúnico desc: “El autómata está mágicamente
+vinculado a un amuleto de control. Obedece las órdenes de quien lleve el
+amuleto. Si el amuleto es destruido, el autómata queda inerte.” - name:
+Protocolo de Reparación desc: “Un personaje puede usar herramientas de
+manitas durante 1 hora para reparar al autómata. Tras superar una prueba
+de Inteligencia (Herramientas de manitas) CD 15, el autómata recupera
+2d8 + 4 puntos de golpe.” actions: - name: Golpetazo desc: “Ataque de
+Arma Cuerpo a Cuerpo: +6 a impactar, alcance 5 ft., un objetivo.
+Impacto: 11 (2d6 + 4) de daño contundente.” reactions: - name:
+Interceptar Ataque desc: “Cuando una criatura a 5 pies del autómata es
+impactada por un ataque, el autómata impone desventaja en la tirada de
+ataque, potencialmente haciendo que falle. Para usar este rasgo, el
+autómata debe poder ver al atacante.”</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

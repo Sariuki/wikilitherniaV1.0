@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Susurrante</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Susurrante</div>
+        <div class="content">
+<h1 id="lyra-susurrante">Lyra Susurrante</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Forjada en el crisol de dos pueblos ancestralmente enfrentados, Lyra
+Susurrante es la encarnación viviente de una paz improbable. Nació en <a
+href="Sylorian.html">Sylorian</a>, la ciudad símbolo del ‘Pacto de la
+Luz Estelar’, un tratado que silenció las hachas y las flechas entre los
+<a href="Enanos.html">Enanos</a> del Clan Cortepiedra y los elfos
+silvanos de los Guardianes Verdes. Es la hija y heredera espiritual de
+Aeliana Cantosolar, la archidruida elfa cuya sabiduría y sacrificio
+sellaron dicho pacto. Desde su infancia, Lyra caminó entre dos mundos:
+aprendió la paciencia de los árboles milenarios con su gente y la
+tenacidad inquebrantable de la montaña con sus vecinos <a
+href="Enanos.html">Enanos</a>. Su nombre, “Susurrante”, no proviene de
+la debilidad, sino de su asombrosa capacidad para calmar las disputas
+con una palabra certera y para comunicarse con los espíritus del bosque
+y la piedra del valle.</p>
+<p>Su ascenso al liderazgo no fue un mero derecho de sangre, sino una
+prueba de fuego. Cuando una facción de mineros <a
+href="Enanos.html">Enanos</a>, los ‘Piedra Pura’, excavó demasiado cerca
+de las raíces del Corazón de Silvanus —el árbol sagrado petrificado en
+el centro del valle—, la tensión amenazó con romper el pacto. Mientras
+los martillos estaban a punto de chocar contra los arcos, Lyra se
+interpuso. No con armas, sino con una visión que proyectó en la mente de
+ambos líderes: la desolación que seguiría a su conflicto, un valle
+muerto por la misma guerra que sus antepasados juraron detener. Su
+intervención evitó el derramamiento de sangre y la consolidó como la
+‘Voz de la Hoja’, la líder indiscutible de la facción élfica del
+clan.</p>
+<p>Hoy, gobierna <a href="Sylorian.html">Sylorian</a> junto a su
+contraparte enana, el pragmático y honorable Borin Mazo de Piedra, el
+‘Puño de la Roca’. Su relación es de un profundo respeto mutuo, pero
+también de una constante tensión filosófica. Lyra ve el Corazón de
+Silvanus como el alma sagrada del valle, una reliquia que debe ser
+venerada y protegida. Borin, aunque respetuoso, lo ve también como una
+fuente de poder y <a href="Recursos.html">Recursos</a> que podría
+fortalecer a su pueblo contra las amenazas externas, como los <a
+href="Orcos.html">Orcos</a> del Clan <a
+href="Thyrgram.html">Thyrgram</a> que merodean sus fronteras. La
+principal motivación de Lyra es mantener este frágil equilibrio. Teme,
+no la malicia de los <a href="Enanos.html">Enanos</a>, sino su
+pragmatismo; una decisión lógica para ellos podría ser una profanación
+irreparable para los elfos y el espíritu del valle. Como principal
+diplomática con <a href="Eldrador.html">Eldrador</a>, Lyra es el puente
+que mantiene a la Casa <a href="Galanthil.html">Galanthil</a> y otras
+facciones élficas confiando en el “experimento <a
+href="Sylorian.html">Sylorian</a>”, asegurándoles que la herencia de su
+madre no será en vano.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra posee la gracia etérea de los elfos silvanos, pero sus 415 años
+de vida le han otorgado una mirada que contiene la profundidad de un
+bosque antiguo y la solidez de una roca milenaria. Su cabello, de un
+castaño oscuro como la tierra fértil, está trenzado con finos hilos de
+mithril y pequeñas gemas sin pulir, un regalo de los artesanos <a
+href="Enanos.html">Enanos</a> en señal de respeto. Sus ojos son de un
+verde musgo, increíblemente perceptivos, capaces de leer tanto las
+intenciones en el rostro de un diplomático como el malestar en las hojas
+de un árbol.</p>
+<p>Su atuendo es un reflejo de su doble herencia. Viste una armadura de
+cuero endurecido, teñida con pigmentos naturales, pero reforzada con
+placas de acero enano grabadas con <a href="Runas.html">Runas</a> de
+protección y crecimiento. Su capa, tejida con hojas y musgo vivo, se
+cierra con un broche de granito pulido que representa el martillo y la
+raíz del escudo de su clan.</p>
+<p>No porta una espada, sino un bastón de madera de roble blanco, una
+rama desprendida del propio Corazón de Silvanus en una tormenta hace un
+siglo. El bastón está envuelto en raíces vivas que se mueven sutilmente
+a su voluntad y tiene <a href="Runas.html">Runas</a> enanas de firmeza y
+sabiduría grabadas en su base por el mismo Borin. Es a la vez su foco
+druídico, su insignia de autoridad y un símbolo constante de la unidad
+que juró proteger.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>En un continente definido por la Gran Guerra y las cicatrices del <a
+href="Lilium.html">Lilium</a>, Lyra Susurrante y el Clan Raízdehierro
+representan una anomalía radical: un faro de esperanza. Su legado no se
+medirá en conquistas ni en riquezas, sino en la supervivencia de su
+ideal. Si <a href="Sylorian.html">Sylorian</a> prospera bajo su
+liderazgo conjunto, demostrará a los reinos de Lithernia que la
+cooperación entre razas no es una utopía, sino una estrategia viable
+para la supervivencia y la prosperidad. Sería la prueba de que las
+antiguas enemistades sembradas por los dioses pueden ser superadas por
+la voluntad de los mortales.</p>
+<p>Sin embargo, si fracasa —si las tensiones internas o las amenazas
+externas fracturan su clan—, su historia se convertirá en una fábula con
+moraleja: una advertencia de que ni la más <a
+href="Noble.html">Noble</a> de las intenciones puede sanar las profundas
+heridas del pasado. El destino de Lyra, por tanto, está intrínsecamente
+ligado al alma de Lithernia, y su éxito o fracaso podría inspirar una
+nueva era de alianzas o reafirmar el ciclo interminable de desconfianza
+y guerra que ha plagado al mundo durante milenios.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.52)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

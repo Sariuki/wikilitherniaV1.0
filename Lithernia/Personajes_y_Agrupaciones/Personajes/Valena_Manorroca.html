@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valena_Manorroca</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Valena_Manorroca</div>
+        <div class="content">
+<h1 id="valena-manorroca">Valena Manorroca</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones silenciosos de <a href="Cyndril.html">Cyndril</a>,
+donde el aire huele a ozono rúnico y aceite de precisión, no todos los
+corazones laten al ritmo pausado de la erudición. Valena Manorroca es la
+prueba viviente de ello. Nacida en el seno de la Casa Runic-Gear,
+descendiente directa del fundador Borin Manorroca, Valena creció rodeada
+de las maravillas de una era perdida. Mientras los demás miembros de su
+casa veían en los artefactos pre-<a href="Lilium.html">Lilium</a>
+reliquias para estudiar, ella veía armas esperando ser empuñadas; en los
+esquemas de autómatas, veía los planos de un ejército invencible.</p>
+<p>Su padre, el actual patriarca Thane Borgrim, es un enano de
+tradición, convencido de que la misión de la casa es la preservación
+neutral. Para él, el Archivo Inmóvil es un santuario que debe protegerse
+del mundo. Para Valena, es un arsenal desperdiciado. Esta diferencia
+filosófica ha definido su vida, forjando entre padre e hija un abismo de
+respeto tenso y desacuerdo constante. Valena argumenta en el consejo de
+la casa que la neutralidad es un lujo que <a
+href="Valtoria.html">Valtoria</a> no puede permitirse con la sombra de
+<a href="Mor&#39;dhul.html">Mor’dhul</a> cerniéndose sobre sus
+fronteras. Cree firmemente que el vasto conocimiento de Runic-Gear debe
+ser un escudo y una espada para su reino, no un mero apéndice en los
+anales de la historia.</p>
+<p>Su convicción no es solo teórica. Desde joven, demostró un talento
+innato no solo para el combate, sino para comprender la lógica marcial
+de los constructos de su casa. Donde otros veían engranajes y <a
+href="Runas.html">Runas</a>, ella veía tácticas y formaciones. Se ganó
+el respeto de los maestros artesanos y de los pocos guerreros de la
+casa, no por su linaje, sino por su disciplina implacable y su visión
+estratégica. Con el tiempo, se le otorgó el mando de los Guardianes del
+Archivo, una fuerza de élite compuesta tanto por <a
+href="Enanos.html">Enanos</a> y <a href="Gnomos.html">Gnomos</a> leales
+como por los guardianes autómatas que protegen <a
+href="Cyndril.html">Cyndril</a>. Valena ha transformado a estos últimos
+en la “Legión de Cobalto”, una unidad de constructos de combate que
+obedecen sus órdenes con una precisión aterradora, entrenados en
+maniobras que ella misma diseñó a partir de antiguos <a
+href="Manuales.html">Manuales</a> de guerra recuperados de las ruinas de
+la era del Primer Rey.</p>
+<p>Valena ha liderado personalmente expediciones para repeler a los
+saboteadores de los Cazadores de Sombras y ha frustrado más de un
+intento de infiltración del Clan Whisper, consolidando su reputación
+como una líder pragmática y una guerrera formidable. Cada enfrentamiento
+refuerza su creencia: el conocimiento solo tiene valor cuando se
+utiliza. Ahora, su mirada no solo se posa en las fronteras de <a
+href="Cyndril.html">Cyndril</a>, sino en el destino de toda <a
+href="Valtoria.html">Valtoria</a>, preguntándose si tendrá que desafiar
+la voluntad de su propio padre para salvar a su pueblo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Valena es la encarnación de la fuerza enana, con una estatura robusta
+y hombros anchos forjados por años de entrenamiento. Su largo cabello,
+del color del carbón, está recogido en una compleja serie de trenzas
+entrelazadas con finos alambres de mithril y pequeños engranajes de
+cobre que tintinean suavemente con el movimiento. Sus ojos, de un
+intenso color acero, arden con una inteligencia fiera y una
+determinación inquebrantable. A diferencia de su padre, su rostro no
+muestra la paciencia del <a href="Erudito.html">Erudito</a>, sino la
+tensión vigilante del soldado.</p>
+<p><strong>Equipamiento:</strong></p>
+<ul>
+<li><strong>Armadura de la Guardiana:</strong> Un conjunto de armadura
+de placas completa, forjada a medida en los talleres de Runic-Gear.
+Combina placas de mithril con refuerzos de bronce rúnico. Intrincados
+filamentos de plata recorren su superficie, canalizando energía para
+potenciar su fuerza y resistencia en momentos clave.</li>
+<li><strong>Martillo de Guerra Rúnico “Rompejuramentos”:</strong> Un
+arma formidable, herencia de su linaje. La cabeza de acero valtoriano
+está grabada con <a href="Runas.html">Runas</a> de impacto que brillan
+con una luz azul pálida antes de cada golpe. El nombre del martillo es
+un secreto a voces dentro de la casa, un símbolo de la disposición de
+Valena a romper el “juramento” de neutralidad de su familia.</li>
+<li><strong>Escudo del Engranaje:</strong> Un escudo pavés de acero y
+bronce que lleva el emblema de la Casa Runic-Gear. No es meramente
+defensivo; puede desplegar un campo de energía cinética por un breve
+instante para repeler ataques mágicos o físicos con una fuerza
+devastadora.</li>
+<li><strong>Halcón Mensajero Autómata:</strong> Un pequeño constructo
+con forma de halcón que suele posarse en su hombrera. Hecho de cobre y
+plata, sus ojos de gema actúan como lentes de largo alcance y le permite
+enviar y recibir mensajes codificados con los puestos de avanzada de <a
+href="Cyndril.html">Cyndril</a>.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Valena Manorroca se encuentra en una encrucijada que podría redefinir
+no solo el futuro de su casa, sino el de todo el reino de <a
+href="Valtoria.html">Valtoria</a>. Representa una nueva generación que
+se niega a permanecer al margen mientras la historia se desarrolla. Si
+logra convencer a su casa o actuar por su cuenta, podría introducir en
+la Gran Guerra una variable que nadie, ni siquiera el Rey-Dios
+Sel’thirak, ha previsto: la resurrección de la tecnología de la era del
+Primer Rey como una fuerza militar moderna.</p>
+<p>Su impacto podría ser la salvación de <a
+href="Valtoria.html">Valtoria</a>, dotando a sus ejércitos de un poder
+sin precedentes. Sin embargo, su camino está plagado de peligros. Su
+pragmatismo podría llevarla a tomar decisiones moralmente ambiguas, y su
+enfoque bélico amenaza con fracturar la unidad de la Casa Runic-Gear
+desde dentro, exponiendo sus secretos a un mundo que los codicia. En el
+gran tapiz de Lithernia, Valena no es una reina ni una profeta, sino una
+forjadora: una enana que cree que el futuro no se espera, se construye.
+Y está dispuesta a construirlo con acero, <a href="Runas.html">Runas</a>
+y la memoria olvidada de un poder antiguo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.57)</li>
+<li><a href="Casa%20Runic-Gear.html">Casa Runic-Gear</a> (relevancia:
+0.52)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

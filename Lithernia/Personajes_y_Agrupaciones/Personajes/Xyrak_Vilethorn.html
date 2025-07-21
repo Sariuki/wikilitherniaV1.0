@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xyrak_Vilethorn</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Xyrak_Vilethorn</div>
+        <div class="content">
+<h1 id="xyrak-vilethorn">Xyrak Vilethorn</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En el pútrido y ambicioso corazón de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, donde el poder se mide en gritos
+o en oro, Xyrak Vilethorn ha elegido una métrica diferente: el silencio.
+Nacido en el seno del Clan Vilethorn, un cónclave fundado por
+apotecarios Shadar-Kai exiliados y magos Tiefling, Xyrak fue adoctrinado
+desde joven en una verdad fundamental: el veneno más potente no es el
+que detiene el corazón, sino el que retuerce la voluntad.</p>
+<p>Su linaje Tiefling le confirió una afinidad natural por la sombra y
+la intriga, pero fue su mentora, la enigmática matriarca del clan
+Morwenna, quien vio en él la paciencia de una araña y la precisión de un
+cirujano. Bajo su tutela, Xyrak no solo aprendió a destilar toxinas de
+flores lunares y bilis de basilisco, sino que dominó el arte de la <a
+href="Alquimia.html">Alquimia</a> social. Comprendió que la adicción, la
+paranoia y el secreto eran venenos para el alma, mucho más eficaces que
+cualquier ponzoña física.</p>
+<p>Su ascenso a Maestro de Espías fue meteórico y sigiloso. Mientras el
+Clan <a href="Kromagul.html">Kromagul</a> exhibía sus trofeos de carne
+torturada, Xyrak desmantelaba redes rivales sin levantar la voz. Su obra
+maestra fue la creación y perfeccionamiento de la “Niebla del Olvido”,
+una toxina etérea capaz de borrar recuerdos específicos, convirtiendo a
+enemigos en aliados desmemoriados y a testigos en fantasmas con la mente
+en blanco. Con esta herramienta, aseguró la lealtad de figuras clave en
+<a href="Syrenya.html">Syrenya</a>, tejiendo una red de informantes que
+no cooperan por miedo al dolor, sino por la desesperada necesidad del
+próximo brebaje que calma sus nervios o les devuelve un ápice de falsa
+lucidez.</p>
+<p>Como Verdugo Principal, Xyrak es el instrumento final del clan. No
+blande un hacha, sino una aguja. Sus ejecuciones son obras de arte
+macabro: muertes que parecen accidentes, enfermedades súbitas o
+suicidios inexplicables. Desprecia la brutalidad del Clan <a
+href="Kromagul.html">Kromagul</a>, considerándola un “arte burdo y
+ruidoso”, una admisión de fracaso. Para Xyrak, el éxito es un obituario
+que nadie cuestiona, un trono que se vacía sin que nadie sepa quién
+empujó a su ocupante. Su lealtad a Morwenna es absoluta, pues ve en ella
+la arquitecta de una filosofía de poder que él se encarga de ejecutar
+con devoción. Su ambición no es gobernar abiertamente, sino ser la mano
+invisible que mueve los hilos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, asegurando que la sombra de los
+Vilethorn se alargue más que la de cualquier otro clan.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Xyrak posee la gracia contenida de un depredador en reposo. A sus 120
+años, su herencia Tiefling se manifiesta con una elegancia sutil: su
+piel tiene el tono pálido de la piedra lunar, y dos cuernos negros y
+lisos se curvan hacia atrás desde su sien, desapareciendo entre su
+cabello oscuro y sedoso. Sus ojos, de un intenso color amatista, rara
+vez parpadean y parecen analizarlo todo con una calma inquietante. Es de
+complexión delgada y ágil, y sus movimientos son deliberados, económicos
+y absolutamente silenciosos.</p>
+<p>Viste con ropajes de alta calidad pero discretos, típicamente túnicas
+de seda negra o gris oscuro sobre una armadura de cuero endurecido casi
+imperceptible. Evita cualquier ornamento que pueda delatar su estatus,
+prefiriendo la funcionalidad a la ostentación.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Dagas de Estilete
+Gemelas:</strong> Finas y letales, forjadas con un metal oscuro que no
+refleja la luz. Sus hojas están acanaladas para administrar veneno con
+la más mínima punción. * <strong>Viales de Cristal de Sombra:</strong>
+Una colección de pequeños viales irrompibles, asegurados en un bandolera
+oculta bajo su túnica. Contienen sus creaciones más preciadas, desde la
+mortal “Lágrima del Basilisco” hasta la infame “Niebla del Olvido”. *
+<strong>Anillo del Ouroboros:</strong> Su anillo de sello del clan, una
+serpiente de obsidiana que muerde su cola. La cabeza de la serpiente es
+un compartimento oculto que contiene una única dosis de un veneno de
+acción instantánea, su último recurso. * <strong>Kit de Alquimista
+Maestro:</strong> Un estuche de cuero que contiene herramientas de
+precisión para analizar y preparar sus toxinas sobre el terreno:
+morteros de obsidiana, pipetas de cristal y reactivos exóticos.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e impacto en
+Lithernia</h3>
+<p>Xyrak Vilethorn no es un conquistador ni un general, pero su
+influencia en <a href="Mor&#39;dhul.html">Mor’dhul</a> es tan profunda
+como la de cualquier señor de la guerra. Encarna la filosofía de su
+clan, demostrando que el poder más duradero no se impone por la fuerza,
+sino que se infiltra como una enfermedad. Ha redefinido el espionaje en
+el reino oscuro, sustituyendo la coacción bruta por la dependencia
+química, creando una red de información más leal y desesperada que
+ninguna otra.</p>
+<p>Su rivalidad con el Clan <a href="Kromagul.html">Kromagul</a> es más
+que una simple disputa; es una batalla por el alma de la tiranía en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. ¿Gobernará el miedo al dolor
+físico o el control insidioso de la mente y el espíritu? La respuesta a
+esta pregunta podría dictar la futura estrategia de expansión de
+Sel’thirak y su reino.</p>
+<p>A través de sus alianzas, los venenos de Xyrak han llegado a las
+cortes de <a href="Eldrador.html">Eldrador</a> y a los pasillos del
+poder de otros reinos, sembrando discordia y eliminando obstáculos de
+forma anónima. Es un arma de guerra política, un cáncer que se extiende
+por el tejido de Lithernia sin que sus víctimas sepan siquiera que están
+enfermas.</p>
+<p>Xyrak Vilethorn no busca grabar su nombre en la historia con
+monumentos de piedra, sino con los silencios que deja tras de sí: las
+traiciones no contadas, los secretos enterrados y los tronos que se
+tambalean sin saber por qué.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Veneno.html">Veneno</a> (relevancia: 0.41)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

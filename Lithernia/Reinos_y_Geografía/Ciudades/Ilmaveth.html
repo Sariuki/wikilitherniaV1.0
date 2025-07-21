@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ilmaveth</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ilmaveth</div>
+        <div class="content">
+<h1 id="ilmaveth">Ilmaveth</h1>
+<p>Aferrada a los imponentes Acantilados del Susurro, en la costa de <a
+href="Galvorn.html">Galvorn</a>, Ilmaveth es un faro de innovación y
+audacia que mira más al cielo que al mar. Sus edificios de piedra caliza
+blanca y madera clara parecen desafiar la gravedad, conectados por
+puentes colgantes que silban con la brisa constante. No es un puerto de
+mercaderes y marineros toscos, sino un santuario para cartógrafos
+celestiales, inventores de planeadores y magos del viento. Aquí, el
+horizonte no es una ruta comercial, sino una promesa de misterios por
+desvelar, y el valor se mide en la audacia de un vuelo o la precisión de
+un mapa estelar.</p>
+<h2 id="historia">Historia</h2>
+<p>Ilmaveth fue fundada por el explorador humano Lyrus Caelus, un
+cartógrafo que, a diferencia de sus contemporáneos en <a
+href="Galvorn.html">Galvorn</a>, estaba obsesionado con trazar <a
+href="Mapas.html">Mapas</a> de las corrientes de aire y las
+constelaciones. Mientras otros veían en el mar la fuente de la
+prosperidad, Lyrus creía que los verdaderos secretos de la libertad,
+encarnados por el dios <a href="Quiteon.html">Quiteon</a>, residían en
+el dominio de los cielos. En los Acantilados del Susurro encontró el
+lugar perfecto: un nexo de vientos poderosos y cielos perpetuamente
+despejados.</p>
+<p>Junto a un grupo de genasi de aire y eruditos <a
+href="Semielfos.html">Semielfos</a>, fundó un asentamiento que
+priorizaba el conocimiento sobre la riqueza. Con el tiempo, Ilmaveth
+atrajo a los soñadores e inventores de todo <a
+href="Galvorn.html">Galvorn</a>, estableciéndose como un centro de
+innovación único. Su gobierno, un Consejo de Inventores y Astrónomos, se
+basa en la meritocracia intelectual, y sus festivales anuales de vuelo
+sin motor son legendarios en todo el reino.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Cornisa de los Vientos</strong>: La franja más alta de
+los acantilados, una vertiginosa plataforma natural desde la que los
+pilotos e inventores lanzan sus planeadores al vacío. Está salpicada de
+talleres al aire libre, catapultas de lanzamiento rústicas y santuarios
+a <a href="Quiteon.html">Quiteon</a> donde se ofrecen campanas de viento
+para pedir brisas favorables.</p></li>
+<li><p><strong>El Distrito de las Veletas</strong>: El corazón
+residencial y comercial de la ciudad. Sus calles serpenteantes están
+flanqueadas por edificios de techos curvos y aerodinámicos, cada uno
+coronado por una veleta única y ornamentada. Aquí se encuentran las
+posadas más acogedoras, regentadas por <a
+href="Medianos.html">Medianos</a>, y las tiendas de los artesanos que
+venden desde astrolabios de precisión hasta cometas de seda.</p></li>
+<li><p><strong>Las Cúpulas Astrales</strong>: Un conjunto de torres de
+observación en el punto más elevado y estable de Ilmaveth. Sus cúpulas
+de cristal, encantadas por magos de viento para repeler las nubes,
+albergan los telescopios y laboratorios de los astrónomos. Por la noche,
+las cúpulas brillan con una luz suave, pareciendo estrellas caídas sobre
+los acantilados.</p></li>
+<li><p><strong>Puerto Brisamar</strong>: En la base de los acantilados,
+accesible a través de un sistema de enormes ascensores de poleas
+impulsados por elementales de aire, se encuentra el pequeño puerto de la
+ciudad. Aunque menos concurrido que otros puertos de <a
+href="Galvorn.html">Galvorn</a>, es vital para el suministro de
+materiales y un punto de encuentro para aventureros que buscan explorar
+tanto el mar como el cielo.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Ilmaveth es contemplativa y filosófica. El evento más
+sagrado del año es el ‘Vuelo del Solsticio’, una competición donde los
+pilotos de planeadores no compiten por velocidad, sino por la gracia y
+la armonía de su vuelo con el viento. La victoria es un honor puramente
+simbólico. Es tradición colgar ‘Atrapavientos’ —móviles hechos con
+cristales, conchas y metales afinados— en las puertas. Se cree que su
+melodía agrada a <a href="Quiteon.html">Quiteon</a> y calma la furia de
+<a href="Exion.html">Exion</a>, el dios de las tormentas.</p>
+<p>La religión es una parte integral de la vida. Los templos a <a
+href="Quiteon.html">Quiteon</a> son estructuras abiertas, sin paredes,
+para que las plegarias sean llevadas por el viento. Los astrónomos
+rinden culto a <a href="Harmias.html">Harmias</a>, la diosa del sol,
+buscando su luz para sus observaciones, mientras que todos los que se
+aventuran más allá de los acantilados, ya sea por mar o aire, hacen
+ofrendas a <a href="Yfrit.html">Yfrit</a>. El símbolo de la ciudad, una
+espiral de viento plateada naciendo de una ola azul bajo tres estrellas
+doradas, refleja esta devoción compartida.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Ilmaveth es una ciudad esculpida por y para el viento. Los edificios
+de piedra blanca están diseñados para minimizar la resistencia y
+canalizar las brisas a través de patios y pasillos, creando una
+ventilación natural constante. Los puentes colgantes, reforzados con
+magia, se mecen suavemente en un ritmo hipnótico. El ambiente está
+impregnado de un optimismo tranquilo y una sensación de asombro. El aire
+huele a sal marina, a la madera de los talleres y al ozono que precede a
+la magia del viento. El sonido predominante es el murmullo constante del
+viento y el tintineo de miles de Atrapavientos, una sinfonía que define
+el alma de la ciudad.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Navío Fantasma de los Vientos</strong>: Los pilotos y
+vigías a veces juran haber visto, en las noches de niebla espesa, la
+silueta de un barco volador que navega sin hacer ruido entre las nubes.
+La leyenda dice que está tripulado por los espectros de los primeros
+exploradores de Ilmaveth, perdidos mientras buscaban una mítica isla que
+solo existe en los <a href="Mapas.html">Mapas</a> del cielo, condenados
+a buscarla por la eternidad.</p></li>
+<li><p><strong>El Eco Llorón</strong>: Se advierte a los recién llegados
+que no se asomen demasiado a las cuevas que perforan la base de los
+acantilados. Se dice que allí habita un elemental de aire antiguo y
+melancólico, el ‘Eco Llorón’. Atormentado por la soledad, imita las
+voces de los seres queridos de quienes se acercan al borde, susurrando
+sus nombres para atraerlos a una caída fatal hacia el mar
+embravecido.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

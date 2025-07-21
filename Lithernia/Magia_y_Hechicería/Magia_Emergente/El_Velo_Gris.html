@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Velo_Gris</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Velo_Gris</div>
+        <div class="content">
+<h1 id="el-velo-gris">El velo gris</h1>
+<h3 id="perfil-del-concepto">Perfil del Concepto</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Mecánica</strong></td>
+<td style="text-align: left;">Regla de Entorno, Tabla de Magia
+Salvaje</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Concepto Central</strong></td>
+<td style="text-align: left;">La inestabilidad mágica residual del
+Cataclismo del <a href="Lilium.html">Lilium</a>, que crea zonas donde la
+magia es impredecible.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto Principal</strong></td>
+<td style="text-align: left;">Lanzar <a
+href="Conjuros.html">Conjuros</a> en “Zonas de Velo Roto” puede
+desencadenar efectos aleatorios, desde beneficiosos hasta
+peligrosos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Elementos Asociados</strong></td>
+<td style="text-align: left;">Trasfondo de personaje, plantilla de
+criatura, dote y objetos mágicos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reglas-de-entorno-zonas-de-velo-roto">Reglas de Entorno: Zonas
+de Velo Roto</h3>
+<p>En Zonas de Velo Roto, cuando ocurre un evento gatillo, el personaje
+que lo causó debe realizar una tirada de salvación de Carisma contra la
+CD de la zona. Si falla, debe tirar un d100 en la Tabla de Efectos del
+Velo Roto.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Nivel de Inestabilidad</th>
+<th style="text-align: left;">CD de Salvación</th>
+<th style="text-align: left;">Gatillo del Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Débil</strong></td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Lanzar un conjuro de nivel 3 o
+superior.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inestable</strong></td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">Lanzar un conjuro de nivel 1 o superior;
+obtener un 1 natural en una tirada de ataque.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Roto</strong></td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">Lanzar cualquier conjuro (incluido truco);
+recibir un golpe crítico; una criatura muere a 30 pies.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-efectos-del-velo-roto">Tabla de Efectos del Velo
+Roto</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d100</th>
+<th style="text-align: left;">Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">01-05</td>
+<td style="text-align: left;">Por 1 minuto, el aire se llena de susurros
+ininteligibles. Todas las criaturas en un radio de 30 pies tienen
+desventaja en pruebas de Sabiduría (Percepción) que dependan del
+oído.</td>
+</tr>
+<tr>
+<td style="text-align: left;">06-10</td>
+<td style="text-align: left;">Eres inmune al daño psíquico durante 1
+hora.</td>
+</tr>
+<tr>
+<td style="text-align: left;">11-15</td>
+<td style="text-align: left;">El próximo conjuro que lances que inflija
+daño, en su lugar inflige daño de fuerza.</td>
+</tr>
+<tr>
+<td style="text-align: left;">16-20</td>
+<td style="text-align: left;">El objetivo del conjuro gatillo (o el
+lanzador si no hay objetivo) recupera 1d8 puntos de golpe.</td>
+</tr>
+<tr>
+<td style="text-align: left;">21-25</td>
+<td style="text-align: left;">Aparece un portal inofensivo a un plano
+aleatorio en un radio de 15 pies. Se cierra al final de tu próximo
+turno.</td>
+</tr>
+<tr>
+<td style="text-align: left;">26-30</td>
+<td style="text-align: left;">Todas las llamas no mágicas en un radio de
+60 pies se extinguen. Las llamas mágicas parpadean con un color
+púrpura.</td>
+</tr>
+<tr>
+<td style="text-align: left;">31-35</td>
+<td style="text-align: left;">El lanzador gana visión en la oscuridad
+hasta 120 pies durante 1 hora. Si ya la tiene, el alcance se
+duplica.</td>
+</tr>
+<tr>
+<td style="text-align: left;">36-40</td>
+<td style="text-align: left;">El lanzador debe superar una tirada de
+salvación de Sabiduría (CD 13) o quedará asustado de su propia sombra
+durante 1 minuto.</td>
+</tr>
+<tr>
+<td style="text-align: left;">41-45</td>
+<td style="text-align: left;">El lanzador levita 5 pies del suelo
+durante 1 minuto. No puede descender voluntariamente.</td>
+</tr>
+<tr>
+<td style="text-align: left;">46-50</td>
+<td style="text-align: left;">Un eco psíquico te inunda con una visión
+del Cataclismo del <a href="Lilium.html">Lilium</a>. Debes superar una
+tirada de salvación de Sabiduría (CD 14) o quedar aturdido hasta el
+final de tu próximo turno.</td>
+</tr>
+<tr>
+<td style="text-align: left;">51-55</td>
+<td style="text-align: left;">El lanzador es afectado por el conjuro
+<em>Confusión</em> durante 1 minuto (sin concentración). Puede repetir
+la salvación al final de cada uno de sus turnos.</td>
+</tr>
+<tr>
+<td style="text-align: left;">56-60</td>
+<td style="text-align: left;">El lanzador recupera un espacio de conjuro
+gastado del nivel más bajo que tenga disponible.</td>
+</tr>
+<tr>
+<td style="text-align: left;">61-65</td>
+<td style="text-align: left;">El lanzador envejece o rejuvenece 1d10
+años. El efecto es permanente.</td>
+</tr>
+<tr>
+<td style="text-align: left;">66-70</td>
+<td style="text-align: left;">Todos los objetos metálicos en un radio de
+20 pies emiten un zumbido audible y se calientan al tacto durante 1
+minuto.</td>
+</tr>
+<tr>
+<td style="text-align: left;">71-75</td>
+<td style="text-align: left;">El lanzador sufre 2d10 de daño de fuerza y
+es empujado 10 pies en una dirección aleatoria.</td>
+</tr>
+<tr>
+<td style="text-align: left;">76-80</td>
+<td style="text-align: left;">Un <em>Modron extraviado</em> aparece en
+un espacio desocupado a 5 pies de ti. Está confundido y actuará en su
+propio turno, intentando “reparar” el orden antes de desaparecer en 1d4
+rondas.</td>
+</tr>
+<tr>
+<td style="text-align: left;">81-85</td>
+<td style="text-align: left;">El lanzador y todas las criaturas en un
+radio de 15 pies ganan vulnerabilidad a un tipo de daño aleatorio
+durante 1 minuto.</td>
+</tr>
+<tr>
+<td style="text-align: left;">86-90</td>
+<td style="text-align: left;">El lanzador es teletransportado 60 pies a
+un espacio desocupado aleatorio que pueda ver.</td>
+</tr>
+<tr>
+<td style="text-align: left;">91-95</td>
+<td style="text-align: left;">Un portal al Plano de las Sombras se abre
+durante 1 minuto. 1d4 <strong>Sombras</strong> emergen y son hostiles a
+todas las criaturas vivas.</td>
+</tr>
+<tr>
+<td style="text-align: left;">96-99</td>
+<td style="text-align: left;">El lanzador es imbuido con poder. El
+próximo conjuro que lance se considera lanzado con un espacio de conjuro
+de un nivel superior.</td>
+</tr>
+<tr>
+<td style="text-align: left;">00</td>
+<td style="text-align: left;">El lanzador atrae la atención de una
+entidad poderosa (una deidad, un señor demoníaco). El DM determina las
+consecuencias.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="plantilla-de-criatura-tocado-por-el-velo">Plantilla de Criatura:
+Tocado por el Velo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo Modificado</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Resistencias al Daño</strong></td>
+<td style="text-align: left;">La criatura gana resistencia al daño
+psíquico.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vulnerabilidades al
+Daño</strong></td>
+<td style="text-align: left;">La criatura gana vulnerabilidad al daño de
+fuerza.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nuevo Rasgo</strong></td>
+<td style="text-align: left;"><strong>Paso Velado (Recarga
+5-6):</strong> Como acción adicional, la criatura puede
+teletransportarse mágicamente hasta 30 pies a un espacio desocupado que
+pueda ver.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Modificador de
+Ataque</strong></td>
+<td style="text-align: left;"><strong>Toque Entrópico:</strong> Los
+ataques con arma de la criatura infligen 1d6 de daño psíquico o
+necrótico adicional (a elección de la criatura al crearse).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="trasfondo-erudito-del-velo">Trasfondo: Erudito del Velo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Arcanos, Investigación.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Idiomas</strong></td>
+<td style="text-align: left;">Dos de tu elección.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo</strong></td>
+<td style="text-align: left;">Un libro con notas sobre anomalías
+planares, un pequeño cristal de cuarzo que vibra cerca de fisuras en el
+Velo, un conjunto de ropas de <a href="Erudito.html">Erudito</a> y una
+bolsa con 10 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Percepción
+Liminal</strong></td>
+<td style="text-align: left;">Puedes sentir la presencia de Zonas de
+Velo Roto en un radio de una milla, aunque no su ubicación exacta.
+Tienes ventaja en las pruebas de Inteligencia (Arcanos) para identificar
+criaturas extraplanares y fenómenos relacionados con otros planos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dote-sintonía-con-el-velo">Dote: Sintonía con el Velo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Prerrequisito</strong></td>
+<td style="text-align: left;">Ninguno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Beneficios</strong></td>
+<td style="text-align: left;">Ganas los siguientes beneficios: <br> •
+Aumenta tu puntuación de Inteligencia, Sabiduría o Carisma en 1, hasta
+un máximo de 20. <br> • Tienes ventaja en las tiradas de salvación
+contra los efectos de la Tabla de Efectos del Velo Roto. <br> • Cuando
+tú u otra criatura a 30 pies de ti desencadenáis un efecto de la Tabla
+de Efectos del Velo Roto, puedes usar tu reacción para forzar una nueva
+tirada del d100. Debes usar el nuevo resultado. Solo puedes usar este
+rasgo una vez por descanso largo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="objetos-mágicos-del-velo">Objetos Mágicos del Velo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Objeto Mágico</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Fragmento del Velo (Poco
+común)</strong></td>
+<td style="text-align: left;">Este trozo de cristal opaco parece
+absorber la luz. Mientras lo sostienes, puedes usar una acción para
+lanzar el conjuro <em>Protección contra el bien y el mal</em> sobre ti
+mismo, pero solo protege contra aberraciones, celestiales, elementales y
+feéricos. Una vez usado, no puede volver a usarse hasta el siguiente
+amanecer.</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </div>
+</body>
+</html>

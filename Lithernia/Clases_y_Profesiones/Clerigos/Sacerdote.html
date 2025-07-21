@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacerdote</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Sacerdote</div>
+        <div class="content">
+<h1 id="sacerdote">Sacerdote</h1>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como sacerdote, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d8 por nivel de sacerdote
+<strong>Puntos de Golpe a nivel 1:</strong> 8 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d8
+(o 5) + tu modificador de Constitución por cada nivel de sacerdote
+después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera <strong>Armas:</strong>
+Armas sencillas <strong>Herramientas:</strong> Ninguna <strong>Tiradas
+de Salvación:</strong> Sabiduría, Carisma <strong>Habilidades:</strong>
+Elige dos de entre Historia, Perspicacia, Medicina, Persuasión y
+Religión.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) una maza o (b) cualquier arma sencilla * (a) un paquete
+de sacerdote o (b) un paquete de explorador * Armadura de cuero y un
+símbolo sagrado</p>
+<h3 id="sistema-de-maná-del-sacerdote"><strong>Sistema de Maná del
+Sacerdote</strong></h3>
+<p>Tu poder divino se manifiesta al canalizar la energía del Tejido de
+Maná a través de tu fe.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que usas para lanzar tus <a href="Conjuros.html">Conjuros</a>. Tu
+fórmula de maná es <strong>6 + (Nivel de Sacerdote × Modificador de
+Sabiduría)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d8.</li>
+<li><strong>Aptitud Mágica:</strong> La Sabiduría es tu aptitud mágica
+para tus <a href="Conjuros.html">Conjuros</a> de sacerdote.
+<ul>
+<li><strong>CD de salvación de <a
+href="Conjuros.html">Conjuros</a></strong> = 8 + tu bonificador por
+competencia + tu modificador de Sabiduría.</li>
+<li><strong>Modificador de ataque de <a
+href="Conjuros.html">Conjuros</a></strong> = tu bonificador por
+competencia + tu modificador de Sabiduría.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-sacerdote">Tabla de Progresión del
+Sacerdote</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Trucos Conocidos</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Lanzamiento de <a
+href="Conjuros.html">Conjuros</a>, Dominio Divino, Devoción Sagrada,
+Toque Curativo, Canalizar Divinidad (2/descanso)</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6 + (1 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Rasgo de Dominio Divino, Canalizar
+Divinidad: Expulsar No Muertos</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6 + (2 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6 + (3 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (4 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Destruir No Muertos (VD 1/2)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (5 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Dominio Divino, Canalizar
+Divinidad (3/descanso)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (6 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (7 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de Característica,
+Destruir No Muertos (VD 1), Rasgo de Dominio Divino</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (8 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (9 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Intervención Divina</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (10 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Destruir No Muertos (VD 2)</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (11 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (12 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (13 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Destruir No Muertos (VD 3), Rasgo de
+Dominio Divino</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (14 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (15 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (16 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Destruir No Muertos (VD 4), Rasgo de
+Dominio Divino</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (17 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Canalizar Divinidad (4/descanso)</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (18 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (19 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Intervención Divina</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (20 × Mod. SAB)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dominios-divinos"><strong>Dominios Divinos</strong></h2>
+<h3 id="dominio-de-la-vida"><strong>Dominio de la Vida</strong></h3>
+<p>El dominio de la Vida se centra en la vibrante energía positiva que
+sustenta toda la vida. Los sacerdotes de este dominio son protectores y
+sanadores, maestros en restaurar la vitalidad y purgar la
+corrupción.</p>
+<h4 id="conjuros-de-dominio"><strong>Conjuros de Dominio</strong></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Sacerdote</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><em>Bendecir</em>, <em>Curar
+heridas</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Restablecimiento menor</em>, <em>Arma
+espiritual</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Faro de esperanza</em>,
+<em>Revivir</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;"><em>Guardián de la fe</em>, <em>Protección
+contra la muerte</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Curar heridas en masa</em>,
+<em>Resurrección</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="competencia-adicional"><strong>Competencia
+Adicional</strong></h4>
+<p>A nivel 1, ganas competencia con armadura pesada.</p>
+<h4 id="discípulo-de-la-vida"><strong>Discípulo de la Vida</strong></h4>
+<p>También a nivel 1, tus <a href="Conjuros.html">Conjuros</a> de
+curación son más efectivos. Siempre que uses un conjuro de nivel 1 o
+superior para restaurar puntos de golpe a una criatura, la criatura
+recupera puntos de golpe adicionales iguales a 2 + el nivel del
+conjuro.</p>
+<h4 id="canalizar-divinidad-preservar-la-vida"><strong>Canalizar
+Divinidad: Preservar la Vida</strong></h4>
+<p>A partir del nivel 2, puedes usar tu Canalizar Divinidad para curar a
+los heridos graves. Como una acción, presentas tu símbolo sagrado y
+evocas energía curativa que puede restaurar un número de puntos de golpe
+igual a cinco veces tu nivel de sacerdote. Elige cualquier criatura a 30
+pies de ti (puedes elegirte a ti mismo) y divide estos puntos de golpe
+entre ellas. Este rasgo no puede restaurar a una criatura a más de la
+mitad de su máximo de puntos de golpe. No puedes usar este rasgo en un
+no muerto o un constructo.</p>
+<h4 id="sanador-bendecido"><strong>Sanador Bendecido</strong></h4>
+<p>A partir del nivel 6, la energía curativa que canalizas te envuelve.
+Cuando lanzas un conjuro de nivel 1 o superior que restaura puntos de
+golpe a una criatura que no seas tú, también recuperas puntos de golpe
+iguales a 2 + el nivel del conjuro.</p>
+<h4 id="golpe-divino"><strong>Golpe Divino</strong></h4>
+<p>A nivel 8, ganas la habilidad de infundir tus golpes de arma con
+energía divina. Una vez en cada uno de tus turnos, cuando golpeas a una
+criatura con un ataque de arma, puedes hacer que el ataque inflija 1d8
+de daño radiante adicional al objetivo. Cuando alcanzas el nivel 14, el
+daño adicional aumenta a 2d8.</p>
+<h4 id="curación-suprema"><strong>Curación Suprema</strong></h4>
+<p>A partir del nivel 17, cuando normalmente tirarías uno o más dados
+para restaurar puntos de golpe con un conjuro, en su lugar usas el
+resultado más alto posible para cada dado. Por ejemplo, en lugar de
+restaurar 2d6 puntos de golpe a una criatura, restauras 12.</p>
+<h3 id="dominio-de-la-luz"><strong>Dominio de la Luz</strong></h3>
+<p>El dominio de la Luz representa la pureza, la verdad y la belleza.
+Sus sacerdotes son faros de esperanza en la oscuridad, desterrando las
+sombras y quemando la corrupción con fuego sagrado.</p>
+<h4 id="conjuros-de-dominio-1"><strong>Conjuros de Dominio</strong></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Sacerdote</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><em>Manos ardientes</em>, <em>Fuego
+feérico</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Esfera llameante</em>, <em>Rayo
+abrasador</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Luz del día</em>, <em>Bola de
+fuego</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;"><em>Guardián de la fe</em>, <em>Muro de
+fuego</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Golpe de llama</em>,
+<em>Escudriñar</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="truco-adicional"><strong>Truco Adicional</strong></h4>
+<p>Cuando eliges este dominio en el nivel 1, aprendes el truco
+<em>Luz</em>.</p>
+<h4 id="llamarada-protectora"><strong>Llamarada Protectora</strong></h4>
+<p>También a nivel 1, puedes interponer luz divina entre tú y un
+atacante. Cuando eres atacado por una criatura a 30 pies de ti que
+puedas ver, puedes usar tu reacción para imponer desventaja en la tirada
+de ataque, haciendo que un destello de luz la desoriente antes de que te
+alcance. Una criatura que no pueda ser cegada es inmune a este rasgo.
+Puedes usar este rasgo un número de veces igual a tu modificador de
+Sabiduría (mínimo de una vez). Recuperas todos los usos gastados cuando
+terminas un descanso largo.</p>
+<h4 id="canalizar-divinidad-resplandor-del-alba"><strong>Canalizar
+Divinidad: Resplandor del Alba</strong></h4>
+<p>A partir del nivel 2, puedes usar tu Canalizar Divinidad para invocar
+la luz del sol, desterrando la oscuridad y causando daño radiante. Como
+una acción, presentas tu símbolo sagrado, y cualquier oscuridad mágica a
+30 pies de ti es disipada. Además, cada criatura hostil a 30 pies de ti
+debe hacer una tirada de salvación de Constitución. Una criatura recibe
+2d10 + tu nivel de sacerdote de daño radiante si falla la salvación, y
+la mitad de daño si tiene éxito.</p>
+<h4 id="llamarada-mejorada"><strong>Llamarada Mejorada</strong></h4>
+<p>A partir del nivel 6, también puedes usar tu rasgo Llamarada
+Protectora cuando una criatura que puedas ver a 30 pies de ti ataca a
+una criatura que no seas tú.</p>
+<h4 id="lanzamiento-de-conjuros-potente"><strong>Lanzamiento de Conjuros
+Potente</strong></h4>
+<p>A partir del nivel 8, añades tu modificador de Sabiduría al daño que
+infliges con cualquier truco de sacerdote.</p>
+<h4 id="corona-de-luz"><strong>Corona de Luz</strong></h4>
+<p>A partir del nivel 17, puedes usar tu acción para activar un aura de
+luz solar que dura 1 minuto o hasta que la desactives como una acción.
+Emites luz brillante en un radio de 60 pies y luz tenue en 30 pies
+adicionales. Tus enemigos en la luz brillante tienen desventaja en las
+tiradas de salvación contra cualquier conjuro que inflija daño de fuego
+o radiante.</p>
+<h3 id="dominio-de-la-protección"><strong>Dominio de la
+Protección</strong></h3>
+<p>El dominio de la Protección se enfoca en la defensa y el amparo de
+los inocentes. Sus sacerdotes son guardianes y centinelas, creando
+barreras sagradas y escudando a sus aliados del peligro.</p>
+<h4 id="conjuros-de-dominio-2"><strong>Conjuros de Dominio</strong></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Sacerdote</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><em>Escudo</em>, <em>Santuario</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Vínculo protector</em>,
+<em>Ayuda</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Círculo mágico</em>, <em>Protección
+contra la energía</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;"><em>Esfera elástica de Otiluke</em>,
+<em>Guardián de la fe</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Muro de fuerza</em>, <em>Círculo de
+poder</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="competencia-adicional-1"><strong>Competencia
+Adicional</strong></h4>
+<p>A nivel 1, ganas competencia con armadura pesada y escudos.</p>
+<h4 id="guardián-valiente"><strong>Guardián Valiente</strong></h4>
+<p>A partir del nivel 1, puedes proteger a tus aliados del peligro.
+Cuando una criatura que puedas ver ataca a un objetivo que no seas tú y
+que esté a 5 pies de ti, puedes usar tu reacción para imponer desventaja
+en la tirada de ataque. Para usar este rasgo debes estar empuñando un
+escudo.</p>
+<h4 id="canalizar-divinidad-escudo-radiante"><strong>Canalizar
+Divinidad: Escudo Radiante</strong></h4>
+<p>A partir del nivel 2, puedes usar tu Canalizar Divinidad para crear
+un escudo de luz divina. Como una acción, presentas tu símbolo sagrado y
+creas un escudo de energía radiante que te protege a ti o a un aliado a
+30 pies. El objetivo gana un bonificador de +2 a su CA durante 1 minuto
+y emite luz brillante en un radio de 10 pies.</p>
+<h4 id="escudo-del-fiel"><strong>Escudo del Fiel</strong></h4>
+<p>A partir del nivel 6, cuando una criatura a 5 pies de ti recibe daño,
+puedes usar tu reacción para recibir ese daño en su lugar. Cuando lo
+haces, ganas resistencia a ese daño.</p>
+<h4 id="golpe-divino-1"><strong>Golpe Divino</strong></h4>
+<p>A nivel 8, ganas la habilidad de infundir tus golpes de arma con
+energía divina. Una vez en cada uno de tus turnos, cuando golpeas a una
+criatura con un ataque de arma, puedes hacer que el ataque inflija 1d8
+de daño radiante adicional al objetivo. Cuando alcanzas el nivel 14, el
+daño adicional aumenta a 2d8.</p>
+<h4 id="defensa-indomable"><strong>Defensa Indomable</strong></h4>
+<p>A partir del nivel 17, ganas resistencia a dos tipos de daño de tu
+elección entre contundente, perforante y cortante. Puedes cambiar tu
+elección cada vez que termines un descanso largo. Además, cuando usas tu
+rasgo Guardián Valiente, el atacante recibe daño radiante igual a tu
+modificador de Sabiduría.</p>
+<hr />
+<h3 id="lista-de-conjuros-de-sacerdote"><strong>Lista de Conjuros de
+Sacerdote</strong></h3>
+<h4 id="trucos-nivel-0"><strong>Trucos (Nivel 0)</strong></h4>
+<ul>
+<li>Crear Llama</li>
+<li>Guía</li>
+<li>Llama Sagrada</li>
+<li>Luz</li>
+<li>Remendar</li>
+<li>Resistencia</li>
+<li>Taumaturgia</li>
+<li>Tributo a los Muertos</li>
+</ul>
+<h4 id="nivel-1"><strong>Nivel 1</strong></h4>
+<ul>
+<li>Bendecir</li>
+<li>Causar Miedo</li>
+<li>Comando</li>
+<li>Crear o Destruir Agua</li>
+<li>Curar Heridas</li>
+<li>Detectar Bien y Mal</li>
+<li>Detectar Enfermedad y Veneno</li>
+<li>Detectar Magia</li>
+<li>Escudo de Fe</li>
+<li>Fuego Feérico</li>
+<li>Hechizar Persona</li>
+<li>Infligir Heridas</li>
+<li>Palabra de Curación</li>
+<li>Perdición</li>
+<li>Protección contra el Bien y el Mal</li>
+<li>Purificar Comida y Bebida</li>
+<li>Santuario</li>
+</ul>
+<h4 id="nivel-2"><strong>Nivel 2</strong></h4>
+<ul>
+<li>Adivinación</li>
+<li>Aguante del Oso</li>
+<li>Alineamiento de Arma</li>
+<li>Alterar el Propio Aspecto</li>
+<li>Ayuda</li>
+<li>Calmar Emociones</li>
+<li>Ceguera/Sordera</li>
+<li>Esfera Llameante</li>
+<li>Fuerza de Toro</li>
+<li>Inmovilizar Persona</li>
+<li>Localizar Objeto</li>
+<li>Oscuridad</li>
+<li>Piel Robliza</li>
+<li>Plegaria de Curación</li>
+<li>Protección contra Veneno</li>
+<li>Restablecimiento Menor</li>
+<li>Silencio</li>
+<li>Vínculo Protector</li>
+<li>Zona de Verdad</li>
+</ul>
+<h4 id="nivel-3"><strong>Nivel 3</strong></h4>
+<ul>
+<li>Abrir</li>
+<li>Andar por el Agua</li>
+<li>Animar a los Muertos</li>
+<li>Círculo Mágico</li>
+<li>Clarividencia</li>
+<li>Crear Comida y Agua</li>
+<li>Disipar Magia</li>
+<li>Enviar Mensaje</li>
+<li>Espíritus Guardianes</li>
+<li>Glifo custodio</li>
+<li>Hablar con los Muertos</li>
+<li>Lanzar Maldición</li>
+<li>Luz del Día</li>
+<li>Palabra de Curación en Masa</li>
+<li>Protección contra la Energía</li>
+<li>Quitar Maldición</li>
+<li>Revivir</li>
+<li>Vínculo Espiritual</li>
+</ul>
+<h4 id="nivel-4"><strong>Nivel 4</strong></h4>
+<ul>
+<li>Adivinación</li>
+<li>Controlar Agua</li>
+<li>Guardián de la Fe</li>
+<li>Inmunidad a <a href="Conjuros.html">Conjuros</a></li>
+<li>Libertad de Movimiento</li>
+<li>Localizar Criatura</li>
+<li>Moldear la Piedra</li>
+<li>Protección contra la Muerte</li>
+</ul>
+<h4 id="nivel-5"><strong>Nivel 5</strong></h4>
+<ul>
+<li>Aliento de Vida</li>
+<li>Alinear Plano</li>
+<li>Comunión</li>
+<li>Conocimiento de <a href="Leyendas.html">Leyendas</a></li>
+<li>Contagio</li>
+<li>Curar Heridas en Masa</li>
+<li>Disipar el Bien y el Mal</li>
+<li>Golpe de Fuego</li>
+<li>Hallow</li>
+<li>Plaga de Insectos</li>
+<li>Restablecimiento Mayor</li>
+<li>Videncia</li>
+</ul>
+<h4 id="nivel-6"><strong>Nivel 6</strong></h4>
+<ul>
+<li>Aliado Planar</li>
+<li>Barrera de Cuchillas</li>
+<li>Crear Muertos Vivientes</li>
+<li>Curar</li>
+<li>Daño</li>
+<li>Encontrar el Camino</li>
+<li>Festín de los Héroes</li>
+<li>Palabra de Regreso</li>
+<li>Prohibición</li>
+<li>Visión Verdadera</li>
+</ul>
+<h4 id="nivel-7"><strong>Nivel 7</strong></h4>
+<ul>
+<li>Caminar por el Éter</li>
+<li>Conjurar Celestial</li>
+<li>Forma Etérea</li>
+<li>Palabra Divina</li>
+<li>Regenerar</li>
+<li>Resurrección Verdadera (como conjuro de nivel 7)</li>
+<li>Símbolo</li>
+<li>Tormenta de Fuego</li>
+</ul>
+<h4 id="nivel-8"><strong>Nivel 8</strong></h4>
+<ul>
+<li>Aura Sagrada</li>
+<li>Campo Antimagia</li>
+<li>Controlar Clima</li>
+<li>Terremoto</li>
+</ul>
+<h4 id="nivel-9"><strong>Nivel 9</strong></h4>
+<ul>
+<li>Curar en Masa</li>
+<li>Milagro</li>
+<li>Portal</li>
+<li>Proyección Astral</li>
+<li>Resurrección Verdadera</li>
+<li>Tormenta de Venganza</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

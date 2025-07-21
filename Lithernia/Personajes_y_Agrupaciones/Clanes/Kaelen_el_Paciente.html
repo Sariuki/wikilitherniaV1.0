@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_el_Paciente</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_el_Paciente</div>
+        <div class="content">
+<h1 id="kaelen-el-paciente">Kaelen, el Paciente</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales silenciosos de Lithernia, donde las <a
+href="Leyendas.html">Leyendas</a> se forjan en fuego y acero, existen
+historias susurradas en el crujido de la piedra y el murmullo del polvo.
+Una de esas historias es la de Kaelen, el Patriarca del Clan Umbralith,
+un elfo cuya paciencia rivaliza con la de las montañas que una vez llamó
+hogar.</p>
+<p>Nacido en <a href="Valtoria.html">Valtoria</a> hace más de ocho
+siglos, Kaelen no fue criado entre el estruendo de los martillos, sino
+en la quietud de las profundidades. Pertenecía a una secta de geólogos y
+druidas de la tierra que veneraban a <a
+href="Valarios.html">Valarios</a>, el dios enano de la destrucción, de
+una forma que sus compatriotas consideraban blasfema. Mientras los
+clanes como Agrietacero encontraban a <a
+href="Valarios.html">Valarios</a> en la explosión cataclísmica de la
+forja y la furia del volcán, los Umbralith lo hallaban en la entropía:
+el lento, inexorable e inevitable desgaste del tiempo. Para ellos, la
+verdadera destrucción no era un acto violento, sino el destino final de
+todas las cosas, el regreso cósmico al silencio y al polvo.</p>
+<p>Kaelen fue un acólito prodigioso de esta filosofía. Desde joven,
+demostró una afinidad innata con la magia de la decadencia, un arte
+sutil y terrible que aceleraba el proceso natural de la descomposición.
+Sus rituales no eran de sangre, sino de silencio. Podía convertir la
+veta más sólida de mineral en arena con un toque prolongado, marchitar
+la vegetación de una caverna con un susurro o hacer que las <a
+href="Runas.html">Runas</a> protectoras de una fortaleza se
+desvanecieran como si mil años hubieran pasado en una noche.</p>
+<p>Esta práctica fue declarada herejía por el Concilio de la Montaña.
+Los <a href="Enanos.html">Enanos</a>, constructores por naturaleza, no
+podían tolerar una fe que celebraba el deshacer. Tras un amargo cisma
+con los Agrietacero, que los acusaron de corromper la esencia de <a
+href="Valarios.html">Valarios</a>, el Clan Umbralith fue exiliado de <a
+href="Valtoria.html">Valtoria</a>. Para Kaelen, este éxodo no fue una
+tragedia, sino la primera gran lección práctica de su fe. Vio cómo su
+clan, una vez fuerte, se desgastaba en el largo viaje, confirmando sus
+creencias.</p>
+<p>El clan encontró refugio en el lugar más improbable y, a la vez, más
+perfecto: las ruinas anegadas de la antigua ciudad élfica de <a
+href="Rynavel.html">Rynavel</a>, en los Pantanos del Lamento Sombrío de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>. Aquel lugar era un monumento a
+la entropía. Magníficas estructuras élficas, imbuidas de una magia que
+se creía eterna, se hundían lentamente en el fango, devoradas por el
+musgo y el tiempo. Para Kaelen y los Umbralith, <a
+href="Rynavel.html">Rynavel</a> no era una tumba, sino un templo.</p>
+<p>Con el paso de los siglos, Kaelen ascendió al liderazgo no por la
+fuerza, sino por la sabiduría y una comprensión inigualable de la
+filosofía del clan. Obtuvo el título de “El Paciente” porque nunca se
+apresura. Observa, espera y actúa solo cuando el momento es perfecto,
+como la gota de agua que finalmente quiebra la roca. Bajo su guía, el
+Clan Umbralith ha prosperado en la oscuridad, convirtiéndose en agentes
+silenciosos del fin de todas las cosas. No buscan la conquista; buscan
+la disolución. Su alianza con el Clan Whisper es un reflejo de esta
+visión: mientras los Whisper estudian la decadencia del alma y la carne,
+los Umbralith se centran en la decadencia de la materia y la magia, un
+intercambio de conocimientos macabro pero lógicamente coherente que les
+garantiza un lugar en el complejo ecosistema de poder de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen es la personificación de la erosión. Su apariencia es la de un
+elfo oscuro anciano, pero no frágil. Su piel es pálida como el mármol
+veteado, tensa sobre unos pómulos afilados que parecen esculpidos por el
+viento durante eones. Sus largos cabellos blancos caen lisos y finos, y
+sus ojos, de un gris profundo y sin fondo, carecen de la chispa de la
+vida, reflejando en su lugar la calma vacía del olvido.</p>
+<p>Cada uno de sus gestos es lento, deliberado y económico, como si cada
+movimiento hubiera sido meditado durante décadas. Rara vez alza la voz;
+su tono es un susurro bajo y resonante, similar al roce de la arena
+sobre la piedra, y sus palabras, aunque escasas, están cargadas de una
+gravedad filosófica que desarma a los impacientes.</p>
+<p>Viste con una sencillez monástica que contradice su poder. Sus
+túnicas son de tejido basto y pesado, en tonos de gris ceniza y marrón
+tierra, teñidas con pigmentos minerales extraídos de las ruinas de <a
+href="Rynavel.html">Rynavel</a>. La única ornamentación es un broche de
+obsidiana pulida en su pecho, tallado en la forma de la flor de loto
+marchita que adorna el escudo de su clan.</p>
+<p>No porta armas convencionales. Su única herramienta es el
+<strong>“Susurro Entrópico”</strong>, un bastón de madera petrificada
+que perteneció a un archidruida élfico de <a
+href="Rynavel.html">Rynavel</a>, ahora imbuido con la magia de la
+decadencia del clan. El bastón parece muerto y frágil, pero en su núcleo
+late una energía que deshace la materia a su alrededor. Siempre lleva
+consigo el <strong>“Grimorio del Polvo”</strong>, un pesado tomo
+encuadernado en piedra pizarra cuyas páginas de pergamino se deshacen
+lentamente en los bordes, y en el que anota sus meditaciones sobre la
+naturaleza del fin.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelen, el Paciente, no es una amenaza como Lord Aethel o el Rey
+Sel’thirak. No busca gobernar Lithernia ni someter a sus pueblos. Su
+peligro es mucho más fundamental y aterrador: representa una amenaza
+filosófica para la existencia misma. En un mundo definido por la
+creación, la ambición y la lucha por la permanencia, Kaelen es el
+profeta del vacío, el sumo <a href="Sacerdote.html">Sacerdote</a> de la
+nada.</p>
+<p>Su impacto se mide en la sutileza de la decadencia. El Clan
+Umbralith, bajo su mando, no libra guerras abiertas. En cambio, son
+sospechosos de acelerar la ruina de fortalezas enemigas, de marchitar
+cosechas con plagas geológicas o de corromper nodos de poder mágico,
+haciendo que su energía se disipe en la nada. Son el arma definitiva de
+la guerra de desgaste.</p>
+<p>Para <a href="Mor&#39;dhul.html">Mor’dhul</a>, Kaelen es una
+herramienta útil y un enigma. Su clan ofrece un tipo de poder que ni la
+nigromancia ni la fuerza bruta pueden igualar, pero su falta total de
+ambición mundana lo hace impredecible. Para el resto de Lithernia,
+especialmente para los druidas de <a href="Eldrador.html">Eldrador</a> y
+los <a href="Enanos.html">Enanos</a> de <a
+href="Valtoria.html">Valtoria</a>, Kaelen es la antítesis de todo lo que
+valoran: la vida, la creación y el legado.</p>
+<p>El verdadero legado de Kaelen, si logra su objetivo, no será un
+imperio ni un trono, sino el silencio. Será la prueba definitiva de su
+fe: que toda gloria, toda piedra y toda estrella, inevitablemente,
+volverán a ser polvo. Y él estará allí para presenciarlo, con la misma
+calma y paciencia con la que ha esperado durante ochocientos años.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.75)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

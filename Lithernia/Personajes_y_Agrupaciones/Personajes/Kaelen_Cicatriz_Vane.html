@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Cicatriz_Vane</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Cicatriz_Vane</div>
+        <div class="content">
+<h1 id="kaelen-cicatriz-vane">Kaelen ‘Cicatriz’ Vane</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Kaelen Vane no nació para la gloria ni para sentarse en un trono.
+Nació en los escombros de una era rota, en una pequeña aldea fronteriza
+que ya no figura en ningún mapa. Su linaje no pertenece a ninguna de las
+grandes casas; los Vane eran gente corriente, granjeros y artesanos que
+vivían a la sombra de las ruinas dejadas por el Cataclismo del <a
+href="Lilium.html">Lilium</a>. La infancia de Kaelen terminó la noche en
+que un “Eco Aullante” —una aberración nacida de la cicatriz mágica del
+<a href="Lilium.html">Lilium</a>— descendió sobre su hogar, dejando tras
+de sí solo silencio, ceniza y un niño marcado por un horror que ningún
+mortal debería presenciar.</p>
+<p>Fue encontrado por una patrulla del Círculo del Eco Púrpura, quienes,
+en lugar de piedad, vieron en sus ojos una brasa de determinación
+inquebrantable. Se unió a ellos no como un recluta, sino como un alma en
+busca de un propósito para su odio. Aprendió rápido, demostrando una
+aptitud innata para rastrear las antinaturales criaturas del <a
+href="Lilium.html">Lilium</a> y una mente fría para analizar sus
+patrones corruptos.</p>
+<p>Su apodo, ‘Cicatriz’, no proviene de una sola herida, sino de la que
+define su leyenda. Durante la Gran Cacería de la Quimera de Ecos en los
+Páramos Grises, la bestia —una fusión retorcida de carne, cristal y
+lamento puro— hirió de muerte a su compañera y mentora, Lyra. Para
+destruir a la criatura, Kaelen tuvo que usar un ritual de contención
+prohibido, canalizando una fracción de la energía corrupta del <a
+href="Lilium.html">Lilium</a> a través de su propio cuerpo. El acto
+aniquiló a la quimera, pero le dejó una marca indeleble: una cicatriz
+púrpura que cruza su rostro, desde la frente hasta la mandíbula, cegando
+su ojo izquierdo y dejando un tenue rastro de energía corrupta que aún
+hoy palpita bajo su piel.</p>
+<p>Tras décadas de servicio, y con la muerte del anterior Maestro en las
+garras de un horror innombrable, Kaelen asumió el liderazgo del Círculo.
+No lo hizo por ambición, sino por deber. Como Maestro, ha guiado al
+gremio con una filosofía de pragmatismo brutal. Entiende que el <a
+href="Lilium.html">Lilium</a> no puede ser purificado, solo contenido.
+Bajo su mandato, el Círculo ha perfeccionado el arte de cazar los
+errores de los dioses, no solo para proteger a los inocentes, sino para
+estudiar y, en ocasiones, convertir el poder de la corrupción en un arma
+contra amenazas aún mayores.</p>
+<p>Su motivación no es la esperanza, sino la prevención. Cada día que un
+reino no cae ante una plaga psíquica o una bestia de pesadilla es una
+victoria silenciosa. Mantiene una relación compleja con su protegida,
+Elara, una joven cazadora cuyo brillante talento le recuerda
+dolorosamente a Lyra. La empuja con dureza, temiendo que su imprudencia
+la lleve al mismo destino. Su única ancla de confianza incondicional es
+Grokk, un veterano semiorco del Círculo cuya lealtad y fuerza silenciosa
+son el pilar que impide que Kaelen se hunda por completo en el cinismo.
+Kaelen es el guardián de los secretos más oscuros de Lithernia, un
+hombre que mira al abismo todos los días para que otros no tengan que
+hacerlo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>A sus 78 años, Kaelen parece tallado en madera de roble viejo y
+endurecido por el tiempo. Es un hombre de complexión enjuta pero de una
+resistencia formidable, con la piel coriácea surcada por una red de
+arrugas y viejas cicatrices. La más notable es la que le da su nombre:
+una línea dentada de tejido violáceo que desciende por el lado izquierdo
+de su rostro, cruzando un ojo que ahora es una esfera lechosa y ciega.
+Su cabello, antes oscuro, es ahora una melena gris plateada, recogida en
+una simple cola de caballo. Sus ojos, o al menos el que le queda
+funcional, son de un gris acerado, cansados pero increíblemente agudos,
+capaces de detectar el más mínimo detalle antinatural en el entorno.</p>
+<p>No viste armaduras ostentosas, sino un equipo funcional y curtido por
+mil batallas. Su protección consiste en una armadura de cuero endurecido
+reforzada con placas de quitina y hueso de aberraciones que él mismo ha
+cazado. Sobre su pecho cuelga el símbolo del Círculo: un amuleto con un
+fragmento de cristal púrpura opaco.</p>
+<p>Su arma principal es una espada corta de acero valtoriano, fiable y
+sin adornos, pero su verdadero arsenal reside en su equipo
+especializado: * <strong>El Grimorio de Ecos:</strong> Un libro
+encuadernado en piel de una criatura desconocida, lleno de anotaciones,
+bocetos y rituales de contención. Sus páginas susurran débilmente en la
+proximidad de la corrupción del <a href="Lilium.html">Lilium</a>. *
+<strong>Viales Alquímicos:</strong> Un cinturón cargado con potentes
+ungüentos, ácidos y bálsamos diseñados para explotar las debilidades de
+las criaturas corruptas. * <strong>Herramientas de <a
+href="Cazador.html">Cazador</a>:</strong> Un juego de cuchillos de
+plata, cadenas con glifos de sellado y trampas mecánicas imbuidas con
+fragmentos de obsidiana de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelen ‘Cicatriz’ Vane nunca será celebrado en las canciones de los
+bardos ni inmortalizado en estatuas de mármol. Su legado es invisible,
+tejido en las pesadillas que no ocurrieron y las catástrofes que fueron
+evitadas. Para los reyes y consejos de Lithernia, es un mal necesario,
+un hombre que trafica con conocimiento prohibido y comanda a un gremio
+de parias para lidiar con horrores que sus ejércitos no pueden
+enfrentar. Para el Clan Whisper, es un rival peligroso en la carrera por
+dominar la magia corrupta.</p>
+<p>Bajo su liderazgo, el Círculo del Eco Púrpura se ha consolidado como
+la principal autoridad —y la única— en la contención del Legado del <a
+href="Lilium.html">Lilium</a>. Ha establecido protocolos, ha forjado
+alianzas secretas con sabios y guardianes, y ha asegurado que el gremio
+sobreviva no por la fuerza bruta, sino por la inteligencia y una
+inquebrantable voluntad.</p>
+<p>El futuro de Kaelen es incierto. Sabe que su tiempo es limitado y que
+la cicatriz que lleva en el rostro es un recordatorio constante de que
+la corrupción que combate también reside en él. Su mayor preocupación es
+dejar un Círculo capaz de continuar su labor. Su impacto final en
+Lithernia no será una conquista o una gran obra, sino el simple y
+profundo hecho de que el mundo, a pesar de sus heridas, aún sigue en
+pie. Él es el guardián silencioso de la frágil normalidad, una cicatriz
+viviente en el rostro de un continente que lucha por sanar.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

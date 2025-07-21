@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexia_la_Contable</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vexia_la_Contable</div>
+        <div class="content">
+<h1 id="vexia-la-contable">Vexia la Contable</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En el sangriento teatro de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+donde la gloria se mide en cabezas cortadas y conquistas efímeras, <a
+href="Vexia.html">Vexia</a> es una anomalía. No blande un hacha rúnica
+ni comanda legiones desde la vanguardia. Su poder reside en un libro de
+cuentas encuadernado en piel de basilisco y en una mente tan afilada
+como el acero valtoriano. Como Maestra del Clan Velo Cenizo, <a
+href="Vexia.html">Vexia</a> ha transformado la carroña de la guerra en
+un imperio logístico, convirtiéndose en el engranaje silencioso pero
+indispensable de la maquinaria bélica del reino.</p>
+<p>Nacida en los barrios bajos de la capital, <a
+href="Vexia.html">Vexia</a> es una tiefling cuyo linaje Sel’thirak no le
+otorgó ni nobleza ni poder arcano evidente, sino un don mucho más raro:
+una prodigiosa habilidad para ver patrones y valor donde otros solo
+veían muerte y caos. En su juventud, mientras otros parias se unían a
+bandas de guerra o cultos oscuros, <a href="Vexia.html">Vexia</a> se
+unió a la incipiente banda de Grolnok ‘Dedo-Rápido’, el goblin que fundó
+el Velo Cenizo tras la Batalla de las Lágrimas Negras. Mientras Grolnok
+y su banda se limitaban a saquear, <a href="Vexia.html">Vexia</a>
+introdujo el método. Creó inventarios, estableció rutas de transporte
+seguras, tasó el valor del metal abollado frente al encantado y calculó
+la depreciación de un alma atrapada en una gema. Su apodo, “La
+Contable”, nació como una burla de los <a href="Orcos.html">Orcos</a>,
+pero pronto se convirtió en un título de temor y respeto.</p>
+<p>Tras la “jubilación” de Grolnok, <a href="Vexia.html">Vexia</a>
+asumió el control del clan sin derramar una gota de sangre. Lo
+reorganizó con la eficiencia de una corporación, estableciendo contratos
+formales con los clanes más poderosos. Su obra maestra fue el acuerdo
+con el Clan <a href="Thyrgram.html">Thyrgram</a>: a cambio de derechos
+exclusivos de salvamento en sus conquistas, el Velo Cenizo repara,
+reacondiciona y revende armamento a las legiones de <a
+href="Thyrgram.html">Thyrgram</a> a una fracción del costo de la forja
+nueva. Así, mientras los <a href="Orcos.html">Orcos</a> alimentan la
+guerra, <a href="Vexia.html">Vexia</a> alimenta su contabilidad.</p>
+<p>Su devoción a Gyth’kai, la Diosa del Sacrificio, es tan pragmática
+como el resto de sus acciones. No ofrece plegarias ni quema incienso.
+Para <a href="Vexia.html">Vexia</a>, cada campo de batalla es un altar,
+y cada soldado caído, un sacrificio cuya ofrenda material ella se
+encarga de recolectar y redistribuir. Siente un profundo desprecio por
+la fuerza bruta, viéndola no como una virtud, sino como un recurso
+fungible que genera oportunidades de negocio. Negocia con generales
+cubiertos de sangre con la misma calma y frialdad con que un mercader de
+<a href="Galvorn.html">Galvorn</a> vende especias, a menudo cerrando
+tratos sobre el precio de la “limpieza” mientras los ecos de la batalla
+aún resuenan. Su existencia es un recordatorio constante en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> de que el verdadero poder no
+siempre grita; a veces, susurra cifras en un libro mayor.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p><a href="Vexia.html">Vexia</a> es una tiefling de apariencia austera
+que contrasta con la brutalidad de su entorno. Su piel es del color de
+la ceniza húmeda y sus cuernos, cortos y pulidos, se curvan hacia atrás
+pegados al cráneo, sin la ostentación de otros de su raza. Sus ojos, de
+un intenso color plata, carecen de calor; se mueven con rapidez, no
+buscando amenazas, sino tasando el valor de todo y de todos los que la
+rodean. Suele vestir túnicas de lana oscura de alta calidad, prácticas y
+sin adornos, más propias de una erudita de <a
+href="Valtoria.html">Valtoria</a> que de una líder de clan de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>No porta armas visibles, salvo una estilizada daga de obsidiana
+oculta en su manga, un regalo de un trato exitoso que nunca ha tenido
+que usar. Su verdadero equipamiento está siempre a su alcance en su
+despacho de <a href="Vanyaran.html">Vanyaran</a> o en su tienda de
+campaña móvil:</p>
+<ul>
+<li><strong>El Gran Libro Mayor:</strong> Un pesado tomo encuadernado en
+cuero negro con cierres de plata. En sus páginas de pergamino
+amarillento, <a href="Vexia.html">Vexia</a> anota con una caligrafía
+impecable cada transacción, inventario y contrato del clan. Se rumorea
+que la tinta está mezclada con la ceniza de enemigos y deudores.</li>
+<li><strong>Ábaco de Hueso:</strong> Un ábaco de mano, tallado en los
+fémures de un ogro que intentó estafarla. Las cuentas son vértebras
+pulidas de diversas criaturas. Lo usa con una velocidad vertiginosa para
+calcular beneficios y pérdidas en el acto.</li>
+<li><strong>Monóculo de Tasador:</strong> Un monóculo con una lente de
+cristal ahumado, encantado para detectar trazas de magia residual en
+objetos dañados, permitiéndole evaluar rápidamente el potencial de un
+artefacto en ruinas.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de <a href="Vexia.html">Vexia</a> la Contable no se
+escribirá en cantares épicos ni se tallará en estatuas monumentales. Su
+impacto es más profundo y sistémico. Ha introducido una forma de poder
+completamente nueva en la sociedad de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>: el capitalismo de la guerra. Al
+crear una industria a partir de la destrucción, ha hecho que la Guerra
+Interminable sea económicamente sostenible para clanes que de otro modo
+se habrían consumido a sí mismos.</p>
+<p>Para los estrategas de Lithernia, el Clan Velo Cenizo es una fuerza a
+tener en cuenta. Interrumpir su cadena de suministro podría debilitar al
+Clan <a href="Thyrgram.html">Thyrgram</a> más que una docena de
+batallas. Para los filósofos, <a href="Vexia.html">Vexia</a> representa
+la máxima expresión del pragmatismo de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, despojado de toda pretensión de
+honor o gloria. Ella es la prueba viviente de que en un mundo regido por
+la fuerza, quien controla los <a href="Recursos.html">Recursos</a> que
+alimentan esa fuerza, controla en última instancia a los fuertes.</p>
+<p>En el gran tapiz de Lithernia, <a href="Vexia.html">Vexia</a> no es
+una conquistadora ni una heroína, sino la administradora del ciclo de la
+muerte. Mientras haya guerra, habrá despojos. Y mientras haya despojos,
+el libro de cuentas de <a href="Vexia.html">Vexia</a> la Contable
+seguirá cuadrando, asegurando que su nombre, susurrado con una mezcla de
+desdén y necesidad, perdure mucho después de que los huesos de los
+grandes guerreros se hayan convertido en polvo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Agrupaciones%20-%20Clan%20Velo%20Cenizo.html">Agrupaciones
+- Clan Velo Cenizo</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

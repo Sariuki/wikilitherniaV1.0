@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morgal</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Morgal</div>
+        <div class="content">
+<h1 id="morgal">Morgal</h1>
+<h2 id="biografía">Biografía</h2>
+<h3 id="origen-en-el-amanecer-divino">Origen en el Amanecer Divino</h3>
+<p>En los albores de la existencia, cuando la Voluntad Original dio
+forma a la realidad desde el Vacío, Morgal surgió como una de las
+primeras y más sutiles deidades. No nació del estruendo del fuego ni del
+peso de la roca, sino del primer susurro en la penumbra, de la primera
+verdad omitida. Durante la era del <strong>Amanecer Divino</strong>,
+mientras otros dioses como <a href="Thirogrim.html">Thirogrim</a>
+definían la estructura de la magia y <a href="Ferion.html">Ferion</a>
+daba vida a la naturaleza, Morgal fue el <strong>Tejedor de
+Ilusiones</strong>, el que delineó los contornos de la realidad al crear
+su opuesto: la sombra, el secreto y el misterio. Sin él, la verdad sería
+una luz cegadora y sin matices; Morgal le otorgó profundidad,
+perspectiva y peligro.</p>
+<p>Durante la <strong>Forja del Mundo</strong>, su papel fue esencial
+aunque discreto. Mientras <a href="Rokael.html">Rokael</a> levantaba las
+montañas y <a href="Yfrit.html">Yfrit</a> llenaba los océanos, Morgal
+tejía el velo entre los planos, ocultaba vetas de minerales preciosos en
+la profunda oscuridad y dotaba a las criaturas de la noche de la
+capacidad de ocultarse. Él es la razón por la que existen los secretos y
+el motivo por el que el conocimiento debe ser buscado, pues no todo es
+revelado a simple vista.</p>
+<h3 id="el-panteón-élfico-y-la-era-del-primer-rey">El Panteón Élfico y
+la Era del Primer Rey</h3>
+<p>Con la creación de las razas mortales, Morgal encontró su lugar
+natural en el Panteón Élfico. Su matrimonio con <strong><a
+href="Lerian.html">Lerian</a></strong>, la Diosa del Conocimiento e hija
+del poderoso <strong><a href="Thirogrim.html">Thirogrim</a></strong>,
+fue visto por muchos como una paradoja. Sin embargo, en la filosofía
+élfica, su unión representa una verdad fundamental: no puede existir el
+conocimiento verdadero sin comprender la mentira, ni la luz sin entender
+la sombra. Su relación es un eterno y sofisticado baile de revelaciones
+y ocultamientos, un amor basado en el intelecto y el mutuo desafío.</p>
+<p>Su relación con su suegro, <strong><a
+href="Thirogrim.html">Thirogrim</a></strong>, es de un respeto tenso. <a
+href="Thirogrim.html">Thirogrim</a>, como dios de la magia pura y la
+sabiduría ancestral, desconfía de los métodos tortuosos de Morgal, pero
+reconoce su utilidad. La astucia de Morgal ha salvado al panteón élfico
+en más de una ocasión, demostrando que la intriga es un arma tan
+poderosa como el más devastador de los <a
+href="Conjuros.html">Conjuros</a>.</p>
+<p>Cuando el <strong>Primer Rey</strong> se alzó contra los dioses,
+Morgal participó en la <a
+href="El_Quiebre_del_Velo_y_la_guerra_celestial.html">El_Quiebre_del_Velo_y_la_guerra_celestial</a>
+no con ejércitos, sino con su dominio. Se dice que susurró dudas en los
+oídos de los generales del Rey, creó ilusiones fantasmales en el campo
+de batalla para desmoralizar a sus tropas y tejió velos de engaño que
+llevaron a ejércitos mortales enteros a su perdición. En el
+<strong>Fulgor Final</strong>, cuando el Rey fue sellado, el papel de
+Morgal fue crucial: mientras Sel’thirak usaba la muerte para atar su
+cuerpo, Morgal tejió una mortaja de sombras y olvido sobre su legado,
+ayudando a que las Lanzas Celestiales permanecieran ocultas y la
+verdadera historia del Rey se convirtiera en un mito distorsionado.</p>
+<h3 id="el-patrón-de-las-sombras-en-la-era-actual">El Patrón de las
+Sombras en la Era Actual</h3>
+<p>En la era actual, la influencia de Morgal es el pilar invisible sobre
+el que se sostiene el poder de <strong><a
+href="Eldrador.html">Eldrador</a></strong>. Es el patrón divino de la
+compleja y estratificada sociedad élfica. Mientras <a
+href="Thirogrim.html">Thirogrim</a> es venerado abiertamente por la
+nobleza, Morgal es adorado en secreto por aquellos que realmente mueven
+los hilos del poder: los diplomáticos, los jefes de espías y los nobles
+que conspiran en las cortes.</p>
+<p>Sus seguidores más devotos se encuentran entre los <strong>Elfos
+Oscuros (no drow)</strong> de la ciudad oculta de Moonshadow, quienes
+ven el conocimiento prohibido y las artes de la ilusión como la más alta
+expresión de la inteligencia. Los <strong>Shadar-Kai</strong>, con su
+afinidad por la penumbra y el subterfugio, también lo honran como su
+guía. Morgal es la justificación divina del método de <a
+href="Eldrador.html">Eldrador</a> para influir en Lithernia: en lugar de
+conquistas brutales, envían agentes a las cortes extranjeras,
+corrompiendo desde dentro, una estrategia que lleva el sello
+inconfundible de su dios.</p>
+<h2 id="descripción-física-y-personificación">Descripción Física y
+Personificación</h2>
+<p>Morgal rara vez se presenta en una forma física definida. Su
+apariencia es mutable, como una sombra que cambia con la luz. Quienes
+afirman haberlo visto lo describen como un elfo de una belleza
+inquietante y andrógina, cuyos rasgos son difíciles de recordar con
+precisión una vez que se aparta la vista. Su cabello parece tejido de
+oscuridad líquida y sus ojos son como obsidiana pulida, reflejando no lo
+que es, sino lo que el observador anhela o teme.</p>
+<p>Viste con sedas que absorben la luz, moviéndose sin hacer ruido, y su
+voz es un susurro persuasivo que puede plantar una semilla de duda o una
+idea irresistible en la mente de quien lo escucha. No porta armaduras ni
+grandes armas; su único emblema es un <strong>estilete de
+obsidiana</strong>, del que se dice que no corta la carne, sino los
+lazos de la verdad, la confianza y la memoria.</p>
+<p>Su símbolo sagrado es una máscara de comediante partida por la mitad,
+revelando una daga oculta tras ella.</p>
+<h2 id="dominio-y-adoradores">Dominio y Adoradores</h2>
+<p>Morgal es una deidad de dualidades. Gobierna las mentiras, pero
+también los secretos y la diplomacia. Domina las sombras, pero también
+las verdades incómodas que solo pueden ser susurradas en la oscuridad.
+Sus clérigos no son sanadores, sino maestros del engaño, la intriga y el
+control mental.</p>
+<ul>
+<li><strong>Dominios Divinos (para mecánicas de juego):</strong> Engaño
+(Trickery), Conocimiento (Knowledge).</li>
+<li><strong>Adoradores Principales:</strong> Espías, asesinos,
+diplomáticos, políticos, ilusionistas, y cualquier individuo que crea
+que el fin justifica los medios. Es especialmente venerado en las casas
+nobles de <a href="Eldrador.html">Eldrador</a> y entre los Elfos Oscuros
+de Moonshadow y los Shadar-Kai.</li>
+<li><strong>Templos y Culto:</strong> Sus templos no son edificios
+grandiosos, sino lugares ocultos: una biblioteca secreta, una alcoba
+sombría en un palacio, o un claro en el bosque donde la luz de la luna
+nunca llega por completo. Sus rituales son silenciosos y secretos, a
+menudo involucrando juramentos susurrados, máscaras y complejos juegos
+de estrategia que ponen a prueba el ingenio de sus acólitos.</li>
+</ul>
+<h2 id="relaciones">Relaciones</h2>
+<ul>
+<li><strong><a href="Lerian.html">Lerian</a> (Esposa):</strong> Su amor
+es un enigma para los demás dioses. Se complementan: <a
+href="Lerian.html">Lerian</a> posee todo el conocimiento, y Morgal
+entiende todas las formas en que este puede ser ocultado o manipulado.
+Juntos, representan la totalidad de la información y su poder.</li>
+<li><strong><a href="Thirogrim.html">Thirogrim</a> (Suegro):</strong>
+Una relación de necesidad y desconfianza. <a
+href="Thirogrim.html">Thirogrim</a> provee el poder mágico, Morgal la
+astucia para usarlo eficazmente. A menudo chocan, pero se alían cuando
+el futuro de <a href="Eldrador.html">Eldrador</a> está en juego.</li>
+<li><strong><a href="Arzia.html">Arzia</a> y <a
+href="Ferion.html">Ferion</a> (Cuñados):</strong> Con <a
+href="Arzia.html">Arzia</a>, diosa de la noche y las estrellas, comparte
+un dominio natural. La noche es el velo de Morgal. Con <a
+href="Ferion.html">Ferion</a>, dios de la naturaleza salvaje y honesta,
+la relación es distante y fría. <a href="Ferion.html">Ferion</a>
+desprecia el artificio, y Morgal considera la naturaleza pura como algo
+ingenuo y vulnerable.</li>
+<li><strong>Otros Panteones:</strong> Ve al <strong>Panteón
+Korogrim</strong> como una colección de brutos sin refinamiento; su
+fuerza es predecible y, por tanto, fácil de manipular. Considera a los
+dioses <a href="Humanos.html">Humanos</a> de <strong><a
+href="Galvorn.html">Galvorn</a></strong> idealistas y volubles, mientras
+que los dioses <a href="Enanos.html">Enanos</a> de <strong><a
+href="Valtoria.html">Valtoria</a></strong> le parecen aburridamente
+directos y carentes de imaginación. Prefiere derrotar a sus enemigos sin
+que ellos sepan que estaban en una batalla.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>El legado de Morgal es la prueba de que las guerras más importantes
+no siempre se libran con acero, sino con palabras, secretos y mentiras.
+Él es la razón por la que la política de Lithernia es un nido de
+víboras, y por la que la diplomacia es a menudo una forma de guerra
+encubierta. Gracias a su influencia, <a
+href="Eldrador.html">Eldrador</a> ha sobrevivido y prosperado, jugando
+un juego largo y sutil mientras otros reinos se desangran en conflictos
+abiertos.</p>
+<p>Para los aventureros, Morgal puede ser un patrón peligroso o un
+adversario formidable. Un trato con él o sus seguidores puede otorgar
+acceso a secretos increíbles, pero el precio es siempre la verdad.
+Enfrentarse a su culto no implica combatir a ejércitos, sino desenredar
+una red de engaños donde los aliados pueden ser enemigos y la realidad
+misma puede ser una ilusión.</p>
+<p>En última instancia, Morgal representa una verdad incómoda sobre el
+poder: a veces, la sombra más profunda es la que proyecta la luz más
+brillante. Él es el guardián de los secretos del mundo, y en un mundo
+roto por la arrogancia de dioses y reyes, los secretos son la moneda más
+valiosa de todas.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.50)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

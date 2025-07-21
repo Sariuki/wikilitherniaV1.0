@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_AmanecerDivino</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">01_AmanecerDivino</div>
+        <div class="content">
+<h1 id="amanecer-divino">Amanecer Divino</h1>
+<h2 id="introducción">Introducción</h2>
+<p>El <strong>Amanecer Divino</strong> es un evento mítico y fundamental
+en la historia y cosmología de Lithernia. Marca el momento en que los
+dioses intervinieron directamente en el mundo tras la devastadora Caída
+del Lilium, el fuego eterno que arrasó el planeta y dio fin a la era de
+los dragones. Este amanecer simboliza la restauración del equilibrio y
+el inicio de la Era de la Luz Crepuscular, una época de incertidumbre,
+cambio y esperanza.</p>
+<h2 id="significado-cultural">Significado Cultural</h2>
+<p>El Amanecer Divino es celebrado y recordado de diversas maneras en
+los cuatro reinos principales de Lithernia, cada uno con su propia
+interpretación y rituales:</p>
+<ul>
+<li><p><strong>Mor’dhul</strong>: En este reino de sombras y muerte, el
+Amanecer Divino es visto como un recordatorio de la fragilidad del poder
+y la necesidad de la fuerza para sobrevivir. Los dioses oscuros que
+gobiernan aquí son reverenciados como guardianes del equilibrio entre
+vida y muerte.</p></li>
+<li><p><strong>Galvorn</strong>: Para los habitantes de este reino
+costero, el Amanecer Divino simboliza la libertad y la exploración. Los
+dioses de la naturaleza, el mar y el cielo son honrados en festivales
+que celebran la renovación y el conocimiento.</p></li>
+<li><p><strong>Valtoria</strong>: En las montañas de Valtoria, el
+Amanecer Divino es una inspiración para la resistencia y la artesanía.
+Los enanos y sus aliados veneran a los dioses de la tierra, la piedra y
+el metal, viendo en el amanecer una promesa de fortaleza y
+perseverancia.</p></li>
+<li><p><strong>Eldrador</strong>: En los bosques antiguos de Eldrador,
+el Amanecer Divino es un momento sagrado que conecta la magia arcana con
+la naturaleza. Los elfos y sus diversas subrazas honran a los dioses de
+la magia, la naturaleza y las estrellas, celebrando el ciclo eterno de
+la vida y el cambio.</p></li>
+</ul>
+<h2 id="leyendas-y-mitos">Leyendas y Mitos</h2>
+<h3 id="el-primer-eco">El Primer Eco</h3>
+<p>Una de las leyendas más codiciadas relacionadas con el Amanecer
+Divino es la del <strong>Primer Eco</strong>, la primera palabra
+atrapada en la roca del cañón, pronunciada por el Primer Rey. Se dice
+que contiene un poder inimaginable y es la fuente de muchos secretos
+antiguos.</p>
+<h3 id="el-lamento-del-cañón">El Lamento del Cañón</h3>
+<p>En la ciudad de Aelithor, se cuenta la historia del <strong>Lamento
+del Cañón</strong>, un gemido que emerge de las profundidades y roba
+lentamente los recuerdos y secretos de quienes lo escuchan, un
+recordatorio del precio del conocimiento y el poder.</p>
+<h2 id="referencias-relacionadas">Referencias Relacionadas</h2>
+<ul>
+<li><a href="Panteones%20de%20Lithernia.html">Panteones de
+Lithernia</a></li>
+<li><a href="Magia%20en%20Lithernia.html">Magia en Lithernia</a></li>
+<li><a href="Reinos%20de%20Lithernia.html">Reinos de Lithernia</a></li>
+<li><a href="Razas%20de%20Lithernia.html">Razas de Lithernia</a></li>
+<li><a href="Clases%20de%20Lithernia.html">Clases de Lithernia</a></li>
+<li><a href="Leyendas%20de%20Lithernia.html">Leyendas de
+Lithernia</a></li>
+</ul>
+<h1 id="fin-de-la-nota-amanecer-divino">Fin de la nota Amanecer
+Divino</h1>
+        </div>
+    </div>
+</body>
+</html>

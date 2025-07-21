@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thane_Borin_Crysfjell</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Thane_Borin_Crysfjell</div>
+        <div class="content">
+<h1 id="thane-borin-crysfjell">Thane Borin Crysfjell</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de <a href="Valtoria.html">Valtoria</a>, donde la roca
+y la tradición son una misma cosa, pocos nombres resuenan con la misma
+mezcla de reverencia y recelo que el de Borin Crysfjell. Como actual
+patriarca de su casa, Borin no solo es un líder; es el custodio de un
+cisma que redefinió el alma de su linaje. No es el fundador, sino el
+heredero de su legado: una carga que lleva con la misma firmeza con que
+empuña su martillo.</p>
+<p>Nacido en la ciudadela de <a href="Rynhalis.html">Rynhalis</a>, bajo
+un cielo cristalino en las cumbres más altas de <a
+href="Valtoria.html">Valtoria</a>, Borin creció entre dos mundos. Por un
+lado, el eco de los martillos en las forjas y la profunda devoción a la
+montaña, herencia de sus ancestros, el Clan Picosombrío. Por otro, el
+silencioso murmullo de las estrellas, una fe traída por su antepasado,
+Borin ‘El Mirastral’, quien vio el cosmos reflejado en una geoda y se
+atrevió a adorar a <a href="Arzia.html">Arzia</a>, la diosa élfica. Esta
+dualidad forjó a Borin en un enano de intelecto tan afilado como su
+hacha y una visión tan vasta como el firmamento.</p>
+<p>Su ascenso a Thane no fue pacífico. Su predecesor y padre, Durin
+Crysfjell, fue emboscado y asesinado por una partida de Cazadores de
+Sombras, fanáticos anti-intelectuales que veían en la sabiduría de <a
+href="Rynhalis.html">Rynhalis</a> una afrenta a la fuerza bruta. Borin,
+entonces un joven maestro de la forja, lideró la contraofensiva.
+Utilizando tácticas basadas en alineaciones celestes para predecir los
+movimientos del enemigo y armamento imbuido con la luz de las estrellas,
+no solo vengó a su padre, sino que aniquiló la amenaza, consolidando su
+liderazgo y el poder de la Astrometalurgia.</p>
+<p>Como Thane, Borin ha sido un diplomático y un innovador. Ha
+profundizado la alianza con la Casa de Astellia de <a
+href="Eldrador.html">Eldrador</a>, intercambiando conocimientos de
+metalurgia por sabiduría arcana élfica, un acto que la purista Casa
+Dravonis considera una traición a los dioses <a
+href="Enanos.html">Enanos</a>. Borin, sin embargo, argumenta que <a
+href="Rokael.html">Rokael</a> creó la montaña y <a
+href="Cirkon.html">Cirkon</a> la roca, pero fue <a
+href="Arzia.html">Arzia</a> quien puso las gemas en su interior, como
+estrellas enterradas. Para él, no hay contradicción, solo una verdad más
+profunda.</p>
+<p>Su mayor motivación es asegurar el futuro de su casa y legitimar su
+fe sincrética a ojos de <a href="Valtoria.html">Valtoria</a>. Sueña con
+el día en que un arma forjada por los Crysfjell sea portada por la
+propia Reina Valeria Bronzebrillo, no como una curiosidad exótica, sino
+como el mayor símbolo de la fortaleza del reino. Pero este camino está
+lleno de conflictos. Internamente, su sobrino Gromnir, un <a
+href="Guerrero.html">Guerrero</a> formidable y tradicionalista, cree que
+las alianzas élficas y la devoción a <a href="Arzia.html">Arzia</a> los
+debilitan y los alejan de sus raíces. Externamente, la Casa Dravonis
+aprovecha cada oportunidad para tildarlos de herejes en el Concilio de
+la Montaña, mientras los Cazadores de Sombras acechan en las periferias,
+esperando una oportunidad para extinguir la “luz extraña” de <a
+href="Rynhalis.html">Rynhalis</a>.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Thane Borin Crysfjell es la viva imagen de la nobleza enana, aunque
+con un aire de erudición que lo distingue. Su cuerpo es un bloque de
+músculo y tenacidad, forjado por décadas de trabajo en la fragua. Su
+barba, larga y espesa, es de un color negro azabache, trenzada con finos
+hilos de mithril y pequeñas gemas pulidas que titilan como estrellas
+distantes. Sus ojos, de un gris profundo, parecen contener la paciencia
+de la piedra, pero al observar el cielo nocturno, reflejan un brillo de
+asombro y devoción.</p>
+<p>A diferencia de otros señores <a href="Enanos.html">Enanos</a>, rara
+vez se le ve cubierto de hollín. Viste túnicas de lana azul oscuro,
+bordadas con las constelaciones bajo las cuales se forjaron sus mayores
+<a href="Logros.html">Logros</a>. Sobre ellas, luce una armadura de
+placas de acero valtoriano pulido, con incrustaciones de obsidiana
+estelar, un material exclusivo de su casa que parece absorber la luz
+para luego devolverla en un tenue resplandor plateado.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Martillo Estelar
+“Rompecimas”:</strong> Un imponente martillo de guerra de dos manos,
+forjado por el propio Borin bajo el eclipse de la Estrella Errante. Su
+cabeza de adamantita está grabada con <a href="Runas.html">Runas</a>
+celestiales que brillan con luz fría al ser blandido. Se dice que sus
+golpes resuenan no solo en la roca, sino en el propio tejido del Maná. *
+<strong>Las Lentes de <a href="Rynhalis.html">Rynhalis</a>:</strong>
+Unas gafas de precisión con lentes de cristal de zafiro, talladas por
+los <a href="Gnomos.html">Gnomos</a> de la Casa Mirastral. Le permiten
+estudiar el firmamento con una claridad inigualable y percibir las más
+sutiles corrientes de energía arcana en metales y gemas. * <strong>El
+Manto del Crepúsculo:</strong> Una capa tejida por los elfos de la Casa
+Astellia, imbuida con la magia de la penumbra. Otorga a Borin la
+capacidad de fundirse con las sombras, una herramienta irónica y vital
+para un enano que vive bajo la luz de las estrellas.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Thane Borin Crysfjell representa una evolución audaz y controvertida
+dentro de la inmutable sociedad enana. Su legado no se medirá en vetas
+de oro extraídas ni en enemigos aplastados, sino en la capacidad de su
+pueblo para mirar más allá de la montaña y encontrar la divinidad en el
+firmamento.</p>
+<p>Para Lithernia, la Casa Crysfjell es un puente cultural sin
+precedentes entre <a href="Valtoria.html">Valtoria</a> y <a
+href="Eldrador.html">Eldrador</a>, una fuente de innovación mágica que
+fusiona dos de las artes más antiguas del mundo: la metalurgia enana y
+la magia estelar élfica. Si Borin tiene éxito, podría iniciar una era de
+colaboración y sincretismo que debilite las rígidas barreras raciales
+impuestas por los dioses tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>. Si fracasa, su casa podría ser destruida,
+convirtiéndose en una nota a pie de página en la historia: una
+advertencia sobre los peligros de desafiar la tradición.</p>
+<p>En el gran tablero de Lithernia, Borin Crysfjell no es un rey ni un
+conquistador, pero su influencia es tectónica. Es un filósofo con un
+martillo, un astrónomo con un yunque, y su lucha por la aceptación de su
+casa podría, irónicamente, fracturar <a
+href="Valtoria.html">Valtoria</a> desde dentro o fortalecerla con una
+nueva y luminosa aleación de fe y acero.</p>
+        </div>
+    </div>
+</body>
+</html>

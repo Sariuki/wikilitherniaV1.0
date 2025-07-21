@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reliquias_y_Artefactos_Élficos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Reliquias_y_Artefactos_Élficos</div>
+        <div class="content">
+<h1 id="reliquias-y-artefactos-élficos">Reliquias y artefactos
+élficos</h1>
+<p>En el reino de Lithernia, las reliquias y artefactos élficos son
+mucho más que simples objetos: son custodios de secretos milenarios y
+fragmentos palpables de la esencia de la naturaleza y la magia
+ancestral. Estos objetos legendarios, imbuidos con el poder de los
+primeros elfos y la bendición de los espíritus del bosque, han sido
+preservados con celo a lo largo de los siglos, revelando pistas sobre la
+historia oculta y la sabiduría arcana del pueblo élfico.</p>
+<h2 id="historia-y-orígenes">Historia y orígenes</h2>
+<p>Las reliquias élficas emergen del tiempo en el que los primeros elfos
+caminaban libres y en completa armonía con los reinos naturales. Según
+las crónicas antiguas, muchas fueron forjadas en la era de Luzzaelar, la
+Gran Alianza de los Bosques, cuando los reinos élficos fijaron las bases
+de su cultura y poder mágico. Estos objetos eran entregados únicamente a
+los guardianes del bosque y a los sabios, destinados a ser herramientas
+para proteger el equilibrio del mundo.</p>
+<p>Con la llegada de la Gran Sombra y las guerras de dominio que
+siguieron, las reliquias escaparon a la destrucción gracias a los
+rituales secretos, quedando ocultas en templos y santuarios inaccesibles
+para los profanos.</p>
+<h2 id="las-reliquias-más-emblemáticas">Las reliquias más
+emblemáticas</h2>
+<h3 id="el-arco-de-aelorian-viento-del-alba">1. El Arco de Aelorian,
+Viento del Alba</h3>
+<p>Este arco, tallado en madera de caucién ancestral y reforzado con
+filamentos de plata lunar, es una de las armas ceremoniales más
+veneradas. Según la leyenda, Aelorian, el primer maestro arquero élfico,
+disparó con este arco una flecha que partió el cielo al amanecer y selló
+el paso de sombras oscuras que amenazaban a Lithernia. Se dice que el
+Arco de Aelorian devuelve la pureza a las tierras que toca.</p>
+<h3 id="la-corona-de-seryneth-guardiana-de-los-sueños">2. La Corona de
+Seryneth, Guardiana de los Sueños</h3>
+<p>Forjada en mithril y adornada con gemas que cambian de color según el
+estado emocional del portador, esta corona otorga inteligencia aguda y
+la capacidad de vislumbrar futuros posibles. Fue usada por las reinas
+élficas para mediar en conflictos y presagiar las tormentas por venir.
+Quienes la llevaron relatan haber sido transportados en sueños a planos
+de existencia eternos.</p>
+<h3 id="la-hoja-élfica-de-thalaeron-viento-silencioso">3. La Hoja Élfica
+de Thalaeron, Viento Silencioso</h3>
+<p>Una espada diaria de batalla que fue creada con el metal mismo del
+viento. Solo los guerreros elegidos pueden blandir esta hoja sin perder
+la cordura, pues su filo emite un susurro constante de antiguas
+canciones y profecías. Se dice que aquella espada es capaz de cortar no
+solo carne y acero sino también las ataduras de la magia oscura.</p>
+<h3 id="el-cáliz-de-eledhwen-agua-del-renacer">4. El Cáliz de Eledhwen,
+Agua del Renacer</h3>
+<p>Un cáliz de cristal líquido incandescente que nunca se vacía,
+contiene el agua sagrada con la cual se bendicen generaciones. El agua
+del cáliz es capaz de sanar heridas, purificar lugares contaminados y
+otorgar claridad espiritual. Fue protegido por sacerdotisas élficas en
+lo más profundo de Lithernia.</p>
+<h2 id="leyendas-y-tradiciones-vinculadas">Leyendas y tradiciones
+vinculadas</h2>
+<p>Muchas de las reliquias están envueltas en rituales secretos y solo
+se revelan ante la amenaza inminente o durante ocasiones astrales
+específicas. Por tradición, sólo aquellos descendientes directos de los
+fundadores élficos —los Linajes de Estrella— pueden portar y usar estos
+artefactos sin caer bajo su influencia devastadora.</p>
+<p>El cuento más popular relata cómo el Arco de Aelorian salvó a un
+joven príncipe de Lithernia durante la noche más oscura, cuando fuerzas
+desatadas intentaron sumir al reino en el olvido. Se dice que mientras
+el príncipe empuñaba el arco, una luz brillante emanó desde él, guiando
+a los elfos hacia la victoria.</p>
+<h2 id="custodia-y-ocultamiento">Custodia y ocultamiento</h2>
+<p>Las reliquias no se exhiben públicamente; se esconden en fortalezas
+naturales inaccesibles, como el Bosque de la Niebla Perpetua y las
+Cavernas de Ysil’ther. Los guardianes —una orden élite llamada los
+Centinelas de la Luz— tienen la sagrada misión de proteger estos
+artefactos con sus vidas. Romper esta custodia es considerado un
+sacrilegio y un acto de traición que puede condenar a toda una
+familia.</p>
+<h2 id="influencia-en-el-presente-y-futuro-de-lithernia">Influencia en
+el presente y futuro de Lithernia</h2>
+<p>En la actualidad, la existencia y el conocimiento de estas reliquias
+son objeto de <a href="Leyendas.html">Leyendas</a> y elucubraciones,
+mientras algunos pocos elegidos trabajan para descifrarlas y traer a la
+luz la antigua magia con la que alguna vez Lithernia protegió su
+equilibrio. Se cree que en un futuro no muy lejano, estas reliquias
+despertarían para afrontar la amenaza latente que se cierne sobre el
+mundo.</p>
+<hr />
+<p>La magia que habita en las reliquias y artefactos élficos no es solo
+un vínculo con un pasado glorioso, sino la llave para el porvenir
+luminoso de Lithernia. El respeto, la prudencia y el honor en su manejo
+simbolizan la esencia del reino élfico, un pueblo que se niega a olvidar
+la pureza que los hizo eternos.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Artefactos.html">Artefactos</a> (relevancia: 0.45)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.36)</li>
+<li><a href="Artefactos%20y%20Reliquias.html">Artefactos y Reliquias</a>
+(relevancia: 0.33)</li>
+<li><a href="Reliquias%20Élficas.html">Reliquias Élficas</a>
+(relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

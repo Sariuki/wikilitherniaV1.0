@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gnomos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Gnomos</div>
+        <div class="content">
+<h1 id="gnomos">Gnomos</h1>
+<h3 id="resumen-de-rasgos">Resumen de Rasgos</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo Clave</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Aumento de
+Característica</strong></td>
+<td style="text-align: left;">+2 Inteligencia, +1 Constitución</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">25 pies</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión</strong></td>
+<td style="text-align: left;">Visión en la Oscuridad (60 pies)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencias Clave</strong></td>
+<td style="text-align: left;">Herramientas de Manitas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgos Únicos</strong></td>
+<td style="text-align: left;">Astucia Gnoma, Saber del Artífice,
+Manitas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="contexto-mecánico">Contexto Mecánico</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Vinculación en Lithernia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Reino de Origen</strong></td>
+<td style="text-align: left;"><a href="Valtoria.html">Valtoria</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Panteón Principal</strong></td>
+<td style="text-align: left;">Panteón Enano (Dioses de <a
+href="Valtoria.html">Valtoria</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidad Patrona Común</strong></td>
+<td style="text-align: left;"><a href="Rokael.html">Rokael</a>
+(Creación, invención)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Social Típico</strong></td>
+<td style="text-align: left;">Artífice, Inventor, <a
+href="Mago.html">Mago</a>, <a href="Erudito.html">Erudito</a>. Sugiere
+trasfondos como Artesano Gremial o Sabio.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-raciales">Rasgos Raciales</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Incremento de Puntuación de
+Característica</strong></td>
+<td style="text-align: left;">Tu puntuación de Inteligencia aumenta en 2
+y tu puntuación de Constitución aumenta en 1.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Edad</strong></td>
+<td style="text-align: left;">Alcanzan la madurez a los 40 años. Viven
+entre 350 y 500 años.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Típico</strong></td>
+<td style="text-align: left;">Legal Bueno, Caótico Bueno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tamaño</strong></td>
+<td style="text-align: left;">Pequeño.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">Tu velocidad base al caminar es de 25
+pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión en la
+Oscuridad</strong></td>
+<td style="text-align: left;">Puedes ver en luz tenue hasta 60 pies como
+si fuera luz brillante, y en la oscuridad como si fuera luz tenue. No
+puedes discernir colores en la oscuridad, solo tonos de gris.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Astucia Gnoma</strong></td>
+<td style="text-align: left;">Tienes ventaja en todas las tiradas de
+salvación de Inteligencia, Sabiduría y Carisma contra la magia.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Saber del Artífice</strong></td>
+<td style="text-align: left;">Cuando realizas una prueba de Inteligencia
+(Historia) relacionada con objetos mágicos, objetos alquímicos o
+dispositivos tecnológicos, se te considera competente y añades el doble
+de tu bonificador de competencia a la prueba.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Manitas</strong></td>
+<td style="text-align: left;">Ganas competencia con las herramientas de
+artesano (herramientas de manitas). Puedes crear dispositivos de
+relojería (ver tabla a continuación).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Puedes hablar, leer y escribir Común,
+Gnómico y Enano.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="habilidad-racial-manitas">Habilidad Racial: Manitas</h3>
+<p>Usando herramientas de manitas, puedes gastar 1 hora y 10 po en
+materiales para construir un dispositivo de relojería Diminuto (CA 5, 1
+PV). El dispositivo deja de funcionar después de 24 horas (a menos que
+gastes 1 hora reparándolo) o cuando usas tu acción para desmantelarlo,
+recuperando los materiales. Puedes tener un máximo de tres de estos
+dispositivos a la vez.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Dispositivo</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Juguete de Relojería</strong></td>
+<td style="text-align: left;">Al colocarlo en el suelo, el juguete se
+mueve 5 pies en una dirección aleatoria en cada uno de tus turnos,
+emitiendo sonidos apropiados a su forma (animal, monstruo, etc.).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Encendedor</strong></td>
+<td style="text-align: left;">Como una acción, puedes usar el
+dispositivo para producir una pequeña llama, suficiente para encender
+una vela, antorcha o hoguera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Caja de Música</strong></td>
+<td style="text-align: left;">Al abrirse, reproduce una única canción a
+un volumen moderado. Se detiene al final de la canción o al
+cerrarse.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sinergias-de-clase">Sinergias de Clase</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Sinergia y Rol Sugerido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Mago.html">Mago</a></strong></td>
+<td style="text-align: left;"><strong>Óptima.</strong> El +2 a INT es el
+atributo principal. <code>Astucia Gnoma</code> proporciona una excelente
+defensa mágica. Ideal para las Escuelas de Ilusión o Transmutación.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Artífice / <a
+href="Gunsmith.html">Gunsmith</a></strong></td>
+<td style="text-align: left;"><strong>Óptima.</strong> El +2 a INT es
+clave. Las habilidades <code>Saber del Artífice</code> y
+<code>Manitas</code> son temáticamente perfectas y mecánicamente
+sinérgicas.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pícaro</strong></td>
+<td style="text-align: left;"><strong>Fuerte.</strong> El arquetipo
+<em>Pícaro Arcano</em> se beneficia directamente del +2 a INT.
+<code>Astucia Gnoma</code> aumenta la capacidad de supervivencia contra
+<a href="Conjuros.html">Conjuros</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Guerrero.html">Guerrero</a></strong></td>
+<td style="text-align: left;"><strong>Contextual.</strong> Útil para un
+<em><a href="Caballero.html">Caballero</a> Arcano</em>, que utiliza la
+Inteligencia para sus <a href="Conjuros.html">Conjuros</a>. El tamaño
+pequeño impone desventaja con armas pesadas.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnj-de-ejemplo">PNJ de Ejemplo</h3>
+<p>```statblock name: Inventor Gnomo size: Pequeño type: humanoide
+(gnomo) alignment: caótico bueno ac: 12 (Armadura de cuero) hp: 22 (5d6
++ 5) speed: 25 ft. stats: [8, 14, 12, 18, 10, 11] saves: - Int: +6 -
+Sab: +2 skills: - Arcanos: +6 - Investigación: +6 senses: Visión en la
+oscuridad 60 ft., Percepción Pasiva 10 languages: Común, Gnómico, Enano
+cr: 1 traits: - name: Astucia Gnoma desc: “El gnomo tiene ventaja en las
+tiradas de salvación de Inteligencia, Sabiduría y Carisma contra magia.”
+- name: Lanzamiento de Conjuros Innato desc: “La aptitud mágica del
+gnomo es la Inteligencia (CD de salvación de Conjuros 14). Puede lanzar
+los siguientes Conjuros de forma innata:voluntad: <em>Luz, Remendar,
+Prestidigitación</em>/día cada uno: <em>Detectar magia, Alarma,
+Grasa</em>” actions: - name: Daga desc: “Ataque de arma cuerpo a cuerpo
+o a distancia: +4 a impactar, alcance 5 ft. o rango 20/60 ft., un
+objetivo. Impacto: 4 (1d4 + 2) de daño perforante.” - name: Desplegar
+Artilugio (Recarga 5-6) desc: “El gnomo despliega uno de sus inventos.
+Tira un d4 para determinar el efecto:*1: Araña de Choque.** La araña
+mecánica se mueve 20 pies hacia un enemigo y explota. La criatura debe
+superar una salvación de Destreza CD 14 o recibir 7 (2d6) de daño de
+rayo.*2: Humo de Distracción.** El gnomo crea una nube de humo de 10
+pies de radio. El área se considera muy oscura. El humo se disipa en 1
+minuto.*3: Nudo Mecánico.** El gnomo lanza un dispositivo que intenta
+apresar a una criatura Mediana o más pequeña. El objetivo debe superar
+una salvación de Destreza CD 14 o quedar apresado (escapar CD 14).*4:
+Cohete Inestable.** El gnomo lanza un cohete que impacta en un punto a
+60 pies. Cada criatura en un radio de 5 pies debe hacer una salvación de
+Destreza CD 14, recibiendo 10 (3d6) de daño de fuego si falla, o la
+mitad si tiene éxito.”</p>
+        </div>
+    </div>
+</body>
+</html>

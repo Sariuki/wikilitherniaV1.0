@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubclasesHomebrew</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">SubclasesHomebrew</div>
+        <div class="content">
+<h1 id="subclaseshomebrew">Subclaseshomebrew</h1>
+<h2 id="tejedor-arcano-arquetipo-de-mago">Tejedor Arcano (Arquetipo de
+Mago)</h2>
+<h3 id="perfil-del-arquetipo">Perfil del Arquetipo</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Clase Base</strong></td>
+<td style="text-align: left;"><a href="Mago.html">Mago</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Táctico</strong></td>
+<td style="text-align: left;">Controlador, Manipulador de Maná, Soporte
+Arcano</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fuente de Poder</strong></td>
+<td style="text-align: left;">Dominio del Tejido del Maná, Aguja de
+Trama</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Complejidad</strong></td>
+<td style="text-align: left;">Alta</td>
+</tr>
+</tbody>
+</table>
+<h3 id="progresión-del-tejedor-arcano">Progresión del Tejedor
+Arcano</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Nivel de <a href="Mago.html">Mago</a></th>
+<th style="text-align: left;">Rasgo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>2</strong></td>
+<td style="text-align: left;">Aguja de la Trama Mejorada, Tejedor de
+Maná</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>6</strong></td>
+<td style="text-align: left;">Fusión de Hechizos Intuitiva</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td style="text-align: left;">Maestría en Potenciación</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>14</strong></td>
+<td style="text-align: left;">Entrelazamiento Arcano</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-del-arquetipo">Rasgos del Arquetipo</h3>
+<h4 id="aguja-de-la-trama-mejorada">Aguja de la Trama Mejorada</h4>
+<p>A partir del nivel 2, puedes incorporar el truco
+<code>Aguja de Trama</code> en <a href="Conjuros.html">Conjuros</a> de
+nivel 1 o superior sin incurrir en <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+adicional. Puedes usar este rasgo un número de veces igual a tu
+bonificador de competencia por descanso largo.</p>
+<h4 id="tejedor-de-maná">Tejedor de Maná</h4>
+<p>También a nivel 2, tu dominio del Tejido te permite recuperar energía
+de forma más eficiente. Cuando utilizas el rasgo <em>Recuperación
+Arcana</em>, recuperas 1d4 Puntos de Maná adicionales.</p>
+<h4 id="fusión-de-hechizos-intuitiva">Fusión de Hechizos Intuitiva</h4>
+<p>A nivel 6, ganas la capacidad de usar la regla de [Mezcla de [<a
+href="Mezcla%20de%20%5B%5BConjuros.html">Conjuros</a>. Cuando intentas
+mezclar dos <a href="Conjuros.html">Conjuros</a> cuyo nivel combinado es
+3 o menos, tienes ventaja en la prueba de Inteligencia (Arcanos).</p>
+<h4 id="maestría-en-potenciación">Maestría en Potenciación</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">A nivel 10, cuando fallas una prueba de
+Canalización de Maná para una Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Clase Base</strong></td>
+<td style="text-align: left;"><a href="Guerrero.html">Guerrero</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Táctico</strong></td>
+<td style="text-align: left;">Atacante, Escaramuzador, Tanque
+elemental</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fuente de Poder</strong></td>
+<td style="text-align: left;">Legado de los <a
+href="Dragones.html">Dragones</a> ancestrales (<a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+Tal’vorak, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>,
+<a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Complejidad</strong></td>
+<td style="text-align: left;">Media</td>
+</tr>
+</tbody>
+</table>
+<h3 id="progresión-del-jinete-dracónico">Progresión del Jinete
+Dracónico</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Nivel de <a
+href="Guerrero.html">Guerrero</a></th>
+<th style="text-align: left;">Rasgo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>3</strong></td>
+<td style="text-align: left;">Linaje Dracónico, Aliento Elemental</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>7</strong></td>
+<td style="text-align: left;">Coraza Dracónica</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td style="text-align: left;">Ataque Dracónico Mejorado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;">Vínculo Dracónico</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-del-arquetipo-1">Rasgos del Arquetipo</h3>
+<h4 id="linaje-dracónico">Linaje Dracónico</h4>
+<p>A nivel 3, elige una ascendencia dracónica: * <strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>:</strong>
+Resistencia al Fuego. * <strong>Tal’vorak:</strong> Resistencia al Rayo.
+* <strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>:</strong>
+Resistencia al Trueno. * <strong><a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>:</strong>
+Resistencia Necrótica.</p>
+<h4 id="aliento-elemental">Aliento Elemental</h4>
+<p>A nivel 3, como una acción, puedes exhalar energía de tu linaje en un
+cono de 15 pies. Las criaturas en el área deben superar una tirada de
+salvación de Destreza (CD = 8 + tu mod. de Constitución + tu bon. de
+competencia). Si fallan, sufren 2d6 de daño del tipo de tu linaje; la
+mitad si tienen éxito. El daño aumenta a 3d6 en el nivel 7, 4d6 en el
+nivel 10 y 5d6 en el nivel 15. Puedes usar este rasgo un número de veces
+igual a tu bonificador de competencia por descanso largo.</p>
+<h4 id="coraza-dracónica">Coraza Dracónica</h4>
+<p>A nivel 7, como acción adicional, puedes manifestar escamas
+dracónicas. Ganas +1 a la CA durante 1 minuto. Puedes usar este rasgo un
+número de veces igual a tu bonificador de competencia por descanso
+largo.</p>
+<h4 id="ataque-dracónico-mejorado">Ataque Dracónico Mejorado</h4>
+<p>A nivel 10, una vez por turno, cuando impactas con un ataque de arma,
+puedes infligir 1d8 de daño adicional del tipo de tu linaje.</p>
+<h4 id="vínculo-dracónico">Vínculo Dracónico</h4>
+<p>A nivel 15, como una acción, puedes proyectar un aura de 30 pies
+durante 1 minuto. Los aliados (incluyéndote a ti) dentro del aura ganan
+resistencia a tu tipo de daño elemental y tienen ventaja en tiradas de
+salvación contra ser asustados. Puedes usar este rasgo una vez por
+descanso largo.</p>
+<h2 id="senda-del-forjador-de-esencias-arquetipo-de-bárbaro">Senda del
+Forjador de Esencias (Arquetipo de Bárbaro)</h2>
+<h3 id="perfil-del-arquetipo-1">Perfil del Arquetipo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Clase Base</strong></td>
+<td style="text-align: left;">Bárbaro</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fuente de Poder</strong></td>
+<td style="text-align: left;">Magia primordial de la tierra, espíritu de
+la <a href="Herreria.html">Herreria</a> de <a
+href="Valtoria.html">Valtoria</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Táctico</strong></td>
+<td style="text-align: left;">Tanque, Controlador de terreno, Daño
+sostenido</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Complejidad</strong></td>
+<td style="text-align: left;">Media</td>
+</tr>
+</tbody>
+</table>
+<h3 id="progresión-de-la-senda">Progresión de la Senda</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Nivel de Bárbaro</th>
+<th style="text-align: left;">Rasgo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>3</strong></td>
+<td style="text-align: left;">Furia Mineral</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>6</strong></td>
+<td style="text-align: left;">Fuerza de la Montaña</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td style="text-align: left;">Explosión de <a
+href="Herreria.html">Herreria</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>14</strong></td>
+<td style="text-align: left;">Esencia Inquebrantable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-de-la-senda">Rasgos de la Senda</h3>
+<h4 id="furia-mineral">Furia Mineral</h4>
+<p>A nivel 3, mientras estás en furia, tu piel adquiere la dureza del
+metal. Ganas una bonificación a tu CA igual a la mitad de tu bonificador
+de competencia (redondeado hacia abajo).</p>
+<h4 id="fuerza-de-la-montaña">Fuerza de la Montaña</h4>
+<p>A nivel 6, mientras estás en furia, puedes usar tu acción adicional
+para golpear el suelo, creando una onda de choque en un radio de 10
+pies. Cada criatura de tu elección en el área debe superar una tirada de
+salvación de Fuerza (CD 8 + tu mod. de FUE + tu bon. de competencia) o
+será derribada.</p>
+<h4 id="explosión-de-forja">Explosión de Forja</h4>
+<p>A nivel 10, como reacción cuando recibes daño de un ataque cuerpo a
+cuerpo, puedes hacer que el atacante reciba daño por fuego igual a tu
+bonificador de Constitución.</p>
+<h4 id="esencia-inquebrantable">Esencia Inquebrantable</h4>
+<p>A nivel 14, tu rasgo <em>Furia Implacable</em> mejora. La CD para la
+tirada de salvación de Constitución comienza en 5 en lugar de 10, y
+aumenta en 3 (en lugar de 5) con cada uso subsiguiente antes de un
+descanso largo.</p>
+<hr />
+<h2 id="sombra-de-la-trama-arquetipo-de-pícaro">Sombra de la Trama
+(Arquetipo de Pícaro)</h2>
+<h3 id="perfil-del-arquetipo-2">Perfil del Arquetipo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Clase Base</strong></td>
+<td style="text-align: left;">Pícaro</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fuente de Poder</strong></td>
+<td style="text-align: left;">Magia de sombras y engaño, influencia de
+<a href="Mor&#39;dhul.html">Mor’dhul</a> y deidades como <a
+href="Morgal.html">Morgal</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Táctico</strong></td>
+<td style="text-align: left;">Infiltrador, Asesino mágico,
+Embaucador</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Complejidad</strong></td>
+<td style="text-align: left;">Alta</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-del-arquetipo-2">Rasgos del Arquetipo</h3>
+<h4 id="lanzamiento-de-conjuros">Lanzamiento de Conjuros</h4>
+<p>A nivel 3, ganas la habilidad de lanzar <a
+href="Conjuros.html">Conjuros</a>. * <strong>Trucos:</strong> Aprendes
+<em>Ilusión menor</em> y otros dos trucos de la lista de <a
+href="Conjuros.html">Conjuros</a> del <a href="Mago.html">Mago</a>. *
+<strong>Espacios de conjuro:</strong> Usas la tabla de progresión del
+Pícaro Arcano. * <strong><a href="Conjuros.html">Conjuros</a>
+conocidos:</strong> Aprendes tres <a href="Conjuros.html">Conjuros</a>
+de nivel 1 de la lista de <a href="Mago.html">Mago</a> (escuelas de
+encantamiento o ilusión). * <strong>Aptitud mágica:</strong> Tu aptitud
+para lanzar estos <a href="Conjuros.html">Conjuros</a> es la
+Inteligencia.</p>
+<h4 id="paso-sombrío">Paso Sombrío</h4>
+<p>A nivel 3, como acción adicional, puedes teletransportarte hasta 30
+pies a un espacio desocupado que puedas ver que esté en penumbra u
+oscuridad. Puedes usar este rasgo un número de veces igual a tu
+modificador de Inteligencia (mínimo 1) por descanso largo.</p>
+<h4 id="ilusión-desconcertante">Ilusión Desconcertante</h4>
+<p>A nivel 9, cuando una criatura a 30 pies de ti te elige como objetivo
+de un ataque, puedes usar tu reacción para proyectar una ilusión. El
+atacante debe hacer una tirada de salvación de Sabiduría. Si falla, debe
+elegir un nuevo objetivo para el ataque. Si no hay otros objetivos
+válidos, el ataque falla. Puedes usar este rasgo un número de veces
+igual a tu bonificador de competencia por descanso largo.</p>
+<h4 id="maestro-del-engaño">Maestro del Engaño</h4>
+<p>A nivel 13, cuando lanzas un conjuro de ilusión, puedes usar tu
+<code>Acción Astuta</code> para realizar la acción de Esconderse como
+parte de la misma acción. Además, tienes ventaja en las tiradas de
+salvación contra cualquier conjuro que intente detectar tu ubicación o
+tus pensamientos.</p>
+<h4 id="doble-sombrío">Doble Sombrío</h4>
+<p>A nivel 17, como acción, puedes crear un duplicado de sombra de ti
+mismo que dura 1 minuto. El doble aparece en un espacio desocupado a 5
+pies de ti. Como acción adicional, puedes mover el doble hasta 30 pies.
+Una vez por turno, puedes usar tu Ataque Furtivo a través del doble,
+como si estuvieras en su espacio. El doble comparte tus estadísticas,
+pero tiene 1 punto de golpe y desaparece si sufre daño. Una vez usado,
+no puedes volver a usarlo hasta un descanso largo.</p>
+        </div>
+    </div>
+</body>
+</html>

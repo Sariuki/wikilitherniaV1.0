@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galvorn_Lugares</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Galvorn_Lugares</div>
+        <div class="content">
+<h1 id="galvorn-lugares">Galvorn lugares</h1>
+<p><a href="Galvorn.html">Galvorn</a> es el reino marítimo de Lithernia,
+una tierra de costas extensas, archipiélagos y un interior fértil y
+boscoso. La conexión profunda con el mar define no solo su geografía
+sino también su cultura, economía y política. Este artículo detalla los
+lugares más importantes de <a href="Galvorn.html">Galvorn</a>, sus
+características, control actual y amenazas existentes.</p>
+<h2 id="galvorn-capital-de-galvorn">Galvorn (Capital de Galvorn)</h2>
+<ul>
+<li><strong>Control:</strong> Rey humano y el Consejo de
+Capitanes.<br />
+</li>
+<li><strong>Descripción:</strong> Vibrante ciudad portuaria construida
+alrededor de una bahía natural, conocida como la “Joya Marina”. Sus
+muelles reciben embarcaciones de todas las naciones y su bazar marítimo
+es un crisol de especias, sedas y curiosidades.<br />
+</li>
+<li><strong>Situación:</strong> Centro nervioso del comercio marítimo
+galvornián, con un ambiente bullicioso y diversidad cultural.<br />
+</li>
+<li><strong>Amenazas:</strong>
+<ul>
+<li>Ataques y sabotajes de piratas, en especial grupos del Mar
+Fragmentado.<br />
+</li>
+<li>Espionaje extranjero, especialmente agentes de Mor’dhul intentando
+robar <a href="Mapas.html">Mapas</a> y tecnología naval.<br />
+</li>
+<li>Presencia ocasional de monstruos marinos, como krakens o sirenas
+corrompidas, que afectan la seguridad de los muelles y pescadores.<br />
+</li>
+</ul></li>
+<li><strong>Oportunidades para aventureros:</strong> Misiones de escolta
+de cargas, protección ante ataques piratas, indagaciones en
+conspiraciones dentro del puerto y expediciones hacia islas
+misteriosas.</li>
+</ul>
+<h2 id="trilpinil">Trilpinil</h2>
+<ul>
+<li><strong>Control:</strong> Nobles locales y gremios
+mercantiles.<br />
+</li>
+<li><strong>Descripción:</strong> Ciudad costera famosa por sus playas
+de arena blanca y resorts lujosos. Es el destino vacacional de ricos
+mercaderes y nobles.<br />
+</li>
+<li><strong>Situación:</strong> Un enclave próspero que contrasta con el
+tejido duro del reino, donde las fiestas y la opulencia conviven con
+desigualdad social evidente.<br />
+</li>
+<li><strong>Amenazas:</strong>
+<ul>
+<li>Crimen organizado vinculado al contrabando y lavado de dinero
+pirata.<br />
+</li>
+<li>Posibles atentados políticos contra dignatarios extranjeros
+alojados.<br />
+</li>
+<li>Ocultas amenazas acuáticas, incluyendo apariciones de entidades
+marinas corruptas y elementales que acechan en los arrecifes
+cercanos.<br />
+</li>
+</ul></li>
+<li><strong>Oportunidades para aventureros:</strong> Investigaciones
+policiales discretas, protección VIP, enfrentamientos contra mafias, y
+exploración de fenómenos o criaturas exóticas marinas.</li>
+</ul>
+<h2 id="poyoranta">Poyoranta</h2>
+<ul>
+<li><strong>Control:</strong> Sede de la armada y fortaleza militar bajo
+control estricto.<br />
+</li>
+<li><strong>Descripción:</strong> Puerto fuertemente fortificado que
+alberga los astilleros y la flota de guerra de <a
+href="Galvorn.html">Galvorn</a>. Las murallas están equipadas con
+balistas y defensas mágicas.<br />
+</li>
+<li><strong>Situación:</strong> Siempre en máxima alerta ante posibles
+ataques navales o incursiones enemigas, con una disciplina rígida y un
+ambiente marcial predominante.<br />
+</li>
+<li><strong>Amenazas:</strong>
+<ul>
+<li>Sabotajes por infiltrados provenientes de Mor’dhul.<br />
+</li>
+<li>Posibles conspiraciones internas y traiciones.<br />
+</li>
+<li>Amenaza constante de ataques piratas o incursiones menores.<br />
+</li>
+</ul></li>
+<li><strong>Oportunidades para aventureros:</strong> Descubrir y
+neutralizar conspiradores, participar en batallas navales o misiones de
+espionaje, y colaborar en la defensa estratégica del reino.</li>
+</ul>
+<h2 id="puebleda">Puebleda</h2>
+<ul>
+<li><strong>Control:</strong> Gobierno local bajo el reino, con
+influencia de gremios agrícolas.<br />
+</li>
+<li><strong>Descripción:</strong> Ciudad agrícola situada tierra
+adentro, rodeada de viñedos y campos extensos, famosa por sus vinos
+dulces y festivales de cosecha.<br />
+</li>
+<li><strong>Situación:</strong> Fundamental para la autosuficiencia del
+reino, fuente principal de alimentación y celebración. Conserva un
+ambiente festivo con tradiciones rurales profundamente arraigadas.<br />
+</li>
+<li><strong>Amenazas:</strong>
+<ul>
+<li>Ataques ocasionales de bandidos o saqueadores desde las zonas
+fronterizas.<br />
+</li>
+<li>Plagas imprevistas que amenazan la producción agrícola.<br />
+</li>
+<li>Tensiones entre agricultores y mercaderes por precios y
+comercio.<br />
+</li>
+</ul></li>
+<li><strong>Oportunidades para aventureros:</strong> Protección de
+caravanas, solución de misteriosas enfermedades en cultivos, mediación
+en disputas locales y protección durante festivales.</li>
+</ul>
+<h2 id="islas-errantes">Islas Errantes</h2>
+<ul>
+<li><strong>Control:</strong> Ningún control oficial; en ocasiones
+expediciones galvornienses visitan estas islas.<br />
+</li>
+<li><strong>Descripción:</strong> Un conjunto de islas móviles en mar
+abierto al oeste de <a href="Galvorn.html">Galvorn</a>. Presentan ruinas
+de una civilización antigua y constructos aún activos.<br />
+</li>
+<li><strong>Situación:</strong> Lugar de misterio y peligro, con
+presencia de guardianes mecánicos y enigmas arcanos. Zona de interés
+para exploradores y eruditos que buscan conocimiento perdido.<br />
+</li>
+<li><strong>Amenazas:</strong> Guardianes automáticos, trampas arcanas,
+criaturas exóticas y posibles encuentros con cultos o facciones
+rivales.<br />
+</li>
+<li><strong>Oportunidades para aventureros:</strong> Arqueología,
+búsqueda de artefactos, enfrentamientos con guardianes antiguos y
+descubrimiento de secretos que podrían influir en la profecía del Primer
+Rey.</li>
+</ul>
+<h2 id="zonas-destacadas-del-reino">Zonas Destacadas del Reino</h2>
+<h3 id="rutas-marítimas-y-archipiélagos">Rutas Marítimas y
+Archipiélagos</h3>
+<ul>
+<li>Las rutas comerciales son esenciales para la prosperidad de <a
+href="Galvorn.html">Galvorn</a>, permitiendo el flujo constante de
+productos entre ciudades y con otros reinos.<br />
+</li>
+<li>Los archipiélagos son refugios para piratas y corsarios, así como
+lugares para el comercio clandestino y encuentros con criaturas marinas
+legendarias.<br />
+</li>
+<li>Áreas plenas de peligros naturales como tormentas repentinas, bajos
+y arrecifes, junto con la presencia de espíritus marinos y seres
+elementales.</li>
+</ul>
+<h3 id="bosques-costaneros-y-ríos-navegables">Bosques Costaneros y Ríos
+Navegables</h3>
+<ul>
+<li>Los bosques que abrazan las colinas interiores de <a
+href="Galvorn.html">Galvorn</a> son ricos en <a
+href="Recursos.html">Recursos</a> y habitados por comunidades mixtas de
+<a href="Humanos.html">Humanos</a>, <a
+href="Semielfos.html">Semielfos</a>, y genasi.<br />
+</li>
+<li>Ríos como arterias naturales conectan el interior con el mar,
+facilitando comercio y transporte, aunque también sirven de rutas para
+incursiones enemigas o bandidos.<br />
+</li>
+<li>Estos terrenos fomentan la convivencia entre raza y magia, con
+locales que emplean hechizos para proteger las rutas y asegurar la
+fertilidad.</li>
+</ul>
+<hr />
+<p><a href="Galvorn.html">Galvorn</a> es un reino vibrante que combina
+majestuosidad marítima y riqueza natural, con ciudades que oscilan entre
+la diplomacia fluida y la constante amenaza de la guerra y la piratería.
+Sus lugares emblemáticos ofrecen oportunidades para un amplio rango de
+aventuras y una conexión profunda con la cultura y la historia marítima
+del <a href="Título_de_la_nota.html">Título_de_la_nota</a>.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Reino%20de%20Galvorn.html">Reino de Galvorn</a>
+(relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

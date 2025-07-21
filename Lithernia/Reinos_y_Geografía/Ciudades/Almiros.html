@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almiros</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Almiros</div>
+        <div class="content">
+<h1 id="almiros">Almiros</h1>
+<p>Almiros es una ciudad forjada por la sal y la furia del océano.
+Aferrada a los escarpados acantilados de la Costa Salina de <a
+href="Galvorn.html">Galvorn</a>, no es un lugar de belleza delicada,
+sino de una tenacidad inquebrantable. El aire está perpetuamente cargado
+con el olor punzante de la salmuera y el pescado, y el viento marino,
+que silba por sus callejones laberínticos, nunca cesa. Sus edificios,
+hechos de piedra gris y madera blanqueada por el sol y recuperada de
+naufragios, se alzan sobre robustos pilotes para desafiar las mareas más
+violentas. Almiros es un bastión de gente ruda, supersticiosa y
+resiliente, cuyo espíritu es tan indomable como el mar que les da la
+vida y amenaza con quitársela.</p>
+<h2 id="historia">Historia</h2>
+<p>Los cimientos de Almiros no se construyeron con grandes planes, sino
+con desesperación y suerte. Tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, un grupo de refugiados <a
+href="Humanos.html">Humanos</a>, huyendo de las tierras arrasadas, fue
+empujado por las tormentas hasta una costa inexplorada. Allí, al borde
+del agotamiento, descubrieron su salvación: los propios acantilados
+estaban veteados con depósitos de sal de roca pura. Vieron en ello una
+bendición de <a href="Yfrit.html">Yfrit</a> y fundaron un
+asentamiento.</p>
+<p>Los primeros años fueron una lucha constante. Las tormentas de <a
+href="Exion.html">Exion</a> azotaban la costa sin piedad, y extrañas
+criaturas surgían de las profundidades abisales cercanas. Esta
+adversidad moldeó su carácter, haciendo de la fe en los dioses y el
+conocimiento práctico del mar las únicas monedas de valor. Con el
+tiempo, perfeccionaron el arte de la pesca en aguas traicioneras y la
+extracción de sal, convirtiéndose en un proveedor vital, aunque a menudo
+subestimado, para el resto de <a href="Galvorn.html">Galvorn</a>. Su
+mayor logro fue la construcción del Fanál de Sal, un faro cuya luz
+encantada ha guiado a innumerables barcos a un puerto seguro,
+consolidando Almiros como un símbolo de la perseverancia humana frente a
+la inmensidad del océano.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Muelle Salobre</strong>: El corazón palpitante de
+Almiros. Es un caótico entramado de muelles de madera desgastada, donde
+los barcos pesqueros descargan su captura del día entre los gritos de
+los comerciantes y el pesado trabajo de los estibadores <a
+href="Semiorcos.html">Semiorcos</a>. El olor a pescado fresco y sal se
+mezcla con el del alquitrán y la cerveza derramada de las tabernas
+cercanas.</p></li>
+<li><p><strong>La Veta Blanca</strong>: El distrito residencial,
+construido directamente sobre y dentro de los acantilados de sal. Las
+casas son funcionales y compactas, conectadas por escaleras de piedra
+resbaladiza y pasajes estrechos diseñados para romper la fuerza del
+viento. Desde aquí, las vistas del océano son impresionantes y
+aterradoras a partes iguales.</p></li>
+<li><p><strong>El Fanál de Sal</strong>: El monumento más emblemático de
+Almiros y su principal defensa contra la oscuridad. Este imponente faro
+de piedra se alza en el punto más alto del acantilado. Su luz no
+proviene de un simple fuego, sino de una llama perpetua de <a
+href="Solniria.html">Solniria</a>, magnificada a través de enormes
+cristales de sal encantados que proyectan un haz de luz blanca y pura
+capaz de atravesar la niebla más densa y las tormentas más
+feroces.</p></li>
+<li><p><strong>Las Salinas del Duelo</strong>: En las afueras de la
+ciudad se extienden vastas balsas de evaporación donde el agua de mar se
+convierte lentamente en cristales de sal. Es un trabajo duro y monótono,
+a menudo realizado bajo la atenta supervisión de familias de <a
+href="Medianos.html">Medianos</a>, quienes guardan celosamente las
+recetas secretas para la salazón de alimentos.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Almiros se mide en mareas y tormentas. La superstición es
+una segunda naturaleza; cada marinero tiene sus propios rituales para
+apaciguar al mar. Antes de cada viaje largo, realizan el “Voto Salino”,
+lanzando al agua pequeños trozos de sal tallados con símbolos de
+protección como ofrenda a <a href="Yfrit.html">Yfrit</a>. Durante las
+grandes tempestades, la ciudad entera participa en la “Vigilia de la
+Tormenta”, donde se reúnen en salones comunales o en el templo para
+cantar salomas y contar historias de héroes marinos, desafiando con su
+voz la furia de <a href="Exion.html">Exion</a>.</p>
+<p>El estatus no se mide en oro, sino en la piel. Los tatuajes
+narrativos son un diario viviente que cuenta los viajes, las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+derrotadas y las tormentas sobrevividas. Un marinero con los brazos
+cubiertos de tinta es un veterano respetado, una biblioteca andante de
+la sabiduría del mar.</p>
+<h2 id="símbolos-y-heráldica">Símbolos y Heráldica</h2>
+<p>El emblema de Almiros es un caparazón de nautilo en espiral, de un
+blanco salino, superpuesto sobre un tridente de plata brillante. Todo
+ello descansa sobre un fondo verde mar profundo. El nautilo representa
+la resiliencia, la protección y los secretos que guarda el océano,
+mientras que el tridente es un claro homenaje a <a
+href="Yfrit.html">Yfrit</a>, la diosa que les da sustento y a la que
+deben su existencia.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Salinero Maldito</strong>: Cuando la niebla es espesa
+y antinaturalmente silenciosa, los marineros juran haber visto la
+silueta de un barco espectral, completamente cubierto por una costra de
+sal brillante. No lleva tripulación visible, pero se dice que su
+aparición es un presagio de desastre: barcos que se hunden, redes que
+salen vacías o una tormenta inminente. Nadie sabe su origen, pero todos
+temen su llegada.</p></li>
+<li><p><strong>Los Ojos de la Sima</strong>: Justo frente a la costa de
+Almiros yace una fosa abisal de profundidad desconocida. En las noches
+sin luna, algunos vigías afirman haber visto dos luces frías y enormes
+emerger de las profundidades, observando la ciudad en silencio antes de
+volver a hundirse. La leyenda dice que son los ojos de un leviatán
+ancestral, dormido desde el Cataclismo del <a
+href="Lilium.html">Lilium</a>, y que rezan a <a
+href="Yfrit.html">Yfrit</a> para que nunca despierte.</p></li>
+<li><p><strong>Los Susurros de <a
+href="Quiteon.html">Quiteon</a></strong>: Se cree que en un sistema de
+cuevas marinas cercano, erosionadas por las olas durante milenios, el
+dios <a href="Quiteon.html">Quiteon</a> deja ecos de sus pensamientos en
+el viento. En los días de calma, se dice que uno puede escuchar susurros
+proféticos en el sonido del aire que atraviesa las rocas. Muchos han
+intentado descifrar estos mensajes, pero el mar es un guardián celoso;
+las mareas han reclamado a más de un buscador de verdades.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.51)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

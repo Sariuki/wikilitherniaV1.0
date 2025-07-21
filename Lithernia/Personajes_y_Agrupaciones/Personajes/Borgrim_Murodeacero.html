@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borgrim_Murodeacero</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Borgrim_Murodeacero</div>
+        <div class="content">
+<h1 id="borgrim-murodeacero">Borgrim Murodeacero</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de <a href="Valtoria.html">Valtoria</a>, pocos nombres
+inspiran tanto respeto y temor como el de Borgrim Murodeacero, Thane
+fundador y Gran Inquisidor del Clan Rompevelos. Su historia no es una de
+reyes nacidos en la opulencia, sino una forjada en la pérdida, el deber
+y una voluntad tan inflexible como la roca primigenia de las
+montañas.</p>
+<p>Nacido en el seno del antiguo Clan Cortepiedra, Borgrim vivió sus
+primeros siglos en una era aún marcada por las cicatrices del Cataclismo
+del <a href="Lilium.html">Lilium</a>. Vio con sus propios ojos cómo la
+magia salvaje, liberada del Tejido roto, no solo creaba maravillas, sino
+que también engendraba pesadillas. La tragedia que definió su destino
+fue la Caída de la Veta Umbría, cuando una secta de magos renegados
+intentó canalizar un nodo de maná inestable bajo el hogar de su clan. El
+ritual fracasó, desgarrando la realidad y desatando una horda de
+abominaciones espectrales que consumieron a su gente. Borgrim, entonces
+un joven Thane, fue uno de los pocos supervivientes, escapando no con
+tesoros, sino con las cenizas de su linaje en el corazón y una
+convicción de granito: la magia sin control era un veneno para el
+mundo.</p>
+<p>Mientras los eruditos de la Torre de las Estrellas debatían teorías y
+catalogaban fenómenos, Borgrim reunió a otros veteranos <a
+href="Enanos.html">Enanos</a>, supervivientes y guerreros hastiados del
+caos. Con su martillo y su juramento, fundó el Clan Rompevelos. No
+buscaban conocimiento, sino orden. No pretendían estudiar la magia, sino
+encadenarla. Se convirtieron en el brazo armado de la razón, una orden
+dedicada a cazar las anomalías mágicas, contener a los inestables “Hijos
+de la Luna” y destruir artefactos corruptos que amenazaran la
+estabilidad de <a href="Valtoria.html">Valtoria</a>.</p>
+<p>Como Gran Inquisidor, Borgrim ha tomado decisiones que harían
+flaquear a reyes. Ha ordenado la purga de cultos enteros, ha destruido
+reliquias de valor incalculable por considerarlas demasiado peligrosas y
+ha encerrado a individuos nacidos con poderes incontrolables, viéndolo
+no como un acto de crueldad, sino de piedad hacia el individuo y de
+protección hacia la sociedad. Su lealtad a la corona, encarnada en la
+Reina Valeria Bronzebrillo, es absoluta, pues ve en el orden de su
+monarquía el único baluarte contra la anarquía arcana.</p>
+<p>Su relación con el Archimago Thalios es la de dos pilares que
+sostienen el mismo techo desde extremos opuestos. Borgrim respeta la
+mente del elfo, pero desprecia su optimismo. Para el enano, Thalios es
+un teórico que juega con fuego desde la seguridad de su torre, sin
+comprender que una sola chispa puede reducir a cenizas todo lo que aman.
+Esta fricción define gran parte de la política arcana de <a
+href="Valtoria.html">Valtoria</a>, un pulso constante entre el estudio y
+la contención. El mayor dolor de Borgrim, sin embargo, es la existencia
+de los Cazadores de Sombras, una facción escindida de su propio clan que
+ha pervertido sus ideales, convirtiendo la cautela en fanatismo ciego y
+la contención en exterminio indiscriminado. Ver su legado torcido en un
+espejo de odio es una herida que ni el tiempo ni la roca han podido
+cerrar.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Borgrim es la personificación de su apodo, “Murodeacero”. Es un enano
+de complexión ancha y poderosa, con hombros capaces de soportar el peso
+de una montaña. Sus 345 años están grabados en su rostro severo, un mapa
+de cicatrices y arrugas profundas. Sus ojos, de un gris acerado, no
+muestran alegría, sino el peso de una vigilia eterna. Su barba, larga y
+espesa como corresponde a un Thane, está trenzada con filamentos de
+acero y sujeta por tres broches de granito rúnico, cada uno simbolizando
+un juramento: a su clan, a su reina y a la memoria de los caídos.</p>
+<p>Viste la <em>Armadura del Inquisidor</em>, una obra maestra de placas
+de acero valtoriano y mithril, desprovista de adornos ostentosos pero
+cubierta de <a href="Runas.html">Runas</a> de abjuración y contención
+que brillan con una tenue luz azulada ante la presencia de magia hostil.
+Cada pieza está diseñada para la máxima protección, convirtiéndolo en un
+bastión andante.</p>
+<p>Su arma es <em>Quebrantadora</em>, el mismo martillo de guerra con el
+que fundó el clan. Se dice que su cabeza de granito fue extraída del
+corazón de la montaña donde su antiguo clan pereció. No es un arma
+mágica en el sentido tradicional; al contrario, está imbuida de <a
+href="Runas.html">Runas</a> que disipan y anulan la energía arcana,
+haciendo de cada golpe un acto de negación contra el Tejido del Maná. En
+su cinto lleva grilletes de nulificación y una bolsa con polvo de
+cristal de <a href="Nolindor.html">Nolindor</a>, usado para trazar
+círculos de contención de emergencia.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Borgrim Murodeacero es una figura controvertida más allá de las
+fronteras de <a href="Valtoria.html">Valtoria</a>. Para los <a
+href="Enanos.html">Enanos</a>, es un guardián severo pero necesario, el
+muro que los protege de los horrores que acechan en las grietas del
+mundo. Para los magos de <a href="Eldrador.html">Eldrador</a> y los
+hechiceros libres, es un carcelero, un símbolo de la desconfianza y el
+miedo que obstaculiza el verdadero potencial de la magia.</p>
+<p>Su legado será, inevitablemente, el propio Clan Rompevelos. Ha creado
+una orden que perdurará más allá de su vida, un escudo y una espada
+contra el caos arcano. Sin embargo, también ha sembrado las semillas de
+un extremismo peligroso con los Cazadores de Sombras, una lección
+viviente de que incluso las intenciones más nobles pueden
+corromperse.</p>
+<p>En la gran balanza de Lithernia, Borgrim no busca ser un <a
+href="Heroes.html">Heroes</a> recordado en canciones, sino un guardián
+cuyo éxito se medirá por las catástrofes que nunca ocurrieron, por los
+nombres de las abominaciones que el mundo jamás conocerá. Es el ancla de
+roca en un mar de caos, y mientras su martillo siga en pie, la magia en
+Lithernia siempre tendrá un juez, un carcelero y, quizás, su más temible
+adversario.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

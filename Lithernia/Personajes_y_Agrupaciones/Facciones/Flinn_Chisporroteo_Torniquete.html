@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flinn_Chisporroteo_Torniquete</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Flinn_Chisporroteo_Torniquete</div>
+        <div class="content">
+<hr />
+<p>nombre: “Flinn ‘Chisporroteo’ Torniquete” rol: “Maestro Artífice y
+Fundador Exiliado” edad: 280 agrupacion: “La Cofradía del Muelle Real”
+tipo: “Facción” lema: “El progreso exige sacrificio. La tradición es el
+primer y más pesado grillete.” escudo: “Un engranaje de bronce roto del
+que brota una chispa de energía arcana inestable de color verdoso. El
+fondo es de pizarra negra, representando su origen en la montaña y su
+actual exilio en la oscuridad.” ciudad_sede: “<a
+href="Soriel.html">Soriel</a> (<a href="Mor&#39;dhul.html">Mor’dhul</a>,
+en las profundidades)” rivalidades: [“Sínodo del Engranaje Pulido (<a
+href="Cyndril.html">Cyndril</a>)”, “Gremio de Artífices (<a
+href="Vatilleurs.html">Vatilleurs</a>)”, “Cazadores de Sombras”]
+alianzas: [“Clan del Edicto Susurrante (<a
+href="Soriel.html">Soriel</a>)”, “Facciones Piratas de <a
+href="Galvorn.html">Galvorn</a>”, “Lord Aethel (Contacto Secreto)”]
+relaciones: [“Durgar Hacha-de-Runa (Antiguo Protegido)”, “Ingenieros
+Radicales de <a href="Galvorn.html">Galvorn</a> (Corresponsales)”] tags:
+[lithernia, personajes, Facción, Artífice, Gnomo, Cofradía del Muelle
+Real] # Flinn ‘Chisporroteo’ Torniquete</p>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones resplandecientes de <a
+href="Valtoria.html">Valtoria</a>, donde el martillo de <a
+href="Rokael.html">Rokael</a> resuena como un latido sagrado, nació
+Flinn Torniquete. Un gnomo cuyo intelecto brillaba con la intensidad de
+una fragua al rojo vivo, pero cuya paciencia era tan escasa como las
+gemas en la superficie. Desde joven, Flinn demostró un talento
+prodigioso para la artificería, superando a sus maestros <a
+href="Enanos.html">Enanos</a> y desarmando complejos mecanismos con una
+facilidad que rayaba en lo insultante. Sin embargo, donde otros veían la
+belleza de un engranaje perfecto y la armonía de un autómata predecible,
+Flinn solo veía estancamiento. Para él, la “innovación paciente” de
+gremios como el Sínodo del Engranaje Pulido o los perfeccionistas de <a
+href="Vatilleurs.html">Vatilleurs</a> era una jaula dorada, una afrenta
+al verdadero potencial que yacía en la unión del metal y la magia
+salvaje.</p>
+<p>Fue mentor de jóvenes promesas, como el talentoso enano Durgar
+Hacha-de-Runa, a quien intentó imbuir con su visión radical: el
+verdadero avance no estaba en la perfección, sino en el caos controlado.
+Flinn soñaba con fusionar la tecnología con la magia arcana inestable,
+canalizar la esencia impredecible de los elementos en núcleos de poder y
+crear constructos que no solo obedecieran, sino que <em>sintieran</em> y
+<em>reaccionaran</em> con una furia elemental. Esta filosofía era una
+blasfemia, un desafío directo a la ordenada creación de <a
+href="Rokael.html">Rokael</a> y una burla a las tradiciones que habían
+sostenido a <a href="Valtoria.html">Valtoria</a> por siglos.</p>
+<p>Su ambición alcanzó su punto álgido y su inevitable final en el
+incidente que ahora se susurra como “El Silencio de los Engranajes”. En
+un taller secreto, Flinn intentó activar un autómata colosal alimentado
+por un núcleo de energía arcana inestable, un vórtice de magia cruda
+apenas contenido. El resultado fue catastrófico. El núcleo colapsó,
+desatando una onda de choque que no solo silenció todos los mecanismos
+en un distrito entero de su ciudad, sino que también liberó a sus
+creaciones, ahora constructos enloquecidos que sembraron el pánico.</p>
+<p>Acusado de herejía y desterrado de su patria, Flinn no sintió
+remordimiento, sino liberación. El exilio fue la chispa que encendió su
+verdadera obra. Junto a otros artífices marginados que compartían su
+visión, fundó <strong>La Cofradía del Muelle Real</strong>, un nombre
+cargado de ironía para un mecanismo deliberadamente desbocado. Se
+establecieron en las entrañas de <a href="Soriel.html">Soriel</a>, en el
+oscuro reino de <a href="Mor&#39;dhul.html">Mor’dhul</a>, bajo la
+protección transaccional del Clan del Edicto Susurrante.</p>
+<p>Hoy, Flinn ‘Chisporroteo’ es el cerebro y corazón de la Cofradía. Su
+desprecio por el Sínodo de <a href="Cyndril.html">Cyndril</a> es una
+obsesión que alimenta su ingenio. Lidera a su facción en la búsqueda de
+artefactos pre-<a href="Lilium.html">Lilium</a> y ruinas antiguas, no
+para preservarlos, sino para desmantelarlos, para arrancar sus secretos
+y alimentar la próxima generación de sus peligrosas creaciones. Sus
+innovaciones —cañones arcanos que disparan rayos de pura entropía,
+autómatas de abordaje para piratas de <a
+href="Galvorn.html">Galvorn</a>, y dispositivos de vigilancia para los
+señores de <a href="Mor&#39;dhul.html">Mor’dhul</a>— fluyen hacia los
+rincones más oscuros de Lithernia, vendidas al mejor postor. A través de
+una correspondencia secreta, agita las brasas de la rebelión entre
+ingenieros radicales de <a href="Galvorn.html">Galvorn</a> y ha iniciado
+contactos con los agentes del ambicioso Lord Aethel, viendo en su sed de
+poder el mercado perfecto para la tecnología más desestabilizadora.
+Flinn no busca gobernar; busca ser el catalizador que rompa los
+grilletes del viejo mundo, convencido de que el progreso, para nacer,
+debe primero quemarlo todo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Flinn es un gnomo anciano cuya edad se manifiesta en una red de finas
+arrugas alrededor de sus ojos, aunque estos brillan con una energía
+juvenil y febril. Su cabello blanco y rebelde parece estar perpetuamente
+erizado por la estática, y su barba, antes meticulosamente trenzada al
+estilo de <a href="Valtoria.html">Valtoria</a>, ahora está chamuscada en
+los extremos y salpicada de grasa. Siempre lleva unas gafas de artífice
+con múltiples lentes sobre la frente, listas para bajar en cualquier
+momento. Sus manos son un mapa de su oficio: delgadas, ágiles, pero
+cubiertas de cicatrices de quemaduras, cortes y manchas de aceite y
+reactivos alquímicos.</p>
+<p>Viste con pragmatismo caótico. Sobre ropas de buena tela, ahora
+manchadas y remendadas, lleva un pesado delantal de cuero de draco,
+resistente al fuego y a los ácidos. Su pieza de equipo más notable es su
+<strong>Guantelete de Artífice Versátil</strong>, una obra maestra
+personal que puede reconfigurarse con un chasquido de engranajes en un
+soplete de plasma, una garra de precisión, un taladro sónico o un
+pequeño escudo deflector. En su espalda descansa un <strong>Rifle de
+Prototipo “Chispa Inestable”</strong>, un arma arcana de su propio
+diseño que zumba con una energía verdosa y cuyo cañón a veces crepita
+con arcos de poder erráticos. Su cinturón está sobrecargado con
+herramientas especializadas, viales con líquidos volátiles y pequeños
+artefactos explosivos de relojería, cada uno un peligro potencial para
+cualquiera que no sea su creador.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Flinn ‘Chisporroteo’ Torniquete está destinado a ser recordado no
+como un rey o un conquistador, sino como el arquitecto de una nueva era
+de caos tecnológico. Es una fuerza disruptiva, un hereje cuya visión
+radical amenaza con desmantelar los cimientos de la civilización, desde
+la fe en los dioses de la forja hasta el equilibrio de poder militar
+entre los reinos.</p>
+<p>Su legado es la proliferación de armas inestables y tecnología
+prohibida. Al armar a piratas, rebeldes y señores de la guerra
+ambiciosos, Flinn no solo alimenta la Gran Guerra, sino que la
+transforma, introduciendo variables que los estrategas tradicionales no
+pueden prever. Su alianza potencial con Lord Aethel podría ser el factor
+decisivo que permita al tirano desafiar el poder divino de Sel’thirak,
+sumiendo a <a href="Mor&#39;dhul.html">Mor’dhul</a> y, quizás, a toda
+Lithernia en un conflicto de una escala inimaginable.</p>
+<p>Para los gremios de <a href="Valtoria.html">Valtoria</a>, es una
+advertencia, un fantasma de lo que sucede cuando el genio no está atado
+por la tradición y la ética. Para sus clientes, es la promesa de poder
+instantáneo. Pero para Flinn, su impacto es simple: es el sonido
+glorioso de los viejos grilletes rompiéndose, el chisporroteo del mundo
+ardiendo para dar paso a un futuro más brillante, audaz y peligrosamente
+libre. Él es el muelle real que se ha soltado, y la máquina que
+impulsaba ahora se dirige sin control hacia el horizonte.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.47)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elinorae</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Elinorae</div>
+        <div class="content">
+<h1 id="elinorae">Elinorae</h1>
+<p>Elinorae no es una fortaleza de piedra, sino un monumento viviente al
+conocimiento. Enclavada en el corazón de los Bosques de la Sabiduría
+Ancestral de <a href="Eldrador.html">Eldrador</a>, la ciudad es un faro
+de luz y razón, cuyas torres de mármol blanco y cuarzo se entrelazan con
+las ramas de colosales árboles de seda. Puentes de luz sólida arquean
+sobre valles frondosos, conectando bibliotecas flotantes e invernaderos
+de cristal que resplandecen como joyas. Sus edificios están adornados
+con filigranas de plata que, según se dice, cantan suavemente con el
+viento, una melodía que solo los eruditos pueden interpretar. Más que
+una ciudad, Elinorae es un santuario para la mente y el espíritu, un
+bastión de la contemplación en un mundo asediado por la guerra.</p>
+<h2 id="historia">Historia</h2>
+<p>Los cimientos de Elinorae se asentaron sobre las cenizas del
+Cataclismo del <a href="Lilium.html">Lilium</a>. Mientras el mundo se
+sumía en la oscuridad y la barbarie, un cónclave de los más grandes
+sabios elfos y archidruidas, desesperados por salvaguardar el
+conocimiento del mundo antiguo, buscó un refugio. Lo encontraron en la
+forma de un Árbol del Conocimiento, un vestigio milagroso de la era
+pre-<a href="Lilium.html">Lilium</a> que había sobrevivido al fuego
+eterno.</p>
+<p>Alrededor de este nexo de poder y sabiduría, fundaron Elinorae. No
+con la intención de gobernar, sino de preservar. Durante los largos
+siglos de la Gran Guerra, la ciudad se convirtió en un faro de
+esperanza, una biblioteca viviente que mantenía encendida la llama de la
+civilización. Bajo la tutela de la Casa Lúmina, nobles mecenas de las
+artes y devotos de <a href="Lerian.html">Lerian</a>, Elinorae ha
+florecido como el centro académico más importante de <a
+href="Eldrador.html">Eldrador</a>, atrayendo a las mentes más brillantes
+de todo el reino.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Gran Biblioteca de los Ecos</strong>: El corazón
+palpitante de Elinorae. No es un solo edificio, sino un complejo de
+pabellones y torres flotantes que orbitan lentamente alrededor del Árbol
+del Conocimiento. Contiene manuscritos de valor incalculable, tomos
+prohibidos y los ecos psíquicos de todos los sabios que han estudiado
+entre sus muros.</p></li>
+<li><p><strong>Los Jardines Susurrantes</strong>: Un vasto arboreto que
+rodea la ciudad, dedicado al dios <a href="Ferion.html">Ferion</a>.
+Aquí, los druidas cultivan plantas alquímicas raras y maderas
+encantadas. Cada claro es un santuario, y se dice que los árboles mismos
+susurran secretos de la tierra a quienes saben escuchar.</p></li>
+<li><p><strong>El Atrio de Plata</strong>: La sede de la Casa Lúmina y
+centro administrativo de la ciudad. Es una plaza abierta construida con
+mármol veteado de plata, donde se celebran los debates filosóficos más
+importantes y se llevan a cabo los duelos de ingenio, la forma preferida
+de resolver disputas en Elinorae.</p></li>
+<li><p><strong>Las Terrazas de Cristal</strong>: El distrito académico y
+residencial. Aquí se encuentran las academias rivales y los invernaderos
+donde los magos de la transmutación experimentan con la flora y la
+fauna. Las viviendas son elegantes estructuras de cristal y madera viva,
+integradas perfectamente en el paisaje.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Elinorae es profundamente académica y contemplativa. El
+ritmo no lo marcan las estaciones, sino los ciclos de estudio y
+descubrimiento. Se valora la elocuencia, la lógica y la poesía por
+encima de la fuerza física. La mayor celebración es el “Solsticio del
+Saber”, un festival anual en el que los eruditos presentan sus tesis y
+los aprendices más prometedores son admitidos en las academias. Es
+costumbre dejar una ofrenda a <a href="Lerian.html">Lerian</a> en forma
+de un poema o un pensamiento profundo, escrito en una hoja de árbol y
+depositado en los altares-biblioteca de la ciudad.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Elinorae es la personificación de la armonía entre la construcción y
+la naturaleza. Sus torres parecen crecer del suelo como flores de
+mármol, y sus puentes de luz son tan etéreos como un amanecer. El aire
+está impregnado de un olor a papel antiguo, ozono de la magia y el
+perfume de mil flores exóticas. El ambiente es de una paz casi tangible,
+roto solo por el murmullo de los debates intelectuales, el canto de las
+filigranas de plata y los susurros del bosque.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Velo de <a href="Morgal.html">Morgal</a></strong>: Se
+rumorea que en los niveles más profundos y prohibidos de la Gran
+Biblioteca, custodiado por gólems de conocimiento, se encuentra un
+espejo de obsidiana conocido como el Velo de <a
+href="Morgal.html">Morgal</a>. La leyenda afirma que no refleja el
+rostro, sino la mentira más profunda y arraigada en el alma de quien lo
+mira, una verdad tan devastadora que pocos pueden soportarla sin perder
+la razón.</p></li>
+<li><p><strong>El Jardinero Autómata</strong>: Los Jardines Susurrantes,
+se dice, no solo son protegidos por druidas. Una antigua leyenda habla
+de un autómata forjado en la era del Primer Rey que aún vaga por los
+senderos. No poda ramas, sino que “arranca las malas hierbas del
+corazón”, confrontando a aquellos con intenciones impuras y juzgando su
+valía para permanecer en el santuario.</p></li>
+</ul>
+<h2 id="pnjs-destacados">PNJs Destacados</h2>
+<ul>
+<li><p><strong>Maestra Elara Lúmina</strong>: Matriarca de la Casa
+Lúmina y directora de la Gran Biblioteca. Una Alta Elfa de sabiduría
+insondable y una voluntad de acero, dedicada a proteger el conocimiento
+de Elinorae de las sombras que lo codician, ya sean espías de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> o cultos internos.</p></li>
+<li><p><strong>Fendrel Musgo-Andante</strong>: Un anciano Elfo del
+Bosque, Archimago <a href="Druida.html">Druida</a> y guardián principal
+de los Jardines Susurrantes. Siente la creciente corrupción en un bosque
+sagrado cercano como una herida en su propia alma y busca aventureros
+para que investiguen su origen.</p></li>
+<li><p><strong>Kaelen</strong>: Un joven profeta <a
+href="Eladrin.html">Eladrin</a> que reside en el Atrio de Plata. Sus
+visiones fragmentadas y aterradoras sobre el retorno de las Lanzas
+Celestiales y el destino del mundo han comenzado a perturbar la paz
+contemplativa de Elinorae, dividiendo a los sabios entre quienes lo ven
+como un heraldo y quienes lo consideran un presagio de locura.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

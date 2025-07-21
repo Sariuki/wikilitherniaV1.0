@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korgath_El_Destripador</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Korgath_El_Destripador</div>
+        <div class="content">
+<h1 id="korgath-el-destripador">Korgath ‘El Destripador’</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los anales sangrientos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, pocos nombres evocan el terror
+visceral que inspira Korgath. Nacido de la estirpe de los semiogros,
+engendros del dios de la sangre <a href="Lakros.html">Lakros</a>, el
+destino de Korgath parecía sellado desde la cuna: una vida de violencia
+en un reino donde la fuerza es la única ley. Sin embargo, Korgath
+trascendería su origen para convertirse en la encarnación misma de la
+furia de su dios.</p>
+<p>Su leyenda se forjó en el fango y la sangre de los fosos de combate
+de Medromora, la ciudad-volcán del Clan <a
+href="Lakros.html">Lakros</a>. No luchaba simplemente para sobrevivir,
+sino que lo hacía con una brutalidad artística y un sadismo que
+deleitaba a las multitudes. Su habilidad para desmembrar oponentes con
+una eficacia aterradora le valió el apodo de “El Destripador”. Cada
+victoria era un sacrificio, cada grito de agonía una plegaria a <a
+href="Lakros.html">Lakros</a>. Tal fue su devoción y ferocidad que el
+mismísimo Dios de la Sangre se fijó en él. <a
+href="Lakros.html">Lakros</a> no vio solo a un bruto, sino a un
+instrumento perfecto de su voluntad. En un ritual bañado en sangre,
+Korgath fue ascendido de gladiador a General en jefe del Clan <a
+href="Lakros.html">Lakros</a>, convirtiéndose en el puño armado de su
+dios en el plano mortal.</p>
+<p>Como general, Korgath demostró ser más que un simple salvaje. Aunque
+en batalla es un torbellino de furia incontenible, fuera de ella posee
+una mente estratégica sorprendentemente astuta. Es capaz de planificar
+asedios complejos y ejecutar tácticas de choque que han quebrado las
+defensas de ejércitos considerados superiores. Gobierna Medromora con
+una disciplina férrea, supervisando la extracción de minerales
+volcánicos para las forjas de guerra y presidiendo los sacrificios
+rituales que, según se cree, mantienen saciado al volcán y al dios que
+lo habita.</p>
+<p>Su filosofía es una extensión directa de los dogmas de <a
+href="Lakros.html">Lakros</a>: “solo los fuertes merecen vivir”. Para
+Korgath, la paz es una enfermedad que engendra debilidad; la guerra
+constante es el crisol que purga a los indignos y fortalece a los
+elegidos. No siente compasión ni remordimiento, pues considera la
+misericordia una debilidad imperdonable que contamina el sagrado acto
+del combate. Su lealtad es absoluta hacia <a
+href="Lakros.html">Lakros</a>, superando con creces la que profesa hacia
+el Rey-Dios Sel’thirak. Aunque formalmente sirve a la corona de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Korgath obedece primero a la sed
+de sangre de su patrón, lo que lo convierte en una pieza inestable en el
+tablero político del reino. Desprecia abiertamente a los clanes que
+dependen de la magia sutil y el engaño, como el Clan Whisper o el Clan
+Nighthawk, a quienes considera cobardes indignos de portar el estandarte
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Su existencia es una
+amenaza latente de guerra civil, pues muchos creen que si <a
+href="Lakros.html">Lakros</a> decidiera desafiar abiertamente a su
+hermano Sel’thirak, Korgath sería la punta de lanza de esa rebelión.</p>
+<h2 id="descripción-física-y-equipo">Descripción Física y Equipo</h2>
+<p>Korgath es una figura imponente, un coloso semiogro de casi tres
+metros de altura cuya presencia física es abrumadora. Su piel, de un
+tono rojo oscuro, es un lienzo de cicatrices rituales y heridas de
+batalla que cuentan la historia de una vida dedicada a la violencia. Sus
+músculos, densos como la roca volcánica, se tensan bajo la piel, y de su
+mandíbula sobresalen dos colmillos afilados que enmarcan una mueca de
+desprecio perpetuo.</p>
+<p>Viste una armadura de placas de metal oscuro, forjada en la lava de
+Medromora y adornada con espinas afiladas que la hacen tan peligrosa
+para atacar como para defenderse. La coraza está manchada con la sangre
+seca de innumerables enemigos, una insignia de honor que nunca limpia.
+Su casco abierto deja ver sus ojos, dos ascuas de furia que arden con
+inteligencia calculadora.</p>
+<p>Su arma predilecta no es una espada ni un hacha, sino un
+<strong>Látigo de Espinas Demoníacas</strong>, un arma cruel fabricada
+con la espina dorsal de una bestia del inframundo, capaz de desgarrar la
+carne y el alma con cada golpe.</p>
+<hr />
+<hr />
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Korgath “El Destripador” no es un estratega que conspire para dominar
+el mundo desde las sombras, ni un rey con ambiciones imperiales. Su
+impacto en Lithernia es más primario y brutal. Él es la personificación
+del poder militar de <a href="Mor&#39;dhul.html">Mor’dhul</a> en su
+forma más pura y violenta, un recordatorio constante de la filosofía que
+subyace en el panteón Korogrim.</p>
+<p>Para el reino de <a href="Mor&#39;dhul.html">Mor’dhul</a>, es tanto
+un activo como un riesgo. Sus legiones de semiogros son una fuerza de
+choque devastadora, pero su lealtad fanática a <a
+href="Lakros.html">Lakros</a> lo convierte en un peón impredecible que
+podría desatar una guerra civil si las tensiones entre el Dios de la
+Sangre y el Rey Sel’thirak llegan a un punto de ruptura.</p>
+<p>Para el resto de Lithernia, Korgath es un presagio de la guerra que
+nunca termina. Simboliza la amenaza inminente que <a
+href="Mor&#39;dhul.html">Mor’dhul</a> representa, no a través de la
+intriga, sino del acero, la sangre y la fuerza bruta. Su nombre se
+susurra con temor en las fronteras, y sus hazañas alimentan las
+pesadillas de quienes viven bajo la sombra de su reino. Como personaje,
+no ofrece redención ni complejidad moral; es un monstruo con un
+propósito claro, un desafío físico y filosófico para cualquier <a
+href="Heroes.html">Heroes</a> que crea en la misericordia y la paz en un
+mundo forjado en el conflicto.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.78)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

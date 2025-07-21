@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las_Cicatrices_del_Velo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Las_Cicatrices_del_Velo</div>
+        <div class="content">
+<h1 id="las-cicatrices-del-velo">Las cicatrices del velo</h1>
+<p>En los anales más oscuros de Lithernia, se susurra sobre lugares
+donde la realidad misma está herida. Son las Cicatrices del Velo,
+brechas permanentes en el tejido del mundo, nacidas del cataclismo que
+puso fin a la Era del Primer Rey. No son meras zonas de magia salvaje;
+son las heridas abiertas de un universo desgarrado, ecos eternos de una
+guerra que enfrentó a mortales y dioses, y cuya resolución, el <a
+href="Lilium.html">Lilium</a>, quemó el mundo y rasgó la barrera entre
+los planos.</p>
+<p>Estas regiones son temidas y, en secreto, codiciadas. Para la
+mayoría, son tierras malditas donde las leyes de la naturaleza se
+quiebran y criaturas de pesadilla cruzan desde otros dominios. Para los
+hechiceros y eruditos más osados, son fuentes de poder bruto e
+inestable, laboratorios naturales donde estudiar la esencia misma de la
+magia y la creación.</p>
+<h2 id="origen-y-naturaleza">Origen y Naturaleza</h2>
+<p>Las Cicatrices del Velo son el legado directo del <strong><a
+href="El_Quiebre_del_Velo_y_la_guerra_celestial.html">El_Quiebre_del_Velo_y_la_guerra_celestial</a></strong>,
+el clímax de la guerra entre el Primer Rey y el panteón divino. El
+esfuerzo titánico por derrotar al Rey y la posterior descarga del fuego
+eterno del <a href="Lilium.html">Lilium</a> no solo devastaron la
+superficie de Lithernia, sino que infligieron un daño profundo al
+<strong>Tejido del Maná</strong>. En los puntos de mayor tensión, donde
+se libraron las batallas más feroces o donde las Lanzas Celestiales
+anclaron el poder de los dioses, el Velo que separa el plano material de
+otros dominios se rasgó.</p>
+<p>Estas fisuras nunca sanaron por completo. En su lugar, se
+convirtieron en conductos permanentes por los que fluye energía caótica
+y esencias de otros planos: el mar astral, el plano de las sombras,
+dominios elementales e incluso reinos infernales desconocidos. Dentro de
+una Cicatriz, el Tejido del Maná no es ni denso ni débil; es un
+torbellino anárquico. Las líneas ley que recorren el mundo se enredan,
+se cortocircuitan o se deshilachan, provocando fenómenos tan
+impredecibles como peligrosos.</p>
+<h2 id="manifestaciones-y-peligros">Manifestaciones y Peligros</h2>
+<p>Las Cicatrices del Velo no son uniformes. Cada una presenta una serie
+de anomalías únicas, dependiendo de la naturaleza de la brecha y los
+planos con los que conecta. Sin embargo, ciertos fenómenos son comunes
+en estas zonas profanas:</p>
+<ul>
+<li><strong>Magia Salvaje e Incontrolable:</strong> Los <a
+href="Conjuros.html">Conjuros</a> lanzados dentro de una Cicatriz pueden
+descontrolarse. La energía caótica interfiere con la canalización,
+provocando efectos inesperados, potenciando un hechizo hasta niveles
+destructivos o volviéndolo contra su lanzador. Los Círculos de
+Invocación trazados aquí pueden volverse inestables o sobrecargarse, con
+consecuencias catastróficas.</li>
+<li><strong>Distorsiones Espacio-Temporales:</strong> La geografía en
+estas zonas es inconstante. Caminos que se alargan o acortan sin
+explicación, bosques cuyas sendas cambian con cada parpadeo, o ruinas
+que son más grandes por dentro que por fuera. Se han reportado casos de
+viajeros que entran en una Cicatriz y emergen días o incluso años
+después, sin haber envejecido. Las <strong>Islas Errantes</strong> del
+oeste son consideradas por algunos sabios como la manifestación de una
+gigantesca Cicatriz oceánica.</li>
+<li><strong>Portales Espontáneos:</strong> El Velo debilitado permite
+que se abran portales temporales a otros planos. A través de ellos
+pueden cruzar criaturas extraplanares: desde espíritus confusos hasta
+hordas de <a href="Demonios.html">Demonios</a> o engendros aberrantes.
+Las plagas de monstruos que asolaron ciudades como
+<strong>Mirallos</strong> y <strong>Estriedana</strong> se atribuyen a
+la erupción de una de estas Cicatrices.</li>
+<li><strong>Corrupción Ambiental:</strong> El paisaje mismo se retuerce
+bajo la influencia de energías ajenas. En los <strong>subsuelos malditos
+de <a href="Mor&#39;dhul.html">Mor’dhul</a></strong>, la cercanía de una
+Cicatriz provoca pesadillas de fuego eterno. En las ruinas de Mirallos,
+una niebla verdosa y enfermiza que induce a la locura se aferra al
+suelo. El <strong>Bosque de las Lágrimas Negras</strong>, lugar de una
+cruenta batalla entre <a href="Mor&#39;dhul.html">Mor’dhul</a> y <a
+href="Eldrador.html">Eldrador</a>, es ahora una Cicatriz donde los
+árboles están petrificados y una ceniza espectral cae sin cesar.</li>
+<li><strong>Ecos Espectrales:</strong> El pasado sangriento de Lithernia
+se niega a morir en estas zonas. Es común presenciar visiones
+fantasmales de batallas de la Era del Primer Rey, o escuchar los gritos
+de los caídos durante el Cataclismo del <a
+href="Lilium.html">Lilium</a>. Los espíritus de quienes mueren dentro de
+una Cicatriz a menudo quedan atrapados, convirtiéndose en espectros
+vengativos y atormentados.</li>
+</ul>
+<h2 id="ubicaciones-notables">Ubicaciones Notables</h2>
+<p>Aunque se sospecha que existen innumerables Cicatrices menores y
+ocultas, algunas son lo suficientemente grandes y notorias como para
+figurar en <a href="Mapas.html">Mapas</a> y <a
+href="Leyendas.html">Leyendas</a>:</p>
+<ul>
+<li><strong>Las Ruinas de Mirallos:</strong> Antaño una próspera ciudad,
+hoy es un monumento a la furia de una Cicatriz desatada. La ciudad
+entera es un megadungeon urbano donde la niebla espectral oculta a los
+engendros del <a href="Lilium.html">Lilium</a> y fantasmas de sus
+antiguos habitantes.</li>
+<li><strong>El Cráter de <a href="Lakros.html">Lakros</a>:</strong> El
+volcán que domina la ciudad de <strong>Medromora</strong> no es una
+formación natural. Se cree que es una Cicatriz que conecta con un plano
+de furia y fuego, una herida que el dios de la sangre, <a
+href="Lakros.html">Lakros</a>, explota para alimentar sus rituales y
+fortalecer a su clan.</li>
+<li><strong>El Corazón de Moonshadow:</strong> Aunque los elfos oscuros
+de <a href="Eldrador.html">Eldrador</a> lo niegan, se rumorea que su
+ciudad oculta fue deliberadamente construida sobre una Cicatriz que
+conecta con el Plano de las Sombras, lo que les permite dominar su magia
+de ilusión y secretos.</li>
+<li><strong>El Mar Hirviente:</strong> Una vasta región oceánica al sur
+de <a href="Galvorn.html">Galvorn</a> donde el agua burbujea sin fuente
+de calor aparente y surgen monstruos marinos de formas imposibles. Los
+marineros afirman que las brújulas giran sin control y que las estrellas
+visibles desde allí no se corresponden con ninguna constelación
+conocida.</li>
+</ul>
+<h2 id="importancia-en-lithernia">Importancia en Lithernia</h2>
+<p>Las Cicatrices del Velo son un recordatorio constante del precio de
+la arrogancia mortal y la ira divina. La mayoría de los habitantes de
+Lithernia las consideran tierras tabú, lugares de los que solo regresan
+los locos o los condenados. Las caravanas desvían sus rutas kilómetros
+para evitarlas, y los cuentos infantiles las usan como escenario para
+las más terribles advertencias.</p>
+<p>Sin embargo, para una minoría, representan una oportunidad. Los magos
+del <strong><a
+href="La_Conspiración_del_Cónclave_Sombrío.html">La_Conspiración_del_Cónclave_Sombrío</a></strong>
+de Mevanil, los nigromantes del <strong>Clan Whisper</strong> o los
+cultos que veneran la destrucción, buscan activamente estas zonas. Creen
+que estudiando o absorbiendo su energía caótica pueden alcanzar un poder
+más allá de los límites mortales. Para ellos, el riesgo de ser
+consumidos por la locura o destrozados por un hechizo fallido es un
+precio aceptable a pagar por el conocimiento prohibido y el dominio
+sobre las fuerzas <a href="Primordiales.html">Primordiales</a> que
+dieron forma al mundo. Aventureros, héroes y <a
+href="Villanos.html">Villanos</a> por igual pueden verse atraídos a
+estos lugares, ya sea para sellar una brecha que amenaza con expandirse,
+rescatar a alguien atrapado en su interior, o buscar un artefacto
+legendario que solo podría encontrarse donde la realidad misma está
+rota.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li>Los Círculos de Invocación</li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.52)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

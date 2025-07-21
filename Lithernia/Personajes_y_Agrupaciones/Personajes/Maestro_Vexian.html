@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maestro_Vexian</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Maestro_Vexian</div>
+        <div class="content">
+<h1 id="maestro-vexian">Maestro Vexian</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los susurrantes pasillos subterráneos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, donde el sigilo es ley y los
+secretos de los muertos son la moneda más valiosa, nació un hobgoblin
+destinado a ser una herejía. Vexian fue criado en la disciplina del Clan
+Whisper, educado en el arte de la necromancia silenciosa y el espionaje
+sutil. Sin embargo, en su interior bullía una impaciencia, una
+frustración con la pasividad de sus hermanos. Consideraba que esperar a
+que los espectros revelaran sus verdades era una debilidad, una danza
+cobarde alrededor del núcleo del poder verdadero: la agonía en estado
+puro.</p>
+<p>Su epifanía llegó durante el interrogatorio de un <a
+href="Mago.html">Mago</a> de guerra capturado de <a
+href="Valtoria.html">Valtoria</a>. Mientras sus maestros intentaban
+quebrar la mente del enano con susurros y sombras, Vexian observaba,
+fascinado por la resistencia indomable de la víctima. Desobedeciendo las
+órdenes, aplicó un pulso sónico rudimentario, una vibración disonante
+que hizo crujir los huesos y la voluntad del prisionero. El grito que
+brotó del enano no fue un simple sonido; fue una explosión de maná
+crudo, una ola de energía visceral que sacudió la cámara y le reveló a
+Vexian una verdad arcana: el dolor no era el camino hacia el secreto, el
+grito de dolor <em>era</em> el secreto.</p>
+<p>Por esta blasfemia, por profanar el sagrado silencio del Clan Whisper
+con su “ruido primitivo”, Vexian fue exiliado. Lejos de verlo como un
+castigo, lo abrazó como una liberación. Junto a un puñado de seguidores
+que compartían su visión, vagó por las tierras desoladas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> hasta encontrar su hogar natural:
+<a href="Calanor.html">Calanor</a>, la ciudadela donde el mismísimo <a
+href="Kromagul.html">Kromagul</a>, Dios del Dolor, era venerado. Allí,
+no era un hereje, sino un profeta. Fundó <strong>El Coro
+Discordante</strong>, una facción de hechiceros sónicos que aprendieron
+a canalizar la esencia del sufrimiento.</p>
+<p>Hoy, el Maestro Vexian es una leyenda en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Su motivación trasciende la
+simple tortura; se considera un artista. Su objetivo final es componer
+la sinfonía definitiva, aislar el “Grito Primordial”, la nota pura de
+agonía que, según cree, puede fracturar la voluntad de los dioses y
+revelar las verdades más profundas del universo. Sirve a <a
+href="Kromagul.html">Kromagul</a> no por servilismo, sino porque el dios
+es el mecenas perfecto para su macabro arte. Su relación con el Rey-Dios
+Sel’thirak es puramente transaccional: el Coro ofrece sus servicios de
+interrogación inigualables a la corona a cambio de <a
+href="Recursos.html">Recursos</a> y “sujetos de prueba” de alta calidad,
+aunque Vexian desprecia en privado la fría y silenciosa tiranía del Clan
+Sel’thirak, tan opuesta a su expresiva cacofonía.</p>
+<p>Su principal conflicto es una guerra ideológica contra sus antiguos
+hermanos del Clan Whisper. Los ve como fósiles, aferrados a un poder
+obsoleto, mientras ellos lo consideran una abominación vulgar. Esta
+rivalidad se manifiesta en sabotajes, duelos arcanos en las sombras y
+una competencia feroz por los contratos más lucrativos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, convirtiendo el mundo del
+espionaje en un campo de batalla acústico.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>A diferencia de la corpulencia marcial típica de los <a
+href="Hobgoblins.html">Hobgoblins</a>, Vexian es esbelto, casi frágil,
+con dedos largos y afilados, más propios de un músico que de un <a
+href="Guerrero.html">Guerrero</a>. Su piel tiene el tono verde grisáceo
+y enfermizo de su raza, pero sus ojos brillan con una intensidad febril
+y extática, especialmente cuando está “dirigiendo”. Viste túnicas
+ceremoniales de seda negra, bordadas con patrones de ondas sonoras en
+hilo de plata y sangre. Las ropas están impecables por fuera, pero
+manchadas y desgastadas por dentro, testimonio de las energías que
+canaliza. En lugar de cicatrices de batalla, su piel está surcada por
+finas líneas oscuras, como grietas en la porcelana, secuelas de
+resonancias arcanas que casi lo han deshecho en el pasado.</p>
+<p>Su equipamiento no es para el combate, sino para la canalización de
+su arte:</p>
+<ul>
+<li><strong>El Diapasón de la Agonía:</strong> Un diapasón de dos puntas
+forjado en acero meteórico y hueso de un psíquico. Al golpearlo contra
+una superficie, no emite un sonido audible, sino una frecuencia empática
+que le permite sintonizar con el dolor de una criatura, identificar sus
+miedos más profundos y modularlos como si fueran notas musicales.</li>
+<li><strong>La Batuta del Lamento:</strong> Una vara de conducción
+delgada y negra, tallada en obsidiana pulida y rematada con un cristal
+de cuarzo empapado en lágrimas. Con ella dirige a los acólitos de su
+Coro, sincronizando sus encantamientos sónicos para crear olas de
+tormento perfectamente armonizadas, capaces de desmantelar la psique más
+resistente.</li>
+<li><strong>Anillos de Resonancia:</strong> Una serie de anillos de
+plata y plomo que lleva en ambas manos. Absorben las vibraciones
+parásitas de sus propios hechizos, protegiéndolo de la retroalimentación
+sónica que ha enloquecido a muchos de sus aprendices menos dotados.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El Maestro Vexian ha alterado para siempre el paisaje del poder en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Ha creado una nueva y aterradora
+escuela de magia, transformando la tortura de un acto de brutalidad a
+una ciencia arcana. Su Coro Discordante se ha convertido en una
+herramienta indispensable para las élites del reino, un mal necesario
+que incluso el Rey-Dios Sel’thirak no puede permitirse ignorar.</p>
+<p>Su influencia ha revitalizado el culto a <a
+href="Kromagul.html">Kromagul</a>, otorgándole una nueva dimensión de
+sofisticación y poder. Ya no son solo sádicos sin rumbo; ahora son
+artistas de la agonía, con una metodología y un propósito que atrae a
+hechiceros ambiciosos y descontentos de todo el continente.</p>
+<p>Sin embargo, su legado más peligroso aún está por escribirse. La
+búsqueda del “Grito Primordial” no es una simple obsesión de un loco. Es
+la búsqueda de un arma absoluta. Si Vexian tuviera éxito, podría desatar
+una onda sónica de poder puro, un eco del cataclísmico <a
+href="Lilium.html">Lilium</a> capaz no solo de derrumbar ciudades, sino
+de hacer vibrar los mismos cimientos de la realidad, demostrando al fin,
+y para desgracia de todos, que <em>el silencio miente y el grito es la
+única verdad</em>.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.58)</li>
+<li><a href="Vexia.html">Vexia</a> (relevancia: 0.51)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

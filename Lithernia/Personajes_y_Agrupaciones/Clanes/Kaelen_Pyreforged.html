@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Pyreforged</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Pyreforged</div>
+        <div class="content">
+<h1 id="kaelen-pyreforged">Kaelen Pyreforged</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los anales de las grandes casas de Lithernia, pocas han ascendido
+con la ferocidad y la velocidad de los Pyreforged, y ninguna encarna
+mejor su espíritu que su patriarca, Kaelen. Nacido entre las brasas de
+un linaje dracónido errante, despojado de tierras y títulos ancestrales,
+Kaelen no heredó un trono, sino una lucha. Su clan vagó por las tierras
+baldías como mercenarios, con el eco del aliento de sus antepasados como
+única herencia y la memoria del fuego primordial de <a
+href="Valarios.html">Valarios</a>, el dios enano de la destrucción, como
+un eco en su sangre.</p>
+<p>Su destino cambió el día que sus exploradores divisaron las columnas
+de humo de <a href="Valarion.html">Valarion</a>, la ciudad-volcán.
+Atraídos por el culto a la destrucción purificadora, los Pyreforged
+buscaron un hogar en el corazón de la montaña, pero solo encontraron la
+desconfianza del Clan Agrietacero, los señores <a
+href="Enanos.html">Enanos</a> de la ciudad. Para ellos, los dracónidos
+no eran más que lagartos con ínfulas, indignos de pisar las sagradas
+forjas. Kaelen y los suyos tuvieron que ganar su lugar con acero y
+sudor, primero como gladiadores en el Foso del Desafío y luego como
+guardianes de las galerías más peligrosas, donde las criaturas del
+subsuelo amenazaban constantemente.</p>
+<p>La leyenda de Kaelen se forjó durante la “Gran Grieta”. Un temblor
+cataclísmico partió el corazón del volcán, y ríos de magma amenazaron
+con consumir <a href="Valarion.html">Valarion</a>. Mientras los maestros
+de <a href="Runas.html">Runas</a> <a href="Enanos.html">Enanos</a> del
+Clan Agrietacero luchaban en vano por contener la furia de la montaña
+con su magia tradicional, Kaelen vio la oportunidad en el caos. Organizó
+a sus guerreros dracónidos en un frente coordinado y, en un acto de
+audacia suicida, desataron su aliento de fuego combinado no para detener
+la lava, sino para darle una nueva salida. El torrente ígneo perforó la
+ladera de la montaña, creando un nuevo conducto que desvió la erupción y
+salvó a la ciudad de una aniquilación segura.</p>
+<p>Aquel día, la sangre dracónica demostró ser más poderosa que las <a
+href="Runas.html">Runas</a> ancestrales. El Crisol Volcánico, el consejo
+gobernante de la ciudad, no tuvo más remedio que reconocer su hazaña. A
+Kaelen y su clan se les otorgó el estatus de Casa <a
+href="Noble.html">Noble</a>, un honor sin precedentes para una estirpe
+no enana en <a href="Valarion.html">Valarion</a>. Nacía así la Casa
+Pyreforged.</p>
+<p>Como Patriarca, Kaelen ha demostrado ser un líder tan astuto como
+valiente. Perfeccionó y sistematizó la “forja de furia”, una técnica
+secreta que infunde la esencia del aliento de dragón en el acero,
+creando armas legendarias que arden con una llama interior. Estas armas
+se convirtieron en la principal fuente de poder y riqueza de su casa,
+codiciadas en toda Lithernia. Ha navegado las turbulentas aguas
+políticas de <a href="Valarion.html">Valarion</a> con mano firme,
+forjando una alianza pragmática con los <a href="Orcos.html">Orcos</a>
+del Clan Ironclaw para asegurar un suministro constante de menas raras y
+pactando con gremios de Genasi de Fuego para distribuir sus peligrosas
+mercancías. Su relación con el Forjamayor del Clan Agrietacero es un
+delicado baile de respeto y desafío, pues sabe que, aunque le deben la
+supervivencia de su ciudad, los <a href="Enanos.html">Enanos</a> nunca
+lo verán como un igual, sino como una fuerza de la naturaleza que, por
+ahora, han logrado contener.</p>
+<h2 id="descripción-y-equipamiento">Descripción y Equipamiento</h2>
+<p>Kaelen es una figura imponente, un testamento viviente de la herencia
+dracónica. Sus escamas, del color del cobre bruñido con vetas de
+obsidiana, están cubiertas de cicatrices que cuentan historias de
+innumerables batallas y del calor de la forja. A sus 120 años, se mueve
+con la autoridad de un patriarca y la potencia contenida de un
+depredador. Uno de sus cuernos está astillado, recuerdo de un duelo en
+su juventud, y sus ojos dorados brillan con una inteligencia antigua y
+un fuego que nunca se extingue.</p>
+<p>Viste la <strong>Coraza de Corazón de Ceniza</strong>, una obra
+maestra de la forja de furia creada por él mismo. La armadura de placas
+de acero volcánico parece absorber la luz y emana un calor palpable, con
+finas <a href="Runas.html">Runas</a> dracónicas que brillan con un leve
+fulgor púrpura cuando su ira se enciende. Sobre sus hombros lleva un
+manto tejido con la piel de un basilisco de las profundidades,
+resistente al fuego y a los ácidos de la montaña.</p>
+<p>Su arma es tan legendaria como él: <strong>Rompe-crisoles</strong>,
+un martillo de guerra colosal cuya cabeza es un bloque de obsidiana
+pura, imbuido con la esencia de su propio aliento. Se dice que el
+martillo no solo aplasta la roca y el acero, sino que también puede
+resquebrajar la voluntad de sus enemigos. No es solo un arma, es su
+herramienta, su cetro y el símbolo de su poder.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>El legado de Kaelen Pyreforged es el de la ruptura y la creación. En
+<a href="Valarion.html">Valarion</a>, es una leyenda viva: el forastero
+que salvó la ciudad y forzó a la tradición enana, inmutable durante
+milenios, a doblegarse ante un poder nuevo y elemental. Su ascenso ha
+creado una profunda fractura en la sociedad de la ciudad, inspirando a
+otras razas marginadas y enfureciendo a los clanes puristas, sembrando
+las semillas de un conflicto futuro que podría redefinir el reino de la
+montaña.</p>
+<p>Más allá de <a href="Valarion.html">Valarion</a>, Kaelen ha
+introducido un nuevo y terrible factor en la Gran Guerra. Las armas de
+la Casa Pyreforged son una fuerza desestabilizadora; su poder es tal que
+pueden cambiar el curso de una batalla, y ya son codiciadas por reyes,
+señores de la guerra y cultos oscuros por igual. Ha puesto un poder casi
+divino en manos mortales, y las consecuencias de este acto aún resuenan
+en todo el continente.</p>
+<p>Kaelen no aspira a unificar Lithernia ni a cumplir antiguas
+profecías. Su objetivo es más pragmático y, quizás, más duradero:
+cimentar el legado de su casa, asegurar que el nombre Pyreforged sea
+sinónimo de poder y respeto, y demostrar que el verdadero dominio no se
+hereda de dioses distantes, sino que se forja en el corazón del fuego, a
+golpe de martillo y voluntad indomable.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Pyreforged.html">Casa Pyreforged</a> (relevancia:
+0.39)</li>
+<li><a href="Casa%20Pyreforge.html">Casa Pyreforge</a> (relevancia:
+0.39)</li>
+<li><a href="Clan%20Agrietacero.html">Clan Agrietacero</a> (relevancia:
+0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

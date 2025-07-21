@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobgoblins</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Hobgoblins</div>
+        <div class="content">
+<h1 id="hobgoblins">Hobgoblins</h1>
+<h3 id="resumen-de-rasgos">Resumen de Rasgos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo Clave</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Aumento de
+Característica</strong></td>
+<td style="text-align: left;">+2 Constitución, +1 Inteligencia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">30 pies</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión</strong></td>
+<td style="text-align: left;">Visión en la Oscuridad (60 pies)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencias Clave</strong></td>
+<td style="text-align: left;">Intimidación</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgos Únicos</strong></td>
+<td style="text-align: left;">Disciplina de <a
+href="Kromagul.html">Kromagul</a>, Tácticas del Dolor, Legado del
+Sufrimiento</td>
+</tr>
+</tbody>
+</table>
+<h3 id="contexto-mecánico">Contexto Mecánico</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Vinculación en Lithernia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Reino de Origen</strong></td>
+<td style="text-align: left;"><a
+href="Mor&#39;dhul.html">Mor’dhul</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Panteón Principal</strong></td>
+<td style="text-align: left;">Panteón Korogrim</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidad Patrona</strong></td>
+<td style="text-align: left;"><a href="Kromagul.html">Kromagul</a>, Dios
+del Dolor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Social Típico</strong></td>
+<td style="text-align: left;">Estratega, soldado de élite, comandante,
+torturador. Sugiere trasfondos como Soldado, Gladiador o
+Inquisidor.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Facción Asociada</strong></td>
+<td style="text-align: left;">Clan <a
+href="Kromagul.html">Kromagul</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-raciales">Rasgos Raciales</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Incremento de Puntuación de
+Característica</strong></td>
+<td style="text-align: left;">Tu puntuación de Constitución aumenta en 2
+y tu puntuación de Inteligencia aumenta en 1.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Edad</strong></td>
+<td style="text-align: left;">Maduran al mismo ritmo que los <a
+href="Humanos.html">Humanos</a> y tienen una esperanza de vida
+ligeramente más larga.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento</strong></td>
+<td style="text-align: left;">Moldeados por su dios <a
+href="Kromagul.html">Kromagul</a> y su sociedad militarista, tienden
+hacia Legal Maligno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tamaño</strong></td>
+<td style="text-align: left;">Mediano. Miden entre 1,5 y 1,8 metros de
+altura (5 a 6 pies).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">Tu velocidad base al caminar es de 30
+pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión en la
+Oscuridad</strong></td>
+<td style="text-align: left;">Puedes ver en luz tenue hasta 60 pies como
+si fuera luz brillante, y en la oscuridad como si fuera luz tenue. No
+puedes discernir colores en la oscuridad, sólo tonos de gris.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Disciplina de <a
+href="Kromagul.html">Kromagul</a></strong></td>
+<td style="text-align: left;">Si fallas una tirada de ataque, una prueba
+de habilidad o una tirada de salvación, puedes elegir obtener un
+bonificador a la tirada igual al número de aliados que puedas ver en un
+radio de 30 pies (máximo de +3). Puedes usar este rasgo un número de
+veces igual a tu bonificador de competencia y recuperas todos los usos
+tras un descanso largo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tácticas del Dolor</strong></td>
+<td style="text-align: left;">Puedes usar la acción de Ayudar como una
+acción adicional. Cuando usas la acción de Ayudar para asistir a un
+aliado a atacar a una criatura, el aliado atacante también gana puntos
+de golpe temporales iguales a tu bonificador de competencia.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Legado del
+Sufrimiento</strong></td>
+<td style="text-align: left;">Tienes ventaja en las tiradas de salvación
+contra ser asustado. Además, ganas competencia en la habilidad de
+Intimidación.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Puedes hablar, leer y escribir en Común y
+en Goblin.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sinergias-de-clase">Sinergias de Clase</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Sinergia y Rol Sugerido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Guerrero.html">Guerrero</a></strong></td>
+<td style="text-align: left;"><strong>Óptima.</strong> El arquetipo
+<em>Maestro de Batalla</em> se beneficia de la INT.
+<code>Disciplina de [Kromagul](Kromagul.html)</code> asegura golpes
+clave y <code>Tácticas del Dolor</code> (acción adicional) permite
+atacar y comandar en el mismo turno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Artífice</strong></td>
+<td style="text-align: left;"><strong>Excelente.</strong> Un
+<em>Bélico</em> se beneficia de la alta CON para la primera línea y la
+INT para sus infusiones y <a href="Conjuros.html">Conjuros</a>.
+<code>Tácticas del Dolor</code> complementa su rol de apoyo en
+combate.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Mago.html">Mago</a></strong></td>
+<td style="text-align: left;"><strong>Buena.</strong> La alta CON es
+vital para mantener la concentración. Un <em><a
+href="Mago.html">Mago</a> de Guerra</em> se beneficia de la resistencia
+y de las opciones tácticas raciales.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Paladín</strong></td>
+<td style="text-align: left;"><strong>Contextual.</strong> Un
+<em>Juramento de Conquista</em> es temáticamente perfecto. La
+competencia en Intimidación de <code>Legado del Sufrimiento</code>
+potencia directamente su Canalizar Divinidad: Presencia
+Conquistadora.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pícaro</strong></td>
+<td style="text-align: left;"><strong>Buena.</strong> El arquetipo
+<em>Mente Maestra</em> utiliza la acción de Ayudar como acción
+adicional, y esta raza se la concede de base, liberando el arquetipo
+para otras opciones o apilando sus beneficios.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnjs-y-monstruos">PNJs y Monstruos</h3>
+<p>statblock name: Capitán del Dolor size: Mediano type: humanoide
+(goblin) alignment: legal maligno ac: 17 (Armadura de Placas) hp: 65
+(10d8 + 20) speed: 30 ft. stats: [15, 14, 14, 14, 12, 15] saves: - Int:
++4 - Sab: +3 - Car: +4 skills: Intimidación: +6 Percepción: +3 senses:
+Visión en la oscuridad 60 ft., Percepción Pasiva 13 languages: Común,
+Goblin cr: 4 traits: - name: Aura de Disciplina desc: “Cualquier aliado
+que comience su turno a 10 pies del capitán y pueda verlo u oírlo, gana
+5 puntos de golpe temporales. Estos puntos de golpe duran 1 minuto.” -
+name: Ventaja Marcial desc: “Una vez por turno, el capitán puede
+infligir 10 (3d6) de daño adicional a una criatura que golpee con un
+ataque de arma si esa criatura está a 5 pies de un aliado del capitán
+que no esté incapacitado.” actions: - name: Multiataque desc: “El
+capitán realiza dos ataques con su Mangual Dentado.” - name: Mangual
+Dentado desc: “Ataque de arma cuerpo a cuerpo: +4 a impactar, alcance 5
+ft., un objetivo. Impacto: 6 (1d8 + 2) de daño contundente más 7 (2d6)
+de daño psíquico.” - name: Grito Táctico (Recarga 5-6) desc: “El capitán
+elige hasta tres criaturas aliadas que pueda ver en un radio de 30 pies.
+Cada una puede usar su reacción para moverse hasta la mitad de su
+velocidad sin provocar ataques de oportunidad y realizar un ataque con
+arma.” reactions: - name: Castigo por Debilidad desc: “Cuando un enemigo
+a 5 pies del capitán falla un ataque contra él, el capitán puede
+realizar un ataque de oportunidad con su Mangual Dentado contra esa
+criatura.”</p>
+        </div>
+    </div>
+</body>
+</html>

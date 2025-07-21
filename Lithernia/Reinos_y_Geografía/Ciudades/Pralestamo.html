@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pralestamo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Pralestamo</div>
+        <div class="content">
+<h1 id="pralestamo">Pralestamo</h1>
+<p>Pralestamo no es una ciudad que grita su poder, sino que lo susurra.
+Escondida en un valle alpino de <a href="Valtoria.html">Valtoria</a>, la
+ciudad es un milagro de cooperación y equilibrio, un lugar donde la roca
+inmutable de los <a href="Enanos.html">Enanos</a>, el ingenio mecánico
+de los <a href="Gnomos.html">Gnomos</a> y la gracia viviente de los
+elfos se funden en una sola sinfonía. Sus cimientos son murallas de
+granito pulido que se elevan desde el suelo del valle, una fortaleza
+natural contra el mundo exterior. Pero sobre esta base de piedra, la
+ciudad se transforma en un intrincado mecanismo de bronce y vida.
+Observatorios con cúpulas giratorias, movidos por engranajes
+silenciosos, apuntan al cielo, conectados por puentes de relojero que
+cruzan sobre jardines colgantes y arcos de madera viviente. Es un centro
+de conocimiento donde la voz de la montaña y la música de los astros se
+escuchan con la misma reverencia.</p>
+<h2 id="historia">Historia</h2>
+<p>Pralestamo no nació de la conquista, sino de la necesidad de
+silencio. Tras siglos de guerras y el ruido incesante de la forja que
+definía a gran parte de <a href="Valtoria.html">Valtoria</a>, una
+coalición de pensadores buscó un refugio. Druidas goliatths que deseaban
+escuchar el latido de la tierra sin interrupciones, astrónomos <a
+href="Gnomos.html">Gnomos</a> que necesitaban cielos límpidos para sus
+telescopios, y un clan de elfos silvanos exiliados de <a
+href="Eldrador.html">Eldrador</a> que anhelaban un nuevo hogar en
+equilibrio con la naturaleza, encontraron este valle aislado.</p>
+<p>Pactaron con un clan de maestros canteros <a
+href="Enanos.html">Enanos</a>, quienes tallaron las defensas y los
+cimientos de la ciudad a cambio de paz y respeto por la integridad de la
+montaña. Sobre esta base, los <a href="Gnomos.html">Gnomos</a> erigieron
+sus observatorios, los goliatths consagraron los picos circundantes y
+los elfos tejieron sus jardines y arboledas en cada terraza. El gobierno
+fue conferido al “Círculo de los Videntes”, un consejo formado por los
+más sabios de cada comunidad, que rinde cuentas al Concilio de la
+Montaña pero mantiene una fuerte autonomía cultural. Así, Pralestamo se
+convirtió en el faro intelectual de <a
+href="Valtoria.html">Valtoria</a>, un lugar dedicado no a la extracción
+de riquezas, sino de sabiduría.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Cúpulas de Bronce</strong>: El distrito gnomo,
+dominado por una serie de observatorios cuyas cúpulas de bronce y
+cristal giran con una precisión hipnótica. Durante el día, sus calles
+resuenan con el tintineo de herramientas y el zumbido de nuevos
+inventos. Por la noche, se sumen en un silencio reverencial, iluminadas
+solo por la luz de las estrellas capturada en sus lentes.</p></li>
+<li><p><strong>La Terraza Silente</strong>: Hogar de los goliatths y los
+elfos, esta zona es una cascada de jardines colgantes y plazas de
+meditación. Aquí, los caminos de piedra están cubiertos de musgo y las
+viviendas están talladas en la roca o tejidas entre árboles de corteza
+plateada. Es el corazón espiritual de la ciudad, donde se celebra el
+Solsticio Silente.</p></li>
+<li><p><strong>El Engranaje Central</strong>: La plaza principal de la
+ciudad, un prodigio de la ingeniería gnoma. En su centro, un colosal
+mecanismo de engranajes de bronce y plata se mueve lentamente, simulando
+el movimiento de los planetas y las estrellas. Alrededor de esta plaza
+se celebra la “Feria de los Mecanismos Astrales”, donde los inventores
+presentan sus creaciones.</p></li>
+<li><p><strong>El Lago del Vislumbre</strong>: Un lago de aguas
+cristalinas y heladas en el centro del valle. Su quietud es legendaria y
+se considera un nexo sagrado. Los druidas y videntes acuden a sus
+orillas para meditar, buscando respuestas en sus profundidades
+insondables.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Pralestamo es metódica y contemplativa. El trabajo se
+mezcla con el estudio y la meditación. La festividad más importante es
+el “Solsticio Silente”, un día completo en el que todo mecanismo se
+detiene y toda voz calla. Los ciudadanos se retiran a la quietud de las
+terrazas o las orillas del lago para escuchar a la montaña, creyendo que
+en ese silencio la tierra y los cielos revelan sus secretos.</p>
+<p>En marcado contraste, la “Feria de los Mecanismos Astrales” es un
+estallido de creatividad y ruido, donde los <a
+href="Gnomos.html">Gnomos</a> compiten por crear los autómatas,
+astrolabios y artilugios más ingeniosos, a menudo con resultados
+espectaculares y ocasionalmente explosivos. La cultura valora el
+conocimiento compartido por encima de la riqueza personal, y la mayor
+muestra de estatus es tener un nuevo teorema astronómico o un mecanismo
+innovador que lleve tu nombre.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La ciudad es una obra de arte funcional. Las sólidas y austeras
+estructuras enanas en la base contrastan con la complejidad ornamental
+de los observatorios <a href="Gnomos.html">Gnomos</a>. Los jardines
+élficos suavizan las líneas duras, añadiendo un toque orgánico con sus
+puentes de raíces y cascadas que caen entre los edificios. El ambiente
+es de una paz estudiosa, donde el aire fresco de la montaña se mezcla
+con el leve olor a aceite de engranajes y el perfume de flores alpinas.
+El sonido predominante es un suave zumbido mecánico, el tictac cósmico
+de una ciudad que funciona como un reloj celestial.</p>
+<h2 id="situación-y-amenazas">Situación y Amenazas</h2>
+<p>Pese a su aislamiento, Pralestamo no está libre de peligros. La
+facción de los “Cazadores de Sombras”, renegados que desprecian la
+sabiduría y la ciencia, ven a la ciudad como un símbolo de la decadencia
+intelectual. Han realizado sabotajes en el pasado, intentando dañar los
+observatorios o envenenar las arboledas sagradas.</p>
+<p>Además, existe una tensión constante con los clanes mineros <a
+href="Enanos.html">Enanos</a> de las montañas vecinas. Sus operaciones
+de extracción amenazan con contaminar las aguas puras que alimentan el
+Lago del Vislumbre, lo que sería una catástrofe tanto ecológica como
+espiritual. El Círculo de los Videntes se encuentra en una delicada
+negociación diplomática para proteger sus <a
+href="Recursos.html">Recursos</a> sin iniciar un conflicto abierto con
+clanes más beligerantes.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Guardián Durmiente</strong>: Se dice que bajo las
+aguas del Lago del Vislumbre no hay fondo, sino el cuerpo dormido de un
+colosal elemental de tierra ancestral. No es una amenaza, sino un
+guardián. Su lento “aliento” sube a través de la roca y el agua,
+nutriendo la flora mágica única del valle. Despertarlo sería condenar a
+Pralestamo a la esterilidad.</p></li>
+<li><p><strong>El Reflejo del Destino</strong>: La leyenda más famosa
+afirma que durante el “Solsticio Silente”, si uno se mira en las aguas
+del lago, no verá su propio rostro. En su lugar, el reflejo muestra un
+breve atisbo del momento más crucial de su destino: una batalla, un
+amor, una traición o la propia muerte. Pocos se atreven a mirar, pues
+temen lo que puedan ver.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

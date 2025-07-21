@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borin_Runacronos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Borin_Runacronos</div>
+        <div class="content">
+<h1 id="borin-runacronos">Borin Runacronos</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En las profundidades de <a href="Valtoria.html">Valtoria</a>, lejos
+de las forjas rugientes y los salones de hidromiel, la ciudad de <a
+href="Cyndril.html">Cyndril</a> late con el tictac incesante de miles de
+mecanismos. Es en este santuario del orden donde se forjó el alma de
+Borin Runacronos, no con martillo y yunque, sino con la precisión de un
+relojero y la sabiduría de un sabio. Como descendiente directo del
+maestro runista enano que, junto a un visionario gnomo, fundó el Clan
+del Engranaje Perpetuo, Borin nació destinado a una herejía: la creencia
+de que el tiempo no es un río divino, sino una máquina cósmica que puede
+ser comprendida, mapeada y, en última instancia, ajustada.</p>
+<p>Desde joven, Borin demostró una aptitud prodigiosa no para la guerra,
+sino para la <em>cronomecánica</em>, la disciplina que fusiona la
+ingeniería de precisión de los <a href="Gnomos.html">Gnomos</a> con la
+magia rúnica ancestral de los <a href="Enanos.html">Enanos</a>. Mientras
+otros de su estirpe aprendían a blandir hachas, Borin aprendía a tallar
+<a href="Runas.html">Runas</a> capaces de ralentizar el desvanecimiento
+de un eco mágico o estabilizar un péndulo arcano. Su devoción y talento
+lo elevaron al rango de <strong>Guardián de la Runa</strong>, el
+responsable de tejer la magia en los intrincados autómatas y artefactos
+temporales del clan.</p>
+<p>Hoy, a sus 350 años, Borin es el Consejero Principal del clan, la
+mente arcana que complementa el genio mecánico de su más cercano colega,
+el gnomo Kaelen “Manecillas” Tornilloingenio. Juntos, lideran el
+proyecto más ambicioso y secreto de Lithernia: la construcción del
+<strong>Cronómata</strong>, un artefacto de poder inimaginable diseñado
+para cartografiar el flujo del tiempo y predecir los grandes
+cataclismos. La motivación de Borin es la de un salvador que empuña las
+herramientas de un déspota: sueña con evitar futuros Liliums, pero sabe
+que el camino hacia ese control exige pactos oscuros y desafía los
+fundamentos mismos de la fe valtoriana.</p>
+<p>Fue Borin quien negoció la peligrosa alianza con el Clan Whisper de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>. Con una frialdad que inquieta
+incluso a sus propios hermanos de clan, intercambia maravillas mecánicas
+por reliquias imbuidas con los ecos de la muerte, convencido de que para
+comprender el futuro, primero deben diseccionar el pasado, alma por
+alma. Este pragmatismo lo ha puesto en conflicto directo con los
+tradicionalistas de la Torre de las Estrellas, quienes ven en él una
+arrogancia que podría desgarrar el tejido de la realidad. Borin no busca
+el poder por la gloria, sino por la convicción de que solo un orden
+absoluto, una predictibilidad perfecta, puede proteger a Lithernia de la
+caótica tiranía de los dioses y el destino. Su obsesión es la Lanza
+Celestial <strong>Chronos</strong>, no para blandirla, sino para
+desentrañar su mecanismo, creyendo que es la pieza clave —la <em>rueda
+de escape</em>— que regula el gran reloj del universo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Borin es un enano cuya apariencia refleja la naturaleza de su
+trabajo. Es de complexión delgada para su raza, con una postura erguida
+y hombros tensos por décadas de encorvarse sobre planos y mesas de
+grabado. Sus manos, aunque fuertes, son de dedos largos y ágiles,
+manchados permanentemente con tintas rúnicas y polvo de metales
+preciosos. Su barba, un mar de ébano con vetas de plata, no está
+adornada con anillos de victoria, sino meticulosamente trenzada e
+entrelazada con finos alambres de mithril y diminutos engranajes de
+bronce que giran y emiten un suave zumbido al compás de su respiración.
+Sus ojos, de un profundo color pizarra, son intensos y rara vez
+parpadean, acostumbrados a escudriñar detalles invisibles para el ojo
+común.</p>
+<p>No porta la armadura pesada de un <a
+href="Guerrero.html">Guerrero</a>, sino una <strong>Coraza de Engranajes
+Entrelazados</strong>, una obra maestra de cuero endurecido reforzada
+con placas de mithril y bronce que se ajustan y reconfiguran con un
+sutil chasquido, adaptándose a sus movimientos. Sobre su rostro suele
+llevar sus <strong>Lentes de Cronovisión</strong>, un complejo artilugio
+de múltiples lentes de zafiro y rubí que puede ajustar para percibir
+distorsiones temporales, ecos de maná o la fatiga del metal en una
+máquina.</p>
+<p>Su única “arma” es el <strong>Martillo de Calibración
+Rúnica</strong>, una herramienta exquisitamente equilibrada con una
+cabeza de acero estelar y un mango de roble petrificado. No está
+diseñado para aplastar cráneos, sino para golpear cinceles rúnicos con
+una precisión absoluta, afinando los flujos de energía en sus
+creaciones. Se dice que el martillo puede reparar una máquina con un
+solo toque o, si se golpea en el punto exacto, detener el tiempo en un
+objeto durante un instante.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Borin Runacronos se encuentra en el epicentro de una revolución
+silenciosa que podría redefinir el poder en Lithernia. No es un rey, ni
+un general, pero su influencia puede llegar a ser mucho más profunda y
+duradera. Su legado será el de un Prometeo enano: un visionario que robó
+el secreto del tiempo a los dioses para entregárselo a los mortales, o
+un Icaro cuya ambición lo llevó a volar demasiado cerca del sol del
+destino.</p>
+<p>Si el Cronómata es completado, Borin y el Clan del Engranaje Perpetuo
+tendrán en sus manos la capacidad de predecir —y quizás evitar— guerras,
+desastres naturales e incluso las intervenciones divinas. Se
+convertirían en los pastores silenciosos de la historia, guiando a
+Lithernia hacia un futuro de orden perfecto. Pero el precio de esa
+utopía es la libertad, el caos y la incertidumbre que definen la
+vida.</p>
+<p>Su arriesgada alianza con el Clan Whisper es una bomba de tiempo que
+pende sobre todo <a href="Valtoria.html">Valtoria</a>. Si se descubre,
+podría desencadenar una guerra civil o una purga que destruiría a su
+clan. Sin embargo, para Borin, es un riesgo calculado. Él no ve el bien
+y el mal, solo las piezas de una máquina. El mayor impacto de Borin
+Runacronos podría no ser una hazaña visible, sino una idea plantada en
+el corazón de Lithernia: que el destino no es algo que se sufre, sino un
+mecanismo que se puede desmontar y volver a ensamblar.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clan%20del%20Engranaje%20Perpetuo.html">Clan del Engranaje
+Perpetuo</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

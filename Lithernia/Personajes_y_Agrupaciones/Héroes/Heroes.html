@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heroes</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Heroes</div>
+        <div class="content">
+<h1 id="héroes">Héroes</h1>
+<p>En las crónicas de Lithernia, marcadas por la guerra divina, el caos
+dracónico y la tiranía, la figura del héroe emerge como una constante
+llama de esperanza. Desde los albores de la civilización mortal hasta la
+incierta Era Actual, han surgido individuos cuyo valor, sabiduría o
+sacrificio han alterado el curso de la historia. Son los pilares sobre
+los que se construyen las <a href="Leyendas.html">Leyendas</a>, los
+faros que guían en la oscuridad y la encarnación de la resiliencia de
+los pueblos.</p>
+<p>La historia recuerda con especial reverencia la <strong>Apoteosis de
+los Héroes</strong>, un periodo durante la Guerra Interminable en que
+figuras excepcionales se alzaron para desafiar el horror generalizado.
+Sus hazañas legendarias —sellar portales de pesadilla, unificar a
+enemigos irreconciliables o fundar ciudades que aún perduran— plantaron
+las semillas de la restauración. Hoy, mientras nuevas crisis y antiguas
+profecías amenazan el equilibrio del mundo, Lithernia vuelve a buscar a
+sus campeones, ya sea en los tronos de los reyes, en los puentes de
+mando de los navíos, o entre los aventureros anónimos que se atreven a
+explorar las ruinas del pasado.</p>
+<h2 id="héroes-de-la-antigüedad">Héroes de la Antigüedad</h2>
+<p>Las <a href="Leyendas.html">Leyendas</a> más antiguas de Lithernia
+están forjadas en las hazañas de figuras míticas cuyas acciones aún
+resuenan en la memoria colectiva.</p>
+<h3 id="el-primer-rey">El Primer Rey</h3>
+<p>El arquetipo de todos los héroes mortales. Antes de ser un monarca
+sellado y una profecía, el Primer Rey fue el
+<strong>Unificador</strong>, un líder carismático que logró lo
+imposible: unir a las razas de Lithernia bajo un solo estandarte tras la
+caótica Era de las Escamas y Fuego. Forjó un imperio basado en la
+justicia y la prosperidad, demostrando que los mortales podían
+gobernarse a sí mismos sin el yugo de los <a
+href="Dragones.html">Dragones</a>.</p>
+<p>Su acto heroico supremo fue también su caída. Al desafiar a los
+dioses para proteger a su pueblo de la tiranía divina, lideró un
+ejército mortal contra los cielos. Aunque fue derrotado y condenado a un
+sufrimiento eterno, su rebelión se convirtió en un poderoso símbolo.
+Para muchos, especialmente entre los <a href="Humanos.html">Humanos</a>
+y los <a href="Tieflings.html">Tieflings</a> oprimidos, el Primer Rey no
+es solo un héroe, sino un mártir y un dios caído, cuya profetizado
+retorno representa la única esperanza verdadera para un mundo libre.</p>
+<h3 id="campeones-de-la-apoteosis">Campeones de la Apoteosis</h3>
+<p>Durante los días más oscuros de la Era de los Mil Años, cuando la
+esperanza parecía extinguida, surgió una generación de héroes cuyas
+gestas se cantan hasta hoy. No eran reyes ni dioses, sino figuras
+nacidas en la adversidad que se alzaron para desafiar el caos. *
+<strong>Cazadores de Monstruos:</strong> Valientes que se adentraron en
+tierras malditas para dar caza a las criaturas surgidas del <a
+href="Lilium.html">Lilium</a> o la corrupción de los <a
+href="Dragones.html">Dragones</a>. * <strong>Fundadores de
+Refugios:</strong> Líderes que guiaron a su pueblo a través de páramos
+desolados para fundar ciudades y fortalezas que se convirtieron en
+bastiones de civilización, como Vallas o los primeros asentamientos de
+Noblestevo. * <strong>Pacificadores:</strong> Diplomáticos y guerreros
+que, con la palabra o la espada, forjaron treguas imposibles entre
+clanes enemigos, sentando las bases de las futuras naciones.</p>
+<p>El legado de estos héroes vive en la veneración local que reciben en
+ciertos pueblos y en las advertencias que sus historias contienen sobre
+la arrogancia y la traición.</p>
+<h2 id="héroes-de-la-era-actual">Héroes de la Era Actual</h2>
+<p>Aunque los días de <a href="Leyendas.html">Leyendas</a> parecen
+lejanos, la Era Actual tiene sus propias figuras heroicas, cuyas
+acciones definen el presente y el futuro de los reinos.</p>
+<h3 id="capitán-aurelius-stormsail">Capitán Aurelius Stormsail</h3>
+<p>Un héroe del pueblo y el mar, el Capitán Stormsail encarna el
+espíritu aventurero y la resiliencia de <a
+href="Galvorn.html">Galvorn</a>. De origen humilde, ascendió gracias a
+su valor y astucia naval, ganando renombre al defender el puerto de
+Poyoranta de una incursión pirata con una flota improvisada. Hoy, como
+Almirante y miembro del Consejo de Capitanes, es un pilar de la defensa
+de <a href="Galvorn.html">Galvorn</a>. Su heroísmo no reside en un
+linaje <a href="Noble.html">Noble</a>, sino en su dedicación a proteger
+las rutas comerciales, su camaradería con su tripulación y su sueño de
+un océano libre y seguro para todos.</p>
+<h3 id="reina-valeria-bronzebrillo">Reina Valeria Bronzebrillo</h3>
+<p>En un mundo dominado por la fuerza bruta y la intriga, la Reina
+Valeria de <a href="Valtoria.html">Valtoria</a> es una heroína de la paz
+y la sabiduría. Como monarca constitucional, su poder no reside en el
+autoritarismo, sino en su capacidad para mediar, escuchar y mantener la
+armonía entre los diversos clanes y gremios de su reino. Promueve el
+equilibrio entre la tradición y el progreso, y su gobierno justo y
+sabio, asesorado por la Torre de las Estrellas, ha convertido a <a
+href="Valtoria.html">Valtoria</a> en un faro de estabilidad. Su heroísmo
+es el de una constructora, que protege a su pueblo no con ejércitos,
+sino con unidad y respeto mutuo.</p>
+<h3 id="archimago-thalios-estrella-antigua">Archimago Thalios Estrella
+Antigua</h3>
+<p>El heroísmo también se encuentra en la búsqueda incansable del
+conocimiento. Thalios, un Alto Elfo que abandonó las rígidas jerarquías
+de <a href="Eldrador.html">Eldrador</a>, encontró un hogar en <a
+href="Valtoria.html">Valtoria</a> y se convirtió en el líder de la Torre
+de las Estrellas. Su vida ha sido un acto heroico de dedicación a
+preservar la sabiduría, comprender los misterios del universo y fomentar
+la cooperación entre razas. Es uno de los pocos que investiga
+activamente la verdad tras el <a href="Lilium.html">Lilium</a> y la
+profecía del Primer Rey, creyendo que el entendimiento es la única vía
+para romper el ciclo de guerra. Representa al héroe-mentor, cuya arma es
+la mente y cuyo campo de batalla es la ignorancia.</p>
+<h3 id="los-héroes-anónimos">Los Héroes Anónimos</h3>
+<p>Más allá de las grandes figuras, Lithernia está plagada de héroes sin
+nombre cuyo valor sostiene el mundo: * <strong>Los Aventureros:</strong>
+Grupos de individuos de distintas razas que se adentran en ruinas
+olvidadas, luchan contra monstruos en las fronteras y desentrañan
+conspiraciones que amenazan a los inocentes. Son los protagonistas
+silenciosos de la era. * <strong>Los Rebeldes:</strong> En las tierras
+oscuras de <a href="Mor&#39;dhul.html">Mor’dhul</a>, los <a
+href="Orcos.html">Orcos</a> insurrectos de <strong>Chéneras</strong> o
+los habitantes de ciudades libres como <strong>Vallas</strong> luchan a
+diario por su libertad contra una tiranía abrumadora. Para su gente, son
+los más grandes héroes. * <strong>Los Guardianes:</strong> Los soldados
+de la <strong>Guardia de la Montaña</strong> de <a
+href="Valtoria.html">Valtoria</a>, los <strong>Rangers</strong> que
+patrullan los bosques de <a href="Eldrador.html">Eldrador</a> o los
+simples guardias de una caravana que se sacrifican para proteger a
+otros. Su heroísmo es un deber cumplido en silencio.</p>
+<h2 id="la-profecía-y-el-campeón-elegido">La Profecía y el Campeón
+Elegido</h2>
+<p>La máxima expresión del heroísmo en Lithernia está ligada a la
+<strong>Profecía del Retorno del Primer Rey</strong>. Este antiguo
+augurio predice que un día, “el Rey de Lithernia” quebrará el sello de
+una de las Lanzas Celestiales y conferirá su poder a un mortal elegido.
+Este <strong>Campeón</strong> está destinado a realizar la hazaña
+heroica definitiva: desafiar a los dioses, reunificar el mundo bajo un
+solo estandarte y “purgar las creaciones fallidas de los dioses”,
+poniendo fin a la Gran Guerra.</p>
+<p>Esta profecía es tanto una fuente de esperanza como de temor. ¿Será
+el Campeón un salvador que traerá una era de paz, o un conquistador cuya
+“purga” desatará un caos aún mayor? El destino de este héroe profetizado
+es, en última instancia, el destino de toda Lithernia.</p>
+<h2 id="el-concepto-del-héroe-en-los-reinos">El Concepto del Héroe en
+los Reinos</h2>
+<p>Cada cultura de Lithernia define el heroísmo a su manera, reflejando
+sus valores y los dioses que los crearon. * <strong>En <a
+href="Mor&#39;dhul.html">Mor’dhul</a>:</strong> El heroísmo se asocia a
+la fuerza implacable, la lealtad al clan y la gloria en la conquista. Un
+general como <strong>Volrath</strong> es un héroe para los <a
+href="Orcos.html">Orcos</a>. Sin embargo, para los oprimidos, el
+verdadero heroísmo es la rebelión y el sacrificio por la libertad. *
+<strong>En <a href="Galvorn.html">Galvorn</a>:</strong> Un héroe es un
+aventurero audaz, un capitán que descubre nuevas tierras o un defensor
+de la libertad comunitaria. El valor, el ingenio y la camaradería son
+las virtudes heroicas por excelencia. * <strong>En <a
+href="Valtoria.html">Valtoria</a>:</strong> El heroísmo reside en la
+dedicación, la comunidad y la creación. Un maestro herrero que <a
+href="Herreria.html">Herreria</a> una obra maestra, un sabio que
+preserva la historia o un <a href="Druida.html">Druida</a> que protege
+la montaña son tan heroicos como el <a href="Guerrero.html">Guerrero</a>
+más valiente. * <strong>En <a
+href="Eldrador.html">Eldrador</a>:</strong> El heroísmo es aristocrático
+y está ligado al deber, la perfección y la preservación del legado
+élfico. Un <a href="Caballero.html">Caballero</a> <a
+href="Noble.html">Noble</a> que defiende el honor de su casa, un
+archimago que domina artes arcanas antiguas o un artista cuya obra
+perdura por siglos son considerados héroes.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.70)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestias_Aladas_del_Imperio</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Bestias_Aladas_del_Imperio</div>
+        <div class="content">
+<h1 id="bestias-aladas-del-imperio">Bestias aladas del imperio</h1>
+<p>En las páginas más antiguas y sagradas del Imperio de Lithernia, se
+narra una época marcada por el auge del Primer Rey y la guerra titánica
+contra los mismísimos dioses. En este fulgor de leyenda y sangre,
+surgieron las <em><a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+Aladas del Imperio</em>, criaturas míticas que, montadas por los más
+valientes jinetes, rompieron los cielos y desafiaron el orden
+divino.</p>
+<h2 id="origen-y-creación">Origen y creación</h2>
+<p>Las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+Aladas no nacieron por casualidad ni de la simple voluntad de la
+naturaleza. Fue el propio Primer Rey —cuya sabiduría y poder aún
+resuenan en el eco del tiempo— quien, con la ayuda de arcanos olvidados
+y pactos con entidades ancestrales, convocó estas criaturas para servir
+en su guerra insaciable contra las entidades divinas que pretendían
+subyugar a la humanidad.</p>
+<p>Los primeros relatos cuentan que estas <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+se forjaron a partir de las almas de viento y fuego, amalgamadas con
+sangre de dragón antiguo y fragmentos de estrellas caídas. De esta
+fusión nacieron entidades aladas, cuyo vuelo parecía romper la barrera
+entre los reinos mortales y el dominio celestial.</p>
+<h2 id="descripción-y-tipologías">Descripción y tipologías</h2>
+<p>Las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+Aladas del Imperio varían en formas, tamaños y poderes, pero todas
+comparten rasgos que las distinguen como seres de poder supremo:</p>
+<ul>
+<li><p><strong>Alaescamas</strong>: De imponentes escamas doradas que
+brillan como el sol, estas <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+mezclan características de dragón y aguilón. Su aliento era un fuego
+celestial capaz de derretir armaduras divinas.</p></li>
+<li><p><strong>Sombravientos</strong>: Criaturas oscuras, casi invisible
+ante la luz plena, con alas membranosas que podían desafiar tormentas.
+Se decía que podían volar a velocidades imposibles y desaparecer entre
+corrientes de viento sombrío.</p></li>
+<li><p><strong>Griforojos</strong>: <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+con cuerpo de león y alas de ave rapaz, poseían una ferocidad
+inigualable y un rugido que atemorizaba incluso a los dioses. Sus ojos
+ardían con la furia del combate divino.</p></li>
+</ul>
+<p>Cada tipo de bestia estaba asociado a un atributo particular, desde
+la furia hasta la sabiduría, y sus jinetes se seleccionaban según la
+afinidad espiritual y la capacidad marcial para domarlas y
+comandarlas.</p>
+<h2 id="rol-en-las-campañas-contra-los-dioses">Rol en las campañas
+contra los dioses</h2>
+<p>Las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+Aladas del Imperio no sólo fueron monturas; fueron armas, símbolos y
+compañeros en la lucha más desesperada de los mortales contra los
+inmortales. En batallas legendarias —como la Caída del Firmamento y el
+Asedio de las Estrellas— estas criaturas llevaron a los guerreros
+imperiales a desafiar a los dioses en sus propios dominios.</p>
+<p>Su vuelo rasgó las nubes divinas, sus garras desgarraron entidades
+etéreas y su rugido eclipsó los truenos celestiales. Con cada caída de
+una de estas <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>,
+el mundo temblaba y el equilibrio entre lo humano y lo divino se
+reconfiguraba.</p>
+<h2 id="leyendas-y-legado">Leyendas y legado</h2>
+<p>A pesar de la desaparición física de estas criaturas tras la
+consolidación del Imperio y el fin de la guerra divina, su memoria no ha
+desaparecido. En las aldeas y ciudades bajo la sombra de Lithernia, aún
+se cuentan historias de un jinete alado que surca el cielo durante
+tormentas, protector de los desamparados y perseguidor de sombras.</p>
+<p>Monumentos y relieves en antiguos templos muestran la silueta de
+estas <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>,
+y en algunos códices se conserva la esperanza de que algún día puedan
+regresar para proteger a Lithernia de nuevas amenazas anunciadas en las
+estrellas.</p>
+<h2 id="costumbres-y-cultos-asociados">Costumbres y cultos
+asociados</h2>
+<p>Los jinetes de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+aladas formaban un linaje sagrado dentro del Imperio, ritualizados desde
+su infancia para soportar la unión mística con las criaturas. Se
+realizaban ceremonias donde se invocaba el espíritu de la bestia, y se
+tallaban amuletos con plumas y escamas que se creían canalizaban su
+energía incluso siglos después.</p>
+<p>Algunos cultos menores veneraban a las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+Aladas como mediadores entre los hombres y los dioses, guardianes del
+equilibrio entre el cielo y la tierra, y protectores de la voluntad
+imperial.</p>
+<hr />
+<p>La historia de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+Aladas del Imperio es un testimonio eterno de la audacia de Lithernia y
+de la compleja relación entre lo mortal y lo divino, grabada en cada
+viento que sopla sobre sus montañas y en cada estrella que brilla sobre
+su vasto territorio.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Vorágine_Perpetua</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Vorágine_Perpetua</div>
+        <div class="content">
+<h1 id="la-vorágine-perpetua">La vorágine perpetua</h1>
+<h3 id="perfil-del-lugar-de-poder">Perfil del Lugar de Poder</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo</strong></td>
+<td style="text-align: left;">Amenaza Ambiental Cataclísmica, Lugar de
+Poder</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ubicación</strong></td>
+<td style="text-align: left;">Océano Oeste, más allá de la costa de <a
+href="Galvorn.html">Galvorn</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nivel de Peligro</strong></td>
+<td style="text-align: left;">Mortal (CR 20+)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidades Asociadas</strong></td>
+<td style="text-align: left;"><a href="Exion.html">Exion</a> (Furia), <a
+href="Quiteon.html">Quiteon</a> (Viento), <a href="Yfrit.html">Yfrit</a>
+(Contención), <a href="Arzia.html">Arzia</a> (Ojo)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ecos Ancestrales</strong></td>
+<td style="text-align: left;">Tal’vorak (Dragón de Tormentas),
+Cataclismo del <a href="Lilium.html">Lilium</a> (Potenciador)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Facciones
+Interesadas</strong></td>
+<td style="text-align: left;"><a href="Galvorn.html">Galvorn</a>
+(Navegantes), <a href="Mor&#39;dhul.html">Mor’dhul</a> (Conquistadores),
+<a href="Valtoria.html">Valtoria</a> (Eruditos)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>15</strong></td>
+<td style="text-align: left;">Naturaleza / Historia</td>
+<td style="text-align: left;">Es una tormenta perpetua, atribuida a la
+lucha entre los dioses <a href="Exion.html">Exion</a> y <a
+href="Quiteon.html">Quiteon</a>. Navegar cerca es suicida.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>20</strong></td>
+<td style="text-align: left;">Arcanos / Religión</td>
+<td style="text-align: left;">La Vorágine es una herida en el Tejido del
+Maná, un eco del poder del dragón Tal’vorak, amplificada por el
+Cataclismo del <a href="Lilium.html">Lilium</a>. El Ojo de la Tormenta
+es un lugar de calma antinatural y poder arcano.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>25</strong></td>
+<td style="text-align: left;">Historia / Saber Popular</td>
+<td style="text-align: left;">Dentro del Ojo se forjan artefactos
+elementales puros. Se conocen los nombres de algunas reliquias como el
+<em>Ojo de la Tormenta</em> o las <em>Lágrimas de <a
+href="Exion.html">Exion</a></em>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="estructura-y-reglas-de-entorno">Estructura y Reglas de
+Entorno</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Zona de la Tormenta</th>
+<th style="text-align: left;">Efectos Mecánicos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Bandas Exteriores</strong></td>
+<td style="text-align: left;">• <strong>Navegación:</strong> Pruebas de
+habilidad con vehículos (acuáticos) se realizan con desventaja. Un fallo
+indica una desviación de 1d10 x 10 millas.<br>• <strong>Clima
+Extremo:</strong> Al final de cada hora, cada criatura expuesta debe
+superar una salvación de Constitución CD 15 o sufrir un nivel de
+agotamiento.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Muro del Caos</strong></td>
+<td style="text-align: left;">• <strong>Daño Constante:</strong> Al
+comienzo de su turno, cada criatura en el área sufre 11 (2d10) de daño
+por frío y 11 (2d10) de daño por trueno.<br>• <strong>Visibilidad
+Nula:</strong> El área se considera fuertemente oscura. La visión mágica
+(como la visión en la oscuridad) no funciona.<br>• <strong>Sonido
+Ensorcedor:</strong> Las criaturas quedan ensordecidas permanentemente
+mientras permanezcan en esta zona y deben superar una salvación de
+Sabiduría CD 18 al entrar o quedar confundidas (como el conjuro) durante
+1 minuto.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>El Ojo de la
+Tormenta</strong></td>
+<td style="text-align: left;">• <strong>Calma Antinatural:</strong> Los
+efectos climáticos cesan. Las aguas están en calma.<br>• <strong>Nexo de
+Maná:</strong> Los lanzadores de <a href="Conjuros.html">Conjuros</a>
+recuperan 1d6 Puntos de Maná adicionales por cada hora de descanso
+corto. La <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+se elimina al doble de la velocidad normal.<br>• <strong>Visión
+Astral:</strong> La magia de adivinación revela constelaciones alineadas
+con el panteón de <a href="Arzia.html">Arzia</a>, otorgando ventaja en
+pruebas para descifrar profecías.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-artefactos-de-la-vorágine">Tabla de Artefactos de la
+Vorágine</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Artefacto (Rareza)</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>Fragmento de Céfiro</strong> (Poco
+común)</td>
+<td style="text-align: left;">Mientras sostienes esta piedra, tu
+velocidad aumenta en 10 pies. Puedes lanzar <em>Ráfaga de Viento
+(Gust)</em> a voluntad (CD 13).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>Lágrima de <a
+href="Exion.html">Exion</a></strong> (Raro, requiere sintonización)</td>
+<td style="text-align: left;">Puedes engastar este cristal en un arma.
+El arma inflige 1d6 de daño de rayo adicional. Una vez por turno, cuando
+impactas, puedes forzar al objetivo a hacer una salvación de Fuerza CD
+15 o ser empujado 10 pies.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>Corazón de la Vorágine</strong>
+(Raro)</td>
+<td style="text-align: left;">Este orbe de agua sólida puede usarse como
+un foco arcano. Al usarlo en un Círculos de Invocación, el efecto de
+potenciación del círculo se duplica.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: left;"><strong>Coraza del Mar Furioso</strong>
+(Muy Raro, requiere sintonización)</td>
+<td style="text-align: left;">Armadura de placas (+1). Ganas resistencia
+al daño por frío y relámpago. Como acción, puedes invocar una ola de 15
+pies de ancho que avanza 30 pies. Cada criatura en la línea debe superar
+una salvación de Fuerza CD 16 o ser derribada. (Recarga 5-6).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: left;"><strong>Aliento de <a
+href="Quiteon.html">Quiteon</a></strong> (Legendario, requiere
+sintonización)</td>
+<td style="text-align: left;">Este cuerno de concha te permite lanzar
+<em>Muro de Viento</em> a voluntad. Una vez al día, puedes lanzar
+<em>Tormenta de Venganza</em>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: left;"><strong>Ojo de la Tormenta</strong>
+(Artefacto)</td>
+<td style="text-align: left;">Esta gema esférica te permite lanzar
+<em>Controlar el Clima</em> una vez al día. Mientras la sostienes, eres
+inmune al daño por frío, relámpago y trueno, y no puedes ser movido
+contra tu voluntad por efectos de viento o agua.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="criaturas-notables">Criaturas Notables</h3>
+<p>```statblock name: Elemental de la Vorágine size: Enorme type:
+elemental alignment: caótico neutral ac: 17 (Armadura natural) hp: 210
+(20d12 + 80) speed: 0 ft., Vuelo 90 ft. (flotar), Nado 90 ft. stats:
+[20, 18, 18, 8, 12, 11] damage_resistances: Contundente, Perforante y
+Cortante de ataques no mágicos damage_immunities: Veneno, Frío, Rayo,
+Trueno condition_immunities: Agarrado, Paralizado, Petrificado,
+Envenenado, Tumbado, Contenido, Inconsciente senses: Visión en la
+oscuridad 120 ft., Percepción Pasiva 11 languages: Auran, Aquan cr: 14
+traits: - name: Forma de Tormenta desc: “El elemental puede moverse a
+través del espacio de cualquier criatura hostil y a través de aperturas
+tan estrechas como 1 pulgada de ancho sin apretarse. Cualquier criatura
+que comience su turno a 10 pies del elemental debe superar una salvación
+de Fuerza CD 18 o será empujada 10 pies hacia atrás.” - name: Ojo del
+Huracán desc: “El elemental es el centro de un torbellino de 30 pies de
+radio. El área es terreno difícil para otras criaturas. Los ataques de
+arma a distancia que atraviesen el área tienen desventaja.” actions: -
+name: Multiataque desc: “El elemental realiza dos ataques de Golpe de
+Torbellino.” - name: Golpe de Torbellino desc: “Ataque de arma cuerpo a
+cuerpo: +10 a impactar, alcance 10 ft., un objetivo. Impacto: 18 (3d8 +
+5) de daño contundente más 9 (2d8) de daño por frío.” - name: Relámpago
+en Cadena (Recarga 5-6) desc: “El elemental crea un rayo que impacta a
+un objetivo que pueda ver a 120 pies. El rayo salta a hasta tres
+objetivos adicionales, cada uno a no más de 30 pies del objetivo
+anterior. Cada objetivo debe realizar una tirada de salvación de
+Destreza CD 17, sufriendo 45 (10d8) de daño de rayo si falla, o la mitad
+si tiene éxito.”</p>
+        </div>
+    </div>
+</body>
+</html>

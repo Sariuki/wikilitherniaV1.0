@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silanel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Silanel</div>
+        <div class="content">
+<h1 id="silanel">Silanel</h1>
+<p>Encaramada en las Cumbres Celestes de <a
+href="Eldrador.html">Eldrador</a>, donde el aire es fino y las estrellas
+parecen al alcance de la mano, se alza Silanel, la Ciudad del
+Firmamento. No es una fortaleza de guerra, sino un monumento a la
+adivinación y al orden cósmico. Sus esbeltas torres de mármol blanco y
+cristal perforan las nubes, conectadas por etéreos puentes de luz de
+luna solidificada. La ciudad es un bastión de la “Mano de Hierro”, un
+símbolo del poder y la sabiduría de la nobleza de los Altos Elfos,
+gobernada con una lealtad inquebrantable a la corona y a la creencia de
+que el destino está escrito en los cielos para que los sabios lo
+lean.</p>
+<h2 id="historia">Historia</h2>
+<p>Silanel nació de una visión. Tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, cuando el mundo se sumía en el caos y el
+Tejido del Maná estaba desgarrado, un archimago de los Altos Elfos
+llamado Lumeris el Observador guio a sus seguidores a las montañas más
+altas. Creía que al acercarse al cielo nocturno, podría descifrar el
+nuevo destino que los dioses habían tejido para Lithernia. En ese pico
+desolado, fundó el primer observatorio, que se convertiría en el corazón
+de Silanel.</p>
+<p>Sus descendientes, la Casa Lumeris, expandieron el asentamiento,
+utilizando su dominio de la magia de adivinación y astrología no solo
+para prever el futuro, sino para imponer un orden estricto. Se aliaron
+incondicionalmente con la emergente monarquía élfica, convirtiendo
+Silanel en un centro de poder intelectual y profético. La ciudad se
+construyó como un reflejo del cosmos: ordenada, jerárquica y de una
+belleza fría y matemática, donde cada alma tiene su lugar
+predeterminado, tal y como las estrellas en sus constelaciones.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Aguja del Destino</strong>: La torre central y más
+alta, hogar de la Casa Lumeris. Su cúpula es un observatorio colosal
+hecho de un solo cristal encantado, que permite a los videntes
+contemplar los rincones más lejanos del Plano Astral. Es el centro
+neurálgico del gobierno y la magia de la ciudad.</p></li>
+<li><p><strong>El Paseo de la Luz Lunar</strong>: Una red de puentes de
+luz sólida que conectan las principales torres de la nobleza. Flotar a
+través de ellos es un privilegio reservado para los Altos Elfos. Bajo la
+luz de la luna, los puentes brillan con una intensidad plateada, y se
+dice que susurran profecías a quienes saben escuchar.</p></li>
+<li><p><strong>Los Jardines Colgantes de Lyra</strong>: Terrazas
+escalonadas en las laderas de las torres, donde crece una flora
+bioluminiscente única. Las plantas florecen y se apagan siguiendo los
+patrones de las constelaciones, creando un espectáculo de luces
+vivientes que imita el firmamento. Son lugares de meditación y
+contemplación.</p></li>
+<li><p><strong>El Zócalo de los Ecos</strong>: La base de la ciudad,
+tallada en la propia montaña. Aquí residen y trabajan las castas
+inferiores, principalmente Elfos del Bosque y <a
+href="Eladrin.html">Eladrin</a>. Sus talleres producen las maravillas
+artísticas y los instrumentos arcanos por los que Silanel es famosa,
+aunque rara vez disfrutan de las vistas celestiales de las torres
+superiores. Es un lugar de trabajo silencioso y resignado, un eco
+terrestre de la gloria celestial que se alza sobre ellos.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura lumeriana es rígida y contemplativa. La impulsividad es
+vista como una corrupción del espíritu, una interferencia en la clara
+lectura del destino. Las decisiones, desde los tratados comerciales
+hasta los matrimonios concertados, se toman solo después de exhaustivas
+consultas astrológicas. El honor de un individuo se mide por la
+precisión de sus predicciones y su capacidad para aceptar su papel en el
+gran diseño cósmico.</p>
+<p>Su festividad más sagrada es el “Solsticio Silente”, una noche en la
+que toda la ciudad cesa su actividad. Los habitantes, desde el <a
+href="Noble.html">Noble</a> más encumbrado hasta el artesano más
+humilde, meditan en silencio bajo las estrellas, buscando recibir una
+guía personal del cosmos para el año venidero.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Silanel es una obra maestra de la elegancia y la precisión mágica.
+Sus torres de mármol parecen demasiado delicadas para soportar su propio
+peso, y las cúpulas de cristal brillan como gemas gigantes. El emblema
+de la ciudad, una aguja plateada atravesando una nebulosa de siete
+estrellas, se encuentra grabado en portales y estandartes por doquier.
+No hay bullicio ni desorden; el sonido predominante es el del viento
+silbando entre las cumbres y un leve zumbido armónico, producto de los
+encantamientos que mantienen la ciudad a flote y en sintonía con las
+vibraciones celestes. El ambiente es de una paz imponente, casi
+intimidante.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Lamento de las Constelaciones Perdidas</strong>: En
+las noches sin luna, cuando el silencio es absoluto, los videntes en las
+cúpulas más altas afirman poder escuchar un coro fantasmal y
+melancólico. La leyenda dice que es el lamento de las constelaciones que
+fueron destruidas durante el Cataclismo del <a
+href="Lilium.html">Lilium</a>. Se cree que aquellos que soportan
+escuchar el lamento hasta el alba reciben una visión directa de la era
+del Primer Rey, pero el precio es alto: la visión suele borrar de su
+mente un recuerdo personal preciado, intercambiando un fragmento del
+pasado del mundo por uno propio.</p></li>
+<li><p><strong>El Prisma Ciego</strong>: Se rumorea que en las bóvedas
+más profundas de la Aguja del Destino, la Casa Lumeris guarda un
+artefacto conocido como el Prisma Ciego. A diferencia de sus lentes de
+observatorio, no muestra las estrellas como son, sino como podrían ser.
+Se dice que puede revelar cada posible futuro derivado de una sola
+decisión. El artefacto está prohibido, pues una sola mirada a sus
+infinitas posibilidades ha llevado a la locura a archimagos, abrumados
+por el peso de todos los destinos que nunca serán.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Elfos.html">Elfos</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

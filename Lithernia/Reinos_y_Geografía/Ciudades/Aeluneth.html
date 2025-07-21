@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aeluneth</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Aeluneth</div>
+        <div class="content">
+<h1 id="aeluneth">Aeluneth</h1>
+<p>Aeluneth no es una ciudad anclada a la tierra, sino un balcón al
+cosmos. Construida en las cumbres más altas y afiladas de las Montañas
+de Cristal, en los confines de <a href="Eldrador.html">Eldrador</a>, es
+un lugar donde el aire es tan fino como el velo entre los mundos y el
+cielo nocturno se despliega con una claridad abrumadora. La ciudad se
+compone de esbeltas torres de mármol lunar y obsidiana pulida que
+parecen arañar el firmamento, coronadas por cúpulas de cristal encantado
+que zumban con poder arcano. No hay calles de adoquines, sino puentes
+suspendidos hechos de luz de luna solidificada que conectan las torres
+flotantes. Aeluneth es el corazón de la adivinación en el reino, un
+lugar de belleza serena y contemplación, donde la Casa Sylvaris gobierna
+a través de la interpretación del destino.</p>
+<h2 id="historia">Historia</h2>
+<p>Aeluneth fue fundada después de las devastadoras Guerras Mágicas que
+fragmentaron el conocimiento arcano de los elfos. Un vidente <a
+href="Eladrin.html">Eladrin</a>, Sylas el Vidente Estelar, creía que la
+magia de la adivinación no debía usarse para las intrigas cortesanas,
+sino para comprender el gran diseño de los dioses. Lideró a sus
+seguidores, una mezcla de Altos Elfos y <a
+href="Eladrin.html">Eladrin</a>, a las aisladas Montañas de Cristal, un
+lugar tan inhóspito que ningún otro elfo lo reclamaba. Allí, más cerca
+de las estrellas, fundaron Aeluneth como un santuario dedicado a <a
+href="Arzia.html">Arzia</a>, la Diosa del Destino.</p>
+<p>Bajo la guía de la Casa Sylvaris, el linaje de Sylas, la ciudad se
+convirtió en el principal centro de astrología y profecía de <a
+href="Eldrador.html">Eldrador</a>. Leales a la corona en teoría, en la
+práctica se mantienen al margen de la política de la Mano de Hierro,
+enfocados en su sagrada tarea de leer el futuro. Su poder profético es
+tan respetado que incluso el Rey élfico duda en interferir en sus
+asuntos, aunque vigila de cerca la influencia que sus visiones puedan
+tener en el reino.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Corona de Cristal</strong>: El conjunto de las torres
+más altas que forman el corazón de Aeluneth. Aquí se encuentran los
+grandes observatorios, el Gran Telescopio, las bibliotecas de
+cartografía celestial y las cámaras de meditación de la Casa Sylvaris.
+La entrada está restringida a los maestros videntes y a la
+nobleza.</p></li>
+<li><p><strong>Los Senderos de Luz de Luna</strong>: La red de puentes
+de luz sólida que conecta las diferentes torres y plataformas de la
+ciudad. Cruzarlos es una experiencia etérea; no se siente peso, solo un
+ligero cosquilleo arcano. Se dice que su brillo aumenta o disminuye
+según los presagios celestiales.</p></li>
+<li><p><strong>La Plaza del Firmamento Eterno</strong>: Una vasta
+plataforma circular de obsidiana al aire libre. Su suelo es un mosaico
+encantado que replica el mapa estelar en tiempo real, cambiando con el
+movimiento de los planetas y constelaciones. Es el centro cívico de la
+ciudad, donde se anuncian las profecías y se celebran
+festivales.</p></li>
+<li><p><strong>Los Balcones Celestiales</strong>: Los distritos
+residenciales, construidos en terrazas escalonadas en las laderas de las
+torres principales. Los hogares son elegantes y minimalistas, con
+amplios ventanales y balcones para la observación privada de las
+estrellas. Las familias <a href="Eladrin.html">Eladrin</a> decoran sus
+estancias con tapices que reflejan la estación astrológica
+regente.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Aeluneth es profundamente contemplativa y mística. La
+sociedad está organizada en torno a la búsqueda del conocimiento astral.
+Su rito de iniciación más importante es el “Velo de Estrellas”, donde
+los jóvenes elfos meditan en soledad en una cumbre expuesta hasta que el
+firmamento les concede una visión de su propósito. Los pactos,
+matrimonios y juramentos se sellan exclusivamente durante lluvias de
+meteoros, pues cada estela fugaz se interpreta como una bendición
+directa de <a href="Arzia.html">Arzia</a>.</p>
+<p>La cultura Sylvariana valora la paciencia, la elegancia serena y la
+capacidad de ver más allá de lo evidente. Su música, interpretada con
+arpas de cristal y flautas de hueso de grifo, está compuesta en armonías
+matemáticas diseñadas para resonar con las vibraciones del cosmos. La
+poesía épica narra la creación de las estrellas y las batallas entre
+constelaciones mitológicas. El símbolo de estatus no es la riqueza, sino
+la claridad de las propias premoniciones.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Aeluneth es vertical y etérea, diseñada para tocar
+el cielo. Las torres de mármol y obsidiana no tienen casi ornamentación
+exterior, confiando en sus líneas puras y en el reflejo de las estrellas
+para su belleza. Las fuentes de las plazas no manan agua, sino un
+líquido plateado imbuido de luz que fluye en patrones hipnóticos. El
+ambiente es de un silencio casi absoluto, roto solo por el silbido del
+viento en las alturas y un bajo zumbido armónico que emana de las
+cúpulas de los observatorios. El aire es frío, puro y cargado de una
+energía mágica palpable.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Jardín Fantasma de <a
+href="Arzia.html">Arzia</a></strong>: Se susurra que en las noches sin
+luna, en un valle oculto cerca de la ciudad, se manifiesta un jardín
+donde florecen plantas hechas de pura luz estelar. La leyenda dice que
+solo aquellos con un corazón libre de ambición pueden entrar y tocar sus
+flores, las cuales otorgan un momento de perfecta clarividencia.
+Intentar robar una de estas plantas resulta en ceguera
+instantánea.</p></li>
+<li><p><strong>La Constelación del Fundador</strong>: Cuentan que Sylas
+el Vidente Estelar no murió, sino que, al final de su vida, ascendió al
+cielo y se transformó en una nueva constelación para vigilar eternamente
+su ciudad. Los videntes afirman que en los momentos de mayor peligro
+para Aeluneth, su constelación brilla con más intensidad, y que su voz
+aún puede oírse en el viento que sopla desde las cumbres de las torres,
+susurrando advertencias y consejos.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

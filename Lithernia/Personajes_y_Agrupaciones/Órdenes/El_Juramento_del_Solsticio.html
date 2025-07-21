@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Juramento_del_Solsticio</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Juramento_del_Solsticio</div>
+        <div class="content">
+<h1 id="el-juramento-del-solsticio">El Juramento del Solsticio</h1>
+<p>En las sombras de la historia oficial, tejida por los dioses
+victoriosos y grabada a fuego y sangre por la Gran Guerra, sobrevive una
+orden tan antigua como la misma devastación. Son los susurros en las
+bibliotecas prohibidas, los guardianes de ruinas olvidadas y la memoria
+viviente de un mundo unificado. Son los Vigías del Solsticio, y su
+existencia está atada a un juramento sagrado: recordar al Primer Rey,
+proteger su legado y preparar el camino para el cumplimiento de la
+profecía que podría redimir o destruir Lithernia.</p>
+<h3 id="el-origen-del-voto-la-noche-más-larga">El Origen del Voto: La
+Noche más Larga</h3>
+<p>La orden nació de las cenizas del Cataclismo del <a
+href="Lilium.html">Lilium</a>. Cuando el fuego de los dioses se
+extinguió, dejando un mundo fracturado y yermo, los pocos supervivientes
+leales al Primer Rey se encontraron solos en un mundo que ya no era el
+suyo. Eran generales <a href="Humanos.html">Humanos</a>, sabios elfos y
+maestros herreros <a href="Enanos.html">Enanos</a> que habían luchado
+junto a su monarca contra el panteón divino. Vieron cómo los dioses
+creaban nuevas razas, sembraban la discordia y borraban la historia de
+la era unificada.</p>
+<p>Reunidos en secreto durante un solsticio de invierno —la noche más
+larga del primer año tras la catástrofe—, estos supervivientes hicieron
+un pacto. Bajo un cielo sin estrellas y sobre una tierra aún caliente
+por la ira divina, juraron convertirse en la memoria de lo que fue y la
+esperanza de lo que podría ser. Llamaron a su pacto el Juramento del
+Solsticio, un símbolo de que incluso en la más profunda oscuridad, el
+amanecer está destinado a volver.</p>
+<h3 id="los-votos-sagrados">Los Votos Sagrados</h3>
+<p>Todo miembro de la orden, conocido como un Vigía del Solsticio, debe
+vivir y morir por cuatro votos inquebrantables. Estos votos son el
+núcleo de su fe y el motor de sus acciones a través de los siglos.</p>
+<ul>
+<li><strong>El Voto del Recuerdo:</strong> “Recordaré la Verdad entre
+las Mentiras”. El Vigía jura preservar la historia auténtica de la Era
+del Primer Rey, combatiendo el olvido impuesto por los dioses. Recopilan
+textos prohibidos, exploran ruinas pre-cataclismo y transmiten las <a
+href="Leyendas.html">Leyendas</a> verdaderas para que el legado del Rey
+no se pierda en el mito o la herejía.</li>
+<li><strong>El Voto de la Vigilia:</strong> “Vigilaré la Llama en la
+Oscuridad”. Su misión más importante es observar las señales del mundo
+en busca del mortal elegido por la profecía. No buscan forzar su
+llegada, sino identificarlo y protegerlo, guiándolo discretamente para
+que pueda enfrentar su destino sin ser corrompido por el poder o
+destruido por sus enemigos.</li>
+<li><strong>El Voto del Sello:</strong> “Custodiaré las Llaves de la
+Prisión”. Los Vigías buscan activamente las cuatro Lanzas Celestiales
+—<strong>Requiem, Ultimatum, Mortum y Chronos</strong>— no para usarlas,
+sino para protegerlas. Entienden que estas armas son la llave de la
+prisión del Primer Rey y que en manos equivocadas (como las de un tirano
+ambicioso o un fanático religioso) podrían desatar un caos aún mayor que
+el <a href="Lilium.html">Lilium</a>.</li>
+<li><strong>El Voto de la Unidad:</strong> “Seré Lithernia, no sus
+Fragmentos”. Un Vigía renuncia a su lealtad nacional y racial. No es un
+elfo de <a href="Eldrador.html">Eldrador</a> o un humano de <a
+href="Galvorn.html">Galvorn</a>, sino un protector de toda Lithernia. Su
+deber es trascender los odios de la Gran Guerra, viendo el conflicto
+como una enfermedad infligida por los dioses que solo la unidad puede
+curar.</li>
+</ul>
+<h3 id="las-pruebas-del-solsticio-el-precio-de-la-lealtad">Las Pruebas
+del Solsticio: El Precio de la Lealtad</h3>
+<p>Unirse a los Vigías es un camino de sacrificio extremo, diseñado para
+asegurar que solo los más devotos y resilientes porten el peso del
+juramento. Un aspirante debe superar tres pruebas que lo despojan de su
+vida anterior.</p>
+<ol type="1">
+<li><strong>La Prueba del Silencio:</strong> El candidato recibe un
+secreto de vital importancia para la orden —la ubicación de un refugio,
+la identidad de otro Vigía o un fragmento de la profecía—. Debe
+guardarlo durante un ciclo lunar completo mientras es sometido a sutiles
+pruebas de lealtad y tentaciones para que lo revele. Es una prueba de
+discreción y fortaleza mental, esencial para una orden clandestina.</li>
+<li><strong>La Prueba de la Cicatriz:</strong> El aspirante debe viajar
+solo a un lugar profundamente marcado por el legado del mundo roto: una
+ruina calcinada por el <a href="Lilium.html">Lilium</a>, un campo de
+batalla de la Gran Guerra donde los fantasmas aún gritan, o una
+biblioteca custodiada por un monstruo antiguo. Debe regresar no con un
+tesoro, sino con una comprensión más profunda del dolor del mundo,
+demostrando que puede enfrentar el horror sin quebrarse.</li>
+<li><strong>La Prueba del Desapego:</strong> La prueba final y más
+cruel. El aspirante debe renunciar a aquello que más valora en su vida
+mortal: un título nobiliario, la herencia de su clan, el amor de su
+familia o incluso su propio nombre. No se trata de un acto de violencia,
+sino de un desprendimiento simbólico y real. Debe cortar los lazos que
+lo atan a una sola nación o a un interés personal, para poder abrazar su
+deber a Lithernia por completo. Este es el precio de su juramento, y la
+razón por la que muchos Vigías viven vidas solitarias, marcadas por la
+pérdida.</li>
+</ol>
+<h3 id="los-vigías-en-la-era-actual">Los Vigías en la Era Actual</h3>
+<p>Tras siglos operando en secreto, la orden de los Vigías del Solsticio
+está mermada y sus miembros, esparcidos por los cuatro reinos. Rara vez
+se conocen entre sí, comunicándose a través de códigos ocultos en textos
+académicos, canciones de bardos o rutas de contrabandistas.</p>
+<p>Un Vigía puede ser cualquiera: el archivero silencioso en la Torre de
+las Estrellas de <a href="Valtoria.html">Valtoria</a>, un capitán de
+barco en <a href="Galvorn.html">Galvorn</a> que navega rutas prohibidas,
+una curandera elfa que vive en los márgenes de <a
+href="Eldrador.html">Eldrador</a>, o incluso un tiefling disidente en
+las cloacas de <a href="Mor&#39;dhul.html">Mor’dhul</a> que conspira
+contra el régimen de Sel’thirak. Su símbolo, raramente mostrado, es un
+sol eclipsado por una luna, atravesado por una lanza vertical,
+representando la esperanza en la noche más larga y su deber hacia las
+Lanzas Celestiales.</p>
+<p>Los eventos recientes, como el <strong><a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a></strong>,
+han sido interpretados por los Vigías como una señal inequívoca de que
+el tiempo de la profecía se acerca. Ahora actúan con mayor urgencia,
+conscientes de que facciones como las de <strong>Lord Aethel</strong>
+podrían intentar usurpar el poder del <a href="Heroes.html">Heroes</a>
+para sus propios fines oscuros.</p>
+<p>Para los aventureros, encontrar a un Vigía del Solsticio puede ser un
+golpe de suerte o una carga terrible. Pueden ofrecer conocimiento
+invaluable sobre la verdadera historia de Lithernia, pistas sobre la
+ubicación de las Lanzas o ayuda para escapar de los agentes de los
+dioses. Pero a cambio, exigirán un compromiso con una causa que es más
+grande que cualquier reino y más peligrosa que cualquier guerra. Son la
+última brasa de la era unificada, y su mayor temor no es la extinción,
+sino ver esa brasa convertirse en un incendio que consuma el mundo una
+vez más.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

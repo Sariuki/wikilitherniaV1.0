@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexor_El_Silente</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vexor_El_Silente</div>
+        <div class="content">
+<p>nombre: “Vexor ‘El Silente’” rol: “Hoja del Silencio y Protector del
+Archivo” edad: 150 agrupacion: “Casa Umbracordis” tipo: “Casa <a
+href="Noble.html">Noble</a> (Exiliada)” lema: “El Corazón Ve lo que la
+Luz Oculta” escudo: “Sobre un campo de seda púrpura oscuro, un corazón
+de obsidiana fracturado del que emana una única estrella de plata.”
+ciudad_sede: “<a href="Thelyrion.html">Thelyrion</a>” rivalidades: “Casa
+Nocthelios, Clan Nighthawk (<a href="Mor&#39;dhul.html">Mor’dhul</a>)”
+alianzas: “Cónclave de los Sabios (<a
+href="Thelyrion.html">Thelyrion</a>), Los Sin Reflejo (<a
+href="Carynwe.html">Carynwe</a>)” relaciones: “Lord Kaelen Umbracordis
+(patriarca y mentor), Los Sin Reflejo (aliados operativos)” tags:
+[lithernia, personajes, Casa <a href="Noble.html">Noble</a>, semielfo,
+asesino] # Vexor ‘El Silente’</p>
+<h3 id="biografía">Biografía</h3>
+<p>En los corredores polvorientos y silenciosos que se extienden bajo el
+Gran Archivo de <a href="Thelyrion.html">Thelyrion</a>, donde el
+conocimiento es un arma y las profecías son grilletes, se mueve una
+sombra con propósito: Vexor. No nació bajo el estandarte del corazón de
+obsidiana; su sangre es una mezcla de humano y elfo, un eco de uniones
+olvidadas en un mundo definido por la pureza de los linajes. Fue
+encontrado como un niño huérfano en los barrios bajos de <a
+href="Thelyrion.html">Thelyrion</a> por el propio Lord Kaelen
+Umbracordis, el patriarca de la casa exiliada. Kaelen no vio en él un
+heredero, sino algo mucho más valioso: una anomalía. Vexor era una
+página en blanco en el tapiz del destino, inmune a las visiones y
+augurios que atormentaban y guiaban a los Umbracordis. Para una casa
+cuyo poder residía en conocer los secretos de los demás, un alma que no
+podía ser leída era el único sirviente en el que se podía confiar
+plenamente.</p>
+<p>Criado entre tomos prohibidos y verdades que podrían hacer temblar
+reinos, Vexor se convirtió en la devoción encarnada. Su silencio no es
+fruto de una herida física, sino de un juramento sagrado realizado al
+alcanzar la madurez. Renunció a su voz para convertirse en el guardián
+de los secretos de la casa, un símbolo viviente de que las verdades más
+profundas no necesitan ser pronunciadas. Se comunica a través de un
+complejo y preciso lenguaje de señas, conocido solo por los miembros de
+la casa y su red de espías, “Los Sin Reflejo”.</p>
+<p>Bajo la tutela de Lord Kaelen y los maestros de la casa, Vexor fue
+forjado como la <em>Hoja del Silencio</em>. Su herencia semielfa le
+otorgó una combinación letal: la resistencia y adaptabilidad humanas
+fusionadas con la gracia y los sentidos agudos de los elfos. Se
+convirtió en el brazo ejecutor de los Umbracordis, una herramienta
+perfecta para navegar un mundo que los despreciaba. Su lealtad a Lord
+Kaelen es absoluta; ve en el patriarca no solo a un maestro, sino al
+padre que le dio un propósito y un hogar. Vexor no lucha por gloria ni
+por oro, sino por la convicción de que la Casa Umbracordis, aunque
+exiliada, es la verdadera guardiana del equilibrio de Lithernia,
+protegiendo al mundo de las verdades que no está preparado para
+afrontar.</p>
+<p>Sus hazañas son susurros en las sombras, nunca registradas en
+crónicas. Se dice que recuperó el <em>Tomo de los Ecos Perdidos</em> de
+las garras del Clan Nighthawk en las profundidades de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, moviéndose como un fantasma a
+través de sus defensas de pesadilla. También se le atribuye el
+“silenciamiento” de un vidente de la Casa Nocthelios que estaba a punto
+de revelar la ubicación de una profecía que los Umbracordis habían
+ocultado durante siglos. Para Vexor, cada vida segada, cada secreto
+recuperado, es un acto de preservación, una nota en la silenciosa
+sinfonía que mantiene a Lithernia a salvo de sí misma.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vexor posee la belleza austera y ambigua de los <a
+href="Semielfos.html">Semielfos</a>. Con 150 años, su rostro es afilado
+y sin edad, enmarcado por un cabello oscuro como la tinta que cae lacio
+sobre sus hombros. Sus ojos, de un gris tormentoso, son su rasgo más
+expresivo; en ellos se refleja una inteligencia penetrante y una calma
+mortal que a menudo incomoda a quienes lo observan. Es de complexión
+delgada pero fibrosa, con la gracia de un depredador y la quietud de una
+estatua.</p>
+<p>Su atuendo es funcional y carente de ostentación, diseñado para la
+eficiencia y el sigilo. Viste una armadura de cuero endurecido teñida de
+un púrpura tan oscuro que parece negro, sin una sola pieza de metal que
+pueda producir un sonido. Sobre ella, una capa con capucha del mismo
+color le permite fundirse con las sombras de las ciudades o los
+bosques.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Dagas Gemelas de
+Obsidiana:</strong> Un par de dagas cortas, regalo de Lord Kaelen. Sus
+hojas son de acero élfico con filos dentados de obsidiana, imbuidas con
+encantamientos menores para amortiguar el sonido al desenfundarlas. Las
+empuñaduras están envueltas en cuero de basilisco, proporcionando un
+agarre infalible. * <strong>Arco Corto Silvano:</strong> Un arco de
+madera de tejo negra, sin adornos pero de una tensión formidable. Las
+flechas que utiliza tienen puntas de hueso o vidrio, diseñadas para
+romperse dentro de una herida y dificultar la curación. * <strong>Kit
+del Silenciador:</strong> Un conjunto de herramientas guardado en
+compartimentos ocultos de su armadura. Incluye ganzúas de plata, viales
+de venenos de acción rápida y lenta (como la Lágrima de Sombra o el Beso
+del Letargo), antídotos, y un fino garrote de alambre de mithril. *
+<strong>Amuleto del Corazón Susurrante:</strong> Un pequeño disco de
+obsidiana pulida que lleva al cuello. Es un artefacto de la casa que le
+permite recibir impresiones telepáticas simples de Lord Kaelen, una
+línea de comunicación unidireccional que no requiere palabras.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Vexor ‘El Silente’ nunca será cantado por los bardos en las tabernas
+de <a href="Galvorn.html">Galvorn</a> ni su estatua se alzará en las
+grandes salas de <a href="Valtoria.html">Valtoria</a>. Su legado es
+intangible, escrito con la tinta de la ausencia: los complots que nunca
+llegaron a fructificar, los secretos que permanecieron enterrados y los
+políticos ambiciosos que desaparecieron antes de poder desestabilizar el
+frágil equilibrio de poder.</p>
+<p>Es la encarnación viviente del poder de la Casa Umbracordis, un
+recordatorio para las grandes casas de Lithernia de que la información
+es el arma más afilada. Mientras los nobles de la Casa Nocthelios
+alardean de su poder en la corte de <a
+href="Eldrador.html">Eldrador</a>, temen a la sombra sin rostro que
+podría estar escuchando. Mientras los clanes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> conspiran en la oscuridad, saben
+que existe otra oscuridad, más antigua y paciente, que los observa.</p>
+<p>Vexor representa una paradoja en un mundo de linajes: un mestizo sin
+herencia que se ha convertido en el protector más devoto de una de las
+casas élficas más puristas y secretas. Su existencia desafía la idea de
+que el poder y la lealtad solo pueden venir de la sangre. Al final, el
+mayor impacto de Vexor en Lithernia será el silencio que deja a su paso,
+un vacío donde el caos podría haber florecido. Es el guardián de una paz
+precaria, mantenida no con ejércitos, sino con una daga en la
+oscuridad.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Umbracordis.html">Casa Umbracordis</a> (relevancia:
+0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

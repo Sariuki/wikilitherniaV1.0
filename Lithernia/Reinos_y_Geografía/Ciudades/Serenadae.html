@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serenadae</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Serenadae</div>
+        <div class="content">
+<h1 id="serenadae">Serenadae</h1>
+<p>Conocida en todo <a href="Eldrador.html">Eldrador</a> como la “Ciudad
+de los Ecos Melódicos”, Serenadae no es una ciudad construida, sino una
+sinfonía tallada. Se encuentra dentro de un milagro de la naturaleza: un
+gigantesco bosque de cristal petrificado, donde árboles de cuarzo
+translúcido y amatista se alzan hacia un cielo perpetuamente
+crepuscular. Sus edificios están esculpidos directamente en estas
+formaciones cristalinas, y sus calles son senderos que brillan con una
+luz interna. Puentes de luz de luna solidificada o de cristal resonante,
+que amplifican suavemente la música que impregna el aire, conectan las
+distintas agujas. El símbolo de la ciudad, un arpa de plata con cuerdas
+de luz estelar superpuesta sobre un cristal multifacético, captura su
+esencia: un lugar donde la magia, el arte y la naturaleza son una sola
+cosa.</p>
+<h2 id="historia">Historia</h2>
+<p>Serenadae fue fundada hace siglos por Lyrael, un legendario <a
+href="Bardo.html">Bardo</a> <a href="Eladrin.html">Eladrin</a> que,
+huyendo de la rigidez de la corte élfica, descubrió las propiedades
+acústicas únicas del Bosque de Cristal. Se dio cuenta de que el bosque
+entero vibraba en respuesta a la música y la magia, creando ecos que
+podían durar días. Bajo su guía, un grupo de artistas, poetas y magos
+ilusionistas se asentó en el lugar, jurando dedicar sus vidas a la
+belleza en lugar de a la conquista.</p>
+<p>Con el tiempo, la influyente Casa Seraphiel, una familia <a
+href="Noble.html">Noble</a> de Altos Elfos conocida por su diplomacia y
+mecenazgo artístico, tomó la ciudad bajo su protección. Bajo su
+gobierno, Serenadae floreció, convirtiéndose en el epicentro cultural de
+<a href="Eldrador.html">Eldrador</a>. Aunque leales al Rey Élfico, los
+Seraphiel gobiernan con una mano más suave que la “Mano de Hierro”,
+fomentando un ambiente de creatividad que atrae a las almas más
+artísticas de todo el reino.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón Resonante</strong>: La plaza central de la
+ciudad, formada alrededor de la formación de cristal más grande, el
+“Monolito Cantante”. Cualquier sonido producido aquí es amplificado y
+embellecido, extendiéndose por toda la ciudad como un suave murmullo. Es
+el escenario de la “Sinfonía Crepuscular”, una competición anual de
+música y arte ilusorio que atrae a competidores de toda
+Lithernia.</p></li>
+<li><p><strong>Las Galerías Ilusorias</strong>: Un distrito laberíntico
+de salas y teatros tallados en cristal ahumado. Aquí, los magos y bardos
+practican la magia de ilusión no como un engaño, sino como una forma de
+arte sublime, creando paisajes oníricos y narraciones visuales que el
+público puede recorrer.</p></li>
+<li><p><strong>Los Jardines de Silencio</strong>: En contraste con el
+resto de la ciudad, este barrio es un santuario de quietud. Está formado
+por jardines de flora cristalina que no emiten sonido, sino que pulsan
+con una luz suave. Es el lugar predilecto para las “Horas Mudas”,
+periodos de contemplación dedicados a <a href="Lerian.html">Lerian</a>,
+la diosa del conocimiento.</p></li>
+<li><p><strong>El Atrio Seraphiel</strong>: El distrito gubernamental y
+residencial de la casa regente. Es un palacio exquisito tallado en un
+único cristal de zafiro, cuyas cámaras internas reflejan las
+constelaciones, honrando a la diosa <a href="Arzia.html">Arzia</a>. El
+acceso está restringido a la nobleza y a sus invitados.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura Sereniana se centra en la expresión artística. Los bardos
+son tan reverenciados como los archimagos, y las disputas a menudo se
+resuelven a través de duelos poéticos en lugar de espadas. Tres
+costumbres definen la vida en la ciudad: - <strong>El Juramento del
+Verso</strong>: Los contratos y pactos más importantes no se escriben,
+se componen. Un juramento se sella con una poesía imbuida de magia que,
+si se rompe, se deshace audiblemente, notificando a todos los
+involucrados de la traición. - <strong>El Velo del Amanecer</strong>:
+Cada mañana, los ilusionistas de la ciudad colaboran para tejer una
+ilusión colectiva que embellece el alba, mostrando escenas mitológicas,
+flores imposibles o lluvias de luz dorada. Es un regalo diario a la
+comunidad. - <strong>Las Horas Mudas</strong>: Dos veces al día, al
+mediodía y a la medianoche, la ciudad entera guarda un estricto silencio
+durante una hora. Es un tiempo para la meditación, el estudio y la
+contemplación personal, una práctica que se cree que agudiza los
+sentidos y la conexión con la magia.</p>
+<h2 id="conflictos-y-amenazas">Conflictos y Amenazas</h2>
+<p>A pesar de su belleza, Serenadae no está libre de tensiones. La “Mano
+de Hierro”, el rígido sistema de castas de <a
+href="Eldrador.html">Eldrador</a>, proyecta su sombra incluso aquí. Un
+movimiento rebelde clandestino, conocido como “Los Silenciados”, opera
+desde los distritos más humildes. Compuesto en su mayoría por elfos de
+clases bajas y shadar-kai, buscan la igualdad y sabotean sutilmente a la
+nobleza, creyendo que el arte debe ser libre para todos, no un
+privilegio.</p>
+<p>Externamente, la amenaza es más directa. El Bosque de Cristal
+Petrificado es una fuente masiva de poder arcano. Magos oscuros y
+sectarios de <a href="Mor&#39;dhul.html">Mor’dhul</a> codician este
+poder y han realizado incursiones secretas, intentando corromper el
+corazón del bosque con magia necrótica para drenar su energía y crear
+artefactos de poder oscuro. La Casa Seraphiel emplea a sus mejores
+guardianes y magos para repeler estas incursiones silenciosas.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Melodía Perdida</strong>: Se dice que la composición
+más grande de Lyrael, el fundador, fue una canción tan poderosa que
+podía dar forma al propio cristal. Antes de morir, dividió la “Melodía
+Perdida” en fragmentos y los escondió en la arquitectura, el arte y los
+ecos de la ciudad. La leyenda afirma que si alguien logra reunir y tocar
+la melodía completa, puede devolver la vida al bosque de cristal,
+curando cualquier corrupción o daño que haya sufrido.</p></li>
+<li><p><strong>El Corazón del Cristal</strong>: Los místicos de
+Serenadae susurran que el bosque no está petrificado, sino dormido.
+Creen que bajo la ciudad yace un “Corazón de Cristal”, un núcleo mágico
+consciente que es la verdadera fuente del poder del bosque. Algunos
+intentan comunicarse con él a través de la meditación y la música,
+buscando una sabiduría ancestral, aunque se rumorea que escuchar su
+“voz” directamente puede llevar a la locura.</p></li>
+<li><p><strong>El <a href="Bardo.html">Bardo</a> Fantasma</strong>: El
+espíritu de un antiguo maestro <a href="Bardo.html">Bardo</a>, a veces
+identificado como el propio Lyrael, se aparece en las noches sin luna.
+No busca descanso, sino un sucesor. Se dice que el fantasma desafía a
+los artistas más talentosos, y si encuentra a uno digno, le enseña una
+composición prohibida, una canción capaz de tejer hebras de la realidad,
+pero a un costo personal terrible.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

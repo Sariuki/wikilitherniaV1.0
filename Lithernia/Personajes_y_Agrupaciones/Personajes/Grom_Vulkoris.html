@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grom_Vulkoris</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grom_Vulkoris</div>
+        <div class="content">
+<h1 id="grom-vulkoris">Grom Vulk’oris</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Grom Vulk’oris no es un enano común, pues nació del exilio y la
+contradicción. Es el Comandante de la Guardia del Yunque de la Casa
+Vulk’oris, un pilar de la fuerza marcial en una casa que fundamenta su
+poder en artes que él mismo desprecia. Nacido en la ciudad-fortaleza de
+<a href="Valarion.html">Valarion</a>, en las inhóspitas Cumbres
+Resquebrajadas, Grom creció escuchando dos relatos opuestos: la gloria
+de <a href="Valtoria.html">Valtoria</a>, el reino ancestral que expulsó
+a sus antepasados, y la leyenda de su fundador, Kael ‘El <a
+href="Forjador.html">Forjador</a> de Sombras’, el hereje que transformó
+la desesperación en poder.</p>
+<p>Desde joven, Grom mostró una afinidad innata no por los susurros de
+las sombras que su casa había aprendido a infundir en el acero, sino por
+la pureza del metal mismo. Mientras su prima Lyra se sumergía en los
+rituales oscuros para crear armas que herían el alma, Grom pasaba horas
+en las forjas inferiores, aprendiendo el lenguaje del martillo y el
+yunque, dominando las técnicas tradicionales que hicieron legendarios a
+los herreros de <a href="Valtoria.html">Valtoria</a>. Para él, la fuerza
+de un enano reside en la solidez de su brazo, la integridad de su
+juramento y la perfección de su artesanía, no en atajos arcanos ni en
+pactos con las energías corruptas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>Su ascenso a Comandante no fue por linaje, sino por hazañas forjadas
+en el campo de batalla. Lideró la defensa de las murallas de <a
+href="Valarion.html">Valarion</a> contra una bestia desgarradora surgida
+de los páramos, abatiéndola no con acero imbuido de sombras, sino con un
+martillo de guerra de factura impecable y una estrategia implacable.
+Repelió incursiones del Clan Nighthawk, cuyos ilusionistas <a
+href="Hobgoblins.html">Hobgoblins</a> encontraron sus trucos inútiles
+contra la disciplina férrea de la falange de Grom. Cada victoria era una
+declaración silenciosa: la Casa Vulk’oris no necesitaba la magia oscura
+para ser fuerte.</p>
+<p>Esta filosofía lo pone en un rumbo de colisión constante dentro de su
+propia casa. Es ferozmente leal a su tío, Lord Malakor, el pragmático
+líder que equilibra las dos almas de la casa. Cumple sus órdenes sin
+dudar, pues el deber del clan es sagrado. Sin embargo, sus
+enfrentamientos con su prima Lyra son legendarios en los salones de <a
+href="Valarion.html">Valarion</a>. Ve en su ambición y su fascinación
+por el poder de las sombras una traición a la verdadera esencia enana,
+una debilidad disfrazada de poder que, tarde o temprano, consumirá a la
+casa desde dentro. Grom lucha por un futuro en el que el nombre
+Vulk’oris sea sinónimo de la mejor herrería de Lithernia, libre de la
+mancha de la hechicería que los condenó al exilio.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grom es la encarnación de una montaña. De complexión ancha y
+poderosa, incluso para un enano, su cuerpo es un testimonio de décadas
+de entrenamiento y combate. Su piel tiene el tono pálido de quienes
+viven bajo tierra, pero está cubierta de un mapa de cicatrices y
+quemaduras de forja. Su barba, de un negro profundo, cae en dos trenzas
+gruesas hasta su cintura, sujetas con sencillos anillos de hierro sin
+pulir, un desafío a la opulencia de otras casas. Sus ojos, del color del
+granito, brillan con una mezcla de orgullo indomable y un resentimiento
+apenas contenido.</p>
+<p><strong>Equipamiento Relevante:</strong></p>
+<ul>
+<li><strong>La Égida del Yunque:</strong> Su armadura de placas
+completa. Forjada por él mismo con el acero volcánico único de la casa,
+es una obra maestra de artesanía defensiva. A diferencia de las
+creaciones de su prima, la Égida está desprovista de cualquier
+encantamiento sombrío. Su poder reside en su diseño perfecto y en la
+pureza del metal, capaz de desviar golpes que quebrarían armaduras
+menores. Las placas están grabadas con <a href="Runas.html">Runas</a>
+enanas tradicionales de protección y resistencia, un homenaje a la
+herencia que se niega a olvidar.</li>
+<li><strong>Rompejuramentos:</strong> Un colosal martillo de guerra a
+dos manos, su compañero inseparable. Su cabeza, de acero oscuro y denso,
+fue forjada en el corazón del Volcán del Yunque Roto, pero templada
+únicamente con agua de manantiales subterráneos, rechazando los rituales
+de sombras. El mango de fresno petrificado está envuelto en cuero de
+basilisco. El nombre del arma es un recordatorio personal de lo que él
+considera el juramento roto por su fundador: el de la pureza de la
+forja.</li>
+<li><strong>Sello del Comandante:</strong> Un broche de obsidiana que
+sujeta su capa, tallado con el emblema de la casa. Es el único símbolo
+de su rango que porta, pues desprecia la ornamentación innecesaria.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Grom Vulk’oris representa una fractura ideológica en el corazón de
+una de las casas más pragmáticas y peligrosas de las tierras
+fronterizas. Para la Casa Vulk’oris, es el ancla que les impide ser
+completamente consumidos por las influencias de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Lidera una facción no declarada
+de tradicionalistas que, aunque minoritaria, conforma el núcleo de la
+fuerza militar de la casa. Su destino decidirá si los Vulk’oris se
+redimen a ojos de <a href="Valtoria.html">Valtoria</a> o se hunden por
+completo en la oscuridad que les dio poder.</p>
+<p>Para el resto de Lithernia, Grom es una anomalía. Los Dravonis de <a
+href="Valtoria.html">Valtoria</a> lo ven con una mezcla de desprecio por
+su linaje y un respeto a regañadientes por su habilidad y sus valores.
+El Clan Ironclaw, su aliado orco, valora su fuerza directa pero no
+comprende su aversión a usar todas las armas a su disposición. Es un <a
+href="Guerrero.html">Guerrero</a> honorable de una casa deshonrada, un
+conservador en una familia de herejes. Si alguna vez se rompiera el
+precario equilibrio de poder en las Cumbres Resquebrajadas, Grom
+Vulk’oris podría ser la chispa que inicie una guerra civil o, quizás, el
+puente inesperado que reconcilie a los exiliados con su pasado
+perdido.</p>
+        </div>
+    </div>
+</body>
+</html>

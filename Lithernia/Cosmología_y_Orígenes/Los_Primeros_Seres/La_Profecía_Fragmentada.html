@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Profecía_Fragmentada</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Profecía_Fragmentada</div>
+        <div class="content">
+<h1 id="la-profecía-fragmentada">La profecía fragmentada</h1>
+<p>En el ocaso de la Era Crepuscular, cuando los cielos se tornaban de
+un púrpura inquietante y las antiguas tierras temblaban bajo el peso de
+un destino incierto, surgió un enigma que marcaría para siempre el curso
+de Lithernia: <strong>La Profecía Fragmentada</strong>. Este oráculo,
+inicialmente tallado en un único manuscrito sagrado por el sabio
+Arvandel, se perdió en el tiempo, fragmentado en distintos pergaminos
+dispersos entre los reinos sobrevivientes. Cada fragmento contenía
+revelaciones crípticas que, al ser interpretadas, dieron origen a
+diversas corrientes de pensamiento, y a menudo, a enfrentamientos
+ideológicos que definen el presente.</p>
+<h2 id="origen-de-la-profecía">Origen de la profecía</h2>
+<p>Durante la última década antes del gran cataclismo que selló la Era
+Crepuscular, Arvandel, maestro de las Artes Arcanas y Guardián del Velo,
+experimentó visiones que describían un sendero tortuoso para Lithernia:
+la caída desde la cumbre de su poder y el renacimiento tras las cenizas.
+Consciente de que su tiempo era limitado, grabó sus revelaciones en un
+solo tomo, pidiendo a sus discípulos custodiar la verdad. Sin embargo,
+con la llegada de la oscuridad, el libro se fragmentó misteriosamente, y
+cada pedazo fue protegido por diferentes comunidades y linajes.</p>
+<h2 id="las-interpretaciones-principales">Las interpretaciones
+principales</h2>
+<p>El carácter fragmentado del oráculo ha provocado que cada fragmento
+sea interpretado según las creencias locales, dando lugar a tres
+corrientes predominantes en los reinos de Lithernia:</p>
+<h3 id="los-hijos-del-alba">1. Los Hijos del Alba</h3>
+<p>Creyentes en la promesa de un nuevo amanecer, ven la profecía como un
+llamado a la reconstrucción y la unidad. Sostienen que la fragmentación
+simboliza la dispersión necesaria de los sabios para sembrar la
+sabiduría en todo Lithernia. Su seguimiento se concentra en el Reino de
+Valthebrun, donde los fragmentos hablan de “renacer de la luz” y “tejer
+con esperanza la nueva era”.</p>
+<p><strong>Prácticas y símbolos:</strong> Uso del símbolo del sol
+naciente, ceremonias al amanecer, y la edición de textos que buscan
+armonizar todos los fragmentos.</p>
+<h3 id="los-custodios-del-abismo">2. Los Custodios del Abismo</h3>
+<p>Más oscuros y reservados, interpretan la profecía con un enfoque en
+la destrucción y el juicio. Consideran que la fragmentación evidencia la
+ruptura irrevocable del pasado y la necesidad de purgar las fallas del
+mundo a través del caos. Predominan en las tierras del antiguo Ducado de
+Grimthorn, donde los fragmentos hablan de “sombras que devoran la
+esencia” y “colapso necesario para la renovación”.</p>
+<p><strong>Prácticas y símbolos:</strong> Veneración de símbolos lunares
+y oscuridad, ritos de sacrificio, y el estudio profundo de las partes
+del texto que hablan de la ruina como preludio a la salvación.</p>
+<h3 id="los-caminantes-del-velo">3. Los Caminantes del Velo</h3>
+<p>Esta corriente, surgida entre los Clanes Errantes de las Montañas de
+Norel, interpreta los fragmentos como una guía para trascender la
+existencia mortal y alcanzar el velo entre el mundo físico y el
+espiritual. Ven la profecía como un mapa hacia la iluminación y la
+reconciliación con el cosmos que fue roto para desafiar el entendimiento
+humano.</p>
+<p><strong>Prácticas y símbolos:</strong> Uso de velos ceremoniales,
+rituales de meditación y peregrinaciones hacia antiguos santuarios donde
+se cree que los fragmentos mostraron señales.</p>
+<h2 id="leyendas-y-cuentos-sobre-la-profecía">Leyendas y cuentos sobre
+la profecía</h2>
+<p>Entre las muchas <a href="Leyendas.html">Leyendas</a>, una de las más
+recontadas es la historia de <strong>Elyndra la Fragmentadora</strong>,
+una sacerdotisa que, culpable de una traición olvidada, fue la encargada
+de partir el manuscrito. Se dice que su espíritu aún vaga, buscando
+reunir los fragmentos para revelar “la verdad completa”, que podría
+traer tanto la salvación como la perdición definitiva.</p>
+<h2 id="impacto-en-los-reinos-actuales">Impacto en los reinos
+actuales</h2>
+<p>La Profecía Fragmentada no sólo ha influido en doctrinas religiosas y
+filosóficas, sino que también ha moldeado la política, la guerra y las
+alianzas en Lithernia. Los reinos marchan cada uno bajo la bandera de
+una interpretación, y la tensión entre estas corrientes ha dado origen a
+duelos diplomáticos, conflictos armados y una carrera por descubrir
+fragmentos perdidos. Sin embargo, también ha inspirado pactos breves e
+inciertos entre facciones opuestas, en busca de descifrar al fin el
+misterio que une a toda Lithernia.</p>
+<hr />
+<p>La Profecía Fragmentada perdura como un símbolo de la compleja
+herencia de la Era Crepuscular, un enigma que invita a recordar que a
+veces es en la dispersión donde reside la fuerza y en la diversidad, la
+clave del destino común.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.60)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

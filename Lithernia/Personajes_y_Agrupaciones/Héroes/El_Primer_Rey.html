@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Primer_Rey</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Primer_Rey</div>
+        <div class="content">
+<h1 id="el-primer-rey">El Primer Rey</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los anales de Lithernia, ninguna figura proyecta una sombra tan
+larga y profunda como la del Primer Rey. Su verdadero nombre se ha
+perdido en el tiempo, borrado por la ira divina, pero su leyenda perdura
+bajo títulos como “El Unificador” o “El Mártir de los Cielos”. Surgió en
+una era de caos, tras la caída de los grandes imperios dracónicos,
+cuando las razas mortales luchaban por la supervivencia en un mundo
+roto. Con un carisma que rozaba lo divino y empuñando una espada mítica
+forjada con escamas y hueso de dragón, el Rey logró lo impensable:
+unificó a <a href="Humanos.html">Humanos</a>, elfos y <a
+href="Enanos.html">Enanos</a> bajo un único estandarte, poniendo fin a
+siglos de conflictos.</p>
+<p>Bajo su gobierno, Lithernia conoció una edad de oro sin precedentes.
+El Alba del Imperio fue una era de prosperidad, justicia y un
+florecimiento cultural y mágico que jamás se ha vuelto a ver. Las
+ciudades se alzaron majestuosas, el comercio conectó los rincones más
+remotos del continente y se establecieron consejos mixtos donde todas
+las razas tenían voz. El amor de su pueblo fue tan inmenso que
+comenzaron a venerarlo no como a un monarca, sino como a un dios
+viviente.</p>
+<p>Esta devoción fue su perdición. Los verdaderos dioses, celosos y
+temerosos de perder su influencia sobre los mortales, le plantearon un
+ultimátum: renunciar a la veneración divina o enfrentarse a la
+aniquilación total a través del <a href="Lilium.html">Lilium</a>, un
+fuego eterno capaz de purgar el mundo. Decidido a proteger a su pueblo
+antes que a doblegarse ante la tiranía celestial, el Rey eligió el
+desafío.</p>
+<p>Así comenzó la Gran Guerra contra los Cielos. El Primer Rey reunió a
+los magos más poderosos de su era, absorbió sus energías arcanas en su
+propio ser y, montado en una colosal bestia alada, lideró un vasto
+ejército mortal en un asalto directo contra los dominios divinos. La
+guerra se prolongó durante décadas, tiñendo Lithernia de sangre y magia.
+Luchó con la fuerza de mil hombres, pero incluso su poder tenía límites.
+Con el tiempo, sus ejércitos cayeron y sus aliados perecieron, hasta que
+quedó solo, agotado pero indomable, ante el panteón de dioses al
+completo.</p>
+<p>Para poner fin a su rebelión y dar un ejemplo eterno, los dioses no
+lo mataron. En su lugar, lo atravesaron con cuatro Lanzas Celestiales
+—<strong>Requiem</strong> (la Lanza del Olvido),
+<strong>Ultimatum</strong> (la Lanza del Destino),
+<strong>Mortum</strong> (la Lanza del Fin) y <strong>Chronos</strong>
+(la Lanza del Tiempo)— y lo sellaron en una prisión bajo tierra, en el
+corazón mismo del cataclismo que desataron. Allí permanece, condenado a
+una inmortalidad de sufrimiento sin fin.</p>
+<p>Tras su derrota, la venganza de los dioses se consumó. El <a
+href="Lilium.html">Lilium</a> descendió sobre el mundo, un apocalipsis
+de fuego que arrasó la civilización, alteró la geografía y borró casi
+todo rastro de su legado. De las cenizas, los dioses crearon nuevas
+razas y establecieron los cuatro grandes reinos, sembrando en ellos sus
+propias rivalidades y defectos, lo que dio inicio a la Gran Guerra
+interminable que aún hoy asola Lithernia.</p>
+<p>Pese a todo, una chispa de esperanza sobrevive en la <strong>Profecía
+del Retorno del Rey</strong>. Se susurra que un día, un mortal elegido
+logrará quebrar el sello de una de las Lanzas, liberando el poder del
+Rey en su interior. Este <a href="Heroes.html">Heroes</a> reunificará
+Lithernia, desafiará a los dioses y “purgará el mundo de sus creaciones
+fallidas”, inaugurando una nueva era de paz. Esta profecía es tanto una
+promesa de salvación para los oprimidos como una terrible amenaza para
+el orden establecido.</p>
+<h2 id="descripción-física-y-equipo">Descripción Física y Equipo</h2>
+<p>Se le describe en los fragmentos históricos como un humano de porte
+majestuoso, cuya presencia inspiraba una lealtad inquebrantable y un
+temor reverencial. Sus ojos, se dice, brillaban con una determinación
+casi divina, y su voz era capaz de calmar tormentas o incitar a
+ejércitos enteros a la batalla.</p>
+<ul>
+<li><strong>Armadura del Unificador:</strong> Llevaba una armadura
+completa forjada con los mejores metales de las montañas enanas y
+encantada por los más sabios artesanos élficos. Se decía que era
+impenetrable y que sus grabados contaban la historia de la unificación
+de Lithernia.</li>
+<li><strong>Espada de Hueso y Escama Dracónica:</strong> Su arma
+principal, un mandoble legendario forjado con los restos de un antiguo
+dragón. Era un símbolo de la superación del viejo orden y del poder de
+los mortales unidos.</li>
+<li><strong>Las Cuatro Lanzas Celestiales:</strong> Aunque no son su
+equipo, están inextricablemente ligadas a él. Son las llaves de su
+prisión y, según la profecía, la fuente de poder para su futuro <a
+href="Heroes.html">Heroes</a>. Cada lanza posee un poder conceptual
+absoluto: el olvido, el destino, la muerte y el tiempo.</li>
+<li><strong>La Bestia Alada:</strong> Durante la guerra contra los
+dioses, montó una criatura alada de tamaño colosal, cuyo aspecto varía
+en las <a href="Leyendas.html">Leyendas</a>, desde un grifo acorazado
+hasta un wyvern nacido de la propia tierra.</li>
+</ul>
+<h2 id="poderes-y-habilidades">Poderes y Habilidades</h2>
+<p>El poder del Primer Rey trascendía con creces el de cualquier mortal.
+Era un nexo de poder físico, mágico y carismático.</p>
+<ul>
+<li><strong>Liderazgo Divino:</strong> Su mayor atributo era un carisma
+sobrenatural que le permitió unir a razas enemigas y ganarse una
+devoción tan profunda que fue confundida con la fe religiosa.</li>
+<li><strong>Fuerza Sobrehumana:</strong> Las <a
+href="Leyendas.html">Leyendas</a> afirman que “luchó con la fuerza de
+mil hombres”, una proeza que sugiere una capacidad física potenciada por
+la magia hasta niveles sobrehumanos.</li>
+<li><strong>Canalización de Maná Masiva:</strong> Su habilidad más
+extraordinaria era la capacidad de actuar como un conducto para
+cantidades ingentes de energía arcana. Al absorber el poder de los magos
+más poderosos de su imperio, se convirtió en una singularidad mágica
+andante, capaz de enfrentarse a los dioses en su propio terreno.</li>
+<li><strong>Inmortalidad Agónica:</strong> Su estado actual. Es inmune a
+la muerte y al paso del tiempo, pero está atrapado en un estado de
+sufrimiento perpetuo por las Lanzas Celestiales que lo atraviesan, un
+tormento diseñado para quebrar el espíritu más fuerte.</li>
+<li><strong>Conexión Profética:</strong> A pesar de estar sellado, su
+esencia está ligada al destino de Lithernia. Se cree que puede
+comunicarse de forma fragmentada a través de sueños o visiones con
+aquellos que son sensibles a su poder o que están destinados a
+convertirse en su <a href="Heroes.html">Heroes</a>.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>El legado del Primer Rey es, en esencia, la historia misma de la
+Lithernia moderna. Cada conflicto, cada reino y cada esperanza o temor
+de sus habitantes es un eco directo de su rebelión y su caída.</p>
+<ol type="1">
+<li><strong>El Catalizador del Mundo Actual:</strong> Su desafío a los
+dioses provocó el Cataclismo del <a href="Lilium.html">Lilium</a>, el
+evento que destruyó la antigua civilización y dio forma al mundo tal y
+como se conoce. La existencia de los cuatro reinos en guerra perpetua es
+una consecuencia directa de su derrota.</li>
+<li><strong>Símbolo Dual de Esperanza y Miedo:</strong> Para muchos,
+especialmente entre los <a href="Humanos.html">Humanos</a> oprimidos y
+los <a href="Tieflings.html">Tieflings</a> disidentes, el Primer Rey es
+un mártir, un faro de esperanza que promete la liberación del yugo
+divino y la reunificación. Para los poderes fácticos, como la nobleza
+élfica o el propio Rey Sel’thirak, es la encarnación del caos, una
+amenaza existencial cuyo regreso debe ser evitado a toda costa.</li>
+<li><strong>El Eje de la Profecía:</strong> La Profecía de su Retorno es
+una de las tramas más importantes y extendidas de Lithernia. Facciones
+enteras se han formado con el único propósito de cumplirla o impedirla.
+La búsqueda de las Lanzas Celestiales, ya sea para destruirlas, usarlas
+o liberarlas, es una misión legendaria que atrae a héroes y <a
+href="Villanos.html">Villanos</a> por igual.</li>
+<li><strong>Una Memoria Inextinguible:</strong> A pesar de los esfuerzos
+de los dioses por borrarlo de la historia con la Lanza Requiem, su
+recuerdo sobrevive en cultos secretos, canciones prohibidas y <a
+href="Leyendas.html">Leyendas</a> susurradas junto al fuego. Es la
+prueba de que ni siquiera los dioses pueden matar una idea, y su
+historia sirve como advertencia perpetua sobre el precio de la tiranía y
+el coste de la libertad.</li>
+</ol>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.70)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

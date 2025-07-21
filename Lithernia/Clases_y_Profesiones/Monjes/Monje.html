@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monje</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Monje</div>
+        <div class="content">
+<h1 id="monje">Monje</h1>
+<p>Los monjes son maestros del control corporal y espiritual, que
+canalizan su energía interna, o maná, para lograr proezas físicas y
+místicas extraordinarias. En un mundo desgarrado por la voluntad de los
+dioses, los monjes buscan la perfección a través de la disciplina, el
+equilibrio y la armonía con el Tejido de Maná, convirtiendo sus propios
+cuerpos en armas y escudos.</p>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como monje, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d8 por nivel de monje <strong>Puntos
+de Golpe a nivel 1:</strong> 8 + tu modificador de Constitución
+<strong>Puntos de Golpe a niveles superiores:</strong> 1d8 (o 5) + tu
+modificador de Constitución por cada nivel de monje después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Ninguna <strong>Armas:</strong> Armas
+sencillas, espadas cortas <strong>Herramientas:</strong> Elige un tipo
+de herramientas de artesano o un instrumento musical <strong>Tiradas de
+Salvación:</strong> Fuerza, Destreza <strong>Habilidades:</strong> Elige
+dos de entre Acrobacias, Atletismo, Historia, Perspicacia, Religión y
+Sigilo.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) una espada corta o (b) cualquier arma sencilla * (a) un
+paquete de explorador o (b) un paquete de mazmorra * 10 dardos</p>
+<h3 id="sistema-de-maná-del-monje"><strong>Sistema de Maná del
+Monje</strong></h3>
+<p>Tu poder marcial proviene del dominio de tu energía interna, una
+forma personal de canalizar el Tejido del Maná.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que usas para alimentar tus rasgos de monje. Tu fórmula de maná es
+<strong>6 + (Nivel de Monje × Modificador de Sabiduría)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d6.</li>
+<li><strong>Aptitud Mágica Marcial:</strong> La Sabiduría es tu aptitud
+para tus rasgos de maná.
+<ul>
+<li><strong>CD de salvación de Maná</strong> = 8 + tu bonificador por
+competencia + tu modificador de Sabiduría.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-monje">Tabla de Progresión del
+Monje</h3>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Artes Marciales</th>
+<th style="text-align: center;">Movimiento sin Armadura</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Defensa sin Armadura, Artes Marciales</td>
+<td style="text-align: center;">1d4</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">6 + (1 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Maná Interior, Movimiento sin
+Armadura</td>
+<td style="text-align: center;">1d4</td>
+<td style="text-align: center;">+10 pies</td>
+<td style="text-align: center;">6 + (2 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Tradición Monástica, Desviar
+Proyectiles</td>
+<td style="text-align: center;">1d4</td>
+<td style="text-align: center;">+10 pies</td>
+<td style="text-align: center;">6 + (3 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de Característica,
+Caída Lenta</td>
+<td style="text-align: center;">1d4</td>
+<td style="text-align: center;">+10 pies</td>
+<td style="text-align: center;">6 + (4 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Ataque Extra, Golpe Aturdidor</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: center;">+10 pies</td>
+<td style="text-align: center;">6 + (5 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Golpes de Maná, Rasgo de Tradición
+Monástica</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: center;">+15 pies</td>
+<td style="text-align: center;">6 + (6 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Evasión, Quietud Mental</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: center;">+15 pies</td>
+<td style="text-align: center;">6 + (7 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: center;">+15 pies</td>
+<td style="text-align: center;">6 + (8 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Movimiento sin Armadura</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: center;">+15 pies</td>
+<td style="text-align: center;">6 + (9 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Pureza Corporal</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: center;">+20 pies</td>
+<td style="text-align: center;">6 + (10 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Rasgo de Tradición Monástica</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: center;">+20 pies</td>
+<td style="text-align: center;">6 + (11 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: center;">+20 pies</td>
+<td style="text-align: center;">6 + (12 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Lengua del Sol y la Luna</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: center;">+20 pies</td>
+<td style="text-align: center;">6 + (13 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Alma de Diamante</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: center;">+25 pies</td>
+<td style="text-align: center;">6 + (14 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Cuerpo Atemporal</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: center;">+25 pies</td>
+<td style="text-align: center;">6 + (15 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: center;">+25 pies</td>
+<td style="text-align: center;">6 + (16 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Rasgo de Tradición Monástica</td>
+<td style="text-align: center;">1d10</td>
+<td style="text-align: center;">+25 pies</td>
+<td style="text-align: center;">6 + (17 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Cuerpo Vacío</td>
+<td style="text-align: center;">1d10</td>
+<td style="text-align: center;">+30 pies</td>
+<td style="text-align: center;">6 + (18 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">1d10</td>
+<td style="text-align: center;">+30 pies</td>
+<td style="text-align: center;">6 + (19 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Yo Perfeccionado</td>
+<td style="text-align: center;">1d10</td>
+<td style="text-align: center;">+30 pies</td>
+<td style="text-align: center;">6 + (20 × Mod. SAB)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tradiciones-monásticas"><strong>Tradiciones
+Monásticas</strong></h2>
+<h3 id="camino-de-la-mano-abierta"><strong>Camino de la Mano
+Abierta</strong></h3>
+<p>Los monjes del Camino de la Mano Abierta son los maestros supremos
+del combate con artes marciales, ya sea con o sin armas. Aprenden
+técnicas para empujar y derribar a sus oponentes, manipular el maná para
+curar sus propias heridas, y practicar un arte marcial avanzado que
+puede incapacitar o matar.</p>
+<h4 id="técnica-de-la-mano-abierta"><strong>Técnica de la Mano
+Abierta</strong></h4>
+<p>A partir del nivel 3, puedes manipular el maná de tu enemigo. Cada
+vez que golpees a una criatura con uno de los ataques de tu Ráfaga de
+Golpes, puedes imponerle uno de los siguientes efectos: * Debe superar
+una tirada de salvación de Destreza o ser derribada. * Debe hacer una
+tirada de salvación de Fuerza. Si falla, puedes empujarla hasta 15 pies
+lejos de ti. * No puede realizar reacciones hasta el final de tu
+siguiente turno.</p>
+<h4 id="integridad-corporal"><strong>Integridad Corporal</strong></h4>
+<p>En el nivel 6, obtienes la capacidad de curarte a ti mismo. Como una
+acción, puedes recuperar puntos de golpe iguales a tres veces tu nivel
+de monje. Para ello, debes gastar 2 Puntos de Maná.</p>
+<h4 id="tranquilidad"><strong>Tranquilidad</strong></h4>
+<p>A partir del nivel 11, puedes entrar en un estado meditativo
+especial. Al final de un descanso largo, obtienes el efecto del conjuro
+<em>santuario</em> que dura hasta el comienzo de tu siguiente descanso
+largo (el conjuro puede terminar antes de forma normal). La CD de la
+salvación para el conjuro es 8 + tu modificador de Sabiduría + tu
+bonificador de competencia.</p>
+<h4 id="palma-vibratoria"><strong>Palma Vibratoria</strong></h4>
+<p>En el nivel 17, obtienes la capacidad de crear vibraciones letales en
+el cuerpo de alguien. Cuando golpeas a una criatura con un golpe sin
+armas, puedes gastar 4 Puntos de Maná para transmitir estas vibraciones,
+que duran un número de días igual a tu nivel de monje. Las vibraciones
+son inofensivas a menos que uses tu acción para terminarlas. Para
+hacerlo, tú y el objetivo debéis estar en el mismo plano de existencia.
+Cuando usas esta acción, la criatura debe hacer una tirada de salvación
+de Constitución. Si falla, se reduce a 0 puntos de golpe. Si tiene
+éxito, recibe 10d10 de daño necrótico.</p>
+<h3 id="camino-de-la-sombra"><strong>Camino de la Sombra</strong></h3>
+<p>Los monjes del Camino de la Sombra siguen una tradición que valora el
+sigilo y el subterfugio. Estos monjes podrían ser llamados ninjas o
+danzarines sombríos, y sirven como espías y asesinos. A veces, los
+miembros de un monasterio sombrío son una familia que se transmite sus
+secretos y misiones de generación en generación.</p>
+<h4 id="artes-sombrías"><strong>Artes Sombrías</strong></h4>
+<p>A partir del nivel 3, puedes usar tu maná para duplicar los efectos
+de ciertos <a href="Conjuros.html">Conjuros</a>. Como una acción, puedes
+gastar 2 Puntos de Maná para lanzar <em>oscuridad</em>,
+<em>silencio</em>, <em>paso brumoso</em> o <em>visión en la
+oscuridad</em>, sin necesidad de componentes materiales.</p>
+<h4 id="paso-sombrío"><strong>Paso Sombrío</strong></h4>
+<p>En el nivel 6, obtienes la capacidad de entrar en una sombra y salir
+por otra. Cuando estás en luz tenue u oscuridad, como una acción
+adicional, puedes teletransportarte hasta 60 pies a un espacio
+desocupado que puedas ver que también esté en luz tenue u oscuridad.
+Luego tienes ventaja en la primera tirada de ataque cuerpo a cuerpo que
+hagas antes del final del turno.</p>
+<h4 id="manto-de-sombras"><strong>Manto de Sombras</strong></h4>
+<p>En el nivel 11, has aprendido a volverte uno con las sombras. Cuando
+estás en un área de luz tenue u oscuridad, puedes usar tu acción para
+volverte invisible. Permaneces invisible hasta que hagas un ataque,
+lances un conjuro o estés en un área de luz brillante.</p>
+<h4 id="oportunista"><strong>Oportunista</strong></h4>
+<p>En el nivel 17, puedes explotar la distracción momentánea de una
+criatura cuando es golpeada por un ataque. Cuando una criatura a 5 pies
+de ti es golpeada por un ataque hecho por una criatura que no eres tú,
+puedes usar tu reacción para hacer un ataque cuerpo a cuerpo contra esa
+criatura.</p>
+<h3 id="camino-del-equilibrio-elemental"><strong>Camino del Equilibrio
+Elemental</strong></h3>
+<p>Los monjes de esta tradición aprenden a controlar las fuerzas de los
+elementos, reflejando el poder de los dioses de la creación, la
+destrucción y la naturaleza. Doblegan los cuatro elementos a su
+voluntad, desatando ráfagas de viento, olas de agua, llamas danzantes o
+la solidez de la tierra.</p>
+<h4 id="discípulo-de-los-elementos"><strong>Discípulo de los
+Elementos</strong></h4>
+<p>Cuando eliges esta tradición en el nivel 3, aprendes a manipular los
+elementos a través de disciplinas mágicas. Aprendes una Disciplina
+Elemental de tu elección de la lista de abajo. Aprendes una disciplina
+adicional en los niveles 6, 11 y 17.</p>
+<h4 id="lanzar-disciplinas-elementales"><strong>Lanzar Disciplinas
+Elementales</strong></h4>
+<p>Algunas disciplinas elementales requieren que gastes Puntos de Maná.
+El coste se especifica en la descripción de cada disciplina. No puedes
+aprender una disciplina de un nivel superior a la mitad de tu nivel de
+monje (redondeado hacia arriba).</p>
+<h4 id="disciplinas-elementales"><strong>Disciplinas
+Elementales</strong></h4>
+<ul>
+<li><strong>Puño del Viento Incesante (Nivel 3+):</strong> Gasta 1 Punto
+de Maná. Inmediatamente después de golpear a un objetivo con un ataque
+de Ráfaga de Golpes, puedes forzarlo a hacer una tirada de salvación de
+Destreza. Si falla, es empujado 15 pies y derribado.</li>
+<li><strong>Látigo de Agua (Nivel 3+):</strong> Gasta 1 Punto de Maná.
+Como acción, crea un látigo de agua que golpea a una criatura a 30 pies.
+La criatura debe hacer una tirada de salvación de Destreza. Si falla,
+recibe 1d10 de daño contundente y puedes tirar de ella hasta 25 pies más
+cerca de ti.</li>
+<li><strong>Dardo de Fuego de <a href="Solniria.html">Solniria</a>
+(Nivel 3+):</strong> Gasta 1 Punto de Maná. Como acción, realiza un
+ataque de conjuro a distancia contra una criatura a 60 pies. Con un
+impacto, inflige 2d8 de daño de fuego.</li>
+<li><strong>Grito de la Tormenta de <a href="Exion.html">Exion</a>
+(Nivel 6+):</strong> Gasta 2 Puntos de Maná para lanzar <em>onda
+atronadora</em>.</li>
+<li><strong>Abrazo del Mar de <a href="Yfrit.html">Yfrit</a> (Nivel
+6+):</strong> Gasta 3 Puntos de Maná para lanzar <em>inmovilizar
+persona</em>.</li>
+<li><strong>Cabalgando el Viento de <a href="Quiteon.html">Quiteon</a>
+(Nivel 11+):</strong> Gasta 4 Puntos de Maná para lanzar <em>volar</em>
+sobre ti mismo.</li>
+<li><strong>Llama del Corazón de la <a href="Herreria.html">Herreria</a>
+(Nivel 11+):</strong> Gasta 4 Puntos de Maná para lanzar <em>bola de
+fuego</em>.</li>
+<li><strong>Muro de Roca de <a href="Cirkon.html">Cirkon</a> (Nivel
+17+):</strong> Gasta 6 Puntos de Maná para lanzar <em>muro de
+piedra</em>.</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

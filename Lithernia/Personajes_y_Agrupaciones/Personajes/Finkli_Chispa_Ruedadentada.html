@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finkli_Chispa_Ruedadentada</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Finkli_Chispa_Ruedadentada</div>
+        <div class="content">
+<h1 id="finkli-chispa-ruedadentada">Finkli ‘Chispa’ Ruedadentada</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida en el seno del clan Ruedadentada, una familia de ingenieros y
+relojeros <a href="Gnomos.html">Gnomos</a> de las estribaciones de <a
+href="Valtoria.html">Valtoria</a>, Finkli mostró desde joven una
+fascinación casi peligrosa por el funcionamiento interno de las cosas.
+Su apodo, “Chispa”, no proviene solo de las chispas de genialidad que
+iluminan sus ojos curiosos, sino de un infame incidente juvenil con un
+reloj-despertador que, en lugar de campanadas, producía una ráfaga de
+chispas y un chorro de agua helada. Para Finkli, fue un éxito
+rotundo.</p>
+<p>Atraída por los rumores de <a href="Sylorian.html">Sylorian</a> —una
+ciudad utópica donde elfos y <a href="Enanos.html">Enanos</a>
+colaboraban—, Finkli vio el mayor de los mecanismos por desentrañar: una
+sociedad. Emigró al valle, estableciendo un pequeño taller donde su
+ingenio pronto la hizo indispensable para tareas que requerían más
+finura que fuerza bruta.</p>
+<p>Su vida dio un vuelco durante el devastador ataque del Clan Nighthawk
+que casi destruyó la Arboleda Ancestral. Viendo la fuerza bruta de los
+guerreros <a href="Enanos.html">Enanos</a> y la magia sigilosa de los
+elfos fallar ante el subterfugio y la magia oscura, Finkli comprendió
+que la guerra se ganaba antes de que comenzara la batalla. Cuando Borin
+Cortepiedra y Lyra Hojacanto fundaron la Guardia del Crepúsculo, Finkli
+no se unió como soldado, sino como su primera y más letal arma
+secreta.</p>
+<p>Creó la división de Tramperos desde cero, diseñando una doctrina
+basada en la anticipación, la vigilancia y la neutralización. Sus
+motivaciones son claras: proteger el “mecanismo” perfecto que es <a
+href="Sylorian.html">Sylorian</a>. Considera a los Cazadores de Sombras
+una plaga de óxido ignorante y al Clan Nighthawk un engranaje corrupto
+que amenaza con romper toda la maquinaria.</p>
+<p>Entre sus hazañas se cuenta el diseño de la red de “Ojos de Jade”, un
+sistema de vigilia arcana que alertó de una incursión de espías
+hobgoblin. También es la artífice tras la “Captura Silenciosa”, una
+operación donde un escuadrón entero de Cazadores de Sombras fue
+neutralizado con trampas de contención alquímicas sin una sola baja en
+la Guardia. Su relación con los herreros <a
+href="Enanos.html">Enanos</a> es una leyenda en <a
+href="Sylorian.html">Sylorian</a>; sus debates con el clan Bronzenhammer
+sobre la eficacia de un delicado mecanismo de relojería frente a un
+“trozo de metal glorificado” son un espectáculo habitual en las
+tabernas, aunque siempre terminan con un respeto mutuo y, a menudo, con
+una creación híbrida superior, como el complejo “Cerrojo del Ocaso” que
+protege las puertas de la ciudad.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Finkli es la personificación de la energía contenida. Es una gnoma de
+complexión menuda pero de movimientos rápidos y precisos. Su cabello, de
+un color castaño cobrizo, está perpetuamente recogido en un moño
+desordenado del que escapan mechones rebeldes, asegurado con lápices y
+pequeñas herramientas. Sus ojos, grandes y del color del aceite de
+máquina, bullen de inteligencia y no dejan de analizar su entorno. Sus
+manos, aunque pequeñas, son fuertes y están permanentemente manchadas de
+grasa, polvo de gemas y residuos alquímicos, con los dedos cubiertos de
+pequeñas cicatrices de cortes y quemaduras, medallas de honor de su
+oficio.</p>
+<p>Viste un mono de cuero reforzado lleno de bolsillos, trabillas y
+correas de las que cuelgan una desconcertante variedad de herramientas.
+Su equipo no es ostentoso, sino funcional hasta el extremo:</p>
+<ul>
+<li><strong>Gafas de Calibración Arcana:</strong> Unas gafas de
+múltiples lentes que puede ajustar para percibir fluctuaciones en el
+Tejido del Maná, detectar trazas de magia de ilusión o analizar la
+integridad estructural de un mecanismo a distancia.</li>
+<li><strong>Guantelete “El Pellizco”:</strong> Un guantelete de cuero y
+latón que culmina en una serie de pinzas, llaves y destornilladores de
+precisión, capaz de desarmar una trampa o calibrar un sensor diminuto
+con una destreza sobrehumana.</li>
+<li><strong>Cinturón de Utensilios de la Guardia:</strong> Más que un
+simple cinturón, es un arsenal en miniatura. Contiene bobinas de alambre
+de cobre rúnico para trampas mágicas, viales con adhesivos alquímicos de
+secado instantáneo, sensores de movimiento de cristal y pequeños
+explosivos sónicos diseñados para aturdir, no para matar.</li>
+<li><strong>Ballesta Ligera “Aguijón”:</strong> Modificada por ella
+misma, esta ballesta es silenciosa y puede disparar una variedad de
+proyectiles especiales: virotes con punta de red, cápsulas de gas
+somnífero o un gancho de escalada retráctil.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>En un mundo definido por el choque de espadas épicas y la magia
+devastadora de los dioses, Finkli Ruedadentada representa una fuerza
+diferente, pero no menos formidable: el poder del ingenio. Ella es la
+prueba viviente de que la preparación supera a la fuerza bruta y que la
+mente más aguda es el arma más letal.</p>
+<p>Su impacto en <a href="Sylorian.html">Sylorian</a> es innegable; es
+el cerebro táctico tras la seguridad del valle. Ha transformado a la
+Guardia del Crepúsculo de un grupo de guerreros reactivos a una agencia
+de inteligencia proactiva, cuyas redes de trampas y vigilancia han
+evitado conflictos que podrían haber costado cientos de vidas.</p>
+<p>A una escala mayor, Finkli es un símbolo de la cooperación innovadora
+que define la Era Actual de Lithernia. En ella, la robusta tradición
+enana y la elegante sabiduría élfica se encuentran con la chispa
+impredecible de la inventiva gnoma. Su legado no serán estatuas en
+plazas, sino la paz silenciosa de las noches en <a
+href="Sylorian.html">Sylorian</a>, la seguridad de sus murallas
+invisibles y una generación de guardias que han aprendido que el
+engranaje mejor colocado puede detener a un gigante. Para los enemigos
+de <a href="Sylorian.html">Sylorian</a>, Finkli ‘Chispa’ es una
+pesadilla de cables, resortes y lógica implacable, un fantasma en la
+máquina que siempre está un paso por delante.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villanos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Villanos</div>
+        <div class="content">
+<h1 id="villanos">Villanos</h1>
+<p>En el mundo complejo y turbulento de Lithernia, los villanos
+desempeñan un papel fundamental en el desarrollo de la narrativa y el
+conflicto entre reinos, clanes y facciones. Muchos de estos antagonistas
+poseen poderosos lazos con los panteones divinos y las fuerzas oscuras
+que moldean la historia del mundo, y sus acciones suelen estar imbuidas
+de intereses políticos, religiosos y mágicos que reflejan la riqueza del
+lore global.</p>
+<h2 id="líderes-y-antagonistas-principales">Líderes y Antagonistas
+Principales</h2>
+<h3 id="selthirak-el-dios-de-la-muerte-y-rey-de-mordhul">Sel’thirak, el
+Dios de la Muerte y Rey de Mor’dhul</h3>
+<ul>
+<li><strong>Raza:</strong> Tiefling (deidad encarnada)<br />
+</li>
+<li><strong>Rol:</strong> Gobernante autoritario y principal antagonista
+en Mor’dhul.<br />
+</li>
+<li><strong>Descripción:</strong> Figura imponente de piel medianoche y
+ojos rojos, con cuernos elegantes y adornos óseos.<br />
+</li>
+<li><strong>Motivación:</strong> Mantener el orden divino y su
+supremacía asegurando que el Primer Rey nunca regrese. Cree que sólo
+bajo su dominio el mundo puede evitar otro cataclismo <a
+href="Lilium.html">Lilium</a>.<br />
+</li>
+<li><strong>Personalidad:</strong> Inteligente, carismático y
+despiadado, dispuesto a usar todos los medios para permanecer en el
+trono divino-mortal.<br />
+</li>
+<li><strong>Relaciones:</strong> Rivaliza y colabora muy cautelosamente
+con otros dioses y clanes de Mor’dhul. Confía en Xandria y Volrath, pero
+desconfía de sus opositores y de la profecía del Rey.<br />
+</li>
+<li><strong>Importancia en campaña:</strong> Puede ser el villano
+central o un oscuro protector cuya alianza temporal puede ser necesaria
+para enfrentar males mayores.</li>
+</ul>
+<h3 id="lord-aethel-el-cruel">Lord Aethel “El Cruel”</h3>
+<ul>
+<li><strong>Raza:</strong> Tiefling<br />
+</li>
+<li><strong>Rol:</strong> <a href="Noble.html">Noble</a> ambicioso y
+aspirante al control total de Mor’dhul.<br />
+</li>
+<li><strong>Descripción:</strong> Tiefling de piel púrpura oscura, ojos
+amarillos y cuernos rectos, vestido con armadura ceremonial y capa
+roja.<br />
+</li>
+<li><strong>Motivación:</strong> Usurpar el poder de Sel’thirak y
+convertirse en soberano absoluto, usando cualquier medio, incluidos
+pactos con fuerzas oscuras y cultos que veneran el <a
+href="Lilium.html">Lilium</a>.<br />
+</li>
+<li><strong>Personalidad:</strong> Astuto, maquiavélico y cruel;
+disfruta castigando a sus rivales.<br />
+</li>
+<li><strong>Poderes:</strong> <a href="Brujo.html">Brujo</a> poderoso y
+manipulador, contado con artefactos robados y magia oscura, incluyendo
+rumores de control sobre la Lanza Mortum.<br />
+</li>
+<li><strong>Relaciones:</strong> Secretamente enemigo del rey, con
+conspiraciones en la nobleza y posibles alianzas con dioses oscuros y
+clanes rebeldes.<br />
+</li>
+<li><strong>Importancia en campaña:</strong> Antagonista para campañas
+centradas en intrigas políticas, rebelión, o la búsqueda de las Lanzas
+Celestiales; su ascenso puede desatar una gran guerra civil.</li>
+</ul>
+<h3 id="lady-xandria-la-susurrante">Lady Xandria “La Susurrante”</h3>
+<ul>
+<li><strong>Raza:</strong> Tiefling<br />
+</li>
+<li><strong>Rol:</strong> Hechicera consejera principal de Sel’thirak y
+posible líder oculta del clan Whisper.<br />
+</li>
+<li><strong>Descripción:</strong> Mujer de piel carmesí oscura, ojos
+dorados y cuernos pequeños, con tatuajes místicos y vestimenta
+negra.<br />
+</li>
+<li><strong>Motivación:</strong> Mantener la estabilidad del reino y
+proteger el poder de Sel’thirak, temerosa del caos que traerían la
+profecía o el <a href="Lilium.html">Lilium</a>.<br />
+</li>
+<li><strong>Personalidad:</strong> Fría, manipuladora y sumamente
+inteligente; maestra de intrigas y control mental.<br />
+</li>
+<li><strong>Poderes:</strong> Especialista en encantamientos y hechizos
+mentales, capaz de implantar ideas y controlar sutilmente a sus
+víctimas.<br />
+</li>
+<li><strong>Importancia en campaña:</strong> Cerebro detrás de
+conspiraciones en Mor’dhul, un misterio por descubrir o posible aliada
+si se gana su confianza.</li>
+</ul>
+<h3 id="lord-volrath-la-mano-negra">Lord Volrath “La Mano Negra”</h3>
+<ul>
+<li><strong>Raza:</strong> Orco<br />
+</li>
+<li><strong>Rol:</strong> General militar y mano derecha de
+Sel’thirak.<br />
+</li>
+<li><strong>Descripción:</strong> Orco imponente con piel verde oscuro,
+cicatrices de batalla y armadura de obsidiana pesada.<br />
+</li>
+<li><strong>Motivación:</strong> Proteger Mor’dhul y garantizar la
+seguridad del rey, defendiendo con honor y disciplina.<br />
+</li>
+<li><strong>Personalidad:</strong> Leal, disciplinado y directo, con
+fuerte sentido del honor orco.<br />
+</li>
+<li><strong>Relaciones:</strong> Confianza plena en Sel’thirak y
+Xandria, desconfianza hacia Aethel y otros conspiradores.<br />
+</li>
+<li><strong>Importancia en campaña:</strong> Villano táctico en batalla
+o posible aliado militar, con dilemas morales que pueden enriquecer la
+trama.</li>
+</ul>
+<h3 id="clan-whisper-hobgoblins-necrománticos">Clan Whisper (Hobgoblins
+Necrománticos)</h3>
+<ul>
+<li><strong>Raza:</strong> <a
+href="Hobgoblins.html">Hobgoblins</a><br />
+</li>
+<li><strong>Rol:</strong> Expertos en necromancia y control de
+espíritus, controlan la ciudad de Chéga y practican magia oscura
+abierta.<br />
+</li>
+<li><strong>Motivación:</strong> Extender su dominio sobre la muerte,
+crear ejércitos de no-muertos y usar el miedo para controlar
+Mor’dhul.<br />
+</li>
+<li><strong>Personalidad:</strong> Silenciosos, obsesionados y
+despiadados en su búsqueda de control.<br />
+</li>
+<li><strong>Importancia en campaña:</strong> Fuente de rituales
+prohibidos, enemigos temibles en dungeons oscuros, o pactantes de
+oscuros secretos.</li>
+</ul>
+<h3 id="korgath-el-destripador-semiogro-del-clan-lakros">Korgath “El
+Destripador” (Semiogro del Clan Lakros)</h3>
+<ul>
+<li><strong>Raza:</strong> Semiogro<br />
+</li>
+<li><strong>Rol:</strong> General sanguinario y brutal de Lopran <a
+href="Lakros.html">Lakros</a>.<br />
+</li>
+<li><strong>Motivación:</strong> Llevar a cabo la voluntad sanguinaria
+del dios <a href="Lakros.html">Lakros</a>, extender la guerra
+constante.<br />
+</li>
+<li><strong>Personalidad:</strong> Salvaje y sanguinario, pero también
+estratégico en combate.<br />
+</li>
+<li><strong>Importancia en campaña:</strong> Jefe de guerra feroz para
+enfrentar en asedios o como antagonista de linaje brutal.</li>
+</ul>
+<h2 id="otros-villanos-y-antagonistas-notables">Otros Villanos y
+Antagonistas Notables</h2>
+<h3 id="clanes-nómadas-y-menores">Clanes Nómadas y Menores</h3>
+<ul>
+<li><strong>Ejemplos:</strong> Clan Razortooth (<a
+href="Goblins.html">Goblins</a> salvajes), Shadowscale (<a
+href="Goblins.html">Goblins</a> espías), Bloodfire (<a
+href="Orcos.html">Orcos</a> frenéticos), Ironclaw (<a
+href="Orcos.html">Orcos</a> forjadores rebeldes).<br />
+</li>
+<li><strong>Motivaciones:</strong> Poder local, saqueo, control del
+territorio y rivalidad ancestral.<br />
+</li>
+<li><strong>Importancia:</strong> Pueden ser antagonistas recurrentes en
+zonas fronterizas o rutas comerciales, ocasionando conflictos y
+ofreciendo desafíos tácticos.</li>
+</ul>
+<h3 id="clan-of-the-damned-vampiros">Clan of the Damned (Vampiros)</h3>
+<ul>
+<li><strong>Raza:</strong> Vampiros conscientes.<br />
+</li>
+<li><strong>Rol:</strong> Controlan la ciudad de Tones, con redes de
+poder oculto y conspiraciones vampíricas.<br />
+</li>
+<li><strong>Motivación:</strong> Expandir influencia en Mor’dhul y
+someter a los vivos como ganado.<br />
+</li>
+<li><strong>Importancia en campaña:</strong> Villanos sobrenaturales con
+sed de sangre y manipulación social, ideales para aventuras de horror
+gótico.</li>
+</ul>
+<h3 id="cónclave-sombrío-magos-oscuros-en-mevanil">Cónclave Sombrío
+(Magos Oscuros en Mevanil)</h3>
+<ul>
+<li><strong>Rol:</strong> Facción de magos rebeldes en control de la
+ciudad de Mevanil, dedicada a la magia prohibida y conspiraciones
+arcanas.<br />
+</li>
+<li><strong>Motivación:</strong> Dominación mágica de Mor’dhul y posible
+réplica del <a href="Lilium.html">Lilium</a> para chantajear a reinos y
+dioses.<br />
+</li>
+<li><strong>Importancia:</strong> Antagonistas intelectuales y mágicos,
+clave para tramas de intriga arcana y búsqueda de secretos
+prohibidos.</li>
+</ul>
+<h3 id="personajes-villanos-secundarios">Personajes Villanos
+Secundarios</h3>
+<ul>
+<li><strong>Clanes Bosque y Pantano:</strong> Por ejemplo, el Clan
+Nighthawk con su espionaje y magia de sombras, o Mirewalker con el
+dominio sobre la naturaleza corrompida.<br />
+</li>
+<li><strong>Rebeldes y Traidores:</strong> Liderazgos como la facción
+rebelde de Chéneras o agentes ocultos en ciudades como Poyoranta o
+Noblestevo.<br />
+</li>
+<li><strong>Fanáticos y Cultistas:</strong> Seguidores del <a
+href="Lilium.html">Lilium</a>, devotos extremos de dioses destructores o
+sectas apocalípticas buscando desatar la Segunda Caída.</li>
+</ul>
+<h2 id="el-villano-como-elemento-narrativo">El Villano como Elemento
+Narrativo</h2>
+<p>Los villanos en Lithernia no son meramente fuerzas de destrucción:
+sus motivaciones reflejan las complejas tensiones que mantienen viva la
+Gran Guerra y el pulso del mundo. Algunos, como Sel’thirak o Aethel,
+representan poderes divinos o mortales en juego por el destino del
+mundo; otros, como los clanes menores o magos oscuros, manifiestan las
+consecuencias del cataclismo y la ruptura del orden original.</p>
+<p>Jugar con estas figuras permite explorar temas como la ambición, la
+lealtad, las consecuencias del poder divino y la fragilidad de la
+esperanza. Ya sea presentándolos como villanos directos, antagonistas
+potenciales con motivos comprensibles, o incluso aliados dudosos, estos
+personajes enriquecen el universo y situan a los jugadores en medio de
+decisiones que pueden cambiar el curso de Lithernia.</p>
+<hr />
+<p>Este artículo puede servir como referencia fundamental para Dungeon
+Masters y jugadores que deseen comprender las fuerzas oscuras y
+antagónicas que habitan Lithernia, facilitando campañas dramáticas y
+memorables.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

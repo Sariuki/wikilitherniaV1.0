@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thirilian</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Thirilian</div>
+        <div class="content">
+<h1 id="thirilian">Thirilian</h1>
+<p>Suspendida sobre las olas del Archipiélago del Viento Gélido,
+Thirilian es más un poema que una ciudad. Sus estructuras, ligeras y
+esbeltas, se alzan sobre un conjunto de islotes rocosos, unidas por una
+red de puentes colgantes que se mecen con la brisa marina. Construida
+con madera de naufragios pulida por el tiempo, coral blanqueado por el
+sol y piedra caliza, la ciudad parece haber emergido del propio océano.
+No es un puerto de riquezas materiales ni una fortaleza militar, sino un
+santuario para aquellos cuyo tesoro es el horizonte, la inspiración y la
+libertad: un refugio para artistas, bardos, astrónomos y exploradores de
+todo <a href="Galvorn.html">Galvorn</a>.</p>
+<h2 id="historia">Historia</h2>
+<p>Thirilian fue fundada hace siglos por el legendario navegante y poeta
+Aelon Velaviento. Cansado de la codicia y las intrigas políticas de los
+puertos continentales, Aelon zarpó con una flotilla de seguidores
+—artistas, soñadores y eruditos— en busca de un lugar donde la
+inspiración del viento y la inmensidad del mar fueran las únicas leyes.
+Encontraron el Archipiélago del Viento Gélido, un lugar de belleza
+indómita, y juraron lealtad a <a href="Yfrit.html">Yfrit</a>, la <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a>, y a <a
+href="Quiteon.html">Quiteon</a>, el dios del viento errante. La ciudad
+se construyó no para resistir al mar, sino para danzar con él. Con el
+tiempo, se convirtió en un faro de creatividad y conocimiento, atrayendo
+a quienes creían que un verso bien compuesto o una carta estelar precisa
+valían más que todo el oro de un galeón.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Los Muelles del Susurro</strong>: El corazón de la
+ciudad. A diferencia de los bulliciosos puertos comerciales, estos
+muelles de coral y madera son silenciosos y ordenados. Cada barco es
+recibido con cantos tocados en caracolas, y los muelles están adornados
+con esculturas hechas de velas rotas y redes viejas, transformadas en
+arte.</p></li>
+<li><p><strong>La Atalaya de los Astros</strong>: En el islote más alto
+se erigen las torres de vigía de Thirilian. No buscan enemigos, sino
+estrellas. Equipadas con lentes de cristal pulido y astrolabios de
+bronce, son observatorios donde los navegantes estudian el firmamento
+para trazar sus rutas. De noche, las torres brillan con una luz suave,
+como estrellas caídas ancladas a la tierra.</p></li>
+<li><p><strong>El Laberinto Flotante</strong>: El distrito residencial,
+formado por docenas de pequeñas islas conectadas por puentes de cuerda y
+madera. Las casas son ligeras y abiertas, con balcones que miran al mar
+y tejados diseñados para capturar la brisa. Aquí también se encuentran
+las famosas granjas flotantes de los <a
+href="Medianos.html">Medianos</a>, que cultivan algas y vegetales
+marinos en balsas ancladas.</p></li>
+<li><p><strong>El Anfiteatro de las Olas</strong>: Un anfiteatro natural
+excavado en un acantilado, donde el sonido de las olas rompiendo contra
+las rocas sirve de telón de fondo para recitales de poesía, cantos
+épicos y representaciones teatrales. Se dice que el propio <a
+href="Quiteon.html">Quiteon</a> se detiene a escuchar cuando una
+historia es particularmente conmovedora.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Thirilian se mide por las mareas y las estrellas. Los
+conflictos se resuelven a menudo mediante duelos de ingenio o concursos
+de poesía en el Anfiteatro de las Olas. Un rito de paso para cualquier
+joven navegante es tatuarse en la piel una sección de la carta astral de
+su primer gran viaje, un mapa personal que lo guiará para siempre.</p>
+<p>La festividad más importante es el “Festival de las Mareas
+Susurrantes”. Cada año, al llegar la marea más alta, los habitantes
+lanzan al mar miles de farolillos hechos de finas láminas de coral, cada
+uno conteniendo un deseo escrito en un pergamino. Las corrientes se
+llevan los deseos hacia el horizonte, en una ofrenda silenciosa a los
+dioses del mar y del viento.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Thirilian es funcional y etérea. Las edificaciones
+son elevadas para evitar las marejadas, con grandes ventanales y
+terrazas para dejar pasar la luz y el aire. El sonido predominante no es
+el de una ciudad, sino una sinfonía natural: el silbido del viento a
+través de las torres, el murmullo constante de las olas, el repique de
+miles de campanas de viento hechas con conchas y cristales marinos. El
+símbolo de la ciudad —una gaviota de plata sobre tres olas azules con
+una estrella dorada— se ve en velas, puertas y estandartes, un
+recordatorio constante de su devoción al cielo y al mar.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El <a href="Vagabundo.html">Vagabundo</a> de la
+Bruma</strong>: Los marineros juran que en las noches de niebla espesa,
+es posible avistar un barco espectral de velas plateadas navegando
+silenciosamente entre los islotes. Se dice que es el <em><a
+href="Vagabundo.html">Vagabundo</a> de la Bruma</em>, el navío del
+fundador Aelon Velaviento, que aún vigila su ciudad. Su aparición no es
+un mal presagio; al contrario, se considera una bendición que augura un
+viaje seguro y próspero para quien lo ve.</p></li>
+<li><p><strong>El Coro de las Profundidades</strong>: Se cuenta que en
+las vastas cuevas submarinas que se extienden bajo Thirilian habita una
+colonia de sirenas pacíficas. No atraen a los marineros a su perdición,
+sino que actúan como guardianas secretas de la ciudad, usando sus cantos
+para alejar a los leviatanes y otras <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de las profundidades. A cambio, lo único que piden es escuchar las
+canciones y poemas que se elevan desde el Anfiteatro de las Olas durante
+el festival, considerando el arte de los mortales su más preciado
+tesoro.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.41)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

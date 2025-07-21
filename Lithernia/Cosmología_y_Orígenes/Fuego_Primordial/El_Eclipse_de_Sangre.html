@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Eclipse_de_Sangre</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Eclipse_de_Sangre</div>
+        <div class="content">
+<h1 id="el-eclipse-de-sangre">El Eclipse de Sangre</h1>
+<p>En los cielos de Lithernia, cada tantos siglos surge un fenómeno
+astronómico colosal que tiñe el firmamento de un rojo ominoso: el
+<strong><a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a></strong>.
+Más que un mero evento astronómico, este eclipse se ha inscrito en el
+alma colectiva de los reinos como presagio de grandes cambios y
+conflictos inminentes.</p>
+<h2 id="descripción-y-naturaleza-del-eclipse">Descripción y naturaleza
+del eclipse</h2>
+<p>El <a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a>
+sucede cuando la luna, en su órbita, pasa precisamente delante del sol
+en un alineamiento perfecto, pero a diferencia de un eclipse común, la
+atmósfera de Lithernia se llena de tormentas de polvo rojo y gases
+místicos que filtran la luz solar, otorgándole un tono carmesí intenso,
+como si el propio cielo sangrara. Este espectáculo fascinante y
+aterrador se prolonga por varios días, sumiendo a los pueblos en
+agradables sombras diurnas teñidas de rojo, y noches sin luna.</p>
+<h2 id="significado-cultural">Significado cultural</h2>
+<p>Para los habitantes de Lithernia, el <a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a> no
+es solo una curiosidad astronómica, sino un augurio que ha dictado la
+historia misma del continente:</p>
+<ul>
+<li><strong>Presagio de conflictos:</strong> Las antiguas crónicas
+narran que cada <a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a> ha
+estado acompañado por guerras sangrientas, levantamientos y el
+surgimiento de poderosos líderes que remodelan los reinos.</li>
+<li><strong>Rituales de purificación:</strong> Muchos pueblos organizan
+durante el eclipse ceremonias para protegerse de la “sangre del cielo”
+que podría corromper almas y tierras. Sacrificios simbólicos, oraciones
+y vigilias abarcan toda la duración del fenómeno.</li>
+<li><strong>Simbolismo en la nobleza:</strong> Algunas casas nobiliarias
+levantan estandartes rojos en señal de respeto y advertencia durante el
+eclipse, y estos días son considerados de gran importancia para pactos y
+juramentos.</li>
+</ul>
+<h2 id="relatos-y-leyendas">Relatos y leyendas</h2>
+<h3 id="la-profecía-carmesí">La Profecía Carmesí</h3>
+<p>Una de las <a href="Leyendas.html">Leyendas</a> más extendidas relata
+que un antiguo profeta de Velamir vio en un <a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a> la
+caída de los primeros reyes y el surgimiento de un <a
+href="Guerrero.html">Guerrero</a> mesiánico que uniría los reinos bajo
+una nueva era. Este mito ha alimentado numerosos movimientos
+revolucionarios a lo largo de la historia.</p>
+<h3 id="el-juramento-de-sangre">El Juramento de Sangre</h3>
+<p>Se dice que durante un eclipse particularmente sangriento, dos reinos
+eternamente enfrentados forjaron un pacto de paz al compartir una copa
+de vino bajo el cielo rojo, una tradición que inspiró más de una tregua
+temporal en épocas oscuras.</p>
+<h2 id="consecuencias-históricas">Consecuencias históricas</h2>
+<p>El <a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a> ha
+marcado varios hitos en la historia de Lithernia:</p>
+<ul>
+<li><strong>La Guerra de los Mil Soles (siglo V):</strong> Inició justo
+después de un <a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a>,
+cuando alianzas se disolvieron y guerras civiles estallaron en distintas
+regiones.</li>
+<li><strong>El Renacer de Azeroth (siglo XII):</strong> Un líder
+carismático emergió luego de un eclipse, unificando las tribus
+fragmentadas y fundando la confederación que dio origen al Lithernia
+moderno.</li>
+<li><strong>Cese de La Sombra Roja (siglo XIX):</strong> Una oscura
+secta desapareció tras el último eclipse, un suceso atribuido a los
+rituales realizados por la Orden de los Guardianes del Sol.</li>
+</ul>
+<h2 id="costumbres-contemporáneas">Costumbres contemporáneas</h2>
+<p>En la actualidad, aunque el conocimiento científico ha crecido, las
+tradiciones persisten:</p>
+<ul>
+<li><strong>Vigilia del Sangrador:</strong> Se organizan festivales
+nocturnos con música, danzas y narraciones heroicas bajo el cielo rojo,
+recordando el lazo entre el cielo y el destino de Lithernia.</li>
+<li><strong>Ayuno y reflexión:</strong> Muchos habitantes optan por el
+ayuno y la meditación para purificar el cuerpo y el espíritu,
+preparándose para los posibles cambios.</li>
+<li><strong>Avisos de la Hermandad Astral:</strong> Grupos de sabios y
+hechiceros lanzan profecías y consejos basados en la observación del
+eclipse.</li>
+</ul>
+<h2 id="el-futuro-y-el-eclipse-de-sangre">El futuro y el Eclipse de
+Sangre</h2>
+<p>Según los astrónomos y cronistas de Lithernia, el próximo <a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a>
+marcará nuevamente un punto de inflexión. Mientras algunos temen la
+sombra de la guerra, otros esperan el surgimiento de nuevos líderes y la
+apertura de una era de renovación para los reinos fragmentados.</p>
+<hr />
+        </div>
+    </div>
+</body>
+</html>

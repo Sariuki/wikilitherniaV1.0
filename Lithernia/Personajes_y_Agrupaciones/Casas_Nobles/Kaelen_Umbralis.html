@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Umbralis</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Umbralis</div>
+        <div class="content">
+<h1 id="kaelen-umbralis">Kaelen Umbralis</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Heredero de la Casa Umbralis, Kaelen no nació para empuñar una
+espada, sino para desmantelar almas. Criado en la aguja de obsidiana de
+<a href="Nynthil.html">Nynthil</a>, su infancia no transcurrió en patios
+de armas, sino en las silenciosas y frías Bóvedas de Ecos, la biblioteca
+de almas rotas que su familia ha custodiado por siglos. Desde joven, su
+padre, el cauto Lord Malakor, le instruyó en el arte prohibido de la
+Casa: la extracción psíquica. Aprendió a navegar por los paisajes
+fracturados de la memoria ajena, a identificar los goznes del miedo y
+las fisuras del remordimiento en la mente de los prisioneros del
+Rey-Dios.</p>
+<p>Esta inmersión constante en la traición, el dolor y la ambición ajena
+forjó en Kaelen una visión del mundo pragmática hasta la crueldad. Para
+él, los seres vivos no son más que un conjunto de secretos y debilidades
+a la espera de ser catalogados. Ascendió rápidamente hasta convertirse
+en el <strong>Procurador de Activos</strong>, un título que engloba su
+doble función: como <strong>Jefe de la Red de Agentes</strong>, dirige a
+los espías y observadores de la Casa Umbralis por todo <a
+href="Mor&#39;dhul.html">Mor’dhul</a>; y como curador de las Bóvedas,
+decide qué “activos” —recuerdos— son más valiosos para el Rey-Dios
+Sel’thirak.</p>
+<p>Su mayor hazaña fue desmantelar la conspiración del General orco
+Grullak, del Clan <a href="Thyrgram.html">Thyrgram</a>. En lugar de
+buscar pruebas físicas, Kaelen interrogó psíquicamente a un mensajero
+capturado, arrancando de su mente la imagen nítida de Grullak jurando
+lealtad a un culto del <a href="Lilium.html">Lilium</a>. Presentó el
+“eco” —contenido en un cristal de obsidiana pulsante— ante la corte de
+Sel’thirak, sellando el destino del general y elevando el prestigio de
+su casa a nuevas cotas.</p>
+<p>Sin embargo, Kaelen vive en un estado de perpetua frustración.
+Considera que la estrategia de su padre, basada en la cautela y el
+servicio reactivo a Sel’thirak, es un desperdicio de potencial. Lord
+Malakor ve a la Casa Umbralis como los ojos y oídos del trono, un
+instrumento valioso pero subordinado. Kaelen, en cambio, la ve como el
+futuro del poder. Su ambición no es solo servir, sino controlar; no solo
+informar, sino manipular los hilos del destino de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Sueña con expandir el “comercio
+de ecos” más allá de las fronteras, vendiendo secretos a nobles de <a
+href="Eldrador.html">Eldrador</a> o capitanes de <a
+href="Galvorn.html">Galvorn</a>, un juego increíblemente peligroso que
+su padre jamás aprobaría.</p>
+<p>Este conflicto generacional define su existencia. Respeta la
+sabiduría de su padre, pero la considera anticuada. A su vez, desprecia
+la melancolía de su tía Seraphina, la Custodia de las Bóvedas, quien a
+menudo se pierde en los recuerdos trágicos que protege. Para Kaelen, la
+emoción es una vulnerabilidad, una enfermedad del alma que él se ha
+esforzado por extirpar de la suya. Es un hombre que conoce el precio de
+cada secreto en Lithernia y está dispuesto a hacer que todos,
+eventualmente, lo paguen.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>De herencia Shadar-Kai, Kaelen posee la gracia sombría y la palidez
+cenicienta de su linaje. Con 120 años, su apariencia es la de un elfo en
+la flor de la vida, de facciones afiladas y aristocráticas. Su cabello
+es negro como la obsidiana pulida, largo y recogido en una trenza
+severa. Sus ojos, de un violeta profundo, rara vez parpadean y parecen
+analizar, más que observar, a quien tiene enfrente, como si estuviera
+buscando las grietas en su fachada mental.</p>
+<p>Viste con una elegancia funcional y sobria, favoreciendo las túnicas
+de seda oscura en tonos púrpura y negro, cortadas para permitir el
+movimiento silencioso. No lleva armadura, confiando en su intelecto y en
+la reputación de su casa como su principal defensa.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Cristales de
+Eco:</strong> Siempre lleva consigo una pequeña bolsa de terciopelo que
+contiene varios cristales de obsidiana de <a
+href="Nynthil.html">Nynthil</a>, finamente pulidos. Algunos están
+vacíos, listos para “archivar” nuevas memorias. Otros contienen “ecos”
+de utilidad táctica: el recuerdo de la clave de una caja fuerte, la
+sensación de miedo de un guardia ante las arañas, o el rostro del amante
+secreto de un <a href="Noble.html">Noble</a> rival. * <strong>Daga de
+Plata Psíquica:</strong> Una daga corta y delgada, con una empuñadura de
+hueso y una hoja de plata grabada con <a href="Runas.html">Runas</a> que
+canalizan la energía mental. Aunque es un arma física, su verdadero
+propósito es servir como foco para sus habilidades psíquicas, ayudándole
+a penetrar defensas mentales o a dejar una impronta de confusión en la
+mente de su objetivo. * <strong>Anillo de la Mente Sellada:</strong> Un
+sencillo anillo de obsidiana que lleva en su mano derecha. Es un
+artefacto de la Casa Umbralis que lo protege de intrusiones psíquicas,
+haciendo de su propia mente una fortaleza inexpugnable, la única jaula
+de la que nadie puede robar un recuerdo.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelen Umbralis representa una nueva era de poder en Lithernia, una
+donde la información es más letal que el acero y la memoria es la moneda
+más valiosa. Aún no es el líder de su casa, pero su influencia ya se
+siente en las sombras de la corte de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Su ambición es una chispa
+peligrosa en un polvorín de intrigas.</p>
+<p>Si logra suceder a su padre e implementar su visión, podría
+transformar a la Casa Umbralis de una herramienta de espionaje a un
+poder político por derecho propio, una eminencia gris cuyos tentáculos
+se extiendan por todos los reinos. Podría convertirse en el hombre que
+susurra al oído de reyes y reinas a través de continentes, vendiendo la
+caída de uno para asegurar el ascenso de otro.</p>
+<p>Sin embargo, su desdén por la tradición y la cautela es su mayor
+debilidad. En su afán por expandir el poder de su casa, podría atraer la
+ira de Sel’thirak, la venganza de sus rivales o incluso la atención de
+entidades más antiguas que no aprecian que se juegue con los recuerdos
+de los mortales. El legado de Kaelen está aún por escribirse: podría ser
+el arquitecto de la edad dorada de la Casa Umbralis, o el catalizador de
+su estrepitosa y definitiva caída. En el gran juego de Lithernia, él no
+mueve piezas; las reescribe.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Umbralis.html">Casa Umbralis</a> (relevancia:
+0.61)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.41)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

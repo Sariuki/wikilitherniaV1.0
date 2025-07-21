@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demonios</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Demonios</div>
+        <div class="content">
+<h1 id="demonios">Demonios</h1>
+<h3 id="tabla-de-identificación">Tabla de Identificación</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Criatura</strong></td>
+<td style="text-align: left;">Infernal (Fiend)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Típico</strong></td>
+<td style="text-align: left;">Caótico Maligno</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Origen Planar</strong></td>
+<td style="text-align: left;">Planos Inferiores, fisuras del El velo
+gris</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Táctico</strong></td>
+<td style="text-align: left;">Corruptor de Maná, Combatiente Caótico,
+Invocador</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Entorno Común</strong></td>
+<td style="text-align: left;">Zonas de Velo Roto, ruinas del Cataclismo
+del <a href="Lilium.html">Lilium</a>, <a
+href="Mor&#39;dhul.html">Mor’dhul</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vulnerabilidad Común</strong></td>
+<td style="text-align: left;">Daño Radiante, Armas de Plata</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nivel de Desafío</strong></td>
+<td style="text-align: left;">Varía (CR 1/4 a 20+)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td style="text-align: left;">Religión</td>
+<td style="text-align: left;">Identifica su naturaleza infernal, su
+hostilidad hacia el orden divino y su vulnerabilidad al daño
+radiante.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;">Arcanos</td>
+<td style="text-align: left;">Conoce su rasgo de
+<code>Resistencia Mágica</code> y su habilidad para corromper el Tejido
+del Maná, lo que puede aumentar la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+de los lanzadores cercanos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>20</strong></td>
+<td style="text-align: left;">Historia</td>
+<td style="text-align: left;">Conecta su presencia en Lithernia con el
+Cataclismo del <a href="Lilium.html">Lilium</a> y el <a
+href="El_Quiebre_del_Velo_y_la_guerra_celestial.html">El_Quiebre_del_Velo_y_la_guerra_celestial</a>.
+Conoce la existencia de los Señores del Abismo y sus cultos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="plantilla-rasgos-demoníacos-comunes">Plantilla: Rasgos
+Demoníacos Comunes</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Visión en la
+Oscuridad</strong></td>
+<td style="text-align: left;">120 pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Resistencia Mágica</strong></td>
+<td style="text-align: left;">Ventaja en las tiradas de salvación contra
+<a href="Conjuros.html">Conjuros</a> y otros efectos mágicos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Resistencias al Daño</strong></td>
+<td style="text-align: left;">Frío, Fuego, Rayo; Contundente, Perforante
+y Cortante de ataques no mágicos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inmunidades al Daño</strong></td>
+<td style="text-align: left;">Veneno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inmunidades a
+Condición</strong></td>
+<td style="text-align: left;">Envenenado.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Aura de Corrupción de
+Maná</strong></td>
+<td style="text-align: left;">Como acción legendaria o de guarida, el
+demonio puede forzar a todos los lanzadores de <a
+href="Conjuros.html">Conjuros</a> a 30 pies a superar una tirada de
+salvación de Carisma (CD basada en el CR del demonio) o sufrir 1d6 de <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+adicional en su próximo conjuro.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="clasificación-táctica">Clasificación Táctica</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Tipo de Demonio</th>
+<th style="text-align: left;">Rol en Combate</th>
+<th style="text-align: left;">CR Típico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Súcubo / Íncubo</strong></td>
+<td style="text-align: left;">Infiltrador, Manipulador, Debilitador de
+Voluntad.</td>
+<td style="text-align: left;">4-6</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Abominación de
+Sombras</strong></td>
+<td style="text-align: left;">Acechador, Asesino, Controlador de
+Oscuridad.</td>
+<td style="text-align: left;">5-7</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bestia Infernal</strong></td>
+<td style="text-align: left;">Bruto de Choque, Combatiente de Primera
+Línea.</td>
+<td style="text-align: left;">6-10</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Señor del Abismo</strong></td>
+<td style="text-align: left;">Comandante, Lanzador de <a
+href="Conjuros.html">Conjuros</a> Épico, Jefe de Campaña.</td>
+<td style="text-align: left;">15+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ganchos-de-aventura">Ganchos de Aventura</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Gancho de Misión</th>
+<th style="text-align: left;">Pruebas Clave Sugeridas (CD)</th>
+<th style="text-align: left;">Complicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Un Círculos de Invocación cerca de Mevanil
+ha sido corrompido, generando diablillos de forma continua.</td>
+<td style="text-align: left;">Arcanos (15), Supervivencia (14)</td>
+<td style="text-align: left;">El círculo está custodiado por un demonio
+mayor que se alimenta de la energía.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Un <a href="Noble.html">Noble</a> de <a
+href="Eldrador.html">Eldrador</a> ha hecho un pacto con un Súcubo y está
+revelando debilidades militares.</td>
+<td style="text-align: left;">Investigación (16), Perspicacia (17)</td>
+<td style="text-align: left;">El súcubo ha reemplazado al <a
+href="Noble.html">Noble</a> y ahora se hace pasar por él.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Un culto demoníaco en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> intenta corromper una de las
+Lanzas Celestiales.</td>
+<td style="text-align: left;">Sigilo (18), Religión (16)</td>
+<td style="text-align: left;">El culto está protegido por el Clan <a
+href="Kromagul.html">Kromagul</a>, que ve el ritual como un acto de
+poder.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Investigar la ciudad maldita de Mirallos,
+donde las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+Infernales deambulan libremente.</td>
+<td style="text-align: left;">Percepción (17), Combate Táctico</td>
+<td style="text-align: left;">Un portal al Abismo se está abriendo
+lentamente en el centro de la ciudad.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Un lanzador de <a
+href="Conjuros.html">Conjuros</a> ha sido poseído por un demonio y sus
+hechizos causan efectos del El velo gris.</td>
+<td style="text-align: left;">Medicina (15), Arcanos (18)</td>
+<td style="text-align: left;">El demonio solo puede ser expulsado
+destruyendo un fetiche oculto.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Un Señor del Abismo ha sido convocado y
+está estableciendo su guarida en un volcán de las fronteras de <a
+href="Valtoria.html">Valtoria</a>.</td>
+<td style="text-align: left;">Diplomacia (con <a
+href="Enanos.html">Enanos</a>), Combate</td>
+<td style="text-align: left;">El Señor del Abismo está forjando un
+ejército con <a href="Orcos.html">Orcos</a> del Clan Bloodfire.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnjs-y-monstruos-notables">PNJs y Monstruos Notables</h3>
+<p>statblock name: Súcubo de Lithernia size: Mediana type: infernal
+(demonio, cambiaformas) alignment: neutral maligno ac: 15 (armadura
+natural) hp: 66 (12d8 + 12) speed: 30 ft., Vuelo 60 ft. stats: [8, 17,
+13, 15, 12, 20] skills: Engaño: +9 Perspicacia: +5 Persuasión: +9
+Sigilo: +7 damage_resistances: Frío, Fuego, Rayo, Veneno; Contundente,
+Perforante y Cortante de ataques no mágicos senses: Visión en la
+oscuridad 60 ft., Percepción Pasiva 11 languages: Abisal, Común, Élfico,
+Telepatía 60 ft. cr: 4 traits: - name: Cambiaformas desc: “El súcubo
+puede usar su acción para polimorfizarse en un humanoide Pequeño o
+Mediano, o de vuelta a su verdadera forma. Sus estadísticas, aparte de
+su tamaño, son las mismas en cada forma. Cualquier equipo que lleve
+puesto no se transforma. Vuelve a su verdadera forma si muere.” - name:
+Influencia Seductora desc: “Tiene ventaja en las pruebas de Carisma
+(Persuasión y Engaño) contra humanoides que no sean hostiles hacia él.”
+actions: - name: Garra desc: “Ataque de arma cuerpo a cuerpo (solo en
+forma de súcubo): +5 a impactar, alcance 5 ft., un objetivo. Impacto: 6
+(1d6 + 3) de daño cortante.” - name: Encanto desc: “Un humanoide que el
+súcubo pueda ver a 30 pies de él debe superar una tirada de salvación de
+Sabiduría CD 15 o quedará encantado mágicamente durante 1 día. El
+objetivo encantado obedece las órdenes verbales del súcubo lo mejor que
+puede. Si el objetivo sufre algún daño, puede repetir la tirada de
+salvación, terminando el efecto si tiene éxito.” - name: Beso Drenador
+desc: “El súcubo besa a una criatura encantada por él o que esté
+dispuesta. El objetivo debe hacer una tirada de salvación de
+Constitución CD 15 contra este beso mágico. Si falla, el objetivo sufre
+32 (5d10 + 5) de daño psíquico, o la mitad del daño si tiene éxito. El
+máximo de puntos de golpe del objetivo se reduce en una cantidad igual
+al daño sufrido. Esta reducción dura hasta que el objetivo termina un
+descanso largo.” - name: Paso Etéreo desc: “El súcubo entra mágicamente
+en el Plano Etéreo desde el Plano Material, o viceversa.”</p>
+        </div>
+    </div>
+</body>
+</html>

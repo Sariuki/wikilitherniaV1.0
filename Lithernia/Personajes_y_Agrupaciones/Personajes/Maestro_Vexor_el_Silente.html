@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maestro_Vexor_el_Silente</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Maestro_Vexor_el_Silente</div>
+        <div class="content">
+<h1 id="maestro-vexor-el-silente">Maestro Vexor el Silente</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los cañones mudos de <a href="Aelithor.html">Aelithor</a>, donde
+el viento mismo teme alzar la voz, reside la voluntad que busca imponer
+la quietud a toda Lithernia: el Maestro Vexor, Orador del Vacío. Su
+historia no es un grito de guerra ni una canción de gloria, sino un
+susurro que se ha deslizado por generaciones en los rincones más oscuros
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Se dice que Vexor es el
+fruto de un linaje roto, un descendiente bastardo del legendario Vex el
+Silente, el fundador de <a href="Aelithor.html">Aelithor</a>. Esta
+sangre, aunque no reconocida, le confiere un aura mítica y un derecho
+casi ancestral sobre la ciudad y sus secretos.</p>
+<p>Nacido del cisma, Vexor fue uno de los primeros acólitos de los
+nigromantes sónicos que desertaron del Clan Whisper. Mientras otros
+buscaban poder en los ecos de la muerte, Vexor encontró la verdad en su
+ausencia. Meditando en el silencio absoluto del Cañón Sin Eco, llegó a
+una revelación aterradora: la Gran Guerra, el sufrimiento de las razas y
+el ciclo de tiranía y rebelión no eran más que los síntomas de una
+enfermedad cósmica. La rebelión del Primer Rey contra los dioses no fue
+un acto de heroísmo ni de soberbia, sino la nota más alta en una
+sinfonía de caos. La respuesta divina, el cataclismo del <a
+href="Lilium.html">Lilium</a>, fue su contrapartida igualmente
+estridente. Juntos, crearon una disonancia fundamental en el tejido de
+la realidad, un “ruido” perpetuo que impide la verdadera paz.</p>
+<p>Con una lógica tan fría como la piedra de <a
+href="Aelithor.html">Aelithor</a>, Vexor unificó a los disidentes bajo
+una nueva filosofía: la del Equilibrio Roto. No buscan la victoria de un
+bando, pues todos los bandos son parte del ruido. No anhelan el retorno
+del Rey ni el triunfo de los dioses, pues ambos representan los polos de
+una ambición que desgarra el mundo. Su objetivo es el <strong>Gran
+Silencio</strong>: la neutralización metódica y absoluta de toda fuente
+de poder extremo. Las Lanzas Celestiales, los avatares divinos, la llama
+del <a href="Lilium.html">Lilium</a>, las profecías y los cultos que las
+alimentan… todo debe ser acallado.</p>
+<p>Como Orador del Vacío, el poder de Vexor no reside en la fuerza
+bruta, sino en la persuasión de su terrible verdad. Sus sermones son
+meditaciones hipnóticas que revelan la futilidad del conflicto,
+convirtiendo a fanáticos en seguidores y a héroes en nihilistas. Su
+hazaña más conocida fue el “Acallamiento del Oráculo de Piedra”, donde
+no destruyó al antiguo vidente, sino que usó una resonancia sónica
+prohibida para borrar permanentemente su capacidad de oír a los dioses,
+convirtiendo sus profecías en un silencio eterno.</p>
+<p>Su mayor conflicto, sin embargo, es interno. Acogió a Lyra, una joven
+acólita de un fervor y pasión arrolladores. En ella ve el potencial para
+ser la mayor agente del Silencio, pero también teme que su pasión sea la
+nota discordante que haga fracasar su plan maestro. Desconfía de su
+fervor, pues la pasión, para Vexor, es la forma más peligrosa de ruido.
+Esta relación de mentor-aprendiz es una balanza delicada: ¿es ella su
+instrumento más afilado o la prueba de que ni él mismo puede escapar a
+la disonancia del afecto?</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vexor es una figura ascética y enigmática, cuya raza Tiefling apenas
+se manifiesta. Su piel es del color de la ceniza fría y sus cuernos,
+cortos y pulidos, se curvan hacia atrás como obsidiana lisa, sin las
+agresivas aristas de otros de su linaje. A sus 215 años, su rostro no
+muestra vejez, sino una quietud atemporal, como una máscara de piedra.
+Sus ojos son de un gris profundo y vacío, y rara vez parpadea. Se mueve
+con una economía deliberada, sin un solo gesto malgastado, haciendo que
+su presencia sea tan imponente como el silencio que predica.</p>
+<p>No viste túnicas opulentas, sino ropajes sencillos de lana oscura y
+cuero tratado en tonos carbón y gris, diseñados para absorber tanto la
+luz como el sonido. Su atuendo es el de un <a
+href="Monje.html">Monje</a>, no el de un rey, funcional y sin adornos,
+salvo por el emblema de la balanza rota bordado discretamente sobre su
+pecho.</p>
+<p>No porta espada ni armadura. Su única herramienta y símbolo de poder
+es el <strong>Diapasón del Silencio</strong>, un artefacto de metal
+desconocido, quizás forjado con la esencia de un alma, que puede emitir
+frecuencias capaces de desintegrar la materia, anular la magia o
+silenciar la mente de sus oponentes. En su mano, lleva también
+<strong>El Sello del Vacío</strong>, un disco de obsidiana perfectamente
+pulido que utiliza para enfocar su voluntad y proyectar zonas de
+silencio absoluto.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Maestro Vexor el Silente no es un villano convencional que busca
+conquistar Lithernia. Su amenaza es mucho más profunda y filosófica.
+Representa una tercera vía en la Gran Guerra, una que no ofrece ni la
+tiranía de los dioses ni la incierta libertad del Primer Rey, sino el
+fin absoluto del conflicto a través de la anulación de todo lo que le da
+sentido: la pasión, la fe, la magia y la vida misma.</p>
+<p>Si tuviera éxito, su legado no sería un imperio de oscuridad, sino un
+mundo gris, uniforme y silencioso. Una paz de cementerio lograda al
+eliminar las notas altas y bajas de la existencia. Sería la paz del
+vacío, el fin de la historia.</p>
+<p>Si fracasa, su ideología podría perdurar como un veneno. La idea de
+que toda lucha es inútil y que la única solución es el fin podría
+infectar a otros movimientos, convirtiendo la esperanza en apatía. Para
+los héroes de Lithernia, Vexor no es solo un enemigo a derrotar, sino
+una pregunta aterradora que deben responder: ¿vale la pena luchar en una
+guerra interminable, o es el silencio la única paz verdadera que el
+cosmos puede conocer?</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

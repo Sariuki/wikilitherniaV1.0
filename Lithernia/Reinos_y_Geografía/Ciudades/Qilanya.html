@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qilanya</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Qilanya</div>
+        <div class="content">
+<h1 id="qilanya">Qilanya</h1>
+<p>A orillas del sinuoso río Kil’eth, Qilanya no es una ciudad que se
+impone al paisaje, sino una que danza con él. Sus estructuras de madera
+viva y piedra de río pulida crecen en una elegante espiral que sigue el
+curso del agua, como si el propio bosque hubiera decidido florecer en
+forma de civilización. Por la noche, no hay antorchas que contaminen el
+cielo estrellado; la ciudad entera resplandece con el suave brillo azul
+y verde del musgo bioluminiscente que tapiza los tejados y los puentes
+de raíces entrelazadas. Qilanya es un bastión de pragmatismo y arte, un
+lugar donde la rígida “Mano de Hierro” de <a
+href="Eldrador.html">Eldrador</a> pierde fuerza, y el valor de un elfo
+se mide por la habilidad de sus manos y su comunión con la naturaleza,
+no por la sangre de sus ancestros.</p>
+<h2 id="historia">Historia</h2>
+<p>Qilanya nació no de una conquista, sino de un acuerdo: “El Pacto del
+Río y la Estrella”. Hace siglos, un clan de Elfos del Bosque liderado
+por el guardián Kaelen y una casa errante de <a
+href="Eladrin.html">Eladrin</a> guiada por la sabia Lyra llegaron a las
+orillas del Kil’eth, ambos huyendo de las crecientes tensiones políticas
+de la capital. Los elfos silvanos buscaban proteger el bosque de la
+codicia de los nobles, mientras que los eladrines anhelaban un lugar
+donde sus ciclos estacionales y su devoción a <a
+href="Arzia.html">Arzia</a> no fueran vistos como una excentricidad,
+sino como una verdad fundamental.</p>
+<p>En lugar de luchar por el territorio, sellaron un pacto. Los Elfos
+del Bosque, devotos de <a href="Ferion.html">Ferion</a>, protegerían la
+tierra, mientras que los <a href="Eladrin.html">Eladrin</a>, seguidores
+de <a href="Arzia.html">Arzia</a>, guiarían a la comunidad según los
+ciclos de las estrellas. Juntos fundaron Qilanya como un santuario de
+equilibrio, un lugar donde la artesanía, la protección del bosque y la
+sabiduría arcana convivirían en armonía. Desde entonces, la ciudad ha
+atraído a otros que comparten estos ideales, convirtiéndose en un
+refugio para aquellos que creen que la verdadera nobleza reside en el
+servicio y no en el linaje.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de Serbal</strong>: La plaza central de la
+ciudad, donde no hay adoquines, sino un césped perfectamente cuidado. En
+su centro se alza el símbolo de Qilanya: un colosal árbol de serbal
+plateado cuyas ramas se curvan para formar una media luna perfecta,
+acunando siete grandes estrellas de cristal que brillan con luz propia.
+Aquí se reúne el Consejo de Guardianes y se celebra el “Solsticio
+Cambiante”.</p></li>
+<li><p><strong>La Ribera Danzante</strong>: El distrito artesanal y
+mercantil que bordea el río Kil’eth. Los talleres están abiertos,
+permitiendo que el sonido de los martillos sobre la madera y el tintineo
+de los metales se mezclen con el murmullo del río. Es aquí donde los
+artesanos usan espejos de obsidiana para comunicarse con puestos de
+vigilancia lejanos, reflejando la luz estelar en complejos
+códigos.</p></li>
+<li><p><strong>La Aldea Estacional</strong>: El principal barrio
+residencial, habitado en su mayoría por <a
+href="Eladrin.html">Eladrin</a>. Las viviendas aquí son estructuras
+orgánicas que parecen estar vivas, cambiando sutilmente de color y forma
+para reflejar la estación dominante de sus moradores. En primavera, las
+casas florecen con enredaderas; en invierno, se cubren de una fina capa
+de escarcha luminosa.</p></li>
+<li><p><strong>El Mirador del Guardián</strong>: Situado en la parte más
+elevada de la espiral, este distrito pertenece a los Elfos del Bosque.
+Es más austero y funcional, con atalayas de vigilancia camufladas entre
+los árboles y campos de entrenamiento donde los guardianes perfeccionan
+su sigilo y puntería. Desde aquí parten las patrullas que vigilan las
+profundidades del Bosque Crepuscular.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Qilanya está intrínsecamente ligada a sus deidades
+patronas. Antes de que un árbol sea talado para la construcción o un
+animal sea cazado, se realiza un solemne ritual de “Petición al Bosque”,
+una ofrenda a <a href="Ferion.html">Ferion</a> para agradecer su
+generosidad y pedir su permiso. La mayor celebración es el “Solsticio
+Cambiante”, un festival de una semana que honra a <a
+href="Arzia.html">Arzia</a> y a los ciclos de los <a
+href="Eladrin.html">Eladrin</a>. Durante este tiempo, la ciudad se
+transforma, adoptando la decoración y el ambiente de la estación que
+rige el <a href="Eladrin.html">Eladrin</a> más anciano de la
+comunidad.</p>
+<p>La comunicación a larga distancia es un arte en sí misma. Las
+patrullas se comunican con la ciudad mediante complejas melodías tocadas
+con flautas talladas en madera de serbal, cada nota con un significado
+específico. Para mensajes visuales, usan espejos de obsidiana pulida que
+reflejan la luz de las estrellas, creando un telégrafo de destellos que
+solo ellos pueden interpretar.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Qilanya es la definición de arquitectura simbiótica. Las estructuras
+no reemplazan la naturaleza, sino que la complementan. Los edificios de
+madera viva parecen haber crecido directamente del suelo, y las piedras
+del río se apilan sin argamasa, sostenidas por un equilibrio perfecto y
+un toque de magia druídica. El ambiente es de una paz activa; siempre
+hay movimiento, pero es el movimiento fluido del agua y el crecimiento
+silencioso de las plantas. El aire huele a tierra húmeda, a madera de
+cedro y al dulce aroma de las flores de luna. El sonido predominante es
+el constante fluir del río Kil’eth, un susurro que, según dicen,
+contiene la sabiduría de eras.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Susurro del Kil’eth</strong>: Los ancianos advierten a
+los jóvenes que se acercan demasiado a la orilla del río en las noches
+sin luna. Cuentan que el Kil’eth, bendecido por <a
+href="Ferion.html">Ferion</a> y <a href="Arzia.html">Arzia</a>, a veces
+susurra profecías sobre el futuro a aquellos que saben escuchar. Sin
+embargo, el río es un espíritu celoso de sus secretos y siempre exige un
+pago: por cada retazo del futuro que revela, reclama un recuerdo feliz
+del pasado del oyente, que se desvanece para siempre como si nunca
+hubiera ocurrido.</p></li>
+<li><p><strong>El Sueño de Vejestronco</strong>: Bajo las raíces más
+profundas de Qilanya, se dice que duerme “Vejestronco”, un ents guardián
+de una era anterior al Primer Rey. No lo despertarán las hachas de los
+<a href="Orcos.html">Orcos</a> ni el fuego de los hombres, pues
+considera esas amenazas como parte del ciclo natural. La leyenda afirma
+que solo despertará si el bosque es amenazado por un mal antinatural,
+una corrupción tan profunda como la que dejó el Cataclismo del <a
+href="Lilium.html">Lilium</a>. Algunos creen que el día que Vejestronco
+se alce, será el fin o el renacimiento de <a
+href="Eldrador.html">Eldrador</a>.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.59)</li>
+<li><a href="Elfos%20del%20Bosque.html">Elfos del Bosque</a>
+(relevancia: 0.36)</li>
+<li><a href="Elfos.html">Elfos</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

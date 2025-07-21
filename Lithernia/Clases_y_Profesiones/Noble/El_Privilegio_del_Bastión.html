@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Privilegio_del_Bastión</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Privilegio_del_Bastión</div>
+        <div class="content">
+<h1 id="el-privilegio-del-bastión">El privilegio del bastión</h1>
+<h3 id="perfil-del-trasfondo">Perfil del Trasfondo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Historia, Persuasión</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Un tipo de juego de mesa (Ej: ajedrez
+dracónico)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Uno de tu elección</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo</strong></td>
+<td style="text-align: left;">Un conjunto de ropas finas, un anillo con
+el sello de tu casa, un pergamino de pedigrí, una bolsa con 25 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo Clave</strong></td>
+<td style="text-align: left;">Privilegio del Bastión (variante según el
+reino de origen)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgo-privilegio-del-bastión">Rasgo: Privilegio del Bastión</h3>
+<p>Tu linaje <a href="Noble.html">Noble</a> te otorga ciertos derechos y
+reconocimiento, aunque su naturaleza varía drásticamente según tu reino
+de origen. Eliges una de las siguientes variantes. Este rasgo no
+funciona si tu identidad o linaje son desconocidos o si te encuentras en
+una región donde tu título no tiene autoridad.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Reino de Origen</th>
+<th style="text-align: left;">Nombre de la Variante</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+<th style="text-align: left;">Restricciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Eldrador.html">Eldrador</a></strong></td>
+<td style="text-align: left;"><strong>La Mano de Hierro</strong></td>
+<td style="text-align: left;">Tienes ventaja en las pruebas de Carisma
+(Intimidación y Persuasión) al interactuar con elfos de castas
+inferiores (trabajadores, sirvientes). Puedes conseguir comida y
+alojamiento para ti y tus compañeros en cualquier asentamiento élfico,
+aunque la calidad dependerá del estatus de tus anfitriones.</td>
+<td style="text-align: left;">No aplica a otras nobles, exiliados o
+fuera de territorios bajo influencia élfica.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong></td>
+<td style="text-align: left;"><strong>Derecho de la Fuerza</strong></td>
+<td style="text-align: left;">Tienes ventaja en las pruebas de Carisma
+(Intimidación) al interactuar con miembros de clanes menores o razas
+consideradas “inferiores” en <a href="Mor&#39;dhul.html">Mor’dhul</a>.
+Puedes exigir obediencia a subordinados de tu clan sin necesidad de una
+prueba de habilidad, siempre que la orden no ponga en riesgo directo sus
+vidas sin una causa justificada.</td>
+<td style="text-align: left;">Puede ser desafiado por un individuo de
+mayor fuerza o rango. Inefectivo contra otros líderes de clan o fuera de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Valtoria.html">Valtoria</a></strong></td>
+<td style="text-align: left;"><strong>Privilegio del
+Servicio</strong></td>
+<td style="text-align: left;">No obtienes deferencia automática. Sin
+embargo, tu linaje te otorga acceso directo a figuras de poder como los
+miembros del <strong>Concilio de la Montaña</strong> o los maestros de
+gremio. Tienes ventaja en las pruebas de Carisma (Persuasión) para
+solicitar <a href="Recursos.html">Recursos</a> o apoyo de estas
+instituciones, siempre que tu petición demuestre un claro beneficio para
+la comunidad.</td>
+<td style="text-align: left;">El beneficio se pierde si tu reputación se
+ve empañada por actos egoístas o perjudiciales para <a
+href="Valtoria.html">Valtoria</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Galvorn.html">Galvorn</a></strong></td>
+<td style="text-align: left;"><strong>Privilegio Burlado</strong></td>
+<td style="text-align: left;">Tu título nobiliario genera curiosidad
+entre mercaderes y élites extranjeras, otorgándote ventaja en pruebas de
+Carisma para obtener audiencias con ellos. Sin embargo, provoca desdén
+entre la gente de mar; tienes desventaja en las pruebas de Carisma
+(Persuasión) con marineros, estibadores o capitanes de baja estofa.</td>
+<td style="text-align: left;">El <strong>Consejo de Capitanes</strong>
+valora el mérito, no el linaje; tu título no les impresiona.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tablas-de-personalidad">Tablas de Personalidad</h3>
+<h4 id="rasgos-de-personalidad-d8">Rasgos de Personalidad (d8)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d8</th>
+<th style="text-align: left;">Rasgo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Mi linaje me hace intrínsecamente superior
+a los demás.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Llevo el peso de las expectativas de mis
+ancestros en cada decisión que tomo.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Estoy acostumbrado al lujo y la comodidad;
+la vida rústica es un insulto personal.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Juzgo a las personas por sus acciones y
+méritos, no por el estatus de su nacimiento.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Tengo una obsesión con la historia de mi
+familia y busco restaurar su antigua gloria.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Me resulta difícil conectar con la gente
+común; sus problemas me parecen triviales.</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">Utilizo mi posición para proteger a
+aquellos que no pueden defenderse por sí mismos.</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">Disfruto de los juegos de poder y las
+intrigas de la corte como si fueran un tablero de ajedrez.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ideales-d6">Ideales (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Ideal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><strong>Tradición.</strong> El orden
+social establecido es lo que nos protege del caos del Cataclismo del <a
+href="Lilium.html">Lilium</a>. (Legal)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><strong>Poder.</strong> Mi derecho de
+nacimiento es gobernar, y haré lo necesario para mantener y expandir mi
+influencia. (Maligno)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><strong>Responsabilidad.</strong> La
+nobleza no es un privilegio, es un deber sagrado de proteger a mi
+pueblo. (Bueno)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><strong>Libertad.</strong> Ningún bastión
+debería tener poder sobre otro. El sistema de castas debe ser
+desmantelado. (Caótico)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><strong>Honor.</strong> Mi palabra y mi
+reputación lo son todo. Jamás mancharé el nombre de mi casa.
+(Legal)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><strong>Autosuperación.</strong> El linaje
+no es nada sin el mérito. Debo demostrar que soy digno de mi título.
+(Neutral)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vínculos-d6">Vínculos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Vínculo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Mi lealtad inquebrantable pertenece a mi
+rey, mi clan o el líder de mi casa.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Soy el guardián de un antiguo artefacto o
+un secreto oscuro que mi familia ha protegido por generaciones.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">La Profecía del Retorno del Rey es una
+amenaza existencial para mi modo de vida, y debo evitarla a toda
+costa.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">La Profecía del Retorno del Rey es la
+única esperanza para un mundo justo, y la apoyaré en secreto.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Debo vengar una afrenta cometida contra mi
+familia por una casa rival.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Amo a alguien de una casta inferior, un
+amor prohibido que podría costarme mi título y mi vida.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="defectos-d6">Defectos (d6)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Desprecio abiertamente a cualquiera que
+considere socialmente inferior.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Mi arrogancia me ciega, subestimando a mis
+enemigos y sobreestimando mis propias capacidades.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Soy completamente ajeno a las dificultades
+del pueblo llano y carezco de empatía por su sufrimiento.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Tengo una deuda de honor con un individuo
+peligroso y poco recomendable.</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Sacrificaría cualquier cosa, incluso a mis
+aliados, para preservar mi estatus y mi riqueza.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Soy adicto a un lujo prohibido o a un
+placer peligroso (apuestas, sustancias, etc.).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.43)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

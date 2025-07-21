@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Runas</div>
+        <div class="content">
+<h1 id="runas">Runas</h1>
+<p>Las <strong>runas</strong> en Lithernia son símbolos mágicos
+ancestrales que representan patrones fundamentales del Tejido del Maná,
+utilizados para canalizar, enfocar y modificar las energías arcanas con
+gran precisión y potencia. Su estudio y aplicación forman parte esencial
+del arte mágico, la fabricación de artefactos y la hechicería avanzada
+en todo el <a href="Título_de_la_nota.html">Título_de_la_nota</a>.</p>
+<h2 id="origen-y-naturaleza-de-las-runas">Origen y naturaleza de las
+runas</h2>
+<p>Las runas ancestrales emergieron durante la <strong><a
+href="Herreria.html">Herreria</a> del Mundo</strong>, cuando los <a
+href="Primordiales.html">Primordiales</a> y dioses mayores imprimieron
+sobre la realidad patrones <a href="Primordiales.html">Primordiales</a>
+que rigen las fuerzas cósmicas. Estas inscripciones funcionan como
+“códigos” inscritos en la propia estructura del Maná, capaces de influir
+en él directamente.</p>
+<ul>
+<li>Se dice que cada runa refleja un concepto—como fuego, tiempo,
+protección o sacrificio—y está compuesta por trazos geométricos que
+evocan arquetipos cósmicos originales.</li>
+<li>Su aprendizaje exige no solo conocimiento lingüístico o simbólico,
+sino también una sintonía profunda con el <strong>Tejido del
+Maná</strong> y las fuerzas divinas que lo moldearon.</li>
+</ul>
+<h2 id="clasificación-de-las-runas">Clasificación de las runas</h2>
+<p>Las runas en Lithernia se clasifican en tres grandes categorías según
+su complejidad y poder:</p>
+<h3 id="runas-básicas">1. Runas Básicas</h3>
+<ul>
+<li>Son símbolos simples que canalizan un único efecto elemental o
+arcano.</li>
+<li>Utilizadas para rituales cotidianos, inscripciones protectoras, o
+como base en la enseñanza mágica.</li>
+<li>Ejemplos comunes incluyen la runa de fuego (un triángulo
+entrelazado), la runa de agua (ondas curvilíneas), o la runa de
+protección (un escudo angular).</li>
+</ul>
+<h3 id="runas-invocadoras">2. Runas Invocadoras</h3>
+<ul>
+<li>Runas ensambladas en patrones complejos para invocar o controlar
+energías específicas.</li>
+<li>Se emplean en la creación de <strong>Círculos de Invocación</strong>
+y para potenciar <a href="Conjuros.html">Conjuros</a> a través de
+inscripciones permanentes o temporales.</li>
+<li>Representan una mezcla de símbolos básicos con modificaciones para
+un efecto ampliado, como la runa de tormenta (fuego + viento) o la runa
+de enlace (magia+vínculo).</li>
+</ul>
+<h3 id="runas-ancestrales">3. Runas Ancestrales</h3>
+<ul>
+<li>Runas originarias del Amanecer Divino, que contienen fragmentos de
+la Voluntad Original y el poder de los <a
+href="Primordiales.html">Primordiales</a>.</li>
+<li>Extremadamente raras y difíciles de descifrar, algunas están
+relacionadas con las fuerzas primigenias que crearon los planos o con la
+magia de los Dioses.</li>
+<li>Se usan en artefactos legendarios, sellos de poder como las
+<strong>Lanzas Celestiales</strong>, y rituales que desafían las leyes
+normales del tiempo y la realidad.</li>
+</ul>
+<h2 id="usos-y-aplicaciones-prácticas">Usos y aplicaciones
+prácticas</h2>
+<h3 id="en-la-creación-de-artefactos">En la creación de artefactos</h3>
+<ul>
+<li>Los artesanos y magos de <a href="Valtoria.html">Valtoria</a>, bajo
+la tutela de dioses como <a href="Rokael.html">Rokael</a> y <a
+href="Trovdor.html">Trovdor</a>, emplean runas para imbuir armas,
+armaduras y amuletos con propiedades mágicas.</li>
+<li>Las runas se graban o incorporan en la <a
+href="Herreria.html">Herreria</a>, permitiendo otorgar efectos como
+dureza sobrenatural, absorción de maná, o detonaciones elementales.</li>
+</ul>
+<h3 id="en-la-magia-ritual-y-cotidiana">En la magia ritual y
+cotidiana</h3>
+<ul>
+<li>En <a href="Eldrador.html">Eldrador</a>, especialmente en la
+<strong>Torre de las Estrellas</strong>, las runas forman parte esencial
+en rituales de adivinación, protección y comunicación estelar.</li>
+<li>Los magos del Concilio de Magos utilizan runas para crear
+<strong>Círculos de Invocación</strong> con geométricas inscripciones
+capaces de controlar la intensidad y tipo del Maná canalizado.</li>
+</ul>
+<h3 id="en-la-guerra-y-defensa">En la guerra y defensa</h3>
+<ul>
+<li>En Mor’dhul, las runas tienen un uso más oscuro y violento: son
+grabadas en armas, armaduras y templos para aumentar la eficacia de <a
+href="Conjuros.html">Conjuros</a> nefastos, crear barreras mágicas o
+maldiciones.</li>
+<li>Los clanes guerreros, como el de <a
+href="Thyrgram.html">Thyrgram</a> y <a href="Lakros.html">Lakros</a>,
+tatúan runas de guerra en sus cuerpos y armas para potenciarlos con la
+furia de sus dioses.</li>
+</ul>
+<h3 id="en-la-hechicería-especializada">En la hechicería
+especializada</h3>
+<ul>
+<li>La habilidad para tejer runas en conjunciones complejas es dominio
+de los <strong>Tejedores de Hechizos</strong>, quienes pueden combinar
+runas para crear nuevos efectos o potenciar hechizos — un arte sumamente
+peligroso y respetado.</li>
+<li>La runa conocida como <strong>Aguja de Trama</strong> permite
+alterar la naturaleza de un conjuro al “hilar” su patrón dentro del
+Maná, demostrando que las runas no solo canalizan sino también
+transforman la esencia mágica.</li>
+</ul>
+<h2 id="enseñanza-y-transmisión">Enseñanza y transmisión</h2>
+<ul>
+<li>El conocimiento rúnico se transmite tradicionalmente en academias
+como la <strong>Torre de las Estrellas</strong> en <a
+href="Valtoria.html">Valtoria</a> o en las escuelas secretas de <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li>Por su poder y peligro, el estudio de las runas ancestrales está
+restringido a iniciados de alto rango o clérigos que deben prestar
+juramento de silencio.</li>
+<li>En Mor’dhul, el acceso a los secretos rúnicos está reservado a
+clanes como los Whisper y Nighthawk, que controlan las artes oscuras
+relacionadas con runas de control mental y necromancia.</li>
+</ul>
+<h2 id="runas-y-el-legado-del-lilium">Runas y el legado del Lilium</h2>
+<p>El cataclismo del <a href="Lilium.html">Lilium</a> deformó y
+corrompió muchas runas antiguas, alterando sus propiedades originalmente
+benignas y convergiendo en un legado dual:</p>
+<ul>
+<li>Por un lado, existen runas purificadas que ahora ayudan a contener
+la corrupción mágica dejada por el <a
+href="Lilium.html">Lilium</a>.</li>
+<li>Por otro, muchas runas han quedado contaminadas, produciendo efectos
+inestables o peligrosos, lo que añade un elemento de riesgo al usarlas
+sin conocimiento profundo.</li>
+<li>Algunos fragmentos rúnicos son la clave para deshacer los sellos de
+las <strong>Lanzas Celestiales</strong>, motivo por el cual facciones
+rivales luchan por su posesión.</li>
+</ul>
+<h2 id="importancia-en-la-actualidad">Importancia en la actualidad</h2>
+<p>En la <strong>Era Actual</strong> de Lithernia, el estudio, uso y
+dominio de las runas sigue siendo una herradura vital para la magia, la
+tecnología mágica y la comprensión del mundo. Aventureros, magos y
+artesanos buscan incansablemente inscripciones y artefactos con runas,
+ya sea para:</p>
+<ul>
+<li>Descifrar secretos antiguos.</li>
+<li>Crear poderosos objetos mágicos.</li>
+<li>Controlar o desatar el Maná en formas nuevas.</li>
+<li>Sellar o liberar fuerzas <a
+href="Primordiales.html">Primordiales</a>.</li>
+</ul>
+<p>El desafío constante radica en aprender a manejar estas poderosas
+herramientas sin sucumbir a la fatiga, la corrupción o la destrucción
+que conlleva su uso indebido.</p>
+<hr />
+<p><strong>Referencias en el lore:</strong></p>
+<ul>
+<li>Los <strong>Círculos de Invocación</strong> dependen del dominio y
+organización de runas en patrones geométricos para potenciar efectos
+mágicos.</li>
+<li>La <strong>Aguja de Trama</strong>, un cantrip especial, ejemplifica
+la manipulación rúnica para alterar <a
+href="Conjuros.html">Conjuros</a>.</li>
+<li>Artesanos de <a href="Valtoria.html">Valtoria</a> forjan con la
+magia de runas que les fueron otorgadas por sus dioses.</li>
+<li>Los clanes de Mor’dhul emplean runas de necromancia y control mental
+para mantener su dominio.</li>
+<li>La corrupción rúnica tras el <a href="Lilium.html">Lilium</a>
+explica la inestabilidad mágica de zonas afectadas.</li>
+<li>El conocimiento rúnico es clave para quienes buscan las Lanzas
+Celestiales y el retorno del Primer Rey.</li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Durgar_Hacha-de-Runa.html">Durgar_Hacha-de-Runa</a>
+(relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

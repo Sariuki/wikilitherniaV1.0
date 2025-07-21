@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Legado_del_Lilium</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Legado_del_Lilium</div>
+        <div class="content">
+<h1 id="el-legado-del-lilium">El legado del lilium</h1>
+<p>El Legado del <a href="Lilium.html">Lilium</a> se alza como una de
+las huellas más profundas y duraderas que dejó la Gran Catástrofe, el
+evento de magnitud inigualable que marcó el inicio de la Era de los Mil
+Años en Lithernia. Esta era, convertida en mito y crónica, salvaguarda
+la memoria de un mundo que fue moldeado a fuego y magia, y del cual el
+<a href="Lilium.html">Lilium</a> es a la vez símbolo y esencia.</p>
+<h2 id="la-gran-catástrofe-y-el-nacimiento-de-la-era">La Gran Catástrofe
+y el nacimiento de la Era</h2>
+<p>Hace aproximadamente un milenio, una convergencia de fuerzas cósmicas
+y místicas desató un cataclismo de tal magnitud que alteró para siempre
+el entramado de la realidad en Lithernia. Este suceso, conocido
+simplemente como La Gran Catástrofe, fragmentó continentes y salvajes
+paisajes, pero también desató una nueva ondulación en los hilos de la
+magia.</p>
+<p>El <a href="Lilium.html">Lilium</a>, flor ancestral que nacía solo en
+el corazón de los bosques primigenios, fue irradiado con esa magia
+residual, transformándose en un símbolo latente y poderoso, capaz de
+influir en la naturaleza y en la esencia mágica de la tierra.</p>
+<h2
+id="influencias-geográficas-la-transformación-del-paisaje">Influencias
+geográficas: la transformación del paisaje</h2>
+<p>El legado del <a href="Lilium.html">Lilium</a> no solo están escritos
+en las páginas de historia: sus efectos se perciben hoy en la geografía
+de Lithernia:</p>
+<ul>
+<li><strong>Bosques Luminíferos:</strong> Zonas donde el <a
+href="Lilium.html">Lilium</a> crece en abundancia, cuyas flores emiten
+un brillo plateado durante la luna nueva. Estos bosques poseen una
+energía mística palpable, atrayendo a druidas, magos y espíritus
+ancestrales.</li>
+<li><strong>Los Valles del Suspiro:</strong> Valles creados tras la
+devastación, cubiertos por Liliums salvajes que, se dice, susurran con
+el viento los ecos de las almas perdidas durante la Gran
+Catástrofe.</li>
+<li><strong>Montañas de Cristal:</strong> Picos formados por la
+cristalización de la energía mágica liberada, integrando pequeñas flores
+de <a href="Lilium.html">Lilium</a> petrificadas en sus vetas,
+conferiéndoles un brillo sobrenatural.</li>
+</ul>
+<h2 id="la-magia-residual-del-lilium">La magia residual del Lilium</h2>
+<p>El <a href="Lilium.html">Lilium</a> actúa como un conducto para la
+magia residual que impregna Lithernia desde el cataclismo. Esta magia
+tiene características únicas:</p>
+<ul>
+<li><strong>Reverberación temporal:</strong> Los lugares donde el <a
+href="Lilium.html">Lilium</a> florece con mayor intensidad sirven como
+anclas temporales, permitiendo atisbar fragmentos de eventos pasados o
+futuros.</li>
+<li><strong>Catalizador de potencial arcano:</strong> Algunos artesanos
+y hechiceros utilizan el polen y aceites derivados del <a
+href="Lilium.html">Lilium</a> para potenciar <a
+href="Conjuros.html">Conjuros</a>, rituales y artefactos con vinculación
+directa a la esencia primal de Lithernia.</li>
+<li><strong>Curación y purificación:</strong> La flor también posee
+propiedades curativas excepcionales, pero solo cuando se recolecta bajo
+la luz de la luna centelleante. Se cree que puede purgar las heridas que
+no son solo físicas, sino también espirituales o mágicas.</li>
+</ul>
+<h2 id="leyendas-y-creencias">Leyendas y creencias</h2>
+<p>A través de los siglos, el <a href="Lilium.html">Lilium</a> ha
+inspirado innumerables relatos:</p>
+<ul>
+<li><strong>El susurro de los ancestros:</strong> Se dice que las flores
+del <a href="Lilium.html">Lilium</a> guardan las voces de quienes
+perecieron en la Gran Catástrofe, y que escucharlas equivale a
+comunicarse con quienes cruzaron al más allá.</li>
+<li><strong>El Guardián de Luz:</strong> Una antigua leyenda conta que
+un espíritu protector, nacido de la esencia del <a
+href="Lilium.html">Lilium</a>, resguarda los bosques donde la flor
+crece. Este ser aparece en momentos de gran peligro para preservar el
+equilibrio del mundo.</li>
+<li><strong>El rito del renacer:</strong> Práctica ancestral entre
+algunas tribus élfikas, donde se utiliza el <a
+href="Lilium.html">Lilium</a> para sellar pactos y renovar promesas bajo
+la mirada de las estrellas, reafirmando la conexión entre vida, muerte y
+magia.</li>
+</ul>
+<h2 id="costumbres-actuales-en-lithernia">Costumbres actuales en
+Lithernia</h2>
+<p>En la Lithernia contemporánea, el <a href="Lilium.html">Lilium</a> no
+es solo un vestigio del pasado, sino un elemento vivo en la cultura y
+espiritualidad del pueblo:</p>
+<ul>
+<li><strong>Festival de las Flores Eternas:</strong> Celebrado cada
+milenio, coincide con la fecha estimada del cataclismo. Durante este
+evento, comunidades enteras se reúnen a recolectar flores de <a
+href="Lilium.html">Lilium</a>, realizando ceremonias de agradecimiento y
+renovación.</li>
+<li><strong>Arte y simbología:</strong> El <a
+href="Lilium.html">Lilium</a> aparece en emblemas, estandartes y
+joyería, simbolizando la resistencia, la magia y la eterna esperanza de
+Lithernia.</li>
+<li><strong>Sanación con <a href="Lilium.html">Lilium</a>:</strong>
+Médicos, chamanes y brujos incluyen preparados derivados del <a
+href="Lilium.html">Lilium</a> en tratamientos, respetando los ciclos
+naturales y las prácticas tradicionales que honran su poder.</li>
+</ul>
+<hr />
+<p>El legado del <a href="Lilium.html">Lilium</a> es, en definitiva, el
+testimonio visible e intangible del renacer de Lithernia tras una época
+de oscuridad y destrucción. Es la señal de que las heridas más profundas
+pueden dar lugar a nuevas formas de vida, magia y leyenda. Su influencia
+continúa permeando no solo la tierra, sino también los corazones y almas
+de todos los que habitan este vasto y maravilloso mundo.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li>El legado del <a href="Lilium.html">Lilium</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

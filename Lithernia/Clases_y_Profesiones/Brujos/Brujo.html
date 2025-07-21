@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brujo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Brujo</div>
+        <div class="content">
+<h1 id="brujo">Brujo</h1>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como brujo, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d8 por nivel de brujo <strong>Puntos
+de Golpe a nivel 1:</strong> 8 + tu modificador de Constitución
+<strong>Puntos de Golpe a niveles superiores:</strong> 1d8 (o 5) + tu
+modificador de Constitución por cada nivel de brujo después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera <strong>Armas:</strong>
+Armas sencillas <strong>Herramientas:</strong> Ninguna <strong>Tiradas
+de Salvación:</strong> Sabiduría, Carisma <strong>Habilidades:</strong>
+Elige dos de entre Arcanos, Engaño, Historia, Intimidación,
+Investigación, Naturaleza y Religión.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) una ballesta ligera y 20 virotes o (b) cualquier arma
+sencilla * (a) una bolsa de componentes o (b) un foco arcano * (a) un
+paquete de <a href="Erudito.html">Erudito</a> o (b) un paquete de
+explorador de mazmorras * Armadura de cuero, cualquier arma sencilla y
+dos dagas</p>
+<h3 id="sistema-de-maná-del-brujo"><strong>Sistema de Maná del
+Brujo</strong></h3>
+<p>Has forjado un pacto con un ser de otro mundo, canalizando su poder a
+través del Tejido del Maná.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que usas para lanzar tus <a href="Conjuros.html">Conjuros</a>. Tu
+fórmula de maná es <strong>6 + (Nivel de Brujo × Modificador de
+Carisma)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d10.</li>
+<li><strong>Aptitud Mágica:</strong> El Carisma es tu aptitud mágica
+para tus <a href="Conjuros.html">Conjuros</a> de brujo.
+<ul>
+<li><strong>CD de salvación de <a
+href="Conjuros.html">Conjuros</a></strong> = 8 + tu bonificador por
+competencia + tu modificador de Carisma.</li>
+<li><strong>Modificador de ataque de Conjuro</strong> = tu bonificador
+por competencia + tu modificador de Carisma.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-brujo">Tabla de Progresión del
+Brujo</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Trucos Conocidos</th>
+<th style="text-align: center;"><a href="Conjuros.html">Conjuros</a>
+Conocidos</th>
+<th style="text-align: center;">Nivel Máx. de Conjuro</th>
+<th style="text-align: center;">Invocaciones Conocidas</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Patrón de Otro Mundo, Magia de Pacto</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">6 + (1 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Invocaciones Sobrenaturales</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6 + (2 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Don del Pacto</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6 + (3 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6 + (4 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6 + (5 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Patrón de Otro Mundo</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6 + (6 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (7 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6 + (8 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (9 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Rasgo de Patrón de Otro Mundo</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (10 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Arcanum Místico (Nivel 6)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6 + (11 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de Característica,
+Invocaciones Sobrenaturales</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">6 + (12 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Arcanum Místico (Nivel 7)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">6 + (13 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Rasgo de Patrón de Otro Mundo</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">6 + (14 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Arcanum Místico (Nivel 8), Invocaciones
+Sobrenaturales</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6 + (15 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6 + (16 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Arcanum Místico (Nivel 9)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6 + (17 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Invocaciones Sobrenaturales</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">6 + (18 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">6 + (19 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Maestro Sobrenatural</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">6 + (20 × Mod. CAR)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="patrones-de-otro-mundo"><strong>Patrones de Otro
+Mundo</strong></h2>
+<h3 id="el-infernal"><strong>El Infernal</strong></h3>
+<p>Has hecho un pacto con un infernal de los planos inferiores, un ser
+de maldad suprema que te ha otorgado poder. Estos seres desean la
+corrupción o destrucción de todas las cosas, incluido tú.</p>
+<h4 id="lista-de-conjuros-ampliada"><strong>Lista de Conjuros
+Ampliada</strong></h4>
+<p>El Infernal te permite elegir de una lista ampliada de <a
+href="Conjuros.html">Conjuros</a> cuando aprendes un conjuro de brujo.
+Los siguientes <a href="Conjuros.html">Conjuros</a> se añaden a tu lista
+de <a href="Conjuros.html">Conjuros</a> de brujo.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Conjuro</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><em>Manos ardientes, Orden
+imperiosa</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><em>Ceguera/Sordera, Rayo
+abrasador</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Bola de fuego, Nube apestosa</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><em>Muro de fuego, Tentáculos
+negros</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Descarga de llamas,
+Santificar</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="bendición-del-oscuro"><strong>Bendición del Oscuro</strong></h4>
+<p>A partir del nivel 1, cuando reduces a una criatura hostil a 0 puntos
+de golpe, ganas puntos de golpe temporales iguales a tu modificador de
+Carisma + tu nivel de brujo (mínimo de 1).</p>
+<h4 id="suerte-del-oscuro"><strong>Suerte del Oscuro</strong></h4>
+<p>A partir del nivel 6, puedes invocar a tu patrón para alterar el
+destino a tu favor. Cuando hagas una prueba de característica o una
+tirada de salvación, puedes usar este rasgo para añadir un d10 a tu
+tirada. Puedes hacerlo después de ver la tirada inicial, pero antes de
+que ocurran los efectos de la tirada. Una vez que uses este rasgo, no
+puedes volver a usarlo hasta que termines un descanso corto o largo.</p>
+<h4 id="resistencia-infernal"><strong>Resistencia Infernal</strong></h4>
+<p>A partir del nivel 10, puedes elegir un tipo de daño cuando terminas
+un descanso corto o largo. Ganas resistencia a ese tipo de daño hasta
+que elijas uno diferente con este rasgo. El daño de armas mágicas o de
+plata ignora esta resistencia.</p>
+<h4 id="arrojado-a-través-del-infierno"><strong>Arrojado a través del
+Infierno</strong></h4>
+<p>A partir del nivel 14, cuando golpeas a una criatura con un ataque,
+puedes usar este rasgo para transportar instantáneamente al objetivo a
+través de los planos inferiores. La criatura desaparece y se precipita a
+través de un paisaje de pesadilla. Al final de tu siguiente turno, el
+objetivo regresa al espacio que ocupaba anteriormente, o al espacio
+desocupado más cercano. Si el objetivo no es un infernal, recibe 10d10
+de daño psíquico por su horrible experiencia. Una vez que uses este
+rasgo, no puedes volver a usarlo hasta que termines un descanso
+largo.</p>
+<h3 id="el-primigenio"><strong>El Primigenio</strong></h3>
+<p>Tu patrón es una entidad misteriosa cuya naturaleza es totalmente
+ajena al tejido de la realidad. Podría venir del Vacío Astral, de las
+profundidades del océano o de algún plano olvidado. Sus motivos son
+incomprensibles para los mortales, y su conocimiento tan inmenso y
+antiguo que puede volver loco a cualquiera.</p>
+<h4 id="lista-de-conjuros-ampliada-1"><strong>Lista de Conjuros
+Ampliada</strong></h4>
+<p>El Primigenio te permite elegir de una lista ampliada de <a
+href="Conjuros.html">Conjuros</a> cuando aprendes un conjuro de brujo.
+Los siguientes <a href="Conjuros.html">Conjuros</a> se añaden a tu lista
+de <a href="Conjuros.html">Conjuros</a> de brujo.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Conjuro</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><em>Brazos de Hadar, Risa horrible de
+Tasha</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><em>Detectar pensamientos, Corona de la
+locura</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Clarividencia, Enviar
+mensaje</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><em>Confusión, Asesino fantasmal</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Dominar persona,
+Telequinesis</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="mente-despierta"><strong>Mente Despierta</strong></h4>
+<p>A partir del nivel 1, tu conocimiento alienígena te da la capacidad
+de tocar las mentes de otras criaturas. Puedes comunicarte
+telepáticamente con cualquier criatura que puedas ver a 30 pies de ti.
+No necesitas compartir un idioma con la criatura para que entienda tu
+mensaje telepático, pero la criatura debe ser capaz de entender al menos
+un idioma.</p>
+<h4 id="guarda-entrópica"><strong>Guarda Entrópica</strong></h4>
+<p>A partir del nivel 6, puedes usar tu reacción para imponer desventaja
+en la tirada de ataque de una criatura contra ti. Si el ataque falla,
+tienes ventaja en tu próxima tirada de ataque contra esa criatura antes
+del final de tu siguiente turno. Una vez que uses este rasgo, no puedes
+volver a usarlo hasta que termines un descanso corto o largo.</p>
+<h4 id="escudo-de-pensamientos"><strong>Escudo de
+Pensamientos</strong></h4>
+<p>A partir del nivel 10, tus pensamientos no pueden ser leídos por
+telepatía u otros medios a menos que lo permitas. También tienes
+resistencia al daño psíquico, y cada vez que una criatura te inflige
+daño psíquico, esa criatura recibe la misma cantidad de daño psíquico
+que tú.</p>
+<h4 id="crear-esclavo"><strong>Crear Esclavo</strong></h4>
+<p>En el nivel 14, puedes infectar la mente de un humanoide con la magia
+alienígena de tu patrón. Puedes usar tu acción para tocar a un humanoide
+incapacitado. Esa criatura queda encantada por ti hasta que se lance un
+conjuro de <em>Quitar maldición</em> sobre ella, se elimine el efecto de
+encantamiento o uses este rasgo de nuevo. Puedes comunicarte
+telepáticamente con la criatura encantada siempre que ambos estéis en el
+mismo plano de existencia.</p>
+<h3 id="el-archifey"><strong>El Archifey</strong></h3>
+<p>Has hecho un pacto con un señor o señora de los fey, una criatura de
+leyenda que guarda secretos que fueron olvidados antes de que las razas
+mortales nacieran. Las motivaciones de estos seres son a menudo
+inescrutables y pueden incluir un deseo de mayor poder mágico o la
+resolución de antiguas venganzas.</p>
+<h4 id="lista-de-conjuros-ampliada-2"><strong>Lista de Conjuros
+Ampliada</strong></h4>
+<p>El Archifey te permite elegir de una lista ampliada de <a
+href="Conjuros.html">Conjuros</a> cuando aprendes un conjuro de brujo.
+Los siguientes <a href="Conjuros.html">Conjuros</a> se añaden a tu lista
+de <a href="Conjuros.html">Conjuros</a> de brujo.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Conjuro</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><em>Fuego feérico, Dormir</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><em>Calmar emociones,
+Fantasmagoría</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Abrir y cerrar, Crecimiento
+vegetal</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><em>Dominar bestia, Invisibilidad
+mayor</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Dominar persona, Engaño</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="presencia-feérica"><strong>Presencia Feérica</strong></h4>
+<p>A partir del nivel 1, puedes usar tu acción para hacer que cada
+criatura en un cubo de 10 pies originado en ti haga una tirada de
+salvación de Sabiduría contra la CD de tus <a
+href="Conjuros.html">Conjuros</a> de brujo. Las criaturas que fallen su
+tirada de salvación quedan encantadas o asustadas por ti (a tu elección)
+hasta el final de tu siguiente turno. Una vez que uses este rasgo, no
+puedes volver a usarlo hasta que termines un descanso corto o largo.</p>
+<h4 id="escape-brumoso"><strong>Escape Brumoso</strong></h4>
+<p>A partir del nivel 6, puedes desvanecerte en una nube de niebla en
+respuesta al daño. Cuando recibes daño, puedes usar tu reacción para
+volverte invisible y teletransportarte hasta 60 pies a un espacio
+desocupado que puedas ver. Permaneces invisible hasta el comienzo de tu
+siguiente turno o hasta que ataques o lances un conjuro. Una vez que
+uses este rasgo, no puedes volver a usarlo hasta que termines un
+descanso corto o largo.</p>
+<h4 id="defensas-seductoras"><strong>Defensas Seductoras</strong></h4>
+<p>A partir del nivel 10, tu patrón te enseña cómo desviar los
+encantamientos mentales y emocionales. Eres inmune a ser encantado, y
+cuando otra criatura intenta encantarte, puedes usar tu reacción para
+intentar volver el encantamiento contra ella. La criatura debe superar
+una tirada de salvación de Sabiduría contra la CD de tus <a
+href="Conjuros.html">Conjuros</a> de brujo o quedar encantada por ti
+durante 1 minuto o hasta que reciba daño.</p>
+<h4 id="umbral-oscuro"><strong>Umbral Oscuro</strong></h4>
+<p>En el nivel 14, puedes sumergir a una criatura en un reino de
+ilusión. Como una acción, elige una criatura que puedas ver a 60 pies de
+ti. Debe hacer una tirada de salvación de Sabiduría contra la CD de tus
+<a href="Conjuros.html">Conjuros</a> de brujo. Si falla, queda encantada
+o asustada por ti durante 1 minuto. Este efecto termina si la criatura
+recibe daño. Hasta que este encantamiento termine, la criatura cree que
+está perdida en un reino brumoso, cuya apariencia eliges tú. La criatura
+solo puede verte y oírte a ti. Una vez que uses este rasgo, no puedes
+volver a usarlo hasta que termines un descanso largo.</p>
+<h2 id="lista-de-conjuros-del-brujo"><strong>Lista de Conjuros del
+Brujo</strong></h2>
+<h4 id="trucos-nivel-0"><strong>Trucos (Nivel 0)</strong></h4>
+<ul>
+<li>Amigos</li>
+<li>Crear hoguera</li>
+<li>Ilusión menor</li>
+<li>Mano de <a href="Mago.html">Mago</a></li>
+<li>Prestidigitación</li>
+<li>Protección contra las armas</li>
+<li>Ráfaga sobrenatural</li>
+<li>Rociada venenosa</li>
+<li>Toque helado</li>
+<li>Toque de cuchilla</li>
+</ul>
+<h4 id="nivel-1"><strong>Nivel 1</strong></h4>
+<ul>
+<li>Armadura de Agathys</li>
+<li>Brazos de Hadar</li>
+<li>Brujería</li>
+<li>Comprensión idiomática</li>
+<li>Hechizar persona</li>
+<li>Maleficio</li>
+<li>Protección contra el bien y el mal</li>
+<li>Reprensión infernal</li>
+<li>Risa horrible de Tasha</li>
+<li>Sirviente invisible</li>
+</ul>
+<h4 id="nivel-2"><strong>Nivel 2</strong></h4>
+<ul>
+<li>Corona de la locura</li>
+<li>Esfera de llamas</li>
+<li>Inmovilizar persona</li>
+<li>Nube de dagas</li>
+<li>Oscuridad</li>
+<li>Paso brumoso</li>
+<li>Rayo de debilitamiento</li>
+<li>Romper</li>
+<li>Sugestión</li>
+<li>Ver invisibilidad</li>
+</ul>
+<h4 id="nivel-3"><strong>Nivel 3</strong></h4>
+<ul>
+<li>Círculo mágico</li>
+<li>Contraconjuro</li>
+<li>Disipar magia</li>
+<li>Don de lenguas</li>
+<li>Forma gaseosa</li>
+<li>Hambre de Hadar</li>
+<li>Hipnotismo</li>
+<li>Quitar maldición</li>
+<li>Toque vampírico</li>
+<li>Volar</li>
+</ul>
+<h4 id="nivel-4"><strong>Nivel 4</strong></h4>
+<ul>
+<li>Asesino fantasmal</li>
+<li>Destierro</li>
+<li>Dimensión puerta</li>
+<li>Marchitar</li>
+<li>Muro de fuego</li>
+<li>Puerta arcana</li>
+<li>Terreno alucinatorio</li>
+</ul>
+<h4 id="nivel-5"><strong>Nivel 5</strong></h4>
+<ul>
+<li>Contacto con otro plano</li>
+<li>Dominar persona</li>
+<li>Inmovilizar monstruo</li>
+<li>Sueño</li>
+<li>Videncia</li>
+<li>Vínculo telepático de Rary</li>
+</ul>
+<h4 id="nivel-6"><strong>Nivel 6</strong></h4>
+<ul>
+<li>Carne a piedra</li>
+<li>Círculo de muerte</li>
+<li>Crear no-muerto</li>
+<li>Mirada penetrante</li>
+<li>Portal arcano</li>
+<li>Sugestión en masa</li>
+<li>Visión verdadera</li>
+</ul>
+<h4 id="nivel-7"><strong>Nivel 7</strong></h4>
+<ul>
+<li>Dedo de la muerte</li>
+<li>Forma etérea</li>
+<li>Prisión de fuerza</li>
+<li>Proyectar imagen</li>
+<li>Viajar entre planos</li>
+</ul>
+<h4 id="nivel-8"><strong>Nivel 8</strong></h4>
+<ul>
+<li>Debilidad mental</li>
+<li>Dominar monstruo</li>
+<li>Palabra de poder: aturdir</li>
+<li>Semipresencia</li>
+<li>Terremoto</li>
+</ul>
+<h4 id="nivel-9"><strong>Nivel 9</strong></h4>
+<ul>
+<li>Aprisionamiento</li>
+<li>Augurio</li>
+<li>Cambio de forma</li>
+<li>Palabra de poder: matar</li>
+<li>Presciencia</li>
+<li>Proyección astral</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

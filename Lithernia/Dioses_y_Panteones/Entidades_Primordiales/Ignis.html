@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ignis</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ignis</div>
+        <div class="content">
+<h1 id="ignis">Ignis</h1>
+<p>Ignis es una de las deidades <a
+href="Primordiales.html">Primordiales</a> de Lithernia, un ser ancestral
+cuya existencia se remonta a la misma Forja del Mundo. Conocido como el
+Gran Carmesí, es el progenitor de los <a
+href="Dragones.html">Dragones</a> metálicos y la personificación del
+fuego creador: el calor del núcleo del mundo, la furia de los volcanes y
+la pasión del artesano ante el yunque.</p>
+<h3 id="biografía">Biografía</h3>
+<p><strong>Orígenes y la Forja del Mundo</strong> En los albores del
+tiempo, cuando los dioses y <a href="Primordiales.html">Primordiales</a>
+daban forma a la realidad, surgieron cuatro <a
+href="Dragones.html">Dragones</a> ancestrales como guardianes y
+modeladores del equilibrio elemental. Ignis fue uno de ellos. Nació del
+Fuego Primordial, un ser colosal cuyas escamas carmesíes brillaban con
+el calor de una estrella. Mientras otros moldeaban los vientos o las
+sombras, Ignis se dedicó a la tierra misma. Con su aliento de magma
+líquido, levantó las grandes cordilleras ígneas y dio a luz a los
+primeros volcanes, convirtiéndose en el gran arquitecto de la geografía
+ardiente de Lithernia. Su rugido era el trueno de la montaña y su
+presencia, la promesa del metal precioso oculto en las
+profundidades.</p>
+<p><strong>La Era de las Escamas y Fuego</strong> Tras la Forja del
+Mundo, comenzó la Era de las Escamas y Fuego, y el poder de los <a
+href="Dragones.html">Dragones</a> se volvió absoluto. Ignis, exaltado
+como una deidad viviente, no buscaba el caos, sino la conquista a través
+del orden y la creación. Proclamó su dominio a través del fuego y forjó
+alianzas con las razas mortales que compartían su pasión por la
+artesanía: los <a href="Enanos.html">Enanos</a>, que aprendieron de él a
+escuchar el corazón de la montaña, y los primeros <a
+href="Humanos.html">Humanos</a>, a quienes enseñó los secretos de la
+forja. Bajo su tutela, estos pueblos crearon armas y artefactos de una
+calidad nunca antes vista.</p>
+<p>Este ascenso lo puso en conflicto directo con
+<strong>Tal’vorak</strong>, el dragón de las tormentas y líder de los <a
+href="Dragones.html">Dragones</a> cromáticos. Así comenzaron las
+legendarias <strong>Guerras Dracónicas</strong>, un conflicto milenario
+que enfrentó a los <a href="Dragones.html">Dragones</a> metálicos de
+Ignis contra las hordas cromáticas de Tal’vorak. Las batallas eran de
+una escala apocalíptica: mares hirvieron bajo el aliento de Ignis, y
+picos montañosos fueron partidos por los relámpagos de Tal’vorak.
+Durante esta guerra, los otros <a href="Dragones.html">Dragones</a> <a
+href="Primordiales.html">Primordiales</a>, <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>
+y <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>,
+tejieron intrigas y cambiaron de bando, prolongando una contienda que
+dejó cicatrices imborrables en el continente.</p>
+<p><strong>La Caída Dragónica</strong> Ningún imperio dura para siempre.
+Tras generaciones de lucha incesante, el poder de los grandes <a
+href="Dragones.html">Dragones</a> comenzó a menguar. El imperio de
+Ignis, agotado por la guerra sin fin, sufrió traiciones desde dentro.
+Clanes menores de <a href="Dragones.html">Dragones</a> metálicos,
+cansados del conflicto, desertaron o se aislaron. La hegemonía dracónica
+se fragmentó y, finalmente, colapsó. Con la caída de los grandes
+linajes, los pueblos mortales que una vez sirvieron a los <a
+href="Dragones.html">Dragones</a> se alzaron, reclamando su
+independencia y forjando sus propios destinos. Ignis, como los otros <a
+href="Dragones.html">Dragones</a> ancestrales, se retiró del mundo, su
+destino final envuelto en el mito. Algunos relatos afirman que se hundió
+en el corazón del volcán más grande de Lithernia para dormir
+eternamente; otros, que su espíritu se fundió con todas las forjas del
+mundo, inspirando a cada herrero que golpea el metal al rojo vivo.</p>
+<h3 id="descripción-física-y-poderes">Descripción Física y Poderes</h3>
+<p>Ignis es descrito como un dragón de tamaño inimaginable, más grande
+que cualquier montaña. Sus escamas son de un color carmesí profundo,
+pulidas como el rubí pero duras como el metal divino, y brillan con un
+fuego interno que ilumina las cavernas más profundas. Sus ojos son pozos
+de oro fundido que reflejan la sabiduría de eones, y de sus fauces no
+emana simple fuego, sino un torrente de magma puro, el Aliento de la
+Creación, capaz tanto de erigir cordilleras como de fundirlas hasta sus
+cimientos. No porta armas ni armaduras, pues su cuerpo es la herramienta
+y el arma definitiva. Su guarida legendaria era el corazón de un volcán
+primordial, una forja cósmica donde se decía que había martillado las
+primeras vetas de mithril y adamantita.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Aunque Ignis ya no gobierna activamente, su legado es indeleble y se
+manifiesta en la misma estructura del mundo. Las grandes cadenas
+montañosas volcánicas, ricas en minerales, son obra suya. La tradición
+de la herrería, especialmente entre los <a href="Enanos.html">Enanos</a>
+de <a href="Valtoria.html">Valtoria</a> y los artesanos <a
+href="Humanos.html">Humanos</a>, bebe directamente de los mitos sobre su
+alianza con los mortales. El conflicto arquetípico entre el bien y el
+mal, el orden y el caos, a menudo se representa en la mitología popular
+como la eterna lucha entre los <a href="Dragones.html">Dragones</a>
+metálicos de Ignis y los cromáticos de Tal’vorak.</p>
+<p>Hoy en día, es raro que se le rinda culto abiertamente, pero su
+nombre es invocado en secreto por maestros herreros que buscan una
+bendición para sus creaciones más ambiciosas. Algunos cultos dracónicos
+y clanes de <a href="Dragonborn.html">Dragonborn</a> todavía lo veneran,
+creyendo que un día despertará de su letargo para forjar el mundo una
+vez más. Los artefactos más poderosos de la Era de las Escamas y Fuego,
+especialmente aquellos de metal y fuego, a menudo llevan su marca o
+contienen una chispa de su poder primordial. Encontrar una de sus
+escamas perdidas o un fragmento de su aliento solidificado sería el
+descubrimiento de toda una vida para cualquier <a
+href="Erudito.html">Erudito</a> o aventurero.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.57)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

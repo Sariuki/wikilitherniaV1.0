@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_AmanecerDivino</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">01_AmanecerDivino</div>
+        <div class="content">
+<h1 id="amanecerdivino">01 amanecerdivino</h1>
+<p>El Amanecer Divino marca el inicio mítico y cósmico de Lithernia, una
+era en la que el caos primordial dio paso a la forma y el orden, y en la
+que los dioses antiguos despertaron para trazar el destino del mundo y
+sus habitantes. Esta época es venerada como el principio de toda
+existencia, cuando la Voluntad Original, ancestral e insondable,
+engendró a los <a href="Primordiales.html">Primordiales</a>: entidades
+colosales cuyos sueños forjaron la realidad misma.</p>
+<h2 id="la-voluntad-original-y-los-primordiales">La Voluntad Original y
+los Primordiales</h2>
+<p>Antes que todo, sólo existía el Vacío Absoluto. De este vacío emergió
+una Voluntad Original, fuerza inconmensurable y sin nombre, que en su
+soledad creó en su mente el primer incendio y la primera sombra. A
+partir de estos elementos nació el primer cosmos, compuesto por planos
+primarios y éticos donde la creación empezó a adquirir sentido.</p>
+<p>Los <a href="Primordiales.html">Primordiales</a> fueron esos primeros
+titanes de la creación, gigantescos y casi divinos, manifestaciones
+directas de la Voluntad: su existencia estuvo marcada por el conflicto
+perpetuo y la cooperación necesaria para modelar la esfera física y
+mágica.</p>
+<h2 id="forjando-el-cosmos">Forjando el cosmos</h2>
+<p>Con una fuerza indescriptible, los <a
+href="Primordiales.html">Primordiales</a> moldearon los planos
+fundamentales que aún rigen Lithernia: el Material, el de las Sombras,
+el Astral y otros dominios desconocidos. De la colisión de sus fuerzas
+surgen fenómenos naturales y energías esenciales; fue en este momento
+que las primeras montañas, océanos y valles empezaron a tomar forma.</p>
+<p>Emanaciones de luz y tinieblas se entrelazaron para sembrar
+equilibrio y conflicto, y se colocaron las primeras estrellas en el
+firmamento, entidades de poder y guía que marcarían el tiempo y el
+destino.</p>
+<h2 id="los-dioses-mayores-arquitectos-del-destino">Los dioses mayores:
+arquitectos del destino</h2>
+<p>De esta eterna danza y crecimiento surgieron los dioses <a
+href="Primordiales.html">Primordiales</a>, seres conscientes y poderosos
+que tomaron formas y dominios definidos para actuar sobre el nuevo
+mundo. Los más importantes y reconocidos para Lithernia fueron:</p>
+<ul>
+<li><strong><a href="Thirogrim.html">Thirogrim</a>:</strong> Señor de la
+Magia y el saber oculto, central para el desarrollo arcano de los elfos
+y guardian de secretos ancestrales.</li>
+<li><strong><a href="Ferion.html">Ferion</a>:</strong> Guardián de los
+bosques eternos, representante de la vibrante y constante vida
+natural.</li>
+<li><strong><a href="Arzia.html">Arzia</a>:</strong> Señora de las
+estrellas, inspiradora de la contemplación celeste, la adivinación y el
+destino.</li>
+<li><strong>Lerián:</strong> Voz de los secretos y el conocimiento, guía
+de aquellos que buscan la verdad oculta.</li>
+<li><strong><a href="Morgal.html">Morgal</a>:</strong> Tejedor de
+ilusiones, dios ambiguo y asociado con las sombras y las maquinaciones
+sutiles.</li>
+</ul>
+<p>Estos dioses, junto a los <a
+href="Primordiales.html">Primordiales</a> restantes, marcaron los
+cimientos del mundo: establecieron leyes naturales y espirituales,
+crearon los primeros rastros de vida y sentaron la estructura moral y
+mágica que definiría futuras eras.</p>
+<h2 id="leyendas-y-costumbres-del-amanecer-divino">Leyendas y costumbres
+del Amanecer Divino</h2>
+<p>Se cuentan en las historias que en el Amanecer Divino los cielos no
+tenían fin, y la tierra vibraba al ritmo de las revelaciones divinas.
+Los antiguos bardos narran cómo, en noches donde las estrellas brillaban
+con una luz más intensa, los cielos parecían susurrar secretos
+milenarios a quienes sabían escuchar.</p>
+<p>La veneración de los dioses <a
+href="Primordiales.html">Primordiales</a> se convirtió en una práctica
+sagrada en diversas culturas ancestrales, sacrificando ofrendas de fuego
+y agua —elementos primarios del mundo— para honrar la creación y
+mantener el equilibrio cósmico.</p>
+<p>Los rituales asociados a esta era, aunque ya en gran parte olvidados
+o transformados en símbolos, todavía se recuerdan en la ceremonia de
+apertura del año litúrgico y durante las celebraciones de equinoccios,
+donde comunidades élficas y humanas cantan en lenguas antiguas para
+manifestar respeto y continuar el legado de los sueños divinos.</p>
+<h2 id="impacto-del-amanecer-divino-en-la-cosmovisión-actual">Impacto
+del Amanecer Divino en la cosmovisión actual</h2>
+<p>El recuerdo del Amanecer Divino impregna el pensamiento filosófico y
+religioso de Lithernia. Todas las religiones y panteones reconocen este
+momento como punto de partida sagrado: un tiempo en que la realidad fue
+forjada no solo con poder, sino con voluntad, esperanza y un equilibrio
+delicado.</p>
+<p>Los magos y sabios contemporáneos buscan en los vestigios de aquel
+tiempo vestigios de la Voluntad Original, creyendo que quien logre
+resonar con esa energía primordial podrá dominar aspectos aún
+desconocidos de la magia y la existencia.</p>
+<p>El Amanecer Divino, por tanto, es más que historia; es el mito
+fundacional que guía, inspira y advierte a todos los pueblos de
+Lithernia sobre la naturaleza misma del poder, el destino y la
+responsabilidad que conlleva dar forma al mundo.</p>
+<hr />
+<p>Así concluye el relato del nacimiento de Lithernia, un avance desde
+el caos hacia la ordenada majestuosidad que los dioses trazaron con su
+aliento, sembrando las semillas de las eras futuras y la épica que
+habita en cada rincón del mundo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.70)</li>
+<li><a href="Era%20Mítica%20-%20Amanecer%20Divino.html">Era Mítica -
+Amanecer Divino</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

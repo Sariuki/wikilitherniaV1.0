@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luthaldor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Luthaldor</div>
+        <div class="content">
+<h1 id="luthaldor">Luthaldor</h1>
+<p>Donde la tierra se rinde al mar y la madera de roble se convierte en
+leyenda, se alza Luthaldor. Más que una ciudad, es el corazón palpitante
+de la destreza naval de <a href="Galvorn.html">Galvorn</a>, un lugar
+donde el aire huele a sal, a serrín y a aventura. Sus edificios de
+piedra caliza blanca y tejados de pizarra azul reflejan la espuma de las
+olas que rompen contra los muelles, mientras los famosos astilleros
+trabajan sin descanso para dar vida a los “Corceles de Luthaldor”, las
+carabelas más rápidas y codiciadas del reino. Protegida en la amplia
+Bahía de los Corceles, Luthaldor es un faro de innovación y un bastión
+de la tradición marítima, gobernada no por la espada, sino por el
+sextante y el timón.</p>
+<h2 id="historia">Historia</h2>
+<p>Luthaldor nació del sueño de un solo hombre: Lythor el Cartógrafo, un
+navegante humano que, tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, creía que el futuro de su pueblo no
+estaba en la tierra herida, sino en los horizontes inexplorados del
+océano. Descubrió una bahía perfectamente resguardada de las tormentas y
+bendecida con bosques de robles robustos. Allí fundó un pequeño
+astillero con el único propósito de construir barcos capaces de
+“cabalgar las olas como corceles del viento”. Su obsesión por la
+velocidad y la navegación precisa atrajo a los mejores carpinteros de
+ribera, cartógrafos y astrónomos.</p>
+<p>Con el tiempo, el pequeño asentamiento creció. El gobierno del reino,
+reconociendo el valor estratégico de sus naves, nombró a un Lord
+Almirante para supervisar la ciudad, aunque el verdadero poder reside en
+el “Concilio de la Marea”, una asamblea de maestros de gremios que
+asegura que la calidad y el ingenio de Luthaldor nunca flaqueen. Hoy, la
+ciudad no solo construye los mejores barcos, sino que también traza los
+<a href="Mapas.html">Mapas</a> astrales más precisos y cosecha las
+perlas luminiscentes de sus arrecifes, guiando a marineros por todo el
+mundo conocido.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Los Muelles del Sextante</strong>: El bullicioso puerto
+principal y el centro neurálgico de Luthaldor. Aquí, los barcos
+descargan mercancías exóticas y los mercaderes negocian contratos. En el
+corazón de los muelles se alza el gran Templo de <a
+href="Yfrit.html">Yfrit</a>, una magnífica estructura de mármol de coral
+cuyas paredes parecen susurrar con el sonido del mar. Pequeños altares
+dedicados a <a href="Quiteon.html">Quiteon</a>, dios del viento,
+salpican los espigones, cubiertos de ofrendas.</p></li>
+<li><p><strong>El Vientre de la Quilla</strong>: El distrito de los
+astilleros, una zona ruidosa y enérgica donde esqueletos de madera de
+barcos colosales se elevan hacia el cielo. El aire está impregnado del
+olor a alquitrán caliente y madera recién cortada. Aquí, los Genasi de
+Fuego trabajan junto a los herreros <a href="Humanos.html">Humanos</a>
+para doblar el metal, mientras los carpinteros <a
+href="Enanos.html">Enanos</a>, atraídos por la maestría local, tallan
+intrincados mascarones de proa.</p></li>
+<li><p><strong>El Ojo del Cartógrafo</strong>: Un distrito más tranquilo
+y <a href="Erudito.html">Erudito</a>, hogar de los gremios de
+cartógrafos y astrónomos. Sus calles están alineadas con observatorios
+con cúpulas de bronce y talleres donde se dibujan a mano los preciados
+<a href="Mapas.html">Mapas</a> astrales sobre pergaminos de piel de
+leviatán.</p></li>
+<li><p><strong>Colinas de la Sirena</strong>: La zona residencial que se
+extiende por las suaves colinas que rodean la bahía. Las casas, con sus
+fachadas decoradas con relieves de anclas y criaturas marinas, ofrecen
+vistas espectaculares del océano. Aquí viven desde humildes pescadores
+hasta acaudalados capitanes y comerciantes <a
+href="Semielfos.html">Semielfos</a>.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Luthaldor se mueve al ritmo de las mareas. El evento más
+esperado del año es la “Regata del Solsticio”, una feroz competición
+naval donde tripulaciones de todo <a href="Galvorn.html">Galvorn</a> se
+enfrentan por la gloria y el “Timón de Coral”, un trofeo que garantiza a
+su poseedor un año de prestigio y contratos lucrativos.</p>
+<p>Las tradiciones son sagradas. Ningún “Corcel de Luthaldor” zarpa sin
+su bautismo: el capitán rompe una botella de ron de <a
+href="Galvorn.html">Galvorn</a> contra el casco y un maestro carpintero
+clava una escama de pez plateado en el mástil mayor para la buena
+suerte. Cuando un barco parte hacia un largo viaje, las familias se
+congregan en los muelles y arrojan flores de hibisco al agua, una
+ofrenda a <a href="Yfrit.html">Yfrit</a> para que guíe y proteja a sus
+seres queridos. Por la noche, las tabernas como “La Sirena Varada”
+rebosan de vida, donde marineros <a href="Semiorcos.html">Semiorcos</a>
+y aventureros <a href="Medianos.html">Medianos</a> intercambian
+historias de monstruos marinos y tesoros perdidos a cambio de una jarra
+de cerveza.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Luthaldor es una ciudad construida para resistir al mar y honrarlo.
+Las estructuras combinan la robustez de la madera de roble tratada con
+sal con la luminosidad de la piedra caliza blanca. Los tejados de
+pizarra azul, dispuestos en patrones ondulantes, crean la ilusión de un
+mar petrificado que se extiende por la ciudad. No hay fachada que no
+exhiba con orgullo su herencia marítima: tallas de krakens, sirenas y
+tortugas marinas adornan las puertas, mientras que veletas con forma de
+sextante giran en los tejados, siempre apuntando hacia el viento del
+océano. El símbolo de la ciudad, un sextante dorado sobre olas azules,
+se ve por todas partes, un recordatorio constante de que en Luthaldor,
+la guía de las estrellas es ley.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Espectro del Arrecife</strong>: Los marineros más
+viejos, con la mirada perdida en la bruma, advierten sobre “El Espectro
+del Arrecife”. Se dice que es un galeón fantasmal, con velas hechas de
+niebla y una tripulación de ahogados, que aparece en las noches sin luna
+cerca de los traicioneros arrecifes de la bahía. No busca tesoros, sino
+almas. La leyenda afirma que el capitán del espectro desafía a los
+barcos que encuentra a una carrera hasta el amanecer; si el barco mortal
+pierde, su tripulación se une a la del espectro para siempre.</p></li>
+<li><p><strong>El Ojo de la Tempestad</strong>: En las profundidades de
+las cuevas marinas que horadan los acantilados de la bahía, se rumorea
+que yace el “Ojo de la Tempestad”. No es una joya, sino una perla negra
+del tamaño de un puño que pulsa con una luz verdosa. Se cree que fue un
+regalo de <a href="Exion.html">Exion</a>, dios de las tormentas, a un
+antiguo rey del mar. Quien la posea puede convocar y aplacar tormentas
+menores, un poder tan codiciado como peligroso, pues se dice que la
+perla drena la vitalidad de su portador con cada uso.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

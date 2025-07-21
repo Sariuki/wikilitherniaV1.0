@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>razas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">razas</div>
+        <div class="content">
+<h1 id="capítulo-3-razas-de-lithernia">Capítulo 3: Razas de
+Lithernia</h1>
+<h2 id="un-crisol-de-culturas-y-linajes">Un crisol de culturas y
+linajes</h2>
+<p>Lithernia es un mundo de diversidad, donde múltiples razas conviven,
+a veces en armonía, a veces en conflicto. Cada raza tiene su propia
+historia, cultura, creencias y conexión con la magia del mundo.</p>
+<h2 id="elfos">Elfos</h2>
+<h3 id="altos-elfos">Altos Elfos</h3>
+<ul>
+<li>+2 Destreza, +1 Inteligencia</li>
+<li>Visión en la oscuridad 60 pies</li>
+<li>Conocimiento del truco <em>Dancing Lights</em></li>
+<li>Competencia con espada corta, larga, arco corto y largo</li>
+<li>Idioma: Élfico</li>
+</ul>
+<h3 id="elfos-oscuros-drow">Elfos Oscuros (Drow)</h3>
+<ul>
+<li>+2 Destreza, +1 Carisma</li>
+<li>Visión en la oscuridad 120 pies</li>
+<li>Sensibilidad a la luz solar</li>
+<li>Conjuros: <em>Dancing Lights</em>, <em>Faerie Fire</em> (nivel
+3)</li>
+<li>Competencia con espada corta, ballesta de mano, espada larga</li>
+<li>Idioma: Élfico</li>
+</ul>
+<h3 id="eladrin">Eladrin</h3>
+<ul>
+<li>+2 Destreza, +1 Inteligencia</li>
+<li>Visión en la oscuridad 60 pies</li>
+<li>Ventaja contra ser hechizado, no pueden dormir</li>
+<li>Teletransportación 60 pies (acción bonus)</li>
+<li>Idioma: Élfico</li>
+</ul>
+<h3 id="elfos-del-bosque">Elfos del Bosque</h3>
+<ul>
+<li>+2 Destreza, +1 Sabiduría</li>
+<li>Visión en la oscuridad 60 pies</li>
+<li>Competencia en Sigilo</li>
+<li>Competencia con armas élficas</li>
+<li>Velocidad base 35 pies</li>
+<li>Idioma: Élfico</li>
+</ul>
+<h3 id="shadar-kai">Shadar-Kai</h3>
+<ul>
+<li>+2 Destreza, +1 Carisma</li>
+<li>Visión en la oscuridad 120 pies</li>
+<li>Resistencia a la nigromancia</li>
+<li>Teletransportación 30 pies (acción bonus)</li>
+<li>Idioma: Élfico</li>
+</ul>
+<h2 id="gnomos">Gnomos</h2>
+<ul>
+<li>+2 Inteligencia</li>
+<li>Tamaño pequeño</li>
+<li>Velocidad 25 pies</li>
+<li>Visión en la oscuridad 60 pies</li>
+<li>Ventaja en tiradas de salvación contra magia</li>
+<li>Idiomas: Común y Gnomo</li>
+</ul>
+<h2 id="orcos">Orcos</h2>
+<ul>
+<li>+2 Fuerza, +1 Constitución</li>
+<li>Tamaño mediano</li>
+<li>Velocidad 30 pies</li>
+<li>Visión en la oscuridad 60 pies</li>
+<li>Acción bonus para moverse tras atacar</li>
+<li>Furia poderosa (bono +2 daño cuerpo a cuerpo)</li>
+<li>Idiomas: Común y Orco</li>
+</ul>
+<h2 id="hobgoblins">Hobgoblins</h2>
+<ul>
+<li>+2 Constitución, +1 Inteligencia</li>
+<li>Tamaño mediano</li>
+<li>Velocidad 30 pies</li>
+<li>Visión en la oscuridad 60 pies</li>
+<li>Competencia con armas simples y marciales</li>
+<li>Ventaja en tiradas de ataque si aliado cercano</li>
+<li>Idiomas: Común y Goblin</li>
+</ul>
+<h2 id="tieflings">Tieflings</h2>
+<ul>
+<li>+2 Carisma, +1 Inteligencia</li>
+<li>Tamaño mediano</li>
+<li>Velocidad 30 pies</li>
+<li>Visión en la oscuridad 60 pies</li>
+<li>Resistencia al daño por fuego</li>
+<li>Conjuros: <em>Thaumaturgy</em>, <em>Hellish Rebuke</em> (nivel
+3)</li>
+<li>Idiomas: Común e Infernal</li>
+</ul>
+<h2 id="semiorcos">Semiorcos</h2>
+<ul>
+<li>+2 Fuerza, +1 Constitución</li>
+<li>Tamaño mediano</li>
+<li>Velocidad 30 pies</li>
+<li>Visión en la oscuridad 60 pies</li>
+<li>Competencia en Intimidación</li>
+<li>Ataques salvajes (dados extra en crítico)</li>
+<li>Resistencia implacable (caer a 1 punto de golpe en vez de 0 una vez
+por descanso)</li>
+<li>Idiomas: Común y Orco</li>
+</ul>
+<h2 id="goliaths">Goliaths</h2>
+<ul>
+<li>+2 Fuerza, +1 Constitución</li>
+<li>Tamaño mediano</li>
+<li>Velocidad 30 pies (más 10 pies si no lleva armadura pesada)</li>
+<li>Competencia en Atletismo</li>
+<li>Ventaja contra mal de altura</li>
+<li>Puede moverse a través de paredes de piedra (con limitaciones)</li>
+<li>Idiomas: Común y Gigante</li>
+</ul>
+<p><a href="Home.html">Home</a></p>
+<p><a href="Clases%20Tradicionales.html">Clases Tradicionales</a></p>
+<p><a href="Clases%20Nuevas.html">Clases Nuevas</a></p>
+<p><a href="Reinos%20y%20Ciudades.html">Reinos y Ciudades</a></p>
+        </div>
+    </div>
+</body>
+</html>

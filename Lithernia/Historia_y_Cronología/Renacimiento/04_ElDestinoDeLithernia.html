@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04_ElDestinoDeLithernia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">04_ElDestinoDeLithernia</div>
+        <div class="content">
+<h1 id="el-destino-de-lithernia">El Destino de Lithernia</h1>
+<p>La era actual de Lithernia se alza como un capítulo forjado en la
+incertidumbre y la esperanza. Tras milenios de conflictos, alianzas
+rotas y profecías entretejidas, el destino de esta tierra se encuentra
+pendiendo de un hilo frágil, sostenido por las acciones de héroes, <a
+href="Villanos.html">Villanos</a> y el incansable fluir del tiempo.</p>
+<h2 id="un-tiempo-de-renacimiento-y-amenaza">Un Tiempo de Renacimiento y
+Amenaza</h2>
+<p>Después de la caída de los reinos antiguos, cuando los ecos de la
+Gran Guerra aún resonaban en los valles y montañas, Lithernia comenzó a
+reconstruirse entre ruinas y cenizas. Sin embargo, la promesa de un
+nuevo amanecer coexiste con amenazas latentes: criaturas que emergen de
+sombras olvidadas, facciones rivales que conspiran entre las sombras, y
+la persistente presencia de la magia antigua que ha comenzado a
+despertar.</p>
+<h2 id="las-señales-del-cambio">Las Señales del Cambio</h2>
+<p>Los estudiosos y oráculos de Lithernia han detectado varias señales
+presagiando cambios irrevocables:</p>
+<ul>
+<li><strong>El Cometa de Azuriel:</strong> Una estela luminosa que cruza
+el firmamento cada cincuenta años, anunciando grandes pérdidas o
+revelaciones.<br />
+</li>
+<li><strong>El Despertar de las Piedras Vivientes:</strong> Formaciones
+rocosas antiguas, imbuidas con espíritu elemental, han comenzado a
+moverse inexplicablemente en regiones remotas.<br />
+</li>
+<li><strong>La Voz del Último Dragón:</strong> Custodiado en las
+profundidades de la Cordillera del Silencio, el dragón ancestral ha sido
+avistado por primera vez en siglos, simbolizando el despertar de poderes
+olvidados.</li>
+</ul>
+<h2 id="profecías-y-leyendas">Profecías y Leyendas</h2>
+<h3 id="la-profecía-del-sendero-de-luz">La Profecía del Sendero de
+Luz</h3>
+<p>Se cuenta que un elegido surgirá con la habilidad de unir las fuerzas
+dispersas de Lithernia, guiando a su pueblo a través de la oscuridad que
+se avecina. Este elegido portará la <strong>Llave de Estharin</strong>,
+un artefacto perdido que abre las puertas hacia nuevas realidades y
+destinos.</p>
+<h3 id="el-ocaso-de-los-señores-del-velo">El Ocaso de los Señores del
+Velo</h3>
+<p>Otra antigua profecía augura la caída de los guardianes ocultos,
+conocidos como los Señores del Velo, quienes mantienen el equilibrio
+entre los mundos. Su desaparición provocará la ruptura de las barreras
+que separan lo real de lo arcano.</p>
+<h2 id="costumbres-y-ritos-del-presagio">Costumbres y Ritos del
+Presagio</h2>
+<p>Para prepararse ante el destino incierto, los habitantes de Lithernia
+han adoptado prácticas y rituales que buscan mitigar las calamidades
+futuras y proteger a las próximas generaciones:</p>
+<ul>
+<li><strong>El Festival del Último Alba:</strong> Celebrado durante la
+salida del cometa Azuriel, donde comunidades enteras se reúnen para
+ofrecer plegarias y encender faroles que simbolizan la esperanza.<br />
+</li>
+<li><strong>La Vigilia de las Piedras:</strong> Una ceremonia ancestral
+donde los sabios meditan junto a las formaciones rocosas, intentando
+comunicarse con los antiguos elementos que ellas albergan.<br />
+</li>
+<li><strong>Juramentos del Guardián:</strong> Antiguos votos que grupos
+elegidos realizan para proteger los secretos del dragón hasta su
+verdadero despertar.</li>
+</ul>
+<h2 id="el-rol-de-los-grandes-protagonistas">El Rol de Los Grandes
+Protagonistas</h2>
+<p>El destino de Lithernia no puede comprenderse sin sus figuras clave
+que actúan como tejidos vitales en la trama del presente y futuro:</p>
+<ul>
+<li><strong>La Emperatriz Alira del Rayo Plateado</strong>, cuyo
+gobierno equilibra firmeza y sabiduría, enfrentando tanto enemigos
+externos como amenazas internas.<br />
+</li>
+<li><strong>Tharion Sombravenas</strong>, líder de los Renegados del
+Nexo, un grupo clandestino que busca alterar el flujo del tiempo para
+evitar un futuro catastrófico.<br />
+</li>
+<li><strong>Eldris, el Custodio del Viento</strong>, un enigmático <a
+href="Vagabundo.html">Vagabundo</a> que guarda secretos ancestrales
+vinculados a la mística de Lithernia.</li>
+</ul>
+<h2 id="conclusión-una-encrucijada-de-historias">Conclusión: Una
+Encrucijada de Historias</h2>
+<p>El destino de Lithernia permanece abierto, como un vasto lienzo donde
+cada acción, sacrificio o traición dejará una marca indeleble. En este
+tiempo de incertidumbre, la voluntad de sus habitantes, la vigilia de
+sus guardianes y el entrelazamiento de sus <a
+href="Leyendas.html">Leyendas</a> escribirán la próxima era en la saga
+de este mundo fascinante.</p>
+<hr />
+<p><em>“El futuro no es un sendero pavimentado, sino un jardín salvaje
+que cultivamos con nuestras esperanzas y temores.”</em><br />
+— Fragmento de los Anales del Oráculo Dorado.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.86)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

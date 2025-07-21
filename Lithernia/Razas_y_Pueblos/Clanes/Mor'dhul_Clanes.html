@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mor'dhul_Clanes</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Mor'dhul_Clanes</div>
+        <div class="content">
+<h1 id="mordhul-clanes">Mor’dhul clanes</h1>
+<h2 id="sangre-y-jerarquía">Sangre y Jerarquía</h2>
+<p>En las tierras sombrías de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+los clanes no son simples familias: son engranajes en una máquina de
+dominación divina. Cada clan lleva el nombre de su deidad patrona y
+opera como extensión religiosa, militar y política de su voluntad. Este
+sistema brutal - donde la fuerza bruta y la astucia son monedas de
+cambio - sostiene el reinado teocrático de Sel’thirak mientras alimenta
+rivalidades que mantienen el reino en ebullición perpetua.</p>
+<h2 id="clasificación-de-clanes">Clasificación de Clanes</h2>
+<p>La sociedad mor’dhuliana se divide según jerarquías ancestrales:</p>
+<h3 id="clanes-reales">Clanes Reales</h3>
+<p>Corazón del poder oscuro:<br />
+- <strong>Clan Sel’thirak</strong> (<a
+href="Tieflings.html">Tieflings</a>):<br />
+<em>Deidad:</em> Sel’thirak, Dios de la Muerte<br />
+<em>Símbolo:</em> Corona de huesos entrelazados sobre campo negro<br />
+Gobernantes absolutos de <a href="Mor&#39;dhul.html">Mor’dhul</a> desde
+la Ciudadela de Obsidiana. Su piel nocturna y cuernos retorcidos
+reflejan su conexión con la deidad. Realizan sacrificios diarios en el
+Obelisco de la Penumbra, donde disidentes son desollados vivos como
+ofrenda.</p>
+<ul>
+<li><strong>Clan <a href="Thyrgram.html">Thyrgram</a></strong> (<a
+href="Orcos.html">Orcos</a>):<br />
+<em>Deidad:</em> <a href="Thyrgram.html">Thyrgram</a>, Dios de la
+Guerra<br />
+<em>Símbolo:</em> Hacha sangrante sobre escudo dentado<br />
+Columna vertebral militar del reino. Sus guerreros marcan sus armaduras
+con sangre de la primera víctima de cada batalla. En Noblestevo entrenan
+legiones que mezclan disciplina infernal y furia berserker.</li>
+</ul>
+<h3 id="clanes-nobles">Clanes Nobles</h3>
+<p>Vasallos directos de la corona:<br />
+- <strong>Clan <a href="Lakros.html">Lakros</a></strong>
+(Semiogros):<br />
+<em>Deidad:</em> <a href="Lakros.html">Lakros</a>, Dios de la
+Sangre<br />
+<em>Símbolo:</em> Puño cerrado goteando carmesí<br />
+Dominan Medromora, ciudad volcánica donde forjan armas en lava
+sacrificial. Sus ritos de iniciación incluyen matar a un familiar para
+demostrar “liberación de debilidades”.</p>
+<ul>
+<li><p><strong>Clan <a href="Kromagul.html">Kromagul</a></strong> (<a
+href="Hobgoblins.html">Hobgoblins</a>):<br />
+<em>Deidad:</em> <a href="Kromagul.html">Kromagul</a>, Dios del
+Dolor<br />
+<em>Símbolo:</em> Cadenas rotas sobre fondo de ceniza<br />
+Maestros de la tortura en Fuempillos, “Ciudad del Dolor”. Sus
+interrogadores extraen secretos usando técnicas prohibidas como el
+<em>Despertar de Nervios</em>, hechizo que multiplica la sensibilidad al
+dolor.</p></li>
+<li><p><strong>Clan Gyth’kai</strong> (<a
+href="Goblins.html">Goblins</a>):<br />
+<em>Deidad:</em> Gyth’kai, Diosa del Sacrificio<br />
+<em>Símbolo:</em> Cuchillo ritual cruzado con cáliz<br />
+Especialistas en magia de sangre. Controlan el Mercado de las Visceras
+en Chega, donde comercian órganos para rituales y crean engendros
+alquímicos.</p></li>
+</ul>
+<h3 id="clanes-del-bosque">Clanes del Bosque</h3>
+<p>Regentes de territorios salvajes:<br />
+- <strong>Clan Aethel</strong> (<a href="Orcos.html">Orcos</a>):<br />
+<em>Lema:</em> “Lo que no mata, engorda”<br />
+Cazadores de las Arboledas Aullantes. Visten pieles de jabalíes
+demoníacos y usan venenos extraídos de flores que crecen donde cayó el
+<a href="Lilium.html">Lilium</a>.</p>
+<ul>
+<li><strong>Clan Nighthawk</strong> (<a
+href="Hobgoblins.html">Hobgoblins</a>):<br />
+Domínan las Ruinas de Umbrálion. Sus ilusionistas convocan
+<em>pesadillas vivientes</em> para proteger territorios boscosos. Los
+árboles aquí susurran secretos en idiomas muertos.</li>
+</ul>
+<h3 id="clanes-de-las-ruinas">Clanes de las Ruinas</h3>
+<p>Buscadores de conocimiento prohibido:<br />
+- <strong>Clan Grimstone</strong> (<a href="Orcos.html">Orcos</a>
+arqueólogos):<br />
+Excavan la Ciudad Perdida de Zathar’kel. Adoran reliquias del Primer Rey
+que encuentran, desafiando el dogma oficial.</p>
+<ul>
+<li><strong>Clan Whisper</strong> (<a
+href="Hobgoblins.html">Hobgoblins</a> nigromantes):<br />
+<em>Base:</em> Catacumbas de Chega<br />
+Únicos autorizados a practicar necromancia abierta. Sus <em>Ángeles de
+Carroña</em> - no-muertos con alas de hueso - patrullan cielos cerca de
+fronteras.</li>
+</ul>
+<h3 id="clanes-menores">Clanes Menores</h3>
+<p>Supervivencia en los márgenes:<br />
+- <strong>Clan Razortooth</strong> (<a
+href="Goblins.html">Goblins</a>):<br />
+Bandidos expertos en emboscadas con trampas de dientes metálicos.</p>
+<ul>
+<li><strong>Clan Shadowscale</strong> (<a
+href="Goblins.html">Goblins</a> espías):<br />
+Infiltran ciudades enemigas disfrazados de mercaderes. Su red de
+informantes abarca hasta <a href="Galvorn.html">Galvorn</a>.</li>
+</ul>
+<h3 id="clanes-nómadas">Clanes Nómadas</h3>
+<p>Dueños de los caminos:<br />
+- <strong>Clan Bloodfire</strong> (<a
+href="Orcos.html">Orcos</a>):<br />
+Queman todo a su paso. Dejan pirámides de cráneos como marca
+territorial.</p>
+<ul>
+<li><strong>Clan Ironclaw</strong> (<a href="Orcos.html">Orcos</a>
+herreros):<br />
+Forjan con metales extraídos de meteoritos caídos durante el <a
+href="Lilium.html">Lilium</a>. Sus armas emiten lamentos
+fantasmales.</li>
+</ul>
+<h3 id="descastados-outcasts">Descastados (Outcasts)</h3>
+<p>Parias sin dios ni clan:<br />
+Mezcla de exiliados y esclavos fugados. Viven en las Cavernas del Olvido
+bajo Mirallos. Su único código: “Sobrevive hoy, traiciona mañana”.</p>
+<h2 id="sistema-de-vasallaje">Sistema de Vasallaje</h2>
+<p>Los clanes menores juran lealtad a los nobles mediante el <em>Pacto
+de Sangre</em>:<br />
+1. El vasallo bebe sangre del señor<br />
+2. El señor quema marca de clan en el vasallo<br />
+3. Ambos juran ante <a href="Kromagul.html">Kromagul</a> sufrir
+mutilación si rompen el pacto</p>
+<h2 id="ciclo-de-traiciones">Ciclo de Traiciones</h2>
+<p>Las tres grandes leyes de Sel’thirak rigen las disputas:<br />
+1. <strong>Ley del Reto:</strong> Cualquier clan puede desafiar a otro
+en combate singular por sus territorios<br />
+2. <strong>Ley de la Sombra:</strong> Las traiciones deben ejecutarse
+sin testigos<br />
+3. <strong>Ley del Silencio:</strong> Todo conflicto interno se resuelve
+antes de las festividades del Sol Negro</p>
+<p>Esta danza de puñales mantiene el equilibrio: cuando un clan crece
+demasiado, otros tres se alían para derribarlo. Así, mientras la sangre
+fluya, el Rey de los Dioses observa satisfecho desde su trono de
+calaveras.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Goblins.html">Goblins</a></li>
+<li><a href="Hobgoblins.html">Hobgoblins</a></li>
+<li>Mordhul</li>
+<li><a href="Orcos.html">Orcos</a></li>
+<li><a href="Tieflings.html">Tieflings</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clanes.html">Clanes</a> (relevancia: 0.98)</li>
+<li><a href="Clanes%20-%20Clan%20Aethel.html">Clanes - Clan Aethel</a>
+(relevancia: 0.65)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+<li><a href="Clan%20Corazón%20de%20Ceniza.html">Clan Corazón de
+Ceniza</a> (relevancia: 0.47)</li>
+<li><a href="Clan%20del%20Juramento%20de%20Ceniza.html">Clan del
+Juramento de Ceniza</a> (relevancia: 0.45)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

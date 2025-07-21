@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aluinel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Aluinel</div>
+        <div class="content">
+<h1 id="aluinel">Aluinel</h1>
+<p>Aluinel es una cicatriz en el paisaje, un monumento a una belleza
+asesinada. Lo que una vez fue una radiante ciudad élfica de torres de
+cuarzo pálido y puentes de grácil diseño, es ahora una fortaleza de
+pesadilla bajo el yugo del Clan Nighthawk. La elegancia ancestral de sus
+estructuras ha sido profanada con bastiones de hierro negro y barricadas
+de madera afilada. Los puentes que antes cantaban con el viento ahora
+cuelgan pesadamente, cubiertos de cadenas y púas oxidadas. Incluso la
+naturaleza ha sido subyugada; los grandes árboles vivientes que formaban
+parte integral de la ciudad están ahora petrificados, sus ramas
+retorcidas en una agonía silenciosa por la magia de sombras que impregna
+el aire. Aluinel no es una ciudad, es una tumba habitada por sus
+carceleros.</p>
+<h2 id="historia">Historia</h2>
+<p>En una era anterior, Aluinel era una joya élfica en la frontera del
+mundo, un centro de adoración a <a href="Arzia.html">Arzia</a>, la diosa
+de las estrellas. Sus torres eran observatorios y sus jardines,
+santuarios. Pero su posición estratégica y su antigua magia la
+convirtieron en un objetivo codiciado durante la Gran Guerra. El Clan
+Nighthawk, maestros <a href="Hobgoblins.html">Hobgoblins</a> del
+espionaje y la guerra de desgaste, la asediaron no con fuerza bruta,
+sino con sombras y miedo. Durante décadas, corrompieron la ciudad desde
+dentro, sembrando paranoia y debilitando sus defensas mágicas hasta que,
+en una noche sin luna, la tomaron.</p>
+<p>Desde entonces, Aluinel se ha convertido en la principal base de
+operaciones de los Nighthawk. Los descendientes de los elfos originales,
+principalmente Elfos Oscuros y Shadar-Kai, viven como una clase servil,
+despojados de su historia y su fe. El culto a <a
+href="Arzia.html">Arzia</a> fue erradicado y reemplazado por la
+veneración a <a href="Kromagul.html">Kromagul</a>, el Dios del Dolor, a
+quien los <a href="Hobgoblins.html">Hobgoblins</a> asocian con la
+oscuridad eterna y el poder que se obtiene del sufrimiento ajeno.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Aguja Sombría</strong>: La torre central y más alta de
+Aluinel, que en su día fue el principal observatorio de <a
+href="Arzia.html">Arzia</a>. Ahora es el corazón del poder del Clan
+Nighthawk, coronada por un enorme murciélago de obsidiana. Se dice que
+en sus cámaras más altas, los líderes del clan realizan rituales para
+alimentarse de las pesadillas de la población, fortaleciendo así su
+magia.</p></li>
+<li><p><strong>El Jardín Petrificado</strong>: Una extensa área de la
+ciudad que solía ser un jardín botánico con flora mágica de todo <a
+href="Eldrador.html">Eldrador</a>. Ahora, cada planta y árbol está
+convertido en piedra gris, un testimonio silencioso de la magia de
+sombras que conquistó la ciudad. Es un lugar de un silencio sepulcral,
+evitado por todos.</p></li>
+<li><p><strong>El Distrito de las Cadenas</strong>: Los niveles
+inferiores y las afueras de la ciudad, donde se hacinan las barracas de
+los <a href="Orcos.html">Orcos</a> y los miserables barrios de la clase
+servil élfica. Es un laberinto de callejones estrechos, vigilado
+constantemente por patrullas hobgoblin. El aire es denso con el olor a
+hollín, sudor y resentimiento.</p></li>
+<li><p><strong>El Acueducto de los Lamentos</strong>: La antigua y
+compleja red de canales que discurre bajo Aluinel. Ahora en desuso y
+parcialmente derrumbado, es un lugar oscuro y peligroso, donde se dice
+que el fantasma de la última suma sacerdotisa élfica vaga, llorando por
+su ciudad perdida.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Aluinel es un ejercicio de supervivencia paranoica. La
+sociedad hobgoblin se basa en la vigilancia total, y el espionaje es una
+forma de vida. La lealtad se demuestra a través de la delación, y los
+ascensos en la jerarquía del clan a menudo se logran a costa de la
+desgracia de otro. Anualmente se celebra el “Festival de la Sombra
+Larga”, una noche de oscuridad absoluta en la que las leyes se suspenden
+y los ciudadanos son puestos a prueba, un ritual brutal diseñado para
+purgar a los débiles y a los desleales.</p>
+<p>Mientras tanto, los descendientes de los elfos se aferran a su
+cultura en secreto. A través de canciones susurradas en la oscuridad de
+sus hogares, <a href="Mapas.html">Mapas</a> estelares ocultos cosidos en
+harapos y rituales prohibidos en las ruinas más profundas, mantienen
+viva la memoria de lo que perdieron, esperando el día en que las
+estrellas puedan volver a brillar sobre Aluinel.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>El símbolo de la ciudad, un murciélago de obsidiana eclipsando una
+estrella de ocho puntas rota, está tallado en casi todas las
+superficies, un recordatorio constante de la nueva autoridad. El
+ambiente es opresivo y tenso. El sonido predominante no es el de un
+mercado bullicioso, sino el eco del metal de las patrullas, el chasquido
+de los látigos y el tintineo constante de las cadenas en los puentes. La
+luz natural lucha por penetrar la atmósfera sombría, y la ciudad vive en
+un perpetuo crepúsculo, incluso a mediodía.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Lamento de Lirael</strong>: Se rumorea que el fantasma
+de Lirael, la última suma sacerdotisa de <a href="Arzia.html">Arzia</a>,
+aún vaga por los antiguos acueductos. Su lamento no es de tristeza, sino
+de una furia helada. Se dice que los <a
+href="Hobgoblins.html">Hobgoblins</a> que lo escuchan son invadidos por
+recuerdos de alegría y belleza, sensaciones tan ajenas a ellos que los
+vuelven locos.</p></li>
+<li><p><strong>El Festín de Pesadillas</strong>: Una leyenda susurrada
+entre los sirvientes afirma que los líderes Nighthawk no duermen. En su
+lugar, se reúnen en la Aguja Sombría y extraen la esencia de los malos
+sueños de la población. Este “festín” no solo les otorga poder, sino que
+mantiene a los habitantes en un estado constante de agotamiento y
+desesperación, haciéndolos más fáciles de controlar.</p></li>
+</ul>
+<h2 id="conflictos-y-amenazas">Conflictos y Amenazas</h2>
+<p>Aluinel es un polvorín a punto de estallar. Externamente, sufre las
+incursiones constantes de comandos de elfos silvanos de <a
+href="Eldrador.html">Eldrador</a>, que lanzan ataques relámpago en un
+intento desesperado por “liberar” las ruinas sagradas y recuperar
+artefactos perdidos.</p>
+<p>Internamente, la situación es aún más volátil. Una facción de
+resistencia de Shadar-Kai, que se hacen llamar los “Hijos de la Estrella
+Rota”, opera desde las sombras de los niveles inferiores. Realizan
+sabotajes y buscan la forma de reactivar las antiguas defensas mágicas
+de la ciudad. Además, la tensión entre los <a
+href="Hobgoblins.html">Hobgoblins</a> y sus vasallos <a
+href="Orcos.html">Orcos</a> es palpable. Los <a
+href="Orcos.html">Orcos</a>, utilizados como carne de cañón en las
+defensas fronterizas, están hartos del desprecio de sus amos y su
+resentimiento está a punto de desbordarse en una rebelión abierta.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.63)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

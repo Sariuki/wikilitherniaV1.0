@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erwynn</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Erwynn</div>
+        <div class="content">
+<h1 id="erwynn">Erwynn</h1>
+<p>Erwynn no es una ciudad construida, sino una que ha crecido. En el
+corazón del Bosque de la Quietud Argéntea, en <a
+href="Eldrador.html">Eldrador</a>, este santuario se entrelaza con la
+vida misma, sus estructuras de madera viva y piedra cubierta de musgo
+emergiendo de un tapiz de árboles colosales de corteza plateada. No hay
+murallas que la defiendan, pues su guardián es el propio bosque, un
+laberinto sagrado cuyos senderos solo son visibles bajo la luz de la
+luna. Las viviendas, templos y salones están conectados por puentes
+colgantes de lianas luminosas, y los vitrales hechos con gemas
+encantadas proyectan el danza de las constelaciones sobre el suelo del
+bosque. Erwynn es un bastión de armonía, un lugar donde la voluntad de
+la naturaleza y el destino escrito en las estrellas se consideran una
+misma ley.</p>
+<h2 id="historia">Historia</h2>
+<p>Erwynn nació de las cenizas del Cataclismo del <a
+href="Lilium.html">Lilium</a>. Mientras la nueva nobleza élfica de <a
+href="Eldrador.html">Eldrador</a> levantaba reinos de poder y jerarquía,
+un grupo de druidas de <a href="Ferion.html">Ferion</a> y videntes de <a
+href="Arzia.html">Arzia</a>, conocidos como el Círculo de los Primeros
+Custodios, buscaron refugio de la creciente ambición del mundo. Se
+adentraron en el bosque más profundo y sagrado, un lugar donde el Tejido
+del Maná fluía puro y las estrellas se veían sin el velo de la
+civilización. Allí no fundaron una ciudad, sino que rogaron al bosque
+que les diera cobijo.</p>
+<p>Con el tiempo, el asentamiento creció, atrayendo a aquellos que
+anhelaban una conexión más profunda con la naturaleza y el cosmos. La
+Casa Sylva, un antiguo linaje de <a href="Eladrin.html">Eladrin</a> con
+una profunda devoción por <a href="Ferion.html">Ferion</a>, asumió el
+rol de protectores y guías, gobernando no con autoridad, sino con
+sabiduría. Hoy, Erwynn es gobernada por la Duquesa Elara Sylva, pero sus
+decisiones deben ser ratificadas por el Círculo de los Custodios,
+asegurando que la ciudad nunca se desvíe del equilibrio que la vio
+nacer. Su emblema, un ciervo blanco con astas que se ramifican como un
+árbol bajo siete estrellas, simboliza esta unión sagrada.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón del Bosque</strong>: Es el centro espiritual
+de Erwynn. No es un edificio, sino un árbol ancestral de proporciones
+titánicas cuya corteza brilla con luz esmeralda. En su interior hueco se
+encuentra el santuario principal de <a href="Ferion.html">Ferion</a>, un
+lugar de silencio absoluto donde los druidas meditan para escuchar el
+latido de Lithernia.</p></li>
+<li><p><strong>El Observatorio Creciente</strong>: Una red de
+plataformas de cristal y madera de Roble Estelar suspendidas en las
+copas más altas de los árboles. Aquí, los videntes y astrónomos de <a
+href="Arzia.html">Arzia</a> trazan los movimientos celestes, buscando
+guiar el destino de la ciudad a través de las profecías que leen en el
+firmamento.</p></li>
+<li><p><strong>Las Sendas Lunares</strong>: El distrito residencial y
+comercial de la ciudad. Las viviendas son estructuras orgánicas que
+cuelgan de las ramas o se anidan en las raíces de los árboles. El
+comercio se realiza en claros iluminados por esferas de luz feérica,
+donde se intercambian maderas raras, esencias alquímicas y pergaminos de
+adivinación.</p></li>
+<li><p><strong>Los Criaderos de Cristal</strong>: Valles ocultos donde
+Erwynn cría a sus <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+místicas. Aquí, los cuidadores crían Zorros Lunares cuyo pelaje brilla
+con la luz astral y Halcones de Cristal cuyas plumas resuenan como
+campanas de viento, criaturas muy cotizadas por su belleza y sus
+propiedades mágicas.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Erwynn sigue los ritmos de la naturaleza. Celebran dos
+grandes festivales: el “Festival del Brote Silente” en primavera, una
+ceremonia de meditación silenciosa para dar la bienvenida a la nueva
+vida, y la “Vigilia de las Estrellas Fugaces” en otoño, una noche en la
+que toda la ciudad se reúne para pedir deseos al cosmos.</p>
+<p>El honor no se mide en oro ni títulos, sino en la profundidad de la
+conexión de un individuo con el bosque y las estrellas. Las disputas no
+se resuelven con acero, sino a través de duelos rituales de danza y
+magia ilusoria, donde el perdedor no es herido, sino humillado por su
+falta de armonía.</p>
+<h2 id="situación-actual-y-conflictos">Situación Actual y
+Conflictos</h2>
+<p>La paz de Erwynn es frágil. Una “corrupción reptante”, una plaga
+mágica que se filtra desde las fronteras profanadas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, ha comenzado a enfermar las
+plantas y a enloquecer a los animales en los límites del bosque. Este
+mal ha provocado una profunda división interna: el Círculo de los
+Custodios, liderado por druidas tradicionalistas, aboga por sellar la
+ciudad del mundo exterior, creyendo que solo el aislamiento total puede
+preservar su pureza. En oposición, la Duquesa Elara y los videntes de <a
+href="Arzia.html">Arzia</a> sostienen que las profecías del Retorno del
+Rey exigen que Erwynn se abra al mundo, pues su santuario podría ser
+clave para el destino de todos. Esta tensión amenaza con fracturar la
+armonía que ha definido a Erwynn durante siglos.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Sombra de Sylas</strong>: Se susurra que en las noches
+sin luna, un espectro recorre los senderos invisibles del bosque. Es el
+espíritu de Sylas, un antiguo guardián elfo que fue traicionado y
+asesinado durante el Cataclismo del <a href="Lilium.html">Lilium</a>
+mientras protegía este lugar sagrado. La leyenda dice que su alma está
+atada a un secreto sobre las Lanzas Celestiales y que solo revelará su
+conocimiento a un alma con un corazón verdaderamente puro o a un <a
+href="Heroes.html">Heroes</a> cuyo destino esté inextricablemente ligado
+al del Primer Rey.</p></li>
+<li><p><strong>Las Lágrimas de <a
+href="Ferion.html">Ferion</a></strong>: En las profundidades de Erwynn,
+hay un estanque cuya agua es tan clara que parece plata líquida. Se dice
+que el estanque se formó con las lágrimas de <a
+href="Ferion.html">Ferion</a> al ver la devastación del <a
+href="Lilium.html">Lilium</a>. Beber de sus aguas, según cuentan, puede
+curar cualquier mal natural, pero también obliga a quien lo hace a
+sentir el dolor de toda la naturaleza herida de Lithernia, una carga que
+pocos pueden soportar.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.45)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Soot-Whisper_Cinderfall</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Soot-Whisper_Cinderfall</div>
+        <div class="content">
+<p>nombre: “Lyra ‘Soot-Whisper’ Cinderfall” rol: “Consejera y Maestra de
+Secretos de la Casa Cinderfall” edad: 93 agrupacion: “Casa Cinderfall”
+tipo: “Casa <a href="Noble.html">Noble</a>” lema: “De la ceniza,
+resurgimos; en el fuego, reinamos.” escudo: “Un volcán de obsidiana en
+erupción arrojando ceniza negra sobre un yunque agrietado, sobre un
+fondo rojo magma.” ciudad_sede: “<a href="Valarion.html">Valarion</a>,
+en las laderas del Monte Cinder” rivalidades: “Casa Dravonis (desprecio
+ideológico), Clan Nighthawk (guerra de espionaje)” alianzas: “Clan
+Agrietacero (fundadores), Clan Ironclaw (socios comerciales y
+militares)” relaciones: “Mente estratégica y principal consejera de Lord
+<a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+Cinderfall. Orquestadora de la red de contrainteligencia contra el Clan
+Nighthawk.” tags: [lithernia, personajes, Casa Cinderfall, <a
+href="Valtoria.html">Valtoria</a>, Tiefling, Consejera] —</p>
+<h1 id="lyra-soot-whisper-cinderfall">Lyra ‘Soot-Whisper’
+Cinderfall</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de las grandes casas de Lithernia, pocos ascensos han
+sido tan meteóricos y desafiantes como el de la Casa Cinderfall, y
+ninguna mente ha sido tan crucial para ese ascenso como la de Lyra.
+Nacida Tiefling, una raza a menudo relegada a las intrigas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Lyra se encontró desde joven como
+una extraña en todas partes. Su linaje, aunque imbuido de la magia
+oscura inherente a su pueblo, no la ataba a la teocracia de Sel’thirak.
+Vio en las rígidas jerarquías de los reinos una debilidad, una
+decadencia disfrazada de tradición. Fue esta perspectiva de forastera,
+junto a una inteligencia tan afilada como la obsidiana, lo que la llevó
+a las humeantes laderas de <a href="Valarion.html">Valarion</a>.</p>
+<p>No llegó buscando un hogar, sino una oportunidad. Encontró a los
+futuros Cinderfall: un volátil colectivo de Genasi de Fuego repudiados,
+Dracónidos sin clan y <a href="Enanos.html">Enanos</a> del Clan
+Agrietacero cuya devoción por <a href="Valarios.html">Valarios</a>, el
+dios de la destrucción, los había convertido en parias. Donde otros
+veían una turba de renegados, Lyra vio el potencial de un fuego
+purificador. Se unió a ellos no con la espada, sino con el susurro.
+Mientras guerreros como el imponente Genasi <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+se forjaban una reputación en ‘El Foso del Desafío’, Lyra era la
+arquitecta silenciosa de su victoria. Analizaba a sus rivales, explotaba
+sus miedos y aseguraba alianzas en las sombras con clanes como los <a
+href="Orcos.html">Orcos</a> de Ironclaw, prometiéndoles las armas
+superiores que la ‘forja de ceniza’ de Cinderfall podía producir.</p>
+<p>Fue Lyra quien transformó su fuerza bruta en poder político. Negoció
+el reconocimiento de la Casa Cinderfall como la 50ª Casa <a
+href="Noble.html">Noble</a>, no a través de la diplomacia cortés de <a
+href="Eldrador.html">Eldrador</a>, sino mediante una demostración de
+poder pragmático y control de <a href="Recursos.html">Recursos</a> que
+ni siquiera la realeza de <a href="Valtoria.html">Valtoria</a> podía
+ignorar. Hoy, a sus 93 años, es la “Soot-Whisper” (Susurro de Hollín),
+la Maestra de Secretos de la casa. Es la mente estratégica detrás del
+poder de Lord <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+el puño visible de los Cinderfall. Su red de informantes se extiende por
+todo <a href="Valtoria.html">Valtoria</a> y más allá, una telaraña
+tejida con promesas, amenazas y secretos compartidos en voz baja.</p>
+<p>Su mayor partida se juega contra el Clan Nighthawk de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Conociendo las tácticas de engaño
+y espionaje de su propia gente, Lyra no solo contrarresta sus
+operaciones, sino que a menudo utiliza a los propios agentes de
+Nighthawk como conductos para desinformación, sembrando el caos en las
+filas de sus rivales. Para Lyra, el poder no se hereda en la sangre, se
+forja en el fuego y se asegura con el conocimiento. Su lealtad no es a
+un linaje, sino a una idea: que de las cenizas de un mundo corrupto,
+solo los que abrazan la destrucción pueden reinar verdaderamente.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra no posee la imponente presencia física de los guerreros de su
+casa. Es una figura esbelta y de estatura media para una Tiefling, cuya
+verdadera fuerza reside en su mirada calculadora. Su piel tiene el color
+de la ceniza enfriada, un gris pálido y mate que contrasta con sus ojos,
+que no arden como los de un Genasi de Fuego, sino que brillan como
+ascuas ocultas en la profundidad de un horno, prometiendo un calor
+intenso pero controlado. Sus cuernos, cortos y afilados, se curvan hacia
+atrás desde su frente como esquirlas de obsidiana pulida.</p>
+<p>Viste con una elegancia austera y funcional. Prefiere túnicas de lana
+oscura y sedas teñidas de negro o rojo magma, a menudo bordadas con
+finos hilos de mithril que trazan patrones geométricos que recuerdan a
+las grietas en la lava solidificada. No porta armadura, confiando en su
+ingenio y en la protección de su casa para su seguridad.</p>
+<p>Su equipamiento es el de una maestra de secretos: * <strong>Daga de
+Obsidiana:</strong> Una pequeña daga ceremonial, con la hoja de
+obsidiana de <a href="Valarion.html">Valarion</a> y la empuñadura
+envuelta en cuero de draco. Rara vez la usa como arma, pero es un
+símbolo potente de su autoridad y un recordatorio de que cada palabra
+puede tener un filo mortal. * <strong>Viales de Tinta de
+Ceniza:</strong> Lleva consigo varios viales de una tinta especial,
+creada a partir de ceniza volcánica finamente molida y aglutinantes
+alquímicos. Con ella escribe sus mensajes codificados, que solo pueden
+ser leídos bajo una luz específica o con un reactivo conocido únicamente
+por su red. * <strong>Anillo del Susurro:</strong> Un sencillo anillo de
+hierro forjado en ceniza que lleva en su dedo índice. Se rumorea que
+está encantado para amplificar los susurros y proteger sus pensamientos
+de la intrusión mágica, permitiéndole mantener conversaciones secretas
+incluso en una sala concurrida. * <strong>Pergaminos y <a
+href="Mapas.html">Mapas</a>:</strong> Siempre lleva consigo un estuche
+de cuero con pergaminos en blanco, <a href="Mapas.html">Mapas</a> de
+túneles secretos bajo <a href="Valtoria.html">Valtoria</a> y misivas
+cifradas de sus agentes.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Lyra ‘Soot-Whisper’ Cinderfall será el de la arquitecta
+de una nueva forma de poder en Lithernia. Mientras las casas nobles de
+<a href="Eldrador.html">Eldrador</a> se enorgullecen de sus milenios de
+historia y los clanes de <a href="Valtoria.html">Valtoria</a> de su
+honor inquebrantable, Lyra demostró que una casa fundada por parias
+puede rivalizar con ellas a través de la inteligencia, la estrategia y
+una despiadada comprensión de la naturaleza del poder.</p>
+<p>Ella es la prueba viviente de que en la gran guerra de Lithernia, la
+información es un arma tan devastadora como un ejército. Ha convertido a
+la Casa Cinderfall de una amenaza puramente militar en un actor político
+astuto y temido, capaz de desestabilizar a sus enemigos desde dentro. Su
+historia es una advertencia para las viejas noblezas: la fuerza no solo
+reside en el acero o la sangre, sino en los secretos que se susurran en
+las sombras. Cuando los cronistas del futuro escriban sobre el ascenso
+de los Cinderfall, no hablarán de un linaje, sino de la voluntad de una
+Tiefling que encontró su propósito en las cenizas y enseñó a un volcán a
+pensar.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Cinderfall.html">Casa Cinderfall</a> (relevancia:
+0.54)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.48)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

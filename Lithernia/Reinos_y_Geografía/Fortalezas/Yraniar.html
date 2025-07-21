@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yraniar</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Yraniar</div>
+        <div class="content">
+<h1 id="yraniar">Yraniar</h1>
+<p>Escondida en un valle remoto de las cordilleras de <a
+href="Valtoria.html">Valtoria</a>, Yraniar es una anomalía, un bastión
+de serenidad en un reino forjado para la guerra y la industria. No es
+una fortaleza de acero ni una ciudad subterránea, sino un santuario
+donde la piedra y el bosque han aprendido a crecer juntos. Sus murallas
+son los propios acantilados del valle, y sus torres son árboles
+milenarios cuyas ramas se entrelazan con salones excavados en la roca.
+Puentes de raíces vivas, reforzados con <a href="Runas.html">Runas</a>
+enanas, cruzan sobre un río de aguas tranquilas. Yraniar es un
+testimonio viviente de una paz improbable, un lugar donde el
+conocimiento se atesora por encima del oro y la armonía por encima del
+poder.</p>
+<h2 id="historia">Historia</h2>
+<p>Yraniar nació del agotamiento de la Gran Guerra. En los siglos de
+conflicto interminable, un clan de sabios <a
+href="Enanos.html">Enanos</a> liderado por Valdurn Manopiedra y una
+comunidad de druidas élficos del bosque bajo la guía de Lyra Hojacanto,
+llegaron a la misma conclusión: la guerra solo erosionaba el mundo, como
+el viento a la roca y el fuego al bosque. Buscando un refugio del
+conflicto, ambos grupos se encontraron en un valle oculto y virgen,
+bendecido por una extraña armonía natural.</p>
+<p>En lugar de luchar por el territorio, Valdurn y Lyra sellaron un
+pacto. Los <a href="Enanos.html">Enanos</a> no excavarían la tierra sin
+el permiso del bosque, y los elfos no dejarían crecer el bosque sin el
+sustento de la piedra. Juntos fundaron Yraniar, un santuario dedicado a
+preservar el conocimiento y el equilibrio. La ciudad se construyó sobre
+la base de esta colaboración: los <a href="Enanos.html">Enanos</a>
+tallaron sus salones respetando las raíces de los árboles ancestrales, y
+los elfos guiaron el crecimiento de la flora para que abrazara y
+fortaleciera la mampostería. Con el tiempo, se unieron <a
+href="Gnomos.html">Gnomos</a> fascinados por la ingeniería
+rúnica-natural y genasi de tierra que sentían la profunda conexión
+espiritual del valle, creando la sociedad única que prospera hoy.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de Jade</strong>: La plaza central de Yraniar
+no está pavimentada, sino que es un claro de hierba suave. En su centro
+se alza el símbolo de la ciudad: un inmenso árbol de corteza plateada,
+cuyas raíces se enroscan protectoramente alrededor de una colosal runa
+de jade que late con una suave luz verde. Este es el lugar de reunión
+del Consejo y donde se celebran los festivales más importantes.</p></li>
+<li><p><strong>Las Galerías del Saber</strong>: Los distritos
+residenciales y académicos de la ciudad, excavados en las paredes del
+valle. No son túneles oscuros, sino amplias galerías con balcones que se
+abren al valle, sostenidos por las ramas de los árboles que crecen a
+través de la piedra. Cada hogar y biblioteca está adornado con grabados
+rúnicos y enredaderas luminosas.</p></li>
+<li><p><strong>El Mirador Silente</strong>: Un promontorio en lo alto
+del valle, donde un círculo de menhires rúnicos rodea un antiguo roble.
+Es el lugar más sagrado para los elfos y los genasi de tierra, utilizado
+para la meditación y la comunión con los espíritus de la naturaleza.
+Desde aquí, los cartógrafos estelares trazan el firmamento, buscando
+guía en las constelaciones.</p></li>
+<li><p><strong>La Forja Armoniosa</strong>: Los talleres de los <a
+href="Enanos.html">Enanos</a> y <a href="Gnomos.html">Gnomos</a>. A
+diferencia del estruendo de Ironforge, aquí las forjas operan con una
+serenidad casi mágica. Usan fuelles impulsados por corrientes de aire
+canalizadas por los elfos y martillos amortiguados por <a
+href="Runas.html">Runas</a> de silencio, creando obras de arte en metal
+sin perturbar la paz del valle.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Yraniar es paciente y reflexiva. Se rige por la “Cultura
+de la Raíz y la Runa”, que valora la sabiduría por encima de todo. La
+mayor festividad es el <strong>Solsticio de la Piedra Viva</strong>, un
+evento en el que los <a href="Enanos.html">Enanos</a> presentan sus
+mejores esculturas en piedra y los elfos las “visten” con plantas y
+flores raras, simbolizando que la creación no está completa sin la
+vida.</p>
+<p>Una vez al mes, se celebra el <strong>Rito del Silencio
+Lector</strong>. Durante todo un día, hablar está prohibido. Los
+ciudadanos sacan libros, pergaminos y tablillas de piedra a las plazas y
+senderos, convirtiendo Yraniar en una inmensa biblioteca al aire libre
+donde todos se sumergen en el estudio y la meditación. La costumbre más
+sagrada es el intercambio ritual de semillas y gemas entre las familias
+élficas y enanas, un acto que renueva el pacto fundacional de la ciudad
+cada generación.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Yraniar es una fusión perfecta de lo orgánico y lo
+geométrico. Los grandes salones <a href="Enanos.html">Enanos</a> de
+arcos robustos están sostenidos por pilares que son, en realidad,
+troncos de árboles vivos. Los tejados de las viviendas son jardines
+colgantes de musgo que brilla en la oscuridad. El ambiente es de calma y
+erudición. El aire huele a tierra húmeda, a ozono de las <a
+href="Runas.html">Runas</a> cargadas de magia y al incienso de hierbas
+que se quema en los salones de estudio. La música de la ciudad no
+proviene de instrumentos, sino del sonido del viento canalizado a través
+de cavernas talladas, creando melodías etéreas que flotan por todo el
+valle.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Biblioteca Susurrante</strong>: Las <a
+href="Leyendas.html">Leyendas</a> locales afirman que en las catacumbas
+más profundas bajo la ciudad yace una biblioteca secreta de la era
+pre-<a href="Lilium.html">Lilium</a>. Allí, los tomos antiguos y
+malditos no necesitan ser leídos; susurran su contenido en la oscuridad
+a cualquiera que se atreva a entrar. Se dice que el conocimiento que
+otorgan es inmenso y prohibido, pero el precio es alto: quienes escuchan
+demasiado tiempo pueden perder la cordura, sus mentes abrumadas por las
+voces de la historia.</p></li>
+<li><p><strong>El Guardián del Valle</strong>: Se cree que la armonía de
+Yraniar no es solo fruto de un pacto, sino que está protegida por un
+inmenso guardián elemental, nacido de la unión de <a
+href="Cirkon.html">Cirkon</a> y <a href="Ferion.html">Ferion</a>. Dicen
+que yace dormido bajo el valle, con un cuerpo de piedra viva y un
+corazón de madera ancestral. Si alguna vez la paz de Yraniar se rompiera
+por la codicia o la guerra, el Guardián despertaría, y su ira no
+distinguiría entre amigos y enemigos, convirtiendo el frondoso vergel en
+un páramo estéril para empezar de nuevo.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+<li><a href="Elfos.html">Elfos</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

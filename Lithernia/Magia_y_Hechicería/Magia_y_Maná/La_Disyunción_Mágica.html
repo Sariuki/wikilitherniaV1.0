@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Disyunción_Mágica</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Disyunción_Mágica</div>
+        <div class="content">
+<h1 id="la-disyunción-mágica">La disyunción mágica</h1>
+<p>En el complejo tapiz del Maná que impregna Lithernia, existe un
+fenómeno tan temido como reverenciado por su poder absoluto: la
+<strong>Disyunción Mágica</strong>. No es un conjuro, sino un evento,
+una aniquilación momentánea o permanente de la magia misma. Se describe
+como un desgarro en el Tejido del Maná, un punto de colapso donde los
+hilos de la energía arcana se deshilachan hasta convertirse en nada,
+dejando tras de sí un vacío absoluto y un silencio antinatural. Para un
+lanzador de <a href="Conjuros.html">Conjuros</a>, experimentar una
+disyunción es sentir cómo el mundo pierde su alma, cómo la conexión que
+le da poder se apaga bruscamente, dejándolo impotente y vulnerable.</p>
+<h3 id="descripción-del-fenómeno">Descripción del Fenómeno</h3>
+<p>Una Disyunción Mágica no siempre es visible, pero sus efectos son
+inconfundibles. Los testigos a menudo describen una sensación de presión
+súbita, como si el aire se solidificara, seguida de un silencio opresivo
+que ahoga no solo el sonido, sino la propia esencia de la magia.</p>
+<ul>
+<li><strong>Para los Arcanistas:</strong> Quienes poseen la Habilidad de
+Canalización de Maná sienten la disyunción como un dolor agudo y
+punzante. El Tejido del Maná, que normalmente fluye a través de ellos,
+se retrae violentamente. Intentar lanzar un conjuro en su interior es
+como gritar en el vacío; la energía se disipa antes de tomar forma, a
+menudo causando una <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>
+catastrófica o una <strong>sobrecarga</strong> de retroceso que puede
+dejar al <a href="Mago.html">Mago</a> inconsciente o incluso
+muerto.</li>
+<li><strong>Efectos Visuales:</strong> A veces, el fenómeno se
+manifiesta visualmente como una onda de distorsión translúcida que se
+expande desde un epicentro, o como hilos de luz de colores que se
+deshilachan en el aire antes de extinguirse. Los encantamientos activos
+parpadean y mueren, las <a href="Runas.html">Runas</a> pierden su brillo
+y los objetos mágicos se vuelven temporalmente inertes y fríos al
+tacto.</li>
+<li><strong>El Silencio Mágico:</strong> El efecto más duradero de una
+disyunción poderosa es la creación de una “Zona de Silencio Mágico”, un
+área donde el Tejido del Maná ha sido dañado permanentemente. En estos
+lugares, la magia simplemente no funciona. Son cicatrices en el mundo,
+recordatorios de un poder terrible.</li>
+</ul>
+<h3 id="orígenes-y-causas">Orígenes y Causas</h3>
+<p>Las Disyunciones Mágicas pueden tener orígenes tanto naturales como
+provocados. Los eruditos de la Torre de las Estrellas en <a
+href="Valtoria.html">Valtoria</a> y los sabios elfos de <a
+href="Eldrador.html">Eldrador</a> han clasificado sus posibles causas
+durante siglos.</p>
+<h4 id="disyunciones-naturales">Disyunciones Naturales</h4>
+<p>Son las más raras y aterradoras, pues surgen de las heridas más
+profundas del mundo.</p>
+<ul>
+<li><strong>Ecos del <a href="Lilium.html">Lilium</a>:</strong> El
+<strong>Cataclismo del <a href="Lilium.html">Lilium</a></strong> no solo
+arrasó la tierra, sino que también desgarró el Tejido del Maná. Se cree
+que las disyunciones más potentes y permanentes son ecos de esa
+devastación. Lugares como las ruinas de <strong>Mirallos</strong> o
+<strong>Estriedana</strong> en <a href="Mor&#39;dhul.html">Mor’dhul</a>
+son ejemplos de zonas donde el <a href="Lilium.html">Lilium</a> pudo
+haber causado una disyunción permanente, explicando su persistente
+maldición.</li>
+<li><strong>Inestabilidad Plana:</strong> Durante la <strong>Caída del
+<a href="Lilium.html">Lilium</a></strong>, las barreras entre los planos
+se debilitaron. En áreas donde estas fronteras siguen siendo delgadas,
+el Tejido del Maná puede volverse inestable, provocando disyunciones
+espontáneas cuando las energías de otros planos se filtran
+bruscamente.</li>
+</ul>
+<h4 id="disyunciones-provocadas">Disyunciones Provocadas</h4>
+<p>Estas son el resultado de un uso extremo o imprudente de la magia, un
+recordatorio de que manipular el Tejido del Maná conlleva un riesgo
+inherente.</p>
+<ul>
+<li><strong>Fracaso en la Mezcla de <a
+href="Conjuros.html">Conjuros</a>:</strong> La prohibida técnica de la
+<strong>Mezcla de <a href="Conjuros.html">Conjuros</a></strong> es una
+de las causas más comunes de disyunciones a pequeña escala. Cuando un <a
+href="Mago.html">Mago</a> intenta fusionar dos hechizos incompatibles o
+falla catastróficamente la prueba de canalización, la energía resultante
+puede colapsar sobre sí misma, creando una breve pero intensa burbuja de
+nulificación mágica que anula su propio conjuro y los de su
+alrededor.</li>
+<li><strong>Destrucción de Artefactos Poderosos:</strong> La
+aniquilación de un artefacto de gran poder, como podría ser una de las
+<strong>Lanzas Celestiales</strong> o una reliquia de la Era del Primer
+Rey, liberaría una cantidad de energía tan inmensa que podría provocar
+una disyunción a escala regional.</li>
+<li><strong>Guerra Divina:</strong> Las batallas entre los dioses o sus
+avatares, como las que ocurrieron durante las <strong>Guerras
+Dracónicas</strong> o la rebelión del Primer Rey, son la fuente de las
+<a href="Leyendas.html">Leyendas</a> sobre disyunciones. El choque de
+voluntades divinas puede desentrañar la magia mortal como un efecto
+secundario.</li>
+</ul>
+<h3 id="la-disyunción-en-la-historia-y-leyendas">La Disyunción en la
+Historia y Leyendas</h3>
+<p>Las crónicas de Lithernia están repletas de referencias a este
+fenómeno, a menudo como un punto de inflexión en grandes conflictos.</p>
+<ul>
+<li><strong>El Sacrificio de los Magos del Rey:</strong> Se cuenta que,
+durante la guerra contra los dioses, un cónclave de los magos más leales
+al <strong>Primer Rey</strong> provocó intencionadamente una Disyunción
+Mágica masiva para anular un arma divina que amenazaba con destruir su
+ejército. El ritual los consumió, pero su sacrificio salvó a miles.</li>
+<li><strong>El Sello de las Lanzas Celestiales:</strong> Una teoría
+arcana, considerada herética en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sugiere que las <strong>Lanzas
+Celestiales</strong> no solo sellan físicamente al Primer Rey, sino que
+también generan una disyunción constante a su alrededor para impedir que
+use su poder para escapar. Romper el sello de una de las lanzas, según
+esta teoría, podría desencadenar una disyunción de poder
+inimaginable.</li>
+<li><strong>Las Zonas de Silencio de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>:</strong> El reino oscuro está
+salpicado de páramos estériles donde ni siquiera la magia oscura de los
+clanes prospera. Los sabios creen que estos son los lugares donde el
+<strong><a href="Lilium.html">Lilium</a></strong> ardió con más furia,
+dejando cicatrices de disyunción permanente en la tierra.</li>
+</ul>
+<h3 id="importancia-en-la-era-actual">Importancia en la Era Actual</h3>
+<p>Con la creciente inestabilidad del mundo y las profecías que anuncian
+un cambio de era, el fenómeno de la Disyunción Mágica ha vuelto a cobrar
+relevancia.</p>
+<ul>
+<li><strong>Arma de Guerra:</strong> Facciones como el <strong>Clan <a
+href="Kromagul.html">Kromagul</a></strong> o los magos renegados del
+<strong><a
+href="La_Conspiración_del_Cónclave_Sombrío.html">La_Conspiración_del_Cónclave_Sombrío</a></strong>
+de Mevanil buscan activamente formas de inducir disyunciones de forma
+controlada, viéndolas como el arma definitiva contra los reinos que
+dependen en gran medida de la magia, como <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>Síntoma de la Crisis:</strong> La aparición cada vez más
+frecuente de pequeñas disyunciones espontáneas es vista por los oráculos
+y adivinos como una señal de que el Tejido del Maná se está debilitando,
+un preludio del cumplimiento de la <strong>Profecía del Retorno del
+Rey</strong> o, peor aún, de una <strong>Segunda Caída del <a
+href="Lilium.html">Lilium</a></strong>.</li>
+<li><strong>Una Clave para el Futuro:</strong> Algunos creen que la
+disyunción no es solo destrucción, sino también purificación. Una
+facción secreta de magos neutrales, los Tejedores del Silencio, postula
+que una “Gran Disyunción” controlada podría ser la única forma de
+“purgar las creaciones fallidas de los dioses”, limpiando la influencia
+divina del Maná y devolviendo a los mortales el control total sobre su
+destino, cumpliendo así la profecía de una manera radical e
+inesperada.</li>
+</ul>
+<p>Para los aventureros y héroes de Lithernia, una Disyunción Mágica
+representa el terror último: un enemigo que no puede ser combatido con
+hechizos, una fuerza de la naturaleza que reduce al más poderoso
+archimago a un simple mortal. Enfrentarla y sobrevivir es una hazaña;
+comprenderla, y quizás controlarla, podría cambiar el destino del
+mundo.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Conjuros.html">Conjuros</a></li>
+<li>Guerras Dracónicas</li>
+<li><a href="Leyendas.html">Leyendas</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

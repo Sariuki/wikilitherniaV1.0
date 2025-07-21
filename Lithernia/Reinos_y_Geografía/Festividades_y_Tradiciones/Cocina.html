@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocina</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Cocina</div>
+        <div class="content">
+<h1 id="cocina">Cocina</h1>
+<p>La cocina en Lithernia es un reflejo palpable de la diversidad
+cultural, geográfica y racial que conforma este mundo. Cada uno de los
+grandes reinos —Mor’dhul, <a href="Galvorn.html">Galvorn</a>, <a
+href="Valtoria.html">Valtoria</a> y <a
+href="Eldrador.html">Eldrador</a>— aporta ingredientes únicos, métodos
+culinarios y tradiciones gastronómicas que hablan tanto de su entorno
+natural como de sus creencias y modos de vida. La comida no solo es
+sustancia, sino una expresión de identidad, historia y magia.</p>
+<h2 id="tradiciones-gastronómicas-por-reino">Tradiciones Gastronómicas
+por Reino</h2>
+<h3
+id="mordhul-sabores-de-la-supervivencia-y-la-especiería-oscura">Mor’dhul:
+Sabores de la Supervivencia y la Especiería Oscura</h3>
+<p>En Mor’dhul, la cocina refleja la dureza del entorno y la influencia
+de sus poderosas pero brutales razas. La gastronomía se basa en
+alimentos resistentes, conservados y preparados con especias intensas
+para combatir el sabor acre de la tierra quemada y los ecos del <a
+href="Lilium.html">Lilium</a>.</p>
+<ul>
+<li><strong>Ingredientes predominantes</strong>: carnes ahumadas y secas
+(a menudo de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+del páramo o nieblas), raíces amargas, hongos tóxicos tratados mediante
+rituales para neutralizar venenos, y frutas oscuras autóctonas que
+crecen en los pantanos y desiertos volcánicos.</li>
+<li><strong>Platos típicos</strong>:
+<ul>
+<li><em>Estofado de lomo de jabalí cárdeno</em>: cocinado en caldos de
+hierbas endurecedoras y especias de fuego, suele prepararse para
+festines de clanes de <a href="Orcos.html">Orcos</a> y semiogros.</li>
+<li><em>Brochetas de sangre sólida</em>: gelatina hecha con la sangre de
+sacrificios ceremoniales de <a href="Lakros.html">Lakros</a>, consumida
+en banquetes sangrientos.</li>
+<li><em>Sopa de hongos de duelo</em>: un manjar hobgoblin preparado con
+ingredientes fermentados que alivia la fatiga de batalla.</li>
+</ul></li>
+<li><strong>Bebidas</strong>: destilados fuertes hechos a partir de
+raíces carbonizadas, mezclas de sangre especiada y brebajes mágicos con
+ingredientes prohibidos usados para potenciar el vigor en combate.</li>
+<li><strong>Usos ceremoniales</strong>: ciertas comidas son parte
+indispensable de rituales oscuros, sacrificios y ofrendas a Sel’thirak y
+otros dioses del panteón Korogrim.</li>
+</ul>
+<h3 id="galvorn-cocina-marítima-frescura-y-festividad">Galvorn: Cocina
+Marítima, Frescura y Festividad</h3>
+<p>El reino marítimo <a href="Galvorn.html">Galvorn</a> destaca por una
+gastronomía que aprovecha su abundancia marina y su clima templado,
+combinada con tradiciones cosmopolitas tejidas en puertos y ciudades
+entre olas y vientos.</p>
+<ul>
+<li><strong>Ingredientes predominantes</strong>: pescados frescos y
+mariscos de variadas especies, algas, frutas tropicales traídas por
+mercaderes, cereales y verduras cultivados en los fértiles valles
+costeros.</li>
+<li><strong>Platos típicos</strong>:
+<ul>
+<li><em>Guiso de pulpo y mariscos con especias de coral</em>: popular en
+tabernas costeras, es un plato picante y caldoso que acompaña las noches
+de fiesta.</li>
+<li><em>Pan de cebada con salsa de miel y limón</em>: un acompañante
+dulce que contrasta con alimentos marinos.</li>
+<li><em>Ensalada de frutas cítricas con hojas marinas</em>: fresca y
+refrescante, muy consumida en temporadas de verano.</li>
+</ul></li>
+<li><strong>Bebidas</strong>: el ron galvornés es célebre en todo
+Lithernia, elaborado con caña de azúcar y fermentado con hierbas
+marinas, además de cervezas ligeras y limpias propias del reino.</li>
+<li><strong>Costumbres</strong>: en <a href="Galvorn.html">Galvorn</a>,
+la comida es principal excusa para reunirse y celebrar, especialmente
+antes de zarpar o al regreso de expediciones. Ritos marineros incluyen
+la bendición de alimentos con incienso a <a href="Yfrit.html">Yfrit</a>
+para obtener buen viento y mares apacibles.</li>
+</ul>
+<h3
+id="valtoria-platos-hechos-con-gandíos-esfuerzos-y-magia-artesanal">Valtoria:
+Platos Hechos con Gandíos Esfuerzos y Magia Artesanal</h3>
+<p>En <a href="Valtoria.html">Valtoria</a>, las alturas y la tradición
+artesanal se reflejan en una cocina robusta y nutritiva, que acompaña
+las duras labores mineras y la vida montañosa de <a
+href="Enanos.html">Enanos</a>, <a href="Gnomos.html">Gnomos</a> y
+goliatths.</p>
+<ul>
+<li><strong>Ingredientes predominantes</strong>: hongos exóticos
+cultivados en cuevas, carnes ahumadas y curadas, raíces de montaña,
+cereales resistentes a climas fríos, miel silvestre de colmenas
+protegidas, y agua pura de manantiales de altura.</li>
+<li><strong>Platos típicos</strong>:
+<ul>
+<li><em>Estofado de jabalí de montaña con hongos de brillo lunar</em>:
+preparado lentamente con técnicas de fermentación propias de los <a
+href="Gnomos.html">Gnomos</a>, este plato es nutritivo y
+reconfortante.</li>
+<li><em>Pan negro valtoriano</em>: hecho con granos rojos y corteza
+gruesa; se consume con queso ahumado y manteca de cabra.</li>
+<li><em>Cáliz de hidromiel aromatizado con bayas</em>: bebida dulce y
+vigorosa, considerada sagrada en festivales laborales.</li>
+</ul></li>
+<li><strong>Magia en la cocina</strong>: algunos artesanos incorporan
+encantamientos menores para realzar sabores o conservar alimentos
+durante largos periodos.</li>
+<li><strong>Expresiones culturales</strong>: la gastronomía es ocasión
+para fiestas comunales y ceremonias de agradecimiento a <a
+href="Rokael.html">Rokael</a> y <a href="Levbrios.html">Levbrios</a>;
+las comidas de trabajo y celebraciones destacan por la abundancia y la
+calidad artesanal.</li>
+</ul>
+<h3 id="eldrador-elegancia-naturaleza-y-magia-en-la-mesa">Eldrador:
+Elegancia, Naturaleza y Magia en la Mesa</h3>
+<p><a href="Eldrador.html">Eldrador</a> tiene una cultura culinaria
+refinada y armoniosa, basada en la conexión con la naturaleza y la magia
+ancestral de los bosques y estrellas.</p>
+<ul>
+<li><strong>Ingredientes predominantes</strong>: frutas silvestres,
+hierbas aromáticas mágicas, flores comestibles, pescados de río
+cristalino, pequeñas caza como conejos y aves, miel de flores brillantes
+y granos ancestrales preservados.</li>
+<li><strong>Platos típicos</strong>:
+<ul>
+<li><em>Ensalada de hojas estelares y bayas de luz</em>: platillo ritual
+que se usa en festivales dedicados a <a href="Arzia.html">Arzia</a>, con
+efectos sutiles para agudizar la mente.</li>
+<li><em>Tarta de raíces dulces y setas de sombra</em>: combinación de
+sabores contrastantes que refleja la dualidad propia de los elfos
+oscuros.</li>
+<li><em>Sopa de néctar floral con pétalos de rosa mágica</em>: un caldo
+delicado que revitaliza el cuerpo y calma el espíritu.</li>
+</ul></li>
+<li><strong>Bebidas</strong>: infusiones de hierbas estelares y vinos
+elaborados con uvas cultivadas en jardines suspendidos. Elixires con
+efectos curativos ligeros son habituales.</li>
+<li><strong>Rituales culinarios</strong>: las comidas suelen ser
+ceremoniosas, con énfasis en la estética – platos servidos en hojas
+talladas y mesas adornadas con cristales lumínicos. Los banquetes están
+impregnados de música y poesía, integrando la magia abjurativa para
+proteger la salud.</li>
+</ul>
+<h2 id="recetas-destacadas-y-platos-icónicos">Recetas Destacadas y
+Platos Icónicos</h2>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 9%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Reino</th>
+<th>Descripción Breve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estofado de lomo de jabalí cárdeno</td>
+<td>Mor’dhul</td>
+<td>Carne fuerte con especias de fuego; plato de fuerza para guerreros
+<a href="Orcos.html">Orcos</a>.</td>
+</tr>
+<tr>
+<td>Guiso de pulpo y mariscos</td>
+<td><a href="Galvorn.html">Galvorn</a></td>
+<td>Plato caldoso y picante para fiestas en puerto, con ingredientes
+frescos del mar</td>
+</tr>
+<tr>
+<td>Estofado de jabalí con hongos lunares</td>
+<td><a href="Valtoria.html">Valtoria</a></td>
+<td>Receta ancestral enana con hongos mágicos, nutritivo para jornadas
+arduas</td>
+</tr>
+<tr>
+<td>Ensalada de hojas estelares</td>
+<td><a href="Eldrador.html">Eldrador</a></td>
+<td>Combo de ingredientes silvestres con propiedades mágicas para
+revitalizar</td>
+</tr>
+<tr>
+<td>Brochetas de sangre sólida</td>
+<td>Mor’dhul</td>
+<td>Gelatina de sangre usada en rituales e banquetes sangrientos</td>
+</tr>
+<tr>
+<td>Pan negro valtoriano</td>
+<td><a href="Valtoria.html">Valtoria</a></td>
+<td>Sustancioso pan de granos resistentes, base para casi todas las
+comidas enanas</td>
+</tr>
+<tr>
+<td>Tarta de raíces y setas</td>
+<td><a href="Eldrador.html">Eldrador</a></td>
+<td>Plato elegante de sabores contrastantes, típico en cenas de nobles
+élficos</td>
+</tr>
+</tbody>
+</table>
+<h2 id="influencia-de-la-magia-y-los-dioses-en-la-cocina">Influencia de
+la Magia y los Dioses en la Cocina</h2>
+<p>La magia permea la gastronomía en Lithernia en distintas formas:</p>
+<ul>
+<li><strong>Ingredientes mágicos</strong>: Muchos productos culinarios
+—desde frutas bioluminiscentes hasta hierbas que alteran sutilmente el
+ánimo— provienen de plantas o animales tocados por la magia ancestral,
+especialmente en <a href="Eldrador.html">Eldrador</a> y <a
+href="Valtoria.html">Valtoria</a>.</li>
+<li><strong>Rituales para bendecir alimentos</strong>: Antes de las
+comidas, es común ofrecer plegarias o pequeños rituales a las deidades
+patronas, buscando que bendigan la comida y fortalezcan a los
+comensales.</li>
+<li><strong>Conservación y potenciación</strong>: Magos y clérigos
+emplean <a href="Conjuros.html">Conjuros</a> para conservar alimentos
+por largos períodos o para potenciar las propiedades nutritivas y
+curativas.</li>
+<li><strong>Poder y fatiga</strong>: Se cuentan <a
+href="Leyendas.html">Leyendas</a> en Mor’dhul sobre alimentos capaces de
+restaurar la energía gastada por la fatiga mágica y física tras intensos
+combates o rituales.</li>
+</ul>
+<h2 id="gastronomía-y-sociedad">Gastronomía y Sociedad</h2>
+<p>La cocina en Lithernia no es solo una necesidad, sino un espacio
+social que fortalece lazos entre amigos, familia y colegas de aventura.
+Los banquetes pueden incluir narraciones épicas y el intercambio de
+culturas:</p>
+<ul>
+<li>En Mor’dhul, las festividades son marcadas por comida abundante
+acompañada de música guerrera y sacrificios rituales.</li>
+<li>En <a href="Galvorn.html">Galvorn</a>, los festines marítimos son
+momentos de tregua donde hasta piratas y marinos comparten risas y
+cánticos.</li>
+<li>En <a href="Valtoria.html">Valtoria</a>, se combinan las
+celebraciones laboriosas con comidas ceremoniales que honran a los
+ancestros y dioses forjadores.</li>
+<li>En <a href="Eldrador.html">Eldrador</a>, la comida es parte de la
+expresión artística y espiritual, donde se entrelazan sabores con poemas
+y encantamientos.</li>
+</ul>
+<h2 id="conclusión">Conclusión</h2>
+<p>La cocina en Lithernia es una ventana hacia la riqueza cultural y
+mágica del mundo, uniendo las tradiciones de las razas, los reinos y los
+dioses en cada plato servido. Los sabores van más allá del gusto:
+cuentan historias ancestrales, manifiestan la relación entre magía y
+naturaleza, y fortalecen la resistencia de sus habitantes ante los
+desafíos de un mundo marcado por el <a href="Lilium.html">Lilium</a> y
+las profecías. Aventureros y viajeros, sin importar su origen,
+encuentran en la mesa de Lithernia un refugio y una oportunidad para
+aprender y compartir.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Rituales.html">Rituales</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

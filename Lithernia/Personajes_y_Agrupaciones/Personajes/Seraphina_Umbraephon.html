@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seraphina_Umbraephon</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Seraphina_Umbraephon</div>
+        <div class="content">
+<h1 id="seraphina-umbraephon">Seraphina Umbraephon</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En el corazón de la Casa Umbraephon, un linaje de Altos Elfos marcado
+por la desgracia y el exilio social, Seraphina es la encarnación más
+pura y peligrosa de su resurgir. No es una Alta Elfa, sino una
+Shadar-Kai, una hija de la sombra nacida en una casa de melodías rotas.
+Esta dualidad ha definido su existencia: es el cisne negro de su linaje,
+una anomalía que, en lugar de ser una debilidad, se ha convertido en la
+mayor fortaleza de la Casa.</p>
+<p>Mientras su hermana mayor y matriarca, Lyraelle, teje con cautela las
+redes de influencia en la corte de <a href="Elmarion.html">Elmarion</a>,
+Seraphina opera en un plano más profundo y oscuro. Es la Alta
+Sacerdotisa del culto secreto a <a href="Morgal.html">Morgal</a>, el
+dios de las mentiras, una fe que la Casa abrazó tras su caída. Para
+Seraphina, el engaño no es una mera herramienta, sino un arte divino,
+una sinfonía de subversión. Es ella quien dirige los ritos prohibidos en
+cámaras ocultas, quien interpreta los susurros del dios y quien traduce
+su voluntad en estrategia política.</p>
+<p>Su influencia se extiende más allá de los salones nobles. Seraphina
+es el nexo vital con el Gremio de Mineros Shadar-Kai, una alianza
+forjada en el pragmatismo y la necesidad mutua. Ella es su protectora en
+las altas esferas, su voz contra la explotación de otras casas. A
+cambio, los mineros le entregan en exclusiva los cristales resonantes
+más puros, extraídos de las fosas abisales del Lago Espejo de <a
+href="Arzia.html">Arzia</a>. Estos cristales, imbuidos de una disonancia
+mágica, son el alma de las “canciones prohibidas” de los Umbraephon, el
+arte arcano que puede sembrar la duda, amplificar el miedo o quebrar la
+voluntad de un rival.</p>
+<p>El conflicto central en la vida de Seraphina es su relación con
+Lyraelle. Respeta la astucia de su hermana, pero desprecia su paciencia,
+viéndola como una debilidad que frena el verdadero potencial de la Casa.
+Seraphina cree que los Umbraephon no deben limitarse a susurrar en las
+sombras, sino que deben orquestar el silencio de sus enemigos. Para
+ello, ha puesto sus ojos en su sobrino, Kaelen, un prodigio musical. En
+él no ve a un heredero, sino a la herramienta perfecta: un instrumento
+que, debidamente afinado con las doctrinas de <a
+href="Morgal.html">Morgal</a> y las canciones prohibidas, puede llevar a
+la Casa a un poder absoluto y despiadado que Lyraelle jamás se atrevería
+a buscar. Seraphina está dispuesta a todo para reclamar la gloria de su
+Casa, no como iguales entre la nobleza, sino como los maestros
+titiriteros que controlan la melodía del poder en <a
+href="Eldrador.html">Eldrador</a>.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Seraphina posee la gracia etérea de los elfos, pero atemperada por la
+melancolía inherente de los Shadar-Kai. Su piel es del color de la
+ceniza pálida, un marcado contraste con su largo cabello negro, que
+suele llevar recogido en una trenza compleja adornada con finos hilos de
+plata. Sus ojos, de un violeta profundo, rara vez parpadean y parecen
+absorber la luz, observando todo con una quietud inquietante. Su porte
+es de una elegancia depredadora; se mueve con un silencio antinatural,
+como si las propias sombras se apartaran para dejarla pasar.</p>
+<p>Viste con ropajes de seda negra y gris oscuro, cortados con una
+sencillez engañosa que no sacrifica la autoridad. Sus únicas joyas son
+un broche de plata con el emblema de su Casa —el cisne negro con la nota
+rota— y un colgante de obsidiana que oculta bajo el cuello de su
+vestido.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Daga Ceremonial de
+<a href="Morgal.html">Morgal</a>:</strong> Una hoja ritual de cristal de
+obsidiana, con <a href="Runas.html">Runas</a> plateadas grabadas en su
+superficie que parecen moverse en la penumbra. No es un arma de combate,
+sino un foco para sus oraciones y el instrumento con el que sella pactos
+en nombre de su dios. * <strong>El Corazón de la Disonancia:</strong> El
+colgante que lleva es, en realidad, un fragmento de cristal resonante de
+la más alta pureza. Al canalizar una mínima cantidad de maná, puede
+emitir una vibración subsónica que incomoda a quienes la rodean, agudiza
+sus inseguridades o los hace más susceptibles a la sugestión. *
+<strong>Libro de los Silencios:</strong> Un pequeño tomo encuadernado en
+piel de basilisco, sin título ni marcas. En su interior, Seraphina anota
+con una tinta invisible, solo revelable al tacto de un devoto de <a
+href="Morgal.html">Morgal</a>, las verdades ocultas de sus rivales, las
+melodías prohibidas más potentes y las profecías susurradas por su
+aliado, la Casa Nocthelios.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Seraphina Umbraephon no es simplemente una <a
+href="Noble.html">Noble</a> ambiciosa; es una fuerza transformadora que
+amenaza con subvertir el delicado equilibrio de poder en <a
+href="Eldrador.html">Eldrador</a>. Su legado potencial es el de una
+arquitecta de la subversión, una figura que podría elevar a su Casa
+desde la infamia hasta el dominio total, no a través de la guerra, sino
+del control psicológico y emocional.</p>
+<p>Si tiene éxito, podría redefinir el concepto de poder en la sociedad
+élfica, demostrando que la influencia ganada a través de la manipulación
+de las almas es más duradera que la obtenida por la espada o la política
+abierta. Su patrocinio de los Shadar-Kai podría encender una revolución
+social, otorgando poder a una casta oprimida y desestabilizando a la
+aristocracia tradicional.</p>
+<p>Sin embargo, su camino es peligroso. El conflicto con su hermana
+Lyraelle podría fracturar la Casa Umbraephon desde dentro, y su
+manipulación de Kaelen podría crear un monstruo que ni ella misma pueda
+controlar. En el gran tapiz de Lithernia, Seraphina es un hilo de
+oscuridad y disonancia, cuya tensión podría o bien tejer un nuevo y
+glorioso patrón para su Casa, o bien desgarrar el tejido social de <a
+href="Elmarion.html">Elmarion</a> de forma irreparable. Su impacto final
+se medirá en el silencio de sus enemigos y en la melodía de miedo y
+respeto que su nombre inspire en las generaciones venideras.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.83)</li>
+<li><a href="Casa%20Umbrae.html">Casa Umbrae</a> (relevancia: 0.46)</li>
+<li><a href="Casa%20Umbraephon.html">Casa Umbraephon</a> (relevancia:
+0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

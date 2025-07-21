@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linajes_de_la_Ruptura</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Linajes_de_la_Ruptura</div>
+        <div class="content">
+<h1 id="linajes-de-la-ruptura">Linajes de la ruptura</h1>
+<p>Un Linaje de la Ruptura es un trasfondo de personaje que representa
+la afiliación a una de las casas o clanes fundadores de los cuatro
+grandes reinos. Al elegir un Linaje, obtienes las competencias y el
+rasgo asociado en lugar de los de un trasfondo estándar.</p>
+<h2 id="los-clanes-de-la-sombra-y-la-furia-mordhul">Los Clanes de la
+Sombra y la Furia (Mor’dhul)</h2>
+<h3 id="clan-selthirak">Clan Sel’thirak</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a
+href="Tieflings.html">Tieflings</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Engaño, Intimidación</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Kit de falsificación</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un símbolo del clan, un conjunto de ropas
+finas, una daga ornamentada, una bolsa con 20 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Voluntad del
+Rey-Dios</strong></td>
+<td style="text-align: left;">Eres reconocido como un agente de la casa
+gobernante de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Puedes obtener
+audiencias con oficiales de bajo rango y tienes ventaja en las pruebas
+de Carisma (Intimidación) al interactuar con los ciudadanos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> que no pertenecen a la
+nobleza.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="clan-thyrgram">Clan Thyrgram</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a href="Orcos.html">Orcos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Atletismo, Supervivencia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de herrero</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un trofeo de una bestia derrotada, un
+conjunto de ropas de viajero, un hacha de mano, una bolsa con 10
+po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Furia de la
+Hueste</strong></td>
+<td style="text-align: left;">Los soldados y mercenarios <a
+href="Orcos.html">Orcos</a> te reconocen como un <a
+href="Guerrero.html">Guerrero</a> del linaje <a
+href="Thyrgram.html">Thyrgram</a>. Puedes encontrar refugio y comida en
+cualquier campamento militar de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, y tienes ventaja en las pruebas
+de Carisma (Persuasión) para reclutar <a href="Orcos.html">Orcos</a>
+para una causa marcial.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="casa-mortis">Casa Mortis</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a href="Tieflings.html">Tieflings</a>, <a
+href="Hobgoblins.html">Hobgoblins</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Arcanos, Religión</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Idiomas</strong></td>
+<td style="text-align: left;">Un idioma exótico (Infernal o
+Abisal).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un tomo con notas sobre nigromancia, un
+conjunto de ropas de <a href="Erudito.html">Erudito</a>, un cráneo de
+animal pequeño, una bolsa con 15 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Conocimiento
+Necrótico</strong></td>
+<td style="text-align: left;">Tienes ventaja en las pruebas de
+Inteligencia para identificar no-muertos y conocer sus probables
+resistencias y vulnerabilidades. En <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, puedes conseguir componentes para
+<a href="Conjuros.html">Conjuros</a> de nigromancia a mitad de
+precio.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="las-casas-del-horizonte-y-la-marea-galvorn">Las Casas del
+Horizonte y la Marea (Galvorn)</h2>
+<h3 id="linaje-stormsail">Linaje Stormsail</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a href="Humanos.html">Humanos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Atletismo, Percepción</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de navegante, Vehículos
+(acuáticos)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un catalejo, un conjunto de ropas de
+marinero, una cuerda de seda (50 pies), una bolsa con 15 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Legado del
+Capitán</strong></td>
+<td style="text-align: left;">Eres respetado en los puertos de <a
+href="Galvorn.html">Galvorn</a>. Puedes asegurar pasaje gratuito para ti
+y tu grupo en cualquier barco mercante que viaje entre ciudades del
+reino. Además, los marineros de <a href="Galvorn.html">Galvorn</a> son
+más propensos a compartir información contigo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="casa-brightwater">Casa Brightwater</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a href="Halflings.html">Halflings</a>, <a
+href="Humanos.html">Humanos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Naturaleza, Persuasión</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de cervecero o Utensilios de
+cocinero</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un mapa de las rutas comerciales
+interiores, un conjunto de ropas de mercader, una mula con alforjas, una
+bolsa con 10 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Corazón del
+Reino</strong></td>
+<td style="text-align: left;">Eres bienvenido en las comunidades
+agrícolas y posadas de <a href="Galvorn.html">Galvorn</a>. Puedes
+encontrar comida y refugio seguro para ti y tu grupo en cualquier
+asentamiento rural, y los comerciantes te ofrecen un descuento del 10%
+en bienes no mágicos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="el-círculo-de-los-vientos">El Círculo de los Vientos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a href="GenasiAire.html">GenasiAire</a>,
+<a href="Semielfos.html">Semielfos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Acrobacias, Sigilo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de cartógrafo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un conjunto de ropas de viajero, un mapa
+codificado de rutas secretas, un silbato que imita el canto de un
+pájaro, una bolsa con 15 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Susurros en la
+Brisa</strong></td>
+<td style="text-align: left;">Conoces la red de mensajeros y espías del
+Círculo. En cualquier ciudad importante, puedes dejar un mensaje
+codificado que llegará a otro miembro en 1d4 días. También puedes
+obtener información sobre rutas de viaje seguras o la presencia de
+patrullas.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="los-clanes-del-yunque-y-la-montaña-valtoria">Los Clanes del
+Yunque y la Montaña (Valtoria)</h2>
+<h3 id="clan-bronzebrillo">Clan Bronzebrillo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a href="Enanos.html">Enanos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Historia, Persuasión</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de albañil o Herramientas de
+herrero</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un pequeño martillo grabado con la runa
+del clan, un conjunto de ropas de artesano, un libro sobre la historia
+de <a href="Valtoria.html">Valtoria</a>, una bolsa con 15 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Voz de la
+Montaña</strong></td>
+<td style="text-align: left;">Tu linaje es respetado en el Concilio de
+la Montaña. Tienes ventaja en las pruebas de Carisma al interactuar con
+nobles y líderes de gremios <a href="Enanos.html">Enanos</a>, y puedes
+obtener acceso a archivos o talleres que normalmente estarían
+restringidos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="linaje-stoneheart">Linaje Stoneheart</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a href="Goliaths.html">Goliaths</a>, <a
+href="Enanos.html">Enanos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Atletismo, Supervivencia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de escalador</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un trozo de mineral de una veta que
+protegiste, un conjunto de ropas para clima frío, un hacha de mano, una
+bolsa con 10 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Centinela de los
+Picos</strong></td>
+<td style="text-align: left;">Tienes ventaja en las pruebas de Sabiduría
+(Supervivencia) para navegar por terrenos montañosos. En las fronteras
+de <a href="Valtoria.html">Valtoria</a>, puedes encontrar refugios
+ocultos y conoces la ubicación de patrullas enemigas.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="la-cofradía-del-engranaje">La Cofradía del Engranaje</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a href="Gnomos.html">Gnomos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Investigación, Arcanos</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de manitas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un dispositivo de relojería averiado (un
+puzzle), un conjunto de ropas de <a href="Erudito.html">Erudito</a>, un
+par de gafas de protección, una bolsa con 15 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Chispa de la
+Invención</strong></td>
+<td style="text-align: left;">Eres parte de una red de inventores. En <a
+href="Valtoria.html">Valtoria</a>, puedes acceder a talleres gnómicos
+para crear o reparar objetos. Una vez por semana, puedes solicitar un
+componente mecánico o alquímico poco común (valor máximo 50 po) y
+recibirlo en 1d6 días.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="las-casas-de-la-estrella-y-la-hoja-eldrador">Las Casas de la
+Estrella y la Hoja (Eldrador)</h2>
+<h3 id="casa-auris">Casa Auris</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a
+href="AltosElfos.html">AltosElfos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Arcanos, Historia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Idiomas</strong></td>
+<td style="text-align: left;">Dracónico</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un pergamino con el linaje de tu casa, un
+conjunto de ropas finas, un anillo con el sello de la casa, una bolsa
+con 25 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Estatus de
+Nobleza</strong></td>
+<td style="text-align: left;">Tu linaje te otorga privilegios en la
+sociedad de <a href="Eldrador.html">Eldrador</a>. Eres bienvenido en
+círculos de la alta nobleza y puedes obtener una audiencia con figuras
+políticas menores. Tienes ventaja en las pruebas de Carisma para influir
+en otros nobles élficos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="casa-noctha">Casa Noctha</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a
+href="ElfosOscuros.html">ElfosOscuros</a>, <a
+href="AltosElfos.html">AltosElfos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Engaño, Sigilo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Kit de envenenador</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Un vial de veneno básico (suficiente para
+3 dosis), un conjunto de ropas oscuras de viajero, una daga con un
+compartimento secreto, una bolsa con 15 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Sombra de
+Moonshadow</strong></td>
+<td style="text-align: left;">Conoces los mercados negros y las redes de
+información de los elfos oscuros. En cualquier ciudad grande, puedes
+encontrar un contacto que te ofrecerá secretos, objetos ilegales o
+pasajes ocultos a cambio de un favor o un pago.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="linaje-greenwood">Linaje Greenwood</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Razas Comunes</strong></td>
+<td style="text-align: left;"><a
+href="ElfosBosque.html">ElfosBosque</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Naturaleza, Supervivencia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Kit de herboristería</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo Inicial</strong></td>
+<td style="text-align: left;">Una flecha tallada con símbolos del
+bosque, un conjunto de ropas de cuero, un arco corto y 20 flechas, una
+bolsa con 10 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Guardián del
+Bosque</strong></td>
+<td style="text-align: left;">Los espíritus del bosque y las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de <a href="Eldrador.html">Eldrador</a> te reconocen como un protector.
+No te atacarán a menos que sean provocados. Tienes ventaja en las
+pruebas de Sabiduría (Manejo de Animales) y Carisma (Persuasión) al
+interactuar con criaturas feéricas y <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="backlinks">Backlinks</h3>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Hobgoblins.html">Hobgoblins</a></li>
+<li>La Mano de Hierro</li>
+<li><a href="Tieflings.html">Tieflings</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="razas.html">razas</a> (relevancia: 0.39)</li>
+<li><a href="Razas.html">Razas</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

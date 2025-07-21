@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kythlas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kythlas</div>
+        <div class="content">
+<h1 id="kythlas">Kythlas</h1>
+<p>En las entrañas de <a href="Valtoria.html">Valtoria</a>, lejos del
+estruendo de las forjas de guerra y el eco de los picos en las minas,
+existe un lugar de una belleza silenciosa: Kythlas. No es una fortaleza
+tallada en roca muerta, sino una ciudad que habita dentro de una colosal
+geoda de cristal. La luz exterior se filtra a través de las facetas
+kilométricas de la cavidad, bañando la ciudad en un resplandor etéreo y
+cambiante que marca el paso de las horas. Aquí, la ingeniería gnómica y
+la cantería enana no compiten, sino que danzan en perfecta armonía. Los
+edificios están esculpidos directamente en las paredes de amatista y
+cuarzo, conectados por delicados puentes de mithril y cristal que
+parecen suspendidos en el aire. Es un centro de contemplación, un
+santuario para la paciencia y la precisión, donde se busca la belleza
+oculta en el corazón de la piedra.</p>
+<h2 id="historia">Historia</h2>
+<p>Kythlas fue fundada por una improbable alianza: Finkle Brillegel, un
+gemólogo gnomo obsesionado con la luz, y Borin Picarroca, un maestro
+cantero enano que buscaba la “canción” silenciosa de la roca. Ambos
+estaban cansados de que su arte sirviera únicamente para la guerra y la
+industria. En una expedición conjunta, descubrieron la geoda, un milagro
+natural oculto en las profundidades de la montaña. Vieron en ella no una
+fuente de <a href="Recursos.html">Recursos</a>, sino un lienzo.</p>
+<p>Juntos, convencieron a sus respectivos clanes de artesanos de que era
+posible crear una comunidad dedicada al arte por el arte. Así nació
+Kythlas, un refugio para aquellos que valoran más la creación de una
+sola joya perfecta que la forja de mil espadas. Con el tiempo, la ciudad
+se convirtió en el epicentro del tallado de gemas y la inscripción
+rúnica de <a href="Valtoria.html">Valtoria</a>, un lugar donde el tiempo
+se mide en la paciente erosión de la piedra bajo el cincel y no en el
+fragor de las batallas.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><strong>El Núcleo Luminoso</strong>: La caverna central de la geoda,
+donde la luz filtrada es más intensa. Aquí se encuentra el Salón del
+Consejo de Maestros Artesanos y el mercado principal, donde las gemas no
+se venden por peso, sino por la historia que cuentan y la habilidad de
+su tallado.</li>
+<li><strong>Las Galerías del Cincel</strong>: Una red de túneles y
+talleres que serpentean por las paredes de la geoda. Cada taller es una
+obra de arte en sí mismo, con herramientas de precisión gnómicas y
+bancos de trabajo <a href="Enanos.html">Enanos</a>. El aire aquí huele a
+polvo de gemas y al aceite de las máquinas delicadas.</li>
+<li><strong>Los Jardines de Musgo Resplandeciente</strong>: Las zonas
+residenciales de Kythlas, ubicadas en las terrazas inferiores donde la
+luz es más suave. En lugar de farolas, la iluminación proviene de vastos
+cultivos de hongos y musgos bioluminiscentes que crean un paisaje
+onírico de luces azules y verdes.</li>
+<li><strong>El Sagrario de <a href="Cirkon.html">Cirkon</a></strong>: Un
+templo excavado en la faceta más grande y pura de la geoda. No tiene
+ídolos; la deidad es venerada a través de la contemplación de la roca
+misma. Es un lugar de silencio absoluto, donde los clérigos de <a
+href="Cirkon.html">Cirkon</a> escuchan el “latido” de la tierra para
+guiar a los mineros hacia las vetas más puras.</li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Kythlas es metódica y tranquila. El rito de paso más
+importante para un joven artesano es el “Primer Corte”, una prueba en la
+que el aprendiz debe tallar su primera gema sin supervisión, demostrando
+no solo habilidad técnica, sino también la paciencia y la visión para
+revelar la belleza interior de la piedra.</p>
+<p>Las disputas, raras en una comunidad tan ordenada, nunca se resuelven
+con violencia. En su lugar, se celebran concursos de artesanía: los
+contendientes deben crear una obra maestra sobre un tema acordado, y un
+jurado de maestros decide qué creación demuestra mayor habilidad y
+espíritu, resolviendo así el conflicto. Anualmente, la ciudad celebra el
+“Festival del Corazón de la Montaña”, una exhibición donde se presentan
+las creaciones más exquisitas del año y se rinde homenaje a <a
+href="Cirkon.html">Cirkon</a>, <a href="Trovdor.html">Trovdor</a> y <a
+href="Levbrios.html">Levbrios</a> por su divina inspiración.</p>
+<h2 id="símbolos">Símbolos</h2>
+<p>El emblema de Kythlas es un martillo de geólogo y un cincel de joyero
+cruzados sobre una gema de ocho facetas perfectamente tallada. De la
+gema emanan delicadas <a href="Runas.html">Runas</a> de poder que
+simbolizan la fusión de la magia y la artesanía. Todo el blasón está
+enmarcado por los picos estilizados de una montaña, representando su
+hogar en el corazón de <a href="Valtoria.html">Valtoria</a>.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Lágrima de <a href="Rokael.html">Rokael</a></strong>:
+Se susurra entre los mineros más viejos que en la veta más profunda bajo
+Kythlas, más allá de donde cualquier túnel ha llegado, yace la “Lágrima
+de <a href="Rokael.html">Rokael</a>”. Es una gema del tamaño de un puño
+de enano, sin tallar, que supuestamente contiene un eco del momento de
+la Creación. La leyenda advierte que está protegida por antiguos golems
+de cristal, guardianes silenciosos que se activarán si alguien con un
+corazón impuro intenta reclamarla.</p></li>
+<li><p><strong>El Destino en la Luz</strong>: Los “Hijos de la Luna”,
+aquellos nacidos con poderes mágicos incontrolables y confinados en <a
+href="Valtoria.html">Valtoria</a> para su estudio, son a menudo enviados
+a Kythlas. Se dice que la luz única que se filtra a través de la geoda
+tiene propiedades proféticas. En ciertos momentos del día, cuando los
+rayos se alinean de una forma específica, los Hijos de la Luna pueden
+ver visiones del futuro reflejadas en las facetas de cristal. Esto
+convierte a Kythlas, muy a su pesar, en un nexo de profecías no deseadas
+y un lugar de interés para quienes buscan manipular el destino.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

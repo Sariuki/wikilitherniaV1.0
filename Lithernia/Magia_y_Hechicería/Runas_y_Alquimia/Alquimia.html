@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alquimia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Alquimia</div>
+        <div class="content">
+<h1 id="alquimia">Alquimia</h1>
+<p>La alquimia en Lithernia es una disciplina ancestral que combina el
+arte, la ciencia y la magia para crear pócimas, elixires y sustancias
+con poderosos efectos físicos y mágicos. Surgida en las sombras de la
+historia, especialmente durante la Era Crepuscular y el Renacimiento, la
+alquimia ha sido vital para la supervivencia y el avance de los pueblos
+mortales en un mundo marcado por la inestabilidad del Maná y las
+cicatrices del <a href="Lilium.html">Lilium</a>.</p>
+<h2 id="orígenes-y-evolución">Orígenes y evolución</h2>
+<p>La alquimia nace de la convergencia entre el antiguo saber arcano, la
+herbolaria tradicional y la experimentación minera, principalmente en
+regiones ricas en minerales mágicos como <a
+href="Valtoria.html">Valtoria</a> y Mor’dhul. Tras el cataclismo del <a
+href="Lilium.html">Lilium</a>, donde la magia quedó fragmentada e
+inestable, la alquimia se volvió una herramienta esencial para estudiar
+y aprovechar el Maná residual y los <a href="Recursos.html">Recursos</a>
+naturales para la sanación, la guerra y la construcción.</p>
+<p>En <a href="Valtoria.html">Valtoria</a>, por ejemplo, los <a
+href="Enanos.html">Enanos</a> y <a href="Gnomos.html">Gnomos</a>
+desarrollaron técnicas para combinar metales mágicos con ingredientes
+orgánicos, inventando aditamentos y pociones de resistencias
+insuperables. En Mor’dhul, la alquimia oscura floreció en manos de <a
+href="Hobgoblins.html">Hobgoblins</a> y nigromantes para realizar
+pociones de veneno, maldiciones y transmutaciones del dolor.</p>
+<h2 id="fundamentos-prácticos-de-la-alquimia-en-lithernia">Fundamentos
+prácticos de la alquimia en Lithernia</h2>
+<p>La alquimia ritual en Lithernia depende de cuatro pilares
+fundamentales:</p>
+<ul>
+<li><strong>Elementos Naturales</strong>: plantas, minerales, cristales
+y fluidos mágicos con propiedades innatas.</li>
+<li><strong>Maná Residual</strong>: energía mágica atrapada en el
+ambiente, necesaria para potenciar las mezclas.</li>
+<li><strong>Catalizadores Arcanos</strong>: objetos y símbolos que
+conforman círculos o matrices alquímicas para dirigir la
+transformación.</li>
+<li><strong>Tiempo y Paciencia</strong>: muchas pócimas requieren fases
+de elaboración largas, expuestas a ciclos naturales o planos específicos
+para madurar.</li>
+</ul>
+<p>Los alquimistas más expertos estudian el eco del <a
+href="Lilium.html">Lilium</a> imprimiendo en sus creaciones “energía
+desatada”, obteniendo por ejemplo elixires que regeneran heridas casi
+instantáneamente, pero con riesgos que van desde sobrecargas mágicas
+hasta efectos secundarios impredecibles.</p>
+<h2 id="categorías-de-preparados-alquímicos">Categorías de preparados
+alquímicos</h2>
+<h3 id="pócimas-y-elixires">Pócimas y Elixires</h3>
+<p>Recrean o potencian efectos mágicos temporales a través de la
+ingestión o aplicación tópica.</p>
+<ul>
+<li><strong>Elixir de Resistencia Dracónica</strong>: otorga inmunidad
+temporal a un tipo elemental (fuego, rayo, veneno) asociado a uno de los
+linajes dracónicos ancestrales.</li>
+<li><strong>Poción del Alma Serena</strong>: reduce la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+rápidamente, usada por lanzadores en batalla o artesanos mágicos.</li>
+<li><strong>Tintura de Sigilo Umbrío</strong>: mejora la capacidad de
+camuflaje y sigilo, popular en Mor’dhul entre espías <a
+href="Tieflings.html">Tieflings</a>.</li>
+<li><strong>Brebaje de Fuerza Titánica</strong>: aumentan la fuerza
+física de manera sobresaliente durante una hora, común en semiogros y
+goliatths.</li>
+</ul>
+<h3 id="ungüentos-y-pomadas">Ungüentos y Pomadas</h3>
+<p>Aplicados en la piel o heridas, producen efectos curativos,
+analgésicos o potenciadores.</p>
+<ul>
+<li><strong>Ungüento de <a href="Cirkon.html">Cirkon</a></strong>:
+fortalece la piel con una capa casi pétrea, usado por guerreros y
+guardianes.</li>
+<li><strong>Pomada de Sanación Rápida</strong>: acelera la regeneración
+de tejidos, frecuente entre aventureros y sanadores.</li>
+<li><strong>Bálsamo del Dragón Carmesí</strong>: alivia quemaduras y
+previene infecciones, usado por forjadores y exploradores.</li>
+</ul>
+<h3 id="vapores-y-polvos">Vapores y Polvos</h3>
+<p>Sustancias que, inhaladas o dispersadas, tienen efectos mágicos o
+físicos en áreas específicas.</p>
+<ul>
+<li><strong>Polvo Niebla Estelar</strong>: genera una bruma que confunde
+a los enemigos y oculta movimientos.</li>
+<li><strong>Vapor de Muerte Silente</strong>: tóxico y letal, usado con
+extremo cuidado en guerras encubiertas.</li>
+<li><strong>Néctar del Espíritu</strong>: invoca en el ambiente un aura
+protectora contra la corrupción mágica fugaz.</li>
+</ul>
+<h3 id="artefactos-y-catalizadores-alquímicos">Artefactos y
+Catalizadores Alquímicos</h3>
+<p>Objetos híbridos que contienen esencias alquímicas para ser usados en
+rituales o como fuentes portátiles de poder.</p>
+<ul>
+<li>Cristales de estabilización maná: usados en conjunción con círculos
+de invocación para estabilizar el maná errático.</li>
+<li>Viales de esencias purificadas: sirven para anular efectos de
+corrupción causados por <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>
+o del <a href="Lilium.html">Lilium</a>.</li>
+<li>Piedras de fuego controlado: pequeños núcleos usados para forjar
+armas o herramientas incendiarias.</li>
+</ul>
+<h2 id="figuras-clave-y-escuelas-de-alquimia">Figuras clave y escuelas
+de alquimia</h2>
+<h3 id="escuela-de-alquimia-valtoriana">Escuela de Alquimia
+Valtoriana</h3>
+<p>Ubicada en Ironforge y Stonehollow, fue fundada por artesanos <a
+href="Gnomos.html">Gnomos</a> y <a href="Enanos.html">Enanos</a> <a
+href="Enanos.html">Enanos</a>, y se enfoca en la fusión entre
+tecnología, magia y alquimia práctica. Sus alumnos fabrican desde
+pociones hasta autómatas mágicos con propiedades alquímicas.</p>
+<h3 id="conclave-de-alquimistas-de-mordhul">Conclave de Alquimistas de
+Mor’dhul</h3>
+<p>Una oscura hermandad que investiga la alquimia de sangre, muerte y
+sombras, buscando desbloquear secretos prohibidos para aumentar su poder
+sobre la muerte y el dolor. Su conocimiento se mantiene en selos arcanos
+y grimorios ocultos.</p>
+<h3 id="hermandad-de-sanadores-de-eldrador">Hermandad de Sanadores de
+Eldrador</h3>
+<p>Una orden que combina la tradición druidica y alquímica para crear
+remedios puros, contando con el bendición de <a
+href="Ferion.html">Ferion</a> y <a href="Lerian.html">Lerian</a> para la
+elaboración de pócimas que respetan el equilibrio natural.</p>
+<h3 id="gremio-de-alquimistas-marinos-de-galvorn">Gremio de Alquimistas
+Marinos de Galvorn</h3>
+<p>Especializados en preparar brebajes que protegen contra la fatiga,
+venenos marinos y condiciones adversas en el mar. Usan frecuentemente
+ingredientes anfibios y esencias de genasi de agua, obteniendo pociones
+únicas para navegantes.</p>
+<h2 id="la-alquimia-y-su-relación-con-la-magia-del-maná">La alquimia y
+su relación con la magia del Maná</h2>
+<p>En Lithernia, la alquimia no es solo química sino un acto de
+manipulación del Maná materializado. Muchos ingredientes son portadores
+de Maná residual o ligado a entidades planarias, por lo que el maestro
+alquimista debe saber equilibrar energías mágicas para evitar
+sobrecargas o corrupciones.</p>
+<p>Es común que alquimistas utilicen círculos de invocación alquímicos
+para estabilizar o potenciar sus creaciones, uniendo así la alquimia con
+la magia en un ritual de transformación. Sin un manejo cuidadoso, un
+error en estas prácticas puede convertir una poción en un poder
+descontrolado o tóxico.</p>
+<h2 id="usos-comunes-y-aplicaciones-en-la-sociedad">Usos comunes y
+aplicaciones en la sociedad</h2>
+<ul>
+<li><strong>Medicina</strong>: curar tanto heridas físicas como la
+fatiga mágica es fundamental para las comunidades que enfrentan peligros
+constantes.</li>
+<li><strong>Guerra</strong>: creación de venenos, explosivos alquímicos
+y brebajes incremetarios para soldados.</li>
+<li><strong>Aventureros</strong>: pociones de invisibilidad, resistencia
+o recuperación rápida son valiosas para exploración y combate.</li>
+<li><strong>Religión y rituales</strong>: algunos cultos emplean pócimas
+para inducir visiones, estados místicos o sacrificios.</li>
+</ul>
+<h2 id="riesgos-y-regulaciones">Riesgos y regulaciones</h2>
+<p>La alquimia en Lithernia está regulada rigurosamente en ciudades
+principales, especialmente debido a los peligros que conlleva:</p>
+<ul>
+<li><strong>Contaminación mágica</strong>: mezclas inapropiadas pueden
+liberar contaminantes arcánicos tóxicos o abrir brechas hacia planos
+prohibidos.</li>
+<li><strong>Sobrecargas</strong>: un uso excesivo de Maná debe ser
+controlado para evitar malas reacciones o el aumento de la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+en el alquimista.</li>
+<li><strong>Prohibiciones</strong>: ciertas pociones o ingredientes,
+como la sangre de <a href="Dragones.html">Dragones</a> ancestrales o
+restos del <a href="Lilium.html">Lilium</a>, están estrictamente
+prohibidos o limitados por ley y vigilancia divina o real.</li>
+</ul>
+<h2 id="en-campañas-y-aventuras">En campañas y aventuras</h2>
+<p>La alquimia ofrece múltiples oportunidades para tramas:</p>
+<ul>
+<li>La búsqueda de ingredientes raros o peligrosos.</li>
+<li>La defensa o sabotaje de laboratorios alquímicos.</li>
+<li>Creación o purificación de artefactos mágicos ligados a la
+alquimia.</li>
+<li>Intrigas políticas alrededor del control o monopolio de brebajes
+valiosos.</li>
+<li>Descubrimiento de recetas perdidas de la era pre-<a
+href="Lilium.html">Lilium</a> o de civilizaciones desaparecidas.</li>
+</ul>
+<p>La interacción de la alquimia con las mecánicas únicas de maná y
+magia de Lithernia enriquece el mundo, creando escenarios donde la
+ciencia, la magia y la ambición convergen en pociones que pueden salvar,
+destruir o transformar el destino del continente.</p>
+<hr />
+<p><strong>Referencias:</strong> Basado en la interacción de la alquimia
+con la historia, magia y sociedad descritas en la cronología y
+enciclopedia de Lithernia. Se integran elementos canónicos relacionados
+con el tejido del maná, el <a href="Lilium.html">Lilium</a> y los clanes
+relevantes, especialmente del reino de Mor’dhul y las escuelas de <a
+href="Valtoria.html">Valtoria</a>.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

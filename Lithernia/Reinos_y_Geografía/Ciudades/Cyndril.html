@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyndril</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Cyndril</div>
+        <div class="content">
+<h1 id="cyndril">Cyndril</h1>
+<p>En un valle alpino resguardado por los picos nevados de <a
+href="Valtoria.html">Valtoria</a>, Cyndril no ruge con el estruendo de
+las forjas de guerra, sino que zumba con el pulso constante y preciso de
+un millar de engranajes. Esta es la joya de la relojería del reino, una
+ciudad donde la robusta mampostería enana se fusiona con la fantasiosa
+ingeniería gnoma. Sus calles están flanqueadas por robustas bases de
+piedra de las que brotan cúpulas de bronce, balcones giratorios y torres
+de relojería que marcan el paso del tiempo con una precisión divina. El
+aire está impregnado del olor a aceite pulidor, piedra fría y los hongos
+fermentados que dan vida al famoso “Vino de Piedra”. Cyndril no es una
+fortaleza, es un mecanismo perfecto, una manifestación de la “innovación
+paciente” que define su cultura.</p>
+<h2 id="historia">Historia</h2>
+<p>Cyndril nació de un pacto inusual tras las grandes guerras que
+consolidaron <a href="Valtoria.html">Valtoria</a>. Un gremio de
+inventores <a href="Gnomos.html">Gnomos</a>, cansados de que sus
+creaciones más delicadas fueran destrozadas en las caóticas ciudades
+mineras, buscó un lugar para la creación pura. Al mismo tiempo, un clan
+de canteros <a href="Enanos.html">Enanos</a>, devotos de <a
+href="Rokael.html">Rokael</a>, el dios de la Creación, soñaba con
+construir una ciudad que fuera una obra de arte en sí misma, no solo una
+fortaleza.</p>
+<p>Ambos grupos encontraron su propósito en el Valle del Engranaje
+Silencioso. Juntos fundaron Cyndril bajo el gobierno del Sínodo del
+Engranaje Pulido, un consejo equitativo de maestros artesanos de ambas
+razas. Con el tiempo, la reputación de la ciudad atrajo a comunidades de
+<a href="Medianos.html">Medianos</a>, quienes trajeron consigo sus
+habilidades agrícolas, su hospitalidad y un profundo respeto por <a
+href="Taladrios.html">Taladrios</a>, el dios del Tiempo. Esta nueva fe
+se entrelazó perfectamente con la obsesión local por la precisión y los
+ciclos, creando una cultura única en todo <a
+href="Valtoria.html">Valtoria</a>. Hoy, Cyndril es un bastión de
+neutralidad y artesanía, leal a la corona pero ferozmente protectora de
+sus secretos y su modo de vida.</p>
+<h2 id="peligros-y-conflictos">Peligros y Conflictos</h2>
+<p>A pesar de su aparente paz, Cyndril enfrenta amenazas constantes. Su
+fama ha atraído la codicia de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+cuyos espías intentan infiltrarse en los gremios para robar secretos de
+relojería y automatización. Internamente, la innovación conlleva
+riesgos: el temor a un “Contagio de Relojería”, un fallo en cascada que
+podría volver locos a los miles de autómatas de la ciudad, es una
+pesadilla recurrente para el Sínodo. Además, el ruido y la luz de la
+ciudad atraen a grandes <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de las montañas, y los ataques de grifos o wyverns no son
+infrecuentes.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de Cobre</strong>: Plaza central y distrito
+del gobierno. Dominado por la Gran Torre del Sínodo, un coloso de
+engranajes visibles y campanas que tañen melodías mecánicas. Aquí, los
+autómatas de la guardia patrullan con una precisión impecable, y el
+mercado de inventos ofrece desde joyas cinéticas hasta pájaros de cuerda
+que cantan baladas.</p></li>
+<li><p><strong>Los Canteros Silenciosos</strong>: El distrito enano,
+excavado en las laderas del valle. Sus calles son cañones de piedra
+pulida, y sus talleres subterráneos están llenos del aroma del metal y
+la roca. Es aquí, en las bodegas húmedas y frías, donde se destila el
+legendario Vino de Piedra a partir de hongos que crecen en la
+oscuridad.</p></li>
+<li><p><strong>El Laberinto de Ruedecillas</strong>: El caótico y
+brillante barrio gnomo. Es una red imposible de talleres de varios
+pisos, conectados por puentes levadizos, poleas y escaleras de caracol.
+Las casas mismas son inventos, con paredes que se reconfiguran y
+ventanas que siguen al sol. El sonido de pequeños martillos, chispas
+arcanas y alguna que otra explosión controlada es constante.</p></li>
+<li><p><strong>La Hondonada Apacible</strong>: El hogar de la comunidad
+mediana, en la parte más fértil del valle. En lugar de piedra y metal,
+aquí predominan las madrigueras acogedoras con puertas redondas, los
+jardines comunitarios y los invernaderos donde se cultivan las extrañas
+flores de montaña y los hongos para el vino.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Cyndril se mueve al ritmo de los mecanismos que la
+impulsan. El evento social más importante es el <strong>Festival del
+Primer Engranaje</strong>, una feria anual donde inventores de todas las
+edades presentan sus creaciones, compitiendo por el prestigioso “Premio
+del Sínodo”. Los juramentos y los contratos no se firman, se sellan: las
+partes comparten un sorbo de Vino de Piedra de una misma jarra de
+obsidiana, un ritual que, según se cree, vincula mágicamente el pacto a
+través del tiempo. Las artes locales son únicas: la música es a menudo
+interpretada por complejos autómatas, y la poesía se expresa a través de
+esculturas cinéticas que mueven sus partes para formar versos
+cambiantes.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Cyndril es una maravilla de la simbiosis arquitectónica. Cada
+edificio es un testimonio de la colaboración: una base enana inamovible
+puede estar coronada por una cúpula de bronce gnoma que rota lentamente
+a lo largo del día. Intrincados acueductos y gigantescas ruedas
+hidráulicas, tallados por manos enanas y perfeccionados con reguladores
+<a href="Gnomos.html">Gnomos</a>, alimentan de energía a los miles de
+talleres de la ciudad. El ambiente es de una actividad incesante pero
+ordenada. El sonido predominante no es el caos, sino un zumbido
+armonioso: el suave tic-tac de innumerables relojes, el murmullo del
+agua fluyendo por los canales y el chasquido metálico de los autómatas
+en sus rondas.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Chatarrero Fantasma</strong>: Se dice que el espíritu
+de un inventor gnomo, incapaz de dejar atrás su taller, vaga por la
+ciudad de noche. No es una presencia malévola; al contrario, los
+artesanos a menudo se despiertan para encontrar una máquina que no
+funcionaba misteriosamente reparada, o un complejo esquema para un
+artilugio imposible dibujado con tiza en el suelo de su taller. Nadie
+sabe si es una bendición o una advertencia de los peligros de la
+obsesión.</p></li>
+<li><p><strong>La Piedra Corazón</strong>: La leyenda más protegida de
+Cyndril habla de un inmenso geode de cristal que yace en una caverna
+bajo la ciudad. Se dice que esta “Piedra Corazón” late con un ritmo
+lento y regular, y que su pulso es la verdadera fuente de la creatividad
+y la precisión de los habitantes. El Sínodo niega vehementemente su
+existencia, pero se rumorea que el Vino de Piedra se fermenta cerca de
+ella, absorbiendo su esencia rítmica. Perder la Piedra Corazón
+significaría el fin de Cyndril tal y como se conoce.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durnik_el_Susurrante</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Durnik_el_Susurrante</div>
+        <div class="content">
+<h1 id="durnik-el-susurrante">Durnik el Susurrante</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones iluminados por cristales de <a
+href="Valtoria.html">Valtoria</a>, el nombre de Durnik se susurra con
+una mezcla de temor y vergüenza. No es el nombre de un conquistador orco
+ni de un demonio de <a href="Mor&#39;dhul.html">Mor’dhul</a>, sino el de
+una traición nacida en el corazón mismo de la montaña. Durnik no fue
+siempre un agente del caos; en su juventud, fue la mayor promesa de la
+ciudad santuario de <a href="Nolindor.html">Nolindor</a>, un gemólogo
+enano cuyo talento rayaba en lo sobrenatural. Se decía que no tallaba
+las gemas, sino que las convencía de revelar su luz interior. Podía
+escuchar la “canción” de cada cristal, una afinidad que lo destinaba a
+los más altos rangos de la Torre de las Estrellas.</p>
+<p>Pero la mente de Durnik era tan afilada como sus cinceles, y en esa
+agudeza creció la impaciencia. Veía la sabiduría de los ancianos como
+estancamiento, sus precauciones como cadenas y su devoción a la
+tradición como una ceguera autoimpuesta. Mientras sus maestros le
+enseñaban a armonizar con la piedra, Durnik ansiaba dominarla, explorar
+sus resonancias prohibidas y desatar el poder que yacía latente más allá
+de la luz. Sus experimentos clandestinos con cristales sónicos y
+energías residuales del <a href="Lilium.html">Lilium</a> fueron
+descubiertos, no por un desastre, sino por su propia arrogancia. El
+castigo no fue el exilio, sino algo peor para su orgullo: la
+condescendencia. Fue amonestado y relegado a tareas menores, tratado
+como un aprendiz imprudente.</p>
+<p>Para Durnik, aquello fue el verdadero ultraje. No era un necio, era
+un visionario sofocado por fósiles. Abandonó <a
+href="Nolindor.html">Nolindor</a>, no como un paria, sino como un
+profeta autoproclamado de una nueva era. En las sombras de las montañas
+encontró a otros como él: <a href="Enanos.html">Enanos</a> resentidos,
+magos oscuros y guerreros que compartían su desdén por la “debilidad
+contemplativa” de <a href="Valtoria.html">Valtoria</a>. Encontró a los
+<strong>Cazadores de Sombras</strong>.</p>
+<p>Con ellos, su don se pervirtió y floreció. La habilidad de “escuchar”
+la canción de un cristal se transformó en el poder de susurrarle una
+nueva melodía: una de disonancia, corrupción y poder oscuro. Durnik se
+convirtió en “el Susurrante”, el arquitecto de la ruina silenciosa. Su
+motivación no es la mera destrucción, sino la validación. Quiere quebrar
+la armonía de <a href="Valtoria.html">Valtoria</a> y demostrar que el
+poder que él ofrece, arrancado de la oscuridad, es superior a la luz que
+ellos veneran pasivamente.</p>
+<p>Mantiene una relación simbiótica y peligrosa con agentes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Él les provee de secretos sobre
+las defensas rúnicas de <a href="Valtoria.html">Valtoria</a> y la
+naturaleza de sus cristales de poder; a cambio, ellos le entregan tomos
+prohibidos sobre magia de las sombras y técnicas nigrománticas que él
+adapta a su artesanía perversa, creando horrores que ni <a
+href="Enanos.html">Enanos</a> ni <a href="Orcos.html">Orcos</a> podrían
+concebir por separado.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>A diferencia del típico <a href="Guerrero.html">Guerrero</a> enano,
+Durnik no es una mole de músculo y acero. Es de complexión más delgada,
+con una postura erguida que denota un intelecto agudo por encima de la
+fuerza bruta. Sus ojos, antaño del color del topacio, ahora tienen vetas
+de un inquietante violeta amatista, que parecen brillar débilmente en la
+penumbra. Sus manos, aunque encallecidas, son las de un artesano de
+precisión, con dedos largos y ágiles manchados permanentemente por polvo
+de obsidiana y reactivos alquímicos.</p>
+<p>Su barba y cabello, de un color negro acero, están recogidos en
+trenzas funcionales, adornadas no con anillos de oro, sino con pequeños
+cristales corruptos que emiten un zumbido apenas audible.</p>
+<p><strong>Equipamiento:</strong></p>
+<ul>
+<li><strong>Armadura de Cuero Sombrío:</strong> Una armadura de cuero
+endurecido, teñida de negro y reforzada con placas de obsidiana pulida,
+diseñada para el sigilo y la flexibilidad. No produce ruido alguno al
+moverse.</li>
+<li><strong>El Corazón de Sombra:</strong> Un bastón corto de madera de
+tejo petrificada, coronado por un gran cristal de cuarzo oscuro que
+pulsa con una luz interna enfermiza. Es su principal foco para canalizar
+magia oscura y el epicentro de sus experimentos sónicos.</li>
+<li><strong>Granadas de Resonancia Corrupta:</strong> Su creación más
+infame. Pequeños cristales de poder de <a
+href="Valtoria.html">Valtoria</a>, vaciados de su luz y “reprogramados”
+con una frecuencia sónica destructiva. Al ser arrojados, emiten un pulso
+devastador que puede desorientar a los seres vivos, hacer añicos la
+piedra y desestabilizar barreras mágicas.</li>
+<li><strong>Kit de Gemólogo Pervertido:</strong> Un estuche de cuero que
+contiene cinceles de mithril, limas de diamante y viales con fluidos
+extraídos de criaturas de la sombra. Con estas herramientas, puede
+corromper un cristal puro en cuestión de horas.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Durnik el Susurrante representa una amenaza existencial para <a
+href="Valtoria.html">Valtoria</a>, más insidiosa que cualquier ejército
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>. No busca derribar sus
+murallas con arietes, sino hacer que se derrumben desde dentro. Su
+legado es la introducción del sabotaje ideológico: convierte la mayor
+fortaleza de los <a href="Enanos.html">Enanos</a> —su maestría con la
+piedra y los cristales— en su mayor vulnerabilidad.</p>
+<p>Enseña a los Cazadores de Sombras a no solo robar artefactos, sino a
+envenenar la fuente de su poder. Si tiene éxito, no solo conquistará una
+ciudad, sino que podría destruir la fe de toda una cultura en sus
+propias tradiciones. A largo plazo, su colaboración con <a
+href="Mor&#39;dhul.html">Mor’dhul</a> amenaza con crear una nueva forma
+de tecno-magia oscura, fusionando la precisión enana con la brutalidad
+de las sombras. Durnik es el símbolo viviente de que la mayor oscuridad
+a menudo no proviene de un enemigo externo, sino de la luz que elige
+corromperse a sí misma. Es el susurro de la duda que podría hacer
+temblar la montaña hasta sus cimientos.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Cazadores%20de%20Sombras.html">Cazadores de Sombras</a>
+(relevancia: 0.37)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

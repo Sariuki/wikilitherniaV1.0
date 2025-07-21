@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corvus_El_Silente_Vaelstrom</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Corvus_El_Silente_Vaelstrom</div>
+        <div class="content">
+<h1 id="corvus-el-silente-vaelstrom">Corvus ‘El Silente’ Vaelstrom</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los opulentos salones y consejos de capitanes de <a
+href="Galvorn.html">Galvorn</a>, el nombre <strong>Vaelstrom</strong> se
+pronuncia con una mezcla de necesidad y desprecio. Son los carroñeros
+pragmáticos del mar, nobles surgidos de un pacto oscuro que prosperan en
+la desgracia ajena. Pero en los muelles oscuros, en las tabernas sin
+nombre y en los rincones donde se comercia con secretos, se susurra otro
+nombre con un temor mucho más profundo y personal:
+<strong>Corvus</strong>.</p>
+<p>Corvus es la mancha en el linaje Vaelstrom, el bastardo nacido de una
+unión ilícita entre el antiguo Lord Vaelstrom y una vidente elfa de la
+Casa <a href="Mirendyl.html">Mirendyl</a>, capturada durante una
+escaramuza naval. Esta herencia mixta le otorgó una longevidad inusual
+para los estándares <a href="Humanos.html">Humanos</a> y una percepción
+sobrenatural, pero también lo marcó como un paria dentro de su propia y
+despiadada familia. Sin embargo, en una casa que valora la utilidad por
+encima del honor, el joven Corvus no fue desechado, sino afilado. Su
+naturaleza silenciosa y observadora fue reconocida como una herramienta.
+Mientras su medio-hermano, Marius, era educado en la política, la
+oratoria y el manejo de la espada en la cubierta de un barco, Corvus
+aprendía en la sentina: a escuchar a través de los mamparos, a moverse
+sin hacer ruido, a entender el lenguaje de las sombras y los
+susurros.</p>
+<p>No porta el nombre Vaelstrom con orgullo, sino como una herramienta
+más. Fue él quien, hace décadas, transformó las operaciones de espionaje
+marítimo de su casa en una red de información casi omnisciente conocida
+como <strong>“Los Ojos de la Corriente”</strong>. Sus agentes no son
+simples espías; son vigías sobornados en faros, cartógrafos que venden
+<a href="Mapas.html">Mapas</a> con “errores” sutiles, sacerdotes que
+escuchan confesiones de marineros aterrados y sirenas a las que se les
+paga con tesoros olvidados a cambio de noticias de las
+profundidades.</p>
+<p>Su apodo, ‘El Silente’, no se debe solo a su laconismo. Se lo ganó
+tras el infame “Accidente de la Flota Coral”, donde tres de los galeones
+más preciados de la Casa Valendor se hicieron pedazos contra un arrecife
+que no figuraba en ninguna carta náutica. Nunca se probó la implicación
+de los Vaelstrom, pero en todo <a href="Galvorn.html">Galvorn</a> se
+supo que solo una mano invisible podría haber guiado a una flota tan
+experta hacia su destrucción. Esa mano fue la de Corvus. Él no da
+órdenes; presenta informes. No amenaza; revela verdades
+inconvenientes.</p>
+<p>La relación con su medio-hermano, <strong>Lord Marius
+Vaelstrom</strong>, es el eje de su poder. Marius es el rostro público
+de la casa: carismático, brutal y ambicioso. Corvus es el cerebro
+oculto, el arquitecto de su poder. Su dinámica es fría y funcional. Se
+reúnen en cámaras con poca luz, donde Corvus entrega informes cifrados y
+Marius dicta los objetivos. No hay afecto fraternal, solo una simbiosis
+perfecta: Marius es el martillo que golpea, pero es Corvus quien le dice
+exactamente dónde y cuándo hacerlo para que el acero se quiebre. Corvus
+no anhela el señorío de la casa; lo considera una jaula dorada. Su poder
+reside en las sombras, en ser el hombre que nadie ve venir, el que
+controla las corrientes que mueven los tronos de Lithernia.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Corvus es la antítesis de la ostentosa nobleza de <a
+href="Galvorn.html">Galvorn</a>. De complexión enjuta y estatura media,
+su herencia élfica es visible en la afilada estructura de sus pómulos y
+en sus orejas, apenas más puntiagudas que las de un humano. Su cabello
+es negro como la tinta de un calamar, a menudo recogido en una simple
+coleta, y sus ojos son de un gris acerado y penetrante que parecen
+registrar cada detalle con una calma inquietante. Rara vez sonríe, y
+cuando lo hace, es una mueca fina y carente de humor. Una cicatriz
+delgada, como un hilo de plata, le cruza la ceja izquierda, recuerdo de
+un intento de asesinato fallido por parte de un agente del Clan
+Nighthawk.</p>
+<p>Viste con una elegancia funcional y sombría. Sus atuendos consisten
+en jubones de cuero teñido de negro o azul noche sobre camisas de lino
+gris, pantalones de tela resistente y botas altas y silenciosas. Nunca
+lleva armadura pesada, prefiriendo la agilidad y el sigilo. Su única
+concesión a la riqueza de su casa es un anillo de obsidiana en su dedo
+meñique, tallado con el sello del kraken de los Vaelstrom, que se dice
+fue un regalo de la propia entidad abisal con la que su fundador
+pactó.</p>
+<p>Su equipamiento es el de un maestro de las sombras: * <strong>La
+Aguijada Silenciosa:</strong> Un estilete de acero oscuro, perfectamente
+equilibrado y sin adornos, cuya punta siempre está cubierta con una fina
+capa de “Beso Abisal”, un veneno neurotóxico extraído de una rara
+anémona de las Gargantas de Zafiro. * <strong>El Libro de las
+Mareas:</strong> Un pequeño cuaderno encuadernado en piel de tiburón,
+lleno de una escritura cifrada que solo él y un puñado de sus agentes de
+mayor confianza pueden leer. Contiene rutas marítimas secretas,
+debilidades de personalidades clave de Lithernia y registros de deudas
+de sangre. * <strong>Monedas de Susurro:</strong> Pequeñas monedas de
+plata marcadas con glifos apenas perceptibles, utilizadas para
+identificarse entre los miembros de su red y para dejar mensajes
+silenciosos.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Corvus Vaelstrom nunca aparecerá en las crónicas de los grandes
+héroes o reyes de Lithernia. Su nombre no será tallado en monumentos ni
+cantado por los bardos en las cortes. Su legado será un fantasma, una
+sombra proyectada sobre la historia del continente. Es la razón por la
+que la Casa Vaelstrom es temida en cada puerto, el arquitecto silencioso
+de caídas de fortunas y el tejedor de una red de miedo que se extiende
+por todos los mares conocidos.</p>
+<p>Representa una nueva forma de poder en Lithernia, una que no se basa
+en la fuerza de las armas o en la legitimidad de un linaje, sino en el
+control absoluto de la información. Para sus rivales, es la
+personificación de la paranoia; para sus aliados, una garantía de que
+ningún secreto está a salvo. En un mundo al borde de cambios proféticos,
+con el posible retorno del Primer Rey y la danza de las Lanzas
+Celestiales, un hombre que conoce cada secreto y controla cada corriente
+oculta podría ser la pieza que decida el destino de todos los reinos,
+sin que nadie sepa jamás que fue él quien movió el timón.</p>
+        </div>
+    </div>
+</body>
+</html>

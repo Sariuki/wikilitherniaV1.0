@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaeldrak_el_Exiliado</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaeldrak_el_Exiliado</div>
+        <div class="content">
+<h1 id="kaeldrak-el-exiliado">Kaeldrak el Exiliado</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de <a href="Valtoria.html">Valtoria</a>, el nombre de
+Kaeldrak está grabado con la misma mezcla de reverencia y desprecio con
+la que se nombra a los grandes herejes. Kaeldrak no nació exiliado; fue,
+durante siglos, el más reputado maestro geólogo del Clan Picoférreo, un
+enano cuya conexión con la roca y la profundidad era casi una religión.
+Mientras sus pares de la Casa Dravonis y el Clan Bronzenhammer se
+enorgullecían de la luz de sus forjas y la majestuosidad de sus salones,
+Kaeldrak sentía que el alma enana se marchitaba en la superficie. Para
+él, la Torre de las Estrellas y la diplomacia con los elfos de <a
+href="Eldrador.html">Eldrador</a> eran una traición a su esencia: la
+oscuridad, el peso de la montaña y los secretos que la tierra solo
+revela a quienes se atreven a escuchar en el silencio absoluto.</p>
+<p>Su obsesión lo condujo a las galerías más profundas y olvidadas, más
+allá de donde cualquier otro minero se atrevía a llegar. Allí, en una
+era de meticulosa exploración, descubrió las <strong>Vetas de
+Sombra</strong>: filones de un cristal negro y pulsante que no reflejaba
+la luz, sino que parecía devorarla. Al tocarlas, Kaeldrak no sintió la
+corrupción del <a href="Lilium.html">Lilium</a> que el Concilio de la
+Montaña temía, sino la pura y primigenia voz de la piedra. Eran ecos de
+un poder ancestral, la verdad de una <a href="Cirkon.html">Cirkon</a>
+olvidada, la diosa de las profundidades insondables, no la de las cuevas
+iluminadas.</p>
+<p>Cuando presentó sus hallazgos al Concilio, esperando ser aclamado
+como un profeta, fue condenado como un apóstata. Le acusaron de profanar
+la montaña y de pactar con la magia prohibida de las sombras. Ante la
+orden de sellar las vetas para siempre, Kaeldrak se negó. “Sellar la
+verdad es el acto de los débiles”, declaró ante los señores <a
+href="Enanos.html">Enanos</a>. Por este desafío, él y sus seguidores
+fueron desterrados, borrados de los registros de <a
+href="Valtoria.html">Valtoria</a>. Renacieron en el exilio, no como
+Picoférreo, sino como el <strong>Clan Umbracarn</strong>, los Cazadores
+de Sombras.</p>
+<p>Hoy, a sus 452 años, Kaeldrak gobierna desde <strong><a
+href="Valarion.html">Valarion</a></strong>, una ciudad secreta tallada
+en las profundidades, oculta a la luz del sol y a los ojos de sus
+antiguos hermanos. Su motivación no es la mera venganza, sino una
+convicción fanática: demostrar que la devoción de <a
+href="Valtoria.html">Valtoria</a> por la luz y la superficie la ha
+debilitado. Su objetivo es reunir el poder latente en la oscuridad,
+desenterrar los artefactos que susurran en las profundidades y, un día,
+presentar a <a href="Valtoria.html">Valtoria</a> una verdad tan
+innegable como el peso de la montaña sobre sus cabezas.</p>
+<p>Mantiene una frágil alianza con el <strong>Clan Whisper</strong> de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>, un pacto forjado en el
+pragmatismo. Los <a href="Hobgoblins.html">Hobgoblins</a> necromantes
+buscan secretos entre los muertos, y Kaeldrak los busca en la piedra
+muerta; intercambian conocimientos y artefactos que ambos mundos, el de
+la superficie y el del más allá, considerarían abominaciones. En su
+propia ciudad, ha forjado un pacto con el <strong>Forjamayor del Clan
+Agrietacero</strong>, un maestro herrero que comparte su desprecio por
+la <a href="Valtoria.html">Valtoria</a> tradicional, aunque por razones
+más industriales que teológicas. Su relación más compleja es con su
+protegida, <strong>Helga</strong>. Ve en ella el futuro del clan, una
+voluntad tan afilada como la obsidiana, pero su ambición desmedida y su
+fascinación por el poder puro, en lugar de la verdad, le inquietan.
+Kaeldrak la adiestra como una herramienta necesaria, consciente de que
+esa misma herramienta podría un día volverse contra su creador.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaeldrak es la encarnación de la montaña erosionada por el tiempo.
+Sus 452 años se manifiestan en un rostro surcado por arrugas tan
+profundas como las vetas que explora. Su larga barba, antaño negra como
+el carbón, es ahora de un gris pétreo, trenzada con finos hilos de
+obsidiana y pequeños cristales de sombra que parecen absorber la luz a
+su alrededor. Sus ojos, hundidos bajo unas cejas pobladas, rara vez
+parpadean y poseen la intensidad fría y paciente de la oscuridad
+subterránea. Su piel, expuesta durante décadas al influjo de las Vetas,
+ha adquirido un tono ceniciento, casi translúcido, como si la sombra
+misma se hubiera filtrado en su ser. Aunque anciano, su cuerpo conserva
+la fuerza tenaz de los <a href="Enanos.html">Enanos</a>, un poder
+compacto y resiliente forjado por una vida de trabajo y exilio.</p>
+<p><strong>Equipamiento:</strong></p>
+<ul>
+<li><strong>Armadura de Umbra-acero:</strong> Su armadura no está hecha
+del brillante acero valtoriano, sino de una aleación oscura forjada con
+metal de las profundidades y polvo de cristal de sombra. Es extrañamente
+ligera y silenciosa, y las <a href="Runas.html">Runas</a> grabadas en
+ella no son de protección, sino de silencio, peso y la inquebrantable
+voluntad de la piedra.</li>
+<li><strong>Quebrantavotos:</strong> Su martillo de guerra es tanto una
+herramienta como un símbolo. Bautizado “Quebrantavotos” tras su exilio,
+su cabeza es un bloque macizo de hierro oscuro con un núcleo de
+obsidiana pura que parece beber la luz. Se dice que con él no solo rompe
+rocas, sino también las falsas promesas de los <a
+href="Enanos.html">Enanos</a> de la superficie.</li>
+<li><strong>La Linterna del Vacío:</strong> Kaeldrak porta una linterna
+de bronce ennegrecido cuyo cristal es una fina lámina de geoda de
+sombra. No emite luz, sino que proyecta un círculo de oscuridad profunda
+y palpable, revelando contornos y ecos que la luz normal ocultaría.</li>
+<li><strong>Bolsa de Ecos de Piedra:</strong> Siempre lleva consigo una
+bolsa de cuero que contiene polvo fino de los cristales de sombra. Lo
+usa en sus rituales, para comunicarse con la Veta o simplemente para
+inhalar su esencia y recordar la verdad que juró proteger.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaeldrak el Exiliado representa una grieta en el alma de la raza
+enana, una herejía que cuestiona los cimientos mismos de la cultura de
+<a href="Valtoria.html">Valtoria</a>. No es simplemente un señor de la
+guerra rebelde; es el sumo <a href="Sacerdote.html">Sacerdote</a> de una
+fe olvidada, el guardián de un poder que podría ser tanto la salvación
+de su pueblo como su perdición definitiva.</p>
+<p>Su impacto inmediato es la creación de una facción poderosa y secreta
+que opera en los márgenes de uno de los reinos más estables de
+Lithernia. Al controlar las Vetas de Sombra y forjar alianzas con
+potencias oscuras como el Clan Whisper, ha introducido un elemento de
+inestabilidad que la nobleza enana no puede ignorar ni erradicar
+fácilmente. Es un recordatorio constante de que la mayor amenaza para <a
+href="Valtoria.html">Valtoria</a> no proviene de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> ni de <a
+href="Eldrador.html">Eldrador</a>, sino de las profundidades de sus
+propias montañas y de las verdades que decidieron enterrar.</p>
+<p>El legado que Kaeldrak dejará está forjado en penumbra. Si sus
+enseñanzas sobre la verdad y la fuerza de la oscuridad son aceptadas,
+podría iniciar un renacimiento en la cultura enana, devolviéndola a sus
+raíces primigenias. Sin embargo, si su poder cae en manos de líderes más
+crueles y ambiciosos como Helga, el Clan Umbracarn podría convertirse en
+una fuerza destructiva, consumida por la misma sombra que juraron
+comprender. Al final, Kaeldrak será recordado como un profeta o un
+monstruo, un visionario que vio la verdad en la oscuridad o un anciano
+loco que condujo a su pueblo a la noche eterna. Su historia es una
+advertencia para todo Lithernia: la piedra no olvida, y las verdades
+enterradas siempre encuentran la forma de volver a la superficie.</p>
+        </div>
+    </div>
+</body>
+</html>

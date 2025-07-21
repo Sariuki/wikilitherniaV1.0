@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexia_La_Silente</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vexia_La_Silente</div>
+        <div class="content">
+<h1 id="vexia-la-silente">Vexia ‘La Silente’</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida en la penumbra perpetua que abraza a los Shadar-Kai de <a
+href="Eldrador.html">Eldrador</a>, <a href="Vexia.html">Vexia</a>
+conoció desde su infancia el peso de un destino ajeno. Criada bajo la
+rígida “Mano de Hierro”, su vida estaba predestinada a servir a las
+casas nobles élficas, un engranaje más en una maquinaria milenaria que
+giraba al compás de las estrellas de <a href="Arzia.html">Arzia</a>, la
+diosa del destino. Para <a href="Vexia.html">Vexia</a>, esta sumisión no
+era un honor, sino una jaula. Veía la devoción de sus congéneres no como
+fe, sino como una resignación cobarde ante tiranos celestiales que
+jugaban con los mortales como si fueran piezas en un tablero
+cósmico.</p>
+<p>Su hastío alcanzó el punto de quiebre no con un estallido de ira,
+sino con un gélido y silencioso desprecio. Durante décadas, cumplió su
+rol como exploradora y vigía, moviéndose entre las sombras con una
+eficacia que sus amos confundían con lealtad. Pero en cada misión, en
+cada susurro escuchado en los salones de la Casa Auris, en cada ritual
+dedicado a un panteón indiferente, su convicción se solidificaba: los
+dioses no eran guardianes, sino carceleros. El Cataclismo del <a
+href="Lilium.html">Lilium</a> no fue la consecuencia de la arrogancia
+del Primer Rey; fue el acto supremo de tiranía divina para aplastar la
+libertad mortal.</p>
+<p>A los 70 años, un acto impensable para un Shadar-Kai, abandonó <a
+href="Eldrador.html">Eldrador</a>. No huyó, simplemente se desvaneció,
+borrando su rastro como una sombra al amanecer. Su viaje la llevó a
+través de los reinos, observando la misma podredumbre en todas partes:
+en <a href="Mor&#39;dhul.html">Mor’dhul</a>, la opresión abierta del
+rey-dios Sel’thirak; en <a href="Galvorn.html">Galvorn</a>, la
+hipocresía de rezar a <a href="Yfrit.html">Yfrit</a> por libertad
+mientras se explotaba al desfavorecido; en <a
+href="Valtoria.html">Valtoria</a>, una sabiduría que, aunque admirable,
+seguía atada a la voluntad de <a href="Rokael.html">Rokael</a> y sus
+hermanos.</p>
+<p>Fue en la ciudad élfica de <a href="Venalith.html">Venalith</a>, un
+nexo de magia arcana menos dogmática, donde encontró a otros de su misma
+opinión: filósofos, artífices y magos que formaban el núcleo de
+<strong>La Cadena Rota</strong>. Su filosofía era la música que su alma
+anhelaba escuchar: la razón por encima de la fe, la innovación por
+encima de la tradición, y la mortalidad como la mayor fortaleza, no una
+debilidad.</p>
+<p>Gracias a sus talentos innatos de Shadar-Kai, su disciplina férrea y
+su mente analítica y desprovista de sentimentalismo, <a
+href="Vexia.html">Vexia</a> ascendió rápidamente. Se convirtió en la
+“Maestra de Susurros”, la arquitecta de la red de espionaje de la
+facción. Hoy, desde las sombras de <a href="Venalith.html">Venalith</a>,
+dirige una guerra silenciosa. Sus agentes —elfos desilusionados,
+descastados de <a href="Mor&#39;dhul.html">Mor’dhul</a>, académicos
+perseguidos— se infiltran en templos, cortes y cultos. No buscan
+asesinar reyes ni robar tesoros; su veneno es la duda. Siembran ideas
+heréticas, revelan las contradicciones de los dogmas divinos y exponen
+la corrupción de los sacerdotes. <a href="Vexia.html">Vexia</a> no busca
+poder para sí misma, sino desmantelar el concepto mismo de poder divino,
+eslabón a eslabón, hasta que Lithernia sea libre para forjar un destino
+con sus propias manos.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p><a href="Vexia.html">Vexia</a> posee la belleza austera y melancólica
+de los Shadar-Kai. Su piel es pálida como la ceniza de un fuego extinto,
+y su largo cabello, de un negro profundo, suele llevarlo recogido en una
+única trenza adornada con pequeños anillos de hierro sin pulir. Sus
+ojos, de un violeta apagado, rara vez parpadean y parecen analizarlo
+todo con una calma inquietante. Su cuerpo es esbelto y ágil, y se mueve
+con una gracia silenciosa, casi etérea, producto de su herencia y de un
+entrenamiento implacable. Su rostro rara vez muestra emoción, lo que le
+ha valido el apelativo de ‘La Silente’. Sobre su piel porta tatuajes
+intrincados, no de motivos élficos tradicionales, sino de diagramas
+alquímicos y cadenas rotas, un manifiesto grabado en su propia
+carne.</p>
+<p>Su atuendo es siempre funcional y discreto, favoreciendo los tonos
+grises, negros y violetas oscuros.</p>
+<ul>
+<li><strong>Vestimenta y Armadura:</strong> Viste una armadura de cuero
+sombrío, tratada alquímicamente para absorber la luz y amortiguar el
+sonido. Sobre ella, una capa con capucha de tejido denso que difumina su
+silueta en la penumbra.</li>
+<li><strong>Armamento:</strong> No porta armas ostentosas. Su arsenal es
+el del espía y el saboteador. Oculta en sus botas y muñequeras lleva un
+par de <strong>dagas de acero estigio</strong>, cuyos filos están
+imbuidos con venenos creados por los alquimistas de La Cadena Rota,
+capaces de inducir sueño, parálisis o confusión. También porta una
+<strong>cerbatana silenciosa</strong> con una variedad de dardos,
+algunos con mensajes cifrados y otros con toxinas no letales.</li>
+<li><strong>Equipo Relevante:</strong> Su equipo es su verdadero poder.
+Siempre lleva consigo un <strong>kit de disfraces</strong> de alta
+calidad, <strong>tintas simpáticas</strong> para mensajes secretos,
+varios <strong>cristales de comunicación cifrada</strong> que solo se
+activan con una frecuencia arcana específica, y una colección de
+pequeños frascos con polvos cegadores, ácidos de disolución lenta y
+antídotos. Su objeto más preciado es un <strong>Anillo del
+Silencio</strong>, un artefacto que anula el sonido de sus pasos y le
+permite susurrar comandos audibles solo para el portador de un anillo
+emparejado.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p><a href="Vexia.html">Vexia</a> ‘La Silente’ representa una de las
+amenazas más profundas y existenciales para el orden establecido de
+Lithernia. Mientras los reyes y dioses se preocupan por ejércitos y
+profecías, ella libra una guerra de ideas, un conflicto mucho más
+difícil de combatir. Su red de espías no solo desestabiliza a los reinos
+desde dentro, sino que ofrece una alternativa tangible a las masas
+oprimidas: un futuro sin dioses.</p>
+<p>Su impacto se mide en el creciente número de herejías, en el
+surgimiento de movimientos seculares en las grandes ciudades y en la
+desconfianza que corroe las alianzas teocráticas. Para el Clan
+Sel’thirak, es una anarquista que socava el orden divino que previene
+otro <a href="Lilium.html">Lilium</a>. Para la Casa Auris, es la
+encarnación de la blasfemia, un alma perdida que busca arrastrar a otros
+a la nada.</p>
+<p>Pero para los descastados, los pensadores y los rotos, <a
+href="Vexia.html">Vexia</a> es un faro de esperanza. Ella es la prueba
+viviente de que uno puede rechazar el destino impuesto y forjar uno
+propio. Su legado no será una corona ni un trono, sino un mundo donde
+las oraciones se reemplacen por ecuaciones y los milagros por el ingenio
+mortal. <a href="Vexia.html">Vexia</a> es la sombra que busca apagar las
+estrellas, no para traer la oscuridad, sino para que los mortales, por
+primera vez, puedan maravillarse con la luz que ellos mismos son capaces
+de crear.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+<li><a href="La%20Cadena%20Rota.html">La Cadena Rota</a> (relevancia:
+0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

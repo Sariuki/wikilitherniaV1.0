@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velewyn</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Velewyn</div>
+        <div class="content">
+<h1 id="velewyn">Velewyn</h1>
+<p>Velewyn, la “Ciudad de la Luz Tejida”, no es una ciudad construida,
+sino revelada. Oculta en la cima de los Picos de Cristal, reside por
+completo dentro de una colosal caverna-geoda, un milagro natural cuyas
+paredes brillan con vetas de cristal puro. Lejos de la política de
+castas de <a href="Eldrador.html">Eldrador</a>, Velewyn es una estricta
+meritocracia de arte y magia, donde el estatus y el poder se miden por
+la capacidad de un individuo para tejer la luz estelar —considerada la
+forma más pura de maná— en obras de belleza sublime y poder arcano. La
+ciudad entera es un faro de luz tenue, un testimonio viviente de la
+devoción élfica a la perfección y a la diosa <a
+href="Arzia.html">Arzia</a>.</p>
+<h2 id="historia">Historia</h2>
+<p>Velewyn fue fundada hace siglos por la archimaga <a
+href="Eladrin.html">Eladrin</a> Sylara Starglimmer. Desilusionada con la
+política y la guerra que manchaban la belleza del mundo, Sylara buscó un
+lugar donde la magia pudiera ser estudiada como un arte puro, libre de
+ambiciones terrenales. Su búsqueda la llevó a la cima de una montaña
+desolada, donde descubrió la entrada a una geoda de tamaño titánico, un
+lugar donde la luz del sol y las estrellas se refractaba en un
+espectáculo cósmico.</p>
+<p>Allí, fundó Velewyn no como un feudo, sino como una academia. Atrajo
+a los más brillantes magos, ilusionistas y artesanos de <a
+href="Eldrador.html">Eldrador</a>, estableciendo un único criterio para
+la ciudadanía: el talento. Bajo su liderazgo, el gobierno fue conferido
+a “El Círculo Luminoso”, un consejo de los maestros más consumados en
+las artes de la luz. Con el tiempo, la ciudad se convirtió en un refugio
+para aquellos cuya vocación era la creación, un lugar donde el único
+linaje que importa es el del genio.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón Estelar</strong>: El epicentro de Velewyn. En
+el centro de la inmensa caverna flota un cristal colosal y perfecto que
+pulsa con una luz interior. Este “Corazón Estelar” absorbe la luz de los
+astros y la proyecta a través de la ciudad, creando un mapa celestial en
+movimiento en el techo de la geoda. Sirve como fuente de poder y centro
+de meditación para todos los habitantes.</p></li>
+<li><p><strong>Las Galerías de Cristal</strong>: Los distritos
+residenciales y los talleres de los artesanos. No son calles, sino una
+red de plataformas y estructuras talladas en madera argéntea viva,
+entrelazadas con las propias paredes de la geoda. Cada hogar y taller es
+una obra de arte en sí mismo, adornado con esculturas de luz y cristales
+resonantes.</p></li>
+<li><p><strong>El Domo del Firmamento</strong>: El templo principal de
+<a href="Arzia.html">Arzia</a> y el mayor observatorio de la ciudad. Su
+cúpula es un único cristal transparente, encantado para magnificar la
+visión de los cielos. Aquí, los sacerdotes y astrónomos no solo estudian
+las estrellas, sino que buscan recibir la inspiración directa de su
+diosa.</p></li>
+<li><p><strong>Los Puentes del Crepúsculo</strong>: Una red de puentes
+hechos de luz sólida y cristalina que conectan las diferentes
+plataformas y niveles de la ciudad. Cambian de color según la hora del
+día, pasando de un blanco brillante al amanecer a un profundo azul
+índigo en la noche, guiando a los ciudadanos con su suave
+resplandor.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Velewyn es una búsqueda constante de la belleza y la
+maestría. La principal festividad es el “Festival de la Primera
+Estrella”, una competición anual donde artistas y magos presentan sus
+creaciones lumínicas. El ganador obtiene un lugar de honor en El Círculo
+Luminoso durante un año.</p>
+<p>Los conflictos son raros, pero cuando surgen, se resuelven mediante
+“Duelos de Tejido Lumínico”. No son combates, sino exhibiciones de magia
+ilusoria en las que los duelistas deben crear la escena más bella y
+compleja. Un panel de maestros juzga el duelo, y la derrota no trae
+deshonor, solo la oportunidad de aprender y mejorar. Al atardecer, es
+común ver a los elfos practicando la “Contemplación Silenciosa”,
+meditando mientras observan los juegos de luces que el Corazón Estelar
+proyecta en las paredes de la caverna.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Velewyn es orgánica y etérea. Las estructuras de
+madera viva parecen crecer directamente de las paredes cristalinas de la
+geoda, fusionando la naturaleza con el arte arcano. No hay oscuridad en
+Velewyn; la ciudad está perpetuamente bañada en una luz suave y
+multicolor que emana de los miles de cristales que la componen. El
+ambiente es de una calma reverente. El aire vibra con una energía mágica
+palpable, y un tenue sonido, similar al de campanas de cristal movidas
+por el viento, resuena constantemente, producto de la armonía entre los
+cristales de la ciudad.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Susurro del Corazón</strong>: Se dice que el alma de
+la fundadora, Sylara Starglimmer, no ascendió al cosmos tras su muerte,
+sino que se fusionó con el Corazón Estelar para proteger su creación
+eternamente. En las noches sin luna, los magos más sensibles afirman
+escuchar su voz susurrando <a href="Conjuros.html">Conjuros</a>
+olvidados y secretos de la creación, guiando a aquellos que son puros de
+corazón.</p></li>
+<li><p><strong>El Sendero Forjado en Estrellas</strong>: Una leyenda
+persistente habla de un camino secreto dentro de la geoda, un túnel de
+cristal que no figura en ningún mapa. Se dice que este sendero solo se
+revela cuando una constelación perdida, borrada de los cielos durante el
+Cataclismo del <a href="Lilium.html">Lilium</a>, reaparece fugazmente.
+Quienes logran recorrerlo llegan a una cámara oculta donde se encuentra
+un artefacto capaz de reescribir una línea del propio destino.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tieflings</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Tieflings</div>
+        <div class="content">
+<h1 id="tieflings">Tieflings</h1>
+<h3 id="resumen-de-rasgos">Resumen de Rasgos</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo Clave</th>
+<th style="text-align: left;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Aumento de
+Característica</strong></td>
+<td style="text-align: left;">+2 Carisma, +1 Inteligencia (o +1
+Sabiduría para la variante)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">30 pies</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión</strong></td>
+<td style="text-align: left;">Visión en la Oscuridad (60 pies)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Resistencias</strong></td>
+<td style="text-align: left;">Daño por Fuego</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencias Clave</strong></td>
+<td style="text-align: left;">Engaño, Sigilo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgos Únicos</strong></td>
+<td style="text-align: left;">Herencia del Lilium, Legado de Sel’thirak
+(Magia innata), Variante Hereje</td>
+</tr>
+</tbody>
+</table>
+<h3 id="contexto-mecánico">Contexto Mecánico</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Vinculación en Lithernia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Reino de Origen</strong></td>
+<td style="text-align: left;"><a
+href="Mor&#39;dhul.html">Mor’dhul</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Panteón Principal</strong></td>
+<td style="text-align: left;">Panteón Korogrim</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidad Creadora</strong></td>
+<td style="text-align: left;">Sel’thirak, dios de la muerte</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Social Típico</strong></td>
+<td style="text-align: left;"><a href="Noble.html">Noble</a>, espía, <a
+href="Hechicero.html">Hechicero</a>, conspirador. Líderes del Clan
+Sel’thirak.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Común</strong></td>
+<td style="text-align: left;">Legal Maligno. Los disidentes (“Herejes”)
+tienden a Caótico Bueno.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Trasfondos Sugeridos</strong></td>
+<td style="text-align: left;"><a href="Noble.html">Noble</a>, Charlatán,
+<a href="Criminal.html">Criminal</a>, Acólito (Variante Hereje).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-raciales-tiefling-de-mordhul">Rasgos Raciales (Tiefling
+de Mor’dhul)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Incremento de Puntuación de
+Característica</strong></td>
+<td style="text-align: left;">Tu puntuación de Carisma aumenta en 2 y tu
+puntuación de Inteligencia aumenta en 1.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Edad</strong></td>
+<td style="text-align: left;">Maduran al mismo ritmo que los <a
+href="Humanos.html">Humanos</a>, pero viven unos años más.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tamaño</strong></td>
+<td style="text-align: left;">Mediano.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocidad</strong></td>
+<td style="text-align: left;">Tu velocidad base al caminar es de 30
+pies.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visión en la
+Oscuridad</strong></td>
+<td style="text-align: left;">Puedes ver en luz tenue a menos de 60 pies
+como si fuera luz brillante, y en la oscuridad como si fuera luz tenue
+(tonos de gris).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Herencia del Lilium</strong></td>
+<td style="text-align: left;">Tienes resistencia al daño por fuego.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Legado de Sel’thirak</strong></td>
+<td style="text-align: left;">Conoces el truco <em>Taumaturgia</em>. Tu
+aptitud mágica para este y los siguientes <a
+href="Conjuros.html">Conjuros</a> es el Carisma.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Astucia de <a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong></td>
+<td style="text-align: left;">Ganas competencia en las habilidades de
+Engaño y Sigilo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Puedes hablar, leer y escribir Común y
+Mórdhûlico.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="progresión-de-conjuros-legado-de-selthirak">Progresión de
+Conjuros (Legado de Sel’thirak)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Personaje</th>
+<th style="text-align: left;">Conjuro Obtenido</th>
+<th style="text-align: left;">Frecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><em>Taumaturgia</em> (Truco)</td>
+<td style="text-align: left;">A voluntad</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><em>Disfrazarse</em></td>
+<td style="text-align: left;">1/Descanso Largo</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: left;"><em>Sugestión</em></td>
+<td style="text-align: left;">1/Descanso Largo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="variante-tiefling-hereje-linaje-del-rey-mártir">Variante:
+Tiefling Hereje (Linaje del Rey Mártir)</h3>
+<p>Esta variante reemplaza los rasgos
+<code>Incremento de Puntuación de Característica</code> y
+<code>Legado de Sel'thirak</code>.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Rasgo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Incremento de Puntuación de
+Característica</strong></td>
+<td style="text-align: left;">Tu puntuación de Carisma aumenta en 2 y tu
+puntuación de Sabiduría aumenta en 1.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Legado del Mártir</strong></td>
+<td style="text-align: left;">Tu devoción al ideal del Primer Rey te
+otorga una magia distinta. Conoces el truco <em>Guía</em>. Tu aptitud
+mágica para este y los siguientes <a href="Conjuros.html">Conjuros</a>
+es el Carisma.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="progresión-de-conjuros-legado-del-mártir">Progresión de Conjuros
+(Legado del Mártir)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Personaje</th>
+<th style="text-align: left;">Conjuro Obtenido</th>
+<th style="text-align: left;">Frecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><em>Guía</em> (Truco)</td>
+<td style="text-align: left;">A voluntad</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><em>Orden</em> (como conjuro de 2º
+nivel)</td>
+<td style="text-align: left;">1/Descanso Largo</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: left;"><em>Zona de la Verdad</em></td>
+<td style="text-align: left;">1/Descanso Largo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sinergias-de-clase">Sinergias de Clase</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Sinergia y Rol Sugerido (Tiefling de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a href="Brujo.html">Brujo</a> /
+<a href="Hechicero.html">Hechicero</a></strong></td>
+<td style="text-align: left;"><strong>Óptima.</strong> El +2 a CAR es el
+atributo principal, y el +1 a INT puede ser útil. Las habilidades de
+engaño y sigilo son excelentes para un lanzador de <a
+href="Conjuros.html">Conjuros</a> que opera desde las sombras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Bardo.html">Bardo</a></strong></td>
+<td style="text-align: left;"><strong>Excelente.</strong> El +2 a CAR
+potencia los <a href="Conjuros.html">Conjuros</a> y habilidades de <a
+href="Bardo.html">Bardo</a>. El +1 a INT y las competencias en sigilo y
+engaño complementan el rol de un <a href="Bardo.html">Bardo</a> del
+Colegio del Saber o susurros.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pícaro (Arcano)</strong></td>
+<td style="text-align: left;"><strong>Fuerte.</strong> Las competencias
+en Sigilo y Engaño son naturales, y el +1 a INT potencia los <a
+href="Conjuros.html">Conjuros</a> del arquetipo.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Sinergia y Rol Sugerido (Tiefling
+Hereje)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Paladín</strong></td>
+<td style="text-align: left;"><strong>Óptima.</strong> El +2 a CAR es
+perfecto. El +1 a SAB es útil para salvaciones y Percepción.
+Temáticamente ideal para un juramento de Devoción, Redención o Venganza
+contra los dioses.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Sacerdote.html">Sacerdote</a> (Clérigo)</strong></td>
+<td style="text-align: left;"><strong>Fuerte.</strong> El +1 a SAB es la
+estadística principal. Encaja con un líder carismático de un culto
+rebelde (Dominios del Orden, la Guerra o el Conocimiento).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Bardo.html">Bardo</a></strong></td>
+<td style="text-align: left;"><strong>Fuerte.</strong> La combinación de
+CAR y SAB es excelente para un líder o un sabio del Colegio del Valor o
+del Saber, inspirando la rebelión.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnj-de-ejemplo">PNJ de Ejemplo</h3>
+<p>```statblock name: Conspirador de Mor’dhul size: Mediano type:
+humanoide (tiefling) alignment: legal maligno ac: 14 (Armadura de cuero
+tachonado) hp: 44 (8d8 + 8) speed: 30 ft. stats: [11, 16, 12, 14, 10,
+17] saves: - Dex: +5 - Cha: +5 skills: - Engaño: +7 - Perspicacia: +2 -
+Persuasión: +5 - Sigilo: +7 damage_resistances: Fuego senses: Visión en
+la oscuridad 60 ft., Percepción Pasiva 10 languages: Común, Mórdhûlico
+cr: 2 traits: - name: Lanzamiento de Conjuros Innato desc: “La aptitud
+mágica del tiefling es el Carisma (CD de salvación de Conjuros 13).
+Puede lanzar los siguientes Conjuros de forma innata:voluntad:
+<em>Taumaturgia</em>/día cada uno: <em>Disfrazarse</em>,
+<em>Sugestión</em>” - name: Ataque Furtivo (1/Turno) desc: “El tiefling
+inflige 7 (2d6) de daño adicional cuando impacta a un objetivo con un
+ataque de arma y tiene ventaja en la tirada de ataque, o cuando el
+objetivo está a 5 pies de un aliado del tiefling que no está
+incapacitado y el tiefling no tiene desventaja en la tirada de ataque.”
+actions: - name: Daga desc: “Ataque de arma cuerpo a cuerpo o a
+distancia: +5 a impactar, alcance 5 pies o rango 20/60 pies, un
+objetivo. Impacto: 5 (1d4 + 3) de daño perforante.” reactions: - name:
+Desvío Ágil desc: “Cuando es impactado por un ataque que puede ver, el
+tiefling puede usar su reacción para reducir a la mitad el daño que
+recibe de ese ataque.”</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreguntasFrecuentes Parte 1</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">PreguntasFrecuentes Parte 1</div>
+        <div class="content">
+<h1 id="preguntas-frecuentes-sobre-lithernia---parte-1">Preguntas
+Frecuentes sobre Lithernia - Parte 1</h1>
+<h2 id="introducción-a-lithernia">Introducción a Lithernia</h2>
+<p><strong>¿Qué es Lithernia?</strong><br />
+Lithernia es un mundo antiguo forjado en fuego y sombra, marcado por la
+Caída del Lilium, un fuego eterno que transformó el mundo y dio origen a
+las razas actuales. Es un lugar donde la magia impregna la realidad y
+donde dragones, humanos, elfos, enanos y otras criaturas conviven en
+cuatro reinos principales.</p>
+<p><strong>¿Cuáles son los cuatro reinos principales de
+Lithernia?</strong><br />
+- <strong>Mor’dhul:</strong> Reino de sombras y muerte, dominado por
+orcos, goblins, hobgoblins y tieflings.<br />
+- <strong>Galvorn:</strong> Reino costero de libertad y exploración,
+hogar de humanos y otras razas.<br />
+- <strong>Valtoria:</strong> Reino montañoso de resistencia y artesanía,
+hogar de enanos y razas adaptadas a la montaña.<br />
+- <strong>Eldrador:</strong> Reino de bosques antiguos y magia arcana,
+hogar de los elfos y sus subrazas.</p>
+<h2 id="razas-de-lithernia">Razas de Lithernia</h2>
+<p><strong>¿Qué razas puedo elegir para mi personaje?</strong><br />
+Lithernia ofrece una amplia variedad de razas, entre ellas:<br />
+- Humanos<br />
+- Elfos (Altos Elfos, Elfos Oscuros/Drow, Eladrin, Elfos del Bosque,
+Shadar-Kai)<br />
+- Enanos<br />
+- Gnomos<br />
+- Halflings<br />
+- Orcos<br />
+- Goblins<br />
+- Hobgoblins<br />
+- Medianos<br />
+- Tieflings<br />
+- Genasi (Agua, Fuego, Tierra, Aire)<br />
+- Semiorcos<br />
+- Semielfos<br />
+- Goliaths<br />
+- Dragonborn</p>
+<p><strong>¿Qué características especiales tienen los
+humanos?</strong><br />
+- +1 a todas las características.<br />
+- Tamaño mediano, velocidad 30 pies.<br />
+- Idiomas: Común y uno adicional a elección.<br />
+- Talento adicional a nivel 1.</p>
+<p><strong>¿Qué subrazas de elfos existen?</strong><br />
+- Altos Elfos: +2 Destreza, +1 Inteligencia, visión en la oscuridad 60
+pies, magia básica y entrenamiento con armas élficas.<br />
+- Elfos Oscuros (Drow): +2 Destreza, +1 Carisma, visión en la oscuridad
+120 pies, sensibilidad a la luz solar, magia de sombras y entrenamiento
+con armas drow.<br />
+- Eladrin: +2 Destreza, +1 Inteligencia, visión en la oscuridad 60 pies,
+ventajas contra encantamientos, trance y teletransporte.<br />
+- Elfos del Bosque: +2 Destreza, +1 Sabiduría, visión en la oscuridad 60
+pies, competencia en sigilo y velocidad aumentada.<br />
+- Shadar-Kai: +2 Destreza, +1 Carisma, visión en la oscuridad 120 pies,
+resistencia a necromancia y teletransporte.</p>
+<p><strong>¿Qué habilidades especiales tienen los enanos?</strong><br />
+- +2 Constitución, tamaño mediano, velocidad 25 pies (sin reducción por
+armadura pesada).<br />
+- Visión en la oscuridad 60 pies.<br />
+- Resiliencia enana (ventaja contra veneno y resistencia a daño por
+veneno).<br />
+- Competencia con armas enanas y herramientas de artesano.<br />
+- Familiaridad con la piedra para pruebas de historia.</p>
+<p><strong>¿Qué características tienen los Genasi?</strong><br />
+- Cada tipo tiene aumentos específicos y resistencias elementales:<br />
+- Agua: +2 Constitución, +1 Sabiduría, resistencia al ácido, respirar
+aire y agua, velocidad de nado.<br />
+- Fuego: +2 Constitución, +1 Inteligencia, resistencia al fuego, conoce
+Produce Flame.<br />
+- Tierra: +2 Fuerza, +1 Constitución, resistencia al trueno, puede
+moverse por terreno difícil de tierra o piedra.<br />
+- Aire: +2 Destreza, +1 Carisma, resistencia al rayo, puede lanzar
+Levitate una vez por descanso.</p>
+<hr />
+<p>Para más detalles sobre otras razas, consulta <a
+href="PreguntasFrecuentes%20Parte%201.html">PreguntasFrecuentes Parte
+1</a>.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Elfos.html">Elfos</a> (relevancia: 0.91)</li>
+<li><a href="razas.html">razas</a> (relevancia: 0.75)</li>
+<li><a href="Razas.html">Razas</a> (relevancia: 0.75)</li>
+<li><a href="Elfos%20del%20Bosque.html">Elfos del Bosque</a>
+(relevancia: 0.36)</li>
+<li><a href="Elfos%20Oscuros.html">Elfos Oscuros</a> (relevancia:
+0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

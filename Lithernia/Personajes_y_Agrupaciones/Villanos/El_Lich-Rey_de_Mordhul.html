@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Lich-Rey_de_Mordhul</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Lich-Rey_de_Mordhul</div>
+        <div class="content">
+<h1 id="el-lich-rey-de-mordhul">El Lich-Rey de Mordhul</h1>
+<h2 id="el-tirano-inmortal-del-reino-de-la-muerte">El Tirano Inmortal
+del Reino de la Muerte</h2>
+<p><strong>Sel’thirak</strong>, conocido como <em>El Lich-Rey de <a
+href="Mor&#39;dhul.html">Mor’dhul</a></em>, es el gobernante absoluto de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>, un reino eternamente envuelto
+en cenizas y sombras. Como encarnación mortal del dios de la muerte del
+panteón Korogrim, combina divinidad y umbralidad en una figura temida
+por mortales y deidades por igual. Desde su trono en la
+<strong>Ciudadela de Obsidiana</strong>, en la capital homónima,
+gobierna mediante rituales de sangre, pactos con entidades infernales y
+una red de necromancia institucionalizada que mantiene a su reino en un
+equilibrio perverso entre el terror y la obediencia fanática.</p>
+<h2 id="apariencia-y-origen-divino">Apariencia y Origen Divino</h2>
+<p>Sel’thirak se presenta como un <strong>tiefling de proporciones
+monumentales</strong>, con piel del color del ébano pulido y ojos que
+arden como brasas sumergidas en brea. Dos cuernos retorcidos coronan su
+cabeza, entre los que flota una <strong>corona de hueso eterno</strong>
+tallada con <a href="Runas.html">Runas</a> que absorben la luz
+circundante. Su armadura ceremonial, forjada con placas de
+<strong>hierro vil</strong> extraído de volcanes malditos, emite un
+zumbido constante de almas atrapadas —cada una de ellas perteneciente a
+un rival derrotado o a un traidor ejecutado.</p>
+<p>Su existencia como lich-rey se debe a un <strong>pacto
+ancestral</strong>: durante la coronación mortal de Sel’thirak (hace más
+de cinco siglos), consumió el alma de <strong>Kael’thrak</strong>, el
+último rey orco de <a href="Mor&#39;dhul.html">Mor’dhul</a>, y al
+hacerlo quemó su propio cuerpo mortal en las llamas del <strong><a
+href="Lilium.html">Lilium</a></strong>. Desde entonces, su esencia quedó
+ligada a una <strong>filacteria</strong> desconocida —posiblemente el
+mismísimo <em>Altar de Sombras</em> bajo la capital—, otorgándole
+inmortalidad al precio de sacrificios periódicos de almas puras.</p>
+<h2 id="reinado-y-rituales-de-sangre">Reinado y Rituales de Sangre</h2>
+<p>La teocracia del Lich-Rey se basa en <strong>tres pilares
+sagrados</strong>: 1. <strong>La Ascensión por la Espada</strong>: Solo
+los más fuertes gobiernan; las rebeliones entre clanes son permitidas (y
+fomentadas) como prueba de valía ante el trono. 2. <strong>El Pacto del
+No-Muerto</strong>: Todo súbdito debe jurar lealtad no solo en vida,
+sino también en muerte. La necromancia militarizada mantiene ejércitos
+esqueléticos en reserva en fosas colosales bajo Noblestevo y Chega. 3.
+<strong>El Tributo del Latido</strong>: Cada luna nueva, delegados de
+todas las ciudades traen <em>sangre viva</em> (<a
+href="Humanos.html">Humanos</a>, elfos o prisioneros de guerra) para
+alimentar los fuegos rituales del Lich-Rey. Se dice que quien se niega
+tiene su corazón arrancado por las <strong>Garras de <a
+href="Lakros.html">Lakros</a></strong>, gólems guardianes forjados con
+sangre del dios de la guerra.</p>
+<p>Su festividad más terrible es la <strong>Noche del <a
+href="Lilium.html">Lilium</a></strong>, donde hace arder en hogueras
+públicas a cientos de herejes mientras profetiza sobre el “fuego eterno
+que purgará a los indignos” —un recordatorio tácito de su poder para
+repetir el castigo divino que arrasó Lithernia en el pasado.</p>
+<h2 id="la-corte-eterna-y-sus-sombra">La Corte Eterna y Sus Sombra</h2>
+<p>El Lich-Rey gobierna rodeado de <strong>tres figuras clave</strong>:
+- <strong>Lady Xandria “La Susurrante”</strong>: Su hechicera personal,
+capaz de infiltrar mentes y tejer ilusiones que mantienen la nobleza en
+constante paranoia. Maestra de magia psiónica oscura. - <strong>Lord
+Volrath “La Mano Negra”</strong>: Comandante de los ejércitos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, un orco convertido en
+<strong>no-muerto ungido</strong> por el propio Sel’thirak. Su hacha
+<em>Rompealmas</em> drena la fuerza vital de quienes hiere. - <strong>La
+Voz del <a href="Lilium.html">Lilium</a></strong>: Un misterioso oráculo
+sin rostro que habita en una columna de humo perpetuo en el trono real.
+Sus profecías dictan las campañas militares y las purgas internas del
+reino.</p>
+<p>Las intrigas palaciegas son tan letales como las batallas abiertas.
+Se rumorea que el Lich-Rey permite las conspiraciones (incluso las que
+apuntan a derrocarlo) como forma de detectar debilidad en sus filas.
+Aquellos traidores expuestos sufren el <strong>Destierro
+Silente</strong>: sus almas son encerradas en <strong>faroles de
+agonía</strong> que iluminan las calles de la capital mientras gritan
+eternamente.</p>
+<h2 id="secretos-y-legado-maldito">Secretos y Legado Maldito</h2>
+<p>Sel’thirak guarda dos secretos que podrían desatar su caída: -
+<strong>El Juramento con <a href="Thyrgram.html">Thyrgram</a></strong>:
+En su coronación, pactó sangre con el dios de la guerra (su padre) para
+garantizar conflicto perpetuo en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Si la guerra cesara, su
+inmortalidad se debilitaría. - <strong>El Pecado contra el Primer
+Rey</strong>: Fue él quien clavó la <strong>Lanza Mortum</strong> en el
+costado del Primer Rey durante el Cataclismo. Un fragmento de esa lanza,
+guardado en su cámara privada, es su mayor vulnerabilidad —se dice que
+si se rompe, el sello del Primer Rey podría resquebrajarse.</p>
+<p>Hoy, el Lich-Rey observa el mundo con desdén divino. Mientras su
+guardia de <strong>Caballeros Muertos Vivientes</strong> impone su ley,
+él se dedica a descifrar la próxima etapa de la profecía del retorno del
+Rey de Lithernia. Sabe que el día que un <a
+href="Heroes.html">Heroes</a> alcance una de las Lanzas, su reinado
+tendrá los minutos contados… y planea convertir ese momento en un
+holocausto que arrase Lithernia antes de rendir su trono.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Mor&#39;dhul.html">Mor’dhul</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

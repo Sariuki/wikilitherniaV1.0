@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reputaciones</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Reputaciones</div>
+        <div class="content">
+<h1 id="reputaciones">Reputaciones</h1>
+<p>En las tierras de Lithernia, un nombre es mucho más que una palabra.
+Es un eco que resuena en las cortes nobles y en los callejones oscuros,
+un estandarte que puede abrir las puertas de una fortaleza enana o
+marcar a su portador para la muerte en los desiertos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. La reputación no es una simple
+medida de fama; es el peso de las acciones de un individuo en un mundo
+fragmentado por la guerra y las antiguas profecías. Desde los dioses en
+sus tronos celestiales hasta el más humilde de los clanes, todos
+observan, juzgan y recuerdan.</p>
+<p>La forma en que un aventurero se relaciona con los reinos, las
+facciones, los clanes e incluso las deidades de Lithernia define su
+camino. Ganar el favor de un grupo puede significar obtener aliados, <a
+href="Recursos.html">Recursos</a> y secretos, pero casi siempre
+implicará ganarse la enemistad de sus rivales. En la Gran Guerra, la
+neutralidad es un lujo que pocos pueden permitirse.</p>
+<h2 id="la-balanza-del-poder-facciones-y-su-favor">La Balanza del Poder:
+Facciones y su Favor</h2>
+<p>El estatus de un individuo ante las distintas potencias de Lithernia
+puede clasificarse en varios niveles, desde ser <em>Odiado</em> y
+perseguido a simple vista, hasta ser <em>Venerado</em> como un <a
+href="Heroes.html">Heroes</a> legendario. Cada acción, cada misión
+completada y cada juramento pronunciado inclina la balanza.</p>
+<h3 id="reputación-en-mordhul-el-reino-de-la-muerte">Reputación en
+Mor’dhul: El Reino de la Muerte</h3>
+<p>En <a href="Mor&#39;dhul.html">Mor’dhul</a>, la reputación se <a
+href="Herreria.html">Herreria</a> con sangre, miedo y una lealtad
+inquebrantable. El poder es la única ley, y la debilidad es una
+invitación a la tumba.</p>
+<ul>
+<li><strong>Clan Sel’thirak (La Corona de la Muerte):</strong> Para
+ganar el favor del Rey-Dios y su corte de <a
+href="Tieflings.html">Tieflings</a>, se debe demostrar una devoción
+fanática a su causa. Esto implica hacer cumplir sus edictos, cazar a los
+herejes que susurran la profecía del Primer Rey y mostrar una crueldad
+calculada que mantenga el orden. La misericordia y la duda son vistas
+como traición.</li>
+<li><strong>Clanes Guerreros (<a href="Thyrgram.html">Thyrgram</a> y <a
+href="Lakros.html">Lakros</a>):</strong> La reputación con los <a
+href="Orcos.html">Orcos</a> de <a href="Thyrgram.html">Thyrgram</a> y
+los semiogros de <a href="Lakros.html">Lakros</a> se gana en el campo de
+batalla. Valoran la fuerza bruta, el coraje temerario y la sed de
+sangre. Un <a href="Guerrero.html">Guerrero</a> que nunca retrocede y se
+deleita en la carnicería será respetado. La sutileza y la diplomacia son
+despreciadas como tácticas de cobardes.</li>
+<li><strong>Clanes de la Sombra (<a href="Kromagul.html">Kromagul</a>,
+Gyth’kai, Nighthawk):</strong> Ganarse el respeto de <a
+href="Hobgoblins.html">Hobgoblins</a> y <a
+href="Goblins.html">Goblins</a> requiere astucia, crueldad y
+oportunismo. Aprecian la manipulación, el dominio a través del dolor y
+la traición con fines de lucro. Un acto de sacrificio (ajeno, por
+supuesto) o una tortura bien ejecutada son méritos a sus ojos.</li>
+<li><strong>Rebeldes y Descastados (Vallas, Cheneras, Clan
+Outcast):</strong> En los márgenes de la tiranía, la reputación se
+construye sobre la base de la confianza y el desafío. Ayudar a los
+refugiados, liderar una revuelta o proteger a las ciudades libres como
+Vallas contra las fuerzas de Sel’thirak le ganará a uno la lealtad
+eterna de los oprimidos, pero también un lugar prioritario en la lista
+de enemigos del reino.</li>
+</ul>
+<h3 id="reputación-en-galvorn-el-reino-marítimo">Reputación en Galvorn:
+El Reino Marítimo</h3>
+<p>La reputación en <a href="Galvorn.html">Galvorn</a> es tan fluida
+como las mareas. Se basa en los <a href="Logros.html">Logros</a>, la
+libertad personal y la contribución a la prosperidad común.</p>
+<ul>
+<li><strong>El Consejo de Capitanes:</strong> El favor de este poderoso
+cuerpo se gana a través de hazañas náuticas. Descubrir nuevas rutas
+comerciales, hundir una flota pirata notoria o traer riquezas de tierras
+lejanas hará que tu nombre sea brindado en todas las tabernas
+portuarias. La traición en alta mar o el sabotaje del comercio son
+ofensas imperdonables.</li>
+<li><strong>La Corona y la Flota Real:</strong> Servir a <a
+href="Galvorn.html">Galvorn</a> como protector de sus costas,
+diplomático en cortes extranjeras o almirante en la guerra contra <a
+href="Mor&#39;dhul.html">Mor’dhul</a> otorga un gran prestigio. La
+lealtad al reino y la defensa de su libertad son los valores más
+altos.</li>
+<li><strong>Gremios y Comunidades Portuarias:</strong> Un individuo
+puede ganarse la reputación local ayudando a los pescadores contra
+monstruos marinos, invirtiendo en los astilleros o simplemente
+compartiendo historias y rondas en las tabernas. En <a
+href="Galvorn.html">Galvorn</a>, la generosidad y la camaradería son muy
+apreciadas.</li>
+</ul>
+<h3 id="reputación-en-valtoria-el-reino-de-la-montaña">Reputación en
+Valtoria: El Reino de la Montaña</h3>
+<p>El honor, la artesanía y la sabiduría son los pilares de la
+reputación en <a href="Valtoria.html">Valtoria</a>. Un buen nombre es un
+tesoro más valioso que el oro.</p>
+<ul>
+<li><strong>La Corona y el Concilio de la Montaña:</strong> La lealtad a
+la Reina Valeria y el respeto por las decisiones del Concilio son
+fundamentales. Se gana favor defendiendo las fortalezas enanas, mediando
+en disputas entre clanes con justicia y mostrando respeto por la tierra
+y sus <a href="Recursos.html">Recursos</a>. La práctica de magia oscura
+o la alianza con los “Cazadores de Sombras” resultará en el exilio.</li>
+<li><strong>La Torre de las Estrellas:</strong> Los sabios, magos e
+historiadores de la Torre valoran el conocimiento por encima de todo.
+Recuperar tomos perdidos, contribuir con nuevos descubrimientos arcanos
+o proteger a sus miembros en expediciones peligrosas otorga un gran
+prestigio. La destrucción de libros o el desprecio por la sabiduría son
+pecados capitales.</li>
+<li><strong>Clanes y Gremios Artesanos:</strong> La reputación con los
+clanes <a href="Enanos.html">Enanos</a> a menudo está ligada a su
+oficio. Un <a href="Guerrero.html">Guerrero</a> que blande un hacha
+forjada en Ironforge con honor, o un aventurero que trae gemas raras a
+los joyeros de Stonehollow, se ganará el respeto de esos clanes.</li>
+</ul>
+<h3 id="reputación-en-eldrador-el-reino-élfico">Reputación en Eldrador:
+El Reino Élfico</h3>
+<p>En <a href="Eldrador.html">Eldrador</a>, la reputación está
+intrínsecamente ligada a la “Mano de Hierro”, el rígido sistema de
+castas. Navegar por su sociedad requiere gracia, sutileza y una profunda
+comprensión de la tradición.</p>
+<ul>
+<li><strong>La Nobleza y la Corona:</strong> El favor de la élite élfica
+se obtiene sirviendo a una de las grandes casas, mostrando una habilidad
+artística o mágica excepcional o recuperando artefactos de la antigua
+gloria élfica. Cualquier acto que desafíe el orden establecido o muestre
+simpatía por las castas inferiores es visto con extrema sospecha.</li>
+<li><strong>Casas Nobles Rivales:</strong> <a
+href="Eldrador.html">Eldrador</a> es un nido de intrigas. Ganar el favor
+de una casa, como la Casa Auris, a menudo significa ganarse la enemistad
+de sus rivales, como la Casa Noctha. Las acciones son juzgadas no solo
+por su mérito, sino por cómo afectan al delicado equilibrio de
+poder.</li>
+<li><strong>La Clase Trabajadora y los Exiliados:</strong> Defender a
+los <a href="Eladrin.html">Eladrin</a> o shadar-kai oprimidos es un
+camino peligroso que garantiza el desprecio de la nobleza, pero también
+la lealtad incondicional de aquellos que anhelan un cambio. Convertirse
+en un <a href="Heroes.html">Heroes</a> del pueblo llano es convertirse
+en un rebelde a los ojos de la corona.</li>
+</ul>
+<h2 id="el-favor-de-los-dioses">El Favor de los Dioses</h2>
+<p>Más allá de los reinos mortales, los propios dioses observan. Las
+acciones de un individuo pueden atraer su favor o su ira, manifestándose
+en bendiciones sutiles, augurios o, en casos extremos, intervenciones
+directas. Un paladín no es el único que puede ganarse el favor de una
+deidad; un explorador audaz puede honrar a <a
+href="Yfrit.html">Yfrit</a> con cada nuevo horizonte que descubre, y un
+artesano puede glorificar a <a href="Rokael.html">Rokael</a> con cada
+obra maestra que crea.</p>
+<p>Del mismo modo, oponerse al dominio de un dios o profanar sus templos
+puede acarrear una maldición divina. Se cuenta que los marineros que
+ofenden a <a href="Exion.html">Exion</a> nunca más encuentran vientos
+favorables, y aquellos que se burlan de la muerte pueden atraer la
+atención personal de Sel’thirak.</p>
+<p>Incluso el <strong>Primer Rey</strong>, sellado y dormido, posee una
+forma de reputación. Aquellos que luchan por la unificación de Lithernia
+y desafían la tiranía de los dioses pueden sentir que su causa resuena
+con un poder antiguo, ganándose el favor de sus seguidores secretos y,
+quizás, agitando la conciencia del propio Rey Eterno.</p>
+<p>Las consecuencias de la reputación son tangibles. Un nombre venerado
+puede conseguir audiencias con reyes, descuentos en los mercados y
+refugio en tiempos de guerra. Un nombre odiado, en cambio, cierra todas
+las puertas, atrae a cazarrecompensas y convierte cada sombra en una
+amenaza potencial. En Lithernia, tu leyenda te precede, y de ti depende
+que sea una de gloria o de infamia.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li>La Torre de las Estrellas</li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clanes.html">Clanes</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

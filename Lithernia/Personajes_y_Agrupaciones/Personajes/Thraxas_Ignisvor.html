@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thraxas_Ignisvor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Thraxas_Ignisvor</div>
+        <div class="content">
+<h1 id="thraxas-ignisvor">Thraxas Ignisvor</h1>
+<blockquote>
+<p><em>“El fuego no distingue entre creación y ruina. Solo revela la
+verdadera esencia del metal. Los <a href="Enanos.html">Enanos</a> temen
+la destrucción; nosotros la dominamos para alcanzar la
+perfección.”</em></p>
+</blockquote>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de <a href="Valtoria.html">Valtoria</a>, dominados por
+linajes <a href="Enanos.html">Enanos</a> que trazan su historia hasta la
+misma creación de las montañas, la Casa Ignisvor es una anomalía forjada
+en fuego y ambición. Su patriarca, Thraxas, no heredó su nobleza, la
+arrancó del corazón de la roca con sus propias manos y el aliento de sus
+ancestros dracónicos.</p>
+<p>Nacido en un clan <a href="Dragonborn.html">Dragonborn</a> errante,
+Thraxas mostró desde joven una conexión innata no con la guerra ni la
+política, sino con el fuego elemental de su sangre. Mientras otros
+aprendían a exhalar destrucción, él aprendió a controlarla, a modular la
+intensidad de su llama con la precisión de un soplete de artesano. Su
+fascinación lo llevó a <a href="Valarion.html">Valarion</a>, la
+ciudad-forja construida en las faldas del Volcán del Yunque Roto, un
+lugar donde la furia destructiva del dios <a
+href="Valarios.html">Valarios</a> era vista no como un fin, sino como el
+principio de toda creación verdadera.</p>
+<p>Al llegar, Thraxas y su clan no fueron recibidos como nobles, sino
+como advenedizos exóticos. El dominante Clan Agrietacero, devotos del
+paciente dios creador <a href="Rokael.html">Rokael</a>, veía su
+filosofía de “destrucción como crisol” como una herejía. Thraxas,
+pragmático y desafiante, no buscó su aprobación con palabras, sino con
+acero. En la Gran Competición de la Forja, un evento que se celebra una
+vez por década, desafió al propio Forjamayor Borin Agrietacero. Mientras
+el enano presentaba un hacha rúnica de belleza impecable, fruto de
+semanas de trabajo paciente, Thraxas, en una sola noche de furia
+controlada, sometió un meteorito impuro a su aliento dracónico y a
+golpes de martillo, forjando una espada cuyo acero oscuro parecía
+absorber la luz y cuyo filo susurraba promesas de finalidad.</p>
+<p>Aunque no fue declarado vencedor por los jueces tradicionalistas, la
+élite militar de <a href="Mor&#39;dhul.html">Mor’dhul</a> presente en el
+evento, junto a mercenarios y gremios pragmáticos, vio el valor superior
+del arma de Thraxas. Los contratos comenzaron a llover, y con ellos, la
+riqueza y el poder. La Casa Ignisvor fue fundada sobre este principio:
+la utilidad por encima de la tradición, la perfección a través de la
+purificación.</p>
+<p>Como patriarca, Thraxas ha guiado a su casa con una mano firme y una
+visión clara. Ha forjado alianzas basadas en el respeto mutuo y la
+necesidad, como la que mantiene con el Clan Ironclaw de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, quienes aprecian la letalidad sin
+adornos de sus armas, y con la Fraternidad de la Llama Cenicienta,
+genasis de fuego que comprenden la devoción al calor primordial.</p>
+<p>Su vida ahora se consume en dos fuegos: el de la forja, donde busca
+crear su obra maestra final, y el de la preocupación por su hija y
+heredera, Zora. Ve en ella su misma llama, brillante y poderosa, pero
+teme que su impulsividad la consuma antes de que aprenda a controlarla.
+Thraxas, un ser que ha dominado la esencia de la destrucción, se
+enfrenta a la paradoja de no saber cómo proteger su creación más
+preciada de sí misma.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Thraxas es una figura imponente, incluso a sus 78 años. El tiempo ha
+reemplazado el brillo pulido de sus escamas de bronce con la pátina
+oscura y curtida del metal antiguo, marcadas no por heridas de batalla,
+sino por innumerables quemaduras y el hollín de la forja. Su cuerpo es
+un testamento a una vida de trabajo físico; ancho de hombros y con
+brazos de una musculatura densa, forjada por el martillo y no por la
+espada. Sus ojos ambarinos brillan con la inteligencia de un maestro
+artesano y el fulgor latente de las brasas de un horno.</p>
+<p>No viste armaduras de gala. Su atuendo habitual es un delantal de
+cuero de dragón, una reliquia familiar tan resistente como el acero,
+sobre una túnica de lino oscuro funcional y resistente al calor.</p>
+<p>Su único objeto de valor visible es su martillo de forja,
+<strong>Crisol del Alma</strong>. No es un arma de guerra, sino una
+herramienta de creación. Su cabeza es de un metal estelar que no se
+enfría del todo, y su mango de madera petrificada está cubierto de <a
+href="Runas.html">Runas</a> dracónicas que narran la historia de su
+clan. Se dice que Thraxas puede sentir las impurezas del metal con solo
+un toque del martillo, y que cada golpe resuena con la voz de sus
+ancestros.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Thraxas Ignisvor es el de un disruptor. En un continente
+definido por linajes ancestrales y divinos, él representa el surgimiento
+de una nueva aristocracia: la nobleza del mérito. Su casa ha demostrado
+que el poder en Lithernia no solo se hereda, sino que también puede ser
+forjado.</p>
+<p>Ha desafiado el monopolio artesanal de los <a
+href="Enanos.html">Enanos</a>, introduciendo una filosofía de creación
+que, aunque brutal, produce resultados innegables. Las armas de la Casa
+Ignisvor, codiciadas por su eficiencia letal, están empezando a alterar
+el equilibrio de poder en las escaramuzas fronterizas. Un general
+equipado con acero Ignisvor tiene una ventaja tangible, y esa ventaja
+tiene un precio que muchos están dispuestos a pagar.</p>
+<p>A largo plazo, el impacto de Thraxas dependerá de la trayectoria de
+su hija, Zora. Si ella logra atemperar su impulsividad con la sabiduría
+de su padre, la Casa Ignisvor podría convertirse en una potencia
+industrial y militar que rivalice con las casas más antiguas de
+Lithernia. Si fracasa, la misma llama que forjó su ascenso podría ser la
+que los devuelva a las cenizas, dejando solo la leyenda de un herrero
+dracónico que se atrevió a desafiar a las montañas y, por un tiempo, las
+doblegó a su voluntad.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Ignis.html">Ignis</a> (relevancia: 0.53)</li>
+<li><a href="Casa%20Ignisvor.html">Casa Ignisvor</a> (relevancia:
+0.42)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

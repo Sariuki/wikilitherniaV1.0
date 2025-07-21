@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gromnir_Crysfjell</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Gromnir_Crysfjell</div>
+        <div class="content">
+<h1 id="gromnir-crysfjell">Gromnir Crysfjell</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Forjado en el cisma de su linaje y templado por el frío de las
+alturas de <a href="Valtoria.html">Valtoria</a>, Gromnir Crysfjell es la
+encarnación del conflicto que define a su casa. Nació en la
+ciudad-observatorio de <a href="Rynhalis.html">Rynhalis</a>, no en las
+profundidades tradicionales de una fortaleza enana, sino en una meseta
+abierta al cielo nocturno. Desde su infancia, se le enseñó a reverenciar
+tanto la solidez de la roca bajo sus pies, un legado de sus ancestros
+del Clan Picosombrío, como la luz silenciosa de las estrellas, el nuevo
+faro de su pueblo. Esta dualidad marcó su carácter: un alma de enano
+tradicionalista atrapada en el cuerpo de una herejía progresista.</p>
+<p>Mientras otros jóvenes Crysfjell se maravillaban con las cartas
+celestes y las complejas geometrías de la Astrometalurgia, Gromnir
+encontraba consuelo en el eco del martillo sobre el yunque y el peso de
+un hacha en sus manos. Su pragmatismo y su destreza marcial innata lo
+llevaron a ascender rápidamente en las filas de la Guardia del
+Firmamento, la fuerza defensora de <a href="Rynhalis.html">Rynhalis</a>.
+Su tío, el Thane Borin ‘El Mirastral’, vio en él no solo a un <a
+href="Guerrero.html">Guerrero</a> formidable, sino al ancla que su casa
+necesitaba. Lo nombró Capitán, confiando en que el pragmatismo de
+Gromnir equilibraría la visión etérea del clan.</p>
+<p>La principal motivación de Gromnir es la supervivencia y prosperidad
+de su gente. Sin embargo, su lealtad no es ciega. Desconfía
+profundamente de la creciente dependencia de la Casa Crysfjell en la
+sabiduría élfica de sus aliados de la Casa de Astellia. En los salones
+del consejo, su voz resuena con la gravedad del granito, abogando por
+fortalecer las murallas de <a href="Rynhalis.html">Rynhalis</a> con
+acero valtoriano, por entrenar a sus soldados en las tácticas
+ancestrales de los <a href="Enanos.html">Enanos</a> y por recordar que,
+aunque las estrellas guíen sus forjas, es la fuerza de los <a
+href="Enanos.html">Enanos</a> la que debe defender sus hogares. Cree
+firmemente que “el acero de las estrellas es poderoso, pero solo la mano
+enana sabe cómo empuñarlo”.</p>
+<p>Esta postura lo ha puesto en conflicto directo con los
+tradicionalistas de la Casa Dravonis, quienes los ven como traidores a
+los dioses de la montaña. Para ellos, Gromnir es el guardián de una fe
+impía. A su vez, su odio más visceral lo reserva para los Cazadores de
+Sombras, a quienes considera una perversión de la fuerza y una amenaza
+directa al orden que juró proteger. Su mayor hazaña militar, la
+<strong>Defensa del Paso del Cometa Roto</strong>, lo vio utilizar
+escudos de astrometalurgia para reflejar la luz lunar y cegar a una
+horda de Cazadores de Sombras, permitiendo a su falange de guardias
+masacrarlos con tácticas de escudo y hacha puramente enanas. Este acto
+le ganó el respeto de sus guerreros y solidificó su reputación como un
+líder que fusiona, a su pesar, lo antiguo y lo nuevo para un propósito
+práctico: la victoria.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Gromnir es un enano en la plenitud de su fuerza, con la constitución
+de una roca de montaña. Sus hombros son anchos como un dintel de piedra
+y su barba, de un negro profundo como la obsidiana, está trenzada con
+finos alambres de plata y una única gema de zafiro estelar que parece
+absorber la luz. Sus ojos, del color del granito mojado, rara vez
+muestran emoción, pero cuando la ira o la concentración lo embargan,
+adquieren un brillo frío y distante, como el de una estrella lejana.</p>
+<p><strong>Equipamiento Relevante:</strong></p>
+<ul>
+<li><strong>Coraza del Firmamento:</strong> Una armadura de placas de
+acero valtoriano, más oscura que el carbón. No está pulida a espejo,
+sino que su superficie mate está grabada con las constelaciones visibles
+desde <a href="Rynhalis.html">Rynhalis</a>. Fue templada bajo el augurio
+de una estrella guerrera, lo que le confiere una resistencia anómala a
+la magia.</li>
+<li><strong>Juramento Rúnico:</strong> Su arma es un hacha de guerra
+colosal de dos manos, un legado de su abuelo. Sin embargo, Gromnir la ha
+reforjado siguiendo los principios de la Astrometalurgia. Su filo,
+conocido como el “filo de astrolabio”, es de una aleación de mithril y
+meteorito, y el pomo alberga un gran zafiro que parece pulsar con una
+luz tenue y fría.</li>
+<li><strong>Baluarte de <a href="Rynhalis.html">Rynhalis</a>:</strong>
+Un pesado escudo torre de acero que solo utiliza cuando la formación de
+muro de escudos es necesaria. En su cara exterior porta el sigilo de la
+Casa Crysfjell: la montaña fracturada por la estrella. Es un símbolo
+tanto de su deber como de la fractura de su propio pueblo.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Gromnir Crysfjell no es un rey ni un profeta, pero su impacto
+potencial en el destino de <a href="Valtoria.html">Valtoria</a> y de
+Lithernia es inmenso. Él es el martillo que da forma al futuro de su
+casa: si los Crysfjell logran consolidar su poder y su filosofía única,
+será porque la Guardia del Firmamento de Gromnir les proporcionó el
+escudo para hacerlo. Representa el puente vital entre la tradición
+enana, basada en la fuerza y la resistencia, y la innovación herética de
+la Astrometalurgia.</p>
+<p>En un mundo amenazado por la tiranía de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y el posible retorno del Primer
+Rey, el poder único de los Crysfjell podría ser un factor decisivo.
+Gromnir, como líder de su brazo armado, estaría en la primera línea de
+cualquier conflicto a gran escala. Si logra integrar con éxito la
+disciplina enana con el poder de las estrellas, podría crear un ejército
+como ningún otro en Lithernia. Sin embargo, si su desconfianza hacia la
+magia lo consume o si su pragmatismo choca irremediablemente con la
+visión de su Thane, podría ser el catalizador de una nueva fractura
+dentro de su ya exiliada casa, dejando a <a
+href="Rynhalis.html">Rynhalis</a> vulnerable en el momento más oscuro.
+Su legado no se medirá en oro o gemas, sino en la capacidad de su pueblo
+para sobrevivir a la tormenta que se avecina.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Meta.html">Meta</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

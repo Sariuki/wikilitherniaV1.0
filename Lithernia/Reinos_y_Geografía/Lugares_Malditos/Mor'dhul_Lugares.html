@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mor'dhul_Lugares</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Mor'dhul_Lugares</div>
+        <div class="content">
+<h1 id="mordhul-lugares">Mor’dhul lugares</h1>
+<h2 id="el-reino-de-la-sombra-eterna">El Reino de la Sombra Eterna</h2>
+<p><a href="Mor&#39;dhul.html">Mor’dhul</a> yace bajo cielos encapotados
+de ceniza, donde el aire quema con el aliento de volcanes antiguos y las
+noches se iluminan apenas por el fulgor de grietas magmáticas. Aquí, en
+la tierra marcada por el castigo del <a href="Lilium.html">Lilium</a>,
+la geografía refleja el dolor divino: montañas desgarradas de obsidiana,
+planicies de sal quemada y bosques petrificados que albergan secretos
+más viejos que el Primer Rey. Las ciudades de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> son fortalezas de pragmatismo
+brutal, donde el poder se construye sobre huesos de traidores y la magia
+oscura teje el tejido mismo de la sociedad. Cada piedra, cada grieta,
+susurra advertencias sobre el precio de desafiar a los dioses.</p>
+<h2 id="la-corazón-de-la-tiniebla-la-capital">La Corazón de la Tiniebla:
+La Capital</h2>
+<h3 id="mordhul-ciudad-del-hueso-negro"><strong>Mor’dhul (Ciudad del
+Hueso Negro)</strong></h3>
+<p>Construida alrededor de la Ciudadela de Obsidiana, capital del reino
+que lleva su nombre. Sus murallas ciclópeas talladas de huesos
+fosilizados protegen torres que perforan las nubes de ceniza. El
+<strong>Gran Obelisco del Juicio</strong> alberga ejecuciones públicas
+donde los Eternos (guardias no-muertos vestidos con armaduras de
+vértebras) imponen la voluntad de Sel’thirak. - <strong>Plaza de las
+Sombras Silenciosas</strong>: Mercado negro donde se comercian grimorios
+prohibidos y esclavos marcados con <a href="Runas.html">Runas</a> de
+silencio. - <strong>Barrio del Suspiro Ahogado</strong>: Zona
+residencial de la nobleza tiefling, con mansiones cuyas ventanas simulan
+ojos vigilantes. Aquí conspiran los clanes en laberintos de intriga. -
+<strong>Distrito del <a href="Lilium.html">Lilium</a></strong>: Área
+maldita bajo la ciudad, donde las pesadillas se materializan. Pozos
+profundos exhalan vapores que muestran visiones del fuego eterno que
+arrasó Lithernia. Solo los locos o los desesperados buscan aquí
+respuestas.</p>
+<h2 id="bastiones-del-poder-clanístico">Bastiones del Poder
+Clanístico</h2>
+<h3 id="noblestevo-bastión-de-fuego-y-hierba"><strong>Noblestevo
+(Bastión de Fuego y Hierba)</strong></h3>
+<p>Único valle fértil de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+controlado por el <strong>Clan <a
+href="Thyrgram.html">Thyrgram</a></strong> (<a
+href="Orcos.html">Orcos</a>). Guerreros entrenan en anfiteatros
+excavados en un cráter volcánico extinto. Sus mercados desentonan con el
+resto del reino: flores carnívoras crecen en macetas de cráneo, y
+caravanas de <a href="Medianos.html">Medianos</a> exiliados comercian
+especias exóticas. - <strong>Movimiento de la Hoja Libre</strong>:
+Célula rebelde secreta que pinta consignas libertarias con savia
+luminosa en muros de obsidiana. Sus líderes, una tiefling desertora y un
+elfo oscuro fugitivo, planean la secesión pacífica.</p>
+<h3 id="fuendavendi-la-ciudad-de-los-espejos-rotos"><strong>Fuendavendi
+(La Ciudad de los Espejos Rotos)</strong></h3>
+<p>Antigua metrópolis élfica conquistada por el <strong>Clan
+Nighthawk</strong> (<a href="Hobgoblins.html">Hobgoblins</a>
+ilusionistas). La arquitectura original fue corrompida: puentes de
+cristal reflejan pesadillas, y las calles serpentean siguiendo patrones
+geométricos hipnóticos. - <strong>Mercado Onírico</strong>: Cada luna
+negra, los <a href="Hobgoblins.html">Hobgoblins</a> abren portales a
+reinos oníricos donde se comercia con emociones robadas. Un errante
+tejerá tu miedo en una capa a cambio de un recuerdo feliz. -
+<strong>Criptas del Arrepentimiento</strong>: Catacumbas donde los
+espíritus elfos atrapados lloran baladas en idiomas muertos. El Clan
+Nighthawk los usa para alimentar rituales de vinculación psíquica.</p>
+<h3 id="medromora-altar-de-lakros"><strong>Medromora (Altar de
+Lakros)</strong></h3>
+<p>Construida en las faldas del <strong>Volcán Faucesangre</strong>,
+dominio del <strong>Clan <a href="Lakros.html">Lakros</a></strong>
+(semiorgos). Cada atardecer, esclavos sacrificados son arrojados al
+cráter para calmar la ira del dios de la sangre. Humo rojo escarlata
+empaña el cielo. - <strong><a href="Herreria.html">Herreria</a> de los
+Martillos Malditos</strong>: Fundición donde se forjan armas con metal
+extraído de lava sacralizada. Quienes mueren aquí se alzan como
+espectros condenados a golpear yunque eternamente.</p>
+<h3 id="chega-ciudad-sin-rostro"><strong>Chega (Ciudad sin
+Rostro)</strong></h3>
+<p>Gobernada por el <strong>Clan Whisper</strong> (<a
+href="Hobgoblins.html">Hobgoblins</a> necromantes). Una bruma perpetua
+oculta edificios construidos con huesos pulidos. Muertos vivientes
+realizan labores cotidianas bajo órdenes de nigromantes silenciosos. -
+<strong>El Mercado Silente</strong>: Puestos que venden recuerdos
+embotellados y órganos conservados en <a
+href="Alquimia.html">Alquimia</a> oscura. Los precios se pagan con
+minutos de vida. - <strong>La Espiral de Kharon</strong>: Complejo de
+catacumbas donde yace un liche dormido. Según <a
+href="Leyendas.html">Leyendas</a>, fue un <a href="Mago.html">Mago</a>
+humano que intentó usurpar el trono de Sel’thirak hace mil años. Los
+Whisper experimentan con su esencia.</p>
+<h2 id="refugios-de-disidencia">Refugios de Disidencia</h2>
+<h3 id="cheneras-la-rebelión-forjada"><strong>Cheneras (La Rebelión
+Forjada)</strong></h3>
+<p>Antiguo bastión del <strong>Clan Ironclaw</strong>, ahora rebelión
+abierta de <a href="Orcos.html">Orcos</a> artesanos. Minas de minerales
+raros en las montañas proveen <a href="Recursos.html">Recursos</a> para
+fortificar sus murallas. El aire vibra con los himnos de libertad que
+los herreros cantan mientras martillan armas para resistir. - <strong>La
+<a href="Herreria.html">Herreria</a> del Juramento</strong>: Taller
+central donde yace un yunque sagrado de <a
+href="Trovdor.html">Trovdor</a> (dios enano del metal). Los rebeldes
+creen que bendice sus armas contra la tiranía divina.</p>
+<h3 id="vallas-la-última-posada"><strong>Vallas (La Última
+Posada)</strong></h3>
+<p>Ciudad libre en la frontera, refugio de parias y traficantes. No
+pertenece a ningún clan, pero paga tributo simbólico a Sel’thirak. Casas
+de adobe y madera ocultan túneles clandestinos hacia <a
+href="Galvorn.html">Galvorn</a> y <a href="Valtoria.html">Valtoria</a>.
+- <strong>Taberna del Umbral Susurrante</strong>: Aquí, espías de todos
+los reinos intercambian secretos tras máscaras de corteza petrificada.
+El dueño, un genasi de tierra exiliado, sirve cerveza que revela
+verdades dolorosas.</p>
+<h2 id="cicatrices-del-pasado">Cicatrices del Pasado</h2>
+<h3 id="mirallos-la-ciudad-que-llora"><strong>Mirallos (La Ciudad que
+Llora)</strong></h3>
+<p>Abandonada tras una plaga de monstruos. Edificios derruidos y calles
+cubiertas de lodo ácido. Fantasmas de sus habitantes repiten en bucle el
+día de la catástrofe. - <strong>Santuario del Rey Sellado</strong>:
+Ruinas bajo la plaza central donde frescos descoloridos muestran al
+Primer Rey encadenado por las Lanzas. Cultistas secretos realizan
+rituales lunares para debilitar el sello.</p>
+<h3 id="estriedana-morada-del-clan-maldito"><strong>Estriedana (Morada
+del Clan Maldito)</strong></h3>
+<p>Invasión de vampiros del <strong>Clan of the Damned</strong>
+transformó esta urbe en un nido de pesadillas. Torres perforadas por
+gárgolas vivas vigilan calles donde niebla espesa esconde cazadores
+sedientos. - <strong>Torre del Éxtasis Eterno</strong>: Palacio del
+vampiro regente Lord Noxus, que colecciona corazones de héroes en urnas
+de cristal estelar. Su biblioteca alberga el <strong>Libro de la
+Sanguijuela Astral</strong>, tratado prohibido de hemomancia
+interdimensional.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li>Mordhul</li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

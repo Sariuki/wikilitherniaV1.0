@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trovdor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Trovdor</div>
+        <div class="content">
+<h1 id="trovdor">Trovdor</h1>
+<h2 id="biografía-y-genealogía">Biografía y Genealogía</h2>
+<p>Trovdor es una de las deidades pilares del panteón enano, venerado
+como el maestro del metal, el patrón de los forjadores de armas y el
+símbolo de la resistencia inquebrantable. Su linaje divino define su
+esencia: es hijo de <strong><a href="Cirkon.html">Cirkon</a></strong>,
+la diosa de la roca, y nieto de <strong><a
+href="Valarios.html">Valarios</a></strong>, el dios de la destrucción.
+De su madre heredó la afinidad por los tesoros ocultos en la tierra, y
+de su abuelo, el entendimiento de que para crear algo nuevo y más
+fuerte, a veces lo viejo debe ser descompuesto y reforjado. Su hermano,
+<strong><a href="Levbrios.html">Levbrios</a></strong>, custodia el fuego
+sagrado de la herrería y los secretos alquímicos de la metalurgia,
+completando el dominio divino sobre la forja. Juntos, Trovdor y <a
+href="Levbrios.html">Levbrios</a> representan el ciclo completo de la
+creación artesanal: uno es el maestro de la materia, el otro es el
+maestro de la energía que la transforma.</p>
+<p>Cuando su tío-abuelo <strong><a
+href="Rokael.html">Rokael</a></strong> dio forma a las montañas y creó a
+los <a href="Enanos.html">Enanos</a>, fueron Trovdor y <a
+href="Levbrios.html">Levbrios</a> quienes les otorgaron su propósito.
+Trovdor enseñó a los primeros <a href="Enanos.html">Enanos</a> a extraer
+el metal de la roca, a sentir sus propiedades con manos expertas y a
+doblegarlo a su voluntad. Su don no fue solo una técnica, sino una
+filosofía: cada golpe de martillo es una prueba de disciplina, cada
+pieza forjada es un testamento de honor, y la durabilidad de una
+creación es el reflejo del alma de su creador.</p>
+<p>Durante la guerra contra el Primer Rey, Trovdor fue una fuerza
+fundamental para el bando divino. Consideraba la arrogancia del monarca
+mortal como una afrenta a la estructura misma de la creación. Sus forjas
+celestiales trabajaron sin descanso, proveyendo a los ejércitos de los
+dioses con armas y armaduras imbuidas de poder divino. Se cuenta en las
+<a href="Leyendas.html">Leyendas</a> enanas que fue Trovdor quien forjó
+las cadenas de adamantita que ayudaron a someter al Rey y quien templó
+las puntas de las Lanzas Celestiales en el corazón de una estrella
+moribunda, otorgándoles una parte de su esencia indestructible.</p>
+<p>En la Era Crepuscular, su culto es más fuerte que nunca en <a
+href="Valtoria.html">Valtoria</a>. Trovdor es un dios de la estabilidad
+y la perseverancia. Desprecia la pereza, los atajos y el trabajo
+mediocre. Su principal motivación es ver a su pueblo prosperar a través
+de la fuerza que emana del trabajo duro y la creación de obras
+perdurables. Para él, la Gran Guerra no es solo una tragedia, sino una
+prueba constante que templa el espíritu de los mortales, separando el
+acero de la escoria.</p>
+<h2 id="descripción-física-y-avatar">Descripción Física y Avatar</h2>
+<p>Cuando Trovdor se manifiesta ante los mortales, lo hace como el
+arquetipo del maestro herrero enano magnificado a una escala divina. Su
+forma es la de un enano de hombros increíblemente anchos y brazos tan
+gruesos como troncos de roble ancestral, cubiertos de músculos y
+tendones que parecen tallados en granito. Su barba, larga y frondosa,
+está trenzada con filamentos de oro, plata y mithril que brillan con luz
+propia. Sus ojos arden con la intensidad de las brasas de una fragua, y
+su piel posee un lustre metálico, como si fuera de acero pulido y
+templado.</p>
+<p>Su presencia es un aura de calor intenso y el retumbar constante y
+rítmico de un martillo lejano. No es un dios de palabras floridas, sino
+de acciones y resultados; su voz es grave y resonante, como el choque
+del metal contra el metal.</p>
+<p><strong>Equipo Relevante:</strong> * <strong>Mundbane (El Martillo
+del Fin del Mundo):</strong> Su martillo de guerra divino, forjado con
+el núcleo de un planeta muerto. Se dice que es capaz de dar forma a
+cualquier metal, conocido o no, y que sus golpes pueden quebrar la
+realidad misma. Cada impacto resuena no con un sonido de destrucción,
+sino con la armonía de la creación. * <strong>El Yunque Eterno:</strong>
+No es un objeto que porte, sino el centro de su reino divino. Es un
+yunque de obsidiana estelar sobre cuya superficie están grabadas las <a
+href="Runas.html">Runas</a> de cada aleación posible y cada secreto de
+la metalurgia. * <strong>La Armadura del Núcleo:</strong> Una armadura
+de placas completa, de un metal negro desconocido que absorbe la luz. Se
+dice que fue forjada con la materia primordial que existía antes de la
+creación, haciéndola conceptualmente indestructible.</p>
+<h2 id="dominio-y-culto">Dominio y Culto</h2>
+<p>Trovdor es una deidad central en el Reino de <a
+href="Valtoria.html">Valtoria</a>, con una influencia que permea todos
+los aspectos de la sociedad enana. Sus dominios divinos son la
+<strong>Forja</strong>, la <strong>Creación</strong>, la
+<strong>Protección</strong> y la <strong>Guerra</strong>.</p>
+<p>Sus clérigos y paladines son conocidos como los <strong>Forjados en
+la Fe</strong>. No son meros sacerdotes, sino maestros artesanos que
+combinan la devoción con la habilidad manual. Sus rituales sagrados
+incluyen la bendición de nuevas herramientas, la consagración de la
+primera arma de un <a href="Guerrero.html">Guerrero</a> y la ceremonia
+de templado, donde un objeto es imbuido con una plegaria de resistencia.
+Su deber no es solo defender los templos, sino también enseñar el arte
+de la forja y mantener los más altos estándares de calidad.</p>
+<p>Los templos de Trovdor son indistinguibles de las grandes herrerías.
+El altar principal es siempre un yunque funcional, a menudo antiguo y
+legendario, que permanece caliente día y noche. En lugar de cánticos
+silenciosos, sus salones resuenan con el eco de los martillos, el siseo
+del metal al enfriarse y las robustas canciones de trabajo de los <a
+href="Enanos.html">Enanos</a>. La ciudad de <strong>Ironforge</strong>
+es, en esencia, un único y gigantesco templo dedicado a él.</p>
+<p>Curiosamente, su culto se ha extendido más allá de los <a
+href="Enanos.html">Enanos</a>. El <strong>Clan Ironclaw</strong> de los
+<a href="Orcos.html">Orcos</a> de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, obsesionado con la forja de armas
+superiores, venera a Trovdor en secreto. Para el dios, esta es una
+situación ambigua: desprecia la naturaleza caótica de los <a
+href="Orcos.html">Orcos</a>, pero no puede evitar sentir un reticente
+respeto por su dedicación a la artesanía del metal.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>El legado de Trovdor es la columna vertebral de la cultura y la
+identidad enana. Es el dios que les enseñó que el valor de un individuo
+se mide por la calidad de su trabajo y la fuerza de su palabra. La
+legendaria terquedad y resistencia de los <a
+href="Enanos.html">Enanos</a> es un reflejo directo de sus enseñanzas:
+ser tan fiables como el acero bien templado y tan duraderos como la
+montaña misma.</p>
+<p>La creencia de que “cada arma forjada en su honor lleva un fragmento
+de su esencia indestructible” es tanto literal como metafórica. Las
+armas bendecidas por sus clérigos son famosas por su increíble
+durabilidad, pero más importante aún, el “fragmento de su esencia” es la
+voluntad indomable que inspira en cada enano que defiende su hogar y su
+familia.</p>
+<p>En el gran tapiz de Lithernia, Trovdor es un pilar del orden divino
+que se opuso al Primer Rey. Se erige como un baluarte contra el cambio
+caótico y un firme defensor de la tradición, la disciplina y la fuerza
+que nace de la creación. Su existencia es un contraste directo con la
+oscuridad destructiva de <a href="Mor&#39;dhul.html">Mor’dhul</a>, la
+aristocracia etérea de <a href="Eldrador.html">Eldrador</a> y la
+libertad mutable de <a href="Galvorn.html">Galvorn</a>. Mientras un solo
+martillo enano siga golpeando un yunque en las profundidades de las
+montañas, el espíritu de Trovdor y la resistencia de <a
+href="Valtoria.html">Valtoria</a> perdurarán.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Meta.html">Meta</a> (relevancia: 0.55)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

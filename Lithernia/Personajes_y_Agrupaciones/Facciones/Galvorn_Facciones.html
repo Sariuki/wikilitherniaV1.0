@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galvorn_Facciones</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Galvorn_Facciones</div>
+        <div class="content">
+<h1 id="galvorn-facciones">Galvorn facciones</h1>
+<p>En el reino imponente de <a href="Galvorn.html">Galvorn</a>, donde
+las montañas escarpadas y los valles azotados por vientos permanentes
+dictan el ritmo de la vida, las facciones que conforman su tejido social
+son tan diversas como sus <a href="Leyendas.html">Leyendas</a>
+ancestrales. Cada una posee una historia rica y única, marcada por sus
+creencias, objetivos y la influencia que ejercen sobre el destino del
+reino. Estas facciones no solo compiten por el poder, sino que también
+fun­gen como guardianas de tradiciones milenarias, pilares culturales y
+motores de conflictos que definen el pulso de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<h2 id="historia-y-contexto">Historia y contexto</h2>
+<p>Desde la fundación de <a href="Galvorn.html">Galvorn</a> hace más de
+cinco siglos, la organización interna del reino ha estado moldeada por
+la coexistencia y rivalidad entre sus principales facciones. Surgieron
+en épocas de crisis, cuando la unidad fue forjada mediante alianzas
+entre clanes, gremios, y órdenes de guerreros o magos, cada uno
+aportando un equilibrio tenso pero necesario. Esta historia de
+enfrentamientos y pactos ha dejado huella en las costumbres, leyes no
+escritas y en la propia arquitectura urbana y fortificaciones que
+custodian el reino.</p>
+<h2 id="facciones-principales-de-galvorn">Facciones principales de
+Galvorn</h2>
+<h3 id="la-orden-del-filo-de-acero">1. La Orden del Filo de Acero</h3>
+<p>Conformada por los guerreros más hábiles y leales, la Orden del Filo
+de Acero surge como guardiana de la justicia y la defensa del reino. Su
+emblema, una espada cruzada sobre un escudo negro, simboliza la firmeza
+y la implacabilidad en combate. Los miembros de esta orden son
+entrenados desde la infancia para el arte del combate cuerpo a cuerpo y
+la estrategia militar, siendo además custodios de secretos militares y
+custodios de reliquias ancestrales vinculadas a la fundación de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<ul>
+<li><strong>Costumbres:</strong> Entrenamientos nocturnos en la
+fortaleza de Drakar, rituales de paso que incluyen la “Prueba del
+Acero”, donde el acólito debe forjar y luego empuñar su propia
+espada.</li>
+<li><strong>Historia:</strong> Participaron decisivamente en la defensa
+contra las incursiones bárbaras y han mantenido una influencia política
+considerable en la corte.</li>
+</ul>
+<h3 id="la-hermandad-del-cáliz-de-bruma">2. La Hermandad del Cáliz de
+Bruma</h3>
+<p>Esta facción, más mística, combina <a
+href="Alquimia.html">Alquimia</a>, magia y diplomacia para mantener el
+equilibrio interno y la influencia externa de <a
+href="Galvorn.html">Galvorn</a>. Sus miembros son conocidos por usar
+túnicas color gris perla y portar amuletos que se dice canalizan el
+poder de la niebla constante que cubre las tierras altas. Son maestros
+en la manipulación de las corrientes mágicas y en la elaboración de
+pociones y brebajes que pueden sanar o envenenar.</p>
+<ul>
+<li><strong><a href="Leyendas.html">Leyendas</a>:</strong> Se dice que
+la Hermandad custodia un antiguo códice capaz de alterar las fronteras
+entre el plano físico y el espiritual, guardado celosamente en la
+biblioteca oculta de Ameren.</li>
+<li><strong>Costumbres:</strong> Encuentros semanales en cámaras
+subterráneas ocultas, rituales de consagración con agua de manantiales
+sagrados y juramentos de silencio absoluto.</li>
+</ul>
+<h3 id="el-gremio-de-los-constructores-de-cobalt">3. El Gremio de los
+Constructores de Cobalt</h3>
+<p>Fundamental para el progreso y la sostenibilidad del reino, este
+gremio agrupa a artesanos, ingenieros y magos constructores que han
+labrado la infraestructura monumental de <a
+href="Galvorn.html">Galvorn</a>. Responsables de la minería y <a
+href="Herreria.html">Herreria</a> del mítico metal “cobaltine”, empleado
+para fabricar armaduras y engranajes encantados, su influencia se
+extiende desde las profundidades de las minas hasta la corte.</p>
+<ul>
+<li><strong><a href="Leyendas.html">Leyendas</a>:</strong> Se cree que
+el primer maestro constructor pudo hablar con las rocas y recibió la
+inspiración para crear los puentes levadizos que ninguna tormenta puede
+destruir.</li>
+<li><strong>Costumbres:</strong> Ciclos de aprendizaje que duran toda la
+vida, festivales del fuego y la <a href="Herreria.html">Herreria</a>, y
+un juramento gremial de protección mutua y secreto profesional.</li>
+</ul>
+<h3 id="la-compañía-de-los-errantes">4. La Compañía de los Errantes</h3>
+<p>Una facción más flexible y muchas veces mal vista por las élites del
+reino, la Compañía de los Errantes está compuesta por exploradores,
+mercenarios y comerciantes que transitan entre fronteras y naciones. Su
+estilo de vida nómada les brinda una perspectiva única y vital para
+mantener las rutas seguras y descubrir nuevas amenazas o <a
+href="Recursos.html">Recursos</a>.</p>
+<ul>
+<li><strong>Costumbres:</strong> Uso de símbolos y tatuajes específicos
+para señalar alianzas o identidades, reuniones anuales en el Mercado de
+las Lunas para intercambiar bienes y relatos.</li>
+<li><strong>Historia:</strong> Han jugado roles claves en episodios de
+espionaje, especialmente en la guerra contra los clanes del Este.</li>
+</ul>
+<h2 id="dinámica-y-rivalidades">Dinámica y rivalidades</h2>
+<p>Las tensiones entre estas facciones son un reflejo de sus objetivos
+enfrentados y sus diferentes visiones para <a
+href="Galvorn.html">Galvorn</a>. La Orden del Filo de Acero a menudo se
+enfrenta a la Hermandad del Cáliz de Bruma, que enfatiza más el poder
+mágico y diplomático que la fuerza bruta. El Gremio de los Constructores
+mantiene una alianza interesada con la Orden, pues sus habilidades les
+permiten armar ejércitos invencibles. Mientras tanto, la Compañía de los
+Errantes opera con independencia, completando la compleja red de
+lealtades y traiciones.</p>
+<h2 id="leyendas-y-relatos-populares">Leyendas y relatos populares</h2>
+<ul>
+<li><strong><em>El pacto de las cinco espadas</em></strong>: una
+historia que narra la fundación del reino a partir de un acuerdo entre
+cinco líderes de facciones diferentes, cada uno entregando una espada
+simbólica para sellar la alianza.</li>
+<li><strong><em>La sombra del Cáliz</em></strong>: un cuento que
+advierte sobre el poder oculto tras la Hermandad, y cómo su búsqueda por
+mantener el equilibrio puede también traer caos y oscuridad.</li>
+<li><strong><em>El brillo eterno de Cobalt</em></strong>: una leyenda
+que describe la creación de un collar forjado en cobaltine, que
+supuestamente otorga a su portador la sabiduría y la fortaleza de todo
+el reino.</li>
+</ul>
+<hr />
+<p>A través de estas facciones, <a href="Galvorn.html">Galvorn</a> se
+revela como un microcosmos de luchas, alianzas y tradiciones, un reino
+cuya esencia está en la diversidad y complejidad de sus gentes y sus
+historias eternas.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Facciones.html">Facciones</a> (relevancia: 0.69)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

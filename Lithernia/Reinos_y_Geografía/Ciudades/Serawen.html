@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serawen</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Serawen</div>
+        <div class="content">
+<h1 id="serawen">Serawen</h1>
+<p>Serawen no se esconde de la niebla; la gobierna. Esculpida sobre una
+serie de altísimos farallones de roca que se clavan en el mar, la ciudad
+es un bastión vertical que desafía la bruma perpetua de la costa. No hay
+calles convencionales, solo una vertiginosa red de puentes de cuerda y
+madera, reforzados con magia, que conectan edificios aferrados a las
+paredes del acantilado. Durante el día, es una silueta gris contra un
+cielo lechoso; por la noche, se transforma en una constelación de faros
+mágicos y linternas colgantes, cuyos haces de luz cortan el velo de
+niebla como espadas divinas. Serawen es el corazón de la cartografía
+arcana y el refugio de los navegantes más audaces, un lugar donde el
+conocimiento de lo oculto es tan valioso como el oro.</p>
+<h2 id="historia">Historia</h2>
+<p>Serawen nació de la necesidad y la superstición. Tras el Cataclismo
+del <a href="Lilium.html">Lilium</a>, cuando los mares se volvieron
+impredecibles y nuevos monstruos acechaban en las profundidades, las
+rutas navales seguras eran escasas. Un grupo de exploradores, magos del
+clima y sabios devotos de <a href="Taladrios.html">Taladrios</a> y <a
+href="Quiteon.html">Quiteon</a> fundaron un puesto de observación en los
+Farallones del Susurro, el único lugar desde el que se podían estudiar
+las corrientes anómalas y las nieblas mágicas que asolaban la costa.</p>
+<p>Lo que comenzó como una austera torre de vigilancia creció hasta
+convertirse en una ciudad. Sus fundadores, conocidos como los Primeros
+Vigías, desarrollaron técnicas únicas de cartografía que mezclaban la
+astronomía con la adivinación, creando <a href="Mapas.html">Mapas</a>
+que no solo mostraban la tierra, sino también los flujos de magia y el
+humor del océano. Esta pericia atrajo a capitanes, comerciantes y
+aventureros de todo <a href="Galvorn.html">Galvorn</a>, y la ciudad
+floreció, gobernada por un Triumvirato que perpetúa el espíritu original
+de sus fundadores: Defensa, Comercio y Saber, tres faros guiando a la
+ciudad a través de cualquier tormenta.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Espira del Susurro</strong>: Es el acantilado más alto
+y el centro administrativo y arcano de Serawen. Aquí se encuentra el
+Salón del Triumvirato y la gran biblioteca de los Guardianes de las
+Cartas Astrales. Su cima está coronada por un faro de cristal que emite
+una luz tranquilizadora, y se dice que sus paredes de roca susurran las
+predicciones del viento a quienes saben escuchar.</p></li>
+<li><p><strong>Los Muelles Colgantes</strong>: El distrito comercial de
+la ciudad no está en el agua, sino suspendido a cientos de pies sobre
+ella. Una serie de enormes plataformas de madera, ancladas a la roca con
+cadenas rúnicas, sirven como mercados y astilleros de reparación. Grúas
+impulsadas por elementales de aire suben y bajan mercancías y
+tripulaciones desde los barcos que atracan en las cuevas de la
+base.</p></li>
+<li><p><strong>El Santuario de la Ola Eterna</strong>: En la base de los
+farallones, una red de cavernas marinas horadadas por la marea alberga
+el principal templo a <a href="Yfrit.html">Yfrit</a>. Solo se puede
+acceder durante la marea baja o mediante rituales de control del agua.
+Las paredes de la cueva brillan con vetas de perlas y salitre mágico, y
+el sonido de las olas que rompen en su interior es considerado la voz de
+la diosa.</p></li>
+<li><p><strong>Las Pozas del Vidente</strong>: Un conjunto de grutas
+aisladas y terrazas de meditación dedicadas a <a
+href="Taladrios.html">Taladrios</a>. Las pozas de agua de mar, llenas
+por la marea, son utilizadas por los adivinos para escrutar el futuro.
+Es un lugar de silencio, solo roto por el goteo del agua, y el principal
+centro de recolección de las valiosas Perlas de la Niebla.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Serawen está marcada por un profundo respeto y temor al
+mar y a la niebla. Son un pueblo supersticioso que nunca nombra
+directamente a las grandes <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+marinas, refiriéndose a ellas con eufemismos como “El Profundo” o “La
+Sombra de Abajo”. Antes de cada viaje peligroso, las tripulaciones
+practican el “Rito del Silencio”, pasando un ciclo de marea en completa
+quietud para no atraer la atención de lo que acecha bajo las olas.</p>
+<p>Su mayor celebración es el Festival de las Luces Flotantes, una noche
+al año en la que miles de linternas de papel encantadas se sueltan desde
+los acantilados. Se cree que estas luces guían a las almas de los
+marineros perdidos de vuelta a casa y apaciguan a los espíritus de la
+niebla. La narración es un arte sagrado, y los “Cantores de Marea”,
+maestros de los mitos marinos, son figuras tan respetadas como los
+miembros del Triumvirato.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Serawen es una proeza de ingeniería y desafío a la
+gravedad. Los edificios de madera resistente a la sal y piedra
+blanquecina parecen parte orgánica del acantilado. No hay espacio
+desperdiciado; las casas se apilan unas sobre otras, con balcones que se
+asoman a un abismo de nubes y agua. El ambiente es húmedo y salado, y un
+viento constante silba a través de los puentes y callejones de cuerda.
+El sonido dominante es una sinfonía marítima: el estruendo de las olas
+lejanas, el grito de las aves marinas y el crujido perpetuo de la madera
+y las sogas que mantienen unida a la ciudad.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Lamento del ‘Errante’</strong>: En las noches más
+espesas de niebla, los vigías afirman ver las luces de un barco
+fantasma, el <em>Errante</em>. La leyenda dice que su capitán hizo un
+pacto con un dios oscuro para navegar a través de cualquier tormenta,
+pero fue traicionado y condenado a vagar eternamente por la niebla,
+buscando las almas de los náufragos para añadirlas a su tripulación
+maldita.</p></li>
+<li><p><strong>El Ojo del Leviatán</strong>: Los Cantores de Marea
+susurran que la inusualmente profunda fosa sobre la que se asienta la
+bahía de Serawen no es natural. Cuentan que es el nido donde duerme un
+leviatán de tamaño inconcebible, una criatura de la Era del Primer Rey.
+Los ritos y la constante luz de los faros son lo único que lo mantiene
+en su letargo. Despertarlo significaría el fin de Serawen y, quizás, de
+toda la costa.</p></li>
+<li><p><strong>El Mapa de Ecos</strong>: Se rumorea que los Guardianes
+de las Cartas Astrales custodian un artefacto único: el Mapa de Ecos. No
+es un pergamino, sino una cuenca de agua marina encantada que, al ser
+tocada por una Perla de la Niebla, revela la ubicación de grandes
+tragedias y tesoros hundidos. Muchos creen que este mapa es la clave
+para encontrar una de las Lanzas Celestiales, perdida en el océano tras
+el Cataclismo del <a href="Lilium.html">Lilium</a>.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.68)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

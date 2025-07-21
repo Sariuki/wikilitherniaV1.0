@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solniria</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Solniria</div>
+        <div class="content">
+<h1 id="solniria">Solniria</h1>
+<h3 id="la-llama-viviente-la-forja-del-espíritu">La Llama Viviente, la
+Forja del Espíritu</h3>
+<p>Solniria es una de las deidades más veneradas y temperamentales del
+panteón humano, encarnando la dualidad del fuego: una fuerza capaz de la
+más exquisita creación y de la más devastadora aniquilación. Como diosa
+del fuego, la forja y la pasión, su influencia arde en el corazón de
+guerreros, en los talleres de los artesanos y en el alma de los amantes
+y soñadores de todo <a href="Galvorn.html">Galvorn</a> y más allá. Es la
+chispa de la inspiración y la furia de la batalla, una fuerza indómita
+que impulsa a la humanidad a superar sus límites.</p>
+<hr />
+<h3 id="biografía-y-mitología">Biografía y Mitología</h3>
+<p><strong>Origen y Genealogía</strong></p>
+<p>Nacida en la Era Crepuscular junto a sus hermanos divinos, Solniria
+es la hermana menor de <a href="Yfrit.html">Yfrit</a>, la <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a> que lidera el
+panteón humano. Su relación es un reflejo de la naturaleza de sus
+dominios: el fuego y el agua, opuestos pero interdependientes. Mientras
+<a href="Yfrit.html">Yfrit</a> representa la vasta y fría expansión del
+océano y la libertad del horizonte, Solniria encarna el calor
+concentrado, la pasión interna y la transformación a través del calor.
+Esta dinámica las convierte en aliadas poderosas, aunque sus disputas
+son legendarias, capaces de generar vapor y tormentas en los cielos de
+<a href="Galvorn.html">Galvorn</a>. Solniria es la tía de los hijos de
+<a href="Yfrit.html">Yfrit</a>, y aunque respeta a todos, siente una
+afinidad especial por el impetuoso <a href="Exion.html">Exion</a> (dios
+de las tormentas), cuya furia a veces le recuerda a la de una llama
+descontrolada.</p>
+<p><strong>Dominio y Culto</strong></p>
+<p>El culto a Solniria se fundamenta en tres pilares sagrados que
+definen su esencia:</p>
+<ol type="1">
+<li><p><strong>El Fuego Sagrado:</strong> Para Solniria, el fuego no es
+solo un elemento, sino el símbolo de la vida, el cambio y la
+purificación. Distingue tajantemente entre su llama —la que calienta el
+hogar, da forma al metal y enciende el coraje— y el fuego profano del
+<strong><a href="Lilium.html">Lilium</a></strong>. Considera el
+cataclismo del <a href="Lilium.html">Lilium</a> como la mayor blasfemia
+contra su dominio: una exhibición de poder destructivo, desprovisto de
+propósito y pasión. Sus clérigos enseñan que el fuego debe ser respetado
+y controlado, pues es un don divino que, mal utilizado, puede consumirlo
+todo.</p></li>
+<li><p><strong>La Forja Eterna:</strong> Solniria es la patrona
+indiscutible de herreros, armeros, inventores y todos aquellos que
+moldean el mundo con sus manos y el calor de la fragua. Su principal
+centro de culto es la ciudad industrial de <strong>Yunzaga</strong> en
+<a href="Galvorn.html">Galvorn</a>, donde los martillos resuenan día y
+noche como plegarias en su honor. Se dice que el espíritu de Solniria
+habita en cada yunque y que su aliento aviva las llamas de las mejores
+forjas. Mantiene una intensa rivalidad profesional con los dioses <a
+href="Enanos.html">Enanos</a> de la forja, <strong><a
+href="Levbrios.html">Levbrios</a></strong> y <strong><a
+href="Trovdor.html">Trovdor</a></strong>. Mientras los <a
+href="Enanos.html">Enanos</a> valoran la tradición, la durabilidad y los
+secretos ancestrales del metal, Solniria inspira la innovación, la
+belleza artística en la creación y la infusión de la pasión del artesano
+en su obra. Las competiciones entre herreros <a
+href="Humanos.html">Humanos</a> y <a href="Enanos.html">Enanos</a> a
+menudo se consideran ofrendas a sus respectivas deidades.</p></li>
+<li><p><strong>La Pasión Indomable:</strong> Más allá de lo físico,
+Solniria gobierna las emociones incandescentes. Es la patrona del amor
+ardiente, la lealtad inquebrantable, la furia justiciera y la ambición
+que impulsa a los mortales a alcanzar la grandeza. Los guerreros de <a
+href="Galvorn.html">Galvorn</a> a menudo rezan a Solniria antes de la
+batalla, pidiéndole que su “fuego interior” no se apague. Los bardos la
+invocan para componer baladas de amores imposibles, y los líderes buscan
+su bendición para inspirar a sus seguidores con discursos
+apasionados.</p></li>
+</ol>
+<p><strong>Relación con el Primer Rey y la Gran Guerra</strong></p>
+<p>Como deidad surgida tras la caída del Primer Rey, Solniria no tiene
+memoria directa de él, pero su postura es clara y firme. Considera que
+la rebelión del Rey, aunque motivada por amor a su pueblo, fue un acto
+de arrogancia que desató la ira divina y culminó en la profanación del
+<a href="Lilium.html">Lilium</a>. Por ello, desconfía profundamente de
+la profecía de su retorno, temiendo que un nuevo desafío a los dioses
+solo traiga más destrucción.</p>
+<p>Esta postura la pone en una posición compleja. Mientras el panteón
+divino ve al Primer Rey como un traidor, muchos de los seguidores <a
+href="Humanos.html">Humanos</a> de Solniria lo ven como un mártir. Ella
+debe equilibrar su lealtad divina con la devoción a sus fieles, a menudo
+inspirándolos a canalizar su pasión hacia la creación y la defensa de lo
+que aman, en lugar de hacia una rebelión que podría repetir los errores
+del pasado.</p>
+<h3 id="apariencia-símbolos-y-manifestaciones">Apariencia, Símbolos y
+Manifestaciones</h3>
+<p><strong>Forma Divina</strong></p>
+<p>Cuando Solniria elige manifestarse, lo hace como una mujer imponente
+de complexión fuerte y atlética, cuya piel brilla como el bronce pulido
+al calor de una fragua. Su cabello es una cascada de metal líquido y
+chispas danzantes, y sus ojos son ascuas doradas que reflejan una
+inteligencia aguda y una pasión desbordante. A menudo lleva marcas de
+hollín en las manos y los brazos, que brillan con luz propia, como si
+acabara de sacar una obra maestra del fuego.</p>
+<p><strong>Equipo y Símbolos</strong></p>
+<ul>
+<li><strong>Símbolo Sagrado:</strong> Una llama estilizada superpuesta a
+un martillo de herrero.</li>
+<li><strong>Arma Divina:</strong> Porta a <strong>Almaforja</strong>, un
+martillo de guerra colosal que, según el mito, puede tanto crear las
+armas más perfectas como desatar explosiones de fuego solar con cada
+golpe. No es solo un arma de destrucción, sino una herramienta para
+moldear la realidad.</li>
+<li><strong>Templos y Rituales:</strong> Sus templos son siempre forjas
+funcionales, a menudo las más grandes y activas de una ciudad. El altar
+es un yunque sagrado donde se realizan ofrendas de metal trabajado o se
+enciende una “Llama Eterna” con carbón bendecido. Los rituales incluyen
+la bendición de nuevas herramientas, la unción de armas con aceites
+sagrados y ceremonias donde los fieles comparten historias de pasión y
+coraje alrededor de una gran hoguera.</li>
+</ul>
+<p><strong>Manifestaciones</strong></p>
+<p>Rara vez camina por el mundo mortal en su forma completa. En su
+lugar, se manifiesta como: * Una súbita e inexplicable llamarada de
+inspiración en la mente de un artesano. * El calor reconfortante de una
+hoguera en una noche gélida para un viajero perdido. * Una chispa que
+salta de un yunque y adopta brevemente una forma humana para ofrecer un
+consejo. * La oleada de coraje y adrenalina que siente un <a
+href="Guerrero.html">Guerrero</a> en el fragor de la batalla.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Solniria es el corazón ardiente de la humanidad en <a
+href="Galvorn.html">Galvorn</a>. Es la fuerza motriz detrás del ingenio
+industrial y la capacidad marcial del reino marítimo, recordándoles que
+su poder no solo reside en dominar las olas, sino en el fuego de su
+propio espíritu. Su culto promueve la autosuperación, la creatividad y
+la defensa apasionada de los ideales.</p>
+<p>En el gran tapiz de Lithernia, Solniria representa una fuerza de
+equilibrio fundamental. Se opone a la fría y nihilista oscuridad de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> con su ardiente pasión por la
+vida. Desafía la rigidez de la tradición enana con un llamado a la
+innovación constante. Y dentro de su propio panteón, complementa la
+libertad expansiva de su hermana <a href="Yfrit.html">Yfrit</a> con el
+poder enfocado de la voluntad y la creación.</p>
+<p>Su legado es una advertencia y una promesa: el mismo fuego que forja
+las espadas de los héroes puede, si se descontrola, consumir el mundo.
+Para los mortales, el desafío es aprender a manejar esa llama interior
+con la sabiduría y la maestría que Solniria exige de sus más devotos
+seguidores.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.44)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

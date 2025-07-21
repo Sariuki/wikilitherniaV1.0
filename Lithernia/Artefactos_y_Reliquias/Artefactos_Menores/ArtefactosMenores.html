@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtefactosMenores</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">ArtefactosMenores</div>
+        <div class="content">
+<h1 id="artefactosmenores">Artefactosmenores</h1>
+<p>En el vasto <a href="Título_de_la_nota.html">Título_de_la_nota</a>,
+los artefactos menores son objetos mágicos y encantados que, aunque no
+poseen el poder de las legendarias Lanzas Celestiales, guardan un valor
+significativo por sus propiedades únicas y su utilidad en la causa de
+héroes, magos y aventureros. Estos artefactos suelen ser fragmentos de
+épocas pasadas, reliquias de sabios o herramientas forjadas con la
+esencia de energías residuales del <a href="Lilium.html">Lilium</a> o de
+los tiempos dracónicos. Son objetos codiciados por su accesibilidad
+relativa y su impacto táctico en la vida cotidiana, exploración o
+combate.</p>
+<h2 id="características-generales">Características Generales</h2>
+<p>Los artefactos menores presentan propiedades que pueden incluir
+mejorías en la canalización de maná, protección frente a amenazas
+específicas, potencialidad de potenciar hechizos o incluso efectos
+singulares relacionados con las fuerzas naturales y los linajes mágicos.
+No obstante, su uso conlleva riesgos moderados relacionados con la
+fatiga mágica o la inestabilidad arcana. Se cree que muchos de estos
+objetos fueron creados por discípulos de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Fidriel.html">Fidriel</a>
+o por magos del Concilio de Magos para potenciar el control de la
+energía mágica sin necesidad de una inversión divina completa.</p>
+<h2 id="clasificación-y-ejemplos">Clasificación y Ejemplos</h2>
+<p>A continuación se listan y describen algunos de los artefactos
+menores más representativos y extendidos en Lithernia, conocidos por su
+historia y los poderes que otorgan.</p>
+<h3 id="piedra-del-susurro">Piedra del Susurro</h3>
+<ul>
+<li><strong>Descripción:</strong> Una pequeña gema translucida, pulida y
+grabada con <a href="Runas.html">Runas</a> élficas, que puede colocarse
+en el oído o usarse como amuleto.</li>
+<li><strong>Propiedades:</strong> Permite sutilmente amplificar la
+capacidad de percepción mágica del portador, otorgándole ventaja en
+pruebas de Arcana y en detectar <a href="Conjuros.html">Conjuros</a>
+cercanos.</li>
+<li><strong>Uso:</strong> Muy apreciada por exploradores y espías, es
+común en <a href="Eldrador.html">Eldrador</a> y posesión frecuente de
+miembros del Concilio de Magos.</li>
+<li><strong>Riesgos:</strong> Si se usa en lugares con concentraciones
+irregulares de maná, puede causar desorientación temporal.</li>
+</ul>
+<h3 id="anillo-de-viento-errante">Anillo de Viento Errante</h3>
+<ul>
+<li><strong>Descripción:</strong> Un anillo de plata con grabados que
+emulan corrientes y remolinos de aire visibles en su superficie.</li>
+<li><strong>Propiedades:</strong> Concede la habilidad de resistir
+efectos de viento agresivo y fortalece hechizos relacionados con el
+elemento aire, reduciendo la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+asociada a <a href="Conjuros.html">Conjuros</a> de viento.</li>
+<li><strong>Uso:</strong> Popular entre esos magos y guerreros de <a
+href="Galvorn.html">Galvorn</a> que navegan los mares y enfrentan
+tempestades.</li>
+<li><strong>Riesgos:</strong> Aumenta levemente la susceptibilidad a
+ataques eléctricos debido al flujo energético que modula.</li>
+</ul>
+<h3 id="fragmento-de-la-escama-carmesí">Fragmento de la Escama
+Carmesí</h3>
+<ul>
+<li><strong>Descripción:</strong> Pequeño fragmento brillante de escama
+roja, proveniente de las antiguas cordilleras creadas por <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>.</li>
+<li><strong>Propiedades:</strong> Al portarla, protege contra el fuego y
+el calor extremo, proporcionando resistencia menor al daño ígneo y
+permitiendo manipular fuego sin fatiga extra.</li>
+<li><strong>Uso:</strong> Muy valorado por forjadores y aventureros que
+cruzan tierras volcánicas o desiertos ardientes, como en Mor’dhul y
+territorios volcánicos.</li>
+<li><strong>Riesgos:</strong> En ocasiones, puede provocar una
+sobreexcitación del maná ígneo en conjuradores inexpertos.</li>
+</ul>
+<h3 id="medallón-de-la-llama-eterna">Medallón de la Llama Eterna</h3>
+<ul>
+<li><strong>Descripción:</strong> Un medallón en forma de llama eterna,
+confeccionado en mithril y obsidiana, con un núcleo que brilla con luz
+tenue constante.</li>
+<li><strong>Propiedades:</strong> Al activarlo, crea una pequeña fuente
+de luz que no se apaga, y puede focalizar calor para pequeñas
+aplicaciones (como prender fuego o calentar objetos) sin consumir <a
+href="Recursos.html">Recursos</a> mágicos.</li>
+<li><strong>Uso:</strong> Herramienta común para magos y aventureros que
+exploran ruinas o bosques oscuros; también usado por <a
+href="Guardabosques.html">Guardabosques</a> elfos.</li>
+<li><strong>Riesgos:</strong> Si se usa excesivamente, la luz podría
+atraer criaturas sensibles a la magia o llamar la atención no
+deseada.</li>
+</ul>
+<h3 id="guantes-de-tejeduría-arcana">Guantes de Tejeduría Arcana</h3>
+<ul>
+<li><strong>Descripción:</strong> Un par de guantes finos de cuero
+bordado con hilos plateados y violetas que parecen brillar tenuemente
+cuando el portador canaliza maná.</li>
+<li><strong>Propiedades:</strong> Disminuyen la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+en un punto cada vez que se lanza un conjuro, facilitando canalizaciones
+complejas y potenciadas.</li>
+<li><strong>Uso:</strong> Muy buscados por magos tejedores de hechizos y
+arcanos experimentados, principalmente en <a
+href="Valtoria.html">Valtoria</a> y <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>Riesgos:</strong> Un manejo inexperto puede dar lugar a
+pequeñas explosiones de sobrecarga arcana.</li>
+</ul>
+<h3 id="botella-de-aire-vivo">Botella de Aire Vivo</h3>
+<ul>
+<li><strong>Descripción:</strong> Pequeña botella de cristal con un
+tapón de plata, dentro de la cual se encierra un fragmento de viento
+purificado.</li>
+<li><strong>Propiedades:</strong> Permite respirar en ambientes tóxicos
+o sin oxígeno por un periodo limitado (una hora aproximadamente), y
+reduce penalizaciones por aire pesado o enrarecido.</li>
+<li><strong>Uso:</strong> Vital para aventureros que exploran las
+profundidades de cuevas enanas o ruinas ocultas en zonas pantanosas de
+Mor’dhul.</li>
+<li><strong>Riesgos:</strong> Cuando se agota el aire dentro, puede
+abrirse inesperadamente liberando un chorro súbito que puede
+desequilibrar al usuario.</li>
+</ul>
+<h2 id="importancia-en-las-campañas">Importancia en las Campañas</h2>
+<p>Los artefactos menores sirven como <a
+href="Recursos.html">Recursos</a> valiosos en campañas de Lithernia,
+permitiendo a los jugadores acceder a poderes concretos sin
+desequilibrar la narrativa con la posesión de artefactos legendarios. Su
+disponibilidad es limitada y, en ocasiones, su uso puede significar un
+punto de inflexión en misiones difíciles o enfrentamientos
+complejos.</p>
+<p>Además, su origen suele estar envuelto en historias, lo que facilita
+ganchos narrativos para exploraciones, misiones de recuperación o
+comercio entre los reinos. Por ejemplo, descubrir un par de Guantes de
+Tejeduría Arcana robados a un <a href="Mago.html">Mago</a> veterano
+puede involucrar a los aventureros en intrigas académicas o
+conspiraciones políticas del Concilio de Magos.</p>
+<h2 id="relación-con-el-legado-del-lilium">Relación con el Legado del
+Lilium</h2>
+<p>Muchos artefactos menores conservan en su esencia trazas de los
+poderes residuales del <a href="Lilium.html">Lilium</a>, manifestando
+una magia salvaje y a menudo inestable. Este legado los vuelve
+fascinantes pero también peligrosos, pues pueden desencadenar efectos
+inesperados si no se manejan adecuadamente.</p>
+<p>Los objetos que se considera poseían la bendición o condena de
+grandes <a href="Dragones.html">Dragones</a> ancestrales o de dioses
+particulares muchas veces entran en esta categoría, erosionando
+lentamente su poder o desarrollando propiedades impredecibles con el
+paso de las eras.</p>
+<h2 id="conservación-y-control">Conservación y Control</h2>
+<p>Diversas organizaciones y facciones en Lithernia se encargan de
+custodiar y regular la circulación de estos artefactos. El Concilio de
+Magos mantiene registros y reservas de algunos, especialmente aquellos
+con potencial para alterar el tejido mágico del mundo.</p>
+<p>Por otro lado, clanes de Mor’dhul, gremios de artesanos <a
+href="Enanos.html">Enanos</a> y capitanes de <a
+href="Galvorn.html">Galvorn</a> ven en estos objetos símbolos de estatus
+y poder táctico, negociándolos con cautela o usándolos en campañas
+militares y exploraciones.</p>
+<h2 id="conclusión">Conclusión</h2>
+<p>Los artefactos menores constituyen un aspecto fundamental del
+ambiente mágico y social de Lithernia, conectando a los personajes con
+la historia profunda del mundo y sus fuerzas ocultas. Aunque no sean <a
+href="Leyendas.html">Leyendas</a> ni dioses, su influencia cotidiana y
+su presencia en manos adecuadas pueden cambiar el curso de eventos y
+definir la sobrevivencia o el éxito de aventureros y reyes por
+igual.</p>
+<p>Su estudio, recuperación o simplemente el debate sobre sus usos abren
+innumerables posibilidades para la aventura y la intriga dentro del
+tapiz enriquecido de este fantástico mundo.</p>
+        </div>
+    </div>
+</body>
+</html>

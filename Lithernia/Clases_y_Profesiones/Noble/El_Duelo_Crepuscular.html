@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Duelo_Crepuscular</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Duelo_Crepuscular</div>
+        <div class="content">
+<h1 id="el-duelo-crepuscular">El duelo crepuscular</h1>
+<h3 id="perfil-del-ritual">Perfil del Ritual</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Mecánica</strong></td>
+<td style="text-align: left;">Ritual de Combate Social, Reglas de
+Entorno</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Reino de Origen</strong></td>
+<td style="text-align: left;"><a href="Galvorn.html">Galvorn</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Propósito</strong></td>
+<td style="text-align: left;">Resolución formal de disputas de honor,
+afirmación de estatus, evitación de conflictos mayores.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Participantes
+Comunes</strong></td>
+<td style="text-align: left;">Nobles, Capitanes, <a
+href="Heroes.html">Heroes</a>, Personajes de alto estatus.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Riesgo</strong></td>
+<td style="text-align: left;">Humillación pública, herida grave, muerte,
+pérdida de honor, estatus de paria.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td style="text-align: left;">Historia / Saber Popular</td>
+<td style="text-align: left;">Se conoce el Duelo Crepuscular como un
+combate de honor formal, originario de <a
+href="Galvorn.html">Galvorn</a>. Es una forma de resolver disputas sin
+ir a la guerra.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;">Investigación / Perspicacia</td>
+<td style="text-align: left;">Se comprenden las reglas fundamentales: la
+hora (crepúsculo), el lugar (liminal), los padrinos, las condiciones de
+victoria (primera sangre, rendición, muerte) y el concepto de la
+“Frontera de Luz”.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>18</strong></td>
+<td style="text-align: left;">Historia / Religión</td>
+<td style="text-align: left;">Se conocen las variaciones regionales: el
+Duelo Estelar de <a href="Eldrador.html">Eldrador</a>, la Prueba de la
+<a href="Herreria.html">Herreria</a> Umbría de <a
+href="Valtoria.html">Valtoria</a> y la parodia brutal que se practica en
+<a href="Mor&#39;dhul.html">Mor’dhul</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>20</strong></td>
+<td style="text-align: left;">Arcanos / Perspicacia</td>
+<td style="text-align: left;">Se entienden las consecuencias mágicas de
+romper las reglas en cada reino (ira de los espíritus en <a
+href="Eldrador.html">Eldrador</a>, maldición rúnica en <a
+href="Valtoria.html">Valtoria</a>) y la aceptación de la magia oscura en
+los duelos de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reglas-fundamentales">Reglas Fundamentales</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Regla</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>La Convocatoria</strong></td>
+<td style="text-align: left;">El retador envía una ficha (p. ej., una
+perla negra en <a href="Galvorn.html">Galvorn</a>). Aceptarla sella el
+pacto. Rechazarla impone desventaja en todas las pruebas de Carisma
+(Persuasión, Intimidación) con la facción del retador durante un
+mes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Frontera de Luz</strong></td>
+<td style="text-align: left;">El combate se desarrolla en un área
+definida por una luz liminal (faro, estrellas, brasas). Salir del área
+concede un ataque de oportunidad al oponente y el personaje sufre una
+penalización de -2 a las tiradas de ataque hasta que regrese.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Acto Deshonroso</strong></td>
+<td style="text-align: left;">Usar magia prohibida (ilusión, control
+mental, nigromancia fuera de <a href="Mor&#39;dhul.html">Mor’dhul</a>) o
+atacar a un oponente rendido finaliza el duelo. El infractor es marcado
+como <em>Paria</em> (desventaja en interacciones sociales con la facción
+ofendida) y puede atraer una represalia sobrenatural a discreción del
+DM.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Padrinos</strong></td>
+<td style="text-align: left;">Cada duelista elige un segundo. Este puede
+usar la acción de Ayudar una vez durante el duelo sin entrar en la zona
+de combate. Si su duelista muere, el padrino es responsable de cumplir
+cualquier apuesta o acuerdo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="condiciones-de-victoria">Condiciones de Victoria</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Condición</th>
+<th style="text-align: left;">Mecánica de Finalización</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>A Primera Sangre</strong></td>
+<td style="text-align: left;">El duelo termina cuando un combatiente
+recibe cualquier cantidad de daño perforante o cortante.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A Rendición</strong></td>
+<td style="text-align: left;">El duelo termina cuando un combatiente usa
+su acción para envainar su arma y arrodillarse.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A Muerte</strong></td>
+<td style="text-align: left;">El duelo termina cuando un combatiente es
+reducido a 0 puntos de golpe y falla sus tiradas de salvación por
+muerte, o es ejecutado.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-variaciones-regionales">Tabla de Variaciones
+Regionales</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Reino</th>
+<th style="text-align: left;">Nombre del Ritual</th>
+<th style="text-align: left;">Límite de Combate</th>
+<th style="text-align: left;">Regla de Magia Clave</th>
+<th style="text-align: left;">Condición de Victoria Típica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Galvorn.html">Galvorn</a></strong></td>
+<td style="text-align: left;">Duelo Crepuscular</td>
+<td style="text-align: left;">El barrido intermitente de la luz de un
+faro.</td>
+<td style="text-align: left;">Magia elemental directa es aceptada.</td>
+<td style="text-align: left;">A Primera Sangre / A Rendición.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Eldrador.html">Eldrador</a></strong></td>
+<td style="text-align: left;">Duelo Estelar</td>
+<td style="text-align: left;">El área iluminada por una constelación o
+estrella específica.</td>
+<td style="text-align: left;">Adivinación y Abjuración son vistas como
+honorables.</td>
+<td style="text-align: left;">A Rendición (demostración de superioridad
+mágica o marcial).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Valtoria.html">Valtoria</a></strong></td>
+<td style="text-align: left;">Prueba de la <a
+href="Herreria.html">Herreria</a> Umbría</td>
+<td style="text-align: left;">Un círculo de <a
+href="Runas.html">Runas</a> iluminado por las brasas de una gran <a
+href="Herreria.html">Herreria</a>.</td>
+<td style="text-align: left;">Magia de Transmutación para alterar el
+arma propia es permitida.</td>
+<td style="text-align: left;">Forzar al oponente fuera del círculo o
+desarmarlo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong></td>
+<td style="text-align: left;">La Sombra del <a
+href="Lilium.html">Lilium</a></td>
+<td style="text-align: left;">El resplandor de lava o de una cicatriz
+del Cataclismo del <a href="Lilium.html">Lilium</a>.</td>
+<td style="text-align: left;">Cualquier magia, incluyendo Necromancia y
+pactos oscuros, es válida.</td>
+<td style="text-align: left;">A Muerte / Dominación total.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-consecuencias-del-duelo">Tabla de Consecuencias del
+Duelo</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Resultado</th>
+<th style="text-align: left;">Efecto Social y Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Victoria Honorable</strong></td>
+<td style="text-align: left;">Ganas el rasgo “Respetado” (ventaja en
+pruebas de Carisma con la facción del oponente durante un mes). Reclamas
+el objeto o estatus en disputa.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Derrota Honorable</strong></td>
+<td style="text-align: left;">Pierdes el objeto o estatus en disputa,
+pero no tu honor. No sufres penalizaciones sociales a largo plazo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Victoria Deshonrosa</strong></td>
+<td style="text-align: left;">Ganas la disputa, pero obtienes el rasgo
+“Infame” (desventaja en pruebas de Carisma con la facción del oponente y
+sus aliados durante un mes).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Derrota Humillante</strong></td>
+<td style="text-align: left;">Pierdes la disputa y el honor. Ganas el
+rasgo “Deshonrado” (desventaja en todas las pruebas sociales en esa
+región hasta que completes un acto de redención).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ruptura del Ritual</strong></td>
+<td style="text-align: left;">Ambos participantes son marcados como
+<em>Parias</em>. A discreción del DM, pueden sufrir una maldición o
+atraer la ira de una entidad asociada al lugar del duelo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ganchos-de-aventura">Ganchos de Aventura</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d6</th>
+<th style="text-align: left;">Misión Potencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Un capitán de <a
+href="Galvorn.html">Galvorn</a> te desafía por la posesión de un mapa
+náutico que conduce a una isla inexplorada.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Un <a href="Noble.html">Noble</a> de <a
+href="Eldrador.html">Eldrador</a> te elige como su padrino en un Duelo
+Estelar. Su oponente es un poderoso <a href="Mago.html">Mago</a> que
+podría hacer trampas.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Eres incriminado por un crimen en <a
+href="Valtoria.html">Valtoria</a>. La única forma de probar tu inocencia
+es derrotar al <a href="Heroes.html">Heroes</a> del clan acusador en una
+Prueba de la <a href="Herreria.html">Herreria</a> Umbría.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Un rival en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> te reta a un duelo en el borde de
+un cráter del <a href="Lilium.html">Lilium</a>. Sabes que planea usar
+magia prohibida para asegurar su victoria.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Debes recuperar un artefacto familiar. Su
+poseedor actual solo lo cederá si es derrotado en un duelo formal “a
+primera sangre”.</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Eres testigo de un Duelo Crepuscular donde
+uno de los participantes rompe las reglas. Debes decidir si exponerlo,
+arriesgándote a su ira, o permanecer en silencio.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

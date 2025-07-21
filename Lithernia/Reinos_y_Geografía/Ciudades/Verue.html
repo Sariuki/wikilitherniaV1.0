@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verue</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Verue</div>
+        <div class="content">
+<h1 id="verue">Verue</h1>
+<p>Verue es una ciudad que desafía a los cielos. Cincelada en una alta
+meseta perpetuamente azotada por el viento en las cordilleras de <a
+href="Valtoria.html">Valtoria</a>, no es un lugar para los débiles de
+espíritu. Sus edificios, bajos y robustos, son de un granito oscuro que
+parece absorber la escasa luz, y están parcialmente excavados en la
+misma roca para guarecerse de las feroces tormentas que dan nombre a la
+región. El aire es frío, puro y vibra con el zumbido constante de los
+ingeniosos molinos de viento <a href="Gnomos.html">Gnomos</a> y el eco
+melancólico de incontables carillones de piedra. Es una ciudad de
+vigilancia, donde cada catalejo apunta al horizonte y cada ciudadano
+tiene un ojo puesto en las nubes, pues Verue es la atalaya de todo un
+reino.</p>
+<h2 id="historia">Historia</h2>
+<p>Verue no nació de la codicia por el oro, sino de la necesidad de ver
+más allá. Tras las incursiones de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> que amenazaron los valles bajos de
+<a href="Valtoria.html">Valtoria</a>, una alianza insólita de pioneros
+decidió establecer un puesto de avanzada en el punto más inhóspito y
+elevado que pudieron encontrar. Este grupo, conocido hoy como “Los
+Primeros Guardapicos”, estaba formado por un estratega Goliath, un
+visionario artífice Gnomo y un maestro cantero Enano. Juntos, aunaron la
+resistencia de la roca, el ingenio de la mecánica y la fortaleza para
+soportar las alturas.</p>
+<p>En lugar de construir hacia arriba, excavaron hacia adentro, creando
+una ciudad que se aferra a la montaña como un liquen. Con el tiempo,
+Verue se convirtió en el principal centro de observación y cartografía
+del reino, un bastión de ciencia y vigilancia que reporta directamente
+al Concilio de la Montaña. Su gobierno, el “Consejo de los Guardapicos”,
+es un triunvirato que honra a sus fundadores, asegurando que la fuerza,
+la innovación y la solidez sigan siendo los pilares de la ciudad.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Terrazas del Viento</strong>: La zona principal de
+Verue, dispuesta en varios niveles descendentes por la ladera. Aquí se
+encuentran los hogares robustos, los mercados cubiertos y las plazas
+públicas, todo conectado por intrincados puentes de cuerda y acero que
+se mecen con el viento. Los carillones de metal y piedra afinada cuelgan
+de cada dintel, creando una melodía constante que sirve como guía en la
+densa niebla.</p></li>
+<li><p><strong>El Nido del Águila</strong>: La cima más alta de la
+meseta, hogar de los aviarios donde se crían y entrenan las águilas
+gigantes de reconocimiento. Junto a ellos se alzan los grandes
+observatorios, cúpulas de cristal de cuarzo pulido que albergan los
+catalejos y sextantes más precisos de Lithernia. Esta zona está bajo la
+supervisión directa del comandante Goliath del Consejo.</p></li>
+<li><p><strong>El Corazón Mecánico</strong>: Una red de cavernas y
+talleres donde el ingenio gnomo se desata. Aquí, gigantescas ruedas
+hidráulicas alimentadas por arroyos de montaña y enormes molinos de
+viento mueven los engranajes que dan energía a toda la ciudad, desde los
+ascensores que conectan las terrazas hasta las pulidoras de lentes de
+los talleres de los artífices.</p></li>
+<li><p><strong>La Vena de Cristal</strong>: Las minas que se adentran en
+las profundidades de la meseta. No buscan metales preciosos, sino los
+cristales de cuarzo y las gemas de una pureza excepcional que son
+esenciales para la fabricación de las lentes ópticas y arcanas que han
+hecho famosa a Verue.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Verue es pragmática y comunitaria. La supervivencia
+depende de la cooperación y la precisión. Su festividad más importante
+es el “Festival del Viento Susurrante”, un evento en el que toda la
+ciudad se reúne para volar cometas de diseños increíblemente complejos,
+en una ofrenda a <a href="Quiteon.html">Quiteon</a> para que calme las
+tormentas venideras y traiga vientos favorables.</p>
+<p>El rito de paso para los jóvenes es el “Juramento de la Lente”, un
+desafío en el que deben fabricar su primer instrumento óptico funcional,
+ya sea un pequeño catalejo, un monóculo de relojero o una lente para un
+visor. Completar la tarea significa que están listos para asumir su
+papel como vigilantes de <a href="Valtoria.html">Valtoria</a>. La
+religión es una mezcla de devoción práctica: veneran a <a
+href="Cirkon.html">Cirkon</a> por la roca que les da cobijo y a <a
+href="Rokael.html">Rokael</a> por la artesanía, pero sus plegarias más
+fervientes se dirigen a <a href="Quiteon.html">Quiteon</a>, dios del
+viento, y a <a href="Arzia.html">Arzia</a>, diosa de las estrellas, cuya
+guía es vital para su trabajo.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Verue es una de fortaleza y adaptación. Todo está
+diseñado para resistir vientos huracanados y el peso de la nieve. No hay
+ostentación, solo funcionalidad brutalista y una belleza austera. El
+símbolo de la ciudad, un catalejo de bronce sobre un aspa de molino de
+plata con un pico nevado de fondo, se puede ver grabado en las puertas y
+herramientas. El ambiente es de una quietud vigilante, rota solo por el
+silbido del viento, el tintineo de los carillones y el chirrido lejano
+de la maquinaria. Huele a piedra mojada, a ozono y al humo metálico de
+las forjas de los artífices.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Silbador de la Cima</strong>: En las noches de
+tormenta más violenta, se dice que se puede oír un lamento agudo y
+melancólico que no pertenece al viento. La leyenda habla de un espíritu
+del aire, “El Silbador”, atrapado en la cima de la montaña por un
+antiguo ritual enano. Algunos creen que busca ser liberado, mientras que
+otros temen que su liberación desate una tempestad eterna sobre
+Verue.</p></li>
+<li><p><strong>Los Ojos en las Nubes</strong>: Los exploradores que
+vuelan en las águilas gigantes hablan en susurros de depredadores
+etéreos que acechan en la niebla más espesa. No tienen forma física,
+solo se manifiestan como pares de ojos luminosos que flotan en la bruma
+antes de atacar. Nadie que haya visto “Los Ojos en las Nubes” y haya
+sobrevivido puede describir qué son, solo la sensación de un frío
+antinatural y el terror de ser cazado por algo que no debería
+existir.</p></li>
+<li><p><strong>El Corazón de Cristal</strong>: La leyenda más temida de
+Verue habla de una inmensa geoda viviente que yace en las profundidades
+de la meseta, el “Corazón de Cristal”. Los sabios dicen que su latido es
+tan lento que dura un siglo, pero que cada vez que se acerca el momento
+de contraerse, la montaña tiembla y los cristales de la ciudad resuenan
+con una energía peligrosa. Se cree que su despertar completo haría
+añicos la meseta, y algunos temen que los experimentos de los <a
+href="Gnomos.html">Gnomos</a> o la minería de los <a
+href="Enanos.html">Enanos</a> estén acelerando el proceso.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

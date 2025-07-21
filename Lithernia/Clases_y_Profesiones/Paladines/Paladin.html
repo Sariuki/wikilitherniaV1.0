@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paladin</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Paladin</div>
+        <div class="content">
+<h1 id="paladín">Paladín</h1>
+<p>Un paladín en Lithernia es un <a href="Guerrero.html">Guerrero</a>
+sagrado atado por un juramento inquebrantable, una encarnación viviente
+de sus convicciones. Su poder no emana únicamente de la devoción a un
+dios, sino de la fuerza de su juramento, que resuena con el Tejido de
+Maná y lo moldea. Pueden ser caballeros radiantes al servicio de <a
+href="Harmias.html">Harmias</a> o <a href="Yfrit.html">Yfrit</a>,
+vengadores sombríos que honran la memoria del Primer Rey, imponentes
+conquistadores que imponen el orden de Sel’thirak, o protectores de
+pactos ancestrales en los bosques de <a
+href="Eldrador.html">Eldrador</a>. Cada paladín es un faro de poder, y
+la naturaleza de su luz —o su oscuridad— depende del camino que han
+jurado seguir.</p>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como paladín, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d10 por nivel de paladín
+<strong>Puntos de Golpe a nivel 1:</strong> 10 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d10
+(o 6) + tu modificador de Constitución por cada nivel de paladín después
+del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Todas las armaduras, escudos
+<strong>Armas:</strong> Armas sencillas, armas marciales
+<strong>Herramientas:</strong> Ninguna <strong>Tiradas de
+Salvación:</strong> Sabiduría, Carisma <strong>Habilidades:</strong>
+Elige dos de entre Atletismo, Intimidación, Medicina, Perspicacia,
+Persuasión y Religión.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) un arma marcial y un escudo o (b) dos armas marciales *
+(a) cinco jabalinas o (b) cualquier arma sencilla de cuerpo a cuerpo *
+(a) un paquete de <a href="Sacerdote.html">Sacerdote</a> o (b) un
+paquete de explorador * Armadura de cota de malla y un símbolo
+sagrado</p>
+<h3 id="sistema-de-maná-del-paladín"><strong>Sistema de Maná del
+Paladín</strong></h3>
+<p>Tu poder divino se manifiesta al canalizar energía del Tejido de
+Maná, moldeada por la fuerza de tu juramento.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná para lanzar tus <a href="Conjuros.html">Conjuros</a> y potenciar
+tus habilidades. Tu fórmula de maná es <strong>6 + (Nivel de Paladín ×
+Modificador de Carisma)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d8.</li>
+<li><strong>Aptitud Mágica:</strong> El Carisma es tu aptitud para tus
+<a href="Conjuros.html">Conjuros</a> y rasgos de maná.
+<ul>
+<li><strong>CD de salvación de Maná</strong> = 8 + tu bonificador por
+competencia + tu modificador de Carisma.</li>
+<li><strong>Modificador de ataque de Maná</strong> = tu bonificador por
+competencia + tu modificador de Carisma.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-paladín">Tabla de Progresión del
+Paladín</h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 21%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Sentido Divino, Imposición de Manos</td>
+<td style="text-align: center;">6 + (1 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Estilo de Combate, Lanzamiento de <a
+href="Conjuros.html">Conjuros</a>, Castigo Divino</td>
+<td style="text-align: center;">6 + (2 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Salud Divina, Juramento Sagrado</td>
+<td style="text-align: center;">6 + (3 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">6 + (4 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Ataque Extra</td>
+<td style="text-align: center;">6 + (5 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Aura de Protección</td>
+<td style="text-align: center;">6 + (6 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Juramento Sagrado</td>
+<td style="text-align: center;">6 + (7 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">6 + (8 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: center;">6 + (9 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Aura de Coraje</td>
+<td style="text-align: center;">6 + (10 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Castigo Divino Mejorado</td>
+<td style="text-align: center;">6 + (11 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">6 + (12 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: center;">6 + (13 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Toque Purificador</td>
+<td style="text-align: center;">6 + (14 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Rasgo de Juramento Sagrado</td>
+<td style="text-align: center;">6 + (15 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">6 + (16 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: center;">6 + (17 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Auras Mejoradas</td>
+<td style="text-align: center;">6 + (18 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">6 + (19 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Rasgo de Juramento Sagrado</td>
+<td style="text-align: center;">6 + (20 × Mod. CAR)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="juramentos-sagrados"><strong>Juramentos Sagrados</strong></h2>
+<h3 id="juramento-de-devoción"><strong>Juramento de
+Devoción</strong></h3>
+<p>El Juramento de Devoción une a un paladín con los más altos ideales
+de justicia, virtud y orden. A veces llamados caballeros blancos o
+protectores sagrados, estos paladines encarnan el arquetipo del <a
+href="Caballero.html">Caballero</a> de brillante armadura.</p>
+<h4 id="principios-de-devoción"><strong>Principios de
+Devoción</strong></h4>
+<ul>
+<li><strong>Honestidad:</strong> No mientas ni engañes. Que tu palabra
+sea tu promesa.</li>
+<li><strong>Coraje:</strong> Nunca temas actuar, aunque la duda y el
+miedo te acechen.</li>
+<li><strong>Compasión:</strong> Ayuda a los demás, protege a los débiles
+y castiga a quienes los amenazan.</li>
+<li><strong>Honor:</strong> Trata a los demás con justicia y haz el bien
+tanto como sea posible.</li>
+<li><strong>Deber:</strong> Sé responsable de tus acciones y sus
+consecuencias, protege a aquellos a tu cargo y obedece a quienes tienen
+autoridad sobre ti.</li>
+</ul>
+<h4 id="conjuros-de-juramento"><strong>Conjuros de
+Juramento</strong></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Paladín</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Protección contra el mal y el
+bien</em>, <em>Santuario</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Restauración menor</em>, <em>Zona de
+verdad</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Faro de esperanza</em>, <em>Disipar
+magia</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: left;"><em>Libertad de movimiento</em>,
+<em>Guardián de la fe</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: left;"><em>Comunión</em>, <em>Descarga de
+llamas</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="canalizar-divinidad"><strong>Canalizar Divinidad</strong></h4>
+<ul>
+<li><strong>Arma Sagrada:</strong> Como una acción, puedes imbuir un
+arma que sostienes con energía positiva. Durante 1 minuto, añades tu
+modificador de Carisma a las tiradas de ataque hechas con esa arma. El
+arma también emite luz brillante en un radio de 20 pies y luz tenue 20
+pies más allá. Si el arma no es mágica, se vuelve mágica durante la
+duración.</li>
+<li><strong>Expulsar a los Impíos:</strong> Como una acción, presentas
+tu símbolo sagrado y cada demonio o no-muerto que pueda verte u oírte a
+30 pies de ti debe hacer una tirada de salvación de Sabiduría. Si falla,
+es expulsado durante 1 minuto o hasta que reciba daño.</li>
+</ul>
+<h4 id="aura-de-devoción"><strong>Aura de Devoción</strong></h4>
+<p>A partir del nivel 7, tú y las criaturas amistosas a 10 pies de ti no
+podéis ser encantados mientras estés consciente.</p>
+<h4 id="pureza-de-espíritu"><strong>Pureza de Espíritu</strong></h4>
+<p>A partir del nivel 15, siempre estás bajo los efectos de un conjuro
+de <em>Protección contra el mal y el bien</em>.</p>
+<h4 id="nimbo-sagrado"><strong>Nimbo Sagrado</strong></h4>
+<p>En el nivel 20, como una acción, puedes emanar un aura de luz solar.
+Durante 1 minuto, emites luz brillante en un radio de 30 pies y luz
+tenue 30 pies más allá. Cuando una criatura enemiga comienza su turno en
+la luz brillante, recibe 10 de daño radiante. Además, tienes ventaja en
+las tiradas de salvación contra <a href="Conjuros.html">Conjuros</a>
+lanzados por <a href="Demonios.html">Demonios</a> o no-muertos.</p>
+<h3 id="juramento-de-venganza"><strong>Juramento de
+Venganza</strong></h3>
+<p>El Juramento de Venganza es un compromiso solemne para castigar a
+aquellos que han cometido un pecado grave. Para estos paladines, a veces
+llamados vengadores o caballeros oscuros, la pureza no es tan importante
+como impartir justicia.</p>
+<h4 id="principios-de-venganza"><strong>Principios de
+Venganza</strong></h4>
+<ul>
+<li><strong>Combatir el Mal Mayor:</strong> Mis energías deben centrarse
+en derrotar a mis enemigos jurados.</li>
+<li><strong>No Hay Piedad para los Malvados:</strong> Los enemigos
+ordinarios pueden merecer mi piedad, pero mis enemigos jurados no.</li>
+<li><strong>Por Cualquier Medio Necesario:</strong> Mis dudas no deben
+obstaculizar mi camino para castigar a los que lo merecen.</li>
+<li><strong>Restitución:</strong> Si mis acciones causan daño a
+inocentes, haré todo lo posible para enmendarlos.</li>
+</ul>
+<h4 id="conjuros-de-juramento-1"><strong>Conjuros de
+Juramento</strong></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Paladín</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Perdición</em>, <em>Marca del <a
+href="Cazador.html">Cazador</a></em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Inmovilizar persona</em>, <em>Paso
+brumoso</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Acelerar</em>, <em>Protección contra
+la energía</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: left;"><em>Destierro</em>, <em>Puerta
+dimensional</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: left;"><em>Inmovilizar monstruo</em>, <em>Círculo
+de poder</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="canalizar-divinidad-1"><strong>Canalizar Divinidad</strong></h4>
+<ul>
+<li><strong>Abjurar Enemigo:</strong> Como una acción, presentas tu
+símbolo sagrado y pronuncias una oración de denuncia. Elige una criatura
+a 60 pies de ti. La criatura debe hacer una tirada de salvación de
+Sabiduría. Si falla, queda asustada de ti durante 1 minuto. Además, su
+velocidad se reduce a 0.</li>
+<li><strong>Voto de Enemistad:</strong> Como una acción adicional,
+puedes pronunciar un voto de enemistad contra una criatura a 10 pies de
+ti. Ganas ventaja en las tiradas de ataque contra la criatura durante 1
+minuto o hasta que caiga a 0 puntos de golpe o quede inconsciente.</li>
+</ul>
+<h4 id="vengador-implacable"><strong>Vengador Implacable</strong></h4>
+<p>A partir del nivel 7, tu enfoque sobrenatural te ayuda a impedir la
+retirada de un enemigo. Cuando golpeas a una criatura con un ataque de
+oportunidad, puedes moverte hasta la mitad de tu velocidad
+inmediatamente después del ataque como parte de la misma reacción.</p>
+<h4 id="alma-de-venganza"><strong>Alma de Venganza</strong></h4>
+<p>A partir del nivel 15, el poder de tu convicción te permite
+contraatacar. Cuando un enemigo bajo el efecto de tu Voto de Enemistad
+te obliga a hacer una tirada de salvación, puedes usar tu reacción para
+hacer un ataque con arma cuerpo a cuerpo contra esa criatura si está
+dentro de tu alcance.</p>
+<h4 id="ángel-vengador"><strong>Ángel Vengador</strong></h4>
+<p>En el nivel 20, puedes asumir la forma de un vengador angelical. Como
+una acción, te crecen alas de tu espalda y ganas una velocidad de vuelo
+de 60 pies durante 1 hora. Durante este tiempo, emanas un aura de
+amenaza en un radio de 30 pies. La primera vez que cualquier criatura
+enemiga entre en el aura o comience su turno allí, debe superar una
+tirada de salvación de Sabiduría o quedar asustada de ti durante 1
+minuto.</p>
+<h3 id="juramento-del-rey-caído"><strong>Juramento del Rey
+Caído</strong></h3>
+<p>El Juramento del Rey Caído une a un paladín con el legado del Primer
+Rey, el monarca que se atrevió a desafiar a los dioses. Estos paladines,
+conocidos como los Regentes o los Portadores de la Lanza, creen que la
+verdadera paz solo llegará cuando Lithernia se unifique bajo un solo
+estandarte, libre de la influencia de los dioses imperfectos. Su poder
+emana de la esperanza del pueblo y de la voluntad indomable del rey
+sellado.</p>
+<h4 id="principios-del-rey-caído"><strong>Principios del Rey
+Caído</strong></h4>
+<ul>
+<li><strong>Unificación:</strong> <a href="Herreria.html">Herreria</a>
+la unidad entre los pueblos fracturados. La división es la herramienta
+de los dioses; la unidad es la fuerza de los mortales.</li>
+<li><strong>Liberación:</strong> Rompe las cadenas divinas. Desafía a
+aquellos que gobiernan por miedo o por un derecho divino ilegítimo.</li>
+<li><strong>Esperanza:</strong> Sé un faro contra la desesperación.
+Inspira a otros a creer en un futuro donde los mortales forjen su propio
+destino.</li>
+<li><strong>Sacrificio:</strong> La causa es mayor que la vida de uno.
+Estar dispuesto a darlo todo por el retorno de un mundo justo.</li>
+</ul>
+<h4 id="conjuros-de-juramento-2"><strong>Conjuros de
+Juramento</strong></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Paladín</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Orden imperiosa</em>, <em>Escudo de la
+fe</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Mejora de característica</em>,
+<em>Llama continua</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Círculo mágico</em>, <em>Enviar
+mensaje</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: left;"><em>Guardián de la fe</em>, <em>Piel de
+piedra</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: left;"><em>Disipar el mal y el bien</em>,
+<em>Enlace telepático de Rary</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="canalizar-divinidad-2"><strong>Canalizar Divinidad</strong></h4>
+<p>Cuando eliges este juramento en el nivel 3, ganas las siguientes dos
+opciones de Canalizar Divinidad. * <strong>Voluntad del
+Unificador:</strong> Como una acción, puedes usar tu Canalizar Divinidad
+para presentar tu símbolo sagrado y fortalecer a tus aliados con un
+espíritu de unidad. Durante 1 minuto, tú y las criaturas amistosas a 30
+pies de ti no podéis ser asustados y tenéis ventaja en las tiradas de
+salvación contra ser encantados. * <strong>Golpe Rompesellos:</strong>
+Como acción adicional, puedes usar tu Canalizar Divinidad para imbuir un
+arma que sostienes con el poder de quebrar barreras. Durante 1 minuto,
+tus ataques con esta arma ignoran la resistencia al daño que infligen.
+Además, si golpeas a un celestial, demonio o no-muerto, infliges un daño
+de fuerza adicional igual a tu modificador de Carisma (mínimo de 1).</p>
+<h4 id="aura-de-rebelión"><strong>Aura de Rebelión</strong></h4>
+<p>A partir del nivel 7, tú y las criaturas amistosas a 10 pies de ti
+estáis imbuidos del espíritu desafiante del Primer Rey. Ganáis un
+bonificador a las tiradas de daño con armas igual a tu modificador de
+Carisma (mínimo de +1). En el nivel 18, el alcance de esta aura aumenta
+a 30 pies.</p>
+<h4 id="guardián-de-la-lanza"><strong>Guardián de la Lanza</strong></h4>
+<p>A partir del nivel 15, tu cuerpo se fortalece contra el poder de los
+dioses y sus sirvientes. Ganas resistencia al daño radiante y necrótico.
+Además, cuando usas tu rasgo de Castigo Divino, puedes elegir infligir
+daño de fuerza en lugar de radiante.</p>
+<h4 id="campeón-del-rey-retornado"><strong>Campeón del Rey
+Retornado</strong></h4>
+<p>En el nivel 20, como una acción, puedes convertirte en un avatar del
+poder del Primer Rey. Durante 1 minuto, obtienes los siguientes
+beneficios: * Eres inmune al daño radiante, necrótico y de fuerza. * Al
+comienzo de cada uno de tus turnos, recuperas 10 puntos de golpe. *
+Cuando una criatura a 30 pies de ti recibe daño de un celestial o un
+demonio, puedes usar tu reacción para que el atacante reciba la misma
+cantidad de daño de fuerza. Una vez que uses este rasgo, no podrás
+volver a usarlo hasta que termines un descanso largo.</p>
+<hr />
+<h3 id="lista-de-conjuros-de-paladín"><strong>Lista de Conjuros de
+Paladín</strong></h3>
+<h4 id="nivel-1"><strong>Nivel 1</strong></h4>
+<ul>
+<li>Bendecir</li>
+<li>Círculo de Duelo</li>
+<li>Crear o Destruir Agua</li>
+<li>Curar Heridas</li>
+<li>Detectar Bien y Mal</li>
+<li>Detectar Magia</li>
+<li>Detectar Veneno y Enfermedad</li>
+<li>Escudo de Fe</li>
+<li>Favor Divino</li>
+<li>Heroísmo</li>
+<li>Luz Estelar</li>
+<li>Orden Imperiosa</li>
+<li>Protección contra el Bien y el Mal</li>
+<li>Sello del Castigo</li>
+<li>Susurro Astral</li>
+</ul>
+<h4 id="nivel-2"><strong>Nivel 2</strong></h4>
+<ul>
+<li>Ayuda</li>
+<li>Encontrar Corcel</li>
+<li>Escudo de Constelaciones</li>
+<li>Llama Continua</li>
+<li>Marca del Castigo</li>
+<li>Restauración Menor</li>
+<li>Vínculo de Protección</li>
+<li>Vínculo Estelar</li>
+<li>Zona de Verdad</li>
+</ul>
+<h4 id="nivel-3"><strong>Nivel 3</strong></h4>
+<ul>
+<li>Aura de Vitalidad</li>
+<li>Círculo Mágico</li>
+<li>Crear Comida y Agua</li>
+<li>Disipar Magia</li>
+<li>Elemento del Arma</li>
+<li>Luz del Día</li>
+<li>Manto del Cruzado</li>
+<li>Meteoro Menor</li>
+<li>Quitar Maldición</li>
+<li>Reanimar a los Muertos</li>
+<li>Visión del Destino</li>
+</ul>
+<h4 id="nivel-4"><strong>Nivel 4</strong></h4>
+<ul>
+<li>Aura de Vida</li>
+<li>Aura de Pureza</li>
+<li>Destierro</li>
+<li>Guardián de la Fe</li>
+<li>Localizar Criatura</li>
+<li>Piel de Piedra</li>
+</ul>
+<h4 id="nivel-5"><strong>Nivel 5</strong></h4>
+<ul>
+<li>Círculo de Poder</li>
+<li>Disipar el Bien y el Mal</li>
+<li>Geas</li>
+<li>Misión</li>
+<li>Ola Destructora</li>
+<li>Revivir</li>
+<li>Vínculo Sagrado</li>
+</ul>
+<hr />
+<h3
+id="las-sendas-del-héroe-el-sistema-de-clases-en-lithernia"><strong>Las
+Sendas del Héroe: El Sistema de Clases en Lithernia</strong></h3>
+<p>En el <a href="Título_de_la_nota.html">Título_de_la_nota</a>, marcado
+por la cicatriz del <a href="Lilium.html">Lilium</a> y la sombra de la
+Gran Guerra, un personaje es mucho más que sus habilidades de combate o
+sus proezas mágicas. Es la suma de sus convicciones, su origen y el
+camino que elige para enfrentar un destino incierto. El sistema de
+clases en Lithernia está diseñado para reflejar esta realidad,
+ofreciendo no solo un conjunto de mecánicas, sino una identidad forjada
+en el crisol de un mundo en conflicto.</p>
+<p>Cada clase representa una vocación, una senda de poder y una
+filosofía de vida. Ya sea como un <a href="Sacerdote.html">Sacerdote</a>
+que canaliza la voluntad de los dioses, un <a href="Mago.html">Mago</a>
+que desentraña los secretos del Tejido de Maná o un <a
+href="Caballero.html">Caballero</a> que defiende un código de honor en
+medio del caos, tu elección definirá cómo interactúas con los grandes
+poderes de Lithernia: desde los reinos en guerra hasta las facciones que
+susurran la profecía del retorno del Primer Rey.</p>
+<h4 id="visión-general-del-sistema"><strong>Visión General del
+Sistema</strong></h4>
+<p>El sistema de clases de Lithernia se basa en arquetipos familiares,
+pero con un enfoque temático y mecánico único. Encontrarás clases
+tradicionales como el <strong><a
+href="Guerrero.html">Guerrero</a></strong>, el <strong><a
+href="Mago.html">Mago</a></strong> o el <strong>Pícaro</strong>, junto a
+nuevas sendas nacidas de la historia del mundo, como el <strong><a
+href="Cazador.html">Cazador</a> de <a
+href="Dragones.html">Dragones</a></strong>, el <strong><a
+href="Nigromante.html">Nigromante</a></strong> o <strong>El
+Blasfemo</strong>. Cada clase está diseñada para encajar en el lore,
+ofreciendo una lente única a través de la cual experimentar los
+conflictos y misterios de Lithernia.</p>
+<p>El diseño se centra en tres pilares fundamentales:</p>
+<ol type="1">
+<li><strong>Identidad Temática:</strong> Cada clase está profundamente
+arraigada en la historia y las culturas del mundo. Un <a
+href="Sacerdote.html">Sacerdote</a> de <a
+href="Galvorn.html">Galvorn</a> no será igual que uno de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>; un <a href="Mago.html">Mago</a>
+de la Torre de las Estrellas de <a href="Valtoria.html">Valtoria</a>
+tendrá una visión de la magia muy diferente a la de un <a
+href="Hechicero.html">Hechicero</a> elfo de <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>Mecánicas Distintivas:</strong> La magia y las habilidades
+tienen un coste tangible. El sistema de Maná, Fatiga y Canalización hace
+que el poder se sienta real y arriesgado.</li>
+<li><strong>Progresión Significativa:</strong> A medida que tu personaje
+avanza, no solo se vuelve más poderoso, sino que su influencia en el
+mundo y su dominio de las artes arcanas o marciales se expande de forma
+notable.</li>
+</ol>
+<h4 id="el-maná-y-el-coste-de-la-magia"><strong>El Maná y el Coste de la
+Magia</strong></h4>
+<p>A diferencia de otros sistemas, la magia en Lithernia no es un
+recurso ilimitado ni gratuito. Fluye a través del <strong>Tejido del
+Maná</strong>, y canalizarla exige un esfuerzo físico y mental.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Las clases lanzadoras de <a
+href="Conjuros.html">Conjuros</a> utilizan un sistema flexible de Puntos
+de Maná. Esta reserva de energía representa su capacidad para tirar de
+los hilos del Tejido y moldearlos.</li>
+<li><strong>Dado de Maná:</strong> Cada clase arcana posee un
+<strong>Dado de Maná</strong> único (d6, d8, d10), que representa su
+“firma” o afinidad personal con la magia. Este dado no solo influye en
+la potencia de ciertos efectos, sino que determina el coste físico de
+cada hechizo.</li>
+<li><strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>:</strong>
+Lanzar un conjuro impone una carga. Cada vez que un personaje conjura,
+sufre una <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>
+que se acumula, representando el agotamiento de forzar la energía mágica
+a través de su cuerpo. Abusar de la magia puede llevar a un personaje al
+borde del colapso, haciendo que cada decisión de lanzar un hechizo sea
+tácticamente relevante.</li>
+</ul>
+<p>Este sistema asegura que la magia se sienta poderosa, pero también
+peligrosa, reflejando un mundo donde el poder siempre tiene un
+precio.</p>
+<h4 id="progresión-y-maestría"><strong>Progresión y
+Maestría</strong></h4>
+<p>La progresión en Lithernia se mide en niveles, y cada uno desbloquea
+nuevas habilidades y un mayor dominio de la clase. Este crecimiento no
+es solo numérico; a menudo representa un salto cualitativo en la
+capacidad del personaje para influir en su entorno.</p>
+<p>Un ejemplo claro son los <strong>Círculos de Invocación</strong>. Un
+<a href="Mago.html">Mago</a> novato puede usar Círculos Menores para
+potenciar ligeramente sus hechizos, pero solo al alcanzar hitos de poder
+(niveles 5 y 11) aprenderá a dominar los Círculos Intermedios y Mayores,
+capaces de desatar efectos mágicos de una escala completamente distinta.
+La progresión, por tanto, es un viaje desde el aprendiz hasta el
+maestro, cuyas acciones pueden llegar a cambiar el curso de una batalla
+o incluso el destino de un reino.</p>
+<h4 id="subclases-forjando-una-identidad-única"><strong>Subclases:
+Forjando una Identidad Única</strong></h4>
+<p>Dentro de cada clase principal, existen especializaciones conocidas
+como <strong>subclases</strong>. Estas representan el camino específico
+que un personaje decide seguir, permitiendo una personalización profunda
+y un rol más definido en el mundo. No todos los guerreros luchan igual,
+ni todos los clérigos sirven a su dios de la misma manera.</p>
+<p>Por ejemplo, un <strong><a
+href="Caballero.html">Caballero</a></strong> puede unirse a la Orden de
+la Espada, centrada en el ataque; a la Orden del Escudo, dedicada a la
+protección; o a la Orden de la Montura, especializada en el combate a
+caballo. Un <strong><a href="Sacerdote.html">Sacerdote</a>
+(Clérigo)</strong> elegirá un dominio divino que definirá su propósito,
+como el Dominio de la Vida para un sanador o el Dominio de la Luz para
+un cruzado contra la oscuridad.</p>
+<p>Las subclases son la forma en que tu personaje refina su vocación,
+alineando sus habilidades con su trasfondo, su fe y sus objetivos
+personales.</p>
+<h4 id="el-rol-de-las-clases-en-la-sociedad-y-el-conflicto"><strong>El
+Rol de las Clases en la Sociedad y el Conflicto</strong></h4>
+<p>En Lithernia, tu clase es tu lugar en el mundo. Un <strong><a
+href="Nigromante.html">Nigromante</a></strong> o un
+<strong>Blasfemo</strong> probablemente encontrarán afinidad (o
+conflicto) con los clanes oscuros de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Un <strong><a
+href="Mago.html">Mago</a></strong> podría aspirar a un puesto en la
+prestigiosa Torre de las Estrellas de <a
+href="Valtoria.html">Valtoria</a>. Un <strong><a
+href="Druida.html">Druida</a></strong> o un <strong><a
+href="Guardabosques.html">Guardabosques</a></strong> serán los
+protectores naturales de los bosques de <a
+href="Eldrador.html">Eldrador</a>, mientras que un <strong><a
+href="Bardo.html">Bardo</a></strong> o un <strong>Pícaro</strong>
+prosperarán en los bulliciosos puertos de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>Más importante aún, cada clase ofrece una perspectiva única sobre la
+<strong>Profecía del Retorno del Primer Rey</strong>. Un Paladín podría
+verla como un llamado sagrado para restaurar la justicia. Un <a
+href="Hechicero.html">Hechicero</a> podría sentir el poder latente de
+las Lanzas Celestiales. Un Pícaro podría verla como una oportunidad para
+el caos y el beneficio. Tu clase no solo te da herramientas para la
+aventura; te posiciona como un actor clave en el drama que definirá el
+futuro de Lithernia.</p>
+<p>Elegir una clase es, en esencia, el primer y más importante paso para
+escribir tu propia leyenda en las páginas de la historia de este mundo.
+¿Qué senda escogerás?</p>
+        </div>
+    </div>
+</body>
+</html>

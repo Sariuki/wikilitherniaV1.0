@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gromnir_Cortepiedra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Gromnir_Cortepiedra</div>
+        <div class="content">
+<h1 id="gromnir-cortepiedra">Gromnir Cortepiedra</h1>
+<h2 id="biografía">Biografía</h2>
+<p>Gromnir no es solo un enano; es un pilar. Un bastión de tradición en
+el corazón de un experimento sin precedentes. Como descendiente directo
+del legendario fundador Gromnir Cortepiedra, el peso de su linaje es tan
+palpable como el martillo de guerra que empuña. Nacido en <a
+href="Sylorian.html">Sylorian</a>, la ciudad surgida del ‘Pacto de la
+Luz Estelar’, Gromnir fue criado entre los ecos de un juramento sagrado:
+la promesa de que la piedra y la madera, el enano y el elfo, nunca más
+se alzarían en armas el uno contra el otro.</p>
+<p>Desde joven, demostró la tenacidad de su estirpe. Mientras los niños
+elfos aprendían a susurrar a las hojas, Gromnir aprendía el lenguaje de
+la roca, los secretos de la veta y la cadencia del martillo sobre el
+yunque. Se forjó en las disciplinadas milicias de su clan, defendiendo
+las fronteras de <a href="Sylorian.html">Sylorian</a> no solo con fuerza
+bruta, sino con una astucia táctica que honraba a sus ancestros de <a
+href="Valtoria.html">Valtoria</a>. Su hazaña más célebre fue la defensa
+del Paso del Susurro Roto, donde, al mando de un contingente mixto de <a
+href="Enanos.html">Enanos</a> y elfos, repelió una incursión del Clan <a
+href="Thyrgram.html">Thyrgram</a>, utilizando el conocimiento enano de
+la geografía y las tácticas de guerrilla élficas en una sinergia letal
+que se estudia hasta hoy.</p>
+<p>Su ascenso a “Voz de la Piedra” no fue por herencia, sino por
+aclamación. Representa a la facción “Piedra Pura” dentro del Clan
+Raízdehierro: tradicionalistas que, aunque leales al Pacto, desconfían
+de la etérea filosofía élfica y creen que la fuerza y la pragmática
+enana son el verdadero cimiento de la ciudad. Gromnir se encuentra en un
+conflicto perpetuo. Su corazón es de <a
+href="Valtoria.html">Valtoria</a>, pero su hogar es <a
+href="Sylorian.html">Sylorian</a>. Respeta a su contraparte élfica,
+Lyraelle Hojaargenta, la ‘Voz de la Raíz’, pero sus consejos a menudo
+chocan como el acero y la corteza. Él ve el sagrado Corazón de Silvanus
+como una fuente de poder geológico y rúnico que debe ser estudiado y
+aprovechado; ella, como el alma de un mártir que debe ser venerada en
+silencio.</p>
+<p>Su motivación no es la gloria, sino el deber. Un deber grabado en la
+piedra de su alma: mantener unido al Clan Raízdehierro. Teme que la
+“ligereza” élfica debilite la determinación de su gente, pero teme aún
+más que su propia rigidez rompa el delicado equilibrio que sus
+antepasados construyeron con sangre y sacrificio. Cada día, Gromnir
+camina sobre el filo de una navaja, mediando entre mineros <a
+href="Enanos.html">Enanos</a> que desean expandir las canteras y
+centinelas elfos que protegen arboledas ancestrales, buscando siempre un
+terreno común, por rocoso que sea.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Gromnir es la personificación de una montaña. De complexión ancha y
+poderosa, incluso para un enano, sus 342 años están tallados en su
+rostro curtido y en las hebras de plata que surcan su barba negra,
+trenzada con intrincados nudos y asegurada con broches de mithril que
+representan los picos de <a href="Valtoria.html">Valtoria</a>. Sus ojos,
+del color del granito húmedo, reflejan una profunda seriedad y el peso
+de una responsabilidad ineludible. Una fina cicatriz, recuerdo de la
+garra de una bestia de <a href="Mor&#39;dhul.html">Mor’dhul</a>, le
+cruza la ceja izquierda, sirviendo como un recordatorio constante de las
+amenazas que acechan más allá de la paz de su ciudad.</p>
+<p><strong>Equipamiento Relevante:</strong></p>
+<ul>
+<li><strong>Coraza de la Alianza:</strong> Una obra maestra forjada por
+artesanos de ambos pueblos. Las placas de acero valtoriano, grabadas con
+<a href="Runas.html">Runas</a> de protección y resistencia, están
+montadas sobre un jubón de cuero de dríada, un regalo de la Casa <a
+href="Galanthil.html">Galanthil</a> que le otorga una flexibilidad y
+silencio inusuales para una armadura pesada.</li>
+<li><strong>Romperrocas:</strong> Su martillo de guerra ancestral. La
+cabeza, forjada con acero meteórico, es capaz de pulverizar el granito
+más duro. El mango de roble petrificado, extraído de las profundidades
+de <a href="Sylorian.html">Sylorian</a>, lleva inscripciones rúnicas
+élficas que, a su pesar, brillan con una tenue luz verde cuando se
+siente amenazado. Es un arma que representa su propia dualidad: poder
+enano canalizado a través de un pacto élfico.</li>
+<li><strong>Escudo del Pacto:</strong> Un imponente escudo de torre que
+porta con orgullo el emblema del clan: el martillo de granito verde y
+las raíces de mithril. Se dice que está hecho con la madera del primer
+árbol talado para construir <a href="Sylorian.html">Sylorian</a>,
+reforzado con bandas de mithril bendecidas tanto por sacerdotes de <a
+href="Rokael.html">Rokael</a> como por druidas de <a
+href="Ferion.html">Ferion</a>.</li>
+<li><strong>Cuerno de Juramento:</strong> Un cuerno de hidromiel tallado
+en el colmillo de un mamut de las montañas, que solo utiliza en las
+ceremonias del Pacto para reafirmar su lealtad y la de su facción.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Gromnir Cortepiedra no es un rey ni un profeta, pero su papel en
+Lithernia es quizás más vital. Él es el guardián de un ideal: la prueba
+viviente de que las enemistades más antiguas, aquellas que alimentan la
+Gran Guerra, pueden ser superadas. <a href="Sylorian.html">Sylorian</a>
+no es solo una ciudad; es un faro de esperanza en un continente
+desgarrado por el odio ancestral.</p>
+<p>Su legado se forjará en el éxito o el fracaso de este experimento. Si
+logra mantener la unidad del Clan Raízdehierro, demostrará a los reinos
+que la cooperación entre razas no es una utopía, sino una estrategia de
+supervivencia viable y poderosa. Su liderazgo pragmático podría inspirar
+la creación de pactos similares en otras fronteras conflictivas.</p>
+<p>Sin embargo, si las tensiones internas fracturan a su clan, la caída
+de <a href="Sylorian.html">Sylorian</a> sería una tragedia de
+consecuencias catastróficas. No solo se reanudaría la guerra entre los
+<a href="Enanos.html">Enanos</a> y elfos de la región, sino que su
+fracaso sería utilizado como propaganda por los señores de la guerra y
+los aislacionistas de todo el continente para argumentar que la paz es
+imposible.</p>
+<p>En el gran tapiz de Lithernia, Gromnir es un hilo crucial. No busca
+el poder de las Lanzas Celestiales ni el retorno del Primer Rey; su
+lucha es más terrenal, más inmediata y, por ello, más representativa del
+verdadero desafío que enfrenta el mundo: aprender a sanar las heridas
+del pasado para construir un futuro compartido. Su éxito o fracaso
+resonará mucho más allá de las murallas de su ciudad.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

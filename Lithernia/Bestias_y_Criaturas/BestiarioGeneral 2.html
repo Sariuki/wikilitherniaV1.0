@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BestiarioGeneral 2</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">BestiarioGeneral 2</div>
+        <div class="content">
+<h1 id="clases-de-lithernia-parte-1">Clases de Lithernia (Parte 1)</h1>
+<h2 id="introducción">Introducción</h2>
+<p>En Lithernia, la aventura llama a aquellos con coraje para responder.
+La elección de clase determina habilidades, fortalezas y rol en el
+mundo. Existen clases tradicionales y nuevas inspiradas en el lore.</p>
+<h2 id="clases-tradicionales-resumen">Clases Tradicionales
+(Resumen)</h2>
+<ul>
+<li>Bárbaro, Bardo, Clérigo, Druida, Guerrero, Monje, Paladín,
+Explorador, Pícaro, Hechicero, Brujo, Mago.</li>
+</ul>
+<h2 id="nuevas-clases-destacadas">Nuevas Clases Destacadas</h2>
+<h3 id="cazador-de-dragones-dragon-slayer">Cazador de Dragones (Dragon
+Slayer)</h3>
+<p>Guerreros implacables dedicados a cazar dragones, con conocimiento
+profundo de sus habilidades y debilidades.</p>
+<ul>
+<li>Puntos de Golpe: 1d10 por nivel.</li>
+<li>Maná: 4 + (Nivel x Mod. Constitución).</li>
+<li>Competencias: Armaduras ligeras y medias, escudos, armas simples y
+marciales.</li>
+<li>Tiradas de salvación: Fuerza, Constitución.</li>
+<li>Habilidades: elegir entre Acrobacias, Atletismo, Historia,
+Percepción, Perspicacia, Sigilo, Supervivencia.</li>
+</ul>
+<h4 id="rasgos-clave">Rasgos Clave</h4>
+<ul>
+<li>Conocimiento Dracónico: doble bonificación en Historia relacionada
+con dragones.</li>
+<li>Resistencia Dracónica: resistencia a un tipo de daño elemental
+asociado al dragón elegido.</li>
+<li>Cazador Furtivo: ataque adicional bajo ciertas condiciones.</li>
+<li>Estilo de Combate: opciones como Arquería, Combate con dos armas,
+Defensa, Duelo.</li>
+<li>Subclases Dracónicas: Matadragones Rojo, Azul y Negro, cada una con
+habilidades específicas.</li>
+<li>Ataque Extra, Corazón de Dragón, Sentidos Agudos, Golpe
+Inquebrantable, Intuición del Cazador, Aura de Miedo, Asesino de
+Dragones, Cazador Legendario.</li>
+</ul>
+<h4 id="magia">Magia</h4>
+<ul>
+<li>Half-caster con conjuros basados en Sabiduría.</li>
+<li>Lista de conjuros incluye Detect Magic, Hunter’s Mark, Protección
+contra el Mal y el Bien, entre otros.</li>
+</ul>
+<h3 id="gunsmith-maestro-de-las-armas-de-fuego">Gunsmith: Maestro de las
+Armas de Fuego</h3>
+<p>Inventores y guerreros que dominan armas de pólvora imbuidas con
+magia elemental.</p>
+<ul>
+<li>Puntos de Golpe: 1d8 por nivel.</li>
+<li>Maná: 6 + (Nivel x Mod. Inteligencia).</li>
+<li>Competencias: Armaduras ligeras, armas simples y de fuego.</li>
+<li>Tiradas de salvación: Inteligencia, Destreza.</li>
+<li>Habilidades: elegir entre Arcanos, Historia, Investigación,
+Percepción, Perspicacia, Sigilo.</li>
+</ul>
+<h4 id="rasgos-clave-1">Rasgos Clave</h4>
+<ul>
+<li>Fabricante de Armas: creación y modificación de armas de fuego.</li>
+<li>Toque Arcano: imbuir ataques con daño mágico.</li>
+<li>Munición Mágica: creación de balas con efectos mágicos.</li>
+<li>Disparo Rápido: ataque adicional con armas de fuego.</li>
+<li>Especializaciones: Pistolero, Artillero, Maestro Arcano.</li>
+<li>Mejora de Característica, Ataque Extra, Maestría en Armas de Fuego,
+Disparos Potenciados y Devastadores.</li>
+<li>Fabricante Magistral: creación de armas de fuego mágicas.</li>
+</ul>
+<h4 id="armas-de-fuego">Armas de Fuego</h4>
+<ul>
+<li>Pistola de chispa, Mosquete, Rifle con sus daños y alcances.</li>
+</ul>
+<h4 id="magia-1">Magia</h4>
+<ul>
+<li>Lista de conjuros que incluye Guidance, Light, Mending, Fireball,
+Fly, Haste, entre otros.</li>
+</ul>
+<h3 id="arquero-pesado-heavy-archer">Arquero Pesado (Heavy Archer)</h3>
+<p>Maestros de la ballesta pesada, combinan precisión y potencia con
+magia para potenciar sus disparos.</p>
+<ul>
+<li>Puntos de Golpe: 1d10 por nivel.</li>
+<li>Maná: 4 + (Nivel x Mod. Destreza).</li>
+<li>Competencias: Armaduras ligeras y medias, armas simples y
+ballestas.</li>
+<li>Tiradas de salvación: Destreza, Constitución.</li>
+<li>Habilidades: elegir entre Atletismo, Acrobacias, Percepción, Sigilo,
+Supervivencia, Perspicacia.</li>
+</ul>
+<h4 id="rasgos-clave-2">Rasgos Clave</h4>
+<ul>
+<li>Maestro de la Ballesta: competencia y daño mejorado.</li>
+<li>Disparo Potente: gasto de maná para daño adicional.</li>
+<li>Visión Aguda: ventaja en Percepción visual.</li>
+<li>Estilo de Combate: Arquería o Combate a Distancia.</li>
+<li>Senderos del Arquero: Francotirador, Acechador, Maestro de la
+Ballesta.</li>
+<li>Ataque Extra, Tiro Preciso, Disparo Perforante, Recarga Rápida,
+Disparo Devastador, Dominio de la Ballesta, Aura de Precisión, Flecha
+Veloz, Maestría del Arquero.</li>
+</ul>
+<hr />
+<p><a href="BestiarioGeneral%203.html">BestiarioGeneral 3</a></p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="clases.html">clases</a> (relevancia: 0.47)</li>
+<li><a href="Dragones.html">Dragones</a> (relevancia: 0.47)</li>
+<li><a href="Clases.html">Clases</a> (relevancia: 0.47)</li>
+<li><a href="Cazador.html">Cazador</a> (relevancia: 0.38)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

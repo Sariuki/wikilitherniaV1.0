@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baelin_Medio-Hacha</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Baelin_Medio-Hacha</div>
+        <div class="content">
+<hr />
+<p>nombre: Baelin Medio-Hacha rol: Capitán de los Vigías del Valle edad:
+98 agrupacion: Clan Raízdehierro tipo: Líder Militar, Símbolo Político
+lema: “Ni solo piedra, ni solo raíz. Somos el bosque y la montaña.”
+escudo: Un martillo de guerra de granito verde del que brotan raíces de
+mithril, sobre un fondo de madera de roble y piedra entrelazadas.
+ciudad_sede: <a href="Sylorian.html">Sylorian</a> rivalidades: Clan
+Quiebraespinas, Clan <a href="Thyrgram.html">Thyrgram</a>, facciones
+puristas internas (“Piedra Pura” y “Raíces Antiguas”) alianzas: Reino de
+<a href="Valtoria.html">Valtoria</a>, Casa <a
+href="Galanthil.html">Galanthil</a>, moderados de <a
+href="Sylorian.html">Sylorian</a> relaciones: Thorgar Cortepiedra
+(padre, enano), Lyra de los Guardianes (madre, elfa silvana) tags:
+[lithernia, personajes, Clan Raízdehierro, semielfo, <a
+href="Guerrero.html">Guerrero</a>, <a href="Valtoria.html">Valtoria</a>,
+<a href="Eldrador.html">Eldrador</a>] # Baelin Medio-Hacha</p>
+<h3 id="biografía">Biografía</h3>
+<p>En las fronteras turbulentas que separan las montañas de <a
+href="Valtoria.html">Valtoria</a> de los bosques ancestrales de <a
+href="Eldrador.html">Eldrador</a>, donde el rencor de eras se había
+enfriado hasta convertirse en una paz frágil, nació un símbolo. Baelin
+no es solo un semielfo; es la encarnación viviente del ‘Pacto de la Luz
+Estelar’, el armisticio que unió al Clan Cortepiedra de los <a
+href="Enanos.html">Enanos</a> y a los Guardianes Verdes de los elfos
+silvanos en una sola entidad: el Clan Raízdehierro. Hijo del rudo <a
+href="Guerrero.html">Guerrero</a> enano Thorgar Cortepiedra y de la ágil
+exploradora elfa Lyra, Baelin creció en el crisol de dos culturas que
+aprendían a convivir a la fuerza.</p>
+<p>Su infancia fue una lección constante de equilibrio. Mientras su
+padre le enseñaba a sentir el pulso de la roca y a blandir un hacha con
+la tenacidad de la montaña, su madre le instruía en el lenguaje del
+viento entre las hojas y el arte de moverse sin dejar rastro. Para los
+puristas de ambas facciones —los “Piedra Pura” <a
+href="Enanos.html">Enanos</a> y las “Raíces Antiguas” elfas—, Baelin era
+una aberración, un recordatorio constante de los compromisos que
+despreciaban. Se ganó el apodo de “Medio-Hacha” en su juventud, un
+término burlón que él, con el tiempo, adoptaría con orgullo.</p>
+<p>Su ascenso no fue por linaje, sino forjado en el fuego y la sangre.
+Durante el Asedio de la Garganta Rota, cuando el belicoso Clan
+Quiebraespinas intentó tomar <a href="Sylorian.html">Sylorian</a>, fue
+la perspectiva única de Baelin la que salvó a la ciudad. Combinó la
+estrategia de emboscada élfica con la inamovible defensa enana,
+utilizando túneles ocultos y trampas forestales en una sinfonía táctica
+que desbarató a un enemigo superior. Aquella victoria le silenció a sus
+detractores y le ganó el respeto incondicional de los moderados,
+asegurándole el puesto de Capitán de los Vigías del Valle.</p>
+<p>Hoy, a sus 98 años, Baelin carga con el peso de ser el pilar de la
+paz de <a href="Sylorian.html">Sylorian</a>. Su principal motivación no
+es la gloria, sino asegurar que el sacrificio de sus padres y de los
+fundadores del clan no haya sido en vano. Lucha una guerra en dos
+frentes: contra las amenazas externas como el Clan <a
+href="Thyrgram.html">Thyrgram</a> que merodea las fronteras, y contra
+las tensiones internas que amenazan con fracturar al Clan Raízdehierro
+desde dentro. Cada decisión que toma es observada, cada fracaso es
+munición para los extremistas, y cada éxito es un clavo más que afianza
+la unidad de su pueblo. Vive en un estado de alerta perpetua, sabiendo
+que él es el muro que separa la cooperación de la antigua y sangrienta
+enemistad.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Baelin es la fusión visual de sus dos herencias. Es más bajo y
+corpulento que un elfo, pero más alto y esbelto que un enano, con una
+musculatura densa y fibrosa. Su rostro posee los ángulos afilados y las
+orejas puntiagudas de su madre, pero están enmarcados por una barba
+espesa y oscura, herencia de su padre, que mantiene trenzada al estilo
+enano pero adornada con pequeñas cuentas de madera élfica. Sus ojos, de
+un profundo verde musgo, contienen la paciencia de la piedra y la viveza
+del bosque.</p>
+<p>Su equipamiento es un reflejo de su identidad:</p>
+<ul>
+<li><strong>Armadura de la Concordia:</strong> Una obra maestra de la
+artesanía de <a href="Sylorian.html">Sylorian</a>. Consiste en una cota
+de malla de mithril forjada por <a href="Enanos.html">Enanos</a>, ligera
+pero increíblemente resistente, que viste sobre cuero tratado por elfos.
+Las hombreras, los brazales y las grebas son de acero valtoriano, pero
+grabados con intrincados patrones de hojas y raíces que parecen trepar
+por el metal.</li>
+<li><strong>Hacha Doble “Equilibrio”:</strong> Su arma insignia y la que
+le da su nombre. Es un hacha de guerra de diseño único. Una de sus hojas
+es una cabeza de hacha de guerra enana, pesada y brutal, perfecta para
+quebrar escudos y armaduras. La otra es una hoja más fina y afilada,
+similar a un hacha de mano élfica, ideal para cortes rápidos y precisos.
+El mango es de roble petrificado, extraído de una rama caída del Corazón
+de Silvanus.</li>
+<li><strong>Arco Largo de Tejo y Flechas de la Montaña:</strong> Un arco
+élfico tradicional, regalo de su madre, con el que es letalmente
+preciso. Sin embargo, las puntas de sus flechas son de acero enano,
+forjadas para perforar las pieles gruesas de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de las montañas o la armadura de los <a
+href="Orcos.html">Orcos</a>.</li>
+<li><strong>Capa de Vigía:</strong> Una capa reversible de lana gruesa,
+de color gris piedra por un lado y verde bosque por el otro, que le
+permite camuflarse tanto en las rocas como entre la vegetación. El
+broche que la sujeta es el escudo de su clan: el martillo y las
+raíces.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Baelin Medio-Hacha no es un rey ni un profeta, pero su importancia
+para Lithernia es inmensa, aunque localizada. Él y su clan representan
+una de las pocas y más exitosas pruebas de que la unidad entre las razas
+ancestrales no solo es posible, sino poderosa. <a
+href="Sylorian.html">Sylorian</a> es un faro de esperanza en un
+continente a menudo desgarrado por la guerra y el prejuicio.</p>
+<p>Su legado será la respuesta a una pregunta fundamental: ¿Puede la
+cooperación superar el odio arraigado por milenios? Si Baelin logra
+mantener unido al Clan Raízdehierro y proteger <a
+href="Sylorian.html">Sylorian</a>, su historia se contará en las
+tabernas de <a href="Galvorn.html">Galvorn</a> y en las grandes
+bibliotecas de <a href="Eldrador.html">Eldrador</a> como un ejemplo a
+seguir. Demostrará que la identidad no tiene por qué ser una jaula de
+sangre y tradición, sino un puente forjado con respeto y fuerza
+mutua.</p>
+<p>Sin embargo, si fracasa, si las facciones puristas logran destruir lo
+que él protege, la caída de <a href="Sylorian.html">Sylorian</a>
+resonará como una advertencia funesta: una prueba de que los viejos
+odios nunca mueren y de que la paz es solo un interludio entre guerras.
+El destino de Baelin Medio-Hacha, por tanto, no es solo el suyo propio;
+es el destino de una idea que podría cambiar Lithernia para siempre.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.53)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

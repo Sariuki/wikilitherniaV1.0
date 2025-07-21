@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyraxis_Vexia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyraxis_Vexia</div>
+        <div class="content">
+<p>nombre: Lyraxis <a href="Vexia.html">Vexia</a> rol: Maestra de Espías
+y Alquimista Principal edad: 135 agrupacion: Casa <a
+href="Vexia.html">Vexia</a> tipo: Casa <a href="Noble.html">Noble</a>
+lema: La ponzoña fluye más hondo que la sangre. escudo: Una calavera de
+tiefling con cuernos enredados en tentáculos de obsidiana sobre un campo
+verde pantano. ciudad_sede: <a href="Syrenya.html">Syrenya</a>
+rivalidades: - nombre_casa: Clan <a href="Thyrgram.html">Thyrgram</a>
+descripcion: Una rivalidad basada en la filosofía del poder. Los <a
+href="Orcos.html">Orcos</a> de <a href="Thyrgram.html">Thyrgram</a>
+desprecian la sutileza de <a href="Vexia.html">Vexia</a>,
+considerándolos cobardes que se esconden tras venenos y secretos. La
+Casa <a href="Vexia.html">Vexia</a>, a su vez, ve a los <a
+href="Thyrgram.html">Thyrgram</a> como herramientas de fuerza bruta,
+predecibles y fáciles de manipular. - nombre_casa: Clan <a
+href="Kromagul.html">Kromagul</a> descripcion: Una competencia
+profesional y sádica. Ambos clanes se especializan en el sufrimiento,
+pero mientras <a href="Kromagul.html">Kromagul</a> prefiere el dolor
+físico y la tortura abierta, <a href="Vexia.html">Vexia</a> se deleita
+en la agonía lenta de los venenos y la corrosión del alma a través de la
+paranoia. Compiten por ser los principales proveedores de tormento para
+el reino de <a href="Mor&#39;dhul.html">Mor’dhul</a>. alianzas: -
+nombre_casa: Clan Nighthawk descripcion: Una alianza natural forjada en
+las sombras. <a href="Vexia.html">Vexia</a> provee a los Nighthawk de
+venenos exóticos y acceso a rutas de contrabando marítimo. A cambio, los
+Nighthawk comparten información crucial sobre las intrigas de las cortes
+interiores de <a href="Mor&#39;dhul.html">Mor’dhul</a> y <a
+href="Eldrador.html">Eldrador</a>. - nombre_casa: Clan Sel’thirak
+descripcion: Una lealtad de conveniencia. La Casa <a
+href="Vexia.html">Vexia</a> opera bajo el decreto del Rey-Dios,
+gestionando el mercado negro que beneficia al trono y proveyendo una
+flota de corsarios leales. A cambio, Sel’thirak les garantiza autonomía
+en <a href="Syrenya.html">Syrenya</a> y protección contra los clanes más
+grandes que codician su poder. relaciones: Hija de Lord Vorlag.
+Ambiciosa y letal, anhela el poder de su padre y considera a su hermano
+Kaelen un fanático útil. Mantiene contactos secretos con el Clan
+Nighthawk para fortalecer su propia red de poder. tags: [lithernia,
+personajes, Casa <a href="Vexia.html">Vexia</a>, <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Tiefling, Alquimista] —</p>
+<h1 id="lyraxis-vexia">Lyraxis Vexia</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los pantanos fétidos y las aguas traicioneras que rodean el puerto
+maldito de <a href="Syrenya.html">Syrenya</a>, la Casa <a
+href="Vexia.html">Vexia</a> ha prosperado donde otros solo encontrarían
+muerte. No son guerreros de primera línea ni señores de vastos
+ejércitos, sino maestros de un poder más sutil y corrosivo: el secreto,
+el veneno y la paranoia. Lyraxis <a href="Vexia.html">Vexia</a> es la
+más pura destilación de este legado. Nacida del linaje de Lord Vorlag,
+el patriarca de la casa, Lyraxis fue criada en un mundo de susurros y
+sombras, aprendiendo que la lealtad es una moneda y la confianza un
+veneno que uno administra a otros.</p>
+<p>Desde joven, demostró una afinidad innata para las artes de su casa.
+Mientras su hermano Kaelen se entregaba al fervoroso culto de ‘La
+Vorágine’ —la entidad abisal que otorga poder a su linaje—, Lyraxis
+encontró su verdadera devoción en el laboratorio de <a
+href="Alquimia.html">Alquimia</a>. Sus manos, ágiles y precisas,
+aprendieron a mezclar toxinas que no dejan rastro, venenos que imitan
+enfermedades naturales y pociones que quiebran la voluntad de los más
+fuertes. Su mente, más afilada que cualquier daga, tejía redes de
+información que se extendían desde los muelles de <a
+href="Syrenya.html">Syrenya</a> hasta los salones del trono en la
+capital de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>Su ascenso fue tan silencioso como letal. Hoy, como Maestra de Espías
+y Alquimista Principal, es el poder fáctico detrás de la influencia de
+la Casa <a href="Vexia.html">Vexia</a>. Es ella quien negocia con los
+espías del Clan Nighthawk, intercambiando venenos exóticos por secretos
+que desestabilizan a sus rivales. Es ella quien diseña las neurotoxinas
+que dan a los corsarios de <a href="Vexia.html">Vexia</a> una ventaja
+temible en el Mar Sombrío. Y es ella quien susurra consejos al oído de
+su padre, guiando la mano de la casa con una ambición que supera con
+creces la de Lord Vorlag.</p>
+<p>Lyraxis no desea simplemente heredar el poder; anhela tomarlo.
+Considera a su padre un vestigio del pasado, demasiado cauto y
+complaciente con el patrocinio del Rey-Dios Sel’thirak. A su hermano
+Kaelen lo ve como un peón, un fanático cuya devoción ciega a ‘La
+Vorágine’ puede ser utilizada para sus propios fines. En secreto,
+Lyraxis cree que la verdadera fuerza de la Casa <a
+href="Vexia.html">Vexia</a> no reside en servir como los gestores del
+mercado negro de <a href="Mor&#39;dhul.html">Mor’dhul</a>, sino en
+convertirse en una fuerza que incluso los dioses deban temer. Su
+objetivo final es desentrañar los secretos más profundos de la entidad
+patrona de su casa, no para servirla, sino para dominar su poder y
+convertirlo en un arma que la eleve por encima de todos.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyraxis posee la belleza enigmática y peligrosa de su linaje
+tiefling. Su piel tiene un tono pálido de lirio de pantano, casi
+luminoso en la penumbra, y sus ojos son del color del jade oscuro,
+brillantes de inteligencia y malicia contenida. Largos cuernos de
+obsidiana pulida se curvan hacia atrás desde su frente, entrelazados con
+finas cadenas de plata negra. Su cabello, del color de la medianoche,
+cae liso y pesado, a menudo recogido en una trenza compleja que no
+estorbe su trabajo.</p>
+<p>Viste con una elegancia pragmática. Sus atuendos suelen ser de cuero
+tratado de color verde oscuro o negro, ajustados para permitir el
+movimiento silencioso, cubiertos por una túnica de alquimista con
+múltiples bolsillos ocultos. Sus manos, rara vez cubiertas por guantes,
+muestran una ligera y casi imperceptible pigmentación oscura en las
+yemas de los dedos, la única señal visible de sus incontables horas
+entre potentes reactivos.</p>
+<p>No porta armas ostentosas. Su defensa es un estileto de cristal
+volcánico oculto en su manga, cuya punta siempre está humedecida con una
+potente toxina paralizante. Su verdadero arsenal reside en una bandolera
+de cuero con docenas de viales de cristal soplado, cada uno etiquetado
+con <a href="Runas.html">Runas</a> alquímicas que solo ella comprende.
+Contienen desde venenos que provocan una muerte agónica en cuestión de
+días hasta antídotos para las toxinas más raras de Lithernia, pasando
+por elixires que agudizan los sentidos o inducen visiones proféticas. Al
+cuello lleva un amuleto de obsidiana sin tallar, un regalo de ‘La
+Vorágine’ que siempre está frío al tacto y se dice que le susurra los
+secretos de las profundidades.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lyraxis <a href="Vexia.html">Vexia</a> representa una corriente de
+poder que fluye bajo la superficie de la brutal sociedad de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Mientras los clanes <a
+href="Orcos.html">Orcos</a> y los señores de la guerra compiten con
+hachas y gritos de batalla, ella perfecciona un dominio basado en el
+conocimiento, la manipulación y el miedo psicológico. Su influencia,
+aunque invisible para muchos, es fundamental para la estabilidad del
+trono de Sel’thirak, pues controla las rutas de contrabando y las redes
+de espionaje que mantienen a raya las ambiciones de los clanes más
+directos y violentos.</p>
+<p>Si Lyraxis logra sus objetivos, podría transformar radicalmente a la
+Casa <a href="Vexia.html">Vexia</a> y, con ella, el equilibrio de poder
+en <a href="Mor&#39;dhul.html">Mor’dhul</a>. Una Casa <a
+href="Vexia.html">Vexia</a> bajo su mando sería más audaz, más expansiva
+y mucho más peligrosa. Su ambición no se detendría en las fronteras del
+reino; con los secretos del Clan Nighthawk y el poder de ‘La Vorágine’ a
+su disposición, podría extender su red de veneno e intriga a las cortes
+de <a href="Eldrador.html">Eldrador</a> y los consejos de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>En el gran tapiz del destino de Lithernia, Lyraxis es una jugadora en
+la sombra, una tejedora de destinos cuyo hilo es la ponzoña. Podría ser
+quien descubra una debilidad en los dioses, quien envenene a un rey en
+el momento justo, o quien obtenga un artefacto legendario, como una de
+las Lanzas Celestiales, no por la fuerza, sino a través del engaño. Su
+legado no se medirá en batallas ganadas, sino en imperios que se
+desmoronan desde dentro, corroídos por los secretos y la desconfianza
+que ella misma sembró.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.40)</li>
+<li><a href="Veneno.html">Veneno</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

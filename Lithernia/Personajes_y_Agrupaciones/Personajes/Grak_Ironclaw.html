@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grak_Ironclaw</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grak_Ironclaw</div>
+        <div class="content">
+<h1 id="grak-ironclaw">Grak Ironclaw</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales de la herrería de Lithernia, pocos nombres inspiran el
+terror y la reverencia que evoca Grak Ironclaw. No es un simple
+artesano; es un escultor de la violencia, un poeta del acero cuya musa
+es el sufrimiento. Grak es un orco, pero su linaje no pertenece a los
+clanes guerreros de las llanuras de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, sino a la estirpe olvidada del
+Clan Ironclaw, <a href="Orcos.html">Orcos</a> nómadas que en su día
+veneraban la forja por encima de la guerra. Huérfano y marginado por su
+inusual fascinación con el metal en lugar de la batalla, Grak fue
+encontrado por Kaelen Agrietacero, el líder exiliado de la Fragua del
+Alma Quebrada. En el joven orco, Kaelen no vio un paria, sino la
+encarnación de su credo: una fuerza bruta esperando ser templada y
+canalizada hacia un propósito terrible y perfecto.</p>
+<p>Bajo la tutela de Kaelen, Grak encontró su hogar y su fe. Abrazó la
+filosofía de la Fragua con una devoción fanática, rechazando los dogmas
+de <a href="Rokael.html">Rokael</a>, el dios creador de los <a
+href="Enanos.html">Enanos</a>, y entregándose a la furia destructiva de
+<a href="Valarios.html">Valarios</a>. Para Grak, el acto de forjar no es
+un canto de creación, sino un ritual de dominación. Cada golpe de su
+martillo es una sentencia, cada chispa una vida extinguida, y el silbido
+del acero al enfriarse es el último aliento de un alma atrapada. Cree
+firmemente que la verdadera fuerza de una hoja no reside en su filo,
+sino en el eco del dolor que se infundió en ella durante su
+nacimiento.</p>
+<p>Su reputación creció como el fuego de su forja. Sus creaciones, como
+la infame hacha <em>Rompealmas</em> o la espada larga <em>El Lamento de
+Obsidiana</em>, son codiciadas por los nobles más crueles y los
+generales más ambiciosos de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Se
+dice que sus armas no solo matan, sino que destrozan la voluntad del
+enemigo, dejando cicatrices en el espíritu que ni la magia curativa
+puede borrar. Esta maestría le ha ganado una rivalidad amarga con el
+Clan <a href="Kromagul.html">Kromagul</a>, cuyos seguidores ven el dolor
+como un fin en sí mismo. Grak los desprecia, considerándolos sádicos sin
+disciplina; él no inflige dolor, lo sublima, convirtiéndolo en un arte
+letal.</p>
+<p>Su lealtad a Kaelen Agrietacero es la única pieza de metal en su
+corazón que no se ha templado en la furia. Ve al maestro como el padre
+que lo rescató y el profeta de su arte. Sin embargo, esta devoción choca
+con su profunda desconfianza hacia otros miembros de la Fragua,
+especialmente hacia Lyra, la Vinculaalmas. Para Grak, el poder de Lyra
+para imbuir armas con esencias anímicas es una herejía dentro de su
+propia herejía: un atajo que evita el honesto y brutal trabajo del fuego
+y el martillo. En su mente, el poder debe ganarse a través del sudor, la
+sangre y el calor insoportable de la forja; cualquier otra cosa es una
+ilusión, una debilidad disfrazada de fuerza.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grak es la personificación de su oficio. Un orco de constitución
+masiva, su piel de un verde ceniciento está cubierta de un tapiz de
+quemaduras antiguas y cicatrices queloides que brillan con un tono
+cobrizo bajo la luz de la forja. Sus brazos son dos columnas de músculo
+y tendón, capaces de blandir su martillo durante días sin descanso, pero
+sus manos, aunque cubiertas de callos gruesos como el cuero, se mueven
+con una precisión sorprendente sobre el yunque. Sus ojos, hundidos bajo
+una frente prominente, parecen contener el brillo eterno de las
+brasas.</p>
+<p>Viste con una funcionalidad brutal. Un delantal de cuero de dragón,
+endurecido y ennegrecido por incontables chispas, protege su torso. No
+lleva armadura, pues considera que su propia resistencia y el calor de
+su entorno son la mejor defensa. En su piel lleva marcados a fuego los
+símbolos del Clan Ironclaw y el yunque partido de la Fragua, testimonios
+de su doble herencia.</p>
+<p>Su única posesión verdaderamente preciada es su martillo de forja,
+<strong>Rompecorazones</strong>. No es un arma de guerra ornamentada,
+sino una herramienta pesada y funcional, con una cabeza de acero
+volcánico pulido por el uso y un mango de roble petrificado. Para Grak,
+este martillo es un ser vivo, el conducto a través del cual canaliza la
+furia de <a href="Valarios.html">Valarios</a> hacia el metal
+obediente.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Grak Ironclaw no será recordado en las grandes crónicas de reyes y
+reinas, pero su impacto en la Era Actual es innegable y sangriento. Cada
+una de sus creaciones es una semilla de conflicto plantada en el corazón
+de <a href="Mor&#39;dhul.html">Mor’dhul</a> y más allá. Las espadas que
+forja son las que ejecutan traiciones dinásticas, las hachas que templa
+son las que rompen las puertas de ciudadelas enemigas, y las dagas que
+afila son las que silencian a los rivales en las sombras de la
+noche.</p>
+<p>Es el artesano silencioso detrás del poderío militar de muchas casas
+nobles, un pilar anónimo de la maquinaria de guerra de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Representa la peligrosa verdad de
+que la destrucción puede ser una forma de creación, una filosofía que
+resuena con fuerza en un mundo marcado por el Cataclismo del <a
+href="Lilium.html">Lilium</a>.</p>
+<p>Su legado final, susurran en la Fragua, aún está por forjarse. Se
+dice que Grak sueña con una obra maestra: un arma capaz de canalizar tal
+cantidad de dolor y furia que pueda quebrar no solo un alma, sino el
+mismísimo sello de una de las Lanzas Celestiales. Si lo consigue, el
+nombre de Grak Ironclaw podría pasar de ser una nota a pie de página en
+la historia de la guerra a convertirse en el catalizador de una nueva
+era de caos o redención para toda Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

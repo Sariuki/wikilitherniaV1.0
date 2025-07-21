@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guerrero</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Guerrero</div>
+        <div class="content">
+<h1 id="guerrero">Guerrero</h1>
+<p>En un mundo definido por la guerra interminable, el guerrero es la
+piedra angular de todo ejército, el escudo de cada reino y el maestro
+del campo de batalla. El camino del Guerrero es uno de disciplina
+implacable, maestría táctica y el frío acero de un golpe perfectamente
+ejecutado.</p>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como guerrero, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d10 por nivel de guerrero
+<strong>Puntos de Golpe a nivel 1:</strong> 10 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d10
+(o 6) + tu modificador de Constitución por cada nivel de guerrero
+después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Todas las armaduras, escudos
+<strong>Armas:</strong> Armas sencillas, armas marciales
+<strong>Herramientas:</strong> Ninguna <strong>Tiradas de
+Salvación:</strong> Fuerza, Constitución <strong>Habilidades:</strong>
+Elige dos de entre Acrobacias, Atletismo, Historia, Intimidación,
+Percepción, Perspicacia, Supervivencia y Trato con Animales.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) cota de malla o (b) armadura de cuero, arco largo y 20
+flechas * (a) un arma marcial y un escudo o (b) dos armas marciales *
+(a) una ballesta ligera y 20 virotes o (b) dos hachas de mano * (a) un
+paquete de explorador de mazmorras o (b) un paquete de explorador</p>
+<h3 id="sistema-de-maná-del-guerrero"><strong>Sistema de Maná del
+Guerrero</strong></h3>
+<p>Tu poder no nace de la magia arcana, sino de la perfección física y
+la disciplina marcial, una armonía que resuena sutilmente con el Tejido
+del Maná.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una pequeña reserva de
+puntos de maná que usas para potenciar tus proezas marciales. Tu fórmula
+de maná es <strong>4 + (Nivel de Guerrero × Modificador de
+Fuerza)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d6.</li>
+<li><strong>Aptitud Marcial:</strong> La Fuerza es tu aptitud para tus
+rasgos de maná.
+<ul>
+<li><strong>CD de salvación de Maná</strong> = 8 + tu bonificador por
+competencia + tu modificador de Fuerza.</li>
+<li><strong>Modificador de ataque de Maná</strong> = tu bonificador por
+competencia + tu modificador de Fuerza.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-guerrero">Tabla de Progresión del
+Guerrero</h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 21%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Estilo de Combate, Segundo Aire</td>
+<td style="text-align: center;">4 + (1 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Oleada de Acción (un uso)</td>
+<td style="text-align: center;">4 + (2 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Arquetipo Marcial</td>
+<td style="text-align: center;">4 + (3 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (4 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Ataque Extra</td>
+<td style="text-align: center;">4 + (5 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (6 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Arquetipo Marcial</td>
+<td style="text-align: center;">4 + (7 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (8 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Indomable (un uso)</td>
+<td style="text-align: center;">4 + (9 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Rasgo de Arquetipo Marcial</td>
+<td style="text-align: center;">4 + (10 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Ataque Extra (2)</td>
+<td style="text-align: center;">4 + (11 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (12 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Indomable (dos usos)</td>
+<td style="text-align: center;">4 + (13 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (14 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Rasgo de Arquetipo Marcial</td>
+<td style="text-align: center;">4 + (15 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (16 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Oleada de Acción (dos usos), Indomable
+(tres usos)</td>
+<td style="text-align: center;">4 + (17 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Rasgo de Arquetipo Marcial</td>
+<td style="text-align: center;">4 + (18 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4 + (19 × Mod. FUE)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Ataque Extra (3)</td>
+<td style="text-align: center;">4 + (20 × Mod. FUE)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="arquetipos-marciales"><strong>Arquetipos Marciales</strong></h2>
+<h3 id="campeón"><strong>Campeón</strong></h3>
+<p>El arquetipo de <a href="Heroes.html">Heroes</a> se centra en el
+desarrollo de la pura destreza física. Aquellos que siguen este
+arquetipo combinan un entrenamiento riguroso con una excelencia física
+para infligir golpes devastadores.</p>
+<h4 id="crítico-mejorado"><strong>Crítico Mejorado</strong></h4>
+<p>A partir de que eliges este arquetipo en el nivel 3, tus ataques con
+arma consiguen un golpe crítico con una tirada de 19 o 20.</p>
+<h4 id="atleta-extraordinario"><strong>Atleta
+Extraordinario</strong></h4>
+<p>A partir del nivel 7, puedes añadir la mitad de tu bonificador por
+competencia (redondeado hacia arriba) a cualquier prueba de Fuerza,
+Destreza o Constitución que hagas y que no use ya tu bonificador por
+competencia. Además, cuando haces un salto de longitud corriendo, la
+distancia que puedes cubrir aumenta en un número de pies igual a tu
+modificador de Fuerza.</p>
+<h4 id="estilo-de-combate-adicional"><strong>Estilo de Combate
+Adicional</strong></h4>
+<p>En el nivel 10, puedes elegir una segunda opción del rasgo Estilo de
+Combate.</p>
+<h4 id="crítico-superior"><strong>Crítico Superior</strong></h4>
+<p>A partir del nivel 15, tus ataques con arma consiguen un golpe
+crítico con una tirada de 18-20.</p>
+<h4 id="superviviente"><strong>Superviviente</strong></h4>
+<p>En el nivel 18, alcanzas la cúspide de la resiliencia en la batalla.
+Al comienzo de cada uno de tus turnos, recuperas puntos de golpe iguales
+a 5 + tu modificador de Constitución si no tienes más de la mitad de tus
+puntos de golpe. No ganas este beneficio si tienes 0 puntos de
+golpe.</p>
+<h3 id="maestro-de-batalla"><strong>Maestro de Batalla</strong></h3>
+<p>Aquellos que emulan el arquetipo de Maestro de Batalla emplean
+técnicas marciales transmitidas a través de generaciones. Para un
+Maestro de Batalla, el combate es un campo académico, que a veces
+incluye disciplinas más allá del combate, como la herrería o la
+caligrafía.</p>
+<h4 id="estudiante-de-la-guerra"><strong>Estudiante de la
+Guerra</strong></h4>
+<p>En el nivel 3, ganas competencia con un tipo de herramientas de
+artesano de tu elección.</p>
+<h4 id="dados-de-superioridad"><strong>Dados de
+Superioridad</strong></h4>
+<p>En el nivel 3, aprendes maniobras que se alimentan de dados
+especiales llamados dados de superioridad. * <strong>Maniobras:</strong>
+Aprendes tres maniobras de tu elección, que se detallan más abajo.
+Muchas maniobras mejoran un ataque de alguna manera. Solo puedes usar
+una maniobra por ataque. Aprendes dos maniobras adicionales de tu
+elección en los niveles 7, 10 y 15. * <strong>Dados de
+Superioridad:</strong> Tienes cuatro dados de superioridad, que son d8.
+Un dado de superioridad se gasta cuando lo usas. Recuperas todos tus
+dados de superioridad gastados cuando terminas un descanso corto o
+largo. Ganas otro dado de superioridad en el nivel 7 y uno más en el
+nivel 15. * <strong>Tiradas de Salvación:</strong> Algunas de tus
+maniobras requieren que tu objetivo haga una tirada de salvación para
+resistir los efectos de la maniobra. La CD de la tirada de salvación se
+calcula así: <strong>CD de salvación de Maniobra = 8 + tu bonificador de
+competencia + tu modificador de Fuerza o Destreza (a tu
+elección)</strong>.</p>
+<h4 id="conoce-a-tu-enemigo"><strong>Conoce a tu Enemigo</strong></h4>
+<p>A partir del nivel 7, si pasas al menos 1 minuto observando o
+interactuando con otra criatura fuera del combate, puedes aprender
+cierta información sobre sus capacidades en comparación con las tuyas.
+El DM te dice si la criatura es tu igual, superior o inferior en cuanto
+a dos de las siguientes características de tu elección: Puntuación de
+Fuerza, Puntuación de Destreza, Puntuación de Constitución, Clase de
+Armadura, Puntos de golpe actuales, Nivel de clase total (si tiene
+alguno), Niveles de clase de guerrero (si tiene alguno).</p>
+<h4 id="dados-de-superioridad-mejorados"><strong>Dados de Superioridad
+Mejorados</strong></h4>
+<p>En el nivel 10, tus dados de superioridad se convierten en d10. En el
+nivel 18, se convierten en d12.</p>
+<h4 id="implacable"><strong>Implacable</strong></h4>
+<p>A partir del nivel 15, cuando tiras iniciativa y no te quedan dados
+de superioridad, recuperas un dado de superioridad.</p>
+<h4 id="maniobras"><strong>Maniobras</strong></h4>
+<ul>
+<li><strong>Ataque de Desarme:</strong> Cuando golpeas a una criatura
+con un ataque de arma, puedes gastar un dado de superioridad para
+intentar desarmar al objetivo. Añades el dado de superioridad a la
+tirada de daño del ataque, y el objetivo debe hacer una tirada de
+salvación de Fuerza. Si falla, suelta un objeto de tu elección que esté
+sosteniendo.</li>
+<li><strong>Ataque de Distracción:</strong> Cuando golpeas a una
+criatura con un ataque de arma, puedes gastar un dado de superioridad
+para distraer a la criatura, dando una apertura a tus aliados. Añades el
+dado de superioridad a la tirada de daño del ataque. La siguiente tirada
+de ataque contra el objetivo por parte de un atacante que no seas tú
+tiene ventaja si el ataque se realiza antes del comienzo de tu siguiente
+turno.</li>
+<li><strong>Ataque de Empuje:</strong> Cuando golpeas a una criatura con
+un ataque de arma, puedes gastar un dado de superioridad para intentar
+empujar al objetivo. Añades el dado de superioridad a la tirada de daño,
+y si el objetivo es de tamaño Grande o más pequeño, debe hacer una
+tirada de salvación de Fuerza. Si falla, lo empujas hasta 15 pies lejos
+de ti.</li>
+<li><strong>Ataque de Precisión:</strong> Cuando haces una tirada de
+ataque con arma contra una criatura, puedes gastar un dado de
+superioridad para añadirlo a la tirada. Puedes usar esta maniobra antes
+o después de hacer la tirada de ataque, pero antes de que se apliquen
+los efectos del ataque.</li>
+<li><strong>Juego de Piernas Evasivo:</strong> Cuando te mueves, puedes
+gastar un dado de superioridad, tirando el dado y añadiendo el resultado
+a tu CA hasta que dejes de moverte.</li>
+<li><strong>Contraataque:</strong> Cuando una criatura te falla con un
+ataque cuerpo a cuerpo, puedes usar tu reacción y gastar un dado de
+superioridad para hacer un ataque con arma cuerpo a cuerpo contra la
+criatura. Si golpeas, añades el dado de superioridad a la tirada de daño
+del ataque.</li>
+<li><strong>Ataque de barrido:</strong> Cuando golpeas a una criatura
+con un ataque cuerpo a cuerpo, puedes gastar un dado de superioridad
+para intentar dañar a otra criatura con el mismo ataque. Elige otra
+criatura a 5 pies del objetivo original y dentro de tu alcance. Si la
+tirada de ataque original hubiera golpeado a la segunda criatura, esta
+recibe un daño igual al número que sacaste en tu dado de superioridad.
+El tipo de daño es el mismo que el del ataque original.</li>
+</ul>
+<h3 id="caballero-arcano"><strong>Caballero Arcano</strong></h3>
+<p>El arquetipo del <a href="Caballero.html">Caballero</a> Arcano
+combina la maestría marcial con un estudio cuidadoso de la magia. Estos
+guerreros usan técnicas mágicas similares a las de los magos para
+potenciar sus armas y defensas.</p>
+<p>Al elegir este arquetipo, tu conexión con el maná se profundiza. Tu
+fórmula de maná cambia a <strong>6 + (Nivel de Guerrero × Modificador de
+Inteligencia)</strong>. Tu Dado de Maná se convierte en
+<strong>1d8</strong>.</p>
+<h4 id="lanzamiento-de-conjuros"><strong>Lanzamiento de
+Conjuros</strong></h4>
+<p>Cuando alcanzas el nivel 3, aumentas tu destreza marcial con la
+capacidad de lanzar <a href="Conjuros.html">Conjuros</a>. *
+<strong>Trucos:</strong> Aprendes dos trucos de tu elección de la lista
+de <a href="Conjuros.html">Conjuros</a> del <a
+href="Mago.html">Mago</a>. Aprendes un truco de <a
+href="Mago.html">Mago</a> adicional de tu elección en el nivel 10. *
+<strong><a href="Conjuros.html">Conjuros</a> Conocidos:</strong>
+Aprendes tres <a href="Conjuros.html">Conjuros</a> de nivel 1 de <a
+href="Mago.html">Mago</a> de tu elección, dos de los cuales deben ser de
+las escuelas de abjuración o evocación. La tabla de <a
+href="Conjuros.html">Conjuros</a> Conocidos del <a
+href="Caballero.html">Caballero</a> Arcano muestra cuántos <a
+href="Conjuros.html">Conjuros</a> conoces. Cuando ganas un nivel en esta
+clase, puedes reemplazar uno de los <a href="Conjuros.html">Conjuros</a>
+de <a href="Mago.html">Mago</a> que conoces por otro de la lista de <a
+href="Conjuros.html">Conjuros</a> del <a href="Mago.html">Mago</a>. El
+nuevo conjuro debe ser de un nivel para el que tengas puntos de maná, y
+debe ser un conjuro de abjuración o evocación, a menos que estés
+reemplazando el conjuro que ganaste en los niveles 3, 8, 14 o 20 de esta
+lista. * <strong>Aptitud para Lanzar <a
+href="Conjuros.html">Conjuros</a>:</strong> La Inteligencia es tu
+aptitud para lanzar tus <a href="Conjuros.html">Conjuros</a> de <a
+href="Mago.html">Mago</a>.</p>
+<h4 id="vínculo-con-el-arma"><strong>Vínculo con el Arma</strong></h4>
+<p>En el nivel 3, aprendes un ritual que crea un vínculo mágico entre tú
+y un arma. Realizas el ritual durante 1 hora, que puede ser durante un
+descanso corto. El arma debe estar a tu alcance durante todo el ritual,
+al final del cual tocas el arma y forjas el vínculo. Una vez que has
+vinculado un arma a ti, no puedes ser desarmado de esa arma a menos que
+estés incapacitado. Si está en el mismo plano de existencia, puedes
+invocar esa arma como una acción adicional en tu turno, haciendo que se
+teletransporte instantáneamente a tu mano. Puedes tener hasta dos armas
+vinculadas, pero solo puedes invocar una a la vez con tu acción
+adicional. Si intentas vincular una tercera arma, debes romper el
+vínculo con una de las otras dos.</p>
+<h4 id="magia-de-guerra"><strong>Magia de Guerra</strong></h4>
+<p>A partir del nivel 7, cuando usas tu acción para lanzar un truco,
+puedes hacer un ataque con arma como una acción adicional.</p>
+<h4 id="golpe-arcano"><strong>Golpe Arcano</strong></h4>
+<p>En el nivel 10, aprendes a hacer que tus ataques de arma interrumpan
+la defensa de una criatura contra tus <a
+href="Conjuros.html">Conjuros</a>. Cuando golpeas a una criatura con un
+ataque de arma, esa criatura tiene desventaja en la siguiente tirada de
+salvación que haga contra un conjuro que lances antes del final de tu
+siguiente turno.</p>
+<h4 id="carga-arcana"><strong>Carga Arcana</strong></h4>
+<p>En el nivel 15, ganas la habilidad de teletransportarte hasta 30 pies
+a un espacio desocupado que puedas ver cuando usas tu Oleada de Acción.
+Puedes teletransportarte antes o después de la acción adicional.</p>
+<h4 id="magia-de-guerra-mejorada"><strong>Magia de Guerra
+Mejorada</strong></h4>
+<p>A partir del nivel 18, cuando usas tu acción para lanzar un conjuro,
+puedes hacer un ataque con arma como una acción adicional.</p>
+<h3 id="lanza-celestial"><strong>Lanza Celestial</strong></h3>
+<p>Siguiendo la senda de la Lanza Celestial, te conviertes en un
+heredero de la leyenda del Primer Rey. Canalizas ecos del poder de las
+Lanzas Celestiales que lo sellaron, preparándote para un destino épico,
+ya sea para cumplir la profecía o para forjar una nueva.</p>
+<h4 id="legado-de-la-lanza"><strong>Legado de la Lanza</strong></h4>
+<p>Al elegir esta senda en el nivel 3, ganas competencia con lanzas,
+picas, jabalinas y gujas. Cuando empuñas una de estas armas, puedes usar
+una acción adicional y gastar 2 Puntos de Maná para imbuirla de energía
+celestial. Durante 1 minuto, el arma se considera mágica a efectos de
+superar la resistencia e inmunidad a los ataques y daños no mágicos.</p>
+<h4 id="sello-del-campeón"><strong>Sello del Campeón</strong></h4>
+<p>En el nivel 7, aprendes a canalizar la energía vinculante de las
+Lanzas. Como una acción, puedes gastar 4 Puntos de Maná y señalar a una
+criatura que puedas ver a 30 pies. El objetivo debe superar una tirada
+de salvación de Sabiduría o quedará restringido durante 1 minuto. La
+criatura puede repetir la tirada de salvación al final de cada uno de
+sus turnos, terminando el efecto si tiene éxito.</p>
+<h4 id="golpe-trascendente"><strong>Golpe Trascendente</strong></h4>
+<p>En el nivel 10, tus ataques resuenan con un poder más allá de lo
+mortal. Cuando golpeas a una criatura con un ataque de arma, puedes
+gastar Puntos de Maná para infligir daño de fuerza adicional. Por cada 2
+Puntos de Maná que gastes, infliges 1d8 de daño de fuerza adicional.
+Puedes gastar un máximo de Puntos de Maná igual a tu nivel de
+guerrero.</p>
+<h4 id="eco-de-las-lanzas"><strong>Eco de las Lanzas</strong></h4>
+<p>En el nivel 15, puedes canalizar los aspectos de las cuatro Lanzas
+Celestiales. Cuando golpeas a una criatura con un ataque de arma, puedes
+gastar 5 Puntos de Maná para aplicar uno de los siguientes efectos: *
+<strong>Requiem:</strong> El objetivo tiene desventaja en la siguiente
+tirada de salvación que haga antes del final de tu siguiente turno. *
+<strong>Ultimatum:</strong> El objetivo es empujado 15 pies lejos de ti
+y debe superar una salvación de Fuerza o ser derribado. *
+<strong>Mortum:</strong> El objetivo sufre 4d6 de daño necrótico
+adicional. * <strong>Chronos:</strong> La velocidad del objetivo se
+reduce a la mitad hasta el final de tu siguiente turno.</p>
+<h4 id="avatar-del-rey"><strong>Avatar del Rey</strong></h4>
+<p>En el nivel 18, puedes encarnar la voluntad del Rey Sellado. Como una
+acción adicional, puedes gastar 10 Puntos de Maná para transformarte
+durante 1 minuto. Mientras estés transformado, obtienes los siguientes
+beneficios: * Ganas resistencia al daño de todos los <a
+href="Conjuros.html">Conjuros</a>. * Tus ataques con arma consiguen un
+golpe crítico con una tirada de 19 o 20.</p>
+<p>Una vez que uses este rasgo, no puedes volver a usarlo hasta que
+termines un descanso largo.</p>
+<h3 id="guardia-de-la-muralla"><strong>Guardia de la
+Muralla</strong></h3>
+<p>El Guardia de la Muralla es una fortaleza inamovible, el baluarte
+contra el que se estrellan los ejércitos enemigos. Inspirados en los
+defensores de las grandes fortalezas de <a
+href="Valtoria.html">Valtoria</a> o los desesperados bastiones de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, estos guerreros son especialistas
+en mantener la línea y proteger a sus aliados a toda costa.</p>
+<h4 id="postura-inamovible"><strong>Postura Inamovible</strong></h4>
+<p>A partir del nivel 3, puedes plantarte firmemente en el suelo. Como
+acción adicional, puedes gastar 2 Puntos de Maná para adoptar una
+postura defensiva. Hasta que te muevas voluntariamente o seas movido,
+tienes ventaja en las pruebas de Fuerza y Constitución y en las tiradas
+de salvación para resistir ser movido o derribado.</p>
+<h4 id="proteger-el-flanco"><strong>Proteger el Flanco</strong></h4>
+<p>En el nivel 7, eres un maestro en proteger a tus camaradas. Cuando
+una criatura que puedes ver ataca a un objetivo que no eres tú y que
+está a 5 pies de ti, puedes usar tu reacción para hacer un ataque de
+oportunidad con un arma cuerpo a cuerpo contra la criatura atacante.</p>
+<h4 id="voluntad-de-hierro"><strong>Voluntad de Hierro</strong></h4>
+<p>A partir del nivel 10, tu determinación es tan fuerte como el acero.
+Cuando te veas obligado a hacer una tirada de salvación de Inteligencia,
+Sabiduría o Carisma, puedes gastar 4 Puntos de Maná para obtener ventaja
+en la tirada.</p>
+<h4 id="represalia-de-la-muralla"><strong>Represalia de la
+Muralla</strong></h4>
+<p>En el nivel 15, cualquier fallo de tu enemigo es una oportunidad para
+ti. Cuando un enemigo a 5 pies de ti te falla con un ataque cuerpo a
+cuerpo, puedes usar tu reacción para hacerle un ataque de
+oportunidad.</p>
+<h4 id="fortaleza-viviente"><strong>Fortaleza Viviente</strong></h4>
+<p>En el nivel 18, te conviertes en un bastión de resistencia. Al
+comienzo de cada uno de tus turnos, si tienes al menos 1 punto de golpe,
+ganas puntos de golpe temporales iguales a 5 + tu modificador de
+Constitución.</p>
+        </div>
+    </div>
+</body>
+</html>

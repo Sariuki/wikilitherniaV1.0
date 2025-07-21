@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grak_Ironhand</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grak_Ironhand</div>
+        <div class="content">
+<h1 id="grak-ironhand">Grak Ironhand</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones de <a href="Cyndril.html">Cyndril</a>, donde cada
+tic-tac es una ley y cada engranaje una palabra, la sangre y el linaje
+dictan el destino. Para los <a href="Enanos.html">Enanos</a> y <a
+href="Gnomos.html">Gnomos</a> de la Casa Volund, la precisión es una
+herencia. Sin embargo, el hombre que comanda su defensa no heredó nada,
+salvo la determinación de un forastero en un mundo de mecanismos
+perfectos. Grak Ironhand, un humano de origen humilde, es una anomalía
+viviente, un testimonio de que el mérito, a veces, puede ser un metal
+más fuerte que el oro.</p>
+<p>Nacido en los barrios bajos de una ciudad menor de <a
+href="Valtoria.html">Valtoria</a>, la vida de Grak estaba destinada a la
+mediocridad. Pero en sus manos no había torpeza, y en su mente, una
+afinidad innata por la lógica y el orden. Llegó a <a
+href="Cyndril.html">Cyndril</a> como un simple mercenario contratado
+para vigilar los talleres exteriores. Fue allí donde Lord Kaelen Volund,
+el joven y visionario líder de la casa, lo descubrió. Mientras otros
+guardias veían solo metal, Kaelen notó que Grak observaba los patrones
+de los autómatas, predecía sus fallos y entendía sus ritmos como si
+fueran soldados vivos. Le ofreció una oportunidad: aprender.</p>
+<p>Grak se sumergió en el arte de la relojería arcana no como un
+creador, sino como un estratega. Aprendió que la fuerza de un Golem de
+Latón no reside en su puño, sino en la impecable sincronía de su
+cronómetro interno. Ascendió con una rapidez que escandalizó a los
+tradicionalistas, demostrando en cada simulacro y en cada crisis que su
+dominio táctico de las legiones mecánicas era absoluto. Su lealtad a
+Kaelen se forjó en acero y gratitud, convirtiéndose en el baluarte
+humano del Señor de los Engranajes.</p>
+<p>Hoy, como Capitán de la Guardia Autómata, Grak es el muro silencioso
+de <a href="Cyndril.html">Cyndril</a>. Pero su mayor desafío no proviene
+de las rivalidades con la Casa Dravonis o los Gremialistas de <a
+href="Vatilleurs.html">Vatilleurs</a>, sino del corazón de su propio
+hogar. Vigila con creciente aprensión a Lyra Volund, la prodigiosa pero
+imprudente hermana de Kaelen. Sus experimentos con la “Piedra Corazón”,
+un artefacto de poder inestable, amenazan con desatar el “Contagio de
+Relojería”, una plaga tecno-mágica de leyenda que podría volver a sus
+autómatas contra la ciudad, o peor, corromper la esencia misma de la
+vida con una perfección mecánica letal. Atrapado entre su lealtad a
+Kaelen y su deber de proteger <a href="Cyndril.html">Cyndril</a>, Grak
+se enfrenta a la terrible posibilidad de tener que detener a un Volund
+para salvar a la Casa Volund.</p>
+<h3 id="descripción-y-equipamiento">Descripción y Equipamiento</h3>
+<p>Grak es un hombre de 45 años cuyo rostro es un mapa de concentración
+y disciplina. Las arrugas enmarcan unos ojos grises y penetrantes,
+acostumbrados a detectar el más mínimo defecto en un mecanismo o la más
+sutil de las amenazas. Su cabello, antes oscuro, está veteado de plata
+en las sienes, y una fina cicatriz cruza su ceja izquierda, recuerdo de
+una sublevación de gólems saboteados que él mismo sofocó.</p>
+<p>Su apodo, “Ironhand” (Mano de Hierro), no es solo una metáfora de su
+férreo control. Su mano izquierda fue reemplazada por una prótesis de
+bronce y acero, una obra maestra de la Casa Volund. Cada dedo se mueve
+con una precisión silenciosa, capaz tanto de calibrar el escape de un
+cronómetro como de aplastar la garganta de un enemigo. La prótesis es
+para él un recordatorio constante de su lugar: un hombre reconstruido y
+definido por la casa a la que sirve.</p>
+<p>Viste una armadura de placas articuladas, pulida hasta brillar como
+un espejo oscuro, con filigranas de bronce que dibujan patrones de
+engranajes sobre el acero. No es la armadura de un simple soldado, sino
+la de un ingeniero de guerra. En su cinturón no solo cuelga una espada
+larga de factura enana, sino también un juego de herramientas de
+precisión y una llave de sintonía universal, capaz de anular o tomar el
+control de cualquiera de sus centinelas autómatas. En su muñeca, un
+cronómetro Volund de platino marca el tiempo con una exactitud que
+desafía a los dioses, un símbolo de su devoción al orden y la
+precisión.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Grak Ironhand nunca se sentará en el Sínodo del Engranaje Pulido ni
+su nombre será cantado en las grandes sagas de los <a
+href="Enanos.html">Enanos</a>. Su legado es más silencioso, pero no
+menos vital. Es la prueba de que en el corazón de la tradicionalista <a
+href="Valtoria.html">Valtoria</a>, el ingenio y la lealtad pueden
+abrirse paso a través de las barreras de la raza y el nacimiento. Para
+la Casa Volund, él es el regulador, el mecanismo de seguridad que
+permite a sus genios soñar sin llevar al mundo al abismo.</p>
+<p>Su historia resonará en los pasillos de <a
+href="Cyndril.html">Cyndril</a> como una advertencia y una inspiración.
+Si logra mantener a raya la catástrofe que Lyra amenaza con desatar,
+será recordado como el guardián que preservó un siglo de progreso. Si
+falla, o si para tener éxito debe traicionar la confianza de su señor,
+su nombre quedará marcado como el del hombre que enfrentó un dilema
+imposible, donde la lealtad y el deber se convirtieron en los engranajes
+de una tragedia. Su destino, como el de los cronómetros que protege,
+pende de un equilibrio exquisitamente frágil.</p>
+        </div>
+    </div>
+</body>
+</html>

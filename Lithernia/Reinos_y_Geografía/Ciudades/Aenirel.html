@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aenirel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Aenirel</div>
+        <div class="content">
+<h1 id="aenirel">Aenirel</h1>
+<p>Perchada sobre los imponentes Acantilados del Viento Susurrante,
+Aenirel es una ciudad que parece soñada por el propio cielo. En este
+rincón del Reino de <a href="Galvorn.html">Galvorn</a>, las esbeltas
+torres de piedra blanqueada se alzan como dedos que buscan tocar las
+nubes, y sus tejados curvos, como velas de barcos celestiales, están
+diseñados para capturar y cantar con la brisa marina. No es una ciudad
+de guerreros o mercaderes, sino un santuario para el alma creativa. Un
+sinfín de carillones de concha y cristal cuelgan de cada alero, creando
+una melodía perpetua que es la banda sonora de Aenirel, un refugio para
+bardos, pintores y filósofos de todo Lithernia.</p>
+<h2 id="historia">Historia</h2>
+<p>Aenirel no fue fundada por la espada o el oro, sino por una canción.
+La leyenda cuenta que, hace siglos, una <a href="Bardo.html">Bardo</a>
+semielfa llamada Lyra Cantavientos se sintió llamada por un susurro en
+la brisa, una melodía que solo ella podía oír. Siguiendo la llamada de
+su dios patrón, <a href="Quiteon.html">Quiteon</a>, llegó a estos
+acantilados desiertos. Allí, en la confluencia del mar y el cielo, fundó
+Aenirel no como una fortaleza, sino como un monumento a la
+inspiración.</p>
+<p>Pronto, otros espíeitus afines se unieron a ella: genasi de aire que
+se sentían en casa entre las corrientes, <a
+href="Humanos.html">Humanos</a> que buscaban liberarse de las ataduras
+de la vida mundana y artistas de todas las razas atraídos por el
+ambiente bohemio. La ciudad creció orgánicamente, priorizando siempre la
+belleza sobre la funcionalidad y la expresión sobre la riqueza. Hoy,
+Aenirel es gobernada por el “Consejo de los Inspirados”, un cuerpo de
+artistas y sabios cuya autoridad se basa en el respeto a su creatividad
+y no en el linaje.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Balcón del Cielo</strong>: El distrito más elevado de
+la ciudad, donde las torres son más altas y las vistas al océano
+infinito quitan el aliento. Es el hogar de los astrónomos, que veneran a
+<a href="Arzia.html">Arzia</a> en observatorios con cúpulas de cristal,
+y de los magos del aire, que practican sus artes en plataformas abiertas
+al viento.</p></li>
+<li><p><strong>La Caleta de los Susurros</strong>: Una aislada playa de
+arena plateada al pie de los acantilados, accesible solo por un sinuoso
+camino tallado en la roca. Es aquí donde los poetas y amantes practican
+los “Susurros de Arena”, grabando obras de arte efímeras en la orilla
+para que la marea se las lleve como una ofrenda al tiempo.</p></li>
+<li><p><strong>El Laberinto de los Carillones</strong>: El corazón
+residencial de Aenirel es un entramado de callejuelas estrechas y plazas
+ventosas, donde cada hogar está adornado con docenas de campanas de
+viento. Pasear por este barrio es sumergirse en una sinfonía cambiante,
+una cacofonía armónica que refleja el estado de ánimo colectivo de la
+ciudad.</p></li>
+<li><p><strong>El Templo del Viento Incesante</strong>: El principal
+lugar de culto a <a href="Quiteon.html">Quiteon</a> no es un edificio
+cerrado, sino una gran espiral de pilares de mármol blanco en la punta
+más expuesta del acantilado. No tiene techo, permitiendo que el viento
+fluya libremente a través de las arpas eólicas y las campanas sagradas
+que cuelgan entre las columnas, creando una plegaria constante.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de los “Vientosueños” define cada aspecto de la vida en
+Aenirel. El valor de una persona se mide por la belleza de sus
+creaciones o la profundidad de sus ideas. El trueque de arte y servicios
+es más común que el uso de monedas. La costumbre más célebre es el
+“Festival de las Cometas del Alma”, un evento anual en el que cada
+ciudadano diseña y vuela una cometa que simboliza sus sueños, anhelos o
+pesares. El cielo se llena de un torbellino de colores y formas, un
+espectáculo visible a leguas de distancia en el mar.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Aenirel es ligera y etérea. Las estructuras de
+madera clara y piedra blanca están repletas de arcos, balcones abiertos
+y terrazas diseñadas para vivir de cara al viento. Los edificios parecen
+desafiar la gravedad, y muchos están conectados por frágiles puentes
+colgantes que se mecen con la brisa. El ambiente es de una paz
+inspiradora y una libertad palpable. El aire siempre huele a sal, a
+ozono y a la tenue fragancia de las flores de los acantilados.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Ladrón de Voces</strong>: Los lugareños advierten a
+los forasteros que no confiesen sus secretos más oscuros en las noches
+de luna nueva. Se dice que un viento melancólico y curioso, conocido
+como el “Ladrón de Voces”, desciende sobre la ciudad en esas noches para
+robar las palabras de los labios de los incautos. Algunos afirman que,
+durante las peores tormentas, se pueden oír esos secretos robados
+susurrando entre los aullidos del vendaval.</p></li>
+<li><p><strong>Los Faros Fantasma</strong>: Los marineros que navegan
+cerca de los acantilados de Aenirel cuentan historias de luces
+espectrales que aparecen en la niebla durante las tormentas. Estas
+luces, los “Faros Fantasma”, parecen guiar a los barcos a un puerto
+seguro, alejándolos de las rocas afiladas. Sin embargo, la leyenda
+advierte que cualquier capitán que intente seguir la luz hasta su origen
+se perderá para siempre, su barco arrastrado a un cementerio de naves
+espectrales bajo las olas.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

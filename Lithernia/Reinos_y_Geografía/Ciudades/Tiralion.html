@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiralion</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Tiralion</div>
+        <div class="content">
+<h1 id="tiralion">Tiralion</h1>
+<p>Conocida en todo <a href="Eldrador.html">Eldrador</a> como “La Ciudad
+de las Arpas Astrales”, Tiralion es una obra maestra de armonía y luz.
+Situada en el protegido Valle de los Ecos Astrales, la ciudad no está
+defendida por murallas, sino por la sinfonía misma de su existencia. Sus
+esbeltas torres de mármol blanco y cuarzo cristalino se alzan hacia el
+cielo como los mástiles de un arpa cósmica, diseñadas para capturar y
+resonar con la luz de las estrellas. Puentes de luz sólida, que vibran
+con una melodía apenas audible, conectan estas cumbres, creando una
+metrópolis aérea de belleza inefable. Sin embargo, bajo esta fachada de
+perfección armónica, Tiralion se rige por la disciplina férrea de La
+Mano de Hierro, donde la belleza es un privilegio y el estatus, una nota
+inmutable en la gran partitura del destino.</p>
+<h2 id="historia">Historia</h2>
+<p>Tiralion fue fundada tras el Cataclismo del <a
+href="Lilium.html">Lilium</a> por la <a href="Noble.html">Noble</a> Casa
+Lyra’Lanthar, un linaje de Altos Elfos que vio en la música y la
+astronomía el único camino para restaurar el orden en un mundo
+desgarrado. Creían que si el cosmos era una canción divina, una ciudad
+construida según sus leyes armónicas sería un bastión de estabilidad y
+perfección. Liderados por sus primeros Duques, maestros astrónomos y
+bardos consumados, erigieron las torres para que cantaran con las
+estrellas y trazaron sus calles siguiendo el flujo de las
+constelaciones.</p>
+<p>Con los siglos, esta búsqueda de la perfección se solidificó en una
+estricta estructura social. El duque Thaelian Lyra’Lanthar gobierna hoy
+a través del Consejo de Ecos, un cuerpo de nobles cuya influencia se
+mide tanto por su linaje como por su maestría artística. Tiralion es un
+faro de la cultura élfica, pero también un recordatorio de que en <a
+href="Eldrador.html">Eldrador</a>, la belleza puede ser la más elegante
+de las jaulas.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Torres Resonantes</strong>: El distrito de la alta
+nobleza. Cada torre es el hogar de una casa <a
+href="Noble.html">Noble</a>, construida con materiales que amplifican la
+luz y el sonido. En la aguja más alta se encuentra el Palacio del Eco
+Eterno, residencia del Duque Thaelian, desde donde se dice que puede
+escuchar el más mínimo desafine en la ciudad.</p></li>
+<li><p><strong>Las Laderas Esmeralda</strong>: En las laderas del valle,
+bajo las torres flotantes, vive la clase trabajadora. Sus hogares están
+excavados en la roca viva, cubiertos por un musgo luminoso que les
+proporciona una luz suave y verdosa. Aunque consideradas humildes, estas
+viviendas están dispuestas en patrones geométricos que contribuyen a la
+acústica general de la ciudad.</p></li>
+<li><p><strong>El Puente de las Liras</strong>: Una intrincada red de
+puentes hechos de luz solidificada que conectan las diversas torres. Es
+el espacio público por excelencia, donde los músicos errantes ofrecen
+conciertos improvisados y los poetas recitan sagas estelares, esperando
+captar la atención de un patrón <a href="Noble.html">Noble</a>.</p></li>
+<li><p><strong>Observatorio del Coro Celestial</strong>: El templo
+principal de Tiralion, dedicado a <a href="Arzia.html">Arzia</a>. Es una
+cúpula de cristal gigante en la cima de la montaña más alta del valle.
+En su interior, un coro de sacerdotes-astrónomos canta himnos que, según
+creen, armonizan con el movimiento de los planetas, asegurando la
+prosperidad de la ciudad.</p></li>
+<li><p><strong>El Espejo de <a href="Arzia.html">Arzia</a></strong>: Un
+estanque perfectamente circular de aguas negras y quietas, ubicado en un
+jardín secreto del palacio. Se dice que sus aguas no reflejan el cielo
+sobre él, sino el cielo del mañana, ofreciendo visiones del futuro a
+quienes se atreven a mirar.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Tiralion es una actuación perpetua. El estatus social no
+solo se hereda, sino que debe validarse constantemente a través de la
+habilidad artística. Un <a href="Noble.html">Noble</a> sin talento
+musical es una fuente de vergüenza para su casa, mientras que un
+artesano de clase baja con una voz prodigiosa puede gozar de un respeto
+inusual, aunque nunca de verdadera movilidad social.</p>
+<p>El evento cultural más importante es el “Concierto de la Luna Nueva”,
+un festival mensual donde músicos de toda la ciudad compiten por el
+favor del Duque y la aclamación del público. Los matrimonios entre las
+casas nobles se deciden mediante complejos cálculos astrológicos para
+asegurar que la unión sea “armónicamente favorable”. Interrumpir a un
+músico durante su interpretación es el mayor tabú social, considerado un
+acto de disonancia imperdonable. El símbolo de la ciudad, un arpa de
+plata sobre un fondo de estrellas, se encuentra bordado en los
+estandartes, la ropa y las armas.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura es etérea y acústica. Las torres de cuarzo no solo
+son bellas, sino que están huecas y diseñadas para vibrar con el viento
+y la luz, creando un zumbido musical constante que impregna toda la
+ciudad. El ambiente es de una calma sublime y ordenada. El aire huele a
+flores nocturnas y al ozono fresco de la alta montaña. Para un
+visitante, la experiencia es abrumadora: es como caminar dentro de un
+instrumento perfectamente afinado, una sensación que es a la vez
+inspiradora y opresiva.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Arpa Cósmica</strong>: Se susurra que la ciudad entera
+es un instrumento diseñado para un propósito mayor. La leyenda dice que
+si el músico adecuado, en el momento astrológico preciso, interpreta la
+“Canción de la Creación” desde el Palacio del Eco Eterno, las torres de
+Tiralion resonarán al unísono, permitiendo comunicarse directamente con
+las estrellas o, quizás, reescribir una pequeña porción del
+destino.</p></li>
+<li><p><strong>El Pacto de la Sombra</strong>: La ininterrumpida
+hegemonía de la Casa Lyra’Lanthar levanta sospechas. Una leyenda
+persistente afirma que los fundadores de la casa hicieron un pacto
+oscuro con <a href="Morgal.html">Morgal</a>, el dios de las mentiras. A
+cambio de una perfección artística y una estabilidad política sin
+parangón, la casa debe tejer una sutil mentira en cada obra de arte, una
+nota falsa en cada canción, alimentando al dios de las sombras con la
+disonancia oculta en el corazón de la armonía.</p></li>
+<li><p><strong>El Rostro en el Espejo</strong>: Muchos han buscado la
+guía del Espejo de <a href="Arzia.html">Arzia</a>, pero la leyenda
+advierte que el estanque cobra un precio. No solo muestra el futuro,
+sino que a veces, exige un recuerdo a cambio. Quienes abusan de su poder
+se encuentran con que fragmentos de su pasado se han desvanecido, o peor
+aún, ven el rostro de <a href="Morgal.html">Morgal</a> sonriendo desde
+las profundidades en lugar de su propio reflejo.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

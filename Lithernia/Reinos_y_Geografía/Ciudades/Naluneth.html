@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naluneth</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Naluneth</div>
+        <div class="content">
+<h1 id="naluneth">Naluneth</h1>
+<p>Naluneth es una ciudad suspendida entre el cielo y el mar, una joya
+de piedra blanca y latón engastada en los altos acantilados de la Costa
+del Firmamento. No es un puerto bullicioso como la capital de <a
+href="Galvorn.html">Galvorn</a>, sino un faro de conocimiento, un lugar
+donde el horizonte infinito del océano se encuentra con el mapa
+inmutable de las estrellas. Sus torres de observación, coronadas por
+cúpulas de cristal, atrapan la luz de soles lejanos, mientras que sus
+puentes colgantes se mecen con la brisa salada que sube desde las olas
+rompientes. Para los marineros, Naluneth es la promesa de un rumbo
+seguro; para los sabios, es la prueba de que el universo guarda sus
+secretos para quienes tienen la paciencia de observarlo.</p>
+<h2 id="historia">Historia</h2>
+<p>Naluneth nació de una necesidad de certeza en un mundo de caos. Tras
+siglos de rutas comerciales trazadas a base de instinto y superstición,
+una legendaria capitana y astrónoma humana, Elara Star-Chart, se
+obsesionó con crear un mapa del mundo que fuera tan preciso como el de
+los cielos. Cansada de las tormentas impredecibles de <a
+href="Exion.html">Exion</a> y los caprichos del océano, buscó un lugar
+donde la tierra fuera estable, el aire claro y las estrellas visibles
+durante todo el año.</p>
+<p>La encontró en la Costa del Firmamento, un tramo de acantilados de
+piedra caliza que se elevaban como pilares hacia el cielo. Allí, junto a
+un grupo de genasi del aire que podían leer los vientos y genasi del
+agua que entendían las mareas, fundó Naluneth. No como una fortaleza,
+sino como un santuario para el conocimiento. Construyeron el primer
+observatorio, el “Ojo de <a href="Taladrios.html">Taladrios</a>”, y
+desde allí comenzaron a trazar las constelaciones, a medir los ciclos
+lunares y a crear las cartas de navegación más precisas que Lithernia
+jamás había conocido. La ciudad creció, atrayendo a cartógrafos, sabios
+medio-elfos y navegantes de todo <a href="Galvorn.html">Galvorn</a>,
+unidos por un propósito común: leer el lenguaje del cosmos.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Balcón del Firmamento</strong>: El distrito más
+elevado de la ciudad, aferrado a la cima de los acantilados. Aquí se
+encuentran los grandes observatorios, con sus cúpulas de latón y sus
+telescopios arcanos. Es un lugar de silencio y estudio, gobernado por el
+Consejo de los Observadores y patrullado por genasi del aire que actúan
+como vigías.</p></li>
+<li><p><strong>Muelle Suspendido</strong>: A diferencia de los puertos
+tradicionales, el de Naluneth es una maravilla de la ingeniería. Una
+serie de plataformas de madera y grúas accionadas por poleas descienden
+por la cara del acantilado hasta una bahía protegida. Los barcos no
+atracan, sino que son izados parcialmente fuera del agua, a salvo de las
+mareas más violentas.</p></li>
+<li><p><strong>La Senda de las Mareas</strong>: El principal distrito
+residencial, excavado en terrazas descendentes a lo largo del
+acantilado. Las casas de piedra blanca y madera de deriva tienen
+balcones que se asoman al vacío y sus tejados están adornados con
+intrincados mosaicos de azulejo azul y blanco que representan las
+constelaciones.</p></li>
+<li><p><strong>El Ojo de <a href="Yfrit.html">Yfrit</a></strong>: Un
+arco de roca natural masivo en la base del acantilado, a través del
+cual, durante el equinoccio de primavera, se alinea perfectamente la
+constelación de la Gaviota Errante. Es un lugar sagrado. Los marineros
+que zarpan suelen pasar bajo el arco para recibir la bendición de la <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a>, creyendo que
+les asegura un viaje sin extravío.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura naluniana es una mezcla de pragmatismo marinero y
+contemplación mística. Valoran la precisión, la paciencia y el
+conocimiento por encima de la fuerza bruta. Antes de cada gran viaje, el
+capitán de un barco no solo consulta las cartas náuticas, sino también
+las cartas astrales preparadas por los observadores de la ciudad.</p>
+<p>El evento más importante es el “Festival de la Estrella Guía”, que se
+celebra en la noche más larga del año. Toda la ciudad se reúne en los
+balcones y miradores. Al anochecer, cada habitante lanza al mar una
+pequeña barca de madera con una linterna encendida en su interior, que
+simboliza un deseo o una plegaria. El mar se llena de cientos de luces
+parpadeantes, creando un reflejo terrenal del cielo estrellado. Se cree
+que las barcas que viajan más lejos son las que llevan los deseos que <a
+href="Yfrit.html">Yfrit</a> y <a href="Quiteon.html">Quiteon</a>
+escucharán.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Naluneth es una ciudad de líneas limpias y vistas despejadas. La
+piedra caliza blanca de sus edificios refleja la luz del sol durante el
+día y el brillo de la luna por la noche, haciéndola visible a millas de
+distancia en el mar. La madera utilizada proviene de los restos de
+naufragios, pulida y blanqueada por el sol y la sal. El sonido dominante
+es el constante murmullo del viento, que los genasi del aire llaman “el
+susurro de <a href="Quiteon.html">Quiteon</a>”, y el ritmo atronador de
+las olas rompiendo contra la base de los acantilados. El aire es limpio
+y salino, y por la noche, cuando las cúpulas de los observatorios se
+abren, un tenue zumbido mágico emana de las lentes arcanas enfocadas en
+la inmensidad.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>La Sombra del Navegante</strong>: Los marineros más
+viejos advierten a los jóvenes de no fiarse de todas las estrellas.
+Susurran que, en las noches sin luna, cuando la niebla se arrastra desde
+el mar, una constelación fantasma aparece en los cielos del oeste. Tiene
+la forma de un barco naufragando, y se la conoce como “La Sombra del
+Navegante”. La leyenda dice que cualquier capitán lo suficientemente
+necio como para usarla de guía está condenado a navegar eternamente en
+un mar de niebla, perdido para siempre. Algunos sabios de Naluneth
+teorizan que no es una constelación, sino el ojo de un leviatán astral
+que observa el mundo desde el vacío, y que la niebla es su aliento, que
+atrae a las almas curiosas.</p></li>
+<li><p><strong>El Mapa Inacabado</strong>: Se dice que en una bóveda
+secreta bajo el observatorio principal, la fundadora Elara Star-Chart
+guardó su obra maestra: un mapa que no solo mostraba el mundo conocido,
+sino también las tierras más allá del horizonte, los reinos submarinos y
+los caminos entre las estrellas. Murió antes de poder completarlo, y se
+cree que su espíritu aún protege el mapa, esperando a un cartógrafo
+digno que tenga el coraje de trazar los últimos rumbos hacia lo
+desconocido.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iriundel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Iriundel</div>
+        <div class="content">
+<h1 id="iriundel">Iriundel</h1>
+<p>Suspendida en los desolados Cañones de la Agonía, Iriundel es la
+capital de la belleza macabra en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. No es una ciudad de poder
+militar, sino de influencia estética, donde la crueldad se refina hasta
+convertirse en un arte y el sufrimiento es la musa suprema. Sus delgadas
+torres de basalto pulido se alzan como agujas contra un cielo
+perpetuamente gris, adornadas con gárgolas que son en realidad
+elementales menores, petrificados en eternos gestos de tormento. Aquí,
+el estatus no se mide en oro o ejércitos, sino en la sofisticación del
+dolor que uno puede infligir o expresar. Sus calles son galerías
+silenciosas y sus habitantes, artistas y críticos de una sinfonía de
+decadencia.</p>
+<h2 id="historia">Historia</h2>
+<p>Las <a href="Leyendas.html">Leyendas</a> afirman que Iriundel fue
+fundada sobre las ruinas de un santuario elfo por Lyraenus el Doliente,
+un archimago exiliado que buscaba un lugar donde la belleza sombría
+pudiera florecer sin juicios. Su visión era crear arte a partir de la
+melancolía y la pérdida. Sin embargo, tras la misteriosa desaparición de
+Lyraenus, su utopía de tristeza se corrompió. Los cultos a <a
+href="Kromagul.html">Kromagul</a>, el Dios del Dolor, y Gyth’kai, la
+Diosa del Sacrificio, se apoderaron de la ciudad, pervirtiendo la visión
+del fundador. La melancolía se transformó en agonía, y el sacrificio
+artístico se volvió literal. Hoy, Iriundel es una teocracia artística
+donde los devotos de <a href="Kromagul.html">Kromagul</a> compiten por
+crear las obras más exquisitamente dolorosas, mientras el culto formal a
+Sel’thirak se mantiene como una formalidad política, una cáscara vacía
+frente a la verdadera pasión por el sufrimiento.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Anfiteatro de la Agonía Eterna</strong>: Una colosal
+arena de mármol veteado de rojo, donde no se celebran justas, sino
+“performances”. Aquí, los duelos son a la “primera cicatriz artística”,
+combates rituales donde el objetivo es dejar una marca bella y
+significativa en el oponente. También es el escenario de sacrificios a
+Gyth’kai, concebidos como complejas obras de teatro
+sangrientas.</p></li>
+<li><p><strong>La Galería de los Susurros</strong>: El distrito <a
+href="Noble.html">Noble</a>, donde las mansiones góticas albergan las
+colecciones de arte más prestigiosas. Sus muros están adornados con
+esculturas hechas de hueso pulido y almas vinculadas, cuyos lamentos
+silenciosos son considerados la más alta forma de música. Los famosos
+“vitrales de alma” de la ciudad atrapan ecos espectrales, proyectando
+sombras danzantes de los muertos en los salones de la élite.</p></li>
+<li><p><strong>Los Talleres del Crepúsculo</strong>: Un laberinto de
+callejones estrechos y sombríos donde los artesanos —nigromantes, poetas
+fantasmales, ilusionistas y escultores de carne— practican su oficio. El
+aire está cargado con el olor a incienso, formol y la energía de la
+magia oscura. Es un lugar peligroso donde los asistentes <a
+href="Goblins.html">Goblins</a> a menudo terminan como “material” para
+una obra inacabada.</p></li>
+<li><p><strong>El Enclave Velado</strong>: Un distrito aislado y
+silencioso habitado por un misterioso grupo de Shadar-Kai. Atraídos por
+la estética de la ciudad, viven apartados, observando y perfeccionando
+su propia comprensión del dolor y la sombra. Rara vez interactúan con
+los demás, pero se rumorea que son los jueces secretos de todo el arte
+de Iriundel.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Iriundel es una competición constante de expresión
+artística. Los saludos no son verbales, sino gestos de estudiada
+melancolía. Un regalo común y apreciado es una “lágrima de obsidiana”,
+una joya finamente tallada que simboliza un dolor elegantemente
+soportado. El evento social más importante del año es el “Festival del
+Lienzo Silencioso”, una competición donde los nigromantes más talentosos
+de <a href="Mor&#39;dhul.html">Mor’dhul</a> presentan sus creaciones:
+no-muertos reanimados y esculpidos para exhibir una belleza trágica y
+silenciosa. El ganador es nombrado “Artista Primus” del año, un título
+de inmenso prestigio. La moda consiste en ropajes oscuros y elaborados,
+a menudo adornados con fragmentos de hueso o gemas que simbolizan
+heridas pasadas.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Iriundel es una obra de arte gótica y recargada. Las estructuras
+desafían la gravedad con agujas y arbotantes que parecen esqueletos de
+<a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+colosales. El mármol veteado de rojo da la impresión de que los
+edificios sangran lentamente. No hay colores vivos; la paleta de la
+ciudad es de negros, grises, blancos hueso y el carmesí de la sangre y
+la piedra. El ambiente es de una calma opresiva. No hay bullicio, solo
+el eco de pasos sobre el pavimento de basalto y, si uno escucha con
+atención, el susurro incorpóreo de los espíritus atrapados en el arte de
+la ciudad. El símbolo de Iriundel, una rosa negra goteando sangre sobre
+una telaraña de plata, se encuentra grabado en puertas, estandartes y en
+la piel de sus ciudadanos.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Juicio del Fundador</strong>: Se susurra que el
+espíritu de Lyraenus, el fundador elfo, nunca abandonó la ciudad. Se
+dice que su fantasma vaga por la Galería de los Susurros por la noche,
+juzgando las obras de sus sucesores. Una obra que le desagrada amanece
+convertida en polvo, y su creador a menudo desaparece sin dejar
+rastro.</p></li>
+<li><p><strong>El Reflejo del <a href="Lilium.html">Lilium</a></strong>:
+Una leyenda persistente afirma que ciertos espejos antiguos en Iriundel,
+pulidos con polvo de almas, no reflejan el rostro de quien los mira,
+sino un fragmento del Cataclismo del <a href="Lilium.html">Lilium</a>.
+Mirar demasiado tiempo en ellos es invitar a la locura, pues <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+amenaza con consumir la mente del espectador.</p></li>
+<li><p><strong>El Escultor Silencioso</strong>: La leyenda más temida es
+la del “Escultor Silencioso”, una entidad que vaga por la ciudad en las
+noches sin luna. No busca víctimas para matar, sino modelos. Secuestra a
+ciudadanos de particular belleza o con una expresión de profundo pesar y
+los lleva a su taller oculto, donde los transforma, aún vivos, en
+estatuas de carne y hueso, obras maestras de un terror perfecto y
+perpetuo.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bardo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Bardo</div>
+        <div class="content">
+<h1 id="bardo">Bardo</h1>
+<h2 id="descripción-general">Descripción General</h2>
+<p>Los bardos en Lithernia son maestros de la música, la magia y la
+palabra. Su arte va más allá del simple entretenimiento; son
+inspiradores de aliados, desmoralizadores de enemigos y sanadores de
+heridas mediante sus melodías y encantamientos. Su versatilidad y
+carisma les permiten desenvolverse en cualquier situación social y
+utilizar su ingenio para superar obstáculos.</p>
+<p>En un mundo donde la magia impregna la realidad, los bardos canalizan
+esta energía a través de sus actuaciones, convirtiendo la música en una
+fuente de poder arcano. Son viajeros, narradores de leyendas y
+guardianes de secretos ancestrales, capaces de influir en el destino de
+Lithernia con una canción o una palabra bien dicha.</p>
+<h2 id="rol-en-lithernia">Rol en Lithernia</h2>
+<p>Los bardos son figuras clave en la sociedad de Lithernia, actuando
+como diplomáticos, espías, historiadores y aventureros. Su conocimiento
+de las culturas y tradiciones de las diversas razas les permite moverse
+con facilidad entre los cuatro reinos principales:</p>
+<ul>
+<li><p><strong>Mor’dhul:</strong> En este reino de sombras y muerte, los
+bardos pueden ser trovadores oscuros que narran historias de guerra y
+sacrificio, o espías que usan su arte para obtener información en un
+ambiente de traición y violencia.</p></li>
+<li><p><strong>Galvorn:</strong> Aquí, los bardos son celebrados como
+artistas y exploradores, llevando canciones de libertad, aventura y
+conocimiento a las bulliciosas ciudades costeras.</p></li>
+<li><p><strong>Valtoria:</strong> En las montañas, los bardos combinan
+la música con la artesanía y la magia de las runas, preservando las
+tradiciones enanas y fomentando la cooperación entre clanes.</p></li>
+<li><p><strong>Eldrador:</strong> En los bosques antiguos, los bardos
+son custodios de la magia arcana y la naturaleza, utilizando sus
+melodías para comunicarse con los espíritus del bosque y guiar a su
+pueblo.</p></li>
+</ul>
+<h2 id="características-de-clase">Características de Clase</h2>
+<ul>
+<li><p><strong>Puntos de Golpe:</strong> 1d8 por nivel de
+bardo.</p></li>
+<li><p><strong>Puntos de Maná:</strong> 6 + (Nivel x Modificador de
+Carisma).</p></li>
+<li><p><strong>Competencias:</strong></p>
+<ul>
+<li>Armaduras: Armaduras ligeras.</li>
+<li>Armas: Armas simples, espadas cortas, espadas largas, arcos cortos y
+largos.</li>
+<li>Herramientas: Instrumentos musicales (elige tres).</li>
+<li>Tiradas de Salvación: Destreza, Carisma.</li>
+<li>Habilidades: Elige tres de entre: Acrobacias, Atletismo, Engaño,
+Historia, Intimidación, Interpretación, Investigación, Medicina,
+Naturaleza, Percepción, Persuasión, Religión, Sigilo.</li>
+</ul></li>
+<li><p><strong>Equipo Inicial:</strong></p>
+<ul>
+<li><ol type="a">
+<li>una espada corta o (b) una daga.</li>
+</ol></li>
+<li><ol type="a">
+<li>un laúd o (b) un instrumento musical a elección.</li>
+</ol></li>
+<li><ol type="a">
+<li>un paquete de diplomático o (b) un paquete de entertainer.</li>
+</ol></li>
+<li>Armadura de cuero.</li>
+</ul></li>
+</ul>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<h3 id="inspiración-barda">Inspiración Barda</h3>
+<p>Los bardos pueden inspirar a sus aliados mediante palabras o música.
+Como acción bonus, un bardo puede otorgar a una criatura aliada un dado
+de inspiración (d6 al principio, que aumenta con el nivel). Este dado
+puede añadirse a una tirada de ataque, prueba de habilidad o tirada de
+salvación.</p>
+<h3 id="magia-de-bardo">Magia de Bardo</h3>
+<p>Los bardos lanzan conjuros utilizando Carisma como su característica
+de lanzamiento. Tienen acceso a una lista de conjuros que incluye
+hechizos de apoyo, control y daño. Su nivel máximo de conjuro es 9.</p>
+<h3 id="versatilidad-y-conocimiento">Versatilidad y Conocimiento</h3>
+<p>Los bardos tienen competencia en una amplia variedad de habilidades y
+pueden aprender idiomas adicionales, lo que los hace adaptables y
+versátiles en cualquier entorno.</p>
+<h3 id="subclases-colecciones">Subclases (Colecciones)</h3>
+<p>Los bardos eligen una Colección que define su estilo y enfoque mágico
+y artístico. Algunas colecciones típicas incluyen:</p>
+<ul>
+<li><p><strong>Colección del Trovador:</strong> Especializados en la
+inspiración y el apoyo, con habilidades para mejorar la moral y la
+resistencia de sus aliados.</p></li>
+<li><p><strong>Colección del Ilusionista:</strong> Maestros de la magia
+ilusoria y el engaño, capaces de manipular la percepción y confundir a
+sus enemigos.</p></li>
+<li><p><strong>Colección del Guerrero de la Canción:</strong> Combina
+habilidades marciales con magia, permitiendo un estilo de combate
+dinámico y encantamientos ofensivos.</p></li>
+</ul>
+<h2 id="papel-narrativo">Papel Narrativo</h2>
+<p>Los bardos son narradores y guardianes de la historia viva de
+Lithernia. Sus canciones y relatos preservan las leyendas de los
+dragones, la Caída del Lilium y las hazañas de héroes y villanos. Son
+portadores de secretos y tradiciones, y su arte puede cambiar el curso
+de la historia.</p>
+<h2 id="conexión-con-la-magia-y-los-dioses">Conexión con la Magia y los
+Dioses</h2>
+<p>En Lithernia, la magia es una fuerza omnipresente y poderosa. Los
+bardos canalizan esta magia a través de su carisma y talento artístico.
+Su relación con los dioses puede variar según su trasfondo y reino de
+origen, pero suelen venerar a deidades relacionadas con la inspiración,
+la música, el conocimiento y la comunicación.</p>
+<h2 id="creación-de-personaje">Creación de Personaje</h2>
+<p>Al crear un bardo en Lithernia, considera:</p>
+<ul>
+<li><p><strong>Raza:</strong> Elige una raza que complemente el carisma
+y la versatilidad del bardo, como semielfos, humanos o elfos.</p></li>
+<li><p><strong>Trasfondo:</strong> Define la historia del bardo, sus
+motivaciones y su relación con la música y la magia.</p></li>
+<li><p><strong>Alineamiento:</strong> Los bardos pueden tener cualquier
+alineamiento, reflejando su diversidad y adaptabilidad.</p></li>
+</ul>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><p><a
+href="Manual%20de%20Lithernia%5B#Capítulo%5D(tag-Capítulo.html)%204:%20Clases%20de%20Lithernia.html">Manual
+de Lithernia[#Capítulo](tag-Capítulo.html) 4: Clases de
+Lithernia</a></p></li>
+<li><p><a
+href="Manual%20de%20Lithernia%5B#Capítulo%5D(tag-Capítulo.html)%202:%20Creación%20de%20Personajes.html">Manual
+de Lithernia[#Capítulo](tag-Capítulo.html) 2: Creación de
+Personajes</a></p></li>
+<li><p><a
+href="Manual%20de%20Lithernia%5B#Capítulo%5D(tag-Capítulo.html)%203:%20Razas%20de%20Lithernia.html">Manual
+de Lithernia[#Capítulo](tag-Capítulo.html) 3: Razas de
+Lithernia</a></p></li>
+</ul>
+<hr />
+<p><strong>Falta información canónica específica sobre habilidades,
+conjuros y subclases detalladas del Bardo en Lithernia.</strong></p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.37)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuales</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Manuales</div>
+        <div class="content">
+<h1 id="manuales">Manuales</h1>
+<p>Los manuales de Lithernia constituyen la base esencial para jugadores
+y directores de juego que deseen sumergirse plenamente en este vasto y
+detallado mundo. Estos documentos contienen las reglas adaptadas,
+descripciones de razas, <a href="Leyendas.html">Leyendas</a> y sistemas
+mágicos propios de Lithernia, proporcionando herramientas fundamentales
+para el desarrollo de campañas coherentes y ricas en narrativa.</p>
+<h2 id="manual-básico-de-jugabilidad">Manual Básico de Jugabilidad</h2>
+<p>Este manual introduce el sistema principal de juego en Lithernia,
+adaptando las reglas estándar de D&amp;D 5e con las particularidades del
+mundo. Incluye:</p>
+<ul>
+<li><strong>Sistema de Magia de Lithernia:</strong> Explicación
+detallada del Tejido del Maná, el Dado de Maná, la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>,
+los Círculos de Invocación y la Potenciación y Mezcla de <a
+href="Conjuros.html">Conjuros</a>.</li>
+<li><strong>Puntos de Maná:</strong> Mecánica alternativa para el uso de
+<a href="Conjuros.html">Conjuros</a>, con tablas de progresión por
+clase.</li>
+<li><strong>Dotes Especiales:</strong> Nuevas dotes relacionadas con el
+manejo del maná y la canalización mágica propia de Lithernia.</li>
+<li><strong><a href="Conjuros.html">Conjuros</a> Estelares:</strong>
+Listado y descripción de hechizos exclusivos que reflejan la energía de
+los astros y la historia mítica.</li>
+</ul>
+<h2 id="manual-de-razas-y-panteones">Manual de Razas y Panteones</h2>
+<p>Este compendio detalla las razas jugables y sus origenes divinos,
+acompasados con los atributos, habilidades raciales y trasfondos
+culturales exclusivos de Lithernia. Destacan:</p>
+<ul>
+<li><strong>Razas por Reino:</strong> Mor’dhul (<a
+href="Tieflings.html">Tieflings</a>, <a href="Orcos.html">Orcos</a>,
+semiogros, <a href="Hobgoblins.html">Hobgoblins</a>, <a
+href="Goblins.html">Goblins</a>, vampiros), <a
+href="Galvorn.html">Galvorn</a> (<a href="Humanos.html">Humanos</a>, <a
+href="Halflings.html">Halflings</a>, genasi, <a
+href="Semielfos.html">Semielfos</a>), <a
+href="Valtoria.html">Valtoria</a> (<a href="Enanos.html">Enanos</a>, <a
+href="Gnomos.html">Gnomos</a>, genasi tierra, goliatths, <a
+href="Dragonborn.html">Dragonborn</a>), <a
+href="Eldrador.html">Eldrador</a> (altos elfos, elfos oscuros,
+eladrines, wood elves, shadar-kai).</li>
+<li><strong>Religión y Panteones:</strong> Explicación de los dioses
+patronos ligados a cada raza y su impacto en la cultura y habilidades
+mágicas.</li>
+<li><strong>Sistema de Castas y Sociedades:</strong> Particularidades
+como la Mano de Hierro en <a href="Eldrador.html">Eldrador</a> y la
+estructura clanil en Mor’dhul.</li>
+</ul>
+<h2 id="manual-de-reinos-y-ciudades">Manual de Reinos y Ciudades</h2>
+<p>Con una perspectiva geográfica y política, este manual incluye:</p>
+<ul>
+<li><strong>Descripción de Reinos:</strong> Territorio, sociedades,
+sistemas políticos y culturales de Mor’dhul, <a
+href="Galvorn.html">Galvorn</a>, <a href="Valtoria.html">Valtoria</a> y
+<a href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>Ciudades Destacadas:</strong> Información sobre sus
+condiciones actuales, facciones dominantes, conflictos y amenazas.
+Ciudades como Mor’dhul, Noblestevo, Fuendavendi, Medromora, Mirallos,
+Chéneras, Vallas, Estriedana, Mevanil, <a
+href="Galvorn.html">Galvorn</a> capital, Poyoranta, <a
+href="Valtoria.html">Valtoria</a> capital, Ironforge, <a
+href="Eldrador.html">Eldrador</a> capital, Moonshadow y Sunwood son
+detalladamente descriptas para ambientar episodios y campañas.</li>
+<li><strong>Facciones y Clanes:</strong> Guía para integrar las
+dinámicas de poder locales, especialmente en Mor’dhul.</li>
+</ul>
+<h2 id="manual-de-personajes-y-facciones">Manual de Personajes y
+Facciones</h2>
+<p>Este manual ofrece biografías, motivaciones y relaciones de
+personajes clave que definen el devenir de Lithernia, útiles para la
+creación de <a href="NPCs.html">NPCs</a> o inspirar trasfondos de
+personajes jugadores. Incluye:</p>
+<ul>
+<li><strong>El Primer Rey:</strong> Su historia, mitos, profecías y el
+papel central de su sello y las Lanzas Celestiales.</li>
+<li><strong>Rey Sel’thirak y clanes de Mor’dhul:</strong> Estructuras de
+poder, intrigantes luchas y aliados potenciales.</li>
+<li><strong>Figuras de otros reinos:</strong> Reina Valeria
+Bronzebrillo, Capitán Aurelius Stormsail, Archimago Thalios Estrella
+Antigua, y otros líderes.</li>
+<li>**Guías para facciones menores y clanes, permitiendo campañas
+centradas en política, rebelión y alianzas.</li>
+</ul>
+<h2 id="manual-de-eventos-y-profecías">Manual de Eventos y
+Profecías</h2>
+<p>Recopilación profunda de los hitos históricos y augurios que marcan
+el trasfondo de las campañas en Lithernia:</p>
+<ul>
+<li>Registro de los eventos desde <a
+href="01_AmanecerDivino.html">01_AmanecerDivino</a> hasta la Era
+Actual.</li>
+<li>Profecías del Retorno del Primer Rey, Segunda Caída del <a
+href="Lilium.html">Lilium</a>, <a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a> y
+otros signos apocalípticos.</li>
+<li>Guías para incorporar eventos recientes como la Batalla de las
+Lágrimas Negras o el Ascenso de Lord Aethel.</li>
+<li>Consejos para narrativas que entrelacen historia, profecía y
+aventuras.</li>
+</ul>
+<h2 id="manual-de-guía-para-el-dungeon-master">Manual de Guía para el
+Dungeon Master</h2>
+<p>Diseñado para facilitar la gestión de campañas en Lithernia, este
+manual contiene:</p>
+<ul>
+<li><strong>Sugerencias para manejar la magia especial:</strong> Cómo
+equilibrar la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>,
+aprovechar Círculos de Invocación y las mecánicas propias.</li>
+<li><strong>Ideas para tramas políticas y de facciones:</strong> En
+especial las complejas relaciones en Mor’dhul y las interacciones entre
+reinos.</li>
+<li><strong><a href="Mapas.html">Mapas</a> y <a
+href="Recursos.html">Recursos</a> narrativos:</strong> Para
+desplazamientos entre ciudades, viajes en landscape diverso y escenarios
+de conflicto.</li>
+<li><strong>Herramientas para integrar los grandes eventos:</strong> Uso
+de profecías, legados y misterios para crear campañas épicas que
+reflejen la esencia de Lithernia.</li>
+<li><strong>Consejos para adaptar reglas caseras:</strong> Incorporar
+las dotes, <a href="Conjuros.html">Conjuros</a> exclusivos y mecánicas
+únicas al flujo tradicional de D&amp;D 5e.</li>
+</ul>
+<hr />
+<p>Estos manuales son fundamentales para entender la profundidad, la
+cultura y las reglas únicas del <a
+href="Título_de_la_nota.html">Título_de_la_nota</a>, facilitando la
+inmersión tanto para jugadores como para narradores y garantizando
+experiencias de juego ricas, coherentes y temáticamente intensas.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="razas.html">razas</a> (relevancia: 0.43)</li>
+<li><a href="Razas.html">Razas</a> (relevancia: 0.43)</li>
+<li><a href="Campañas.html">Campañas</a> (relevancia: 0.43)</li>
+<li><a href="Facciones.html">Facciones</a> (relevancia: 0.36)</li>
+<li><a href="Profecías.html">Profecías</a> (relevancia: 0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

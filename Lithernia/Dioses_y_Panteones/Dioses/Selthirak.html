@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selthirak</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Selthirak</div>
+        <div class="content">
+<h1 id="selthirak">Sel’thirak</h1>
+<h2 id="biografía">Biografía</h2>
+<p><strong>Orígenes Divinos y el Sello del Rey</strong></p>
+<p>Sel’thirak es una de las deidades más temidas y poderosas de
+Lithernia, el actual líder del Panteón Korogrim y el indiscutible
+Rey-Dios del oscuro reino de <a href="Mor&#39;dhul.html">Mor’dhul</a>.
+Nacido de la esencia bélica de su padre, <a
+href="Thyrgram.html">Thyrgram</a>, dios orco de la Guerra, Sel’thirak
+encarna un aspecto más frío y calculador del poder: el dominio absoluto
+a través del orden inexorable de la muerte. Su existencia está marcada
+por una compleja red de rivalidades divinas, principalmente con su
+brutal hermano <a href="Lakros.html">Lakros</a>, dios de la Sangre, a
+quien considera un agente del caos sin propósito.</p>
+<p>La historia de Sel’thirak está intrínsecamente ligada al evento más
+traumático de Lithernia: la caída del Primer Rey. Durante la guerra
+entre el monarca mortal y los dioses, Sel’thirak fue una figura clave.
+Consideraba la ambición del Rey de ser venerado como una afrenta
+intolerable, el epítome de la arrogancia mortal que amenazaba el
+equilibrio cósmico. Cuando los dioses finalmente doblegaron al Rey, fue
+la potente magia de muerte de Sel’thirak la que ayudó a tejer los
+encantamientos de las cuatro Lanzas Celestiales —Requiem, Ultimatum,
+Mortum y Chronos—, encadenando al monarca a una eternidad de sufrimiento
+bajo tierra. Para Sel’thirak, el posterior Cataclismo del <a
+href="Lilium.html">Lilium</a> no fue una tragedia, sino un castigo justo
+y necesario, una lección divina grabada a fuego sobre el mundo para que
+ningún mortal volviera a cometer tal osadía.</p>
+<p><strong>La Coronación del Rey-Dios</strong></p>
+<p>Tras el cataclismo, mientras los otros dioses se retiraban a sus
+planos celestiales para guiar a sus creaciones desde la distancia,
+Sel’thirak adoptó una estrategia diferente. Durante siglos, <a
+href="Mor&#39;dhul.html">Mor’dhul</a> fue un territorio caótico
+gobernado por clanes <a href="Orcos.html">Orcos</a> en perpetua batalla.
+Al observar la incapacidad de los mortales para gobernarse sin caer en
+la anarquía, Sel’thirak se convenció de que solo una supervisión divina,
+directa y absoluta, podría evitar que la historia se repitiera.</p>
+<p>Hace aproximadamente 500 años, en un evento conocido como el Día del
+Ocaso, Sel’thirak descendió de los cielos y se manifestó en una forma
+física permanente. Se proclamó Rey-Dios de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, subyugó a los señores de la
+guerra <a href="Orcos.html">Orcos</a> con una demostración de poder
+abrumadora y estableció una teocracia autoritaria desde su nueva
+capital. Desde entonces, ha gobernado con mano de hierro, transformando
+<a href="Mor&#39;dhul.html">Mor’dhul</a> en una sociedad brutalmente
+jerárquica donde su palabra es ley y la muerte, un instrumento de
+estado.</p>
+<p><strong>Motivaciones y Filosofía</strong></p>
+<p>La tiranía de Sel’thirak no nace de una simple sed de poder, sino de
+una filosofía profundamente arraigada. Él cree sinceramente que es el
+guardián del orden mundial, el único baluarte que impide que la
+arrogancia mortal desate otro cataclismo. Considera la profecía del
+retorno del Primer Rey como la mayor amenaza para la estabilidad de
+Lithernia y la suprime activamente, castigando su mención con la muerte.
+Su objetivo final es consolidar el dominio de los dioses sobre los
+mortales, asegurando un orden eterno donde cada ser conozca su lugar y
+la muerte sirva como el recordatorio final de la jerarquía divina.
+Gobierna <a href="Mor&#39;dhul.html">Mor’dhul</a> no solo como su
+dominio, sino como una base de operaciones para extender esta filosofía
+a toda Lithernia.</p>
+<p><strong>Relaciones y Círculo Íntimo</strong></p>
+<p>En su corte, Sel’thirak se rodea de figuras clave que reflejan las
+distintas facetas de su poder. Su leal general, el orco <strong>Lord
+Volrath “La Mano Negra”</strong>, comanda sus ejércitos con una devoción
+inquebrantable, compartiendo el desprecio de su rey por el legado del
+Primer Rey. Su consejera más cercana es <strong>Lady Xandria “La
+Susurrante”</strong>, una tiefling maestra de la magia mental y la
+intriga, cuya inteligencia y lealtad son sus mayores activos. Sin
+embargo, su reinado no está libre de amenazas internas. <strong>Lord
+Aethel “El Cruel”</strong>, un ambicioso <a href="Noble.html">Noble</a>
+tiefling, conspira en las sombras para usurpar el trono, viendo a
+Sel’thirak como un obstáculo para su propia visión de grandeza.</p>
+<p>En el plano divino, desprecia a <strong><a
+href="Yfrit.html">Yfrit</a></strong>, la <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a> de <a
+href="Galvorn.html">Galvorn</a>, cuyas ideas de libertad y prosperidad
+son la antítesis de su control sombrío. Su relación con su familia es
+una fuente constante de tensión: manipula y es manipulado por su padre
+<strong><a href="Thyrgram.html">Thyrgram</a></strong>, compite
+ferozmente con su hermano <strong><a
+href="Lakros.html">Lakros</a></strong> por el control del panteón, y
+vigila de cerca la creciente ambición de su fanática hija,
+<strong>Gyth’kai</strong>.</p>
+<h2 id="descripción-física-y-atuendo">Descripción Física y Atuendo</h2>
+<p>Como deidad encarnada, Sel’thirak proyecta una imagen de majestad y
+terror. Adopta la forma de un tiefling imponente de piel color obsidiana
+pulida. Sus ojos brillan con una inteligencia fría y un intenso fulgor
+carmesí que parece penetrar el alma de quienes lo miran. Un par de
+cuernos largos y elegantemente curvados se elevan desde su frente, y su
+porte es siempre regio y dominante.</p>
+<p>Viste con ropajes reales confeccionados con las sedas más oscuras,
+profusamente adornados con filigranas de hueso y plata que representan
+símbolos de muerte y poder. Sobre su cabeza descansa una corona forjada
+en obsidiana y hierro estigio, tallada con <a
+href="Runas.html">Runas</a> que susurran los nombres de aquellos a
+quienes ha condenado. No suele portar armas visibles, pues su mera
+presencia y su dominio sobre la muerte son sus herramientas más
+letales.</p>
+<h2 id="poderes-y-habilidades">Poderes y Habilidades</h2>
+<p>Como Dios de la Muerte, Sel’thirak posee un dominio absoluto sobre
+las energías necróticas y el ciclo de la vida y el fin. Su poder fue
+fundamental para sellar a un ser tan poderoso como el Primer Rey. Es
+capaz de comandar ejércitos de no-muertos, arrancar almas con un gesto y
+tejer maldiciones que pueden plagar linajes enteros durante
+generaciones.</p>
+<p>Más allá de su poder arcano, es un estratega y un político consumado.
+Ha mantenido unido el reino más caótico de Lithernia durante cinco
+siglos, equilibrando las ambiciones de clanes salvajes, nobles
+conspiradores y deidades rivales. Su carisma es tan potente como su
+crueldad, inspirando una lealtad fanática en sus seguidores,
+especialmente en los <a href="Tieflings.html">Tieflings</a>, la raza que
+creó a su imagen.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Sel’thirak es una de las fuerzas motrices de la Era Crepuscular. Es
+el principal carcelero del Primer Rey y el mayor obstáculo para el
+cumplimiento de la profecía que podría unificar Lithernia. Su reino, <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, es una fuente constante de
+conflicto en la Gran Guerra, alimentando las tensiones con <a
+href="Eldrador.html">Eldrador</a> y <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>Su existencia define la lucha central del mundo: el orden divino
+impuesto por el miedo contra la caótica libertad de los mortales. Aunque
+se ve a sí mismo como un salvador que previene un mal mayor, para la
+mayoría de Lithernia es un tirano cuyo reinado perpetúa el sufrimiento.
+El futuro del mundo podría depender de su destino, ya que las profecías
+y las conspiraciones sugieren que su caída, ya sea a manos de un <a
+href="Heroes.html">Heroes</a> o de un usurpador como Aethel, podría
+desatar un caos aún mayor o, quizás, abrir el camino hacia una nueva
+era. Su legado es el de un guardián temible, un rey oscuro y un
+recordatorio perpetuo del precio que los dioses hicieron pagar al mundo
+por desafiarlos.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.62)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

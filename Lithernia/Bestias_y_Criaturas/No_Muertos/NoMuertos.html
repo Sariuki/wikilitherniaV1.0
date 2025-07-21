@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoMuertos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">NoMuertos</div>
+        <div class="content">
+<h1 id="nomuertos">Nomuertos</h1>
+<h3 id="perfil-de-categoría">Perfil de Categoría</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Criatura</strong></td>
+<td style="text-align: left;">No muerto</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Típico</strong></td>
+<td style="text-align: left;">Cualquiera Maligno</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fuente de Origen</strong></td>
+<td style="text-align: left;">Necromancia, Maldiciones, Ecos del
+Cataclismo del <a href="Lilium.html">Lilium</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Entorno Común</strong></td>
+<td style="text-align: left;"><a href="Mor&#39;dhul.html">Mor’dhul</a>,
+Ruinas pre-<a href="Lilium.html">Lilium</a>, Campos de batalla, Zonas de
+Velo Roto</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vulnerabilidades
+Comunes</strong></td>
+<td style="text-align: left;">Radiante, Fuego (contextual)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Resistencias Comunes</strong></td>
+<td style="text-align: left;">Necrótico, Veneno</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inmunidades Comunes</strong></td>
+<td style="text-align: left;">Envenenado, Agotamiento</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sentidos Típicos</strong></td>
+<td style="text-align: left;">Visión en la Oscuridad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tácticas Generales</strong></td>
+<td style="text-align: left;">Abrumar en número, Drenaje de vida,
+Infundir miedo, Explotar la oscuridad.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td style="text-align: left;">Religión</td>
+<td style="text-align: left;">Identifica a la criatura como un
+no-muerto. Conoce su vulnerabilidad general al daño radiante y a los
+efectos de Expulsar No Muertos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;">Arcanos</td>
+<td style="text-align: left;">Reconoce el origen de la criatura: si es
+un constructo nigromántico (como un zombi del Clan Whisper) o un
+espíritu torturado (un fantasma de una batalla del <a
+href="Lilium.html">Lilium</a>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>18</strong></td>
+<td style="text-align: left;">Historia</td>
+<td style="text-align: left;">Recuerda que enclaves en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, como Chéga, los utilizan como
+mano de obra y ejército. Conoce la existencia de los “Eternos”, la
+guardia no-muerta de la Ciudadela de obsidiana.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>20</strong></td>
+<td style="text-align: left;">Religión / Arcanos</td>
+<td style="text-align: left;">Sabe de la existencia de nomuertos únicos
+del <a href="Lilium.html">Lilium</a>, como los Agores del Fulgor, y
+entiende que la profanación de ciertos lugares sagrados puede generarlos
+espontáneamente.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tipología-y-rol-táctico">Tipología y Rol Táctico</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Tipo de No Muerto</th>
+<th style="text-align: left;">Rol Táctico Primario</th>
+<th style="text-align: left;">Amenaza Mecánica Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Zombis / Esqueletos</strong></td>
+<td style="text-align: left;">Tropa de Choque, Carne de Cañón</td>
+<td style="text-align: left;">Superioridad numérica, Agarre, ataques en
+masa.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ghouls / Carroñeros</strong></td>
+<td style="text-align: left;">Hostigador, Flanqueador</td>
+<td style="text-align: left;">Mordisco paralizante, Enfermedades, alta
+movilidad.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fantasmas /
+Espectros</strong></td>
+<td style="text-align: left;">Controlador, Asesino de Magos</td>
+<td style="text-align: left;">Incorporeidad, Posesión, Drenaje de vida y
+características.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sombras</strong></td>
+<td style="text-align: left;">Acechador, Debilitador</td>
+<td style="text-align: left;">Sigilo en la oscuridad, Drenaje de
+Fuerza.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Liche / <a
+href="Nigromante.html">Nigromante</a></strong></td>
+<td style="text-align: left;">Líder, Lanzador de <a
+href="Conjuros.html">Conjuros</a></td>
+<td style="text-align: left;"><a href="Conjuros.html">Conjuros</a> de
+área (Nigromancia), Control de esbirros, Contrahechizo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vampiros</strong></td>
+<td style="text-align: left;">Élite, Duelista</td>
+<td style="text-align: left;">Agarre, Encanto, Drenaje de sangre,
+Regeneración.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coleccionistas de
+lamentos</strong></td>
+<td style="text-align: left;">Controlador Psicológico</td>
+<td style="text-align: left;">Supresión de curación, Daño psíquico,
+Miedo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reglas-de-entorno-tierras-de-las-sombras">Reglas de Entorno:
+Tierras de las Sombras</h3>
+<p>En áreas de alta corrupción necrótica (cementerios profanados, campos
+de batalla malditos), se aplican las siguientes reglas:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Regla</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Penumbra Constante</strong></td>
+<td style="text-align: left;">El área está perpetuamente en luz tenue.
+La luz solar directa se considera luz tenue.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Corrupción Necrótica</strong></td>
+<td style="text-align: left;">Todos los <a
+href="Conjuros.html">Conjuros</a> y efectos que restauran puntos de
+golpe recuperan la mitad de la cantidad normal. Las criaturas que no
+sean no-muertos no pueden gastar Dados de Golpe durante un descanso
+corto.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Llamada de la Tumba</strong></td>
+<td style="text-align: left;">Al finalizar un descanso largo, una
+criatura viva debe superar una tirada de salvación de Sabiduría (CD 10)
+o ganar un nivel de agotamiento.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Refuerzos
+Inesperados</strong></td>
+<td style="text-align: left;">Cuando un no-muerto es destruido, hay un
+25% de probabilidad de que 1d4 <strong>Zombis</strong> o
+<strong>Esqueletos</strong> emerjan de la tierra en un radio de 15 pies
+al comienzo de la siguiente ronda.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnjmonstruo-de-ejemplo">PNJ/Monstruo de Ejemplo</h3>
+<p>```statblock name: Agor del Fulgor size: Mediano type: no muerto
+alignment: caótico neutral ac: 15 hp: 97 (13d8 + 39) speed: 0 ft., Vuelo
+50 ft. (flotar) stats: [7, 18, 16, 14, 12, 18] saves: - Dex: +7 - Car:
++7 skills: - Percepción: +4 - Sigilo: +7 damage_vulnerabilities: Frío
+damage_resistances: Ácido, Rayo, Trueno; Contundente, Perforante y
+Cortante de ataques no mágicos damage_immunities: Fuego, Necrótico,
+Veneno condition_immunities: Hechizado, Agotamiento, Asustado, Agarrado,
+Paralizado, Petrificado, Envenenado, Tumbado, Contenido senses: Visión
+en la oscuridad 120 ft., Percepción Pasiva 14 languages: Ignan, entiende
+Común pero no puede hablar cr: 8 traits: - name: Movimiento Incorpóreo
+desc: “El agor puede moverse a través de otras criaturas y objetos como
+si fueran terreno difícil. Recibe 5 (1d10) de daño de fuerza si termina
+su turno dentro de un objeto.” - name: Iluminación Espectral desc: “El
+agor emite luz brillante en un radio de 20 pies y luz tenue 20 pies más
+allá. Esta luz es mágica y de color anaranjado, como las llamas del
+Lilium.” - name: Muerte Ardiente desc: “Cuando el agor es reducido a 0
+puntos de golpe, explota en una llamarada. Cada criatura en un radio de
+10 pies debe realizar una tirada de salvación de Destreza CD 15,
+recibiendo 14 (4d6) de daño por fuego y 14 (4d6) de daño necrótico si
+falla la tirada, o la mitad del daño si tiene éxito.” actions: - name:
+Toque Abrasador desc: “Ataque de conjuro cuerpo a cuerpo: +7 a impactar,
+alcance 5 ft., una criatura. Impacto: 22 (4d8 + 4) de daño por fuego. Si
+el objetivo es una criatura o un objeto inflamable, se prende fuego.
+Hasta que una criatura use su acción para apagar las llamas, el objetivo
+recibe 5 (1d10) de daño por fuego al comienzo de cada uno de sus
+turnos.” - name: Mirada del Lilium (Recarga 5-6) desc: “El agor se
+enfoca en una criatura que pueda ver a 60 pies. El objetivo debe superar
+una tirada de salvación de Sabiduría CD 15 o quedará paralizado durante
+1 minuto. Mientras está paralizado de esta manera, el objetivo es
+atormentado por visiones del Cataclismo del Lilium. El objetivo puede
+repetir la tirada de salvación al final de cada uno de sus turnos,
+terminando el efecto si tiene éxito.”</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.69)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

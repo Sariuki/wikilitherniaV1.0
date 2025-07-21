@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borin_Manopiedra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Borin_Manopiedra</div>
+        <div class="content">
+<h1 id="borin-manopiedra">Borin Manopiedra</h1>
+<h2 id="biografía">Biografía</h2>
+<p>Heredero de un legado tallado en piedra y pergamino, Borin Manopiedra
+es el actual Maestro del Gremio de la Hermandad del Horizonte Velado, un
+<a href="Erudito.html">Erudito</a> enano cuyo nombre resuena más en
+bibliotecas polvorientas y ruinas olvidadas que en salones de guerra.
+Nacido en el seno de la Casa Bronzebrillo de <a
+href="Valtoria.html">Valtoria</a>, Borin desciende directamente del
+legendario historiador Valdurn Manopiedra, uno de los fundadores del
+gremio y de la ciudad neutral de <a href="Yraniar.html">Yraniar</a>.
+Desde joven, Borin sintió el peso de la historia sobre sus hombros, no
+como una carga, sino como una responsabilidad sagrada. Mientras otros <a
+href="Enanos.html">Enanos</a> de su edad aprendían a blandir el hacha,
+él aprendía a descifrar las <a href="Runas.html">Runas</a> erosionadas
+de la Era de los <a href="Dragones.html">Dragones</a>.</p>
+<p>Su ascenso a la jefatura del gremio no fue mediante hazañas de armas,
+sino a través de un intelecto agudo y una paciencia tan sólida como las
+montañas de su tierra natal. Su mayor logro, antes de ser nombrado
+Maestro, fue la minuciosa traducción del “Códice de las Sombras
+Dracónicas”, un texto que reveló las alianzas secretas y traiciones que
+precipitaron la Caída Dragónica, demostrando que la historia rara vez es
+tan simple como la pintan los vencedores.</p>
+<p>La motivación de Borin trasciende la mera curiosidad académica. Vio
+de primera mano cómo la ignorancia y la repetición de viejos errores
+alimentaban la Gran Guerra. Está convencido de que la verdad sobre el
+Cataclismo del <a href="Lilium.html">Lilium</a> y el destino del Primer
+Rey no es solo un enigma histórico, sino la clave para romper el ciclo
+de violencia que asola Lithernia. Esta convicción lo pone en conflicto
+directo con facciones como el <strong>Clan Grimstone</strong>, que busca
+el conocimiento para el poder, o los <strong>Cazadores de
+Sombras</strong>, que prefieren destruir el pasado. Su búsqueda de la
+verdad también le ha granjeado la desconfianza de las casas nobles de
+<strong><a href="Eldrador.html">Eldrador</a></strong>, que temen lo que
+la revelación de ciertas verdades podría hacer a su rígida estructura
+social.</p>
+<p>Como líder, Borin es más un estratega que un aventurero de campo.
+Organiza expediciones, financia investigaciones y teje una red de
+alianzas con otras organizaciones eruditas, como la <strong>Torre de las
+Estrellas</strong> de <a href="Valtoria.html">Valtoria</a>. Su relación
+con sus tenientes define su liderazgo: en <strong>Elara
+Hojacanto</strong>, la intrépida jefa de exploradores y descendiente de
+la otra fundadora, ve un reflejo de la audacia que a él a veces le
+falta, una amistad forjada en debates nocturnos y respeto mutuo. En el
+gnomo artífice <strong>Flink Chispabrillante</strong>, reconoce un genio
+inventivo esencial para descifrar artilugios antiguos, aunque su
+naturaleza caótica y explosiva ponga a prueba la legendaria paciencia
+enana. Borin dirige la Hermandad con una mano firme pero justa, siempre
+recordando el lema familiar: no se trata de poseer el pasado, sino de
+asegurarse de que tenga un futuro.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Borin es la encarnación del enano <a href="Erudito.html">Erudito</a>.
+De complexión robusta, pero con manos más acostumbradas a pasar las
+páginas de un tomo frágil que a empuñar un martillo de guerra. Su barba,
+un orgullo para cualquier enano, es larga y de un color castaño oscuro,
+meticulosamente trenzada y sujeta con broches de bronce que representan
+las diferentes eras de la historia de Lithernia. Sus ojos, de un
+profundo color avellana, brillan con una inteligencia vivaz y una
+seriedad que denota el peso de los secretos que guarda.</p>
+<p>Viste túnicas de lana de alta calidad en tonos tierra y ocre,
+bordadas con sutiles patrones geométricos de <a
+href="Valtoria.html">Valtoria</a>, más prácticas que ostentosas. Sobre
+ellas, a menudo lleva un tabardo de cuero con el emblema de la
+Hermandad.</p>
+<p>Su equipamiento rara vez es para el combate, sino para el estudio: *
+<strong>Martillo de Geólogo Rúnico:</strong> Un martillo ligero,
+finamente equilibrado, con la cabeza de acero valtoriano y <a
+href="Runas.html">Runas</a> grabadas que le permiten analizar la
+composición y la edad de la piedra con un simple toque. Es más una
+herramienta de precisión que un arma. * <strong>Lentes del
+Escriba:</strong> Un par de lentes de aumento montadas en una delicada
+estructura de mithril, con cristales encantados que le permiten
+descifrar escrituras desvaídas o diminutas, e incluso detectar rastros
+de magia residual en los textos. * <strong>El Saco de los
+Fragmentos:</strong> Una robusta bolsa de cuero curtido que parece
+contener un sinfín de bolsillos y compartimentos. En ella guarda
+pergaminos en blanco, carboncillos, herramientas de cartografía, y una
+colección de fragmentos de tablillas, cerámica y artefactos recuperados,
+cada uno con su propia historia por contar.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Borin Manopiedra no es un rey ni un general que cambiará el curso de
+Lithernia con ejércitos. Su impacto es más profundo y silencioso. En un
+mundo al borde del abismo, amenazado por la repetición de catástrofes
+profetizadas, Borin es un guardián de la memoria. Él y la Hermandad
+representan la idea de que la sabiduría, y no la fuerza bruta, es la
+única herramienta capaz de forjar un futuro distinto.</p>
+<p>Su legado será la red de conocimiento que está tejiendo a lo largo y
+ancho del continente. Al conectar a sabios de diferentes reinos y
+preservar los artefactos que otros codician o destruirían, Borin está
+construyendo un baluarte contra la oscuridad de la ignorancia. Si las
+Lanzas Celestiales son redescubiertas o si la profecía del Primer Rey
+comienza a cumplirse, es casi seguro que será Borin Manopiedra quien
+posea los textos y el contexto para entender lo que realmente
+significan, convirtiéndolo, a su pesar, en una de las figuras más
+cruciales del destino de Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

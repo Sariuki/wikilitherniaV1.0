@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartografia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Cartografia</div>
+        <div class="content">
+<h1 id="cartografía">Cartografía</h1>
+<p>La cartografía de Lithernia es tanto un arte como una ciencia imbuida
+de magia y misterio. Los <a href="Mapas.html">Mapas</a> no solo
+representan la geografía física sino también reflejan las energías del
+Tejido del Maná, las líneas ley, las cicatrices dejadas por el <a
+href="Lilium.html">Lilium</a> y los vestigios de las antiguas
+civilizaciones y planos. El estudio y elaboración de <a
+href="Mapas.html">Mapas</a> en Lithernia es vital para la exploración,
+el comercio, la guerra y la magia.</p>
+<h2 id="distribución-general-de-lithernia">Distribución General de
+Lithernia</h2>
+<p>Lithernia está formada por un vasto continente principal rodeado de
+océanos infinitos, con diversas geografías que reflejan la influencia de
+los dioses <a href="Primordiales.html">Primordiales</a>, <a
+href="Dragones.html">Dragones</a> ancestrales y las eras vividas:</p>
+<ul>
+<li><strong>Mor’dhul (Reino de la Muerte):</strong> Región sombría,
+volcánica y desolada con montañas de obsidiana, páramos estériles y
+bosques oscuros. Su territorio está marcado por cráteres y cicatrices
+del <a href="Lilium.html">Lilium</a>.</li>
+<li><strong><a href="Galvorn.html">Galvorn</a> (Reino
+Marítimo):</strong> Extensos litorales, archipiélagos, calas y bosques
+templados. Las aguas que bañan su costa están plagadas de rutas
+comerciales vitales y peligrosas zonas de piratería.</li>
+<li><strong><a href="Valtoria.html">Valtoria</a> (Reino de la
+Montaña):</strong> Cordilleras imponentes y valles profundos, con
+ciudades excavadas en montañas, extensos sistemas de cavernas y bosques
+ancestrales.</li>
+<li><strong><a href="Eldrador.html">Eldrador</a> (Reino
+Élfico):</strong> Bosques milenarios, claros encantados y parajes
+feéricos, con ríos sagrados y ruinas élficas ocultas bajo la
+maleza.</li>
+</ul>
+<p>Entre ellos existen fronteras naturales como montañas, ríos
+caudalosos y bosques encantados, pero también zonas de conflicto
+constante y mutación mágica.</p>
+<h2 id="los-planos-y-su-representación-cartográfica">Los Planos y su
+Representación Cartográfica</h2>
+<p>Los <a href="Mapas.html">Mapas</a> del mundo material de Lithernia se
+complementan con representaciones de otros planos vinculados
+estrechamente al mundo físico:</p>
+<ul>
+<li><strong>Plano Material:</strong> El dominio solido donde transcurren
+la mayoría de eventos históricos y políticos. Es lo que habitualmente
+muestran los atlas comunes.</li>
+<li><strong>Plano de las Sombras:</strong> Región paralela y oscura,
+frecuentemente representada en <a href="Mapas.html">Mapas</a> arcanos
+con símbolos rúnicos que alertan sobre portales, zonas corruptas y
+dominios peligrosos.</li>
+<li><strong>Plano Astral:</strong> Dominio de las estrellas y los
+sueños, reflejado en cartas estelares y <a href="Mapas.html">Mapas</a>
+mágicos que incluyen constelaciones invisibles al ojo humano común.</li>
+</ul>
+<p>Las transiciones entre planos no son visibles geográficamente sin
+magia; sin embargo, ciertos puntos —como las cicatrices del <a
+href="Lilium.html">Lilium</a> o zonas de alta concentración de maná—
+actúan como nodos o portales naturales, y por ello aparecen destacados
+en <a href="Mapas.html">Mapas</a> especializados.</p>
+<h2 id="mapas-mágicos-y-cartografía-arcana">Mapas Mágicos y Cartografía
+Arcana</h2>
+<p>En Lithernia, la cartografía no puede considerarse completa sin la
+magia. Los magos y cartógrafos especializados utilizan diversas técnicas
+para enriquecer y proteger los <a href="Mapas.html">Mapas</a>:</p>
+<ul>
+<li><strong><a href="Mapas.html">Mapas</a> Anclados con <a
+href="Runas.html">Runas</a>:</strong> Estos <a
+href="Mapas.html">Mapas</a> están inscritos con <a
+href="Runas.html">Runas</a> que permiten mantener la información
+actualizada mediante rituales periódicos y advierten a su poseedor de
+cambios repentinos en la zonas reflejadas (por ejemplo, una invasión,
+perturbación mágica, o desastre natural).</li>
+<li><strong><a href="Mapas.html">Mapas</a> Espejismo:</strong> Propios
+de <a href="Eldrador.html">Eldrador</a> y otros reinos élficos, son <a
+href="Mapas.html">Mapas</a> que cambian su forma y detalles según la
+intención de quien los consulta o el estado emocional del navegante,
+facilitando solo el conocimiento pertinente y ocultando rutas
+peligrosas.</li>
+<li><strong>Atlas de las Lanzas:</strong> Documentos codificados que
+registran las posibles ubicaciones e historias relacionadas con las
+Cuatro Lanzas Celestiales. Son codiciados por aventureros y
+conspiradores por igual.</li>
+<li><strong><a href="Mapas.html">Mapas</a> de Cicatrices del <a
+href="Lilium.html">Lilium</a>:</strong> El cataclismo del <a
+href="Lilium.html">Lilium</a> dejó sobre el continente zonas inestables
+o corrompidas, generalmente marcadas en <a href="Mapas.html">Mapas</a>
+mágicos como “zonas prohibidas” o “puntos calientes” del maná, que
+sirven de advertencia para exploradores y magos.</li>
+</ul>
+<h2 id="líneas-ley-y-nodos-de-poder">Líneas Ley y Nodos de Poder</h2>
+<p>Lithernia está atravesada por líneas de maná invisibles que
+configuran un entramado energético esencial para la vida mágica y
+natural. La cartografía mágica registra:</p>
+<ul>
+<li><strong>Nudos de Poder:</strong> Intersecciones de líneas ley que
+concentran enorme energía mágica. Lugares como la Torre de las Estrellas
+en <a href="Valtoria.html">Valtoria</a> o la Fortaleza Arcana en Mevanil
+son ejemplos de asentamientos construidos sobre estos nodos.</li>
+<li><strong>Zonas de Cicatrices:</strong> Áreas donde el tejido del maná
+fue desgarrado durante el cataclismo y guerras dracónicas, a menudo
+acompañadas de actividad paranormal o mutaciones mágicas.</li>
+<li><strong>Portales y Vórtices:</strong> Vías naturales y artificiales
+hacia otros planos. Se enumeran en <a href="Mapas.html">Mapas</a>
+secretos y son puntos claves para las expediciones interplanares y las
+estrategias de guerra.</li>
+</ul>
+<h2
+id="herramientas-utilizadas-en-la-cartografía-de-lithernia">Herramientas
+Utilizadas en la Cartografía de Lithernia</h2>
+<p>La elaboración y consulta de <a href="Mapas.html">Mapas</a> en
+Lithernia se apoya en diversos instrumentos tanto materiales como
+mágicos.</p>
+<ul>
+<li><strong>Astrolabios y Kartenkugeln:</strong> Aparatos élficos de
+precisión que combinan observación astronómica y geomancia para
+cartografiar zonas remotas y las estrellas.</li>
+<li><strong>Cristales de Trama:</strong> Cristales mágicos que almacenan
+imágenes de áreas específicas; por ejemplo, un cristal capturado en una
+caverna puede emular un mapa táctico en tiempo real para un usuario
+autorizado.</li>
+<li><strong>Roturas Temporales:</strong> Algunos <a
+href="Mapas.html">Mapas</a> muestran simultáneamente el estado actual y
+vestigios del pasado o futuro cercano, mediante hechizos de visión
+temporal, útil para la planificación militar y exploración
+arqueológica.</li>
+<li><strong>Libros y Pergaminos de Mapa Dinámico:</strong> Encantados
+para actualizar automáticamente los cambios geográficos y políticos o
+para esconder información sensible mediante ilusiones.</li>
+</ul>
+<h2 id="ciudades-y-puntos-de-interés-en-la-cartografía">Ciudades y
+Puntos de Interés en la Cartografía</h2>
+<p>Los <a href="Mapas.html">Mapas</a> incluyen la ubicación y
+características de multitud de ciudades, fortalezas, bosques y zonas
+problemáticas. Destacan:</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 40%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th>Ciudad / Región</th>
+<th>Ubicación</th>
+<th>Importancia Cartográfica</th>
+<th>Rasgos Notables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mor’dhul (Capital)</td>
+<td>Centro de Mor’dhul</td>
+<td>Centro político y oscuro, marcado por energía negativa del <a
+href="Lilium.html">Lilium</a></td>
+<td>Presencia de la Ciudadela de Obsidiana, Distritos Malditos</td>
+</tr>
+<tr>
+<td><a href="Galvorn.html">Galvorn</a></td>
+<td>Costa Oeste</td>
+<td>Nodo naval y comercio marítimo</td>
+<td>Diversos puertos, islas errantes en las cercanías</td>
+</tr>
+<tr>
+<td><a href="Valtoria.html">Valtoria</a></td>
+<td>Cordillera Central</td>
+<td>Fortaleza subterránea, nodos de maná, minas ricas</td>
+<td>Complejos túneles y la Torre de las Estrellas</td>
+</tr>
+<tr>
+<td><a href="Eldrador.html">Eldrador</a></td>
+<td>Bosques Septentrionales</td>
+<td>Zona mágica viva, rutas boscosas secretas</td>
+<td>Caminos invisibles, portales feéricos</td>
+</tr>
+<tr>
+<td>Mirallos</td>
+<td>Ruinas en Mor’dhul</td>
+<td>Zona prohibida por magia corrupta</td>
+<td>Ruinas malditas, portal subterráneo antiguo</td>
+</tr>
+<tr>
+<td>Mevanil</td>
+<td>Valle fértil en Mor’dhul</td>
+<td>Centro arcano rebelde con burbuja mágica permanente</td>
+<td>Atlántida arcana, difícil de mapear en realidad</td>
+</tr>
+</tbody>
+</table>
+<h2 id="desafíos-cartográficos-y-limitaciones">Desafíos Cartográficos y
+Limitaciones</h2>
+<p>La cartografía en Lithernia confronta varios problemas:</p>
+<ul>
+<li><strong>Inestabilidad del Maná:</strong> Zonas donde la magia es
+errática dificultan la creación de <a href="Mapas.html">Mapas</a>
+estables o confiables.</li>
+<li><strong>Interferencia de Criaturas y Entidades:</strong> <a
+href="Dragones.html">Dragones</a>, espíritus o deidades menores pueden
+alterar las percepciones y cambiar inmeditamente el territorio.</li>
+<li><strong>Secretismo Político y Religioso:</strong> Muchos reinos y
+facciones mantienen <a href="Mapas.html">Mapas</a> secretos o emplean <a
+href="Mapas.html">Mapas</a> falsos para confundir a enemigos y proteger
+reliquias.</li>
+<li><strong>Oscurecimiento Temporal:</strong> Sectores afectados por
+distorsiones del tiempo o portales generan impresiones inexactas o
+cambian según la época, complicando la cartografía definitiva.</li>
+</ul>
+<h2 id="uso-de-la-cartografía-en-aventuras-y-estrategia">Uso de la
+Cartografía en Aventuras y Estrategia</h2>
+<p>El mapa es una herramienta clave para los aventureros, reyes y
+magos:</p>
+<ul>
+<li>Descubrir rutas seguras evitando cicatrices o ataques.</li>
+<li>Localizar antiguos templos, ruinas y sitios de poder.</li>
+<li>Planificar asedios o movimientos tácticos en guerras
+interminables.</li>
+<li>Navegar en el plano astral y evitar trampas interplanares.</li>
+<li>Buscar pistas de la profecía del Primer Rey, las lanzas celestiales
+y otras reliquias perdidas.</li>
+</ul>
+<p>El acceso y posesión de buenos <a href="Mapas.html">Mapas</a> es a
+menudo tan decisivo como tener un buen ejército o una poderosa
+magia.</p>
+<hr />
+<p><em>La cartografía de Lithernia, entremezclada con historia, magia y
+política, es un reflejo vivo de la complejidad y misterio que rodea este
+mundo legendario.</em></p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Cartografía.html">Cartografía</a> (relevancia: 0.54)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

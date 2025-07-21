@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_LaGranGuerra</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">03_LaGranGuerra</div>
+        <div class="content">
+<h1 id="la-gran-guerra">La Gran Guerra</h1>
+<p>La Gran Guerra es el episodio más devastador y definitorio en la <a
+href="Herreria.html">Herreria</a> de Lithernia como reino. Ocupando un
+lugar sagrado en la memoria colectiva, esta era oscura marcó el fin de
+las antiguas rivalidades tribales y el comienzo de un nuevo orden bajo
+la égida del primer rey.</p>
+<h2 id="origen-del-conflicto">Origen del conflicto</h2>
+<p>A finales de la Era del Primer Rey, múltiples clanes y facciones que
+habitaban Lithernia se vieron arrastrados a un conflicto de proporciones
+nunca antes vistas. Las tensiones por el control de los venerados
+bosques de Eldrin y las fértiles tierras del Valle del Viento comenzaron
+como disputas menores por <a href="Recursos.html">Recursos</a>, hasta
+escalar en una guerra total.</p>
+<p>Se dice que el estallido irreversible ocurrió cuando el clan de
+Vorenth, liderado por el <a href="Guerrero.html">Guerrero</a> Gharos,
+asesinó al embajador del clan Salfrin durante una conferencia
+diplomática. Este acto fue visto como una afrenta directa al equilibrio
+regional y precipito la guerra.</p>
+<h2 id="desarrollo-de-la-guerra">Desarrollo de la guerra</h2>
+<p>Durante siete largos años, Lithernia se sumió en un conflicto que
+arrasó aldeas enteras y transformó las tierras en campos de batalla
+eternos. La Gran Guerra se caracterizó por:</p>
+<ul>
+<li><strong>Batallas épicas en Eldrin:</strong> Los bosques milenarios
+se convirtieron en fortalezas vivientes y trampas mortales. Allí,
+arqueros élficos y guerreros <a href="Humanos.html">Humanos</a> se
+enfrentaban bajo el dosel sagrado.</li>
+<li><strong>Uso de magia ancestral:</strong> Por primera vez en periodos
+registrados, hechiceros y chamanes tomaron un rol crucial, invocando
+tempestades y protecciones que inclinaban balanzas de poder.</li>
+<li><strong>Alianzas cambiantes:</strong> Los clanes formaban y
+disolvían pactos con inusual rapidez, buscando sobrevivir y
+prevalecer.</li>
+</ul>
+<h2 id="consecuencias-y-legado">Consecuencias y legado</h2>
+<p>La conclusión de la Gran Guerra llegó con la coronación del primer
+rey, Altheran el Unificador, quien supo ver el desgaste y la necesidad
+de unidad:</p>
+<ul>
+<li>Se estableció una monarquía central con poder suficiente para
+mantener la paz entre clanes.</li>
+<li>Se instituyó el <strong>Tratado de Eldrin</strong>, que preservaba
+las tierras sagradas y regulaba el uso de la magia en conflictos.</li>
+<li>El recuerdo de la guerra quedó inmortalizado en el <strong>Canto de
+las Sombras</strong>, un poema épico que narra el heroísmo y la tragedia
+de aquellos años.</li>
+</ul>
+<h2 id="leyendas-y-costumbres-relacionadas">Leyendas y costumbres
+relacionadas</h2>
+<p>La Gran Guerra alimenta aún hoy mitos y rituales dentro de
+Lithernia:</p>
+<ul>
+<li><strong>La Vigilia de Llamas</strong>, ceremonia anual donde se
+encienden hogueras en honor a los caídos, simbolizando la purificación y
+renovación.</li>
+<li>El <strong>Juramento del Bosque</strong>, promesa sagrada que los
+guerreros hacen para proteger Eldrin y honrar la paz conquistada.</li>
+<li>Historias de héroes como Gharos el Caído, que aunque enemigo, es
+recordado por su valentía y honor.</li>
+</ul>
+<p>La Gran Guerra no solo marcó el fin de una era de discordia, sino la
+esencia misma de la identidad litherniana: un pueblo forjado en la
+lucha, la magia y la búsqueda interminable de unidad.</p>
+<hr />
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.81)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.34)</li>
+<li><a href="Clanes.html">Clanes</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

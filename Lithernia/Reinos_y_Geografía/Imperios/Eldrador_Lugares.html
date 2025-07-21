@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eldrador_Lugares</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Eldrador_Lugares</div>
+        <div class="content">
+<h1 id="eldrador-lugares">Eldrador lugares</h1>
+<p><a href="Eldrador.html">Eldrador</a>, el reino de las antiguas
+llamas, es un vasto territorio donde las fuerzas elementales del fuego y
+la tierra se entrelazan con legados de magia ancestral y ancestral
+nobleza. Sus paisajes, que van desde imponentes montañas volcánicas
+hasta fértiles valles y ciudades fortificadas, configuran un mapa vivo
+que cuenta historias de poder, resistencia y misterio.</p>
+<h2 id="geografía-y-paisaje">Geografía y paisaje</h2>
+<p><a href="Eldrador.html">Eldrador</a> está dominado por la cadena
+montañosa de las Llamas Eternas, volcanes que nunca han cesado su
+actividad desde tiempos inmemoriales. Estos picos escarlata son tan
+sagrados como temidos, pues se cree que en sus cráteres arde el corazón
+de una deidad forjadora del mundo.</p>
+<p>Al pie de estas montañas se extienden los Valles de Brasa, tierras
+fértiles moldeadas por flujos magnéticos y ríos de lava solidificada,
+donde las aldeas cultivan productos únicos y las hierbas místicas para
+invocar la fuerza elemental. Al oeste, la región de Rocadragón se
+levanta como una meseta inexpugnable llena de ruinas y antiguas
+fortalezas excavadas en piedra volcánica.</p>
+<h2 id="lugares-emblemáticos">Lugares emblemáticos</h2>
+<h3 id="ciudadela-de-kharnor">Ciudadela de Khar’nor</h3>
+<p>Capital política y espiritual, Khar’nor es una metrópolis que combina
+majestuosidad y defensa. Construida sobre un promontorio rocoso, las
+murallas negras y torres imponentes son testigos del dominio de <a
+href="Eldrador.html">Eldrador</a> y sus bendiciones elementales.</p>
+<p>La ciudadela alberga el Gran Templo de la Llama, donde los Sagrados
+Custodios vigilan el Fuego Sagrado, fuente de poder y equilibrio para
+todo el reino.</p>
+<h3 id="la-forja-del-amanecer">La Forja del Amanecer</h3>
+<p>Un enclave sagrado y legendario donde, según las <a
+href="Leyendas.html">Leyendas</a>, se fundieron las primeras armas de <a
+href="Eldrador.html">Eldrador</a> con magia de fuego. Las antiguas
+hornacinas permanecen activas gracias a un fuego perenne que alimenta la
+prosperidad del reino. Artesanos y hechiceros convergen aquí para crear
+artefactos de poder insuperable.</p>
+<h3 id="bosque-de-cenizas-susurrantes">Bosque de Cenizas
+Susurrantes</h3>
+<p>Un bosque oscuro donde las cenizas volcánicas cubren el suelo como
+una capa nívea pero ardiente. Se dice que en este lugar el viento lleva
+voces del pasado y que aquellos que escuchan pueden aprender secretos
+olvidados del antiguo reino. Es un sitio de peregrinación para los
+sabios y aquellos que buscan respuestas ocultas.</p>
+<h2 id="historia-en-los-lugares">Historia en los lugares</h2>
+<p>Los lugares de <a href="Eldrador.html">Eldrador</a> no solo son
+escenarios, sino testigos y protagonistas de epopeyas. Durante la Gran
+Tormenta de Fuego, la Ciudadela de Khar’nor resistió el embate de los
+ejércitos invasores gracias a los muros bendecidos por el Fuego
+Sagrado.</p>
+<p>La <a href="Herreria.html">Herreria</a> del Amanecer, en cambio, fue
+ocultada tras un pacto ancestral para evitar que sus secretos fueran
+profanados por manos impuras, solo revelándose a aquellos dignos de
+empuñar la magia elemental.</p>
+<h2 id="costumbres-y-leyendas-relacionadas-con-los-lugares">Costumbres y
+leyendas relacionadas con los lugares</h2>
+<p>Los habitantes de <a href="Eldrador.html">Eldrador</a> celebran la
+<strong>Noche de las Llamas</strong>, un festival en el que se encienden
+miles de antorchas en las rocas volcánicas, símbolo de la vigilancia
+eterna del reino. Este ritual conecta a la gente con el espíritu de la
+montaña y la protección del fuego divino.</p>
+<p>Cuenta la leyenda que en el Bosque de Cenizas Susurrantes un antiguo
+guardián, el <strong>Fénix de Bronce</strong>, renace cada siglo para
+purificar el reino con su fuego renovador, un símbolo perpetuo de muerte
+y resurrección que inspira a los moradores del reino.</p>
+<hr />
+<p><a href="Eldrador.html">Eldrador</a> es más que un territorio; es un
+testamento vivo de la relación íntima entre la naturaleza elemental y la
+humanidad, donde cada piedra y llama guarda memorias de gloria, magia y
+una voluntad indómita. Su riqueza cultural y su ferocidad geográfica
+hacen de sus lugares un legado que define la identidad y el destino del
+reino.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02_Unificacion</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">02_Unificacion</div>
+        <div class="content">
+<h1 id="unificación">02 Unificación</h1>
+<p>La unificación de Lithernia es un hecho histórico de gran
+trascendencia que marcó el final de la Era de los Clanes y dio paso a la
+consolidación del Reino bajo un solo monarca: el Primer Rey, Elion
+Varek. Este proceso no solo transformó la estructura política y social
+del territorio, sino que sentó las bases para la identidad nacional y
+las tradiciones que perduran hasta nuestros días.</p>
+<h2 id="contexto-histórico">Contexto Histórico</h2>
+<p>Antes de la unificación, Lithernia estaba fragmentada en varias
+regiones dominadas por poderosos clanes guerreros. Cada clan poseía sus
+propias costumbres, leyes y creencias, y las disputas territoriales eran
+constantes. Esta era de divisiones fomentó una cultura marcada por el
+honor, la valentía y una fuerte lealtad local, pero también sembró el
+terreno para una larga época de inestabilidad.</p>
+<h2 id="camino-hacia-la-unificación">Camino hacia la Unificación</h2>
+<h3 id="elion-varek-el-arquitecto-del-reino">Elion Varek: El Arquitecto
+del Reino</h3>
+<p>Originario del clan Dorent, Elion Varek destacó desde joven por su
+sabiduría estratégica y su carisma. Se cuenta que, tras presenciar una
+batalla especialmente ruinosa entre dos clanes, juró acabar con la
+guerra interna y forjar un reino unido.</p>
+<h3 id="las-guerras-de-la-unión">Las Guerras de la Unión</h3>
+<p>El camino hacia la unificación no fue pacífico. Durante dos décadas,
+Elion condujo una serie de campañas militares y alianzas políticas que
+buscaban someter o integrar a los clanes rivales. Estas conflagraciones,
+conocidas como las Guerras de la Unión, incluyeron batallas emblemáticas
+como la de la Llanura de Karan, donde las fuerzas de Elion superaron a
+los clanes más vehementes.</p>
+<h3 id="negociación-y-alianzas">Negociación y Alianzas</h3>
+<p>Sin embargo, no todo fue conquista por la fuerza. Elion también
+empleó astutas negociaciones y matrimonios políticos para ganar aliados
+clave, respetando ciertas tradiciones e incluso adoptando símbolos
+sagrados de otros clanes para fomentar un sentido común de
+pertenencia.</p>
+<h2 id="consecuencias-de-la-unificación">Consecuencias de la
+Unificación</h2>
+<h3 id="creación-del-reino-de-lithernia">Creación del Reino de
+Lithernia</h3>
+<p>En el año 342 D.P.R. (Después del Primer Rey), Elion fue coronado en
+el antiguo templo de Lhorian como Rey de Lithernia, estableciendo el
+primer sistema de gobierno centralizado. Se instituyó un consejo de
+representantes de cada región, sentando las bases para la futura
+estructura administrativa.</p>
+<h3 id="la-ley-de-los-siete-selos">La Ley de los Siete Selos</h3>
+<p>Para consolidar la paz, Elion promulgó la Ley de los Siete Selos, un
+código que armonizaba las leyes tradicionales de los clanes y establecía
+un sistema judicial común. Esta ley sigue siendo uno de los pilares
+fundamentales del derecho litherniano.</p>
+<h3 id="legado-cultural">Legado Cultural</h3>
+<p>La unificación también impulsó un renacer cultural. Los festivales
+que celebran la unión de los clanes, como la Fiesta de la Estrella
+Compartida, aún honran la memoria de esta gesta y fomentan la unidad
+entre las diversas regiones.</p>
+<h2 id="leyendas-y-mitos">Leyendas y Mitos</h2>
+<h3 id="la-espada-de-la-concordia">La Espada de la Concordia</h3>
+<p>Se dice que Elion blandió la Espada de la Concordia, una antigua
+reliquia forjada en la llama de la primera alianza. Esta espada es
+símbolo de la paz y el poder legítimo, y su paradero sigue siendo objeto
+de <a href="Leyendas.html">Leyendas</a> y búsquedas hoy en día.</p>
+<h3 id="el-juramento-de-las-llamas-gemelas">El Juramento de las Llamas
+Gemelas</h3>
+<p>Según la tradición, Elion realizó un juramento sagrado frente a las
+Llamas Gemelas —dos incendios perpetuos en el monte Kalren— prometiendo
+proteger y unificar a Lithernia bajo un solo estandarte. Este juramento
+se conmemora en rituales anuales de fuego y luz.</p>
+<h2 id="costumbres-derivadas-de-la-unificación">Costumbres Derivadas de
+la Unificación</h2>
+<ul>
+<li><strong>El Día de la Unión:</strong> Celebrado cada año en el
+aniversario de la coronación de Elion, con desfiles, banquetes y relatos
+orales de las historias de los clanes.</li>
+<li><strong>El Juramento de Lealtad:</strong> Un rito obligatorio para
+todos los nobles que implica prometer fidelidad directa a la corona y al
+código de los Siete Selos.</li>
+<li><strong>Los Juegos de los Clanes:</strong> Torneos que combinan
+habilidades marciales y artísticas, destinados a revivir el espíritu
+competitivo pero unido que permitió la construcción del Reino.</li>
+</ul>
+<hr />
+<p>La unificación de Lithernia no solo fue un episodio de conquista y
+diplomacia, sino la <a href="Herreria.html">Herreria</a> de un pueblo
+que encontró en su diversidad la fuerza para abrazar un destino común.
+La memoria de aquel periodo sigue viva como pilar fundamental para
+entender la identidad y el futuro del reino.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clanes.html">Clanes</a> (relevancia: 0.77)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.57)</li>
+<li><a href="Clanes%20-%20Clan%20Aethel.html">Clanes - Clan Aethel</a>
+(relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

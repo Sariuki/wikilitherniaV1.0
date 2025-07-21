@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grix_El_Remendador</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grix_El_Remendador</div>
+        <div class="content">
+<h1 id="grix-el-remendador">Grix ‘El Remendador’</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En un mundo definido por linajes divinos y legados de sangre, Grix es
+una anomalía, un testamento andante de que la grandeza puede nacer del
+óxido y la desesperación. No es un rey, ni un <a
+href="Noble.html">Noble</a>, ni un elegido de los dioses; es un goblin,
+una raza a menudo despreciada como carne de cañón o plaga. Pero en los
+ojos de Grix no arde la malevolencia servil, sino la lumbre incansable
+de una forja, la inteligencia aguda de un inventor que ve potencial
+donde otros solo ven escombros.</p>
+<p>Nacido en la sombra opresiva de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Grix fue testigo de la brutalidad
+y el desperdicio inherentes a la maquinaria de guerra de los clanes. Vio
+cómo autómatas magníficos y armas rúnicas eran desechados tras una sola
+batalla, cómo ingenieros talentosos eran ejecutados por un solo error.
+Esa visión plantó en él una semilla de rebelión, no de espadas, sino de
+propósito. Huyó de su tierra natal, no como un cobarde, sino como un
+profeta con una visión.</p>
+<p>Su peregrinaje lo llevó al <strong>Osario de Acero</strong>, un
+gigantesco cementerio de máquinas de guerra caídas, un paisaje desolador
+en las tierras baldías entre <a href="Valtoria.html">Valtoria</a> y <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Para otros, era una tumba. Para
+Grix, era una cuna. Allí, con carisma y una astucia afilada en el yunque
+de la supervivencia, reunió a los parias de Lithernia: <a
+href="Gnomos.html">Gnomos</a> exiliados por sus inventos “herejes”,
+herreros <a href="Enanos.html">Enanos</a> deshonrados por usar chatarra,
+y supervivientes <a href="Humanos.html">Humanos</a> que lo habían
+perdido todo. Les ofreció no un reino, sino un taller; no una corona,
+sino una herramienta. Así nacieron <strong>Los Engranajes
+Oxidados</strong>, una hermandad fundada sobre una filosofía radical:
+nada está verdaderamente roto, solo esperando ser reimaginado.</p>
+<p>Como <strong>Primer Engranaje</strong>, Grix ha liderado a su facción
+con una mezcla de pragmatismo despiadado y un sorprendente afecto
+paternal. Bajo su guía, han logrado hazañas que los gremios de <a
+href="Valtoria.html">Valtoria</a> considerarían imposibles: han
+transformado colosos de asedio destrozados en fortalezas móviles que
+patrullan las tierras baldías, han reparado motores rúnicos fracturados
+para dar energía a sus talleres ocultos y han construido una red de
+inteligencia y comercio que rivaliza con las de las casas nobles.</p>
+<p>Su mayor triunfo diplomático fue forjar una alianza con el
+<strong>Clan Agrietacero de <a
+href="Valarion.html">Valarion</a></strong>. Grix y el Forjamayor de la
+ciudad-fortaleza mantienen una relación tensa, una danza de necesidad y
+desconfianza. Grix sabe que su gente necesita la protección y el mercado
+de <a href="Valarion.html">Valarion</a>, y el Forjamayor sabe que la
+ingeniosidad y los <a href="Recursos.html">Recursos</a> de los
+Engranajes son demasiado valiosos como para destruirlos.</p>
+<p>Ahora, a sus 65 años, una edad venerable para un goblin, Grix se
+enfrenta a los desafíos más grandes de su vida. El <strong>Clan <a
+href="Thyrgram.html">Thyrgram</a></strong> amenaza con “reclamar” el
+Osario, viéndolo solo como una mina de metal. Los <strong>Gremios de
+Artífices</strong> intensifican su campaña para desacreditarlo. Y dentro
+de su propia facción, aunque confía en la astucia de su lugarteniente
+<strong>Zylia</strong> para la política, teme que su ambición pueda un
+día fracturar la hermandad que tanto le costó construir. Su mayor
+esperanza y preocupación recae en <strong>Baelka</strong>, su hija
+adoptiva, una joven a la que ha enseñado todos sus secretos. En ella ve
+no solo una heredera para su conocimiento, sino el futuro de una idea:
+que incluso los más pequeños y olvidados de Lithernia pueden reconstruir
+el mundo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grix es un goblin de complexión enjuta y nervuda, cuya edad se
+manifiesta en una piel correosa y un rostro surcado por arrugas
+profundas y cicatrices de quemaduras. Su espalda está ligeramente
+encorvada por décadas de trabajo sobre yunques y mesas de diseño. Sus
+largos dedos, manchados permanentemente de grasa y hollín, son
+sorprendentemente ágiles y precisos. Pero es su mirada lo que desarma:
+sus ojos, de un brillante color ámbar, poseen una intensidad penetrante
+y una inteligencia que analiza, desmonta y reconstruye todo lo que
+ve.</p>
+<p>No viste las túnicas de un líder, sino el atuendo de un maestro
+artesano. Su armadura es un mosaico funcional de cuero endurecido
+reforzado con placas de acero, bronce y mithril rescatadas de diversas
+máquinas, cada pieza un recuerdo de un proyecto pasado.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>“El
+Solucionador”:</strong> Un martillo de precisión pesado y perfectamente
+equilibrado. Es a la vez su principal herramienta de trabajo y un arma
+contundente y letal en sus manos. Su cabeza tiene múltiples accesorios
+intercambiables: una pica, una tenaza y una pequeña lente de aumento. *
+<strong>Monocular de Artífice:</strong> Un conjunto de lentes de aumento
+y visión a distancia que lleva ajustado sobre un ojo, fabricado por él
+mismo con cristales rescatados de un telescopio enano. *
+<strong>Esquemáticos Portátiles:</strong> En lugar de un libro de
+hechizos, Grix lleva rollos de cuero y placas de metal finamente
+grabadas con sus diseños, diagramas y notas. Algunos de sus tatuajes más
+complejos en los brazos son, de hecho, esquemas para reparaciones de
+emergencia. * <strong>Corazón de Acero:</strong> Un pequeño autómata con
+forma de colibrí que revolotea silenciosamente a su alrededor. Es un
+regalo que construyó para Baelka cuando era niña, y su presencia
+constante es un recordatorio de su legado más importante.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Grix ‘El Remendador’ no se medirá en tierras
+conquistadas o en tronos usurpados, sino en la revolución silenciosa que
+inició. En un continente obsesionado con la pureza del linaje y la
+gloria ancestral, Grix representa una nueva y pragmática filosofía: el
+valor no se hereda, se construye.</p>
+<p>Su existencia y el éxito de Los Engranajes Oxidados son una afrenta
+directa al orden establecido. Desafían el monopolio económico de los
+gremios de <a href="Valtoria.html">Valtoria</a>, demuestran que la
+fuerza de <a href="Mor&#39;dhul.html">Mor’dhul</a> puede ser contenida
+con ingenio en lugar de ejércitos, y ofrecen un santuario y un propósito
+a los descastados que los grandes reinos prefieren ignorar.</p>
+<p>Grix ha demostrado a Lithernia que los cementerios de la guerra
+pueden ser las canteras del futuro. Su impacto es el de un catalizador:
+ha creado una facción autosuficiente que podría convertirse en un nuevo
+poder en el tablero geopolítico, un tercer pilar entre los imperios
+tradicionales y las hordas caóticas. Su verdadero legado, sin embargo,
+pende de un hilo: ¿perdurará su visión de reconstrucción y comunidad a
+través de su heredera Baelka, o será la ambición de Zylia la que
+remiende el futuro de los Engranajes Oxidados a su propia y retorcida
+imagen? Sea cual sea el resultado, Grix ‘El Remendador’ ya ha dejado una
+marca indeleble en el metal y el alma de Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.67)</li>
+<li><a href="Los%20Engranajes%20Oxidados.html">Los Engranajes
+Oxidados</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

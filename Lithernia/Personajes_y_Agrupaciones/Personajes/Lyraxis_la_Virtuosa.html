@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyraxis_la_Virtuosa</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyraxis_la_Virtuosa</div>
+        <div class="content">
+<h1 id="lyraxis-la-virtuosa">Lyraxis, la Virtuosa</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones de <a href="Calanor.html">Calanor</a>, donde el
+sufrimiento es a la vez arte y plegaria, ninguna melodía es más pura ni
+más temida que la que compone Lyraxis. Conocida con el irónico título de
+“La Virtuosa”, esta Tiefling ha elevado el dolor a una forma de
+expresión arcana, convirtiéndose en la Maestra de la Agonía Sónica del
+Coro Discordante y en una de las figuras más aterradoras de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>Nacida con una inusual sensibilidad psíquica, un rasgo de su linaje
+Tiefling que le permitía percibir las emociones ajenas como vibraciones
+audibles, Lyraxis encontró su propósito durante el cisma del Clan
+Whisper. Mientras sus congéneres <a
+href="Hobgoblins.html">Hobgoblins</a> se aferraban a los secretos del
+silencio, ella se sintió atraída por la herejía de Vexian: la doctrina
+que postulaba que el poder más auténtico no residía en el eco de la
+muerte, sino en el grito primordial de la vida al ser desgarrada. Para
+Lyraxis, el sigilo era una mentira, una supresión de la verdad más
+fundamental del universo: la existencia es dolor, y el dolor es
+música.</p>
+<p>Al ser exiliada junto a los primeros disidentes, Lyraxis floreció en
+<a href="Calanor.html">Calanor</a>. Bajo el patrocinio del culto a <a
+href="Kromagul.html">Kromagul</a>, el dios del dolor, encontró un lienzo
+perfecto para su arte. No le interesaban los burdos métodos del acero o
+el fuego; su instrumento es el alma misma. Se sumergió en el estudio de
+la anatomía psíquica de cada raza de Lithernia, aprendiendo que la mente
+de un enano se quiebra con una resonancia grave y persistente como el
+retumbar de la piedra, mientras que el espíritu de un elfo se desgarra
+con una frecuencia aguda y disonante, similar al chirrido de una
+estrella al morir. Su especialidad es encontrar la “frecuencia de
+ruptura” de cada individuo, una nota única y personal que desmorona la
+voluntad y convierte la mente en arcilla.</p>
+<p>Como principal instructora de nuevos acólitos, su método es a la vez
+una lección y una tortura. Enseña a sus estudiantes a percibir el dolor
+no como sufrimiento, sino como una compleja gama de notas, armonías y
+silencios. Sus “orquestas de lamentos” son legendarias en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>; interrogatorios donde la víctima
+se convierte en el instrumento principal de una sinfonía de la
+desesperación, revelando cada secreto al compás de su propia agonía. Su
+rivalidad con el Clan Whisper es profunda y personal; los considera
+artesanos sordos, incapaces de apreciar la belleza cacofónica de la
+verdad, mientras que ellos la ven como una bárbara ruidosa que profana
+el sagrado arte de la sutileza.</p>
+<p>Su motivación trasciende el simple sadismo. Lyraxis cree que en el
+grito más puro, en la agonía absoluta, yace una nota fundamental del
+universo: la misma energía caótica que dio origen al <a
+href="Lilium.html">Lilium</a>. Su búsqueda no es solo de poder, sino de
+una verdad cósmica, una Música Primordial que, de ser dominada, podría
+otorgar un poder similar al de los propios dioses.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyraxis es una figura de una elegancia severa y perturbadora. Es una
+Tiefling esbelta y de porte erguido, con una piel de un profundo color
+índigo, casi negro bajo la luz de las antorchas de <a
+href="Calanor.html">Calanor</a>. Sus cuernos, finos y pulidos como el
+obsidiana, se curvan hacia atrás desde su sien en una forma que recuerda
+a un diapasón. Sus ojos, de un intenso color violeta, parecen vibrar
+levemente, como si estuviera escuchando constantemente una sinfonía que
+nadie más puede percibir.</p>
+<p>No viste armadura, prefiriendo túnicas de un tejido oscuro y pesado
+que parece absorber el sonido a su alrededor. Las prendas están
+sutilmente bordadas con hilos de plata que trazan patrones de ondas
+sonoras y fractales acústicos. Sus manos son delgadas y sus dedos
+largos, siempre en un ligero movimiento como si dirigiera una orquesta
+invisible.</p>
+<p>Su equipamiento principal no es un arma, sino una herramienta de su
+arte: * <strong>El Diapasón Anímico:</strong> Un diapasón forjado en un
+metal desconocido, posiblemente hueso petrificado de una criatura
+psíquica, que resuena con la energía emocional de su entorno. Al
+golpearlo suavemente contra una superficie, emite una nota inaudible que
+le permite “sintonizar” con la estructura psíquica de su objetivo,
+revelando sus miedos y debilidades como notas en una escala. *
+<strong>Las Partituras del Lamento:</strong> Una colección de pergaminos
+de piel humana donde anota meticulosamente sus hallazgos. Cada pergamino
+detalla la “composición” necesaria para quebrar a un individuo o incluso
+a un tipo de criatura, con anotaciones sobre timbre, tempo y la armonía
+de gritos necesaria para lograr la disolución total de la voluntad.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lyraxis, la Virtuosa, ha transformado la tortura en una ciencia
+arcana y un pilar del poder del Coro Discordante. Su reputación por sí
+sola es un arma psicológica que el Clan <a
+href="Kromagul.html">Kromagul</a> y sus aliados utilizan para infundir
+terror. Es la razón por la que los prisioneros más valiosos de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> no son enviados a las mazmorras
+comunes, sino a las “salas de conciertos” de <a
+href="Calanor.html">Calanor</a>, de donde nadie sale con la mente
+intacta.</p>
+<p>A largo plazo, su impacto podría ser mucho más profundo y
+catastrófico. Su incesante búsqueda de la Música Primordial la acerca
+peligrosamente a las energías fundamentales que rigen Lithernia. Si
+alguna vez lograra aislar y replicar la frecuencia del <a
+href="Lilium.html">Lilium</a>, o encontrar la resonancia capaz de
+afectar a las Lanzas Celestiales que aprisionan al Primer Rey, el poder
+que desataría podría reescribir la realidad o, más probablemente,
+hacerla añicos. Su legado, por tanto, pende de un hilo: ser recordada
+como la interrogadora más efectiva de la historia de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, o como la artista que, en su
+búsqueda de la nota perfecta, compuso el réquiem para el mundo
+entero.</p>
+        </div>
+    </div>
+</body>
+</html>

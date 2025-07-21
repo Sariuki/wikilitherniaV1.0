@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orylith</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Orylith</div>
+        <div class="content">
+<h1 id="orylith">Orylith</h1>
+<p>Suspendida sobre el vasto océano, Orylith es la joya contemplativa de
+<a href="Galvorn.html">Galvorn</a>. A diferencia de los bulliciosos
+puertos mercantiles del reino, esta ciudad no se construyó para la
+riqueza, sino para la sabiduría. Tallada en terrazas sobre acantilados
+de piedra caliza blanca, sus edificios pálidos y sus techos de tejas
+azules y verdes parecen una extensión del mar y el cielo. Aquí, el aire
+no huele a pescado y alquitrán, sino a salitre, a la brisa fresca de la
+montaña y al ozono de las olas al chocar. Orylith es un santuario para
+artistas, poetas y eruditos, un lugar donde el mar no es una ruta
+comercial, sino una fuente inagotable de misterio, belleza e
+inspiración.</p>
+<h2 id="historia">Historia</h2>
+<p>Orylith fue fundada hace siglos por el legendario Poeta-Rey Lyros, un
+navegante que se cansó de medir el valor del océano en monedas de oro.
+Lyros creía que los dioses del mar, <a href="Yfrit.html">Yfrit</a> y sus
+hijos, ofrecían más que rutas seguras y pesca abundante; ofrecían un
+conocimiento tan profundo como las fosas abisales y una belleza tan
+cambiante como las mareas. Buscando un lugar para honrar esta visión,
+navegó hasta los Acantilados Blancos y fundó Orylith como un refugio. No
+atrajo a mercaderes, sino a magos que estudiaban las corrientes, a
+bardos que traducían el lenguaje de las olas y a escultores que veían
+formas en el coral arrastrado por la marea. Con el tiempo, la ciudad se
+convirtió en un faro de cultura y conocimiento en <a
+href="Galvorn.html">Galvorn</a>, gobernada no por capitanes de barco,
+sino por un Consejo de Sabios y Artistas que vela por preservar su
+espíritu contemplativo.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Terraza del Canto</strong>: Es el corazón social y
+residencial de Orylith, la más ancha de las terrazas del acantilado. Sus
+plazas abiertas sirven de escenario para el Gran Coro del Mar, y sus
+balcones curvos están siempre orientados hacia el océano, permitiendo a
+los ciudadanos escuchar la música perpetua de las olas.</p></li>
+<li><p><strong>El Atrio del Nautilus</strong>: Ubicado en la terraza más
+alta, este distrito es el centro del saber. Aquí se encuentran las
+famosas Escuelas de Mareas, con bibliotecas excavadas en la roca y
+observatorios que no miran a las estrellas, sino a las profundidades. Su
+plaza central está dominada por una fuente en forma de concha de
+nautilus, el símbolo de la ciudad.</p></li>
+<li><p><strong>Los Muelles de Coral</strong>: El puerto de Orylith es
+pequeño y modesto en comparación con los de otras ciudades de <a
+href="Galvorn.html">Galvorn</a>. En lugar de grandes galeones mercantes,
+acoge barcos de exploración, botes de pesca y elegantes esquifes de
+eruditos. Los muelles están adornados con intrincadas esculturas hechas
+de coral y conchas marinas.</p></li>
+<li><p><strong>Las Escaleras de la Brisa</strong>: Una vertiginosa red
+de puentes de cuerda y escaleras talladas en la roca que conectan las
+distintas terrazas. Es el dominio de los mensajeros Genasi de Aire, que
+se deslizan por los pasadizos con una agilidad asombrosa, llevando
+mensajes y noticias de un nivel a otro de la ciudad.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Orylith se mueve al ritmo de las mareas. La principal
+celebración es la “Serenata a la Luna de Marea”, un festival mensual
+donde toda la ciudad se congrega en los bordes de los acantilados. Bajo
+la luz de la luna llena, el Gran Coro del Mar entona antiguas baladas, y
+sus voces se mezclan con el estruendo de las olas para crear una
+sinfonía única que, según se dice, complace a la propia <a
+href="Yfrit.html">Yfrit</a>.</p>
+<p>Es costumbre agradecer al mar su belleza. Los habitantes dejan
+ofrendas de coral tallado o poemas escritos en hojas de algas secas en
+pequeños altares costeros. Los capitanes que zarpan de este puerto no
+buscan oro, sino conocimiento, y a menudo llevan a bordo a un “Cantor de
+Olas”, un <a href="Bardo.html">Bardo</a> cuyas melodías pueden calmar
+tempestades o guiar al barco a través de nieblas traicioneras.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Orylith es una ciudad vertical, una cascada de piedra blanca que
+desciende hacia el mar. Los edificios, hechos de la misma caliza pálida,
+están diseñados para capturar la luz y el sonido del océano, con grandes
+ventanales y balcones curvos. Las torres de vigía, esbeltas y elegantes,
+se alzan como agujas contra el cielo, y pequeñas cascadas canalizadas
+desde manantiales de la montaña fluyen a través de los patios, llenando
+el aire con un murmullo constante de agua dulce que contrasta con el
+rugido salado de abajo. El ambiente es sereno y reflexivo, impregnado de
+una sensación de asombro ante la inmensidad del mar.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Lamento de la Sirena de Cristal</strong>: Se dice que
+durante las noches de tormenta, una melodía desgarradora recorre los
+acantilados. Es el “Lamento de la Sirena de Cristal”, el espíritu de una
+sirena asesinada por piratas hace siglos. Su fantasma no busca venganza,
+sino que su canto advierte a los barcos de arrecifes ocultos y
+corrientes peligrosas, protegiendo a los marineros que respetan el
+mar.</p></li>
+<li><p><strong>La Ciudad Sumergida</strong>: Una leyenda persistente
+afirma que Orylith es solo la mitad de una ciudad mayor. Bajo las olas,
+directamente debajo de los acantilados, yace “Lysimara”, una ciudad
+secreta habitada por genasi de agua y guardianes antiguos. Se rumorea
+que allí, en un templo de coral luminoso, se custodia un fragmento de
+una de las Lanzas Celestiales, esperando el día en que la profecía del
+Primer Rey despierte su poder.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quilindil</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Quilindil</div>
+        <div class="content">
+<h1 id="quilindil">Quilindil</h1>
+<p>Perchada sobre los imponentes Acantilados de la Brisa Eterna,
+Quilindil es una ciudad que parece a punto de levar anclas y navegar
+hacia el cielo. No es una fortaleza de piedra ni un bullicioso centro de
+comercio, sino un intrincado instrumento diseñado para leer el mar y el
+firmamento. Sus estructuras, hechas de madera blanqueada por la sal y
+piedra de coral iridiscente, son esbeltas y abiertas, coronadas por
+altas torres de observación que rascan las nubes. Puentes de cuerda se
+mecen sobre abismos vertiginosos, conectando las torres como los hilos
+de una telaraña. El aire de la ciudad vibra con un murmullo constante y
+melódico, producto de las miles de “velas de viento”, grandes telas
+tensadas que giran con la brisa para ventilar los hogares y marcar la
+dirección de las corrientes. Aquí, en Quilindil, uno no vive contra los
+elementos, sino en conversación con ellos.</p>
+<h2 id="historia">Historia</h2>
+<p>Quilindil no fue fundada por un decreto real, sino por la necesidad y
+la curiosidad. Tras el Cataclismo del <a href="Lilium.html">Lilium</a>,
+cuando los mares de <a href="Galvorn.html">Galvorn</a> se volvieron
+impredecibles y las tormentas de <a href="Exion.html">Exion</a> azotaban
+sin previo aviso, un grupo de exploradores, en su mayoría Genasi de Aire
+y Agua, buscaron un lugar donde pudieran comprender los nuevos patrones
+del mundo. Se hacían llamar el “Primer Círculo de Navegantes”.
+Encontraron los Acantilados de la Brisa Eterna, un lugar donde los
+vientos del océano y las corrientes celestes se encontraban en un
+diálogo perpetuo.</p>
+<p>En lugar de un puerto, construyeron un observatorio. En lugar de
+murallas, trazaron cartas estelares. La ciudad creció orgánicamente a su
+alrededor, atrayendo a <a href="Humanos.html">Humanos</a> navegantes
+fascinados por su precisión cartográfica y a comunidades de <a
+href="Halflings.html">Halflings</a> que encontraron en las claras noches
+de los acantilados el lugar perfecto para sus estudios astronómicos.
+Quilindil se convirtió así en el cerebro náutico de <a
+href="Galvorn.html">Galvorn</a>, un centro de conocimiento donde el
+mérito se mide en la precisión de un mapa, la exactitud de una
+predicción meteorológica o el coraje para navegar hacia lo
+desconocido.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Vértigo del Vigía</strong>: El distrito más alto de la
+ciudad, una red de torres de observación conectadas por puentes
+oscilantes. Aquí se encuentran los talleres de los cartógrafos, las
+bibliotecas de cartas de navegación y los observatorios de los
+astrónomos halfling. Es el centro neurálgico del conocimiento de
+Quilindil.</p></li>
+<li><p><strong>El Puerto Susurrante</strong>: Un puerto tallado en la
+base del acantilado, protegido de los peores vientos por la geografía
+natural. No es un puerto para grandes flotas comerciales, sino para
+veloces barcos de exploración y naves de investigación. Sus muelles
+siempre están repletos de marineros preparando expediciones a lo
+desconocido.</p></li>
+<li><p><strong>La Calma de la Marea Baja</strong>: La zona residencial,
+construida en las terrazas más bajas y resguardadas del acantilado. Las
+casas aquí son más modestas, cada una con su veleta decorativa y su
+catalejo apuntando al horizonte, y el sonido de las velas de viento es
+más suave, como un susurro constante.</p></li>
+<li><p><strong>El Faro del Ciclo Eterno</strong>: El edificio más
+emblemático de la ciudad. No es solo un faro, sino un complejo
+santuario-observatorio dedicado a <a href="Quiteon.html">Quiteon</a> y
+<a href="Taladrios.html">Taladrios</a>. Su luz es alimentada por un
+cristal arcano que pulsa al ritmo de las mareas, y sus muros están
+cubiertos de instrumentos que miden la presión del aire, la velocidad
+del viento y los ciclos lunares.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Quilindil se rige por los ciclos naturales. La sociedad es
+una meritocracia pura: un joven genasi que predice con exactitud una
+borrasca repentina goza de más prestigio que un viejo mercader con los
+bolsillos llenos de oro. Compartir una carta de navegación precisa es un
+acto de profunda amistad y confianza.</p>
+<p>Dos veces al año, la ciudad celebra el “Festival de las Corrientes
+Cambiantes”. Durante este evento, los exploradores que regresan
+presentan sus nuevos <a href="Mapas.html">Mapas</a> y descubrimientos,
+se realizan competiciones de navegación y se honra la memoria de
+aquellos perdidos en el mar arrojando flores luminosas al océano desde
+lo alto de los acantilados.</p>
+<h2 id="símbolo-y-emblema">Símbolo y Emblema</h2>
+<p>El emblema de la ciudad es una espiral de viento de color azul claro,
+entrelazada con una ola verde mar. Ambas figuras se superponen sobre un
+sextante de plata, simbolizando la unión de la observación, la
+naturaleza y la exploración.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El <a href="Vagabundo.html">Vagabundo</a>
+Etéreo</strong>: Se cuenta que en las noches de niebla espesa, cuando el
+sonido de las velas de viento se apaga, se puede avistar un barco
+fantasma navegando entre las nubes. Es el “<a
+href="Vagabundo.html">Vagabundo</a> Etéreo”, la nave de un legendario
+explorador genasi que zarpó en busca del borde del mundo y jamás
+regresó. Algunos marineros juran haber visto a su espectro en el timón,
+tratando de entregar un mapa imposible, uno que no conduce a una tierra
+nueva, sino a un terrible secreto sobre los dioses o a la verdad sobre
+el fuego del <a href="Lilium.html">Lilium</a>.</p></li>
+<li><p><strong>Los Suspiros de la Profundidad</strong>: Bajo los
+acantilados de Quilindil existen unas cuevas submarinas, solo accesibles
+durante la marea más baja. Se las conoce como los “Suspiros de la
+Profundidad”, y se rumorea que allí habita un “Coro de Sirenas del
+Silencio”. No atraen a los marineros con cantos, sino con un silencio
+absoluto y magnético. Quienes se acercan demasiado sienten cómo el
+sonido, los pensamientos y finalmente los recuerdos son arrancados de su
+mente, dejándolos como cáscaras vacías a la deriva en el
+océano.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

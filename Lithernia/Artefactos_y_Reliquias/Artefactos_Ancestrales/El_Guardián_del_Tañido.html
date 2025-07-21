@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Guardián_del_Tañido</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Guardián_del_Tañido</div>
+        <div class="content">
+<h1 id="el-guardián-del-tañido">El guardián del tañido</h1>
+<p>En la cima de la Torre de las Estrellas, en el corazón del reino
+enano, pende un artefacto tan antiguo como la propia era del
+Renacimiento: la gran campana Aethelgard. Más que un simple instrumento,
+es un oráculo de metal y magia, un nexo con el latido cósmico de
+Lithernia. Su custodia no recae en un ejército ni en un rey, sino en una
+figura solitaria y reverenciada conocida como el Guardián del Tañido, un
+linaje de sabios cuya única misión es escuchar y descifrar los susurros
+del destino.</p>
+<p>El Guardián es el intérprete de los silencios y clamores de
+Aethelgard, una campana que no tañe con la mano del hombre, sino con las
+mareas del Tejido del Maná y los temblores de la historia. Cada
+vibración, cada repique y cada ominoso silencio es un mensaje, una
+advertencia o una profecía que solo el Guardián, a través de una vida de
+estudio y meditación, puede comprender.</p>
+<h3 id="historia-y-origen">Historia y Origen</h3>
+<p>El linaje del Guardián y la <a href="Herreria.html">Herreria</a> de
+Aethelgard se remontan a la tumultuosa <strong>Era Crepuscular</strong>,
+tras el Cataclismo del <a href="Lilium.html">Lilium</a>. Con el mundo
+sumido en el caos y el Tejido del Maná salvaje e impredecible, los
+sabios supervivientes buscaron una forma de anticipar futuras
+calamidades. El recién formado Concilio de Magos decretó la creación de
+un faro arcano, un sistema de alerta para todo el continente.</p>
+<p>La tarea recayó sobre los dos pueblos más dotados para tal empresa:
+los maestros artesanos <a href="Enanos.html">Enanos</a> de <a
+href="Valtoria.html">Valtoria</a> y los adivinos estelares de <a
+href="Eldrador.html">Eldrador</a>. * <strong>La <a
+href="Herreria.html">Herreria</a>:</strong> Los herreros <a
+href="Enanos.html">Enanos</a>, bajo la bendición de <a
+href="Rokael.html">Rokael</a>, forjaron la campana con una aleación
+imposible de mithril y el corazón de un meteorito caído, un fragmento de
+estrella que vibraba con la esencia de <a href="Arzia.html">Arzia</a>.
+La llamaron <strong>Aethelgard</strong>, que en una lengua antigua
+significa “<a href="Noble.html">Noble</a> Custodia”. * <strong>La
+Sintonización:</strong> Los magos élficos la inscribieron con <a
+href="Runas.html">Runas</a> dinámicas que cambiaban según los flujos
+cósmicos. La sintonizaron con la frecuencia residual de Chronos, la
+Lanza del Tiempo, una de las cuatro Lanzas Celestiales que sellaron al
+Primer Rey. Esta conexión le otorgó a Aethelgard una sensibilidad única
+a las fluctuaciones del tiempo, el destino y los grandes acontecimientos
+proféticos.</p>
+<p>El primer Guardián fue un sabio elfo, pero la responsabilidad fue
+transferida a los <a href="Enanos.html">Enanos</a> de <a
+href="Valtoria.html">Valtoria</a>, cuya paciencia y conexión con la
+piedra y los metales los hacían los custodios ideales. Desde entonces,
+el título de Guardián ha pasado de maestro a aprendiz, un puesto de
+inmenso honor y terrible carga, integrado en el Círculo Interior de la
+Torre de las Estrellas.</p>
+<h3 id="la-campana-aethelgard">La Campana: Aethelgard</h3>
+<p>Aethelgard se encuentra en el observatorio más alto de la Torre de
+las Estrellas, en una cámara abovedada y abierta a los cielos, donde
+parece absorber la luz de las estrellas y el silencio de la montaña. Es
+una obra de arte colosal: * <strong>Material:</strong> Su metal tiene un
+brillo plateado oscuro, casi negro, surcado por vetas que refulgen con
+una luz interna. Las <a href="Runas.html">Runas</a> élficas y enanas que
+cubren su superficie parecen moverse lentamente, como constelaciones en
+un firmamento nocturno. * <strong>Sonido:</strong> Su tañido no es
+meramente auditivo. Es una onda psiónica y mágica que resuena en el
+Tejido del Maná. Los seres con sensibilidad arcana en toda <a
+href="Valtoria.html">Valtoria</a> pueden “sentir” su repique en sus
+mentes, mientras que en lugares lejanos, los magos más poderosos pueden
+percibirlo como una perturbación en la trama de la magia.</p>
+<h3 id="los-tañidos-del-destino">Los Tañidos del Destino</h3>
+<p>El Guardián no hace sonar la campana; la escucha. Aethelgard responde
+a los grandes cambios en el equilibrio del mundo, y cada tipo de tañido
+posee un significado profundo que el Guardián debe interpretar para el
+Concilio de la Montaña y la Reina Valeria Bronzebrillo.</p>
+<ul>
+<li><strong>El Tañido de la Advertencia:</strong> Un único y profundo
+repique que hace vibrar la piedra de la torre. Suele anunciar desastres
+mágicos, el despertar de una bestia ancestral o una inminente tormenta
+arcana.</li>
+<li><strong>El Murmullo de las Estrellas:</strong> Una serie de
+campanadas suaves, altas y melódicas, casi como un carillón. Ocurre
+durante eventos celestiales significativos, como el <strong><a
+href="Ecos_del_Eclipse_de_Sangre.html">Ecos_del_Eclipse_de_Sangre</a></strong>,
+o señala el descubrimiento de nuevos conocimientos arcanos, como los <a
+href="Conjuros.html">Conjuros</a> Estelares.</li>
+<li><strong>El Clamor de la Guerra:</strong> Un repique rápido, marcial
+y caótico, como si miles de martillos golpearan la campana a la vez.
+Anuncia el estallido de un conflicto a gran escala o un punto de
+inflexión decisivo en la Gran Guerra, como la <strong>Batalla de las
+Lágrimas Negras</strong>.</li>
+<li><strong>El Lamento de la Lanza:</strong> El más inquietante de los
+tañidos regulares. Es un sonido discordante y prolongado, lleno de una
+pena palpable. Resuena cuando el poder de una de las <strong>Lanzas
+Celestiales</strong> es perturbado o cuando el sello que aprisiona al
+Primer Rey se debilita.</li>
+<li><strong>El Silencio Profético:</strong> El augurio más temido y
+sagrado. No es un sonido, sino su ausencia total. La vibración de fondo
+de Aethelgard cesa por completo, sumiendo la cámara en un silencio
+antinatural. Las <a href="Leyendas.html">Leyendas</a> afirman que esto
+solo ocurrirá dos veces: una para anunciar la llegada del mortal elegido
+por la Profecía del Retorno del Rey, y otra para señalar el fin de los
+tiempos con una <strong>Segunda Caída del <a
+href="Lilium.html">Lilium</a></strong>.</li>
+</ul>
+<h3 id="relevancia-en-la-era-actual">Relevancia en la Era Actual</h3>
+<p>En los últimos años, el puesto del Guardián del Tañido ha adquirido
+una importancia crítica. El actual guardián, un enano anciano y casi
+ciego llamado <strong>Borin Stone-Ear</strong>, ha informado al
+Archimago Thalios Estrella Antigua y a la Reina que el “Lamento de la
+Lanza” se ha vuelto peligrosamente frecuente. Los ecos de la campana
+hablan de sellos que se quiebran y de un poder antiguo que
+despierta.</p>
+<p>Muchos en <a href="Valtoria.html">Valtoria</a> creen que la profecía
+está a punto de cumplirse, y que el destino de Lithernia pende de la
+correcta interpretación de los próximos tañidos. Esto ha puesto al
+Guardián y a la propia campana en el punto de mira de diversas
+facciones: * Agentes de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+posiblemente enviados por Lord Aethel “El Cruel”, podrían intentar
+silenciar la campana para que la profecía no pueda ser guiada. * Los
+Cazadores de Sombras de <a href="Valtoria.html">Valtoria</a> ven a
+Aethelgard como el máximo símbolo del conocimiento que desprecian y
+podrían intentar destruirla. * Órdenes secretas devotas al Primer Rey
+podrían buscar al Guardián para que los guíe hacia las Lanzas.</p>
+<p>El Guardián del Tañido ya no es solo un observador pasivo. Se ha
+convertido en una pieza clave en el tablero de ajedrez del destino, y
+sus interpretaciones podrían guiar a los héroes hacia la salvación de
+Lithernia o empujar al mundo a un nuevo cataclismo.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Noble.html">Noble</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miryalis</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Miryalis</div>
+        <div class="content">
+<h1 id="miryalis">Miryalis</h1>
+<p>Miryalis no es una ciudad, es una herida contenida. Situada en el
+corazón de las Cicatrices del <a href="Lilium.html">Lilium</a>, donde <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+del cataclismo se negó a morir, la ciudad existe con un único y terrible
+propósito: vigilar la llama que podría consumir el mundo. Construida con
+un orden aterrador, sus estructuras de basalto negro y liso descienden
+en terrazas concéntricas hacia una fisura central, una grieta en la
+propia realidad de la que emana un brillo púrpura y enfermizo. No hay
+ventanas que miren al exterior; la ciudad se vuelve sobre sí misma,
+iluminada desde dentro por el pálido y constante resplandor del “cristal
+de <a href="Lilium.html">Lilium</a>”, dándole la apariencia de una
+colmena espectral que brilla en la desolación de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<h2 id="historia">Historia</h2>
+<p>Tras el Cataclismo, mientras otros huían de las tierras devastadas,
+un cónclave de magos Tiefling liderado por el Archmage Vorlag fue
+enviado a estudiar una de las cicatrices más profundas dejadas por el <a
+href="Lilium.html">Lilium</a>. Pronto comprendieron que el fuego allí no
+podía ser extinguido; su poder era primordial, una furia divina atrapada
+bajo la piel del mundo. En lugar de huir, Vorlag propuso lo impensable:
+construir una jaula alrededor de la llama.</p>
+<p>Con la bendición reticente de un naciente <a
+href="Clan%20Sel’thirak.html">Clan Sel’thirak</a>, que vio la utilidad
+estratégica en controlar tal poder, Vorlag y sus seguidores —la futura
+Casta de la Brasa— fundaron Miryalis. Generación tras generación, han
+perfeccionado sus rituales y su arquitectura, no para adorar el fuego,
+sino para aplacarlo y mantenerlo dormido. Son los carceleros de un dios
+enojado, una labor que ha forjado su cultura austera y su alma colectiva
+en la disciplina y el secreto. Su lealtad a Sel’thirak es una
+formalidad; su verdadera devoción es a la contención, pues saben que un
+solo error podría significar un segundo Apocalipsis.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Fisura Durmiente</strong>: El centro neurálgico y el
+tabú de Miryalis. No es un barrio, sino un vacío presente en todas
+partes. De esta grieta irregular y dentada emana el calor constante y el
+brillo púrpura que define la ciudad. Está rodeada por un muro rúnico de
+obsidiana y vigilada día y noche por los <a
+href="Hobgoblins.html">Hobgoblins</a> de la Guardia Silente. Ningún
+ciudadano se acerca sin autorización; hacerlo es una sentencia de
+muerte.</p></li>
+<li><p><strong>Las Terrazas de Ceniza</strong>: El principal distrito
+residencial y administrativo, donde las estructuras de basalto se apilan
+en niveles descendentes. Las calles son estrechas, limpias y
+silenciosas. Aquí reside la Casta de la Brasa, los <a
+href="Tieflings.html">Tieflings</a> que gobiernan y mantienen los
+rituales de contención. La vida es monástica, regida por horarios
+estrictos y un silencio respetuoso.</p></li>
+<li><p><strong>El Crisol Velado</strong>: El distrito artesanal, situado
+en las terrazas más bajas y calurosas. Es aquí donde los artesanos <a
+href="Goblins.html">Goblins</a>, bajo la severa supervisión de los <a
+href="Hobgoblins.html">Hobgoblins</a>, forjan el famoso “cristal de <a
+href="Lilium.html">Lilium</a>”. Utilizando arenas y minerales expuestos
+a los vapores de la fisura, crean las láminas de vidrio opalescente que
+sirven como única fuente de luz de la ciudad. El trabajo es
+increíblemente peligroso, y la tasa de mortalidad entre los <a
+href="Goblins.html">Goblins</a> es un secreto a voces.</p></li>
+<li><p><strong>El Sanctum del Equilibrio</strong>: El único templo de la
+ciudad. Oficialmente dedicado a Sel’thirak, su arquitectura es dual. Los
+niveles superiores celebran al dios de la muerte como el guardián del
+orden. Sin embargo, en sus criptas más profundas, ocultas a todos salvo
+a la élite del Magistrado, se llevan a cabo los ritos de apaciguamiento
+al <a href="Lilium.html">Lilium</a>, utilizando ofrendas de silencio,
+energía arcana y, según los rumores, sacrificios más oscuros.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Miryalis es una vigilia perpetua. La cultura valora la
+precisión, la disciplina y el control emocional por encima de todo. Un
+arrebato de ira o una muestra de miedo se consideran debilidades
+peligrosas que podrían perturbar el delicado equilibrio. El evento más
+sagrado del año es la “Vigilia de la Ceniza”, una noche en la que toda
+la ciudad se sume en un silencio absoluto y una oscuridad total (los
+cristales de <a href="Lilium.html">Lilium</a> se cubren), para no
+“despertar al Fuego”.</p>
+<p>Los recién nacidos no son celebrados con alegría, sino con
+solemnidad. A los pocos días de nacer, un Magistrado marca al infante
+con una runa de contención temporal, trazada con ceniza bendecida, un
+recordatorio constante de su deber y su destino. Su símbolo, una flama
+púrpura atrapada en un ojo de obsidiana, se encuentra en cada puerta y
+uniforme, un recordatorio de su eterna vigilancia.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Miryalis es una obra maestra de la ingeniería opresiva. Los
+edificios, tallados en basalto negro, son lisos, angulares y
+funcionales, desprovistos de cualquier adorno que no sea una runa de
+contención. La falta de ventanas al exterior crea una atmósfera
+claustrofóbica y desorientadora. La única luz proviene del interior, de
+las placas de cristal de <a href="Lilium.html">Lilium</a> que emiten un
+resplandor frío y constante, bañando las calles en una perpetua luz
+crepuscular de tonos violáceos. El aire es pesado, con un olor a ozono y
+piedra caliente, y el silencio solo es roto por un zumbido de baja
+frecuencia que parece emanar de la propia tierra, el ronroneo del Fuego
+Durmiente.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Susurro del Rey</strong>: La leyenda más peligrosa de
+Miryalis, susurrada solo en la más absoluta confianza, afirma que en las
+profundidades de la fisura no solo arde el <a
+href="Lilium.html">Lilium</a>, sino también un fragmento de la
+conciencia del Primer Rey, atrapado en el momento de su derrota. Dicen
+que en las noches más silenciosas, se pueden oír sus susurros a través
+de las llamas, prometiendo conocimiento prohibido o locura a quienes se
+atrevan a escuchar. El Magistrado considera esta creencia la peor de las
+herejías.</p></li>
+<li><p><strong>Las Anclas Vivientes</strong>: Se cuenta que los niños
+que a veces desaparecen de las terrazas más bajas no son víctimas de
+accidentes. Son elegidos por los Magistrados para un ritual terrible y
+necesario. Se dice que son ofrecidos como “anclas vivientes”, sus almas
+fusionadas con la energía del <a href="Lilium.html">Lilium</a> para
+estabilizarla desde dentro. No mueren, sino que se convierten en
+espectros silenciosos y sin rostro que ahora vigilan la ciudad desde un
+plano invisible, condenados a una eternidad de servicio
+silencioso.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.43)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

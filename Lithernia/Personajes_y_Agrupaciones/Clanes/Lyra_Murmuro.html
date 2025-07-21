@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Murmuro</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Murmuro</div>
+        <div class="content">
+<h1 id="lyra-murmuro">Lyra Murmuro</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida bajo el estigma del exilio, Lyra nunca conoció los claros
+dorados de <a href="Eldrador.html">Eldrador</a> como un hogar, sino como
+un recuerdo amargo susurrado por sus mayores. Su casa, cuyo nombre fue
+borrado de las crónicas élficas y reemplazado por el epíteto “Clan del
+Velo de Ceniza”, fue desterrada por un crimen imperdonable a los ojos de
+la Mano de Hierro: usar el engaño y la ilusión no para la guerra, sino
+para forjar la paz. Esta afrenta a la pureza marcial de la nobleza,
+instigada principalmente por la influyente Casa Auris, los condenó a
+vagar sin honor ni tierras.</p>
+<p>Encontraron su refugio en <a href="Thalythil.html">Thalythil</a>, la
+ciudad portuaria de <a href="Galvorn.html">Galvorn</a> envuelta en una
+niebla perpetua que parecía acoger sus secretos. Fue allí, bajo el
+liderazgo de la matriarca <a href="Kaelith.html">Kaelith</a> Vane, donde
+el clan no solo sobrevivió, sino que se reinventó. Abandonaron la
+diplomacia de la corte por el comercio de susurros, transformando su
+“vergüenza” en su mayor activo. Se convirtieron en los espías e
+intermediarios de información más codiciados de Lithernia, un poder
+silencioso construido sobre las verdades que otros preferían ocultar.
+Lyra creció en este nuevo mundo, aprendiendo que un secreto bien
+colocado valía más que un millar de espadas.</p>
+<p>Desde joven, mostró una afinidad innata para el arte del clan,
+potenciada por su naturaleza <a href="Eladrin.html">Eladrin</a>. Su
+habilidad para cambiar de apariencia y temperamento con las estaciones
+la convertía en una infiltrada perfecta. Fue Silas Umbral, el maestro de
+ilusiones del clan, quien vio su potencial y la tomó como protegida.
+Bajo su tutela, Lyra no aprendió a crear <a
+href="Dragones.html">Dragones</a> de humo, sino a tejer las mentiras más
+sutiles: una palabra fuera de lugar, un documento ligeramente alterado,
+una emoción sembrada en el corazón de un objetivo. Aprendió que la mejor
+ilusión es aquella que la víctima cree haber deducido por sí misma.</p>
+<p>Ahora, con casi un siglo de vida, Lyra es una de las agentes de campo
+más valiosas del Velo de Ceniza. Su nombre es un susurro en las cortes
+de <a href="Galvorn.html">Galvorn</a> y una espina clavada en el orgullo
+de <a href="Eldrador.html">Eldrador</a>. Cada misión exitosa es una
+venganza silenciosa contra la Casa Auris y un tributo a la resiliencia
+de su matriarca, <a href="Kaelith.html">Kaelith</a>. Su motivación
+trasciende la lealtad; es una búsqueda de justicia poética, una
+demostración de que el pragmatismo que los condenó es la misma
+herramienta que ahora les otorga un poder que la Mano de Hierro jamás
+podrá controlar. Su conflicto interno reside en su sangre <a
+href="Eladrin.html">Eladrin</a>: lucha constantemente por mantener la
+fría objetividad que su oficio demanda, mientras las pasiones de las
+estaciones tiran de su alma, amenazando con desvelar la máscara que con
+tanto esmero ha construido.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>La apariencia de Lyra es un lienzo en constante cambio, una
+manifestación física de su herencia feérica. Aunque su forma base es la
+de una elfa esbelta y grácil, con rasgos delicados y una mirada que
+guarda una inteligencia centenaria, su aspecto se transforma con los
+ciclos de Lithernia:</p>
+<ul>
+<li><strong>Primavera:</strong> Su cabello adquiere tonos de musgo
+fresco y sus ojos brillan con un verde vibrante. Irradia un encanto
+juvenil y una energía contagiosa, perfecta para ganarse la confianza a
+través de la camaradería y el optimismo.</li>
+<li><strong>Verano:</strong> Su piel se dora y su cabello se enciende
+con destellos cobrizos, mientras sus ojos arden con la intensidad del
+oro fundido. Se vuelve audaz, pasional y directa, una personalidad ideal
+para encarnar a una mercenaria o a una amante tempestuosa.</li>
+<li><strong>Otoño:</strong> Su cabello se torna de un castaño rojizo y
+sus ojos adoptan una melancólica tonalidad violeta. Se vuelve reflexiva,
+persuasiva y serena, una fachada perfecta para un <a
+href="Erudito.html">Erudito</a>, consejero o diplomático.</li>
+<li><strong>Invierno:</strong> Su piel palidece hasta parecer porcelana,
+su cabello se vuelve blanco como la nieve y sus ojos son dos esquirlas
+de hielo azul. Su temperamento es distante, analítico y casi carente de
+emoción, lo que la hace indescifrable y temible, ideal para misiones que
+requieren una lógica implacable.</li>
+</ul>
+<p>Su equipo es un reflejo de su oficio: la funcionalidad y la
+discreción por encima de la ostentación. Viste un atuendo de seda gris
+oscuro, tratado alquímicamente para no producir ruido al moverse y
+resistir las manchas. Bajo su túnica, porta una armadura de cuero
+endurecido, flexible y ligera. Su única arma visible es un estilete de
+plata con una empuñadura de obsidiana, aunque oculta varias dagas de
+lanzar y una selección de venenos y polvos para dormir en compartimentos
+secretos. Siempre lleva consigo un anillo de plata sin adornos, que le
+sirve como foco arcano para sus ilusiones, y un pequeño espejo de
+obsidiana para comunicarse con su clan. Nunca viaja sin la máscara de
+porcelana agrietada, el símbolo de su clan, guardada en un estuche de
+seda, como un recordatorio perpetuo de su identidad y propósito.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lyra Murmuro no es una heroína de <a
+href="Leyendas.html">Leyendas</a> cantadas en tabernas, ni una villana
+cuyo nombre infunda terror en los niños. Su legado es más sutil y,
+quizás, más profundo. Ella es la encarnación viva del poder de la
+información en una era de espadas y magia. A través de sus acciones, el
+Clan del Velo de Ceniza ha desestabilizado rutas comerciales, frustrado
+alianzas políticas y sembrado la discordia entre sus enemigos, todo sin
+declarar una guerra abierta.</p>
+<p>Para sus rivales del Clan Nighthawk, es una sombra esquiva, una
+competidora que juega con reglas diferentes y más elegantes. Para la
+Casa Auris, es un fantasma vengativo, un recordatorio constante de que
+el honor y la pureza pueden ser deshechos por un simple susurro en el
+oído correcto.</p>
+<p>En el gran tapiz de Lithernia, Lyra y su clan representan una fuerza
+de cambio. Demuestran que el poder ya no reside únicamente en los tronos
+de los grandes reinos, sino también en las brumas de ciudades como <a
+href="Thalythil.html">Thalythil</a>, en las manos de aquellos que saben
+escuchar, esperar y manipular. El destino de reinos enteros podría
+decidirse no en un campo de batalla, sino por una información que Lyra
+elija revelar… o callar para siempre. Su impacto no se medirá en
+conquistas, sino en los secretos que entierre y en los imperios que se
+desmoronen bajo el peso de la verdad.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.39)</li>
+<li><a href="Clan%20del%20Velo%20de%20Ceniza.html">Clan del Velo de
+Ceniza</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

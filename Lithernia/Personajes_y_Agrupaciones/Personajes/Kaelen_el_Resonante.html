@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_el_Resonante</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_el_Resonante</div>
+        <div class="content">
+<h1 id="kaelen-el-resonante">Kaelen el Resonante</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en las sombrías y opresivas calles de <a
+href="Aelithor.html">Aelithor</a>, una ciudad-estado enclavada en las
+fronteras de <a href="Mor&#39;dhul.html">Mor’dhul</a>, Kaelen es el
+producto de un linaje Tiefling caído en desgracia. Sus ancestros, otrora
+miembros menores de una casa <a href="Noble.html">Noble</a> leal a
+Sel’thirak, fueron purgados por una supuesta herejía: la veneración
+secreta del Primer Rey como un mártir. Este legado de resentimiento y
+rebeldía se grabó en el alma de Kaelen desde su infancia. Poseedor de un
+talento arcano innato y una mente tan afilada como cruel, encontró su
+vocación no en las cortes de obsidiana, sino en las sectas prohibidas
+que bullían en los subterráneos de la ciudad.</p>
+<p>Su camino lo llevó al Clan Whisper, maestros de la nigromancia y la
+manipulación de espíritus. Allí, Kaelen destacó por su habilidad, pero
+pronto consideró que sus métodos eran limitados. No le interesaba
+conversar con los muertos, sino comandar el poder que los silenció. Fue
+durante una expedición prohibida al Cañón Silente —un lugar
+geológicamente anómalo donde ni el viento se atreve a sonar— que Kaelen
+experimentó una revelación. Sintió una vibración primordial atrapada en
+la roca, una resonancia que identificó como el “Primer Eco”: la onda
+sónica del primer decreto de poder del Primer Rey, petrificada en el
+tiempo por el Cataclismo del <a href="Lilium.html">Lilium</a>.</p>
+<p>Abandonó al Clan Whisper, tachándolos de necrófagos sin visión, y se
+unió al naciente Culto del Eco Roto, una facción escindida que compartía
+su obsesión. Con su carisma magnético y su poder devastador, Kaelen no
+tardó en ascender. Se convirtió en el “Maestro de la Disonancia”, el
+principal arquitecto de sus rituales, transformando una creencia
+abstracta en una disciplina arcana funcional: la nigromancia sónica. Su
+objetivo es claro y absoluto: encontrar la frecuencia de resonancia
+exacta para liberar el Primer Eco. No busca restaurar al Rey, sino
+desatar un poder tan puro y caótico que destruya el orden impuesto por
+los dioses. En su arrogancia, Kaelen cree que puede dominar esa
+cacofonía primordial y, desde el silencio resultante, componer una nueva
+realidad bajo su batuta.</p>
+<p>Esta ambición lo ha llevado a forjar una peligrosa alianza con Lord
+Aethel ‘El Cruel’. Kaelen no se hace ilusiones sobre la naturaleza de
+Aethel, pero ve el pacto como una simbiosis perfecta: Aethel le
+proporciona <a href="Recursos.html">Recursos</a>, protección y acceso a
+ruinas controladas por sus aliados del Clan Grimstone, mientras que el
+culto ofrece a Aethel el arma definitiva para sembrar el caos durante su
+planeado golpe contra Sel’thirak.</p>
+<p>Dentro del culto, su principal obstáculo es <a
+href="Vexia.html">Vexia</a>, una antigua sacerdotisa del Clan Whisper
+que lidera la facción más conservadora. Ella ve a Kaelen como un
+blasfemo imprudente que juega con fuerzas que no comprende, y teme que
+su prisa por desatar el Eco no traerá un nuevo amanecer, sino un
+silencio eterno para todos. Su rivalidad define la tensión interna del
+culto: una carrera entre la cautela y la catástrofe.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelen posee la belleza perturbadora y el carisma imponente
+característicos de los Tiefling de alta cuna. Su piel es del color del
+basalto pulido, y sus ojos brillan con una luz verde espectral, idéntica
+a la onda sónica de su escudo. Sus cuernos, largos y delgados, no se
+curvan agresivamente, sino que se yerguen y retuercen sutilmente,
+asemejándose a un diapasón de hueso. Viste túnicas de seda negra y cuero
+tratado, adornadas con intrincados patrones plateados que no son meros
+adornos, sino diagramas de ondas sónicas y <a
+href="Runas.html">Runas</a> de poder.</p>
+<p>Su porte es el de un director de orquesta macabro: cada gesto es
+preciso, económico y cargado de intención. Su voz es su principal arma
+fuera del combate, un barítono hipnótico capaz de seducir, inspirar o
+aterrorizar con igual facilidad.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Diapasón del
+Silencio Roto:</strong> Su foco arcano, un diapasón tallado en hueso de
+un dragón ancestral y afinado con cristales resonantes. Se dice que
+puede “escuchar” las vibraciones de la magia y la roca, y es la clave
+para canalizar sus hechizos sónicos. * <strong>Guanteletes de la
+Disonancia:</strong> Guanteletes de cuero reforzado con placas de
+granito del Cañón Silente. Le permiten moldear las ondas de choque de
+sus <a href="Conjuros.html">Conjuros</a> con una precisión aterradora,
+enfocando la destrucción o creando zonas de silencio absoluto. *
+<strong>Pergaminos de Frecuencias Prohibidas:</strong> Una colección de
+rollos de piel humana donde ha transcrito sus investigaciones sobre la
+nigromancia sónica y las posibles frecuencias para liberar el Primer
+Eco. Son su grimorio personal y su mayor tesoro.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelen el Resonante no es un simple líder de culto; es un catalizador
+potencial para un apocalipsis de escala mundial. Si tiene éxito, no solo
+desestabilizará <a href="Mor&#39;dhul.html">Mor’dhul</a>, sino que
+podría desatar una fuerza primordial comparable al propio <a
+href="Lilium.html">Lilium</a>, cumpliendo su objetivo de “romper las
+cadenas del destino” de la forma más literal y destructiva posible.</p>
+<p>Su figura representa la perversión de la esperanza. Mientras muchos
+en <a href="Mor&#39;dhul.html">Mor’dhul</a> ven al Primer Rey como un
+símbolo de liberación, Kaelen ha retorcido ese legado, transformando su
+poder en un arma de aniquilación. Es el heraldo de una nueva forma de
+magia —la nigromancia sónica—, una disciplina peligrosa que podría
+cambiar para siempre la forma en que se entiende el poder arcano en
+Lithernia.</p>
+<p>Su alianza con Lord Aethel lo convierte en una pieza clave en el
+tablero político de <a href="Mor&#39;dhul.html">Mor’dhul</a>, un peón
+con el poder de derrocar al rey… y al tablero entero. El destino de
+Lithernia podría depender de si alguien es capaz de silenciar su
+sinfonía de destrucción antes de que alcance su devastador crescendo
+final.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.48)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

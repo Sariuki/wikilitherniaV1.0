@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghorza_la_Archivista</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ghorza_la_Archivista</div>
+        <div class="content">
+<h1 id="ghorza-la-archivista">Ghorza la Archivista</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los sombríos y olvidados callejones de <a
+href="Thirawen.html">Thirawen</a>, la ciudad-prisión donde las
+esperanzas van a morir, la memoria de Lithernia se niega a desaparecer.
+Esa memoria tiene un nombre: Ghorza. Nacida entre los desheredados, sus
+padres fueron eruditos disidentes que osaron cuestionar la tiranía de
+los dioses y fueron condenados a pudrirse en <a
+href="Thirawen.html">Thirawen</a>. De ellos, Ghorza no heredó tierras ni
+títulos, sino algo infinitamente más peligroso: la verdad. Creció
+escuchando en susurros las historias del Primer Rey, no como una
+leyenda, sino como un evangelio prohibido.</p>
+<p>Tras la ejecución de sus padres, una Ghorza huérfana y endurecida fue
+acogida por Vexian, el enigmático líder de <strong>Los Custodios de la
+Llama Durmiente</strong>. Vexian no vio en ella una guerrera, sino el
+recipiente perfecto para el legado del culto. Bajo su tutela, Ghorza se
+convirtió en la Archivista, la guardiana de los textos prohibidos y
+fragmentos de historia que sobrevivieron al Cataclismo del <a
+href="Lilium.html">Lilium</a>. Su vida se ha consumido entre pergaminos
+quebradizos, estelas rúnicas erosionadas y el delicado arte de restaurar
+palabras que el tiempo y los dioses quisieron borrar.</p>
+<p>Su motivación trasciende la lealtad; es una sed de justicia
+histórica. Ghorza no solo cree en la <strong>Profecía del Retorno del
+Rey</strong>, sino que la considera la única redención posible para un
+mundo fracturado por la vanidad divina. Para ella, las Lanzas
+Celestiales no son solo artefactos de poder, son las llaves que
+liberarán a Lithernia de su ciclo de guerra interminable.</p>
+<p>Su mayor hazaña no ha sido en el campo de batalla, sino en el
+silencioso combate de la información. Fue Ghorza quien, tras años de
+estudio, logró descifrar un fragmento de una crónica pre-cataclismo que
+sugería la localización de un mapa estelar que podría conducir a la
+Lanza Celestial <em>Chronos</em>. Más audaz aún es su correspondencia
+secreta con los eruditos del <strong>Clan Grimstone</strong> en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Consciente de que estos <a
+href="Orcos.html">Orcos</a>, a pesar de su brutal reputación, están
+obsesionados con el pasado, Ghorza intercambia fragmentos de historia
+neutra por información sobre reliquias y ruinas antiguas dentro del
+territorio de Sel’thirak. Es un pacto con el diablo que mantiene con
+pragmatismo gélido, sabiendo que una sola filtración significaría su
+muerte y la de su red.</p>
+<p>Ahora, a sus 62 años, Ghorza siente el peso del tiempo. La Llama
+Durmiente del Primer Rey no es la única que se agota; la suya también.
+Su conflicto personal no es si la profecía es real, sino si vivirá para
+verla cumplida, o si su legado será suficiente para que la siguiente
+generación tome el relevo antes de que la verdad se pierda para siempre
+en el polvo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Ghorza es una mujer de complexión delgada, cuya espalda se ha
+encorvado ligeramente por pasar décadas inclinada sobre mesas de
+trabajo. Su cabello, antes oscuro, es ahora un manto de hebras grises y
+blancas, recogido en un moño austero del que siempre escapa algún mechón
+rebelde. Su rostro está surcado por las finas arrugas de la
+concentración y la preocupación, pero sus ojos, de un profundo color
+avellana, conservan una agudeza y una inteligencia que desarman. Rara
+vez sonríe, pero cuando lo hace, es una visión tan rara como
+esperanzadora.</p>
+<p>Viste túnicas sencillas de lana oscura, funcionales y sin adornos,
+manchadas de tinta y polvo en los puños. Sus manos son su rasgo más
+distintivo: dedos largos y finos, con las yemas permanentemente teñidas
+por los pigmentos con los que restaura manuscritos.</p>
+<p>Su equipo es el de una académica, no el de una aventurera. Siempre
+lleva colgado al hombro un zurrón de cuero curtido, repleto de
+pergaminos vírgenes, viales de tinta de calamar y polvo de gemas,
+carboncillos para calcar <a href="Runas.html">Runas</a> y un juego de
+lupas de distintos aumentos. En su cinturón no porta una espada, sino un
+afilado cuchillo de escriba y varias herramientas de precisión para la
+restauración de documentos. Su único objeto de valor es la <strong>Lente
+de la Verdad Fragmentada</strong>, una pieza de cristal de cuarzo
+élfico, resquebrajada pero imbuida con una débil magia de adivinación
+que le permite leer escrituras desvanecidas por el tiempo o la
+magia.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Aunque Ghorza opera desde las sombras y su nombre es desconocido para
+los grandes señores y reyes de Lithernia, su impacto potencial es
+cataclísmico. Ella es el cerebro y el corazón ideológico de los
+Custodios; sin su trabajo, el culto sería poco más que un grupo de
+rebeldes con una fe ciega. Ghorza les proporciona el mapa, la historia y
+el propósito.</p>
+<p>Su archivo secreto, oculto en las catacumbas de <a
+href="Thirawen.html">Thirawen</a>, es una de las mayores amenazas para
+el orden establecido por los dioses. Contiene no solo la historia del
+Primer Rey, sino también registros de las debilidades de los linajes
+nobles actuales, los pactos olvidados de las grandes casas y las
+mentiras sobre las que se fundaron reinos enteros.</p>
+<p>Si Ghorza tiene éxito, será la catalizadora que ponga en marcha los
+engranajes del destino, guiando a los héroes de la profecía hacia las
+Lanzas Celestiales y precipitando el enfrentamiento final contra los
+dioses. Su nombre no será cantado en las tabernas como el de un gran <a
+href="Guerrero.html">Guerrero</a>, pero los futuros historiadores de una
+Lithernia unificada la reconocerán como la silenciosa arquitecta que
+preservó la llama de la esperanza en la más profunda oscuridad. Si
+fracasa, su legado será un tesoro de conocimientos prohibidos, destinado
+a ser quemado por los agentes de Sel’thirak y perdido para siempre,
+convirtiéndose en el último y silencioso mártir de una causa
+olvidada.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.44)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

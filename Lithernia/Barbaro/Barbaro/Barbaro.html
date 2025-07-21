@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbaro</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Barbaro</div>
+        <div class="content">
+<p>—Barbaro.md— # Bárbaro</p>
+<h2 id="descripción">Descripción</h2>
+<p>Los bárbaros en Lithernia son guerreros feroces que canalizan la
+furia primigenia, desatando su ira en la batalla. Su fuerza bruta,
+resistencia sobrenatural y desprecio por el dolor los convierten en
+oponentes temibles. Son figuras emblemáticas de la supervivencia en un
+mundo forjado en fuego y sombra, donde la brutalidad y la determinación
+son esenciales para enfrentar las amenazas que acechan.</p>
+<h2 id="origen-y-contexto-en-lithernia">Origen y Contexto en
+Lithernia</h2>
+<p>Nacidos en las tierras salvajes y a menudo en las fronteras de los
+reinos, los bárbaros representan la conexión directa con la fuerza
+primordial que dio forma a Lithernia. En un mundo marcado por la Caída
+del Lilium y la lucha constante entre la luz y la oscuridad, los
+bárbaros encarnan el espíritu indomable que desafía la adversidad.</p>
+<h2 id="características-de-clase">Características de Clase</h2>
+<ul>
+<li><strong>Puntos de Golpe:</strong> 1d12 por nivel de bárbaro.</li>
+<li><strong>Puntos de Maná:</strong> No utilizan maná tradicionalmente,
+sino que canalizan su furia como fuente de poder.</li>
+<li><strong>Competencias:</strong>
+<ul>
+<li>Armaduras: Armaduras ligeras y medias, escudos (sin armaduras
+pesadas).</li>
+<li>Armas: Armas simples y marciales.</li>
+<li>Herramientas: Ninguna.</li>
+</ul></li>
+<li><strong>Tiradas de Salvación:</strong> Fuerza, Constitución.</li>
+<li><strong>Habilidades:</strong> Elige dos de entre Atletismo,
+Intimidación, Supervivencia, Percepción, Acrobacias, y Sigilo.</li>
+</ul>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<ul>
+<li><strong>Furia Bárbara:</strong> Como acción bonus, el bárbaro puede
+entrar en un estado de furia que dura 1 minuto. Durante la furia,
+obtiene bonificaciones al daño cuerpo a cuerpo, resistencia al daño
+físico y ventajas en ciertas tiradas. La furia se puede usar un número
+limitado de veces por descanso prolongado.</li>
+<li><strong>Defensa sin Armadura:</strong> Mientras no lleve armadura,
+la Clase de Armadura del bárbaro es 10 + modificador de Destreza +
+modificador de Constitución.</li>
+<li><strong>Ataque Extra:</strong> A partir del nivel 5, puede realizar
+un ataque adicional cuando realiza la acción de ataque.</li>
+<li><strong>Sentidos Agudos:</strong> Mejora en las tiradas de
+Percepción y olfato agudo para detectar enemigos ocultos.</li>
+<li><strong>Resistencia Sobrehumana:</strong> A niveles avanzados, el
+bárbaro puede resistir condiciones como el miedo y el agotamiento.</li>
+<li><strong>Movimiento Mejorado:</strong> Aumenta la velocidad de
+movimiento en combate.</li>
+<li><strong>Subclases Primitivas:</strong> El bárbaro puede elegir un
+camino que define su estilo de furia y habilidades especiales, como el
+Caminante de la Tormenta, el Guerrero Bestial o el Espíritu de la
+Tierra.</li>
+</ul>
+<h2 id="rol-en-la-sociedad-de-lithernia">Rol en la Sociedad de
+Lithernia</h2>
+<p>Los bárbaros suelen ser vistos con respeto y temor. En las regiones
+fronterizas y salvajes, son protectores y líderes de tribus o clanes. En
+los reinos civilizados, a menudo son mercenarios o aventureros que
+buscan gloria y supervivencia. Su conexión con la naturaleza y las
+fuerzas primordiales los hace aliados valiosos contra las amenazas
+sobrenaturales y monstruosas.</p>
+<h2 id="relación-con-la-magia-y-los-dioses">Relación con la Magia y los
+Dioses</h2>
+<p>Aunque los bárbaros no dependen de la magia tradicional, su furia es
+una manifestación de energías ancestrales y espirituales. Algunos
+bárbaros veneran a dioses de la guerra, la naturaleza o los espíritus
+ancestrales, buscando su bendición para potenciar su furia y
+resistencia.</p>
+<h2 id="creación-de-un-bárbaro-en-lithernia">Creación de un Bárbaro en
+Lithernia</h2>
+<p>Al crear un bárbaro, considera: - <strong>Raza:</strong> Orcos,
+semiorcos y humanos son elecciones comunes, pero cualquier raza puede
+ser bárbaro. - <strong>Trasfondo:</strong> Puede ser un guerrero tribal,
+un exiliado, un protector de la naturaleza o un mercenario. -
+<strong>Alineamiento:</strong> Generalmente caótico, pero puede variar
+según la historia personal.</p>
+<h2 id="consejos-para-narradores">Consejos para Narradores</h2>
+<p>Los bárbaros representan la fuerza bruta y la pasión descontrolada.
+Úsalos para mostrar la conexión con la naturaleza salvaje y los
+conflictos internos entre la civilización y el instinto primal. Su furia
+puede ser tanto una bendición como una maldición, creando oportunidades
+para el drama y la acción.</p>
+<hr />
+<p><em>Falta información canónica específica sobre habilidades
+detalladas, subclases y mecánicas exactas del bárbaro en
+Lithernia.</em></p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Bárbaro.html">Bárbaro</a> (relevancia: 1.00)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BestiarioGeneral 4</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">BestiarioGeneral 4</div>
+        <div class="content">
+<h1 id="ciudades-y-culturas-principales-de-lithernia">Ciudades y
+Culturas Principales de Lithernia</h1>
+<h2 id="aelithor-reino-de-mordhul">Aelithor, Reino de Mor’dhul</h2>
+<ul>
+<li>Ubicación: 1020.38, 756.21</li>
+<li>Cultura: Paranoica, secretos y susurros. Poder basado en secretos y
+traición.</li>
+<li>Religión: Veneran a Sel’thirak públicamente; élite practica culto
+secreto a Kromagul.</li>
+<li>Arquitectura: Tallada en desfiladero de granito negro, puentes de
+hueso e hierro, runas silenciadoras.</li>
+<li>Población: Mayoría Hobgoblins Clan Whisper, minorías Tieflings,
+Shadar-Kai, Goblins.</li>
+<li>Festividades: Festival del Silencio Eterno, Confesión del Eco.</li>
+<li>Leyendas: Lamento del Cañón, Biblioteca de Susurros, Primer
+Eco.</li>
+</ul>
+<h2 id="tiryandel-reino-de-valtoria">Tiryandel, Reino de Valtoria</h2>
+<ul>
+<li>Ubicación: 1359.65, 413.01</li>
+<li>Población: 18,500 (60% Enanos, 20% Gnomos, 10% Genasi de Tierra, 5%
+Goliaths, 5% otros).</li>
+<li>Religión: Rokael y Cirkon, influencia druídica.</li>
+<li>Cultura: Laboriosidad enana y reverencia por naturaleza, arte con
+runología y motivos orgánicos.</li>
+<li>Arquitectura: Caverna con árbol fosforescente Ancestrogranito,
+estructuras geodrúdicas.</li>
+<li>Símbolo: Martillo de mithril con raíces de cristal.</li>
+<li>Leyendas: Eco del Durmiente, dragón de tierra primordial
+dormido.</li>
+</ul>
+<h2 id="nylnaris-reino-de-galvorn">Nylnaris, Reino de Galvorn</h2>
+<ul>
+<li>Ubicación: 717.06, 915.62</li>
+<li>Cultura: Híbrida humana-élfica, cartografía y astronomía.</li>
+<li>Religión: Panteón de Galvorn, especial devoción a Yfrit, Quiteon y
+Arzia.</li>
+<li>Población: 45,000 (60% Humanos, 20% Semielfos, 10% Genasi Aire y
+Agua, 10% otros).</li>
+<li>Festividades: Festival de las Estrellas Guía, Juramento del
+Navegante, Canto de Quilla.</li>
+<li>Arquitectura: Puerto con faros-observatorios de mármol, muelles con
+raíces vivas.</li>
+<li>Símbolo: Timón plateado con rosa de los vientos y estrella.</li>
+<li>Leyendas: Flota Espectral, Silbador de las Jarcias, Observatorio
+Hundido.</li>
+</ul>
+<h2 id="elyrithil-reino-de-valtoria">Elyrithil, Reino de Valtoria</h2>
+<ul>
+<li>Ubicación: 1690.53, 94.04</li>
+<li>Gobernanza: Consejo de los Valles, liderado por Thane Borin
+Picosombrío.</li>
+<li>Población: 12,000 (40% Gnomos, 30% Halflings, 20% Enanos,
+minorías).</li>
+<li>Religión: Panteón enano, veneración a Ferion y Taladrios.</li>
+<li>Cultura: Invención, agricultura comunal, Festival de la Cosecha
+Mecanizada.</li>
+<li>Arquitectura: Semi-subterránea, techos de hierba, puentes de piedra
+y cristal.</li>
+<li>Símbolo: Engranaje de bronce con espiga dorada.</li>
+<li>Leyendas: Río susurrante, Corazón de Cristal, gólem ancestral
+protector.</li>
+</ul>
+<h2 id="faewind-reino-de-eldrador">Faewind, Reino de Eldrador</h2>
+<ul>
+<li>Ubicación: 1733.81, 851.91</li>
+<li>Población: 8,500 (60% Eladrin, 25% Elfos del Bosque, 10% Genasi
+Aire, 5% Shadar-Kai).</li>
+<li>Cultura: Valoran cambio y expresión emocional, arte efímero, “Viento
+del Alma”.</li>
+<li>Religión: Arzia, Ferion, Morgal, culto menor a Thirogrim.</li>
+<li>Festividades: Festival de los Vientos Cambiantes.</li>
+<li>Arquitectura: Torres en sauces plateados, seda encantada, puentes de
+luz de luna.</li>
+<li>Símbolo: Espiral de viento con alas de mariposa.</li>
+<li>Leyendas: Tormenta silenciosa “La Quietud”, corazón durmiente de un
+Señor del Viento.</li>
+</ul>
+<h2 id="ilmaveth-reino-de-galvorn">Ilmaveth, Reino de Galvorn</h2>
+<ul>
+<li>Ubicación: 199.74, 695.79</li>
+<li>Cultura: Innovación, cartografía celestial, inventores de
+planeadores.</li>
+<li>Religión: Quiteon, Yfrit, Exion, Harmias.</li>
+<li>Población: 15,000 (60% Humanos, 20% Genasi Aire, 10% Semielfos, 5%
+Medianos, 5% otros).</li>
+<li>Festividades: Vuelo del Solsticio, Atrapavientos.</li>
+<li>Arquitectura: Acantilados con piedra caliza y madera clara, torres
+de observación.</li>
+<li>Símbolo: Espiral de viento plateada con ola azul y estrellas
+doradas.</li>
+<li>Leyendas: Navío Fantasma de los Vientos, Eco Llorón.</li>
+</ul>
+<h2 id="elyrithil-reino-de-eldrador">Elyrithil, Reino de Eldrador</h2>
+<ul>
+<li>Ubicación: 909.01, 424.83</li>
+<li>Población: 15,300 (80% Elfos, 10% Semielfos, 5% Genasi Aire, 5%
+otros).</li>
+<li>Cultura: Aristocrática, astromancia artesanal, música
+melancólica.</li>
+<li>Religión: Arzia, Lerian, Morgal.</li>
+<li>Festividades: Festival de la Lluvia de Cristal, Voto Silente de la
+Luna Nueva.</li>
+<li>Arquitectura: Acantilados con cuarzo y piedra lunar, puentes de
+cristal vivo.</li>
+<li>Símbolo: Media luna de plata con cristales.</li>
+<li>Leyendas: Corazón de la Estrella Caída, Ecos de la Marea, Tejedores
+de Sombras.</li>
+</ul>
+<p><a href="BestiarioGeneral%201.html">BestiarioGeneral 1</a> <a
+href="BestiarioGeneral%202.html">BestiarioGeneral 2</a> <a
+href="BestiarioGeneral%203.html">BestiarioGeneral 3</a></p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Leyendas.html">Leyendas</a> (relevancia: 0.60)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.48)</li>
+<li><a href="Elfos.html">Elfos</a> (relevancia: 0.43)</li>
+<li><a href="Reino%20de%20Galvorn.html">Reino de Galvorn</a>
+(relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

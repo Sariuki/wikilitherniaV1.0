@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylvynor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Sylvynor</div>
+        <div class="content">
+<h1 id="sylvynor">Sylvynor</h1>
+<p>Sylvynor no es una ciudad construida, sino cultivada. En las
+profundidades del Corazón Verde de <a href="Eldrador.html">Eldrador</a>,
+este asentamiento es un testimonio viviente de la simbiosis entre los
+elfos y la naturaleza. No existen murallas de piedra, pues sus
+guardianes son los propios árboles ancestrales, cuyos troncos masivos
+forman una fortaleza natural. Sus calles son senderos de musgo suave que
+brillan con una luz tenue y etérea, y sus puentes son raíces y lianas
+vivas, encantadas para soportar el paso. Por la noche, Sylvynor se
+ilumina con el resplandor bioluminiscente de hongos y las danzantes
+esferas de luz feérica que flotan entre las ramas, creando un ambiente
+de magia primigenia. Es un refugio de paz druídica, un bastión que mira
+con desconfianza la alta magia y las intrigas políticas de la capital
+del reino.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Sylvynor se gestaron como un acto de disidencia
+pacífica. Tras el Cataclismo del <a href="Lilium.html">Lilium</a>,
+mientras la nobleza de los altos elfos forjaba la rígida estructura de
+castas conocida como “La Mano de Hierro”, muchos elfos silvanos
+sintieron que se traicionaba la verdadera esencia de su pueblo.
+Liderados por la Archidruida Lyra Cantárbol, un grupo de clanes se
+adentró en los bosques más antiguos y vírgenes, buscando un lugar donde
+la voz de <a href="Ferion.html">Ferion</a>, dios de la naturaleza, no
+fuera ahogada por los edictos de los reyes y la arrogancia de la magia
+arcana.</p>
+<p>Encontraron una arboleda sagrada, donde los árboles eran tan antiguos
+como la memoria de los elfos, y fundaron Sylvynor no como una conquista,
+sino como una petición de permiso al propio bosque. Mediante rituales
+druídicos, coaxionaron a la madera y las plantas para que les dieran
+cobijo, tejiendo la ciudad en el ecosistema sin dejar cicatriz. Con el
+tiempo, se convirtió en el corazón de la cultura silvana, un lugar que
+valora la sabiduría de la tierra por encima de cualquier tesoro material
+y que se rige por el equilibrio natural, no por la ley de los
+nobles.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón del Anciano</strong>: La plaza central de la
+ciudad, formada alrededor de un roble milenario de tamaño colosal, cuyas
+raíces expuestas sirven de bancos y plataformas. Se dice que el árbol es
+un avatar menor de <a href="Ferion.html">Ferion</a>. Aquí se reúne el
+Consejo de Archidruidas para tomar decisiones y se celebran los eventos
+más importantes de la comunidad.</p></li>
+<li><p><strong>Las Moradas Susurrantes</strong>: El distrito
+residencial, donde las viviendas no son estructuras, sino cavidades
+talladas con delicadeza en los troncos de árboles gigantes. Cada hogar
+está conectado por una red de puentes de raíces vivas y escaleras de
+liana, permitiendo a sus habitantes moverse por las copas de los árboles
+sin tocar el suelo.</p></li>
+<li><p><strong>El Claro de la Ofrenda</strong>: El principal centro de
+culto. No es un templo, sino un claro perfectamente circular bañado por
+la luz del sol, donde un altar de piedra cubierto de musgo sirve como
+foco para los rituales a <a href="Ferion.html">Ferion</a>. Los druidas
+dirigen aquí las ceremonias, y los cazadores dejan ofrendas de sus
+presas en señal de gratitud.</p></li>
+<li><p><strong>El Mirador de la Cazadora</strong>: Una alta plataforma
+construida en las ramas más elevadas del árbol más alto de Sylvynor.
+Desde aquí, bajo el manto estrellado, los seguidores de <a
+href="Arzia.html">Arzia</a> trazan las constelaciones para predecir el
+movimiento de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+y guiar a los cazadores en sus expediciones nocturnas.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Sylvynor fluye con las estaciones. Cada primavera,
+celebran el “Despertar del Bosque”, un festival de música, danza y
+ofrendas para honrar a <a href="Ferion.html">Ferion</a> y asegurar la
+fertilidad de la tierra. Para que un joven elfo sea considerado adulto,
+debe completar la “Senda Silenciosa”, una prueba de supervivencia en la
+que debe pasar un ciclo lunar completo en los bosques profundos, solo y
+en silencio, demostrando su comunión con la naturaleza.</p>
+<p>El comercio no se basa en el oro. En su lugar, practican el trueque o
+utilizan “semillas de gratitud”, bellotas encantadas que se entregan a
+cambio de un favor o un acto de gran generosidad, y que pueden ser
+“plantadas” para pedir ayuda a la comunidad en el futuro. Las artes
+florecen en forma de música creada con flautas de caña e instrumentos de
+percusión naturales, intrincados tallados en madera viva que cuentan
+historias, y épicas narraciones bajo la luz de la luna.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Sylvynor es orgánica y fluida. Todo está hecho de
+madera y flora viviente, sin clavos ni argamasa. Las estructuras parecen
+haber crecido naturalmente, adaptándose a la forma de los árboles. El
+ambiente es de una calma profunda, solo interrumpida por el canto de los
+pájaros, el murmullo del viento entre las hojas y el suave crepitar de
+la vida del bosque. El aire huele a tierra húmeda, a savia y a las
+flores silvestres que cubren el suelo del bosque. Es un lugar donde el
+tiempo parece transcurrir más despacio, al ritmo del corazón del propio
+bosque.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Lamento del Sauce</strong>: A orillas del río que
+atraviesa el bosque, crece un sauce llorón cuyas ramas rozan el agua. Se
+susurra que en las noches sin luna, el espíritu de una elfa <a
+href="Noble.html">Noble</a>, traicionada por un amor de la capital, se
+manifiesta allí. Su llanto es un lamento tan desgarrador que quien lo
+escucha queda atrapado en una profunda melancolía que puede durar años,
+perdiendo todo interés por la vida más allá de la tristeza del
+bosque.</p></li>
+<li><p><strong>El Cambiante del Claro Escondido</strong>: Se cuenta que
+en una zona remota del bosque se oculta un portal inestable al plano
+feérico. A veces, sin previo aviso, el portal se activa e intercambia a
+un habitante de Sylvynor por un doble feérico, un <em>changeling</em>
+idéntico en apariencia pero de naturaleza traviesa y caótica. La
+comunidad ha desarrollado sutiles rituales y preguntas clave para
+identificar a estos impostores antes de que causen demasiados
+problemas.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.48)</li>
+<li><a href="Elfos.html">Elfos</a> (relevancia: 0.32)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

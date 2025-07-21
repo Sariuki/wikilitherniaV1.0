@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreguntasFrecuentes</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">PreguntasFrecuentes</div>
+        <div class="content">
+<h1 id="preguntas-frecuentes-sobre-lithernia">Preguntas Frecuentes sobre
+Lithernia</h1>
+<p>La vastedad y complejidad del mundo de <strong>Lithernia</strong>
+genera insospechadas dudas que aventureros, estudiosos y jugadores
+plantean continuamente. A continuación, se responde con el rigor y la
+profundidad que demanda esta tierra llena de misterios, guerras épicas,
+y magias ancestrales.</p>
+<h2 id="cuál-es-el-origen-del-mundo-de-lithernia">¿Cuál es el origen del
+mundo de Lithernia?</h2>
+<p>Lithernia nació tras el <strong>Amanecer Divino</strong>, donde la
+Voluntad Original y los Primordiales dieron forma a los continentes,
+mares y planos de realidad. Los grandes <a
+href="Dragones.html">Dragones</a> ancestrales forjaron la tierra con sus
+alientos, y los dioses mayores modelaron el orden natural y mágico que
+aún rige. La historia posterior abarca eras dominadas por <a
+href="Dragones.html">Dragones</a>, la unificación mortal bajo el Primer
+Rey, y la catástrofe que acabó con ese sueño: el descenso del fuego
+eterno del <strong>Lilium</strong>.</p>
+<h2 id="qué-es-el-lilium-y-por-qué-es-tan-importante">¿Qué es el Lilium
+y por qué es tan importante?</h2>
+<p>El <strong>Lilium</strong> es un fuego eterno, un cataclismo mágico
+impuesto por los dioses para castigar al Primo Rey y su rebelión divina.
+Su caída arrasó casi toda la civilización antaño unificada, dejando
+marcas indelebles en la geografía, la magia y las culturas de Lithernia.
+Este fuego consume, purga y corrompe, y su legado se percibe en
+cicatrices mágicas y en las <a href="Leyendas.html">Leyendas</a> de
+advertencia que inspiran temor y respeto. La <strong>profecía del
+retorno del Primer Rey</strong> gira en torno a la posibilidad de que el
+Lilium resurja o sea dominado.</p>
+<h2 id="cómo-funciona-la-magia-en-lithernia">¿Cómo funciona la magia en
+Lithernia?</h2>
+<p>La magia fluye a través del <strong>Tejido del Maná</strong>, un
+entramado invisible que conecta cada ser y elemento del mundo. Los
+lanzadores usan una “<strong>Habilidad de Canalización de Maná</strong>”
+determinada por su clase, reflejada en su dado de maná (d6, d8, d10,
+etc.). Al conjurar, los magos sufren una <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>
+que limita el uso abusivo de la magia y garantiza riesgos.</p>
+<p>Los magos pueden potenciar hechizos mediante <strong>Círculos de
+Invocación</strong>, mezclar <a href="Conjuros.html">Conjuros</a> para
+crear efectos únicos o absorber maná ambiental con riesgos enormes.
+Además, existen <a href="Conjuros.html">Conjuros</a> especiales llamados
+<strong><a href="Conjuros.html">Conjuros</a> Estelares</strong>, que
+conectan la magia con las energías cósmicas y celestes. Todo esto define
+un sistema mágico donde el poder tiene un alto costo y uso
+estratégico.</p>
+<h2
+id="quiénes-son-los-principales-dioses-y-qué-influencia-tienen">¿Quiénes
+son los principales dioses y qué influencia tienen?</h2>
+<p>Lithernia está marcada por cuatro grandes panteones divinos, que
+crearon a las razas mortales.</p>
+<ul>
+<li><strong>Panteón Korogrim</strong> (Mor’dhul): dioses de la muerte y
+la guerra como Sel’thirak y Thyrgram.<br />
+</li>
+<li><strong>Panteón Humano</strong> (<a
+href="Galvorn.html">Galvorn</a>): dioses elementales marítimos como
+Yfrit y sus hijos.<br />
+</li>
+<li><strong>Panteón Enano</strong> (<a
+href="Valtoria.html">Valtoria</a>): dioses de la <a
+href="Herreria.html">Herreria</a> y la montaña como Rokael y
+Valarios.<br />
+</li>
+<li><strong>Panteón Élfico</strong> (<a
+href="Eldrador.html">Eldrador</a>): dioses de la magia y la naturaleza
+como Thirogrim y Arzia.</li>
+</ul>
+<p>Cada dios otorga virtudes y defectos a su pueblo, e influye en la
+política y cultura de sus reinos. Los dioses rivalizan y conspiran,
+alimentando la guerra y las intrigas eternas.</p>
+<h2 id="qué-es-la-profecía-del-retorno-del-primer-rey">¿Qué es la
+profecía del Retorno del Primer Rey?</h2>
+<p>Es una antigua visión que anuncia que el <strong>Primer Rey de
+Lithernia</strong> será liberado o traerá un <a
+href="Heroes.html">Heroes</a> que romperá el sello de una de las Cuatro
+Lanzas Celestiales (Requiem, Ultimatum, Mortum o Chronos). Este elegido
+reunificará el mundo, acabará con la Gran Guerra y purgará las
+creaciones “fallidas” de los dioses, inaugurando una nueva era de paz o
+caos.</p>
+<p>Esta profecía es fuente de esperanza, miedo y conflicto. Facciones
+enteras trabajan para cumplirla o impedirla, conscientes de que su
+realización podría cambiar el destino del mundo.</p>
+<h2 id="cuáles-son-las-cuatro-lanzas-celestiales">¿Cuáles son las Cuatro
+Lanzas Celestiales?</h2>
+<p>Son artefactos divinos con potestad para encadenar o liberar al
+Primer Rey. Cada lanza tiene un poder distinto:</p>
+<ul>
+<li><strong>Requiem</strong>: Lanza del Olvido, capaz de borrar memorias
+o sellar legados.<br />
+</li>
+<li><strong>Ultimatum</strong>: Lanza del Destino, impone la última
+palabra de los dioses.<br />
+</li>
+<li><strong>Mortum</strong>: Lanza del Fin, canalizadora de muerte
+absoluta.<br />
+</li>
+<li><strong>Chronos</strong>: Lanza del Tiempo, controla el flujo
+temporal para impedir el regreso del Rey.</li>
+</ul>
+<p>Se cree que romper el sello de una lanza otorga poderes inmensos pero
+arriesgados. Su búsqueda y custodia son factores clave en la política y
+las guerras.</p>
+<h2 id="qué-distingue-a-los-cuatro-grandes-reinos">¿Qué distingue a los
+cuatro grandes reinos?</h2>
+<ul>
+<li><strong>Mor’dhul</strong> (Reino de la Muerte): tierra oscura
+gobernada por Sel’thirak, dominio de <a
+href="Tieflings.html">Tieflings</a>, <a href="Orcos.html">Orcos</a> y
+otros seres oscuros. Entre guerras de clanes y sacrificios, es un reino
+brutal y teocrático.<br />
+</li>
+<li><strong><a href="Galvorn.html">Galvorn</a></strong> (Reino
+Marítimo): reino humano marítimo donde la libertad y el comercio son
+ley, influido por el panteón humano. Tiene una política participativa en
+la que capitanes de navío tienen voz.<br />
+</li>
+<li><strong><a href="Valtoria.html">Valtoria</a></strong> (Reino de la
+Montaña): hogar de <a href="Enanos.html">Enanos</a>, <a
+href="Gnomos.html">Gnomos</a> y goliatths, dedicado a la <a
+href="Herreria.html">Herreria</a> y sostenibilidad ambiental, con una
+monarquía constitucional y sistema educativo estructurado.<br />
+</li>
+<li><strong><a href="Eldrador.html">Eldrador</a></strong> (Reino
+Élfico): bosque milenario con sociedad aristocrática y un sistema
+riguroso de castas, reconocido por su magia y arte. La Mano de Hierro
+gobierna su organización social.</li>
+</ul>
+<h2 id="qué-razas-puedo-jugar-y-cómo-reflejan-al-mundo">¿Qué razas puedo
+jugar y cómo reflejan al mundo?</h2>
+<p>Las razas principales encarnan las virtudes y defectos de sus dioses
+patronos y reinos:</p>
+<ul>
+<li><strong>Mor’dhul</strong>: <a href="Tieflings.html">Tieflings</a>
+mágicos oscuros, <a href="Orcos.html">Orcos</a> guerreros, semiogros
+brutales, <a href="Hobgoblins.html">Hobgoblins</a> crueles, <a
+href="Goblins.html">Goblins</a> tramposos y vampiros enigmáticos.<br />
+</li>
+<li><strong><a href="Galvorn.html">Galvorn</a></strong>: <a
+href="Humanos.html">Humanos</a> versátiles, <a
+href="Medianos.html">Medianos</a> hospitalarios, genasi elementales,
+medio-<a href="Orcos.html">Orcos</a> leales y medio-elfos
+diplomáticos.<br />
+</li>
+<li><strong><a href="Valtoria.html">Valtoria</a></strong>: <a
+href="Enanos.html">Enanos</a> artesanos, <a
+href="Gnomos.html">Gnomos</a> inventivos, genasi de tierra, goliatths
+montañeses y raros <a href="Dragonborn.html">Dragonborn</a>
+honorables.<br />
+</li>
+<li><strong><a href="Eldrador.html">Eldrador</a></strong>: altos elfos
+nobles, elfos oscuros eruditos, eladrines cambiantes, elfos del bosque
+guardianes, y shadar-kai sombríos.</li>
+</ul>
+<p>Cada raza tiene habilidades únicas, cultura propia y sus conflictos
+internos para explorar.</p>
+<h2 id="cómo-funciona-el-sistema-de-fatiga-y-canalización-de-maná">¿Cómo
+funciona el sistema de fatiga y canalización de maná?</h2>
+<p>Cada conjuro genera una fatiga medida por la tirada del dado de maná
+de la clase y el nivel del hechizo, representando el desgaste físico y
+mental del lanzador. Exceder <a href="Velrath.html">Velrath</a> de
+fatiga provoca agotamiento real y sanciones graves.</p>
+<p>Los magos pueden buscar círculos de invocación para potenciar sus
+hechizos, pero arriesgan fallos y mayores costes. Además, la absorción
+de maná ambiental permite recuperar energía con riesgo de
+sobrecarga.</p>
+<h2 id="qué-papel-juegan-los-clanes-en-mordhul">¿Qué papel juegan los
+clanes en Mor’dhul?</h2>
+<p>Mor’dhul está organizado en diversos clanes guerreros, nobiliarios y
+oscuros, cada uno alineado con una deidad o con objetivos particulares.
+Los clanes reales (Sel’thirak, Thyrgram) dominan el reino, mientras
+otros clanes nobles, boscosos, de ruinas, menores, nómadas y descastados
+luchan o colaboran según intereses.</p>
+<p>La política de Mor’dhul es una compleja red de alianzas, traiciones y
+guerras internas, que moldean la estabilidad y las posibles intrigas que
+los jugadores pueden explorar o alterar.</p>
+<h2 id="puede-un-jugador-influir-en-la-profecía-del-primer-rey">¿Puede
+un jugador influir en la profecía del Primer Rey?</h2>
+<p>Sí, la profecía es un eje narrativo central abierto a la
+interpretación. Los jugadores podrían ser el <a
+href="Heroes.html">Heroes</a> mencionado, buscar las Lanzas, decidir si
+liberar, proteger o destruir al Primer Rey, o impedir que personajes
+oscuros perviertan el destino de Lithernia.</p>
+<p>Su éxito o fracaso tendrá repercusiones épicas para los reinos,
+dioses y la magia misma del mundo.</p>
+<h2
+id="dónde-puedo-encontrar-lugares-de-poder-y-círculos-mágicos">¿Dónde
+puedo encontrar lugares de poder y círculos mágicos?</h2>
+<p>Los <strong>Lugares de Poder</strong> son zonas sagradas o mágicas
+donde el Maná se concentra y regenera rápidamente. Se hallan
+frecuentemente en templos antiguos, montañas, bosques míticos o ruinas
+olvidadas.</p>
+<p>Los <strong>Círculos de Invocación</strong> aparecen como símbolos
+geométricos, clasificados en menores, intermedios y mayores, disponibles
+en sitios ancestrales o creados por arcanistas expertos. Usarlos bono a
+la hora de lanzar <a href="Conjuros.html">Conjuros</a>, pero también
+pueden ser trampas o focos de poder codiciados por muchas facciones.</p>
+<h2 id="qué-riesgos-conlleva-usar-magia-avanzada-en-lithernia">¿Qué
+riesgos conlleva usar magia avanzada en Lithernia?</h2>
+<p>La magia avanzada como la mezcla de <a
+href="Conjuros.html">Conjuros</a> o la absorción de maná exterior puede
+desatar efectos caóticos, sobrecargas o daños al lanzador.</p>
+<p>Acciones temerarias pueden llamar la atención de entidades oscuras o
+corromper el tejido mágico, provocando consecuencias narrativas
+devastadoras que el Dungeon Master puede usar para enriquecer la
+aventura.</p>
+<h2 id="cómo-afecta-la-política-interna-a-la-aventura">¿Cómo afecta la
+política interna a la aventura?</h2>
+<p>Las intrigas entre clanes en Mor’dhul, los consejos participativos de
+<a href="Galvorn.html">Galvorn</a>, la defensa comunitaria de <a
+href="Valtoria.html">Valtoria</a> y las castas rígidas de <a
+href="Eldrador.html">Eldrador</a> generan redes de aliados y enemigos,
+amistades de conveniencia y conflictos ineludibles.</p>
+<p>Los jugadores pueden navegar estas políticas, elegir bandos, negociar
+alianzas o trabajar para cambiar el destino de su reino, con
+consecuencias directas en la historia global.</p>
+<hr />
+<p>Este compendio busca iluminar las dudas comunes y sentar los
+cimientos para vivir la experiencia épica y rica en detalles que
+Lithernia ofrece a quienes se atreven a surcar sus <a
+href="Leyendas.html">Leyendas</a> y misterios.<br />
+El viaje apenas comienza y las respuestas pueden cambiar con cada nueva
+aventura escrita en el tapiz del mundo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elyndor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Elyndor</div>
+        <div class="content">
+<h1 id="elyndor">Elyndor</h1>
+<p>Conocida en todo <a href="Galvorn.html">Galvorn</a> como la “Ciudad
+de las Cartas Astrales”, Elyndor es un bastión de exploradores donde el
+mar y el cielo se encuentran. Sus edificios de piedra blanca y techos de
+un azul profundo se aferran a las curvas de una bahía natural perfecta,
+como si las propias olas los hubieran depositado allí. Fachadas
+decoradas con intrincados mosaicos de conchas brillan bajo el sol, y
+muchas de sus estructuras más robustas están construidas con la madera
+de antiguos naufragios, cada viga imbuida de historias de viajes
+lejanos. Dominando el paisaje se alza la “Aguja de <a
+href="Arzia.html">Arzia</a>”, un imponente faro de mármol blanco que, en
+lugar de fuego, proyecta una serena luz estelar que guía a los navíos a
+través de las aguas más traicioneras.</p>
+<h2 id="historia">Historia</h2>
+<p>La leyenda cuenta que Elyndor fue fundada por el Capitán Kaelen
+Ojo-de-Estrella, un explorador humano cuya flota fue destrozada por una
+tormenta invocada por <a href="Exion.html">Exion</a>. A la deriva y sin
+esperanza, Kaelen rezó no solo a <a href="Yfrit.html">Yfrit</a> por la
+clemencia del mar, sino también a los cielos, pidiendo una guía. En
+respuesta, una sola estrella brilló con una intensidad antinatural,
+guiando los restos de su barco a la seguridad de una bahía desconocida.
+En honor a este milagro, Kaelen fundó Elyndor sobre el principio de que
+ningún navegante está completo si solo mira al mar, olvidando las
+estrellas. Así nació un sincretismo cultural único: se venera a <a
+href="Yfrit.html">Yfrit</a>, <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a>, y a <a
+href="Quiteon.html">Quiteon</a>, dios del viento, pero se rinde homenaje
+a la diosa élfica <a href="Arzia.html">Arzia</a> como la “Estrella
+Guía”, la patrona celestial de todos los que se aventuran más allá del
+horizonte.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Aguja de <a href="Arzia.html">Arzia</a></strong>: El
+distrito más elevado, construido en la colina que corona el faro. Es el
+hogar de la orden de los Videntes Estelares, sacerdotes y astrónomos que
+mantienen la luz del faro y trazan los <a href="Mapas.html">Mapas</a>
+celestiales. Aquí también se encuentran los talleres de los <a
+href="Gnomos.html">Gnomos</a> artífices, que construyen los astrolabios,
+sextantes y catalejos más precisos del mundo.</p></li>
+<li><p><strong>El Muelle de las Épicas</strong>: El bullicioso puerto de
+la ciudad, donde los barcos descargan mercancías exóticas y los
+marineros comparten relatos de sus viajes. Su nombre proviene del Gran
+Salón de las Rutas, un edificio cuya fachada está adornada con enormes
+huesos de ballena, cada uno meticulosamente tallado por un capitán
+retirado con la ruta de su mayor hazaña.</p></li>
+<li><p><strong>La Ensenada del Naufragio</strong>: El principal barrio
+residencial de Elyndor. Sus sinuosas calles están flanqueadas por
+encantadoras casas construidas con madera recuperada, dándole al
+distrito un aire de perpetua nostalgia marinera. Es un lugar tranquilo,
+lleno del sonido de las olas y el olor a sal y a madera mojada.</p></li>
+<li><p><strong>El Mercado del Sextante</strong>: El corazón comercial de
+la ciudad, una plaza abierta donde los cartógrafos venden sus últimas
+creaciones, los artistas de scrimshaw ofrecen sus obras maestras
+talladas en hueso y marfil, y los aventureros pueden equiparse para sus
+próximas expediciones. El símbolo de la ciudad, un sextante de plata
+entrelazado con una ola, preside la fuente central.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Elyndor se mide por las mareas y las cartas estelares. La
+cultura valora la cartografía como la más alta de las artes y el
+scrimshaw (el tallado en hueso) como una forma sagrada de preservar la
+historia. La festividad más importante es el “Festival de la Estrella
+Guía”, una celebración anual en la que toda la ciudad lanza al mar miles
+de farolillos de papel, creando un océano de luces parpadeantes
+destinado a guiar a las almas de los marineros perdidos de vuelta a
+casa. Para un capitán, el mayor honor no es la riqueza acumulada, sino
+donar al Gran Salón el hueso tallado con la crónica de su viaje más
+legendario, asegurando que su legado inspire a futuras generaciones.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Elyndor es una ciudad de contrastes armónicos: la robusta piedra
+blanca de sus cimientos se suaviza con los tejados de un azul oceánico y
+el cálido color de la madera de los naufragios. El ambiente es de
+constante movimiento y asombro. Por el día, resuena con los gritos de
+los mercaderes y el trabajo de los astilleros; por la noche, se sume en
+un silencio reverente, solo roto por el murmullo del mar y bañado por la
+suave y constante luz del gran faro. El aire huele a sal, alquitrán y a
+la tinta de los <a href="Mapas.html">Mapas</a> recién dibujados.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Atavío de Coral</strong>: Se susurra en las tabernas
+que, en las noches sin luna, un navío fantasma llamado “El Atavío de
+Coral” atraca silenciosamente en el puerto. Su tripulación espectral,
+cubierta de coral y algas, no busca oro ni almas, sino un objeto
+perdido: un mapa estelar único, robado de su capitán hace siglos. La
+leyenda dice que este mapa es el único que puede guiarlos a través del
+mar de las almas para que puedan, finalmente, encontrar el descanso
+eterno.</p></li>
+<li><p><strong>El Corazón de la Aguja</strong>: La luz del faro de
+Elyndor no proviene de una hoguera, sino de un “Corazón de Estrella”, un
+fragmento de un astro caído que, según los Videntes, fue un regalo de la
+propia <a href="Arzia.html">Arzia</a>. Los Videntes lo custodian
+celosamente, pues una profecía advierte que si su luz llegara a
+extinguirse, una niebla sobrenatural e impenetrable envolvería Elyndor,
+borrándola de todos los <a href="Mapas.html">Mapas</a> y de la memoria
+del mundo, perdida para siempre entre el mar y el cielo.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.47)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

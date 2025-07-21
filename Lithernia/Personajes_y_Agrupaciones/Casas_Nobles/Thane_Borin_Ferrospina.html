@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thane_Borin_Ferrospina</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Thane_Borin_Ferrospina</div>
+        <div class="content">
+<h1 id="thane-borin-ferrospina">Thane Borin Ferrospina</h1>
+<h2 id="biografía">Biografía</h2>
+<p>En los anales de <a href="Valtoria.html">Valtoria</a>, donde las <a
+href="Leyendas.html">Leyendas</a> se forjan con martillo y yunque, el
+nombre de Borin Ferrospina no se susurra con reverencia, sino que se
+pronuncia con el peso del acero y la escarcha. Es el actual Patriarca de
+la Casa Ferrospina, un linaje forjado no en la calidez de la forja, sino
+en el frío inclemente de una frontera olvidada. Borin es la encarnación
+de su lema: su voluntad es la roca inquebrantable, y su furia, el golpe
+del acero que aniquila.</p>
+<p>Nacido en la ciudadela de <a href="Verue.html">Verue</a>, Borin no
+conoció la paz de las profundas salas de <a
+href="Valtoria.html">Valtoria</a>. Su infancia transcurrió al son de las
+alarmas de incursión y el aullido de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+en los Picos Aullantes. Descendiente directo del fundador Vorgath el
+Espinoso, fue adoctrinado en la cruda filosofía de su casa: la
+supervivencia exige pragmatismo, y la protección, un sacrificio que las
+casas nobles del sur no están dispuestas a pagar. Aprendió a blandir un
+hacha antes de poder tallar una runa y a leer el terreno nevado con más
+pericia que los antiguos textos.</p>
+<p>Su fe, como la de toda su casa, se dirige a <a
+href="Valarios.html">Valarios</a>, el dios de la Destrucción. Para los
+Ferrospina, y para Borin en particular, <a
+href="Valarios.html">Valarios</a> no es un ente maligno, sino el
+equilibrio cósmico de <a href="Rokael.html">Rokael</a>, el Creador. Es
+la tormenta que limpia la montaña, el terremoto que revela nuevas vetas,
+la purga necesaria para que la civilización enana perdure. Esta devoción
+lo ha convertido en un paria a los ojos de casas más tradicionales como
+los Dravonis, quienes ven en él y su linaje una perversión de los
+valores <a href="Enanos.html">Enanos</a>.</p>
+<p>Borin ascendió al título de Thane tras el “Asedio del Invierno
+Sangriento”, una brutal ofensiva de los clanes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> que amenazó con borrar <a
+href="Verue.html">Verue</a> del mapa. Mientras el Concilio de la Montaña
+deliberaba, Borin, entonces un joven capitán, lideró una defensa tan
+feroz y despiadada que los <a href="Orcos.html">Orcos</a> y <a
+href="Hobgoblins.html">Hobgoblins</a> rompieron filas, convencidos de
+que se enfrentaban a una encarnación del propio <a
+href="Valarios.html">Valarios</a>. Su padre cayó en esa batalla, y
+Borin, bañado en sangre y nieve, reclamó su hacha y el liderazgo de la
+casa.</p>
+<p>Como Patriarca, ha gobernado con puño de hierro y una astucia forjada
+en el campo de batalla. Su principal motivación es la protección de <a
+href="Valtoria.html">Valtoria</a>, un reino que, en su opinión, se ha
+vuelto blando y complaciente, olvidado del precio de su paz. Desprecia
+la política de salones y los debates interminables, confiando únicamente
+en la fuerza de sus muros y el filo de sus hachas. Esta mentalidad lo ha
+enfrentado directamente con los Gremios de Adiestradores de <a
+href="Ruelith.html">Ruelith</a>, a quienes considera ingenuos por
+intentar domar a las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+que él considera una plaga que debe ser exterminada.</p>
+<p>Sus relaciones personales son tan duras como la tierra que gobierna.
+Su hermano menor, <strong>Durnik ‘El Silencioso’ Ferrospina</strong>, es
+su estratega jefe, un genio táctico cuya voz rara vez se oye,
+traumatizado por décadas de guerra. Se comunican con miradas y gestos,
+un entendimiento forjado en el fragor del combate. Su mayor orgullo y
+preocupación es su hija y heredera, <strong>Helga Ferrospina</strong>.
+Es una guerrera formidable, la imagen misma de una Ferrospina, pero su
+fervor y crueldad a veces superan incluso a los de su padre, y Borin
+teme en secreto que ella confunda la destrucción como un fin en sí
+mismo, y no como la herramienta que es.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Thane Borin es un enano que parece tallado en la misma roca de los
+Picos Aullantes. De estatura recia y hombros anchos como un portal de
+fortaleza, su cuerpo es un mapa de cicatrices. Su rostro, enmarcado por
+una barba negra como el carbón y trenzada con anillas de hierro
+meteórico, está curtido por el viento y la guerra. Sus ojos, de un gris
+acerado, no brillan con la codicia del oro, sino con la fría luz de una
+estrategia mortal.</p>
+<p>Viste una <strong>armadura de placas completa</strong>, forjada con
+el legendario hierro meteórico que su casa protege. No tiene los adornos
+dorados de las armaduras de la capital; en su lugar, está cubierta de
+muescas y arañazos, cada uno un testamento de una batalla ganada. Las
+hombreras están esculpidas para parecerse a garras de bestia, y sobre el
+peto luce el escudo de su casa: el yelmo espinoso sobre los picos
+nevados.</p>
+<p>Su arma principal es <strong>“Lamento de la Estepa”</strong>, un
+hacha danesa de dos manos, cuyo filo se dice que nunca se mella y que
+emite un leve gemido cuando corta el aire helado. En su espalda, siempre
+lleva el <strong>Escudo de Vorgath</strong>, un pavés de acero que
+perteneció a su ancestro, cuya cara está abollada por innumerables
+golpes de armas monstruosas.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Thane Borin Ferrospina es una figura paradójica en Lithernia. Para
+los reinos de <a href="Galvorn.html">Galvorn</a> y <a
+href="Eldrador.html">Eldrador</a>, es apenas una nota a pie de página,
+un señor bárbaro en una frontera lejana. Pero para <a
+href="Valtoria.html">Valtoria</a>, es tanto su salvación como una espina
+en su costado. Es el guardián ingrato, el muro de acero que permite que
+los clanes del corazón de la montaña vivan en paz, ignorando la sangre
+que se derrama para mantenerla.</p>
+<p>Su impacto es innegable: bajo su liderazgo, ninguna incursión a gran
+escala de <a href="Mor&#39;dhul.html">Mor’dhul</a> ha logrado penetrar
+más allá de <a href="Verue.html">Verue</a>. Ha convertido la frontera
+norte en un cementerio para los enemigos de <a
+href="Valtoria.html">Valtoria</a>. Sin embargo, su desdén por la
+diplomacia y su fe en <a href="Valarios.html">Valarios</a> han creado
+una profunda fractura política dentro del reino enano, una debilidad que
+los enemigos más astutos podrían explotar.</p>
+<p>El legado que Borin dejará será polémico. Será recordado como el
+Thane que sacrificó el alma de su casa para proteger el cuerpo del
+reino. Los historiadores debatirán si fue un <a
+href="Heroes.html">Heroes</a> pragmático o un tirano brutal, pero nadie
+podrá negar que mientras Borin Ferrospina respiró, la roca de <a
+href="Valtoria.html">Valtoria</a> resistió y su acero siempre golpeó
+primero.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.52)</li>
+<li><a href="Casa%20Ferrospina.html">Casa Ferrospina</a> (relevancia:
+0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

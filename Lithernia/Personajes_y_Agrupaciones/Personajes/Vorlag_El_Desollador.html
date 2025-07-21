@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorlag_El_Desollador</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vorlag_El_Desollador</div>
+        <div class="content">
+<h1 id="vorlag-el-desollador">Vorlag ‘El Desollador’</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en el crisol de brutalidad que es <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Vorlag fue forjado por la
+doctrina del Clan <a href="Lakros.html">Lakros</a>, donde la sangre es
+poder y la furia es una plegaria. Desde joven, su fuerza descomunal y su
+instinto para la violencia lo destacaron incluso entre los semiogros y
+<a href="Orcos.html">Orcos</a> más salvajes. Su apodo, ‘El Desollador’,
+no nació de la tortura sádica, sino de la aterradora eficiencia con la
+que desmantelaba a sus enemigos en el campo de batalla, dejando tras de
+sí un testimonio mudo de poder absoluto. Para Vorlag, la vida era una
+simple ecuación de fuerza: el fuerte domina, el débil perece.</p>
+<p>Su trayectoria lo llevó a unirse a una de las legiones de élite de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, una unidad mixta de <a
+href="Hobgoblins.html">Hobgoblins</a>, <a href="Orcos.html">Orcos</a> y
+<a href="Tieflings.html">Tieflings</a> bajo el mando del brillante
+estratega Kael-Tharr. Fue allí donde la filosofía de Vorlag comenzó a
+cambiar. Observó en Kael-Tharr no la caótica sed de sangre de los dioses
+del panteón Korogrim, sino la lógica fría del acero, la superioridad de
+la estrategia sobre la ira ciega. La disciplina, se dio cuenta, era una
+forma de fuerza superior a la simple brutalidad.</p>
+<p>El punto de inflexión fue la Batalla de las Lágrimas Negras. Mientras
+los ejércitos de <a href="Mor&#39;dhul.html">Mor’dhul</a> se desangraban
+contra los elfos en una carnicería sin sentido, glorificada por
+generales y sacerdotes, Vorlag vio el desperdicio. Vio a guerreros
+valiosos morir por la vanidad de un dios, Sel’thirak, y la ambición de
+sus clanes. En ese bosque marchito, su fe en los dioses murió y renació
+como lealtad inquebrantable hacia el único líder que ofrecía un
+propósito real: Kael-Tharr.</p>
+<p>Cuando Kael-Tharr orquestó la deserción, Vorlag fue su puño ejecutor.
+‘El Desollador’ se convirtió en el terror de los lealistas, purgando las
+filas con una crueldad metódica que silenció cualquier intento de
+oposición. No hubo gritos de guerra, solo el sonido del acero y el
+quebrar de huesos. Fue él quien aseguró el corredor de escape a través
+de las tierras baldías, cimentando su leyenda y su posición como segundo
+al mando de la recién nacida Legión de Hierro Silente.</p>
+<p>Hoy, Vorlag es el arquitecto de la disciplina de la Legión. Es la
+encarnación de su lema: un ser de una violencia aterradora, pero
+contenida y dirigida con un propósito inquebrantable. Siente una
+devoción absoluta por Kael-Tharr, a quien considera el único líder capaz
+de forjar un verdadero imperio orco, uno basado en el orden y la fuerza,
+no en el caos divino. Esta devoción lo pone en constante conflicto con
+Xylia, la consejera tiefling de Kael-Tharr. Vorlag desprecia sus métodos
+de magia y subterfugio, viéndolos como signos de debilidad y engaño, una
+corrupción potencial para la pureza marcial de la Legión. Para él, la
+verdad se encuentra en la carga frontal y la superioridad táctica, no en
+susurros y sombras.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Vorlag es un monumento a la supervivencia y la guerra. A sus 65 años,
+una edad venerable para un orco, su cuerpo es un mapa de cicatrices. Su
+piel, de un verde oscuro y coriáceo, se tensa sobre músculos que parecen
+tallados en piedra. Sus colmillos inferiores, aunque astillados, siguen
+siendo formidables, y sus ojos, pequeños y oscuros, carecen de cualquier
+emoción que no sea una fría y evaluadora determinación. No hay rastro de
+la furia salvaje de su juventud; ha sido reemplazada por una calma
+depredadora que resulta mucho más inquietante.</p>
+<p>A diferencia de los caóticos adornos de los clanes de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, el equipo de Vorlag es pragmático
+y brutalmente funcional.</p>
+<ul>
+<li><strong>Armadura:</strong> Viste una armadura de placas completa de
+hierro negro, obra de los mejores herreros hobgoblin de la Legión. Cada
+pieza está diseñada para la máxima protección y movilidad, sin adornos
+superfluos. Las hombreras y el peto llevan grabado el emblema de la
+Legión: un yelmo cerrado sobre cadenas rotas. El metal está cubierto de
+abolladuras y rasguños de innumerables batallas, pero siempre está
+limpio y bien mantenido.</li>
+<li><strong>Yelmo:</strong> Rara vez se quita su yelmo de diseño
+hobgoblin, que oculta completamente su rostro tras una visera sin
+rasgos. Es una herramienta de intimidación psicológica: un enemigo que
+no puede ver el rostro de su verdugo lucha contra un concepto, no contra
+un hombre.</li>
+<li><strong>Arma Principal:</strong> Su arma predilecta es
+“Silenciadora”, una colosal maza de guerra de dos manos con una cabeza
+de hierro macizo y acanalado, diseñada para aplastar armaduras y quebrar
+escudos con un solo golpe devastador.</li>
+<li><strong>Herramientas de Oficio:</strong> En su cinto no lleva
+trofeos macabros, sino un juego de cuchillos de desollar de acero
+afilado. No los usa para la tortura, sino como herramientas prácticas y
+como un sombrío recordatorio de su nombre y su capacidad para
+desmantelar metódicamente cualquier obstáculo, ya sea un enemigo o una
+fortaleza.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Vorlag ‘El Desollador’ representa una de las mayores amenazas para el
+orden establecido de Lithernia. No es un simple monstruo o un caudillo
+sediento de sangre; es el símbolo viviente de una nueva y aterradora
+ideología. Su existencia demuestra que la fuerza bruta de las “razas
+oscuras” puede ser refinada y disciplinada hasta convertirse en una
+maquinaria de guerra más peligrosa que la tiranía caótica de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>Su impacto es triple: 1. <strong>Una Fractura en la
+Oscuridad:</strong> Vorlag y la Legión han creado una tercera vía en el
+gran conflicto, rechazando tanto a los dioses “buenos” como a los
+“malos”. Desafían la noción de que <a
+href="Mor&#39;dhul.html">Mor’dhul</a> es el único poder antagonista,
+presentando una amenaza secular, organizada y predeciblemente
+despiadada. 2. <strong>El Terror del Orden:</strong> Mientras que los
+reinos de la luz están acostumbrados a luchar contra hordas caóticas, la
+Legión de Hierro Silente presenta un desafío táctico sin precedentes.
+Luchan con la ferocidad de los <a href="Orcos.html">Orcos</a>, pero
+piensan con la fría lógica de un imperio. Vorlag es el general que hará
+que los comandantes de <a href="Valtoria.html">Valtoria</a> y <a
+href="Eldrador.html">Eldrador</a> tengan pesadillas, no por su
+salvajismo, sino por su competencia. 3. <strong>El Futuro de los <a
+href="Orcos.html">Orcos</a>:</strong> Si Kael-Tharr es el cerebro,
+Vorlag es el corazón de hierro de la Legión. Su lealtad y su poder
+demuestran a miles de <a href="Orcos.html">Orcos</a> y <a
+href="Hobgoblins.html">Hobgoblins</a> descontentos que hay una
+alternativa al servicio de dioses caprichosos. Su legado podría ser la
+creación del primer imperio verdaderamente marcial y ateo de Lithernia,
+forjado no en el fuego divino del <a href="Lilium.html">Lilium</a>, sino
+en el silencio, el sudor y el acero.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.42)</li>
+<li><a href="La%20Legión%20de%20Hierro%20Silente.html">La Legión de
+Hierro Silente</a> (relevancia: 0.30)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

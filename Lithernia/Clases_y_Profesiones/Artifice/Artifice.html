@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artifice</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Artifice</div>
+        <div class="content">
+<h1 id="artífice">Artífice</h1>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como artífice, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d8 por nivel de artífice
+<strong>Puntos de Golpe a nivel 1:</strong> 8 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d8
+(o 5) + tu modificador de Constitución por cada nivel de artífice
+después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera, armadura intermedia,
+escudos <strong>Armas:</strong> Armas sencillas, hachas de mano, hachas
+de guerra, martillos ligeros, martillos de guerra
+<strong>Herramientas:</strong> Herramientas de ladrón, herramientas de
+manitas, y un tipo de herramientas de artesano de tu elección
+<strong>Tiradas de Salvación:</strong> Constitución, Inteligencia
+<strong>Habilidades:</strong> Elige dos de entre Arcanos, Historia,
+Investigación, Medicina, Naturaleza, Percepción, Prestidigitación.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) dos martillos ligeros o (b) cualquier arma marcial con
+la que tengas competencia * (a) una ballesta ligera y 20 virotes * (a)
+tu armadura de cuero o (b) tu cota de escamas * Herramientas de ladrón y
+un paquete de explorador de mazmorras</p>
+<h3 id="sistema-de-maná-del-artífice"><strong>Sistema de Maná del
+Artífice</strong></h3>
+<p>Tu comprensión de la magia proviene del estudio y la invención,
+permitiéndote tejer el maná en objetos y mecanismos.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná para lanzar tus <a href="Conjuros.html">Conjuros</a> y potenciar
+tus inventos. Tu fórmula de maná es <strong>6 + (Nivel de Artífice ×
+Modificador de Inteligencia)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d8.</li>
+<li><strong>Aptitud Mágica:</strong> La Inteligencia es tu aptitud para
+tus <a href="Conjuros.html">Conjuros</a> de artífice.
+<ul>
+<li><strong>CD de salvación de Maná</strong> = 8 + tu bonificador por
+competencia + tu modificador de Inteligencia.</li>
+<li><strong>Modificador de ataque de Maná</strong> = tu bonificador por
+competencia + tu modificador de Inteligencia.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-artífice">Tabla de Progresión del
+Artífice</h3>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Trucos Conocidos</th>
+<th style="text-align: center;"><a href="Conjuros.html">Conjuros</a>
+Conocidos</th>
+<th style="text-align: center;">Nivel Máx. de Conjuro</th>
+<th style="text-align: center;">Infusiones Conoc.</th>
+<th style="text-align: center;">Objetos Infundidos</th>
+<th style="text-align: left;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Pensamiento Mágico, Lanzamiento de <a
+href="Conjuros.html">Conjuros</a></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">6 + (1 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Infundir Objeto</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">6 + (2 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Especialista Artífice, La Herramienta
+Adecuada</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">6 + (3 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">6 + (4 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Especialista Artífice</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">6 + (5 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Pericia con Herramientas</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">6 + (6 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Chispazo de Genio</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">6 + (7 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">6 + (8 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Rasgo de Especialista Artífice</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">6 + (9 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Adepto a los Objetos Mágicos</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">6 + (10 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Objeto Almacenador de <a
+href="Conjuros.html">Conjuros</a></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">6 + (11 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">6 + (12 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">6 + (13 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Sabio de los Objetos Mágicos</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">6 + (14 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Rasgo de Especialista Artífice</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">6 + (15 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">6 + (16 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">6 + (17 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Maestro de los Objetos Mágicos</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">6 + (18 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">6 + (19 × Mod. INT)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Alma de Artífice</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">6 + (20 × Mod. INT)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="especialistas-artífices"><strong>Especialistas
+Artífices</strong></h2>
+<h3 id="maestro-de-autómatas"><strong>Maestro de Autómatas</strong></h3>
+<p>Un Maestro de Autómatas <a href="Herreria.html">Herreria</a> un
+compañero mecánico, un gólem que lucha a su lado.</p>
+<h4 id="conjuros-de-especialista"><strong>Conjuros de
+Especialista</strong></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Heroísmo</em>, <em>Escudo de
+fe</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Arma espiritual</em>, <em>Vínculo
+protector</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Aura de vitalidad</em>, <em>Círculo de
+poder</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: left;"><em>Círculo de teletransportación</em>,
+<em>Muro de fuerza</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="compañero-rúnico"><strong>Compañero Rúnico</strong></h4>
+<p>A nivel 3, creas un compañero mecánico. Es amistoso contigo y tus
+compañeros, y obedece tus órdenes. En combate, comparte tu iniciativa,
+pero actúa inmediatamente después de tu turno. Solo puede realizar la
+acción de Esquivar a menos que uses tu acción adicional para ordenarle
+que realice otra acción de su bloque de estadísticas.</p>
+<h4 id="ataque-extra"><strong>Ataque Extra</strong></h4>
+<p>A partir del nivel 5, puedes atacar dos veces, en lugar de una,
+siempre que realices la acción de Atacar en tu turno.</p>
+<h4 id="vínculo-defensivo"><strong>Vínculo Defensivo</strong></h4>
+<p>A nivel 9, el vínculo con tu compañero te permite proteger a otros.
+Mientras tu compañero esté a 30 pies de ti, puedes usar tu reacción para
+que tu compañero se interponga, otorgando a una criatura a 5 pies de él
+un bonificador a su CA igual a tu bonificador de competencia contra un
+ataque.</p>
+<h4 id="voluntad-de-acero"><strong>Voluntad de Acero</strong></h4>
+<p>A nivel 15, tu vínculo te permite repartir el daño. Cuando tú o tu
+compañero recibís daño, podéis usar vuestra reacción para dividir el
+daño a partes iguales entre ambos.</p>
+<h3 id="forjarrunas"><strong>Forjarrunas</strong></h3>
+<p>Un Forjarrunas inscribe <a href="Runas.html">Runas</a> de poder en su
+armadura, convirtiéndose en un baluarte en el campo de batalla.</p>
+<h4 id="conjuros-de-especialista-1"><strong>Conjuros de
+Especialista</strong></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Castigo Atronador</em>, <em>Castigo
+Abrasador</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Arma mágica</em>, <em>Inmovilizar
+persona</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Aura de vitalidad</em>, <em>Glifo
+custodio</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: left;"><em>Piel de piedra</em>,
+<em>Destierro</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="armadura-arcana"><strong>Armadura Arcana</strong></h4>
+<p>A nivel 3, tu armadura se convierte en un conducto para tu magia.
+Puedes usar armadura pesada como foco para tus <a
+href="Conjuros.html">Conjuros</a>. Ignoras el requisito de Fuerza para
+cualquier armadura. Tu armadura no puede serte retirada contra tu
+voluntad.</p>
+<h4 id="ataque-extra-1"><strong>Ataque Extra</strong></h4>
+<p>A partir del nivel 5, puedes atacar dos veces, en lugar de una,
+siempre que realices la acción de Atacar en tu turno.</p>
+<h4 id="blindaje-rúnico"><strong>Blindaje Rúnico</strong></h4>
+<p>A nivel 9, puedes usar tu acción adicional y gastar 5 Puntos de Maná
+para activar un campo de fuerza rúnico. Ganas puntos de golpe temporales
+iguales a tu nivel de artífice, y cualquier criatura que te golpee con
+un ataque cuerpo a cuerpo mientras tengas estos puntos de golpe recibe
+1d8 de daño de fuerza.</p>
+<h4 id="armadura-perfeccionada"><strong>Armadura
+Perfeccionada</strong></h4>
+<p>A nivel 15, eliges una de tus infusiones activas en tu armadura. El
+efecto de esa infusión se potencia (a discreción del DM) y ganas
+resistencia al daño contundente, perforante y cortante de ataques no
+mágicos.</p>
+<h3 id="alquimista-de-campo"><strong>Alquimista de Campo</strong></h3>
+<p>Un Alquimista se especializa en la creación de elíxires y pociones
+para apoyar a sus aliados y debilitar a sus enemigos.</p>
+<h4 id="conjuros-de-especialista-2"><strong>Conjuros de
+Especialista</strong></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Palabra de curación</em>, <em>Rayo de
+enfermedad</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Flecha ácida</em>, <em>Rayo
+debilitador</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Nube apestosa</em>,
+<em>Acelerar</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: left;"><em>Nube aniquiladora</em>,
+<em>Restablecimiento mayor</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="elíxir-experimental"><strong>Elíxir Experimental</strong></h4>
+<p>A nivel 3, cuando terminas un descanso largo, puedes crear un elíxir
+experimental. Tira 1d6 para determinar el efecto del elíxir: 1.
+<strong>Curación:</strong> El bebedor recupera 2d4 + tu modificador de
+INT en puntos de golpe. 2. <strong>Velocidad:</strong> La velocidad del
+bebedor aumenta en 10 pies durante 1 hora. 3.
+<strong>Resistencia:</strong> El bebedor gana resistencia a un tipo de
+daño (a tu elección) durante 10 minutos. 4. <strong>Vuelo:</strong> El
+bebedor gana una velocidad de vuelo de 10 pies durante 10 minutos. 5.
+<strong>Transformación:</strong> La apariencia del bebedor cambia como
+si estuviera bajo el conjuro <em>Disfrazarse</em> durante 1 hora. 6.
+<strong>Audacia:</strong> El bebedor puede tirar 1d4 y añadirlo a una
+tirada de ataque o salvación de su elección en los próximos 10
+minutos.</p>
+<h4 id="savia-alquímica"><strong>Savia Alquímica</strong></h4>
+<p>A partir del nivel 5, puedes añadir tu modificador de Inteligencia al
+daño de uno de tus trucos o <a href="Conjuros.html">Conjuros</a> de
+nivel 1. Además, cuando lances un conjuro que restaure puntos de golpe,
+puedes añadir tu modificador de Inteligencia a la curación de una
+criatura.</p>
+<h4 id="restauradores-químicos"><strong>Restauradores
+Químicos</strong></h4>
+<p>A nivel 9, puedes crear potentes elíxires que replican <a
+href="Conjuros.html">Conjuros</a>. Como una acción, puedes gastar 5
+Puntos de Maná para crear una poción que replica el efecto de
+<em>Restablecimiento menor</em> o <em>Invisibilidad</em>. La poción
+mantiene su potencia durante 24 horas.</p>
+<h4 id="maestría-química"><strong>Maestría Química</strong></h4>
+<p>A nivel 15, ganas resistencia al daño de ácido y veneno, y eres
+inmune a la condición de envenenado. Además, puedes crear dos elíxires
+experimentales durante un descanso largo en lugar de uno.</p>
+<hr />
+<h3 id="lista-de-conjuros-del-artífice"><strong>Lista de Conjuros del
+Artífice</strong></h3>
+<h4 id="trucos-nivel-0"><strong>Trucos (Nivel 0)</strong></h4>
+<ul>
+<li>Chispa de Fuego</li>
+<li>Crear Hoguera</li>
+<li>Descarga de Fuego</li>
+<li>Guía</li>
+<li>Luz</li>
+<li>Rayo de Escarcha</li>
+<li>Rociada de veneno</li>
+<li>Salpicadura ácida</li>
+<li>Toque de Cuchilla</li>
+</ul>
+<h4 id="nivel-1"><strong>Nivel 1</strong></h4>
+<ul>
+<li>Absorber Elementos</li>
+<li>Alarma</li>
+<li>Caída de Pluma</li>
+<li>Catapulta</li>
+<li>Curar Heridas</li>
+<li>Disfrazarse</li>
+<li>Falsa Vida</li>
+<li>Fuego Feérico</li>
+<li>Grasa</li>
+<li>Identificar</li>
+<li>Salto</li>
+<li>Santuario</li>
+</ul>
+<h4 id="nivel-2"><strong>Nivel 2</strong></h4>
+<ul>
+<li>Abrir</li>
+<li>Arma Mágica</li>
+<li>Ayuda</li>
+<li>Boca Mágica</li>
+<li>Calentar Metal</li>
+<li>Cerradura Arcana</li>
+<li>Esfera Flamígera</li>
+<li>Levitar</li>
+<li>Nube de Dagas</li>
+<li>Oscuridad</li>
+<li>Pirotecnia</li>
+<li>Restablecimiento Menor</li>
+<li>Ver Invisibilidad</li>
+</ul>
+<h4 id="nivel-3"><strong>Nivel 3</strong></h4>
+<ul>
+<li>Caminar sobre el Agua</li>
+<li>Disipar Magia</li>
+<li>Don de Lenguas</li>
+<li>Flecha de Rayo</li>
+<li>Glifo Custodio</li>
+<li>Protección contra la Energía</li>
+<li>Revivificar</li>
+<li>Volar</li>
+</ul>
+<h4 id="nivel-4"><strong>Nivel 4</strong></h4>
+<ul>
+<li>Arcano Privado de Mordenkainen</li>
+<li>Cofre Secreto de Leomund</li>
+<li>Escudo de Fuego</li>
+<li>Fabricar</li>
+<li>Invisibilidad Mayor</li>
+<li>Piel de Piedra</li>
+<li>Santuario Privado de Mordenkainen</li>
+</ul>
+<h4 id="nivel-5"><strong>Nivel 5</strong></h4>
+<ul>
+<li>Animar Objetos</li>
+<li>Creación</li>
+<li>Muro de Piedra</li>
+<li>Restablecimiento Mayor</li>
+<li>Transmutar Roca</li>
+</ul>
+<hr />
+<h3
+id="las-sendas-del-héroe-el-sistema-de-clases-en-lithernia"><strong>Las
+Sendas del Héroe: El Sistema de Clases en Lithernia</strong></h3>
+<p>En el <a href="Título_de_la_nota.html">Título_de_la_nota</a>, marcado
+por la cicatriz del <a href="Lilium.html">Lilium</a> y la sombra de la
+Gran Guerra, un personaje es mucho más que sus habilidades de combate o
+sus proezas mágicas. Es la suma de sus convicciones, su origen y el
+camino que elige para enfrentar un destino incierto. El sistema de
+clases en Lithernia está diseñado para reflejar esta realidad,
+ofreciendo no solo un conjunto de mecánicas, sino una identidad forjada
+en el crisol de un mundo en conflicto.</p>
+<p>Cada clase representa una vocación, una senda de poder y una
+filosofía de vida. Ya sea como un <a href="Sacerdote.html">Sacerdote</a>
+que canaliza la voluntad de los dioses, un <a href="Mago.html">Mago</a>
+que desentraña los secretos del Tejido de Maná o un <a
+href="Caballero.html">Caballero</a> que defiende un código de honor en
+medio del caos, tu elección definirá cómo interactúas con los grandes
+poderes de Lithernia: desde los reinos en guerra hasta las facciones que
+susurran la profecía del retorno del Primer Rey.</p>
+<h4 id="visión-general-del-sistema"><strong>Visión General del
+Sistema</strong></h4>
+<p>El sistema de clases de Lithernia se basa en arquetipos familiares,
+pero con un enfoque temático y mecánico único. Encontrarás clases
+tradicionales como el <strong><a
+href="Guerrero.html">Guerrero</a></strong>, el <strong><a
+href="Mago.html">Mago</a></strong> o el <strong>Pícaro</strong>, junto a
+nuevas sendas nacidas de la historia del mundo, como el <strong><a
+href="Cazador.html">Cazador</a> de <a
+href="Dragones.html">Dragones</a></strong>, el <strong><a
+href="Nigromante.html">Nigromante</a></strong> o <strong>El
+Blasfemo</strong>. Cada clase está diseñada para encajar en el lore,
+ofreciendo una lente única a través de la cual experimentar los
+conflictos y misterios de Lithernia.</p>
+<p>El diseño se centra en tres pilares fundamentales:</p>
+<ol type="1">
+<li><strong>Identidad Temática:</strong> Cada clase está profundamente
+arraigada en la historia y las culturas del mundo. Un <a
+href="Sacerdote.html">Sacerdote</a> de <a
+href="Galvorn.html">Galvorn</a> no será igual que uno de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>; un <a href="Mago.html">Mago</a>
+de la Torre de las Estrellas de <a href="Valtoria.html">Valtoria</a>
+tendrá una visión de la magia muy diferente a la de un <a
+href="Hechicero.html">Hechicero</a> elfo de <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>Mecánicas Distintivas:</strong> La magia y las habilidades
+tienen un coste tangible. El sistema de Maná, Fatiga y Canalización hace
+que el poder se sienta real y arriesgado.</li>
+<li><strong>Progresión Significativa:</strong> A medida que tu personaje
+avanza, no solo se vuelve más poderoso, sino que su influencia en el
+mundo y su dominio de las artes arcanas o marciales se expande de forma
+notable.</li>
+</ol>
+<h4 id="el-maná-y-el-coste-de-la-magia"><strong>El Maná y el Coste de la
+Magia</strong></h4>
+<p>A diferencia de otros sistemas, la magia en Lithernia no es un
+recurso ilimitado ni gratuito. Fluye a través del <strong>Tejido del
+Maná</strong>, y canalizarla exige un esfuerzo físico y mental.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Las clases lanzadoras de <a
+href="Conjuros.html">Conjuros</a> utilizan un sistema flexible de Puntos
+de Maná. Esta reserva de energía representa su capacidad para tirar de
+los hilos del Tejido y moldearlos.</li>
+<li><strong>Dado de Maná:</strong> Cada clase arcana posee un
+<strong>Dado de Maná</strong> único (d6, d8, d10), que representa su
+“firma” o afinidad personal con la magia. Este dado no solo influye en
+la potencia de ciertos efectos, sino que determina el coste físico de
+cada hechizo.</li>
+<li><strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>:</strong>
+Lanzar un conjuro impone una carga. Cada vez que un personaje conjura,
+sufre una <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>
+que se acumula, representando el agotamiento de forzar la energía mágica
+a través de su cuerpo. Abusar de la magia puede llevar a un personaje al
+borde del colapso, haciendo que cada decisión de lanzar un hechizo sea
+tácticamente relevante.</li>
+</ul>
+<p>Este sistema asegura que la magia se sienta poderosa, pero también
+peligrosa, reflejando un mundo donde el poder siempre tiene un
+precio.</p>
+<h4 id="progresión-y-maestría"><strong>Progresión y
+Maestría</strong></h4>
+<p>La progresión en Lithernia se mide en niveles, y cada uno desbloquea
+nuevas habilidades y un mayor dominio de la clase. Este crecimiento no
+es solo numérico; a menudo representa un salto cualitativo en la
+capacidad del personaje para influir en su entorno.</p>
+<p>Un ejemplo claro son los <strong>Círculos de Invocación</strong>. Un
+<a href="Mago.html">Mago</a> novato puede usar Círculos Menores para
+potenciar ligeramente sus hechizos, pero solo al alcanzar hitos de poder
+(niveles 5 y 11) aprenderá a dominar los Círculos Intermedios y Mayores,
+capaces de desatar efectos mágicos de una escala completamente distinta.
+La progresión, por tanto, es un viaje desde el aprendiz hasta el
+maestro, cuyas acciones pueden llegar a cambiar el curso de una batalla
+o incluso el destino de un reino.</p>
+<h4 id="subclases-forjando-una-identidad-única"><strong>Subclases:
+Forjando una Identidad Única</strong></h4>
+<p>Dentro de cada clase principal, existen especializaciones conocidas
+como <strong>subclases</strong>. Estas representan el camino específico
+que un personaje decide seguir, permitiendo una personalización profunda
+y un rol más definido en el mundo. No todos los guerreros luchan igual,
+ni todos los clérigos sirven a su dios de la misma manera.</p>
+<p>Por ejemplo, un <strong><a
+href="Caballero.html">Caballero</a></strong> puede unirse a la Orden de
+la Espada, centrada en el ataque; a la Orden del Escudo, dedicada a la
+protección; o a la Orden de la Montura, especializada en el combate a
+caballo. Un <strong><a href="Sacerdote.html">Sacerdote</a>
+(Clérigo)</strong> elegirá un dominio divino que definirá su propósito,
+como el Dominio de la Vida para un sanador o el Dominio de la Luz para
+un cruzado contra la oscuridad.</p>
+<p>Las subclases son la forma en que tu personaje refina su vocación,
+alineando sus habilidades con su trasfondo, su fe y sus objetivos
+personales.</p>
+<h4 id="el-rol-de-las-clases-en-la-sociedad-y-el-conflicto"><strong>El
+Rol de las Clases en la Sociedad y el Conflicto</strong></h4>
+<p>En Lithernia, tu clase es tu lugar en el mundo. Un <strong><a
+href="Nigromante.html">Nigromante</a></strong> o un
+<strong>Blasfemo</strong> probablemente encontrarán afinidad (o
+conflicto) con los clanes oscuros de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Un <strong><a
+href="Mago.html">Mago</a></strong> podría aspirar a un puesto en la
+prestigiosa Torre de las Estrellas de <a
+href="Valtoria.html">Valtoria</a>. Un <strong><a
+href="Druida.html">Druida</a></strong> o un <strong><a
+href="Guardabosques.html">Guardabosques</a></strong> serán los
+protectores naturales de los bosques de <a
+href="Eldrador.html">Eldrador</a>, mientras que un <strong><a
+href="Bardo.html">Bardo</a></strong> o un <strong>Pícaro</strong>
+prosperarán en los bulliciosos puertos de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>Más importante aún, cada clase ofrece una perspectiva única sobre la
+<strong>Profecía del Retorno del Primer Rey</strong>. Un Paladín podría
+verla como un llamado sagrado para restaurar la justicia. Un <a
+href="Hechicero.html">Hechicero</a> podría sentir el poder latente de
+las Lanzas Celestiales. Un Pícaro podría verla como una oportunidad para
+el caos y el beneficio. Tu clase no solo te da herramientas para la
+aventura; te posiciona como un actor clave en el drama que definirá el
+futuro de Lithernia.</p>
+<p>Elegir una clase es, en esencia, el primer y más importante paso para
+escribir tu propia leyenda en las páginas de la historia de este mundo.
+¿Qué senda escogerás?</p>
+        </div>
+    </div>
+</body>
+</html>

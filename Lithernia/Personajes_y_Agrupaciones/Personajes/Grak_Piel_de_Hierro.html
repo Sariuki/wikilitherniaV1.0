@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grak_Piel_de_Hierro</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Grak_Piel_de_Hierro</div>
+        <div class="content">
+<h1 id="grak-piel-de-hierro">Grak Piel de Hierro</h1>
+<blockquote>
+<p>“El acero se prueba en el combate, el honor en la causa.”</p>
+</blockquote>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en las cenizas y sombras de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, Grak no conoció linaje ni casa <a
+href="Noble.html">Noble</a>. Su sangre semiorca lo marcó desde el inicio
+como un peón en el brutal juego de poder de los clanes. Perteneciente a
+una rama menor del Clan <a href="Lakros.html">Lakros</a>, fue criado
+bajo el dogma de que la sangre y la fuerza eran las únicas verdades. Su
+juventud transcurrió en los fosos de combate, arenas improvisadas donde
+los débiles eran purgados y los fuertes se ganaban un día más de vida.
+Fue allí donde Grak se forjó, no con la alegría sádica de sus pares,
+sino con una sombría y tenaz determinación por sobrevivir. Cada victoria
+dejaba una nueva cicatriz en su cuerpo, un mapa de dolor que le valió el
+apodo de “Piel de Hierro”.</p>
+<p>La vida de Grak era un ciclo de violencia sin propósito, una ofrenda
+constante a dioses en los que no creía. Su punto de quiebre llegó al ser
+vendido al Clan <a href="Kromagul.html">Kromagul</a> para servir como
+“cebo vivo” en el adiestramiento de sus <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de guerra. Ver la crueldad metódica de los <a
+href="Hobgoblins.html">Hobgoblins</a>, su deleite en el dolor ajeno,
+encendió en él una furia fría y un desprecio absoluto. No era la fuerza
+lo que veneraban, sino la tortura. Grak escapó durante una noche de
+tormenta, dejando un rastro de guardias rotos y jaulas destrozadas.</p>
+<p>Errante y perseguido, llegó a las fronteras de la ciudad-estado
+independiente de <a href="Valarion.html">Valarion</a>. Allí, al borde de
+la inanición, fue encontrado por Korgan Barbacobre, un veterano maestro
+herrero enano, uno de los fundadores de los Guardianes del Colmillo de
+Acero. Korgan no vio a un monstruo, sino a un <a
+href="Guerrero.html">Guerrero</a> que había soportado lo insoportable.
+Le ofreció un lugar en el Gremio, un propósito que trascendía la
+brutalidad: proteger a los inocentes de las abominaciones que la Gran
+Guerra ignoraba.</p>
+<p>En el Gremio, Grak encontró una nueva familia. Bajo la tutela de
+Korgan, su fuerza bruta se convirtió en una disciplina marcial. Se
+convirtió en el Maestro de Armas de los Guardianes, responsable de
+entrenar a los nuevos reclutas. Desarrolló un vínculo inquebrantable con
+Lyra Ala Veloz, una joven exploradora humana, viéndola como la hermana
+que nunca tuvo y jurando protegerla con su vida. Hoy, Grak es el corazón
+de la fuerza de choque de los Guardianes. Su lealtad a Korgan es
+absoluta, su desprecio por el Clan <a href="Kromagul.html">Kromagul</a>
+es una brasa ardiente, y su juramento de proteger a los débiles es tan
+duro e inquebrantable como su propia piel.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Grak es una imponente montaña de músculo y cicatrices. Su piel tiene
+el tono gris verdoso característico de los <a
+href="Orcos.html">Orcos</a> de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+pero es un mosaico de tejido cicatricial pálido, recuerdo de
+innumerables cuchillas, garras y colmillos. Mide más de dos metros, con
+una complexión ancha y poderosa. Sus colmillos inferiores son
+prominentes, aunque uno está partido por la mitad. Sus ojos, de un
+inesperado color ámbar, observan el mundo con una intensidad vigilante,
+habiendo visto lo peor que Lithernia puede ofrecer.</p>
+<p>Viste una <strong>armadura de placas de acero ennegrecido</strong>,
+funcional y carente de adornos, forjada en los talleres de <a
+href="Valarion.html">Valarion</a>. Cada abolladura cuenta una historia,
+cada arañazo es una lección aprendida. Sobre el peto, lleva el escudo
+del Gremio: el colmillo roto sobre acero.</p>
+<p>Su arma principal es un <strong>mandoble de verdugo</strong>, una
+espada colosal de hoja ancha y pesada, cuyo equilibrio perfecto solo una
+fuerza como la suya puede dominar. No es un arma elegante, sino una
+herramienta de aniquilación, diseñada para cercenar miembros y quebrar
+escudos.</p>
+<p>A pesar de su apariencia temible, atado a su cinturón siempre lleva
+un pequeño <strong>pájaro de madera toscamente tallado</strong>, un
+regalo que Lyra le hizo cuando era niña. Es su único adorno, un
+recordatorio silencioso de la inocencia que ha jurado defender.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>En un mundo definido por linajes y lealtades divinas, Grak Piel de
+Hierro es una anomalía y una inspiración. Representa la prueba viviente
+de que el origen no dicta el destino; que un hijo de la brutalidad de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> puede alzarse para convertirse en
+un bastión de honor.</p>
+<p>Para los Guardianes del Colmillo de Acero, es más que su <a
+href="Heroes.html">Heroes</a>: es su alma, la encarnación de su lema. Su
+reputación en las tierras fronterizas es legendaria, un cuento susurrado
+en las tabernas sobre “el Monstruo que Caza Monstruos”.</p>
+<p>A mayor escala, Grak es un desafío andante a los ideales del panteón
+Korogrim. Demuestra que la fuerza orca no tiene por qué servir a la
+guerra sin sentido de <a href="Thyrgram.html">Thyrgram</a> o a la sed de
+sangre de <a href="Lakros.html">Lakros</a>. En su juramento y su acero,
+Grak Piel de Hierro no solo protege a los inocentes, sino que forja un
+nuevo legado para los de su estirpe, uno de propósito y redención en la
+tumultuosa historia de Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.45)</li>
+<li><a href="Guardianes%20del%20Colmillo%20de%20Acero.html">Guardianes
+del Colmillo de Acero</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

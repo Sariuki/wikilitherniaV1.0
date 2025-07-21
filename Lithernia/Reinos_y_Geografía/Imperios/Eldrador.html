@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eldrador</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Eldrador</div>
+        <div class="content">
+<h1 id="eldrador">Eldrador</h1>
+<p>Eldrador se alza orgulloso como uno de los reinos más antiguos y
+legendarios de Lithernia, un bastión de poder, misticismo y tradición
+que ha perdurado a través de siglos de conflictos y cambios. Enclavado
+entre montañas imponentes y valles fértiles, Eldrador es un reino de
+contraste: una tierra donde la magia ancestral se entrelaza con la vida
+cotidiana, y donde héroes y <a href="Leyendas.html">Leyendas</a> nacen
+bajo cielos incendiados por auroras eternas.</p>
+<h2 id="geografía-y-clima">Geografía y Clima</h2>
+<p>Eldrador está situado en la región central-norte de Lithernia,
+dominado por la cordillera Eredis, cuyas cumbres nevadas vigilan los
+vastos bosques de pinos titanios y las praderas de hierba dorada. El
+clima es frío y variable, con inviernos largos y duros que moldean el
+carácter de sus habitantes. Ríos cristalinos como el Serynth serpentean
+desde las montañas, irrigando tierras fértiles que sostienen una
+vibrante agricultura y fauna única.</p>
+<h2 id="historia">Historia</h2>
+<p>El origen de Eldrador se remonta a la Era del Crepúsculo, cuando los
+primeros héroes de Lithernia unieron clanes dispersos para resistir la
+amenaza de las sombras invasoras. Fundado por el legendario rey Tharion
+el <a href="Forjador.html">Forjador</a>, Eldrador rápidamente se
+consolidó como un baluarte tanto militar como espiritual. A lo largo de
+los siglos, el reino ha resistido invasiones bárbaras, traiciones
+internas y asedios mágicos, siempre emergiendo fortalecido gracias a su
+férrea unidad y su ancestral vínculo con el poder elemental.</p>
+<h2 id="gobierno-y-sociedad">Gobierno y Sociedad</h2>
+<p>El reino está gobernado por la dinastía Eldramar, cuyos monarcas son
+considerados elegidos por los dioses del fuego y el hierro. La capital,
+Valmorra, es un espléndido enclave donde se alzan la fortaleza del Sol
+Ardiente y los Templos de la Llama Eterna, epicentro de sabiduría y
+justicia. La sociedad de Eldrador honra el valor, la lealtad y el
+conocimiento ancestral; sus habitantes, desde nobles hasta campesinos,
+practican una cultura profundamente ritualista donde los lazos
+familiares y la veneración a los ancestros son sagrados.</p>
+<h2 id="cultura-y-costumbres">Cultura y Costumbres</h2>
+<h3 id="la-llama-de-los-ancestros">La Llama de los Ancestros</h3>
+<p>Cada solsticio de invierno, Eldrador celebra la Llama de los
+Ancestros, un ritual en el que se encienden grandes hogueras para honrar
+a los héroes caídos y pedir protección para el año venidero. Se cree que
+esta llama conecta los espíritus de los difuntos con los vivos,
+brindándoles inspiración y fortaleza.</p>
+<h3 id="forja-y-magia">Forja y Magia</h3>
+<p>Eldrador es mundialmente reconocido por sus herreros y magos
+forjadores, quienes trabajan en estrecha colaboración para imbuir armas
+y armaduras con poder mágico. Estas creaciones no solo son herramientas
+de guerra, sino también símbolos de status y legado, transmitidos a las
+futuras generaciones.</p>
+<h3 id="la-música-de-las-montañas">La Música de las Montañas</h3>
+<p>La música folclórica de Eldrador está marcada por el uso de
+instrumentos de viento y cuerdas, imitando los sonidos naturales de las
+montañas y los bosques. Las canciones épicas narran las aventuras de
+antiguos héroes y las batallas que forjaron el reino.</p>
+<h2 id="leyendas-y-mitos">Leyendas y Mitos</h2>
+<p>Entre las historias más célebres se encuentra la del Dragón de Fuego
+de Eldrador, una criatura titánica que según la tradición protege el
+reino cuando este está en mayor peligro. Se cuenta que su aliento de
+llamas puede devastar ejércitos enteros, y que sólo aparece ante
+aquellos de corazón puro y voluntad inquebrantable.</p>
+<p>Otra leyenda habla de la Espada de Tharion, un artefacto de poder
+inconmensurable capaz de cambiar el destino del mundo, oculta en las
+profundidades de la montaña Eredis, aguardando al verdadero heredero
+para ser empuñada de nuevo.</p>
+<h2 id="relaciones-con-otros-reinos">Relaciones con Otros Reinos</h2>
+<p>Eldrador mantiene alianzas estratégicas con algunos reinos vecinos,
+aunque su naturaleza orgullosa y reservada los hace desconfiar de las
+intrigas políticas y los cambios repentinos. Su ejército, compuesto por
+guerreros endurecidos y magos experimentados, es una fuerza respetada y
+temida en toda Lithernia.</p>
+<hr />
+<p>Eldrador no es sólo un reino, sino un símbolo vivo de la resistencia
+y la pureza ancestral de Lithernia, donde la historia se teje con la
+magia y el honor, y donde cada piedra y cada llama susurran secretos de
+tiempos inmortales.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.37)</li>
+<li><a href="reinos.html">reinos</a> (relevancia: 0.33)</li>
+<li><a href="Reinos.html">Reinos</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

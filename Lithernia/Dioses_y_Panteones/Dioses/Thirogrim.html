@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thirogrim</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Thirogrim</div>
+        <div class="content">
+<h1 id="thirogrim">Thirogrim</h1>
+<p>Thirogrim es el patriarca del panteón élfico, una de las deidades <a
+href="Primordiales.html">Primordiales</a> que surgieron durante el
+Amanecer Divino de Lithernia. Como Dios de la Magia, su esencia misma
+está entrelazada con el Tejido del Maná que fluye por el mundo. Es
+venerado como el arquitecto del poder arcano, el guardián de los
+secretos cósmicos y el progenitor de la raza élfica, a la que moldeó
+para que fuera el recipiente perfecto de su sabiduría y poder.
+Representa el orden, la perfección y el control absoluto sobre las
+fuerzas místicas, y es una de las columnas que sostienen el actual orden
+divino.</p>
+<h3 id="biografía-y-genealogía">Biografía y Genealogía</h3>
+<p><strong>Origen y el Tejido del Maná</strong> Nacido de los sueños de
+la Voluntad Original en el Amanecer Divino, Thirogrim fue una de las
+primeras conciencias en dar forma a la realidad. Mientras otros dioses
+modelaban la materia, él se dedicó a tejer la energía invisible que lo
+conectaba todo. De su voluntad nació el Tejido del Maná, una red de
+poder arcano que impregna toda Lithernia. En la era de la Forja del
+Mundo, fue él quien enseñó a los primeros seres las sendas de la magia,
+estableciendo las leyes y los límites que la rigen.</p>
+<p>Junto a sus hermanos, Thirogrim ayudó a dar forma al mundo natural y
+celestial: <a href="Ferion.html">Ferion</a>, su hermano, impregnó de
+vida los bosques, mientras su hermana <a href="Arzia.html">Arzia</a>
+encendió las estrellas en el firmamento. De su propia esencia nació su
+hija <a href="Lerian.html">Lerian</a>, la diosa del Conocimiento,
+destinada a registrar y preservar los secretos que él desvelaba.</p>
+<p><strong>La Rebelión del Primer Rey y el Sello Divino</strong> La Era
+del Primer Rey supuso una afrenta directa a todo lo que Thirogrim
+representaba. Veía la absorción de poder de los magos por parte del Rey
+no como un acto de protección, sino como un robo sacrílego y una
+perversión de las leyes arcanas. Para Thirogrim, el Primer Rey era un
+mortal arrogante que intentaba usurpar un poder que no le correspondía,
+amenazando con desgarrar el Tejido del Maná con su ambición
+descontrolada.</p>
+<p>Durante la <a
+href="El_Quiebre_del_Velo_y_la_guerra_celestial.html">El_Quiebre_del_Velo_y_la_guerra_celestial</a>,
+Thirogrim fue una fuerza devastadora. Desató tormentas de magia pura y
+<a href="Conjuros.html">Conjuros</a> de un poder inimaginable contra el
+ejército mortal. Fue una de las deidades clave en la derrota final del
+Rey, contribuyendo con su dominio arcano a la creación y el poder de las
+Cuatro Lanzas Celestiales que sellaron al monarca en su prisión eterna.
+Considera el Cataclismo del <a href="Lilium.html">Lilium</a> como una
+consecuencia trágica pero necesaria para purgar la mancha de la rebelión
+del Rey y restaurar el orden divino.</p>
+<p><strong>La Creación de los Elfos y el Reino de <a
+href="Eldrador.html">Eldrador</a></strong> Tras la devastación,
+Thirogrim moldeó a los elfos a su imagen y semejanza: seres de larga
+vida, con una afinidad innata por la magia y una mente capaz de
+comprender los más profundos misterios arcanos. Les otorgó la gracia, la
+paciencia y la sabiduría para que fueran los guardianes de su legado.
+Bajo su guía, los elfos fundaron el reino de <a
+href="Eldrador.html">Eldrador</a>, una nación donde la magia y el arte
+son el centro de la existencia.</p>
+<p>El sistema de castas de “La Mano de Hierro” de <a
+href="Eldrador.html">Eldrador</a>, con la nobleza de altos elfos y elfos
+oscuros en la cúspide, es un reflejo directo de la filosofía de
+Thirogrim: el poder y el conocimiento deben ser custodiados por aquellos
+más aptos y dedicados, que disponen de siglos para perfeccionar su
+dominio.</p>
+<h3 id="descripción-física-y-manifestaciones">Descripción Física y
+Manifestaciones</h3>
+<p>Thirogrim rara vez se manifiesta físicamente, prefiriendo comunicarse
+a través de visiones, susurros en el Tejido del Maná o alineamientos
+estelares. Cuando adopta una forma mortal, aparece como un elfo de edad
+incalculable, de porte regio y sereno. Su cabello es plateado como la
+luz de las estrellas y sus ojos son pozos de oscuridad salpicados de
+constelaciones vivientes. Viste túnicas etéreas tejidas con hilos de
+maná puro, que cambian de color y forma constantemente. A menudo, <a
+href="Runas.html">Runas</a> arcanas flotan a su alrededor, orbitando su
+cuerpo como planetas en miniatura. No porta armas, pues su mera
+presencia es capaz de doblegar la realidad a su voluntad.</p>
+<h3 id="personalidad-y-motivaciones">Personalidad y Motivaciones</h3>
+<p>Thirogrim es la personificación del orden, el intelecto y el control.
+Es infinitamente paciente, calculador y metódico. Valora la perfección
+por encima de todo y desprecia el caos, la improvisación y la emoción
+descontrolada, considerándolos defectos que conducen a errores
+catastróficos como la rebelión del Primer Rey.</p>
+<ul>
+<li><strong>Guardián del Orden Arcano:</strong> Su principal motivación
+es proteger la integridad del Tejido del Maná y las leyes de la magia.
+Persigue sin piedad a quienes practican magia prohibida o intentan robar
+poder de formas que él considera impuras o peligrosas.</li>
+<li><strong>Patrono de la Élite:</strong> Favorece a la aristocracia
+élfica y a los magos más disciplinados. Cree firmemente que el poder
+arcano es una responsabilidad demasiado grande para las razas de vida
+corta o de intelecto impulsivo.</li>
+<li><strong>Complejo y Distante:</strong> No es un dios de bondad o
+maldad, sino de equilibrio y poder. Su yerno, <a
+href="Morgal.html">Morgal</a>, dios de las mentiras, forma parte de su
+círculo íntimo, lo que demuestra que Thirogrim entiende y acepta que el
+engaño y la sutileza son herramientas mágicas tan válidas como la luz y
+el fuego.</li>
+<li><strong>Opositor a la Profecía:</strong> La profecía del retorno del
+Primer Rey es, para él, la mayor amenaza para la estabilidad de
+Lithernia. Un <a href="Heroes.html">Heroes</a> mortal empuñando el poder
+de un dios caído podría desatar un caos aún peor que el <a
+href="Lilium.html">Lilium</a>. Por ello, sus agentes en <a
+href="Eldrador.html">Eldrador</a> (oráculos, espías y magos) vigilan
+cualquier señal de su cumplimiento para suprimirla.</li>
+</ul>
+<h3 id="culto-y-adoradores">Culto y Adoradores</h3>
+<p>La fe en Thirogrim es predominante en <a
+href="Eldrador.html">Eldrador</a>, especialmente entre la nobleza, los
+magos y los eruditos. Los Altos Elfos y los Elfos Oscuros (de
+conocimiento) son sus más fervientes seguidores.</p>
+<ul>
+<li><strong>Templos:</strong> Sus templos no son lugares de oración
+ruidosa, sino grandes bibliotecas, observatorios astronómicos y
+academias arcanas construidas sobre nodos de poder. La Torre de las
+Estrellas de <a href="Valtoria.html">Valtoria</a>, aunque en territorio
+enano, también opera bajo principios thirogrimianos de preservación del
+saber.</li>
+<li><strong>Rituales:</strong> Sus rituales son complejos y precisos.
+Implican cánticos en élfico antiguo, la alineación con cuerpos celestes
+y el meticuloso trazado de Círculos de Invocación. El solsticio y el
+equinoccio son sus festividades más sagradas, momentos en los que el
+Tejido del Maná es más potente.</li>
+<li><strong>Sacerdocio:</strong> Sus clérigos son archimagos, sabios y
+bibliotecarios. Sus paladines, conocidos como los “Vigilantes del
+Tejido” o “Caballeros Astrales”, son una orden de élite que caza a magos
+renegados y protege artefactos arcanos de gran poder.</li>
+</ul>
+<h3 id="relaciones-con-otros-panteones">Relaciones con Otros
+Panteones</h3>
+<ul>
+<li><strong>Panteón Humano (<a href="Yfrit.html">Yfrit</a>):</strong>
+Mantiene una relación distante y algo condescendiente. Ve la libertad y
+la ambición humana de <a href="Yfrit.html">Yfrit</a> como infantiles y
+peligrosas, aunque respeta su poder sobre los vastos e incontrolables
+océanos.</li>
+<li><strong>Panteón Enano (<a href="Rokael.html">Rokael</a>):</strong>
+Existe un respeto mutuo basado en el concepto de la creación. Thirogrim
+teje lo intangible, mientras <a href="Rokael.html">Rokael</a> forja lo
+tangible. Considera a los <a href="Enanos.html">Enanos</a> demasiado
+terrenales, pero admira su dedicación y su habilidad para crear obras
+perdurables.</li>
+<li><strong>Panteón Korogrim (Sel’thirak):</strong> Fueron aliados por
+necesidad contra el Primer Rey, y ambos desean mantener el orden divino.
+Sin embargo, Thirogrim desprecia los métodos de Sel’thirak,
+considerándolos primitivos y carentes de la elegancia y complejidad de
+la verdadera magia. La magia de la muerte es una herramienta poderosa,
+pero para Thirogrim, es un final burdo, mientras que la magia arcana es
+un arte infinito.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El impacto de Thirogrim en Lithernia es absoluto y omnipresente. Él
+no solo es un dios venerado, sino el fundamento mismo de la magia que
+todos los lanzadores de <a href="Conjuros.html">Conjuros</a> utilizan.
+Cada hechizo lanzado es un tirón en los hilos de su Tejido del Maná, y
+cada <a href="Mago.html">Mago</a>, <a
+href="Hechicero.html">Hechicero</a> o <a href="Brujo.html">Brujo</a>
+opera bajo las leyes que él estableció en el albo de los tiempos.</p>
+<p>Su legado es el Reino de <a href="Eldrador.html">Eldrador</a>, una
+civilización entera dedicada a la búsqueda de la perfección mágica y
+artística. Como pilar del orden divino actual y firme opositor de la
+profecía del Primer Rey, Thirogrim se erige como una fuerza formidable y
+potencialmente antagónica para cualquier <a
+href="Heroes.html">Heroes</a> que busque cambiar el status quo. Su
+influencia define el delicado equilibrio de poder en Lithernia, un
+equilibrio que protegerá a cualquier precio, pues para el Dios de la
+Magia, el orden lo es todo.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.45)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

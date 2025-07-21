@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Pyreforged</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Pyreforged</div>
+        <div class="content">
+<hr />
+<p>nombre: Lyra Pyreforged rol: Heredera y Piromante de la Forja edad:
+45 agrupacion: Casa Pyreforged tipo: Casa <a href="Noble.html">Noble</a>
+lema: De la ceniza, el poder. escudo: Un yunque de obsidiana partido,
+sobre el cual descansa un cráneo de dracónido envuelto en llamas
+púrpuras. ciudad_sede: <a href="Valarion.html">Valarion</a> (Cumbres
+Resquebrajadas, <a href="Valtoria.html">Valtoria</a>) rivalidades: Clan
+Agrietacero, Casa Dravonis alianzas: Clan Ironclaw, Gremio de Mercaderes
+Genasi de Fuego relaciones: Borin Agrietacero (rival acérrimo), Kaelen
+Pyreforged (padre y patriarca), Líderes del Crisol Volcánico
+(colegas/adversarios) tags: [lithernia, personajes, Casa <a
+href="Noble.html">Noble</a>, Dracónido, <a
+href="Valarion.html">Valarion</a>] # Lyra Pyreforged</p>
+<h2 id="biografía">Biografía</h2>
+<p>En las entrañas humeantes de <a href="Valarion.html">Valarion</a>, la
+ciudad-volcán que arde como una herida en las Cumbres Resquebrajadas de
+<a href="Valtoria.html">Valtoria</a>, el nombre Pyreforged no se susurra
+con la reverencia de un linaje antiguo, sino que se pronuncia con el
+respeto forjado en el fuego y el temor ganado a pulso. Lyra Pyreforged
+es la heredera de ese legado de ceniza y poder, una dracónida cuya
+sangre hierve con la furia de sus ancestros y la ambición de un futuro
+que aún debe conquistar.</p>
+<p>Nacida apenas dos generaciones después del acto heroico que elevó a
+su clan de mercenarios errantes a la nobleza, Lyra ha vivido bajo el
+peso de una leyenda. Su abuelo, Kaelen, salvó <a
+href="Valarion.html">Valarion</a> al desviar una erupción cataclísmica
+con el aliento combinado de sus guerreros, un acto que el Crisol
+Volcánico —el consejo gobernante de la ciudad— no pudo ignorar. Este
+honor, sin precedentes para no <a href="Enanos.html">Enanos</a>, fue
+tanto una bendición como una cadena. Desde niña, a Lyra se le enseñó que
+su existencia era una prueba: cada gesto, cada palabra, cada golpe de
+martillo en la forja, era juzgado por las facciones puristas que aún
+veían a su casa como una anomalía, una corrupción de la fe en <a
+href="Valarios.html">Valarios</a>, el dios de la destrucción y la
+renovación.</p>
+<p>Su adiestramiento fue dual y brutal. Por un lado, aprendió la
+diplomacia de la corte del Crisol, a navegar las intrigas de los clanes
+<a href="Enanos.html">Enanos</a> y a sellar pactos con la pragmática
+ferocidad de los <a href="Orcos.html">Orcos</a> del Clan Ironclaw. Por
+otro, pasó incontables horas ante el yunque, con el rostro bañado por el
+sudor y el resplandor del metal al rojo vivo, dominando no solo el arte
+del herrero, sino la peligrosa y secreta “forja de furia”. Aprendió a
+canalizar su propio aliento de fuego, su herencia dracónica, para
+infundir en el acero una esencia elemental, creando armas que ardían con
+una llama interior, vivas y letales.</p>
+<p>Su principal motivación es cimentar el legado de los Pyreforged, no
+como salvadores accidentales, sino como los legítimos amos del poder
+elemental que duerme bajo <a href="Valarion.html">Valarion</a>. Cree
+firmemente que la tradición enana, anclada en la roca y la runa, es un
+vestigio del pasado, y que el verdadero futuro de la forja y la guerra
+reside en el dominio del fuego primordial. Esta convicción la ha puesto
+en un rumbo de colisión directa con Borin Agrietacero, el invicto <a
+href="Heroes.html">Heroes</a> del Foso del Desafío y el símbolo viviente
+de la resistencia enana. Para Lyra, Borin no es solo un rival; es la
+encarnación de la obstinación y el estancamiento, un muro de piedra que
+debe ser reducido a escombros. Su rivalidad trasciende los duelos
+personales, manifestándose en debates encendidos en el Crisol y en una
+competencia feroz por los contratos de armas más prestigiosos.</p>
+<p>Entre sus hazañas, Lyra ya ha dejado su marca. Perfeccionó una
+aleación de obsidiana y acero volcánico, imbuida con su aliento, que dio
+como resultado la espada <em>Furia Púrpura</em>, un arma que se dice
+puede cortar la misma roca y cauterizar la herida al instante. Con esta
+hoja, descendió a las galerías más profundas para eliminar a una
+matriarca de arañas de magma que amenazaba las minas de los Ironclaw,
+asegurando así la lealtad incondicional de los <a
+href="Orcos.html">Orcos</a> y un flujo constante de las menas más raras
+para sus forjas.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Lyra es una figura imponente, incluso para un dracónido. Su estatura
+supera la de la mayoría de los <a href="Enanos.html">Enanos</a> y muchos
+<a href="Humanos.html">Humanos</a>, con una complexión atlética y
+poderosa forjada por años de trabajo en el yunque. Sus escamas no son de
+un color vibrante, sino de un profundo tono obsidiana con vetas
+iridiscentes de púrpura, que parecen absorber la luz y brillar con un
+fuego interno. Sus ojos son ascuas doradas que arden con especial
+intensidad cuando su ira o su concentración alcanzan el punto álgido.
+Una red de finas cicatrices de quemaduras adorna sus antebrazos,
+testimonios de una maestría ganada a través del dolor.</p>
+<p>Cuando se presenta ante el Crisol Volcánico, viste túnicas de seda
+oscura y cuero endurecido, adornadas con broches de obsidiana pulida y
+el emblema de su casa. Sin embargo, su verdadera piel es la armadura. Su
+equipo de combate es una obra maestra de la forja de furia: una armadura
+de placas negras articuladas, más ligera de lo que aparenta y con <a
+href="Runas.html">Runas</a> sutiles que brillan con un calor púrpura
+cuando canaliza su poder.</p>
+<p>Porta a la espalda su creación más preciada, la espada bastarda
+<em>Corazón de Ceniza</em>. Su hoja de metal oscuro parece beber la luz,
+y su empuñadura está envuelta en cuero de draco. La hoja está imbuida
+con la esencia de su propio linaje; cuando Lyra lo desea, el filo arde
+con una llama violeta que no consume, sino que desintegra. No es un arma
+encantada por magos, es una extensión de su propia alma dracónica, un
+argumento de acero y fuego en un mundo que aún duda de su derecho a
+existir.</p>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Lyra Pyreforged no es solo una heredera; es una fuerza de cambio en
+uno de los reinos más tradicionalistas de Lithernia. Su destino está
+intrínsecamente ligado al de <a href="Valarion.html">Valarion</a> y, por
+extensión, al de todo el reino de <a
+href="Valtoria.html">Valtoria</a>.</p>
+<p>Si triunfa en su ambición de consolidar el poder de su casa, podría
+desencadenar una revolución cultural. La “forja de furia” y el poder
+dracónico podrían desplazar a las artes rúnicas ancestrales de los <a
+href="Enanos.html">Enanos</a>, creando una nueva era de poder elemental
+en el corazón de la montaña. Esto podría fortalecer inmensamente a <a
+href="Valtoria.html">Valtoria</a>, pero también podría fracturarla,
+llevando a una guerra civil entre los clanes puristas y los
+reformistas.</p>
+<p>A través de sus alianzas con los mercaderes Genasi de Fuego, las
+armas únicas de la Casa Pyreforged ya comienzan a filtrarse en los
+conflictos de la Gran Guerra. Cada hoja ardiente que llega a un campo de
+batalla en <a href="Galvorn.html">Galvorn</a> o a las fronteras de <a
+href="Eldrador.html">Eldrador</a> altera el equilibrio de poder,
+convirtiendo a Lyra y su casa en actores involuntarios —pero
+significativos— en el destino de todo el continente.</p>
+<p>Su fracaso, por otro lado, sería igualmente resonante. La caída de la
+Casa Pyreforged sería la prueba que el Clan Agrietacero y otros puristas
+necesitan para reafirmar su dominio, cerrando las puertas de <a
+href="Valtoria.html">Valtoria</a> a cualquier influencia externa durante
+siglos y extinguiendo la llama de una de las innovaciones más potentes y
+peligrosas de la era actual. El legado de Lyra, por tanto, no se medirá
+en oro o títulos, sino en el futuro que forje para su gente y en las
+cenizas que deje a su paso. Ella es la encarnación del lema de su casa:
+de la ceniza, nacerá el poder, o todo volverá a ser ceniza.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.44)</li>
+<li><a href="Casa%20Pyreforged.html">Casa Pyreforged</a> (relevancia:
+0.33)</li>
+<li><a href="Casa%20Pyreforge.html">Casa Pyreforge</a> (relevancia:
+0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

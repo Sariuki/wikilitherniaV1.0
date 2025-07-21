@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fidriel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Fidriel</div>
+        <div class="content">
+<h1 id="fidriel-el-dragón-del-rayo-y-la-sabiduría">Fidriel, el Dragón
+del Rayo y la Sabiduría</h1>
+<p>Considerado el más enigmático de los cuatro grandes <a
+href="Dragones.html">Dragones</a> <a
+href="Primordiales.html">Primordiales</a>, Fidriel es una figura
+legendaria cuya influencia en Lithernia no se midió en territorios
+conquistados, sino en el conocimiento sembrado y el equilibrio
+preservado. Mientras sus hermanos <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+y Tal’vorak encarnaban la furia elemental de la creación y la
+destrucción, Fidriel representaba el intelecto cósmico: la súbita y
+brillante chispa del rayo que ilumina la oscuridad, trayendo consigo la
+inspiración, la innovación y la sabiduría arcana.</p>
+<h3 id="biografía">Biografía</h3>
+<p><strong>Forja del Mundo y Amanecer Dracónico</strong> Nacido en la
+Forja del Mundo junto a sus pares <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+Tal’vorak y <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>,
+Fidriel se distinguió desde el principio. Su aliento no solo creaba
+tormentas, sino que traía consigo la “inspiración del trueno”, una
+fuerza que despertaba la mente y aceleraba el descubrimiento. Durante el
+Amanecer Dracónico, mientras otras casas dracónicas subyugaban a los
+pueblos mortales mediante la fuerza bruta, la Casa de Fidriel extendió
+su dominio a través del conocimiento. Fundó y tuteló las primeras
+escuelas de magia elemental y fomentó avances tecnológicos que parecían
+siglos adelantados a su tiempo. Incluso durante el apogeo del tiránico
+Imperio Talborak, las academias bajo la protección de Fidriel
+permanecieron como faros de saber, santuarios neutrales donde la magia
+podía ser estudiada sin las ataduras de la política dracónica.</p>
+<p><strong>Las Guerras Dracónicas y el Gran Intrigante</strong> Cuando
+las Guerras Dracónicas estallaron, enfrentando a los <a
+href="Dragones.html">Dragones</a> metálicos de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>
+contra los cromáticos de Tal’vorak, Fidriel adoptó un rol de intrigante.
+Rechazando tomar un bando de forma permanente, tejió una compleja red de
+alianzas cambiantes y manipulaciones sutiles. Su objetivo no era la
+victoria de uno u otro, sino la preservación del equilibrio. Consciente
+de que una victoria total de cualquiera de los dos bandos sumiría al
+mundo en una tiranía de fuego o en un caos de conquista, Fidriel movía
+sus piezas desde las sombras, susurrando consejos a generales, revelando
+secretos a estrategas y orquestando eventos que aseguraran que ninguna
+facción obtuviera una ventaja definitiva. Este papel le ganó el respeto
+y el temor de sus pares, quienes lo veían como una mente impredecible y
+formidable.</p>
+<p><strong>La Caída Dragónica y el Pacto con el Rey</strong> Al concluir
+las guerras, con los grandes imperios dracónicos en ruinas y sus linajes
+agotados, Fidriel comprendió que la Era de las Escamas y Fuego llegaba a
+su fin. En lugar de aferrarse a un poder menguante, se retiró del mundo,
+convirtiéndose en un guardián solitario de los secretos arcanos más
+profundos de Lithernia, oculto en un santuario lejano.</p>
+<p>Sin embargo, su aislamiento no fue absoluto. Siglos después, cuando
+el Primer Rey emergió para unificar a los pueblos mortales, Fidriel
+reconoció en él el potencial para restaurar el orden que tanto había
+luchado por mantener. El Primer Rey, en su sabiduría, no buscó someter
+al dragón, sino forjar una alianza. A cambio de respeto y de la promesa
+de preservar el conocimiento, Fidriel selló un pacto con él, usando su
+poder ancestral para proteger las fronteras del naciente reino humano,
+demostrando que su lealtad última no era hacia los <a
+href="Dragones.html">Dragones</a> o los mortales, sino hacia el
+equilibrio mismo de Lithernia.</p>
+<p>Tras la caída del Rey y el Cataclismo del <a
+href="Lilium.html">Lilium</a>, no hay registros de la actividad de
+Fidriel. Se presume que permanece en su reclusión, observando el
+desarrollo de la nueva era y custodiando verdades que podrían cambiar el
+curso de la historia.</p>
+<h3 id="descripción-física-y-habilidades">Descripción Física y
+Habilidades</h3>
+<p>Fidriel es un dragón de proporciones colosales, aunque su figura es
+más estilizada y elegante que la de sus hermanos. Sus escamas no son de
+un solo color, sino que brillan con los tonos iridiscentes de una
+tormenta: azules profundos, violetas eléctricos y vetas de oro y plata
+que crepitan con energía estática. Un leve zumbido, como el de un trueno
+distante, emana constantemente de su cuerpo. Sus ojos son pozos de
+inteligencia líquida, de un color amatista profundo, capaces de ver no
+solo el presente, sino los hilos del maná y las corrientes del
+destino.</p>
+<p>No porta armas ni armaduras, pues su cuerpo es una tormenta viviente
+y su mente, su mayor arma. Su guarida, cuya ubicación es uno de los
+secretos mejor guardados del mundo, es descrita en los textos apócrifos
+como una biblioteca imposible, tallada en el corazón de un pico
+montañoso donde una tormenta eléctrica es perpetua. Sus salas contienen
+el conocimiento perdido de eras, artefactos de poder inimaginable y un
+observatorio astral que le permite contemplar el tejido de la
+realidad.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Fidriel es tan sutil como profundo. A diferencia de los
+otros <a href="Dragones.html">Dragones</a>, cuyas herencias son visibles
+en montañas calcinadas y ruinas de imperios, la huella de Fidriel reside
+en el intelecto y la magia de Lithernia.</p>
+<ol type="1">
+<li><strong>Fundador del Conocimiento Arcano:</strong> Muchas de las
+escuelas de magia y los principios arcanos que aún se estudian tienen su
+origen en las academias que él tuteló. Es el patrón no venerado de
+magos, eruditos e inventores.</li>
+<li><strong>El Arquitecto del Equilibrio:</strong> Sus intrigas durante
+las Guerras Dracónicas fueron cruciales para evitar que el mundo cayera
+bajo una única tiranía, permitiendo indirectamente el surgimiento de las
+civilizaciones mortales.</li>
+<li><strong>El Guardián de los Secretos:</strong> Como recluso, Fidriel
+se ha convertido en una figura mítica, un “santo grial” para aquellos
+que buscan la verdad. Se cree que conoce la verdadera naturaleza del <a
+href="Lilium.html">Lilium</a>, los detalles del sellado del Primer Rey
+y, quizás, la clave para romper las profecías que asolan la era actual.
+Encontrar su santuario es una de las grandes búsquedas imposibles, una
+que podría otorgar a los héroes el poder de salvar o destruir el
+mundo.</li>
+</ol>
+<p>En la Era Actual, Fidriel representa la esperanza de que la sabiduría
+puede prevalecer sobre la fuerza bruta. Es el gran misterio viviente de
+Lithernia, un poder latente cuya intervención podría, una vez más,
+alterar el destino de todos.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.79)</li>
+<li><a href="Personajes.html">Personajes</a> (relevancia: 0.36)</li>
+<li><a href="Ignis.html">Ignis</a> (relevancia: 0.31)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

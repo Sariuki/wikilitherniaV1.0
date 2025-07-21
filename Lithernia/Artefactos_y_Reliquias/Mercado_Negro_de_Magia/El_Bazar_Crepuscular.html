@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El_Bazar_Crepuscular</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">El_Bazar_Crepuscular</div>
+        <div class="content">
+<h1 id="el-bazar-crepuscular">El bazar crepuscular</h1>
+<h3 id="propiedades-mecánicas">Propiedades Mecánicas</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Propiedad</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Zona de Tregua</strong></td>
+<td style="text-align: left;">Dentro de los límites del bazar, no se
+pueden realizar tiradas de ataque ni lanzar <a
+href="Conjuros.html">Conjuros</a> que inflijan daño o impongan una
+condición. Los intentos fallan automáticamente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pacto Ineludible</strong></td>
+<td style="text-align: left;">Un trato aceptado verbalmente está
+mágicamente sellado. Romper el acuerdo activa una consecuencia inmediata
+(ver <strong>Tabla de Consecuencias</strong>), equivalente a un conjuro
+de <em>Deseo</em> con intención malévola.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Existencia Liminal</strong></td>
+<td style="text-align: left;">El bazar solo se manifiesta durante el
+crepúsculo. Se desvanece por completo a la medianoche o al mediodía,
+llevándose a cualquiera que permanezca dentro de sus límites.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Aparición por
+Necesidad</strong></td>
+<td style="text-align: left;">El bazar no puede ser encontrado mediante
+viaje o adivinación. El DM determina su aparición, generalmente en
+respuesta a una necesidad extrema (ver <strong>Tabla de
+Aparición</strong>).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;">Arcanos / Historia</td>
+<td style="text-align: left;">Identifica el Bazar Crepuscular como un
+mercado extradimensional donde las leyes mortales no aplican y los
+tratos son mágicamente vinculantes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>20</strong></td>
+<td style="text-align: left;">Investigación / Saber Popular</td>
+<td style="text-align: left;">Revela que el bazar aparece solo ante los
+desesperados y que el pago rara vez es en oro, sino en conceptos
+abstractos como recuerdos, años de vida o secretos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>25</strong></td>
+<td style="text-align: left;">Arcanos / Religión</td>
+<td style="text-align: left;">Se conoce el riesgo de romper un pacto: la
+invocación de un <strong>Guardián del Pacto</strong> y la posibilidad de
+quedar atrapado o borrado de la existencia. Se sospecha que es una
+reliquia de la era pre-dioses.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-aparición-del-bazar-d100">Tabla de Aparición del Bazar
+(d100)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d100</th>
+<th style="text-align: left;">Condición de Aparición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">01-20</td>
+<td style="text-align: left;">Un personaje busca desesperadamente una
+cura para una enfermedad mágica, romper una maldición o un componente de
+conjuro único.</td>
+</tr>
+<tr>
+<td style="text-align: left;">21-35</td>
+<td style="text-align: left;">El grupo está perdido en ruinas de la era
+pre-Cataclismo del <a href="Lilium.html">Lilium</a>. El bazar aparece en
+una cámara oculta o en un claro olvidado.</td>
+</tr>
+<tr>
+<td style="text-align: left;">36-50</td>
+<td style="text-align: left;">Un personaje expresa un deseo vehemente de
+venganza, poder o conocimiento prohibido.</td>
+</tr>
+<tr>
+<td style="text-align: left;">51-65</td>
+<td style="text-align: left;">Un personaje con lazos con el Primer Rey o
+que investiga activamente su profecía tiene una visión o sueño sobre el
+bazar.</td>
+</tr>
+<tr>
+<td style="text-align: left;">66-80</td>
+<td style="text-align: left;">El grupo posee un artefacto de la era
+pre-<a href="Lilium.html">Lilium</a> o información relacionada con las
+Lanzas Celestiales.</td>
+</tr>
+<tr>
+<td style="text-align: left;">81-95</td>
+<td style="text-align: left;">Un personaje necesita un medio para
+cumplir una tarea imposible impuesta por una entidad poderosa (Patrón de
+<a href="Brujo.html">Brujo</a>, Deidad).</td>
+</tr>
+<tr>
+<td style="text-align: left;">96-100</td>
+<td style="text-align: left;">A discreción del DM como un evento crucial
+de la trama.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-mercaderes-d8">Tabla de Mercaderes (d8)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d8</th>
+<th style="text-align: left;">Mercader</th>
+<th style="text-align: left;">Especialidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><a
+href="ElfosOscuros.html">ElfosOscuros</a> de Moonshadow</td>
+<td style="text-align: left;">Rituales prohibidos, secretos arcanos,
+fragmentos del Legado de la Sombra.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Shadar-kai Melancólico</td>
+<td style="text-align: left;">Emociones embotelladas, esencias del Plano
+de las Sombras, armas con daño psíquico.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><a href="Tieflings.html">Tieflings</a>
+Exiliado</td>
+<td style="text-align: left;">Reliquias y rumores sobre el Primer Rey y
+el Cataclismo del <a href="Lilium.html">Lilium</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><a href="Goblins.html">Goblins</a> del
+Clan Shadowscale</td>
+<td style="text-align: left;">Información, <a
+href="Mapas.html">Mapas</a> de túneles secretos y rumores a cambio de
+secretos personales.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Coleccionistas de lamentos</td>
+<td style="text-align: left;">Artefactos malditos a cambio de “lamentos”
+de gran calidad (el dolor de una pérdida reciente).</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Un eco de La Dama del Velo</td>
+<td style="text-align: left;">Otorga una respuesta verdadera a una única
+pregunta a cambio de un recuerdo vital.</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><a href="Gnomos.html">Gnomos</a> Artífice
+Desterrado</td>
+<td style="text-align: left;">Artilugios que manipulan o anulan la
+magia; prototipos inestables.</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;"><a href="Humanos.html">Humanos</a> sin
+Rostro</td>
+<td style="text-align: left;">Compra y vende identidades, destinos y
+juramentos de lealtad.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-mercancías-d12">Tabla de Mercancías (d12)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d12</th>
+<th style="text-align: left;">Mercancía</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>Poción de Éter Superior:</strong>
+Recupera 4d4 + 4 Puntos de Maná.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>Astrolabio de <a
+href="Eldrador.html">Eldrador</a>:</strong> Concede ventaja en pruebas
+para identificar o encontrar <a href="Conjuros.html">Conjuros</a>
+Estelares durante 24 horas.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>Corazón de Cristal de
+Maná:</strong> Componente para usar la Mezcla de <a
+href="Conjuros.html">Conjuros</a> una vez sin riesgo de fallo o <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+adicional.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Un susurro sobre la Lanza Celestial
+Mortum: Apunta a una facción que la busca o a una ruina donde podría
+estar oculta.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Fragmento de armadura pre-<a
+href="Lilium.html">Lilium</a>: Funciona como un escudo +1, pero susurra
+pesadillas sobre [Lithernia/[<a
+href="Lithernia/%5B%5B01_Historia.html">01_Historia</a>/05_CaidaLilium/<a
+href="Lithernia/01_Historia/08_EraActual/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Sombra embotellada: Puede liberarse para
+lanzar <em>Oscuridad</em> o consumirse para los efectos de <em>Pasar sin
+Rastro</em> durante 10 minutos.</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">El nombre verdadero de un agente del El
+culto de la araña abisal infiltrado en una corte real.</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Un frasco con cenizas del <a
+href="Lilium.html">Lilium</a>: Componente para <a
+href="Conjuros.html">Conjuros</a> que superan la resistencia al daño de
+Fuego o Necrótico.</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">La localización de una entrada secreta a
+la Ciudadela de obsidiana.</td>
+</tr>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Una llave forjada con un recuerdo
+solidificado: Abre una puerta que no existe físicamente a un refugio
+extradimensional.</td>
+</tr>
+<tr>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">Receta para una Poción de Regulación de
+Maná: Reduce a la mitad la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+sufrida durante 1 hora.</td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Un ojo de un Coleccionistas de lamentos:
+Permite al portador ver el dolor emocional como auras de colores.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-costes-no-monetarios-d10">Tabla de Costes No Monetarios
+(d10)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d10</th>
+<th style="text-align: left;">Coste Exigido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Un recuerdo feliz de la infancia (olvidado
+permanentemente).</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Diez años de tu esperanza de vida
+(envejece 10 años instantáneamente).</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Tu capacidad de mentir (no puedes realizar
+pruebas de Engaño; debes decir la verdad literal).</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Un juramento de servicio (bajo el efecto
+de un conjuro de <em>Misión</em>).</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Tu reflejo (ya no proyectas un reflejo en
+ninguna superficie).</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">La competencia en una habilidad o
+herramienta.</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">El color de tus ojos (se vuelven de un
+gris sin vida).</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Un secreto que podría destruir a un aliado
+o a ti mismo si se revela.</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">Tu suerte (ya no puedes beneficiarte del
+rasgo <em>Suerte</em> o similares; los 1 en los d20 son fallos críticos
+automáticos).</td>
+</tr>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Un fragmento de tu alma (recibes un nivel
+de agotamiento que solo se elimina al anular el trato).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-consecuencias-por-trato-roto-d6">Tabla de Consecuencias
+por Trato Roto (d6)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">d6</th>
+<th style="text-align: left;">Maldición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><strong>La Deuda Eterna:</strong> El
+personaje es transportado al bazar en su próxima aparición y se
+convierte en un sirviente eterno.</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><strong>El Velo del Olvido:</strong> La
+existencia del personaje es borrada de la memoria de todos los seres
+vivos, excepto de él mismo.</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><strong>La Caza del Guardián:</strong> Un
+<strong>Guardián del Pacto</strong> es invocado para cazar al personaje
+a través de los planos.</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><strong>El Don Invertido:</strong> El
+objeto o conocimiento obtenido se corrompe. Una poción curativa se
+vuelve veneno; un secreto verdadero se transforma en una mentira.</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><strong>Perdido entre Planos:</strong> El
+personaje queda permanentemente bajo el efecto del conjuro
+<em>Destierro</em>, atrapado en una dimensión de bolsillo.</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><strong>La Sombra Rebelde:</strong> La
+sombra del personaje se convierte en un <em>Asesino</em> que lo acecha
+para matarlo.</td>
+</tr>
+</tbody>
+</table>
+<p>```statblock name: Guardián del Pacto size: Grande type: constructo
+alignment: legal neutral ac: 20 (Armadura natural) hp: 210 (20d10 + 100)
+speed: 40 ft. stats: [24, 10, 20, 10, 14, 1] damage_immunities: Veneno,
+Psíquico; Contundente, Perforante y Cortante de ataques no mágicos
+condition_immunities: Hechizado, Agotamiento, Asustado, Paralizado,
+Petrificado, Envenenado senses: Visión Verdadera 120 ft., Percepción
+Pasiva 12 languages: Entiende todos los idiomas pero no puede hablar cr:
+15 traits: - name: Cazador Inexorable desc: “El guardián conoce la
+ubicación de su objetivo designado en cualquier plano de existencia. El
+objetivo no puede ocultarse del guardián y este no puede ser sorprendido
+por su objetivo.” - name: Resistencia Mágica desc: “El guardián tiene
+ventaja en las tiradas de salvación contra conjuros y otros efectos
+mágicos.” - name: Vínculo del Pacto desc: “Si el objetivo del guardián
+es reducido a 0 puntos de golpe por él, su alma es capturada y su cuerpo
+se desintegra en polvo. Solo un conjuro de <em>Deseo</em> puede
+restaurarlo.” actions: - name: Multiataque desc: “El guardián realiza
+dos ataques de Golpe Resolutorio.” - name: Golpe Resolutorio desc:
+“Ataque de arma cuerpo a cuerpo: +12 a impactar, alcance 10 ft., un
+objetivo. Impacto: 21 (3d8 + 8) de daño contundente más 13 (3d8) de daño
+de fuerza.” - name: Grilletes Planares (Recarga 5-6) desc: “El guardián
+lanza un grillete de energía a una criatura que pueda ver a 60 pies. El
+objetivo debe superar una tirada de salvación de Fuerza CD 20 o será
+arrastrado hasta 30 pies en línea recta hacia el guardián y quedará
+apresado (escapar CD 20). Mientras esté apresado, el guardián no puede
+usar este ataque contra otro objetivo.”</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.42)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

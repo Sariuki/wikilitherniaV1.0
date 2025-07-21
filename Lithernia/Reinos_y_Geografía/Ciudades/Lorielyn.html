@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorielyn</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lorielyn</div>
+        <div class="content">
+<h1 id="lorielyn">Lorielyn</h1>
+<p>En el corazón de un valle resguardado, donde las imponentes montañas
+de <a href="Valtoria.html">Valtoria</a> dan paso a colinas fértiles, se
+encuentra Lorielyn, la Ciudad del Engranaje Fértil. No es una fortaleza
+tallada en la roca ni una ciudadela de acero, sino un testimonio
+viviente de la armonía entre la naturaleza y la invención. Sus edificios
+no se alzan hacia el cielo, sino que se acurrucan en las laderas, con
+techos de hierba que los confunden con el paisaje. Un río de aguas
+cristalinas, el Susurro, la atraviesa, cruzado por elegantes puentes de
+piedra iluminados por el brillo suave de faroles gnómicos. Lorielyn es
+un faro de cooperación en un mundo de conflictos, un lugar donde el
+zumbido de los engranajes acompaña el murmullo del viento y el
+crecimiento de la cosecha.</p>
+<h2 id="historia">Historia</h2>
+<p>Lorielyn no nació de la guerra ni de la conquista, sino de un pacto
+de amistad. Tras siglos de vagar, una inventora gnómica llamada Gilda
+Tornilloingenio y un granjero halfling, Finnian Pieveloz, encontraron
+este valle oculto. Gilda vio en él un lienzo para sus ingenios, mientras
+que Finnian vio una tierra prometida para su gente. Juntos, fundaron una
+comunidad basada en un principio radical: la tecnología debía servir a
+la vida, no dominarla.</p>
+<p>Los <a href="Gnomos.html">Gnomos</a> diseñaron autómatas para arar
+los campos y sistemas de riego automatizados, mientras los <a
+href="Halflings.html">Halflings</a> aportaron su profundo conocimiento
+de la tierra y su inigualable sentido de la comunidad. Pronto, la
+prosperidad de Lorielyn atrajo a clanes <a href="Enanos.html">Enanos</a>
+cercanos, que, impresionados por la calidad de la artesanía y la paz del
+valle, se establecieron allí, aportando su maestría en la cantería y la
+metalurgia. Así se formó el “Consejo de los Valles”, una asamblea que
+representa a los gremios y clanes de las tres razas fundadoras, hoy
+liderada por el pragmático Thane enano Borin Picosombrío, quien gobierna
+con la sabiduría de la piedra y la precisión de un relojero.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de Cristal</strong>: El centro cívico y social
+de Lorielyn. Es un colosal invernadero de cristal y bronce, cuyos
+paneles se abren y cierran con un intrincado sistema de engranajes que
+sigue el curso del sol. En su interior crecen las plantas más raras y
+sirve como lugar de reunión, mercado y sede del Consejo de los Valles.
+El suave tic-tac de sus mecanismos es el latido de la ciudad.</p></li>
+<li><p><strong>Las Laderas Cosechadoras</strong>: Los distritos
+residenciales de la ciudad, excavados en las verdes colinas del valle.
+Las casas son acogedoras madrigueras con fachadas de madera y piedra, y
+techos cubiertos de césped y flores silvestres. Cada hogar cuenta con su
+propio jardín en miniatura, atendido por pequeños autómatas con forma de
+insectos metálicos.</p></li>
+<li><p><strong>El Muelle del Río Susurrante</strong>: A lo largo de las
+orillas del río se extiende el distrito comercial. Pequeños talleres de
+artesanos, posadas y tabernas se alinean en las riberas. Es aquí donde
+los Genasi de Tierra supervisan los cimientos de los puentes y los
+Goliatths comercian con las pieles y hierbas de las montañas más altas.
+Por la noche, los faroles de cristal gnómicos proyectan patrones de luz
+danzante sobre el agua.</p></li>
+<li><p><strong>Las Forjas de la Colina</strong>: Ligeramente apartada
+del centro del valle, esta zona es el dominio de los <a
+href="Enanos.html">Enanos</a>. Sus forjas están integradas en la ladera
+de una colina, utilizando el calor geotérmico para fundir metales.
+Aunque el sonido de los martillos es constante, el humo se filtra a
+través de ingeniosas chimeneas que lo limpian antes de liberarlo,
+manteniendo puro el aire del valle.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Lorielyn es una celebración de la colaboración. El
+ingenio es la moneda más valorada, y un nuevo invento que beneficia a la
+comunidad se celebra con más pompa que una victoria militar. La vida
+gira en torno a los ciclos de la siembra y la cosecha, culminando en el
+famoso <strong>Festival de la Cosecha Mecanizada</strong>. Durante una
+semana, la ciudad se llena de música, banquetes y competiciones
+amistosas donde <a href="Gnomos.html">Gnomos</a> y <a
+href="Enanos.html">Enanos</a> presentan sus últimos autómatas agrícolas
+ante el aplauso de los <a href="Halflings.html">Halflings</a>.</p>
+<p>La propiedad es en gran medida comunal. Los campos, los talleres y
+las herramientas pertenecen a la ciudad, y todos contribuyen y se
+benefician por igual. Las disputas no se resuelven con duelos, sino con
+debates en el Consejo, donde la solución más lógica y eficiente suele
+ganar.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La estética de Lorielyn es una fusión única que podría describirse
+como “ingeniería pastoral”. Las estructuras de piedra y madera se
+integran a la perfección en el entorno natural, adornadas con engranajes
+de bronce y tuberías de cobre pulido que no desentonan, sino que parecen
+crecer orgánicamente junto a las enredaderas. El ambiente es pacífico y
+laborioso. El aire huele a tierra recién removida, a pan horneado y al
+leve aroma metálico del aceite de las maquinarias. Los sonidos
+predominantes son el fluir del río, el canto de los pájaros y un
+constante y suave zumbido mecánico, la música de fondo de una utopía en
+funcionamiento.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Susurro del Río</strong>: Los ancianos de Lorielyn
+afirman que el río que cruza la ciudad no es ordinario. Cuentan que, en
+las noches de silencio, a aquellos con un corazón puro y una mente
+ingeniosa, el río les susurra secretos. No habla de oro ni de poder,
+sino de la ubicación de vetas de minerales raros, de fallas en una
+maquinaria o de esquemas de inventos olvidados hace mucho
+tiempo.</p></li>
+<li><p><strong>El Gólem del Corazón de Cristal</strong>: La leyenda más
+profunda de Lorielyn habla de un guardián dormido. Se dice que, bajo el
+gran invernadero, yace “El Corazón de Cristal”, un gólem ancestral
+forjado por los fundadores con la esencia misma del valle. No es solo un
+protector; es la fuente de energía primigenia que alimenta toda la
+tecnología de la ciudad. Despertarlo en un momento de gran necesidad
+desataría un poder defensivo inimaginable, pero el coste sería terrible:
+el gólem consumiría la energía del valle durante una generación,
+sumiendo a Lorielyn en el silencio y la oscuridad. Es la defensa
+definitiva y la decisión más temida.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.57)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

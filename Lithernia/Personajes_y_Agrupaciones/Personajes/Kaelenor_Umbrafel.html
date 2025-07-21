@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelenor_Umbrafel</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelenor_Umbrafel</div>
+        <div class="content">
+<h1 id="kaelenor-umbrafel">Kaelenor Umbrafel</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido hace más de un milenio en las sombrías y eruditas arboledas de
+<a href="Eldrador.html">Eldrador</a>, Kaelenor Umbrafel es un vestigio
+viviente de una era olvidada. Proviene de una rama menor y ahora extinta
+de los elfos oscuros, una casa que valoraba el conocimiento por encima
+de la intriga política y el poder marcial que dominaban las grandes
+casas como Auris o Noctha. Desde joven, Kaelenor mostró una insaciable
+sed de saber, no por la magia que pudiera otorgarle, sino por la verdad
+que revelaba. Fue testigo de cómo la historia era moldeada por los
+vencedores, cómo los textos que contradecían la narrativa de los dioses
+y sus nobles vasallos eran declarados herejía y purgados en llamas
+sagradas.</p>
+<p>Su punto de quiebre llegó cuando descubrió un fragmento de una
+crónica de la Era del Primer Rey, un texto que describía una alianza
+pacífica y próspera entre <a href="Humanos.html">Humanos</a> y <a
+href="Orcos.html">Orcos</a>, algo impensable en la Lithernia de la Gran
+Guerra. Al presentar su hallazgo ante los sabios de Sunwood, fue acusado
+de disidencia, y su descubrimiento fue confiscado y destruido.
+Desilusionado y exiliado en espíritu, Kaelenor abandonó <a
+href="Eldrador.html">Eldrador</a>, convencido de que la verdadera
+tiranía no se ejercía con la espada, sino con la censura.</p>
+<p>Durante la Era Crepuscular, mientras el mundo se reconstruía sobre
+mentiras, Kaelenor encontró a otros como él: eruditos desposeídos,
+cronistas proscritos y magos desengañados. Juntos, fundaron el
+<strong>Cónclave del Velo Argénteo</strong>, una sociedad secreta
+juramentada a una misión sagrada y peligrosa: desenterrar la verdad
+oculta tras el Cataclismo del <a href="Lilium.html">Lilium</a>. Como
+<strong>Archivista Primus</strong>, Kaelenor se convirtió en el corazón
+intelectual de la organización. No es un líder de campo, sino el
+estratega que dirige una red de espías, arqueólogos y ladrones desde su
+archivo secreto en la ciudad oculta de <a
+href="Thelyrion.html">Thelyrion</a>.</p>
+<p>Su motivación es una fría y paciente furia. Cree que la profecía del
+retorno del Primer Rey es una simplificación peligrosa. Lo que él busca
+es el conocimiento puro: la verdadera naturaleza del <a
+href="Lilium.html">Lilium</a>, la tecnología y magia de la era
+pre-cataclismo, y el motivo real de la rebelión del Rey. Para Kaelenor,
+las Lanzas Celestiales no son solo armas divinas, son las llaves de la
+prisión más grande de la historia, y él pretende encontrar la
+cerradura.</p>
+<p>Entre sus hazañas más notorias se cuenta la orquestación del robo de
+los “Diarios de Ceniza” de una fortaleza del Clan Whisper en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y la decodificación de estelas
+dracónicas que revelaban la participación de antiguos <a
+href="Dragones.html">Dragones</a> en la guerra contra los dioses. Su
+relación más definitoria es con <strong>Lyra Sombraviento</strong>, una
+joven humana a la que rescató de los escombros de una biblioteca que el
+ejército de <a href="Mor&#39;dhul.html">Mor’dhul</a> había incendiado.
+En ella vio el reflejo de su propia juventud y la convirtió en su agente
+más letal y leal, sus ojos y manos en un mundo que él prefiere observar
+desde las sombras. Mantiene también una compleja rivalidad con
+<strong>Borin Runescribe</strong>, un sabio enano de la Torre de las
+Estrellas. Ambos se respetan profundamente, pero sus métodos chocan:
+Kaelenor confía en textos frágiles y secretos susurrados, mientras que
+Borin solo cree en la verdad tallada en la piedra eterna de <a
+href="Valtoria.html">Valtoria</a>. Este duelo intelectual es un
+microcosmos de los conflictos ideológicos de Lithernia.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Kaelenor posee la gracia austera y atemporal de los elfos oscuros de
+antiguo linaje. Con 1250 años, su edad no se manifiesta en fragilidad,
+sino en una calma profunda y una mirada que parece contener el peso de
+bibliotecas enteras. Su piel tiene el color y la textura de la pizarra
+pulida, y su largo cabello, de un blanco plateado, suele llevarlo
+recogido en una sencilla trenza. Sus rasgos son afilados y
+aristocráticos, pero carece de la arrogancia típica de la nobleza
+élfica; en su lugar, proyecta una intensidad intelectual que puede
+resultar intimidante.</p>
+<p>Viste con elegancia pragmática. Sus túnicas de lana oscura, casi
+negra, están cortadas a la perfección y carecen de adornos, salvo por
+sutiles bordados rúnicos en los puños que actúan como custodias mágicas
+menores. Sus ropajes ocultan numerosos bolsillos secretos donde guarda
+rollos de pergamino, tintas simpáticas y herramientas de falsificación
+de calidad magistral.</p>
+<p>No porta armadura ni grandes armas, considerando la violencia un
+fracaso de la inteligencia. Sin embargo, en la manga de su túnica
+siempre lleva oculta una <strong>estilete de obsidiana</strong>, afilada
+como un fragmento de noche, para emergencias. Su objeto más preciado es
+el <strong>Ojo de la Memoria</strong>, un monóculo con una lente de
+cristal de luna encantado que, al ser presionado contra un documento o
+artefacto, le permite ver ecos de su historia: las manos que lo
+escribieron, las llamas que casi lo consumieron o la magia residual que
+aún lo impregna.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Kaelenor Umbrafel es una de las figuras más influyentes y
+desconocidas de la era actual. No aspira a un trono ni a la gloria en el
+campo de batalla, pero el conocimiento que acumula podría derrocar
+imperios. Él y el Cónclave representan una tercera vía en el gran
+conflicto de Lithernia: no buscan cumplir ni impedir la profecía, sino
+entenderla para que los mortales puedan, por primera vez, tomar una
+decisión informada sobre su propio destino.</p>
+<p>Su impacto se sentirá a través de las verdades que revele. Un mapa
+antiguo entregado por uno de sus agentes podría guiar a un grupo de
+héroes a la Lanza Chronos. Un texto descifrado por él podría exonerar a
+una casa <a href="Noble.html">Noble</a> caída o condenar a un rey
+venerado. Para las grandes potencias, es una espina clavada: una fuerza
+que no pueden controlar, que comercia con su recurso más preciado y
+peligroso: la verdad. El legado de Kaelenor no será una estatua en una
+plaza, sino la posibilidad de que la historia de Lithernia, por fin, sea
+escrita por aquellos que la viven, y no por los dioses que la
+incendiaron.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.62)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

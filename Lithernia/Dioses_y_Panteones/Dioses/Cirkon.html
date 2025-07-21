@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cirkon</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Cirkon</div>
+        <div class="content">
+<h1 id="cirkon">Cirkon</h1>
+<h2 id="el-corazón-de-la-montaña">El Corazón de la Montaña</h2>
+<p>Cirkon es la Señora de la Piedra Eterna, la guardiana de los
+cimientos del mundo y la patrona venerada del reino enano de <a
+href="Valtoria.html">Valtoria</a>. Como diosa de la roca y las montañas,
+su esencia es la de la estabilidad, la resistencia y la paciencia
+infinita. No es una deidad de palabras grandilocuentes ni de actos
+impulsivos; su poder reside en su presencia inmutable, en la fuerza
+silenciosa que sostiene los picos contra el cielo y custodia los tesoros
+ocultos en las profundidades de Lithernia. Para los <a
+href="Enanos.html">Enanos</a>, ella no es solo una diosa a la que rezar,
+sino la propia tierra que pisan, el aire frío de las cavernas y el eco
+de los picos en el martillo.</p>
+<h3 id="genealogía-y-orígenes-divinos">Genealogía y Orígenes
+Divinos</h3>
+<p>El nacimiento de Cirkon es una de las grandes dualidades del panteón
+enano. Es la hija de <strong><a
+href="Valarios.html">Valarios</a></strong>, el dios de la destrucción y
+los volcanes, una fuerza de cambio caótico y violento. De esta furia
+elemental, sin embargo, nació la personificación de la estabilidad. Los
+teólogos <a href="Enanos.html">Enanos</a> interpretan este hecho como
+una verdad fundamental: de la mayor destrucción surge la oportunidad de
+una nueva y más fuerte fundación. La roca se enfría y endurece tras el
+paso de la lava, y de igual manera, Cirkon representa la permanencia que
+nace del caos.</p>
+<p>Su relación con su tío, <strong><a
+href="Rokael.html">Rokael</a></strong>, dios de la creación, es
+complementaria. Si <a href="Rokael.html">Rokael</a> es el arquitecto
+divino que imagina y da forma, y <a href="Valarios.html">Valarios</a> es
+la fuerza que despeja el lienzo, Cirkon es el material mismo con el que
+se construye: eterno, fiable y lleno de potencial.</p>
+<p>Como matriarca, Cirkon dio a luz a los pilares de la artesanía enana.
+Sus hijos, <strong><a href="Trovdor.html">Trovdor</a></strong>, dios del
+metal, y <strong><a href="Levbrios.html">Levbrios</a></strong>, dios de
+la forja, completan el ciclo sagrado del trabajo enano. Cirkon ofrece la
+roca madre, <a href="Trovdor.html">Trovdor</a> enseña a extraer y
+purificar el metal de sus vetas, y <a href="Levbrios.html">Levbrios</a>
+provee el fuego y la habilidad para darle una forma gloriosa. Esta
+trinidad familiar es el núcleo de la cultura y la industria de <a
+href="Valtoria.html">Valtoria</a>.</p>
+<h3 id="dominio-y-culto">Dominio y Culto</h3>
+<p>El dominio de Cirkon abarca todo lo geológico: desde las cumbres
+nevadas hasta las cavernas más profundas, pasando por cada veta de
+mineral y cada gema preciosa. Es la patrona de los mineros, canteros,
+exploradores de cavernas, arquitectos y de cualquiera que confíe en la
+fuerza de la piedra.</p>
+<ul>
+<li><strong>Culto y Seguidores:</strong> Su culto es el más extendido en
+<a href="Valtoria.html">Valtoria</a>. Los mineros <a
+href="Enanos.html">Enanos</a> nunca inician una excavación sin antes
+golpear el suelo tres veces con su pico en su honor, pidiendo permiso y
+guía. Los arquitectos tallan su runa (una montaña estilizada con un
+corazón de cristal en su interior) en la primera piedra de cualquier
+gran construcción para asegurar su durabilidad.</li>
+<li><strong>Clero y Templos:</strong> Sus clérigos, conocidos como los
+“Hablantes de la Piedra” o “Corazones de la Montaña”, no predican en
+grandes catedrales. Sus templos son las propias montañas: cavernas
+naturales de una belleza sobrecogedora, geodas gigantes o los salones
+excavados más profundos de las fortalezas enanas sirven como sus lugares
+sagrados. Estos clérigos poseen una conexión mística con la tierra; se
+dice que pueden “escuchar el latido de la tierra” para encontrar los
+filones más ricos, predecir terremotos o sentir la debilidad estructural
+en un túnel. Su magia se centra en la transmutación (moldear piedra,
+fortalecer muros) y la abjuración (protección contra derrumbes o
+criaturas subterráneas).</li>
+<li><strong>Rituales:</strong> Sus rituales son solemnes y resonantes.
+Incluyen cánticos profundos que imitan el retumbar de la tierra y
+ofrendas de las gemas más perfectas y los metales más puros extraídos de
+sus dominios. En la “Fiesta del Primer Filón”, los mineros presentan la
+primera roca valiosa de una nueva mina en un altar de granito,
+agradeciendo a Cirkon por revelar los secretos de la tierra.</li>
+</ul>
+<h3 id="personalidad-y-motivaciones">Personalidad y Motivaciones</h3>
+<p>Cirkon es la encarnación de la paciencia y la fuerza estoica. Su
+personalidad es tan inmutable como las montañas que representa: es lenta
+para la ira, pero cuando su furia se desata, es tan devastadora e
+imparable como un terremoto o un alud. Valora la tradición, el trabajo
+duro y la integridad. Desprecia la prisa, la imprudencia y a aquellos
+que toman de la tierra sin dar nada a cambio.</p>
+<p>Su principal motivación es mantener la estabilidad fundamental de
+Lithernia. Ve el mundo como una estructura viva cuyas “huesos” son las
+cordilleras que ella personifica. Cualquier fuerza que busque corromper
+la tierra o desestabilizar sus cimientos —como la magia necrótica de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> o las cicatrices dejadas por el <a
+href="Lilium.html">Lilium</a>— es su enemiga natural.</p>
+<h3 id="relaciones-y-conflictos">Relaciones y Conflictos</h3>
+<ul>
+<li><strong>Panteón Enano:</strong> Es el ancla de su familia. Modera la
+destructividad de su padre <a href="Valarios.html">Valarios</a> y
+proporciona la materia prima para la creatividad de su tío <a
+href="Rokael.html">Rokael</a> y sus hijos, <a
+href="Trovdor.html">Trovdor</a> y <a href="Levbrios.html">Levbrios</a>.
+Es una figura de inmenso respeto dentro de su panteón.</li>
+<li><strong>Otros Panteones:</strong> Mantiene una neutralidad distante
+con la mayoría de los otros panteones. Respeta a <a
+href="Yfrit.html">Yfrit</a> (<a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a>) como una
+fuerza natural igual de poderosa, viendo los acantilados costeros como
+el lugar donde sus dominios se encuentran y se prueban mutuamente. Con
+<a href="Ferion.html">Ferion</a> (Dios de la Naturaleza) existe un
+respeto tenso, pues las ambiciones mineras de sus seguidores a menudo
+entran en conflicto con la santidad de los bosques de los elfos.</li>
+<li><strong>Panteón Korogrim:</strong> Siente una profunda aversión por
+el panteón de <a href="Mor&#39;dhul.html">Mor’dhul</a>. La corrupción
+que extienden es una enfermedad para la piedra y la tierra que ella ama.
+La obsesión de Sel’thirak con la muerte y la decadencia es el antítesis
+directo de su dominio de vida eterna y geológica.</li>
+<li><strong>El Primer Rey y el <a
+href="Lilium.html">Lilium</a>:</strong> El Cataclismo del <a
+href="Lilium.html">Lilium</a> fue una herida atroz en el cuerpo del
+mundo, una cicatriz que Cirkon aún siente. El sellado del Primer Rey
+bajo tierra la convierte, de facto, en su carcelera. No actúa por
+lealtad a los dioses que lo encerraron, sino por un deber superior:
+mantener la estabilidad. Liberar al Rey podría desencadenar otro
+conflicto de proporciones cósmicas, arriesgando la propia integridad del
+plano material, algo que Cirkon no puede permitir.</li>
+</ul>
+<h3 id="representación-física">Representación Física</h3>
+<p>Cirkon no se representa como una belleza etérea, sino como una figura
+de poder y majestuosidad geológica. Se la imagina como una mujer enana
+madura y robusta, cuya piel tiene la textura y el color del granito
+pulido, con vetas de mithril y oro corriendo por sus brazos. Su cabello
+es una cascada de cristales entrelazados que tintinean suavemente, y sus
+ojos brillan como geodas recién abiertas, revelando galaxias de amatista
+y zafiro en su interior. No lleva armadura, pues su propia piel es más
+resistente que cualquier metal. Su arma, si alguna vez la necesitara,
+sería un martillo geológico capaz de pulverizar montañas o de dar forma
+a continentes con un solo golpe.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El impacto de Cirkon en Lithernia es literal y fundamental. Ella
+<em>es</em> el fundamento sobre el que se asientan los reinos. Su
+influencia ha dado a los <a href="Enanos.html">Enanos</a> su carácter
+resiliente, su paciencia y su amor por la artesanía. La riqueza mineral
+de <a href="Valtoria.html">Valtoria</a>, que alimenta tanto su economía
+como su poderío militar, es un don directo de ella.</p>
+<p>En la Era Crepuscular, con la profecía del Retorno del Rey ganando
+fuerza, el papel de Cirkon se vuelve más crucial que nunca. ¿Permitirá
+que los mortales excaven en busca de las Lanzas Celestiales que
+perturban el sueño de la tierra? ¿Se opondrá a la liberación del Primer
+Rey para evitar otro cataclismo, convirtiéndose en un obstáculo para los
+héroes? ¿O podría su sabiduría ancestral revelar una tercera vía para
+restaurar el equilibrio sin desatar la guerra? El Corazón de la Montaña
+es paciente y observa, y su decisión final podría determinar el destino
+de toda Lithernia.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.50)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

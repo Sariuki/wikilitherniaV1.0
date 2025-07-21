@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04_AlborDeLaMagia</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">04_AlborDeLaMagia</div>
+        <div class="content">
+<h1 id="albor-de-la-magia">04 Albor de la Magia</h1>
+<p>El Albor de la Magia marca un capítulo primordial en la <a
+href="Herreria.html">Herreria</a> de Lithernia, una época en la que el
+fuego primordial de la creación y la esencia arcana comenzaron a
+entrelazarse para dar vida a un tejido mágico único: el Tejido del Maná.
+Esta era de descubrimientos ignició la llama que iluminaría, y a la vez
+desgarraría, el destino del mundo.</p>
+<h2 id="la-arquidimensión-del-maná">La Arquidimensión del Maná</h2>
+<p>Antes de que la vida humana y las razas mortales poblaran Lithernia,
+el universo estaba dominado por las fuerzas caóticas de los <a
+href="Primordiales.html">Primordiales</a> y los dioses. Fue entonces
+cuando emergió el Maná, una energía invisible y omnipresente que conecta
+cada rincón de la realidad. El Maná, denominado en antiguos textos como
+“El Aliento de <a href="Thirogrim.html">Thirogrim</a>”, fue tejido
+inicialmente por los grandes arcanos para equilibrar la creación y
+permitir la existencia de la magia.</p>
+<p>Este tejido invisible se desplegó como un entramado viviente,
+pulsando en corrientes invisibles que nutren la tierra, el aire, el agua
+y el fuego. A través de él, incluso la más pequeña brisa o el más sutil
+susurro contenían la promesa del poder mágico.</p>
+<h2 id="ascenso-de-los-primeros-arcanistas">Ascenso de los Primeros
+Arcanistas</h2>
+<p>Los primeros mortales comenzaron a notar el latido del Maná en sus
+venas y en el mundo. Los primeros arcanistas, figuras legendarias
+envueltas en misterio, fueron quienes primero aprendieron a “tirar de
+los hilos” de esta energía sutil. Se dice que estos pioneros escuchaban
+las voces del Tejido, comprendiendo que la magia no era solo fuerza,
+sino delicado arte de equilibrio.</p>
+<p>Se relata en los manuscritos perdidos de Lerián que los Maestros de
+la Técnica Arcana, guardianes de un conocimiento ancestral, enseñaron a
+sus discípulos a canalizar este poder con respeto y sabiduría; sin
+embargo, la curiosidad desmedida llevó a algunos a experimentar con la
+<a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>,
+descubriendo que la magia, aunque magnífica, cobra un precio
+doloroso.</p>
+<h2 id="el-primer-círculo-de-invocación">El Primer Círculo de
+Invocación</h2>
+<p>El misterio del Maná llevó a la creación de los primeros Círculos de
+Invocación, patrones mágicos que, plasmados en la tierra, podían
+amplificar y enfocar el poder arcano. Estos círculos nacieron como
+guardianes sagrados, custodios del orden natural del flujo mágico.</p>
+<p>El Primer Círculo Menor, inscrito en piedra lunar y construido bajo
+la tutela de <a href="Thirogrim.html">Thirogrim</a>, se considera la
+llave que permitió a los magos primigenios probar <a
+href="Conjuros.html">Conjuros</a> más allá de sus límites naturales, con
+la advertencia solemne de que los fallos podían desatar consecuencias
+devastadoras.</p>
+<p>Los relatos cuentan que solo aquellos con un vínculo profundo con el
+Maná, quienes poseían el “Dado de Maná”, podían dominar la complejidad
+de estos círculos, enfrentándose a la fatiga y la posibilidad de una
+sobrecarga que les hiciera sucumbir al desgaste del cuerpo y la
+mente.</p>
+<h2 id="leyendas-y-costumbres-del-albor">Leyendas y Costumbres del
+Albor</h2>
+<ul>
+<li><p><strong>El Sacrificio de los Sabios</strong>: Una antigua leyenda
+describe cómo los primeros magos, para preservar el equilibrio del Maná,
+realizaron ofrendas espirituales, entregando partes de su esencia para
+sellar las grietas del tejido mágico. Estos actos son recordados en
+rituales ancestrales de meditación profunda que aún practican los
+druidas de <a href="Ferion.html">Ferion</a> y clérigos de <a
+href="Thirogrim.html">Thirogrim</a>.</p></li>
+<li><p><strong>Los Custodios del Maná</strong>: En algunos textos
+élficos, se mencionan ordenes secretas surgidas en este tiempo,
+dedicadas a mantener la pureza del Maná y evitar su corrupción. Estos
+guardianes aprendieron las primeras técnicas para absorber maná
+ambiental sin sucumbir, una habilidad considerada sagrada y reservada
+para los arcanistas más puros.</p></li>
+<li><p><strong>La Danza de las Estrellas y el Maná</strong>: En <a
+href="Eldrador.html">Eldrador</a>, se honra la magia celeste que emergió
+en esta época mediante ceremonias que combinan astrología con
+canalización de maná. La diosa <a href="Arzia.html">Arzia</a> es
+invocada como guía para revelar los secretos del tejido invisible
+mediante las constelaciones, marcando los auspicios para el uso correcto
+de la magia.</p></li>
+</ul>
+<h2 id="impacto-en-la-historia-posterior">Impacto en la Historia
+Posterior</h2>
+<p>El Albor de la Magia no solo estableció las bases para el sistema
+arcano de Lithernia, sino que también sentó las semillas de futuros
+conflictos y descubrimientos. La convicción que el Maná tiene un costo
+estimuló la creación de reglas éticas y mecanismos de control, los
+cuales son esenciales para comprender cómo los magos y aventureros
+enfrentan hoy las tensiones de la fatiga y la fatiga extrema.</p>
+<p>Las técnicas para potenciar y mezclar <a
+href="Conjuros.html">Conjuros</a> nacieron aquí, nacieron con la valiosa
+advertencia de no desafiar las leyes naturales sin aceptar riesgos. Por
+ello, los actuales magos valoran no solo el poder, sino la prudencia y
+el conocimiento profundo para manejar la energía arcana.</p>
+<h2 id="conclusión-épica">Conclusión Épica</h2>
+<p>Así, el Albor de la Magia representa el amanecer de la maravilla y el
+peligro que encierra el poder arcano en Lithernia. Es el génesis de un
+equilibrio precario, una danza eterna entre fuerza y sacrificio, donde
+cada hechizo conjurado es un testimonio de la voluntad mortal desafiando
+lo divino. Desde el delicado tejido del Maná hasta las primeras <a
+href="Runas.html">Runas</a> inscritas en piedra, este tiempo sagrado
+resuena como eco eterno en las venas mismas del mundo, recordándonos que
+la magia no solo es un don, sino también una responsabilidad que define
+el destino de todos.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Noche_de_las_Espadas_Rotas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Noche_de_las_Espadas_Rotas</div>
+        <div class="content">
+<h1 id="la-noche-de-las-espadas-rotas">La noche de las espadas
+rotas</h1>
+<h3 id="perfil-del-evento">Perfil del Evento</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Evento</strong></td>
+<td style="text-align: left;">Desastre Militar, Fenómeno Arcano</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Facciones Afectadas</strong></td>
+<td style="text-align: left;"><a href="Valtoria.html">Valtoria</a>
+(Derrota catastrófica), <a href="Mor&#39;dhul.html">Mor’dhul</a>
+(Victoria decisiva)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Unidad Involucrada</strong></td>
+<td style="text-align: left;">Legión de Acero Rúnico (<a
+href="Valtoria.html">Valtoria</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ubicación</strong></td>
+<td style="text-align: left;">Desfiladero del Viento Helado</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto Mecánico
+Principal</strong></td>
+<td style="text-align: left;">Destrucción instantánea de todos los
+objetos metálicos de la Legión de Acero Rúnico.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Legado Mecánico</strong></td>
+<td style="text-align: left;">Desarrollo de Aleaciones de Contramagia y
+<a href="Runas.html">Runas</a> de Entereza.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td style="text-align: left;">Historia / Saber Popular</td>
+<td style="text-align: left;">Se conoce la Noche de las Espadas Rotas
+como una humillante derrota enana donde las armas de una legión entera
+se hicieron añicos misteriosamente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;">Historia / Arcanos</td>
+<td style="text-align: left;">Se identifica a la Legión de Acero Rúnico.
+Se sabe que el evento ocurrió sin combate previo, en un silencio
+antinatural, y que las armas rúnicas se desintegraron.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>20</strong></td>
+<td style="text-align: left;">Investigación / Arcanos</td>
+<td style="text-align: left;">Se conocen las tres teorías principales:
+una maldición sónica a gran escala, un sabotaje rúnico latente o una
+anomalía en el El Tejido del Maná.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>25</strong></td>
+<td style="text-align: left;">Herramientas de Herrero / Historia</td>
+<td style="text-align: left;">Se revela el legado técnico: la creación
+de las Aleaciones de Contramagia y las <a href="Runas.html">Runas</a> de
+Entereza como respuesta directa al evento.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mecánicas-del-suceso">Mecánicas del Suceso</h3>
+<h4 id="teoría-1-ritual-de-la-disyunción-sónica">Teoría 1: Ritual de la
+Disyunción Sónica</h4>
+<p>Este ritual representa la teoría de un ataque mágico deliberado por
+parte de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel de Conjuro</strong></td>
+<td style="text-align: left;">9º (Ritual)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tiempo de
+Lanzamiento</strong></td>
+<td style="text-align: left;">8 horas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">V, S, M (un corazón de un <a
+href="Enanos.html">Enanos</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alcance</strong></td>
+<td style="text-align: left;">1 milla</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Duración</strong></td>
+<td style="text-align: left;">Instantáneo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto</strong></td>
+<td style="text-align: left;">Se emite una frecuencia sónica-arcana
+inaudible. Todos los objetos metálicos no mágicos dentro del área se
+quiebran y se vuelven inútiles. Los objetos metáicos mágicos que no
+estén protegidos por una <a href="Runas.html">Runas</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="teoría-2-sabotaje-con-polvo-de-disolución-rúnica">Teoría 2:
+Sabotaje con Polvo de Disolución Rúnica</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Objeto</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo</strong></td>
+<td style="text-align: left;">Veneno de contacto (Alquímico)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Precio</strong></td>
+<td style="text-align: left;">5,000 po (mercado negro de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fabricación (CD)</strong></td>
+<td style="text-align: left;">25 (Herramientas de envenenador o de
+alquimista)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto</strong></td>
+<td style="text-align: left;">Una dosis de este polvo, aplicada a un
+objeto metálico durante su <a href="Herreria.html">Herreria</a>, crea
+una debilidad estructural latente. El objeto funciona normalmente hasta
+que es expuesto a una onda de energía mágica específica (como la emitida
+por el <em>Ritual de la Disyunción Sónica</em> o una <em>Zona de Velo
+Roto</em>). Al ser expuesto, el objeto se desintegra
+instantáneamente.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="teoría-3-reglas-de-entorno-desfiladero-del-viento-helado">Teoría
+3: Reglas de Entorno (Desfiladero del Viento Helado)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Regla</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Resonancia Rúnica</strong></td>
+<td style="text-align: left;">El desfiladero es una zona de Velo Roto
+(CD 15). Cuando una criatura falla su salvación del Velo Roto, además
+del efecto de la tabla, todas sus armas y armaduras metálicas mágicas
+quedan suprimidas (se vuelven no mágicas) durante 1d4 horas.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Eco Antinatural</strong></td>
+<td style="text-align: left;">Cualquier conjuro con efecto sónico (ej.
+<em>Onda Atronadora</em>, <em>Grito</em>) lanzado en el desfiladero
+tiene su área de efecto duplicada.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Silencio Opresivo</strong></td>
+<td style="text-align: left;">Entre el atardecer y el amanecer, las
+pruebas de Sabiduría (Percepción) que dependan del oído se realizan con
+desventaja.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="legado-mecánico-nuevas-artesanías">Legado Mecánico: Nuevas
+Artesanías</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Artesanía</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Aleación de
+Contramagia</strong></td>
+<td style="text-align: left;">Material de fabricación especial. Un arma
+o armadura forjada con esta aleación (coste x5) otorga ventaja en las
+tiradas de salvación contra efectos que intenten dañarla, destruirla o
+alterarla mágicamente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Runa de Entereza</strong></td>
+<td style="text-align: left;">Inscripción rúnica (coste 2,500 po,
+requiere herramientas de herrero y competencia en Arcanos). Un objeto
+inscrito con esta runa es inmune a la destrucción o supresión por
+efectos mágicos de nivel 8 o inferior, incluido el <em>Ritual de la
+Disyunción Sónica</em>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ganchos-de-aventura">Ganchos de Aventura</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Misión</th>
+<th style="text-align: left;">Facción Involucrada</th>
+<th style="text-align: left;">Objetivo de la Misión</th>
+<th style="text-align: left;">Pruebas Clave Sugeridas (CD)</th>
+<th style="text-align: left;">Complicación Potencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>El Eco de la
+Venganza</strong></td>
+<td style="text-align: left;">Gremio de Herreros de <a
+href="Valtoria.html">Valtoria</a></td>
+<td style="text-align: left;">Viajar al Desfiladero y recuperar
+fragmentos de armas rúnicas para su estudio.</td>
+<td style="text-align: left;">Supervivencia (16), Investigación
+(18)</td>
+<td style="text-align: left;">El desfiladero está ahora habitado por
+fantasmas de la legión caída (Espectros, Sombras).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>El Secreto del
+Sonido</strong></td>
+<td style="text-align: left;">El culto de la araña abisal</td>
+<td style="text-align: left;">Encontrar el grimorio que contiene el
+<em>Ritual de la Disyunción Sónica</em> en una fortaleza del Clan
+Nighthawk.</td>
+<td style="text-align: left;">Sigilo (19), Arcanos (17), Engaño
+(18)</td>
+<td style="text-align: left;">El grimorio está protegido por un
+Coleccionistas de lamentos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Prevenir la
+Repetición</strong></td>
+<td style="text-align: left;">Concilio de la Montaña (<a
+href="Valtoria.html">Valtoria</a>)</td>
+<td style="text-align: left;">Descubrir y detener a un saboteador del
+Clan Shadowscale que está introduciendo <em>Polvo de Disolución
+Rúnica</em> en los suministros de Ironforge.</td>
+<td style="text-align: left;">Perspicacia (18), Investigación (20)</td>
+<td style="text-align: left;">El saboteador ha incriminado a un maestro
+herrero respetado.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Romper el Silencio</strong></td>
+<td style="text-align: left;">Eruditos de la Torre de las Estrellas</td>
+<td style="text-align: left;">Investigar la anomalía en el El Tejido del
+Maná del desfiladero y colocar estabilizadores arcanos en puntos
+clave.</td>
+<td style="text-align: left;">Arcanos (22), Supervivencia (17)</td>
+<td style="text-align: left;">Activar los estabilizadores atrae a
+criaturas del El velo gris.</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </div>
+</body>
+</html>

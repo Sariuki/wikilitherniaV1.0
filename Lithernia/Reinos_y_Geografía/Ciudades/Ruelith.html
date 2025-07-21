@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruelith</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ruelith</div>
+        <div class="content">
+<h1 id="ruelith">Ruelith</h1>
+<p>Ruelith no es una ciudad para los débiles. Es una cicatriz de basalto
+y hierro negro tallada en las Estepas Dentadas, una máquina de guerra
+viviente cuyo único propósito es quebrar, domar y armar a las pesadillas
+más salvajes del mundo. Construida en torno a una colosal arena conocida
+como “La Fauce”, la ciudad es un laberinto de corrales, campos de
+entrenamiento y muros de roca volcánica que resuenan constantemente con
+el rugido de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+cautivas y los gritos de aquellos que intentan someterlas. No hay
+murallas exteriores; la propia ciudad es una fortaleza, y su defensa son
+las criaturas monstruosas que acechan en cada recinto. En Ruelith, el
+poder no se hereda ni se compra, se arranca de las garras de una bestia
+aullante. La compasión es una enfermedad mortal, y la crueldad, un arte
+refinado.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Ruelith se atribuyen a Vorgath el Quebrantador, un
+legendario maestro de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+hobgoblin que, hace siglos, vio el potencial estratégico de las Estepas
+Dentadas. La región, plagada de criaturas monstruosas atraídas por las
+extrañas energías de los cercanos Picos Aullantes, era un tesoro para
+los ejércitos de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Vorgath no
+construyó un campamento, sino un templo a la dominación. Bajo la
+doctrina de <a href="Kromagul.html">Kromagul</a>, el Dios del Dolor,
+desarrolló técnicas de adiestramiento que transformaban la agonía en
+obediencia.</p>
+<p>La ciudad creció como un tumor, atrayendo a los clanes más brutales
+de <a href="Orcos.html">Orcos</a> y semiogros como tramperos, y a <a
+href="Hobgoblins.html">Hobgoblins</a> que veían en el “arte” de Vorgath
+un camino hacia el poder. Ruelith se convirtió en el principal proveedor
+de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de guerra para el reino, una pieza fundamental en la maquinaria militar
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Aunque Sel’thirak asignó un
+gobernador Tiefling para mantener una apariencia de control central, es
+un secreto a voces que el verdadero poder reside en los gremios de
+adiestradores hobgoblin, los herederos del legado de Vorgath.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Fauce</strong>: El corazón sangriento de Ruelith. Esta
+inmensa arena de basalto negro es donde se celebran los espectáculos de
+doma, los combates a muerte y los rituales públicos. Sus gradas de
+piedra están permanentemente manchadas, y la arena es una mezcla de
+tierra oscura y restos de hueso. Bajo ella se encuentra un laberinto de
+celdas y túneles donde las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+y los gladiadores esperan su turno.</p></li>
+<li><p><strong>Los Corrales de Hierro</strong>: Un distrito caótico y
+ruidoso que rodea La Fauce. Aquí, miles de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de todas las formas y tamaños están encerradas en corrales de hierro
+negro y piedra. El aire es denso con el hedor de los animales y el
+sonido de cadenas, látigos y rugidos de desafío. Es una zona
+extremadamente peligrosa, donde las fugas son comunes y la supervivencia
+depende de la rapidez de reflejos.</p></li>
+<li><p><strong>La Aguja del Gobernador</strong>: Una solitaria y
+elegante torre de obsidiana pulida que se alza en el extremo de la
+ciudad, ajena a la brutalidad que la rodea. Es la residencia del
+gobernador Tiefling enviado por la capital. Aunque lujosa por dentro, es
+poco más que una jaula dorada, un símbolo del poder nominal de
+Sel’thirak en una ciudad que solo respeta la fuerza bruta.</p></li>
+<li><p><strong>El Mercado de Ganchos y Gritos</strong>: Un mercado al
+aire libre donde los adiestradores compran y venden herramientas de su
+oficio: ganchos dentados, látigos con púas, cadenas rúnicas y venenos
+paralizantes. Aquí también se venden los “Ecos de Dolor”, pequeñas
+criaturas atormentadas en jaulas diminutas, cuyo sufrimiento constante
+sirve como macabro símbolo de estatus para sus dueños.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Ruelith es una prueba constante de dominio. El estatus
+social de un individuo se mide por la ferocidad y el tamaño de la bestia
+que controla. Las calles son un desfile de <a
+href="Hobgoblins.html">Hobgoblins</a> altivos seguidos por monstruos
+encadenados. Los niños aprenden a usar el gancho y el látigo antes que a
+leer.</p>
+<p>Las festividades son ejercicios de crueldad organizada. La más
+importante es “La Caza de la Agonía”, una competición anual en la que
+equipos de tramperos se adentran en los Picos Aullantes para capturar a
+la criatura más peligrosa. El ganador no solo obtiene riqueza, sino un
+inmenso prestigio. Otro evento clave es “El Grito Quebrado”, un ritual
+público en La Fauce donde una bestia recién capturada es sometida por
+primera vez, su voluntad rota ante una multitud rugiente en una
+demostración del poder de <a href="Kromagul.html">Kromagul</a>.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Ruelith es funcional, brutalista y desprovista de
+cualquier adorno que no sea un trofeo. Los edificios son moles de roca
+volcánica oscura, bajos y robustos para resistir el embate de una bestia
+descontrolada. Las calles son estrechas y laberínticas, diseñadas para
+canalizar y atrapar a cualquier criatura que se escape. Los únicos
+elementos decorativos son los restos de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+legendarias: cráneos colosales que sirven de arcos, costillas gigantes
+que forman techos y garras petrificadas que adornan las puertas de los
+maestros de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+más poderosos. El ambiente es opresivo, cargado de tensión, miedo y el
+olor metálico de la sangre seca.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Devorador de Ecos</strong>: En los Picos Aullantes,
+más allá de donde se aventuran los cazadores más audaces, se dice que
+mora una criatura hecha de pura sombra: el “Devorador de Ecos”. La
+leyenda afirma que no siente dolor, alimentándose del miedo y la agonía
+de otros. Para los maestros de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de Ruelith, es el trofeo definitivo e inalcanzable, una afrenta a su
+filosofía de que todo ser vivo puede ser quebrado. Muchos han muerto
+intentando capturarlo, sus gritos sumándose al silencio de la
+criatura.</p></li>
+<li><p><strong>Las Fosas Silentes</strong>: Bajo la arena ensangrentada
+de La Fauce se extienden unas catacumbas olvidadas, donde se arrojaron
+durante siglos los cuerpos de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+y gladiadores caídos. La leyenda dice que el dolor acumulado ha creado
+una conciencia colectiva, una entidad psíquica formada por los espíritus
+fusionados de innumerables víctimas. No ataca físicamente, sino que
+susurra en los sueños de quienes viven en la ciudad, incitando a la
+locura, la paranoia y la rebelión de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+contra sus amos. Los adiestradores temen a estas “Fosas Silentes” más
+que a cualquier monstruo de carne y hueso.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

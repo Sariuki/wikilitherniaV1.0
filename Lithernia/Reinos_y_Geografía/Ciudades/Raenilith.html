@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raenilith</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Raenilith</div>
+        <div class="content">
+<h1 id="raenilith">Raenilith</h1>
+<p>Donde la tierra de <a href="Galvorn.html">Galvorn</a> se rinde al
+mar, Raenilith se alza como un susurro del viento hecho ciudad. Conocida
+en todo el reino como la “Cuna de la Brisa”, esta metrópoli portuaria no
+solo vive del océano, sino que conversa con él. Sus edificios de piedra
+caliza blanca y tejados azules y verdes parecen olas petrificadas,
+mientras incontables torres de viento y veletas artísticas giran al
+unísono, cantando la canción del mar. Pero el verdadero corazón de
+Raenilith late en sus astilleros, una colosal red de andamios y grúas
+donde los esqueletos de madera de los futuros veleros se alzan como
+leviatanes listos para nacer. Es aquí donde se forjan los legendarios
+“Ala-brisas”, los barcos más veloces de Lithernia, cuya velocidad, se
+dice, es un don directo del dios <a href="Quiteon.html">Quiteon</a>.</p>
+<h2 id="historia">Historia</h2>
+<p>Raenilith nació de una visión. Hace siglos, un explorador humano
+llamado Alaric Vientoveloz, perdido en una tormenta que amenazaba con
+destrozar su nave, rezó no a la <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a>, sino a su
+hijo, <a href="Quiteon.html">Quiteon</a>, el dios del viento. La leyenda
+cuenta que el dios le susurró al oído una nueva forma de diseñar las
+velas y el casco, una que le permitiría danzar con la tempestad en lugar
+de luchar contra ella. Alaric sobrevivió y, en la bahía protegida donde
+encontró refugio, fundó un pequeño astillero dedicado a los principios
+que el dios le había revelado.</p>
+<p>El asentamiento creció, atrayendo a los cartógrafos más audaces, a
+los genasi de aire que sentían la llamada de su patrón, y a los
+artesanos más ingeniosos. Pronto, Raenilith no solo construía los barcos
+más rápidos, sino que trazaba los <a href="Mapas.html">Mapas</a> más
+precisos, convirtiéndose en el punto de partida de las expediciones más
+ambiciosas de <a href="Galvorn.html">Galvorn</a>. Su gobierno evolucionó
+hacia una meritocracia marítima: un Lord Almirante designado por la
+corona, pero cuyo poder es templado por el “Concilio de la Marea”, una
+asamblea de maestros de gremio y capitanes veteranos cuya sabiduría
+práctica es la verdadera ley de la ciudad.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Los Astilleros del Aliento</strong>: La costa sur de
+Raenilith está dominada por los astilleros, un laberinto de muelles
+secos, talleres y almacenes de madera. El aire huele a brea, serrín y
+sal. Aquí, los gremios rivales “Quilla de Roble” y “Vela de Seda”
+compiten ferozmente por construir el próximo “Ala-brisas” que rompa
+todos los récords.</p></li>
+<li><p><strong>El Muelle del Cartógrafo</strong>: El centro neurálgico y
+comercial de la ciudad. Sus calles adoquinadas están repletas de tiendas
+que venden <a href="Mapas.html">Mapas</a> estelares, sextantes
+encantados y velas tejidas con hilos de magia eólica. Es también el
+hogar del Gremio de Cartógrafos, cuya biblioteca contiene cartas de
+navegación de rincones del mundo que la mayoría considera
+mitos.</p></li>
+<li><p><strong>Las Terrazas de la Brisa</strong>: El principal distrito
+residencial, construido en una suave colina que se asoma a la bahía. Las
+casas de piedra blanca y madera clara están diseñadas para capturar la
+brisa marina, con amplios balcones y veletas ornamentadas que son un
+símbolo de estatus familiar.</p></li>
+<li><p><strong>La Aguja del Viento</strong>: En el punto más alto de la
+ciudad se alza el templo principal de <a
+href="Quiteon.html">Quiteon</a>. No es un edificio pesado, sino una
+torre elegante y esbelta, construida con piedra perforada que silba
+musicalmente con el paso del viento. Se cree que los sacerdotes pueden
+interpretar estos sonidos como mensajes directos del dios.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Raenilith está marcada por la audacia y el ingenio. El
+evento más importante del año es la “Regata del Primer Viento”, una
+carrera de veleros que celebra la llegada de las brisas primaverales y
+sirve como la prueba definitiva para los nuevos diseños de barcos. Para
+los jóvenes, la mayoría de edad se alcanza al completar el “Viaje de la
+Inspiración”, una travesía en solitario o en un pequeño grupo a una isla
+sin cartografiar, de la que deben regresar con una nueva historia, un
+nuevo mapa o un nuevo descubrimiento. Las tabernas de la ciudad no son
+solo lugares para beber ron, sino escenarios donde los exploradores
+compiten por contar las hazañas más increíbles, ganando prestigio y el
+patrocinio de los gremios.</p>
+<h2 id="conflictos-y-amenazas">Conflictos y Amenazas</h2>
+<p>La prosperidad de Raenilith es una tentación constante para sus
+rivales. La rivalidad entre los gremios “Quilla de Roble” y “Vela de
+Seda” ha escalado más allá de la competencia sana, con rumores de
+sabotaje y robo de diseños. Espías de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, desesperados por igualar la
+velocidad naval de <a href="Galvorn.html">Galvorn</a>, se infiltran
+constantemente en los astilleros. Sin embargo, la amenaza más acuciante
+es de naturaleza mágica. Recientemente, una “calma chicha” antinatural
+ha comenzado a afectar las rutas comerciales cercanas, zonas donde el
+viento simplemente muere, dejando a los barcos varados durante semanas.
+Los sacerdotes de <a href="Quiteon.html">Quiteon</a> están perplejos, y
+el Concilio de la Marea teme que un dios rival o una magia antigua esté
+tratando de asfixiar a la ciudad.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Susurro Silente</strong>: Los marineros más viejos
+juran que en las noches de niebla espesa, a veces se puede ver la
+silueta de “El Susurro Silente”. Se trata de un legendario “Ala-brisas”
+que zarpó hace un siglo para encontrar el borde del mundo y nunca
+regresó. La leyenda dice que su tripulación espectral sigue navegando,
+no por los mares, sino por los cielos, condenados a cartografiar las
+estrellas por toda la eternidad, y su aparición es un presagio de un
+gran descubrimiento o de una terrible pérdida.</p></li>
+<li><p><strong>La Cueva de las Brisas</strong>: Se rumorea que en los
+arrecifes que protegen la bahía existe una cueva oculta, accesible solo
+durante la marea más baja. Dentro, un clan secreto de genasi de aire
+custodia un conjunto de campanas de viento hechas de cristal celestial.
+Se dice que estas campanas no solo cantan con el viento, sino que pueden
+invocarlo, controlarlo o incluso silenciarlo por completo. Nadie sabe si
+es un tesoro para proteger o un arma que podría destruir
+Raenilith.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

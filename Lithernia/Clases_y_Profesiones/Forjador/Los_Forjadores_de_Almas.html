@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Forjadores_de_Almas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Forjadores_de_Almas</div>
+        <div class="content">
+<h1 id="los-forjadores-de-almas">Los forjadores de almas</h1>
+<h3 id="trasfondo-iniciado-de-la-forja-de-almas">Trasfondo: Iniciado de
+la Forja de Almas</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Habilidades</strong></td>
+<td style="text-align: left;">Arcanos, Perspicacia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Competencia en
+Herramientas</strong></td>
+<td style="text-align: left;">Herramientas de herrero</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Uno de tu elección</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Equipo</strong></td>
+<td style="text-align: left;">Unas herramientas de herrero, un libro con
+notas sobre rituales de vínculo, un símbolo de tu facción (oculto), un
+conjunto de ropas de viajero y una bolsa con 15 po.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rasgo: Eco del
+Vínculo</strong></td>
+<td style="text-align: left;">Tienes una conexión innata con objetos
+imbuidos de espíritu. Tienes ventaja en las pruebas de Inteligencia
+(Arcanos) para identificar las propiedades de objetos mágicos
+conscientes o constructos animados. Además, puedes encontrar a un
+artesano o <a href="Erudito.html">Erudito</a> que reconozca los signos
+de la Animancia y pueda ofrecerte información críptica o un lugar
+seguro.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sistema-de-creación-animancia">Sistema de Creación:
+Animancia</h3>
+<p>La creación de un objeto imbuido es un tiempo de inactividad que
+requiere una prueba de habilidad extendida.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Requisito</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Ubicación</strong></td>
+<td style="text-align: left;">Una <a href="Herreria.html">Herreria</a>
+equipada dentro de un Círculo de Invocación Menor o superior.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">El objeto “vaso” de calidad magistral
+(coste 500 po), metales y gemas raras (coste 1000 po), y una fuente
+espiritual.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tiempo</strong></td>
+<td style="text-align: left;">1 semana de trabajo ininterrumpido.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Prueba de Creación</strong></td>
+<td style="text-align: left;">Prueba de Inteligencia (Arcanos) CD 18.
+Aplicas tu competencia si eres competente con herramientas de
+herrero.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tabla-de-fuente-espiritual">Tabla de Fuente Espiritual</h4>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Fuente</th>
+<th style="text-align: left;">Modificador a la Prueba</th>
+<th style="text-align: left;">Propiedad del Objeto Resultante</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Espíritu Voluntario</strong></td>
+<td style="text-align: left;">+2</td>
+<td style="text-align: left;"><strong>Leal:</strong> El objeto no puede
+ser usado contra el creador ni contra aquellos que el espíritu
+consideraba aliados en vida. Otorga un beneficio menor (ej: ventaja en
+una salvación 1/día).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Eco Espiritual</strong></td>
+<td style="text-align: left;">+0</td>
+<td style="text-align: left;"><strong>Confuso:</strong> En un 1 natural
+en una tirada de ataque, el portador queda afectado por el conjuro
+<em>Confusión</em> durante 1 ronda.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Esencia Elemental</strong></td>
+<td style="text-align: left;">-2</td>
+<td style="text-align: left;"><strong>Elemental:</strong> El objeto
+inflige 1d4 de daño adicional del tipo del elemental (fuego, frío, etc.)
+y es vulnerable al tipo de daño opuesto.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alma Forzada</strong></td>
+<td style="text-align: left;">-4</td>
+<td style="text-align: left;"><strong>Maldito (Esclavizado):</strong> El
+portador debe superar una tirada de salvación de Sabiduría (CD 13) cada
+amanecer o sufrir una forma de locura a corto plazo.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tabla-de-complicaciones-fallo-en-la-prueba-de-creación">Tabla de
+Complicaciones (Fallo en la Prueba de Creación)</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><strong>Destrucción Total.</strong> El
+objeto y los componentes se desintegran. El creador sufre 4 niveles de
+<a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+y 5d10 de daño de fuerza.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2-3</td>
+<td style="text-align: left;"><strong>Vaso Roto.</strong> El objeto se
+vuelve no mágico y queda dañado permanentemente. Los componentes se
+pierden.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4-5</td>
+<td style="text-align: left;"><strong>Espíritu Fugado.</strong> El
+espíritu escapa, convirtiéndose en un Espectro hostil que ataca
+inmediatamente al creador.</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><strong>Horror Fallido.</strong> El ritual
+crea una abominación. El objeto se transforma en un <strong>Horror de la
+<a href="Herreria.html">Herreria</a></strong> que ataca a todos los
+seres vivos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dote-maestro-de-la-animancia">Dote: Maestro de la Animancia</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Prerrequisito</strong></td>
+<td style="text-align: left;">Nivel 8, competencia con herramientas de
+herrero, capacidad para lanzar al menos un conjuro.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Beneficios</strong></td>
+<td style="text-align: left;">• Incrementa tu puntuación de Inteligencia
+o Constitución en 1, hasta un máximo de 20.<br>• Ganas ventaja en la
+prueba de creación de Animancia.<br>• Una vez por descanso largo, puedes
+usar tu acción para despertar temporalmente el espíritu latente en un
+objeto mágico. Durante 1 minuto, el objeto se vuelve consciente y puede
+comunicarse telepáticamente contigo, revelando su propósito, historia o
+una pista sobre su uso.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="creaciones-de-los-forjadores-de-almas">Creaciones de los
+Forjadores de Almas</h3>
+<h4 id="coraza-del-guardián-caído">Coraza del Guardián Caído</h4>
+<p><em>(Armadura pesada (placas), muy rara, requiere sintonización)</em>
+Esta armadura, forjada con acero de <a href="Valtoria.html">Valtoria</a>
+y filigranas de plata, alberga el espíritu voluntario de un capitán
+enano. - <strong>CA:</strong> 18. - <strong>Lealtad del
+Guardián:</strong> Mientras estás sintonizado, la armadura te otorga los
+siguientes beneficios: - Tienes resistencia al daño por veneno. - Tienes
+ventaja en las tiradas de salvación contra ser asustado. - Como
+reacción, cuando una criatura a 5 pies de ti es atacada, puedes
+otorgarle a esa criatura un +2 a su CA contra ese ataque. -
+<strong>Voluntad Consciente:</strong> La armadura se comunica
+telepáticamente con su portador, ofreciendo consejos tácticos con un
+tono brusco pero protector. Se negará a permitir que el portador huya de
+una batalla si hay aliados en peligro.</p>
+<h4 id="hoja-del-rencor">Hoja del Rencor</h4>
+<p><em>(Espada corta, rara, requiere sintonización)</em> Forjada en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> con obsidiana y un alma forzada de
+un elfo <a href="Guerrero.html">Guerrero</a>, esta daga gotea una sombra
+líquida. - <strong>Bonificación:</strong> Ganas un +1 a las tiradas de
+ataque y daño con esta arma mágica. - <strong>Toque Necrótico:</strong>
+La hoja inflige 1d6 de daño necrótico adicional al impactar. -
+<strong>Maldición (Susurros de Venganza):</strong> El espíritu elfo
+esclavizado susurra constantemente en la mente del portador, incitándolo
+a la violencia y la desconfianza. Al final de cada descanso largo, debes
+superar una tirada de salvación de Sabiduría CD 14 o sufrirás los
+efectos de una paranoia que te impondrá desventaja en las pruebas de
+Sabiduría (Perspicacia) y Carisma (Persuasión).</p>
+<h3 id="monstruo">Monstruo</h3>
+<p>```statblock name: Horror de la Forja size: Mediano type: constructo
+alignment: caótico maligno ac: 16 (Armadura natural) hp: 93 (11d8 + 44)
+speed: 25 ft. stats: [18, 9, 18, 3, 8, 1] damage_immunities: Veneno,
+Psíquico condition_immunities: Hechizado, Agotamiento, Asustado,
+Paralizado, Petrificado, Envenenado senses: Visión en la oscuridad 60
+ft., Percepción Pasiva 9 languages: — cr: 5 traits: - name: Prisión de
+Agonía desc: “Al comienzo de cada uno de sus turnos, el horror inflige 5
+(1d10) de daño psíquico a cada criatura que esté apresándolo.” - name:
+Forma Inestable desc: “Cualquier golpe crítico contra el horror hace que
+un trozo de metal salga disparado. El atacante debe superar una tirada
+de salvación de Destreza CD 15 o recibir 7 (2d6) de daño perforante.”
+actions: - name: Multiataque desc: “El horror realiza dos ataques de
+Golpetazo.” - name: Golpetazo desc: “Ataque de arma cuerpo a cuerpo: +7
+a impactar, alcance 5 ft., un objetivo. Impacto: 13 (2d8 + 4) de daño
+contundente.” - name: Aullido de Metal (Recarga 5-6) desc: “El horror
+emite un chirrido metálico insoportable. Cada criatura a 30 pies de él
+que pueda oírlo debe realizar una tirada de salvación de Constitución CD
+15. Si falla, recibe 16 (3d10) de daño de trueno y queda incapacitada
+hasta el final de su próximo turno. Si tiene éxito, recibe la mitad del
+daño.”</p>
+        </div>
+    </div>
+</body>
+</html>

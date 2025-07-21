@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syrenya</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Syrenya</div>
+        <div class="content">
+<h1 id="syrenya">Syrenya</h1>
+<p>Syrenya no es una ciudad; es una herida supurante en la costa de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Aferrada a acantilados
+resbaladizos y hundida en un pantano fétido, este puerto maldito es un
+monumento a la codicia y la desesperación. Sus edificios, una amalgama
+de madera podrida y basalto rezumante, se apilan unos sobre otros como
+dientes cariados, conectados por pasarelas desvencijadas que crujen bajo
+el peso de secretos y traiciones. Una niebla perpetua, densa con el
+hedor de la salmuera estancada y la decadencia, se enrosca por sus
+callejones, ahogando la luz y el sonido. No hay honor en Syrenya, solo
+oportunidades. Es el mercado negro del reino, un refugio para piratas,
+contrabandistas y aquellos cuyas almas están tan manchadas como las
+aguas de su bahía.</p>
+<h2 id="historia">Historia</h2>
+<p>Syrenya nació del oportunismo. Tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, mientras los reinos se forjaban, esta
+franja de costa pantanosa y traicionera fue ignorada por todos, excepto
+por los desesperados. Piratas, exiliados y cultistas encontraron en sus
+acantilados y manglares una defensa natural inexpugnable. Entre estos
+parias, el Clan <a href="Vexia.html">Vexia</a>, una familia de <a
+href="Tieflings.html">Tieflings</a> con una afinidad ancestral por los
+venenos y la intriga, ascendió rápidamente. Forjaron pactos con las
+entidades oscuras del abismo, ofreciendo sacrificios a una antigua
+serpiente marina conocida como “La Vorágine” a cambio de poder sobre las
+aguas.</p>
+<p>Cuando Sel’thirak consolidó su poder sobre <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, vio la utilidad de un puerto tan
+infame. En lugar de arrasarlo, lo sancionó como un feudo del Clan <a
+href="Vexia.html">Vexia</a>, convirtiéndolo en el centro neurálgico del
+comercio ilícito del reino. Desde entonces, Syrenya prospera en la
+oscuridad, un nido de víboras leal al Rey-Dios solo mientras le resulte
+rentable, y cuyo símbolo —una calavera de tiefling con cuernos enredados
+en tentáculos de obsidiana— es sinónimo de muerte sigilosa y tratos
+envenenados.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Los Muelles Pútridos</strong>: El corazón palpitante y
+corrupto de Syrenya. Un laberinto de embarcaderos destartalados donde
+los barcos corsarios, los “Dientenegros”, atracan para descargar sus
+botines prohibidos. Aquí, en mercados improvisados bajo la llovizna
+constante, se comercia con todo: venenos, almas embotelladas, esclavos y
+artefactos recuperados de tumbas submarinas.</p></li>
+<li><p><strong>El Nido del Acantilado</strong>: Tallado en la cara del
+acantilado más alto, este es el distrito de la élite gobernante. Las
+mansiones del Clan <a href="Vexia.html">Vexia</a> cuelgan precariamente
+sobre el mar, conectadas por puentes de cuerda y túneles secretos. Desde
+aquí, los <a href="Vexia.html">Vexia</a> observan su dominio, siempre
+planeando su próximo movimiento.</p></li>
+<li><p><strong>El Laberinto de Lodo</strong>: Los manglares que rodean
+la ciudad por tierra. Es el hogar de los “Corrompidos del Lodo”, genasi
+de agua mutados por la magia oscura del lugar, y de las tribus de <a
+href="Goblins.html">Goblins</a> que sirven como primera línea de
+defensa. El área está plagada de trampas naturales y <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+de pantano domesticadas que obedecen a los Vigías del Lodo
+hobgoblin.</p></li>
+<li><p><strong>El Ojo de la Vorágine</strong>: Una profunda y oscura
+sima en el centro de la bahía. Las aguas aquí son negras y quietas, y se
+dice que es la guarida de la entidad que el culto secreto venera. Es en
+este lugar donde se arrojan los sacrificios durante la “Marea de
+Sangre”, con la esperanza de apaciguar a la bestia y asegurar travesías
+exitosas para los piratas.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Syrenya es una constante lucha por la supervivencia donde
+el sigilo es una virtud y la traición, una forma de arte. Los tratos no
+se sellan con un apretón de manos, sino escupiendo en las aguas
+estancadas del puerto, un gesto que simboliza que la promesa es tan
+turbia como el propio pacto. La lealtad es un bien escaso, y la mayoría
+de alianzas duran solo hasta que una oferta mejor aparece.</p>
+<p>La festividad más importante es la “Marea de Sangre”, un carnaval
+macabro que culmina con el sacrificio de prisioneros y deudores a La
+Vorágine. Para los habitantes, es una mezcla de fervor religioso y
+entretenimiento sádico, un recordatorio brutal de que en Syrenya,
+incluso los dioses exigen un pago en sangre.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Syrenya es una pesadilla arquitectónica. Las estructuras desafían la
+gravedad, construidas con materiales rescatados de naufragios y unidas
+con alquitrán y desesperación. El musgo negro y los líquenes
+fosforescentes cubren cada superficie, dándole a la ciudad un brillo
+enfermizo en la oscuridad. El ambiente es opresivo, cargado de humedad y
+del sonido incesante del agua goteando, la madera crujiendo y los
+susurros conspiradores que se deslizan por los callejones como la propia
+niebla.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Barco Espectral del Primer Rey</strong>: Los marineros
+más viejos y supersticiosos juran que en las noches sin luna, una galera
+fantasmal emerge de la niebla. Dicen que es el navío perdido del Primer
+Rey, tripulado por los espectros de su guardia leal, que navega por las
+costas buscando eternamente a los descendientes de aquellos que
+traicionaron a su monarca. Avistar el barco se considera un presagio de
+muerte inminente.</p></li>
+<li><p><strong>El Guardián Albino</strong>: En las profundidades del Ojo
+de la Vorágine, más allá del alcance de La Vorágine misma, se dice que
+habita un kraken albino. La leyenda afirma que esta criatura no es un
+monstruo cualquiera, sino el último guardián de una cámara acorazada
+pre-<a href="Lilium.html">Lilium</a> hundida bajo el puerto. Se rumorea
+que su ojo izquierdo no es orgánico, sino una de las gemas legendarias
+que adornaban la corona del Primer Rey, un tesoro de poder inimaginable
+que enloquecería a cualquiera que intentara reclamarlo.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.71)</li>
+<li><a href="Yrenya.html">Yrenya</a> (relevancia: 0.60)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

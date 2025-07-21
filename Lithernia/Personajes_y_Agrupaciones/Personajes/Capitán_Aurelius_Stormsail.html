@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capitán_Aurelius_Stormsail</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Capitán_Aurelius_Stormsail</div>
+        <div class="content">
+<h1 id="capitán-aurelius-stormsail">Capitán Aurelius Stormsail</h1>
+<p><strong>Almirante de la Flota Real de <a
+href="Galvorn.html">Galvorn</a>, la Espada del Mar y Azote de los
+Corsarios de <a href="Mor&#39;dhul.html">Mor’dhul</a>.</strong></p>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en una humilde aldea pesquera en la costa de <a
+href="Galvorn.html">Galvorn</a>, Aurelius Stormsail no heredó títulos ni
+riquezas, solo el amor por el océano y la sal en la sangre. Desde joven,
+demostró una afinidad innata para la navegación, aprendiendo a leer los
+vientos y las mareas como si fueran un libro abierto. Su ambición, sin
+embargo, se extendía mucho más allá de las redes de pesca de su familia.
+Se enroló como grumete en un navío mercante y, gracias a su ingenio,
+valor y carisma natural, ascendió rápidamente hasta convertirse en
+capitán de su propio barco antes de cumplir los veinticinco años.</p>
+<p>Su nombre se forjó en leyenda durante el <strong>“Asedio Corsario a
+Poyoranta”</strong>. Una flota pirata, financiada en secreto por <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, lanzó un ataque sorpresa contra
+el puerto naval estratégico de <a href="Galvorn.html">Galvorn</a>.
+Mientras la flota oficial estaba dispersa en patrullas, Aurelius, al
+mando de su modesto carguero, se negó a huir. Con una audacia que rozaba
+la locura, organizó una flotilla improvisada con barcos mercantes y
+pesqueros, utilizando su conocimiento de los arrecifes y las corrientes
+locales para atraer a los navíos enemigos a trampas mortales. En la
+batalla culminante, abordó personalmente el buque insignia pirata, un
+acto de valentía en el que perdió su pierna izquierda pero aseguró la
+victoria para <a href="Galvorn.html">Galvorn</a>.</p>
+<p>El Rey, impresionado por su heroísmo y genio táctico, lo convocó a la
+capital. En un acto sin precedentes que encarnaba el espíritu
+meritocrático de <a href="Galvorn.html">Galvorn</a>, Aurelius fue
+ennoblecido, fundando la Casa Stormsail —una casa construida sobre
+hazañas, no sobre linaje— y se le otorgó el mando de un escuadrón naval.
+Su ascenso fue meteórico. Como oficial, profesionalizó la armada,
+introduciendo nuevas tácticas de combate naval y fomentando una lealtad
+inquebrantable entre sus hombres, quienes lo ven no como un <a
+href="Noble.html">Noble</a> distante, sino como uno de los suyos.</p>
+<p>Hoy, Aurelius Stormsail ostenta el rango de Almirante de la Flota
+Real y es un influyente miembro del <strong>Consejo de
+Capitanes</strong>. Es la principal fuerza defensiva de <a
+href="Galvorn.html">Galvorn</a> contra las incursiones de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y la piratería. Su némesis es el
+General orco <strong>Volrath “La Mano Negra”</strong>, con quien ha
+chocado en numerosas batallas costeras y navales, desarrollando un
+profundo respeto mutuo por su habilidad militar, pero un odio
+inextinguible por sus ideologías.</p>
+<p><strong>Motivaciones y Creencias:</strong> Aurelius es un patriota
+devoto de <a href="Galvorn.html">Galvorn</a> y un fiel seguidor de
+<strong><a href="Yfrit.html">Yfrit</a></strong>, la <a
+href="Yfrit,_diosa_del_mar.html">Yfrit,_diosa_del_mar</a>, a quien
+ofrece una plegaria en la proa de su barco antes de cada travesía. Cree
+firmemente que el mar ofrece libertad y prosperidad, pero que esa
+libertad debe ser defendida con acero y fuego. Desprecia la tiranía y la
+opresión de <a href="Mor&#39;dhul.html">Mor’dhul</a>, viéndolos como una
+plaga que busca encadenar las olas. Respecto a la <strong>Profecía del
+Retorno del Primer Rey</strong>, se mantiene pragmático: si la
+unificación de Lithernia trae paz y protege los mares, la apoyará; pero
+si amenaza la soberanía y la libertad de <a
+href="Galvorn.html">Galvorn</a>, se opondrá con toda la fuerza de su
+flota.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Aurelius es un hombre alto y de complexión robusta, con la piel
+curtida por el sol y la sal. Su cabello, rubio y largo, suele estar
+recogido en una coleta adornada con cuentas de hueso de leviatanes
+menores. Sus ojos, de un azul profundo como el océano en calma, pueden
+tornarse grises y tormentosos en el fragor de la batalla. Una sonrisa
+fácil suele adornar su rostro, pero una red de finas cicatrices
+atestigua una vida de combates.</p>
+<p>Su pierna izquierda fue reemplazada por una prótesis magistralmente
+tallada en madera de roble marino, reforzada con acero y decorada con
+motivos de olas y criaturas marinas. Lejos de ser un impedimento, la
+lleva con orgullo como símbolo de su sacrificio por <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>Viste un abrigo largo de almirante, de color azul marino con galones
+dorados en los puños y el cuello, sobre una camisa de lino blanca. Calza
+botas altas de cuero y casi nunca se le ve sin su tricornio de
+almirante, adornado con una pluma de albatros real, un amuleto de buena
+suerte entre los marineros.</p>
+<ul>
+<li><strong>Arma:</strong> Porta a “Rompeolas” (Wavebreaker), un alfanje
+de excelente factura con la guarda en forma de kraken, un regalo del
+propio Rey de <a href="Galvorn.html">Galvorn</a>.</li>
+<li><strong>Buque Insignia:</strong> Comanda “El Horizonte”, un galeón
+de guerra de última generación construido en los astilleros de
+Poyoranta, rápido, fuertemente armado y tripulado por los marineros más
+leales y veteranos de la flota.</li>
+</ul>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Para el pueblo de <a href="Galvorn.html">Galvorn</a>, el Capitán
+Aurelius Stormsail es un <a href="Heroes.html">Heroes</a> viviente, la
+encarnación de que el valor y el mérito pueden elevar a un hombre por
+encima de su cuna. Su historia inspira a miles de jóvenes a unirse a la
+marina o a buscar fortuna en el mar, y su nombre es sinónimo de la
+resiliencia y el espíritu indomable del reino marítimo.</p>
+<p>Para sus enemigos, especialmente para el reino de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, es el mayor obstáculo para su
+expansión naval y una fuente constante de frustración. Sus victorias han
+asegurado que las rutas comerciales de <a
+href="Galvorn.html">Galvorn</a> permanezcan abiertas, fortaleciendo la
+economía de su reino y, por extensión, las de sus aliados como <a
+href="Valtoria.html">Valtoria</a> y <a
+href="Eldrador.html">Eldrador</a>.</p>
+<p>Aurelius Stormsail no es solo un almirante; es un pilar de la Era
+Actual, un jugador clave en la Gran Guerra que define el equilibrio de
+poder en Lithernia. Mientras él vigile los mares, las olas de <a
+href="Galvorn.html">Galvorn</a> seguirán cantando a la libertad.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

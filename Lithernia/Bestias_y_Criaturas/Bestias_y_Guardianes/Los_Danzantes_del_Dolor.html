@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los_Danzantes_del_Dolor</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Los_Danzantes_del_Dolor</div>
+        <div class="content">
+<h1 id="los-danzantes-del-dolor">Los danzantes del dolor</h1>
+<h3 id="tabla-de-identificación">Tabla de Identificación</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Criatura</strong></td>
+<td style="text-align: left;">Humanoide (Hobgoblin)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alineamiento Típico</strong></td>
+<td style="text-align: left;">Legal Maligno</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deidad Patrona</strong></td>
+<td style="text-align: left;"><a href="Kromagul.html">Kromagul</a>, Dios
+del Dolor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Facción Principal</strong></td>
+<td style="text-align: left;">Clan <a
+href="Kromagul.html">Kromagul</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nivel de Desafío</strong></td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rol Táctico</strong></td>
+<td style="text-align: left;">Escaramuzador, Debilitador</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Entorno Común</strong></td>
+<td style="text-align: left;">Zonas de tortura, campos de batalla,
+guarniciones en Fuempillos, ruinas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabla-de-conocimiento-prueba-de-habilidad">Tabla de Conocimiento
+(Prueba de Habilidad)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">CD</th>
+<th style="text-align: left;">Habilidad</th>
+<th style="text-align: left;">Conocimiento Revelado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>10</strong></td>
+<td style="text-align: left;">Historia</td>
+<td style="text-align: left;">Identifica a la criatura como un hobgoblin
+de una secta militar de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+conocida por su disciplina y crueldad táctica.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>15</strong></td>
+<td style="text-align: left;">Religión o Arcanos</td>
+<td style="text-align: left;">Los vincula al culto de <a
+href="Kromagul.html">Kromagul</a>. Sabe que canalizan el dolor (propio y
+ajeno) en poder. Conoce el efecto de su <code>Aura de Sufrimiento</code>
+y su rasgo <code>Danza de la Agonía</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>20</strong></td>
+<td style="text-align: left;">Investigación o Religión</td>
+<td style="text-align: left;">Conoce sus tácticas precisas: se exponen
+al daño deliberadamente para activar su <code>Danza de la Agonía</code>
+y usan <code>Ventaja Marcial</code> para eliminar objetivos clave.
+Entiende que <code>Susurros de Tormento</code> busca romper
+formaciones.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tácticas-y-comportamiento">Tácticas y Comportamiento</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Estrategia</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Prioridad de
+Objetivo</strong></td>
+<td style="text-align: left;">Aislan a un único enemigo para maximizar
+el efecto de <code>Ventaja Marcial</code>. Se centran en personajes con
+baja salvación de Sabiduría.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Apertura de Combate</strong></td>
+<td style="text-align: left;">Usan <code>Susurros de Tormento</code> si
+el grupo enemigo está agrupado para desorganizarlo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Posicionamiento</strong></td>
+<td style="text-align: left;">Se mantienen cerca de sus aliados para
+activar <code>Ventaja Marcial</code>. No temen recibir un golpe si eso
+activa su <code>Danza de la Agonía</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sinergias</strong></td>
+<td style="text-align: left;">Trabajan en grupos de 3 o más. Su
+<code>Aura de Sufrimiento</code> y la habilidad de
+<code>Ventaja Marcial</code> se potencian mutuamente. Son escoltas
+perfectos para brutos más grandes como los Semiogros.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Debilidades</strong></td>
+<td style="text-align: left;">Dependen de sus aliados para
+<code>Ventaja Marcial</code>. El daño que los elimina en un solo golpe
+(one-shot) evita que activen su <code>Danza de la Agonía</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ganchos-de-encuentro">Ganchos de Encuentro</h3>
+<table>
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d6</th>
+<th>Situación del Encuentro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td>Un grupo de 3 Danzantes “entrena” torturando a un prisionero en un
+sótano abandonado.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td>Actúan como guardia de élite para un <a
+href="Sacerdote.html">Sacerdote</a> de alto rango del Clan <a
+href="Kromagul.html">Kromagul</a>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td>Una patrulla de Danzantes busca supervivientes en un campo de
+batalla reciente para prolongar su agonía.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td>Lideran una banda de <a href="Goblins.html">Goblins</a> en una
+incursión para capturar nuevos “sujetos de prueba”.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td>Realizan una danza ritual en la ciudad de Fuempillos, infligiendo
+dolor a la multitud para invocar el favor de su dios.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td>Un Danzante solitario, y malherido, ofrece información a cambio de
+una “muerte digna en combate”.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tesoro-y-recolección">Tesoro y Recolección</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Componente</th>
+<th style="text-align: left;">CD de Recolección</th>
+<th style="text-align: left;">Usos Potenciales</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Hojas Dentadas</strong></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Un par de dagas o espadas cortas de diseño
+cruel. Funcionan como armas marciales.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Símbolo de <a
+href="Kromagul.html">Kromagul</a></strong></td>
+<td style="text-align: left;">10 (Religión)</td>
+<td style="text-align: left;">Un amuleto de hierro retorcido. Componente
+para rituales que buscan infligir o resistir el dolor.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Corazón Afligido</strong></td>
+<td style="text-align: left;">18 (Arcanos)</td>
+<td style="text-align: left;">Ingrediente para pociones que infligen
+daño psíquico o para fabricar un pergamino de conjuro de
+<em>Miedo</em>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>```statblock name: Danzante del Dolor size: Mediano type: humanoide
+(hobgoblin) alignment: legal maligno ac: 15 (armadura de cuero
+tachonado) hp: 52 (8d8 + 16) speed: 30 ft. stats: [14, 16, 14, 12, 12,
+13] saves: - Dex: +5 - Con: +4 skills: - Acrobacias: +5 - Intimidación:
++3 - Actuación: +3 senses: Visión en la oscuridad 60 ft., Percepción
+pasiva 11 languages: Común, Goblin cr: 3 traits: - name: Aura de
+Sufrimiento desc: “Cualquier criatura hostil que comience su turno a 10
+pies del danzante debe superar una tirada de salvación de Sabiduría CD
+12 o tendrá desventaja en sus tiradas de ataque hasta el comienzo de su
+próximo turno.” - name: Danza de la Agonía desc: “Cuando el danzante
+recibe daño de un ataque, sus ataques con arma infligen 3 (1d6) de daño
+psíquico adicional hasta el final de su siguiente turno.” - name:
+Ventaja Marcial desc: “Una vez por turno, el danzante puede infligir 7
+(2d6) de daño adicional a una criatura que golpee con un ataque de arma
+si esa criatura está a 5 pies de un aliado del danzante que no esté
+incapacitado.” actions: - name: Multiataque desc: “El danzante realiza
+dos ataques con sus Hojas Dentadas.” - name: Hoja Dentada desc: “Ataque
+de arma cuerpo a cuerpo: +5 a impactar, alcance 5 ft., un objetivo.
+Impacto: 7 (1d8 + 3) de daño cortante.” - name: Susurros de Tormento
+(Recarga 5-6) desc: “El danzante emite encantamientos enloquecedores.
+Cada criatura a su elección en un radio de 30 pies que pueda oírlo debe
+realizar una tirada de salvación de Sabiduría CD 12. Si falla, una
+criatura recibe 10 (3d6) de daño psíquico y debe usar su reacción, si
+está disponible, para moverse hasta su velocidad en una dirección
+aleatoria determinada por el DM. Si tiene éxito, la criatura recibe la
+mitad del daño y no tiene que moverse.”</p>
+        </div>
+    </div>
+</body>
+</html>

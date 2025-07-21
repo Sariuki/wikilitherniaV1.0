@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nythalas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Nythalas</div>
+        <div class="content">
+<h1 id="nythalas">Nythalas</h1>
+<p>Oculta a la vista del mundo tras una cascada que cae sin fin,
+Nythalas no es una ciudad de piedra y argamasa, sino un testamento
+viviente a la magia del destino. Se encuentra enclavada dentro de una
+colosal caverna de geodas, cuyas paredes de cristal resplandecen con una
+luz interior que emula el firmamento. Conocida como la “Ciudad de los
+Destinos Tejidos”, sus edificios están exquisitamente tallados en cuarzo
+y piedra lunar, conectados no por caminos, sino por puentes de luz
+solidificada que pulsan con los colores de las estaciones feéricas.
+Nythalas es un santuario para aquellos que buscan leer los hilos del
+porvenir, un lugar donde el conocimiento esotérico se valora por encima
+de cualquier poder terrenal.</p>
+<h2 id="historia">Historia</h2>
+<p>Nythalas fue fundada en los siglos posteriores al Cataclismo del <a
+href="Lilium.html">Lilium</a> por la vidente <a
+href="Eladrin.html">Eladrin</a> Lyra del Velo Estelar. Desilusionada con
+la rígida Mano de Hierro y la obsesión de la nobleza élfica por el
+linaje, Lyra y sus seguidores buscaron un lugar donde el destino pudiera
+ser estudiado como una ciencia sagrada, libre de dogmas políticos. Su
+búsqueda los llevó a las profundidades de un bosque olvidado, donde
+descubrieron una cascada que velaba la entrada a una caverna de belleza
+imposible.</p>
+<p>Dentro, la luz se filtraba a través de miles de cristales, creando un
+nexo perfecto para la adivinación. Aquí fundaron Nythalas, no como una
+fortaleza, sino como un observatorio del destino. Con el tiempo, la
+ciudad atrajo a místicos de todo <a href="Eldrador.html">Eldrador</a>:
+Altos Elfos fascinados con la profecía, Elfos Silvanos que leían el
+futuro en el crecimiento de los cristales, y Shadar-Kai que encontraban
+consuelo en la veneración de los secretos guardados por <a
+href="Morgal.html">Morgal</a>. Hoy, Nythalas es un poder arcano neutral,
+un faro de conocimiento que comercia con visiones y verdades, a menudo a
+un precio muy alto.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón de Geoda</strong>: La caverna central y más
+grande de Nythalas. El techo está cubierto por una única geoda masiva
+que proyecta constelaciones danzantes sobre la plaza de abajo. Aquí se
+encuentra el Salón del Cónclave, donde los Videntes gobiernan, y el
+Mercado de los Reflejos, donde se comercia con espejos de adivinación,
+tapices proféticos y cristales de memoria.</p></li>
+<li><p><strong>Las Galerías de Cuarzo</strong>: Los distritos
+residenciales de la ciudad. Las viviendas están talladas directamente en
+las paredes de cuarzo rosa y amatista, brillando con una luz suave y
+cálida. Los puentes de luz que las conectan son mantenidos por la
+voluntad colectiva de los magos de la ciudad.</p></li>
+<li><p><strong>El Ojo de <a href="Arzia.html">Arzia</a></strong>: Un
+complejo de observatorios construidos en los puntos más altos de la
+caverna. No utilizan lentes de cristal, sino cuencas pulidas de
+obsidiana llenas de agua bendecida por la luna, que actúan como espejos
+perfectos para contemplar el Plano Astral y las verdades que oculta el
+firmamento.</p></li>
+<li><p><strong>El Santuario del Eco</strong>: Una caverna más pequeña y
+silenciosa dedicada al culto de <a href="Morgal.html">Morgal</a>. Sus
+paredes no reflejan la luz, sino que la absorben, creando un espacio de
+penumbra reconfortante. Aquí se guardan los secretos, se sellan los
+pactos más delicados y los Shadar-Kai meditan sobre las verdades que es
+mejor no revelar.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La sociedad de Nythalas gira en torno a la adivinación. Cada decisión
+importante, desde un matrimonio hasta un tratado comercial, es precedida
+por una consulta a los oráculos. Su festividad más importante es el
+“Festival de los Mil Futuros”, celebrado durante los equinoccios, donde
+todos los ciudadanos tienen la oportunidad de mirar en los espejos
+públicos para vislumbrar un posible porvenir.</p>
+<p>Los juramentos y contratos se consideran sagrados y se sellan con un
+ritual único: los implicados se miran en un “Espejo de Pacto”, un frágil
+disco de cristal encantado. Sus reflejos quedan atrapados en el interior
+como testigos etéreos. Si el juramento se rompe, el espejo se hace
+añicos con un grito psíquico que resuena en la mente de toda la ciudad,
+marcando al infractor con una vergüenza imborrable. El símbolo heráldico
+de la ciudad es un orbe de cristal fracturado, del que emanan tres haces
+de luz estelar sobre un fondo de seda nocturna, representando la
+naturaleza fragmentaria y múltiple del futuro.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>Nythalas es un lugar de asombrosa y tranquila belleza. La
+arquitectura es fluida y orgánica, adaptándose a las formaciones de
+cristal naturales. No hay sonidos estridentes; solo el murmullo
+constante de la cascada en la entrada y el suave zumbido armónico de los
+cristales. El aire es fresco y huele a ozono y piedra húmeda. El
+ambiente general es de contemplación y misterio, como si la ciudad
+entera estuviera conteniendo la respiración, esperando que se revele el
+siguiente gran secreto del universo.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Espejo del <a href="Lilium.html">Lilium</a></strong>:
+En las bóvedas más profundas del Cónclave se rumorea que yace oculto un
+artefacto de poder inimaginable: el Espejo del <a
+href="Lilium.html">Lilium</a>. A diferencia de otros espejos que
+muestran el futuro, este revela el pasado que pudo ser. Se dice que
+muestra una visión clara y perfecta de Lithernia si el Primer Rey
+hubiera triunfado en su rebelión contra los dioses. El Cónclave lo
+guarda bajo siete sellos arcanos, temiendo que la visión de esa utopía
+perdida pueda volver locos a los elfos o incitar una nueva guerra contra
+los cielos.</p></li>
+<li><p><strong>Los Niños sin Reflejo</strong>: Una leyenda susurrada en
+los rincones más oscuros de la ciudad habla de los niños <a
+href="Eladrin.html">Eladrin</a> que nacen sin reflejo. Estos seres son
+considerados bendecidos (o maldecidos) por <a
+href="Morgal.html">Morgal</a>. Se dice que no pueden ser registrados por
+la magia de adivinación ni por los espejos de pacto. La leyenda afirma
+que el culto de <a href="Morgal.html">Morgal</a> los recluta en secreto
+desde la cuna, entrenándolos en el Santuario del Eco para convertirlos
+en los espías y asesinos perfectos, capaces de moverse por el mundo sin
+dejar rastro en el tapiz del destino.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.33)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

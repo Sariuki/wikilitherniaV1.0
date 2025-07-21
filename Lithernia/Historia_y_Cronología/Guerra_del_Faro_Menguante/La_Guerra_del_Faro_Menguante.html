@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Guerra_del_Faro_Menguante</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Guerra_del_Faro_Menguante</div>
+        <div class="content">
+<h1 id="la-guerra-del-faro-menguante">La guerra del faro menguante</h1>
+<h3 id="perfil-del-evento-histórico">Perfil del Evento Histórico</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo</strong></td>
+<td style="text-align: left;">Conflicto Histórico / Escenario de
+Aventura</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Reino</strong></td>
+<td style="text-align: left;"><a href="Galvorn.html">Galvorn</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ubicación Clave</strong></td>
+<td style="text-align: left;">Faro de la Agonía, Garganta del
+Leviatán</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Periodo</strong></td>
+<td style="text-align: left;">~200 años antes de la Era Actual</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Resultado</strong></td>
+<td style="text-align: left;">Destrucción del artefacto “Luz de Aethel”,
+ruina del faro, aniquilación de las Casas Tidemar y Stormwind.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Legado</strong></td>
+<td style="text-align: left;">La Garganta del Leviatán es ahora una zona
+de navegación maldita y peligrosa. El conflicto es una advertencia
+contra la ambición.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="facciones-enfrentadas">Facciones Enfrentadas</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Casa <a href="Noble.html">Noble</a></th>
+<th style="text-align: left;">Líder</th>
+<th style="text-align: left;">Deidad Patrona</th>
+<th style="text-align: left;">Filosofía / Táctica</th>
+<th style="text-align: left;">Estado Actual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Casa Tidemar</strong></td>
+<td style="text-align: left;">Lord Kaelen Tidemar</td>
+<td style="text-align: left;"><a href="Yfrit.html">Yfrit</a></td>
+<td style="text-align: left;">Deber, tradición, paciencia. Tácticas
+navales defensivas, magia de protección y agua.</td>
+<td style="text-align: left;">Extinta.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Casa Stormwind</strong></td>
+<td style="text-align: left;">Lady Lyra Stormwind</td>
+<td style="text-align: left;"><a href="Exion.html">Exion</a>, <a
+href="Quiteon.html">Quiteon</a></td>
+<td style="text-align: left;">Ambición, pragmatismo radical. Tácticas
+navales agresivas, magia de tormentas y viento.</td>
+<td style="text-align: left;">Extinta.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="artefacto-clave-luz-de-aethel">Artefacto Clave: Luz de
+Aethel</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipo de Objeto</strong></td>
+<td style="text-align: left;">Artefacto Legendario (ahora
+destruido)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Origen</strong></td>
+<td style="text-align: left;">Pre-El Primer Rey, posiblemente élfico o
+celestial.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Función Original</strong></td>
+<td style="text-align: left;">Proyectaba una luz que calmaba las aguas
+de la Garganta del Leviatán y repelía a los monstruos marinos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Estado Actual</strong></td>
+<td style="text-align: left;"><strong>Fragmento de la Luz Rota
+(Artefacto Menor, Raro):</strong> Requiere sintonización. Un cristal
+opaco que emite un frío palpable. El portador puede lanzar el conjuro
+<em>Protección contra el bien y el mal</em> una vez por descanso largo
+(solo contra monstruosidades). <strong>Maldición:</strong> Mientras esté
+sintonizado, el portador sufre desventaja en las tiradas de salvación
+contra <a href="Conjuros.html">Conjuros</a> de la escuela de
+Evocación.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="entorno-de-aventura-ruinas-del-faro-de-la-agonía">Entorno de
+Aventura: Ruinas del Faro de la Agonía</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Regla de Entorno</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Aguas Traicioneras</strong></td>
+<td style="text-align: left;">Cualquier prueba de habilidad para navegar
+un vehículo acuático en la Garganta del Leviatán se realiza con
+desventaja. Un fallo por 5 o más resulta en daño para el navío.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Aura de Lamento</strong></td>
+<td style="text-align: left;">Las criaturas que realicen un descanso
+corto o largo en un radio de 1 milla del faro deben superar una tirada
+de salvación de Sabiduría (CD 13) o no obtendrán ningún beneficio y no
+podrán reducir su nivel de agotamiento.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Silencio Mágico</strong></td>
+<td style="text-align: left;">El interior de la torre del faro está bajo
+el efecto permanente de un conjuro de <em>Silencio</em>. Los <a
+href="Conjuros.html">Conjuros</a> con componente verbal fallan
+automáticamente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ecos de Tormenta</strong></td>
+<td style="text-align: left;">Durante una tormenta, el área alrededor
+del faro es azotada por relámpagos espectrales. Al comienzo de cada
+ronda, cada criatura al aire libre debe superar una tirada de salvación
+de Destreza (CD 15) o sufrirá 2d10 de daño de relámpago.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ganchos-de-aventura">Ganchos de Aventura</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">d4</th>
+<th style="text-align: left;">Gancho de Aventura</th>
+<th style="text-align: left;">Objetivo Principal</th>
+<th style="text-align: left;">Facción Interesada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><strong>El Último Eco</strong></td>
+<td style="text-align: left;">Recuperar el <em>Fragmento de la Luz
+Rota</em> de las profundidades de la torre en ruinas.</td>
+<td style="text-align: left;">Eruditos de la Torre de las Estrellas,
+Gremio de Mercaderes de <a href="Galvorn.html">Galvorn</a>.</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><strong>Calmar a los
+Condenados</strong></td>
+<td style="text-align: left;">Realizar un ritual para dar descanso
+eterno a los espíritus de Kaelen Tidemar y Lyra Stormwind.</td>
+<td style="text-align: left;">Clérigos de <a
+href="Yfrit.html">Yfrit</a>, descendientes lejanos de las casas.</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><strong>La Ruta Perdida</strong></td>
+<td style="text-align: left;">Encontrar una forma de reactivar
+temporalmente la función protectora del faro para guiar un navío
+importante a través de la Garganta.</td>
+<td style="text-align: left;">El Consejo de Capitanes, la Corona de <a
+href="Galvorn.html">Galvorn</a>.</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><strong>Cosecha Espectral</strong></td>
+<td style="text-align: left;">Un <a
+href="Nigromante.html">Nigromante</a> del Clan Whisper busca capturar la
+esencia de los fantasmas del faro para crear un poderoso no muerto.</td>
+<td style="text-align: left;">Clan Whisper, una orden de paladines que
+se opone a ellos.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pnjs-notables-espectrales">PNJs Notables (Espectrales)</h3>
+<p>statblock name: Fantasma de Lord Kaelen Tidemar size: Mediano type:
+no-muerto alignment: legal neutral ac: 12 hp: 110 (20d8 + 20) speed: 0
+ft., Vuelo 40 ft. (flotar) stats: [7, 14, 12, 11, 17, 17] saves: - Sab:
++7 - Car: +7 damage_resistances: Ácido, Fuego, Rayo, Trueno;
+Contundente, Perforante y Cortante de ataques no mágicos
+damage_immunities: Frío, Necrótico, Veneno condition_immunities:
+Hechizado, Agotamiento, Asustado, Agarrado, Paralizado, Petrificado,
+Envenenado, Tumbado, Contenido senses: Visión en la oscuridad 60 ft.,
+Percepción Pasiva 13 languages: Común, Élfico cr: 9 traits: - name:
+Movimiento Incorpóreo desc: “El fantasma puede moverse a través de otras
+criaturas y objetos como si fueran terreno difícil. Recibe 5 (1d10) de
+daño de fuerza si termina su turno dentro de un objeto.” - name: Ancla
+del Deber desc: “El fantasma no puede ser expulsado ni obligado a
+abandonar un radio de 1 milla del Faro de la Agonía.” actions: - name:
+Toque Marchitador desc: “Ataque de conjuro cuerpo a cuerpo: +6 a
+impactar, alcance 5 ft., un objetivo. Impacto: 17 (4d6 + 3) de daño
+necrótico.” - name: Posesión (Recarga 6) desc: “Un humanoide que el
+fantasma pueda ver a 5 pies de él debe superar una tirada de salvación
+de Carisma CD 15 o ser poseído por el fantasma; el fantasma entonces
+desaparece, y el objetivo queda incapacitado y pierde el control de su
+cuerpo. El fantasma ahora controla el cuerpo pero no priva al objetivo
+de su conciencia. El fantasma no puede ser objetivo de ningún ataque,
+conjuro u otro efecto, excepto los que expulsan no muertos, y retiene su
+alineamiento, Inteligencia, Sabiduría, Carisma e inmunidad a ser
+hechizado y asustado. Por lo demás, utiliza las estadísticas del
+objetivo, pero no obtiene acceso al conocimiento, rasgos de clase o
+competencias del objetivo.posesión dura hasta que el cuerpo cae a 0
+puntos de golpe, el fantasma la termina como una acción adicional, o el
+fantasma es expulsado o forzado a salir por un efecto como el conjuro
+<em>Disipar el bien y el mal</em>. Cuando la posesión termina, el
+fantasma reaparece en un espacio desocupado a 5 pies del cuerpo.” -
+name: Marea de Pesar (1/Día) desc: “El fantasma exhala una ola de pena
+en un cono de 30 pies. Cada criatura en esa área debe superar una tirada
+de salvación de Sabiduría CD 15 o recibirá 22 (4d10) de daño psíquico y
+su velocidad se reducirá a 0 hasta el final de su próximo turno. Si
+tiene éxito, la criatura recibe la mitad del daño y su velocidad no se
+ve afectada.”</p>
+        </div>
+    </div>
+</body>
+</html>

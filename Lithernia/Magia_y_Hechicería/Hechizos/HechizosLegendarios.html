@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HechizosLegendarios</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">HechizosLegendarios</div>
+        <div class="content">
+<h1 id="hechizoslegendarios">Hechizoslegendarios</h1>
+<h3 id="características-de-los-hechizos-legendarios">Características de
+los Hechizos Legendarios</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Descripción Mecánica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel de Poder</strong></td>
+<td style="text-align: left;">Equivalente a <a
+href="Conjuros.html">Conjuros</a> de 10º nivel o Rituales Legendarios.
+No ocupan espacios de conjuro convencionales.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coste de Maná</strong></td>
+<td style="text-align: left;">Consumen una cantidad significativa de
+Puntos de Maná (generalmente 50+ o la reserva total del lanzador).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong></td>
+<td style="text-align: left;">Imponen niveles de <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+extremos y a menudo requieren tiradas de salvación de Constitución para
+evitar niveles de agotamiento.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">Requieren componentes materiales únicos, a
+menudo artefactos o partes de criaturas legendarias (CR 20+), que suelen
+ser consumidos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Canalización</strong></td>
+<td style="text-align: left;">Típicamente requieren Círculos de
+Invocación Mayores o la canalización en Lugares de Poder
+específicos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Prerrequisito de
+Conocimiento</strong></td>
+<td style="text-align: left;">No se pueden aprender por subida de nivel.
+Deben ser encontrados en tomos únicos, otorgados por una deidad o
+aprendidos de una entidad mítica.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="hechizos-legendarios-conocidos">Hechizos Legendarios
+Conocidos</h2>
+<h3 id="llama-del-lilium">Llama del Lilium</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel</strong></td>
+<td style="text-align: left;">10º (Evocación)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tiempo de
+Lanzamiento</strong></td>
+<td style="text-align: left;">1 acción</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alcance</strong></td>
+<td style="text-align: left;">500 pies</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">V, S, M (un fragmento cristalizado del
+Cataclismo del <a href="Lilium.html">Lilium</a> o el corazón de un
+elemental de fuego de CR 20+, consumido por el conjuro)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Duración</strong></td>
+<td style="text-align: left;">Concentración, hasta 1 minuto</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tabla-de-efectos">Tabla de Efectos</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Condición</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Efecto Primario</strong></td>
+<td style="text-align: left;">Creas un cilindro de 60 pies de radio y
+100 pies de altura centrado en un punto dentro del alcance. Cada
+criatura en el área debe realizar una tirada de salvación de Destreza
+(CD 25). Si falla, recibe 10d10 de daño por fuego y 10d10 de daño
+radiante. Si tiene éxito, recibe la mitad del daño.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto de Área</strong></td>
+<td style="text-align: left;">El área se convierte en terreno difícil.
+Una criatura que comience su turno en el área sufre 5d10 de daño por
+fuego y 5d10 de daño radiante.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Corrupción del <a
+href="Lilium.html">Lilium</a></strong></td>
+<td style="text-align: left;">Una criatura que falle la tirada de
+salvación inicial queda marcada por la corrupción. Durante 24 horas, no
+puede recuperar Puntos de Maná y tiene desventaja en las tiradas de
+salvación contra <a href="Conjuros.html">Conjuros</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coste del Lanzador</strong></td>
+<td style="text-align: left;">Lanzar este conjuro inflige
+automáticamente 50 puntos de <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>.
+Además, el lanzador debe superar una tirada de salvación de Constitución
+(CD 25) o sufrir 3 niveles de agotamiento.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sello-de-las-cuatro-lanzas">Sello de las Cuatro Lanzas</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel</strong></td>
+<td style="text-align: left;">Ritual Legendario (Abjuración)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tiempo de
+Lanzamiento</strong></td>
+<td style="text-align: left;">24 horas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alcance</strong></td>
+<td style="text-align: left;">Toque</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">V, S, M (cuatro lanzadores de nivel 17+,
+cada uno sintonizado a un artefacto vinculado a una de las Lanzas
+Celestiales; el ritual debe realizarse en un Lugar de Poder).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Duración</strong></td>
+<td style="text-align: left;">Hasta ser disipado por medios específicos
+definidos durante el ritual.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tabla-de-efectos-1">Tabla de Efectos</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Condición</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Efecto Primario</strong></td>
+<td style="text-align: left;">Designas una criatura, objeto o fisura
+planar. El objetivo es transportado a un semiplano inofensivo y queda
+incapacitado allí, o la fisura es sellada permanentemente.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Condición de Ruptura</strong></td>
+<td style="text-align: left;">Durante el ritual, los lanzadores deben
+establecer una condición para romper el sello (ej: “cuando los cuatro
+reinos se unan en paz”). El sello es inmune a <em>Disipar Magia</em> o
+<em>Deseo</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coste del Lanzador</strong></td>
+<td style="text-align: left;">Al completar el ritual, cada uno de los
+cuatro lanzadores debe superar una tirada de salvación de Constitución
+(CD 30) o es reducido a 0 puntos de golpe y sufre 5 niveles de
+agotamiento. Con éxito, sufre 3 niveles.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="invocación-estelar-de-arzia">Invocación Estelar de Arzia</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel</strong></td>
+<td style="text-align: left;">10º (Evocación)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tiempo de
+Lanzamiento</strong></td>
+<td style="text-align: left;">1 acción</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alcance</strong></td>
+<td style="text-align: left;">Vista</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">V, S, M (un astrolabio de <a
+href="Eldrador.html">Eldrador</a> de cristal estelar, solo utilizable
+durante una noche de alineamiento astral específico).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Duración</strong></td>
+<td style="text-align: left;">Instantáneo</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tabla-de-efectos-2">Tabla de Efectos</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Condición</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Efecto Primario</strong></td>
+<td style="text-align: left;">Un rayo de luz estelar impacta en un punto
+que puedas ver, creando una explosión en un radio de 100 pies. Cada
+criatura hostil en el área debe realizar una salvación de Constitución
+(CD 24). Si falla, recibe 20d12 de daño radiante y queda cegada durante
+1 minuto. Con éxito, recibe la mitad del daño y no queda cegada.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efecto Aliado</strong></td>
+<td style="text-align: left;">Las criaturas aliadas en el área ganan 50
+puntos de golpe temporales y están bajo el efecto del conjuro
+<em>Bendición</em> durante 1 hora.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coste del Lanzador</strong></td>
+<td style="text-align: left;">Lanzar este conjuro inflige 40 puntos de
+<a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>.
+El lanzador debe superar una salvación de Sabiduría (CD 22) o sufrir un
+nivel de agotamiento por la sobrecarga sensorial.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="trama-del-destino-de-lerián">Trama del Destino de Lerián</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel</strong></td>
+<td style="text-align: left;">Ritual Legendario (Adivinación)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tiempo de
+Lanzamiento</strong></td>
+<td style="text-align: left;">10 minutos</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alcance</strong></td>
+<td style="text-align: left;">Personal</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">V, S, M (un Ojo del Tiempo o un fragmento
+de la lanza Chronos).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Duración</strong></td>
+<td style="text-align: left;">Instantáneo</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tabla-de-efectos-3">Tabla de Efectos</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Condición</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Efecto Primario</strong></td>
+<td style="text-align: left;">El lanzador formula hasta tres preguntas
+sobre el futuro al DM, quien debe responder con la verdad sobre el
+resultado más probable.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alteración del Hilo</strong></td>
+<td style="text-align: left;">Tras recibir las respuestas, el lanzador
+puede declarar una “Alteración Menor” en la realidad que ocurrirá en las
+próximas 24 horas (ej: forzar que una tirada de d20 sea un 1 o un 20;
+cambiar una decisión de un PNJ; hacer que un objeto aparezca o
+desaparezca).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Riesgo de Paradoja</strong></td>
+<td style="text-align: left;">Después de la alteración, tira un d100.
+Con un resultado de 1-10, se crea una paradoja temporal con
+consecuencias determinadas por el DM.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coste del Lanzador</strong></td>
+<td style="text-align: left;">El lanzador sufre 10d10 de daño psíquico y
+debe superar una tirada de salvación de Inteligencia (CD 25) o su
+puntuación de Sabiduría se reduce permanentemente en 1d4.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="toque-corruptor-de-sariel">Toque Corruptor de Sariel</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Atributo</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Nivel</strong></td>
+<td style="text-align: left;">10º (Nigromancia)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tiempo de
+Lanzamiento</strong></td>
+<td style="text-align: left;">1 hora</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alcance</strong></td>
+<td style="text-align: left;">Toque</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Componentes</strong></td>
+<td style="text-align: left;">V, S, M (el corazón ennegrecido de un <a
+href="Dragones.html">Dragones</a> anciano de las sombras,
+consumido).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Duración</strong></td>
+<td style="text-align: left;">Permanente</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tabla-de-efectos-4">Tabla de Efectos</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Condición</th>
+<th style="text-align: left;">Efecto Mecánico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Efecto de Área</strong></td>
+<td style="text-align: left;">Al tocar un punto, una ola de corrupción
+se extiende en un radio de 1 milla durante los siguientes 7 días. El
+área se considera terreno profanado y la luz solar se convierte en
+penumbra.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Plaga de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a></strong></td>
+<td style="text-align: left;">Cada día, las criaturas vivas en el área
+deben superar una salvación de Constitución (CD 22) o contraer la Plaga
+de <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Sariel.html">Sariel</a>.
+Una criatura afligida no puede recuperar puntos de golpe y su máximo de
+PV se reduce en 3d6 cada 24 horas. Si sus PV máximos se reducen a 0,
+muere y se alza como un Espectro bajo el control del lanzador.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coste del Lanzador</strong></td>
+<td style="text-align: left;">Al lanzar este conjuro, debes realizar una
+tirada de salvación de Carisma (CD 20). Si fallas, tu alineamiento se
+desplaza un paso hacia Caótico Maligno. Además, no puedes lanzar <a
+href="Conjuros.html">Conjuros</a> que inflijan daño radiante durante 1
+mes.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.35)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

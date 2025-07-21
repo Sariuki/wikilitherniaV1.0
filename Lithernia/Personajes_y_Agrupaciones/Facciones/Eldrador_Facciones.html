@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eldrador_Facciones</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Eldrador_Facciones</div>
+        <div class="content">
+<h1 id="eldrador-facciones">Eldrador facciones</h1>
+<p><a href="Eldrador.html">Eldrador</a>, el reino de las tierras altas
+de Lithernia, es un mosaico complejo de poder y tradición, donde las
+facciones internas tejen una red de alianzas, rivalidades y antiguas
+promesas. Comprender <a href="Eldrador.html">Eldrador</a> es adentrarse
+en un mundo en el que la lealtad, el destino y la ambición se
+entrelazan, dando forma a la historia del reino y, por extensión, del
+propio Lithernia.</p>
+<h2 id="historia-y-origen-de-las-facciones">Historia y Origen de las
+Facciones</h2>
+<p>Desde sus primeros días, <a href="Eldrador.html">Eldrador</a> estuvo
+marcado por la diversidad de sus clanes y casas nobles. Tras la caída
+del antiguo linaje de los Caerth, las facciones que luchaban por el
+control del trono se consolidaron en cuatro grandes grupos: cada uno con
+una ideología, territorio y propósito distinto que han definido
+generaciones.</p>
+<p>Estas facciones emergieron de una combinación de linajes ancestrales,
+tierras hereditarias y el dominio de poderosos artefactos forjados
+durante la Edad de los <a href="Dragones.html">Dragones</a>, creando un
+equilibrio tenso y a menudo frágil, que sostiene la estabilidad del
+reino.</p>
+<h2 id="principales-facciones-de-eldrador">Principales Facciones de
+Eldrador</h2>
+<h3 id="casa-valdrin-los-guardianes-de-la-montaña">1. Casa Valdrin: Los
+Guardianes de la Montaña</h3>
+<ul>
+<li><strong>Territorio:</strong> Regiones montañosas del norte,
+incluyendo la Fortaleza de Karath.</li>
+<li><strong>Ideología:</strong> Honor, defensa del reino y dominio de
+las artes marciales.</li>
+<li><strong>Símbolo:</strong> Un lobo blanco sobre un fondo azul
+oscuro.</li>
+<li><strong>Costumbres:</strong> Entrenamiento riguroso desde la
+juventud; ceremonias de juramento en las alturas nevadas.</li>
+<li><strong>Leyenda asociada:</strong> Se dice que su primer líder,
+Valdrin el Inamovible, selló un pacto con el espíritu de la montaña,
+otorgándoles fuerza inquebrantable y la bendición de las rocas
+eternas.</li>
+</ul>
+<h3 id="clan-myrhael-maestros-del-viento-y-la-diplomacia">2. Clan
+Myrhael: Maestros del Viento y la Diplomacia</h3>
+<ul>
+<li><strong>Territorio:</strong> Valles y llanuras al este, con su sede
+en la ciudad de Elesryn.</li>
+<li><strong>Ideología:</strong> Diplomacia, inteligencia y control sutil
+de las redes de comercio.</li>
+<li><strong>Símbolo:</strong> Una pluma dorada cruzada con una hoja de
+laurel.</li>
+<li><strong>Costumbres:</strong> Reuniones secretas en el Bosque
+Susurrante; uso de códigos y símbolos en correspondencia oficial.</li>
+<li><strong>Leyenda asociada:</strong> Los Myrhael afirman descender de
+los primeros videntes, quienes podían escuchar las voces del viento y
+predecir guerras antes de que estallaran.</li>
+</ul>
+<h3 id="hermandad-de-la-llama-inmortal">3. Hermandad de la Llama
+Inmortal</h3>
+<ul>
+<li><strong>Territorio:</strong> Ciudades del sur y del centro,
+especialmente las tierras volcánicas del corazón de <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>Ideología:</strong> Renovación, control del fuego sagrado y
+la purificación de las viejas costumbres.</li>
+<li><strong>Símbolo:</strong> Una llama roja rodeada por un círculo
+negro.</li>
+<li><strong>Costumbres:</strong> Ritos de iniciación al pie de volcanes
+activos; ayunos y meditaciones en templos de ceniza.</li>
+<li><strong>Leyenda asociada:</strong> Surge del mito del Fénix
+Ardiente, una criatura ancestral que encendió el primer fuego sagrado
+para iluminar el camino de los hombres hacia la sabiduría.</li>
+</ul>
+<h3 id="los-susurros-del-crepúsculo">4. Los Susurros del Crepúsculo</h3>
+<ul>
+<li><strong>Territorio:</strong> Regiones boscosas y oscuras del oeste,
+especialmente en los límites con territorios selváticos.</li>
+<li><strong>Ideología:</strong> Secretismo, magia antigua y el
+equilibrio entre luz y sombra.</li>
+<li><strong>Símbolo:</strong> Un ojo cerrado con una lágrima
+plateada.</li>
+<li><strong>Costumbres:</strong> Prácticas nocturnas y rituales bajo la
+luna nueva; el dominio del lenguaje oculto y la <a
+href="Alquimia.html">Alquimia</a>.</li>
+<li><strong>Leyenda asociada:</strong> Se cree que su fundador pactó con
+entidades del crepúsculo para proteger <a
+href="Eldrador.html">Eldrador</a> de fuerzas que amenazan desde las
+sombras.</li>
+</ul>
+<h2 id="relaciones-y-dinámicas-internas">Relaciones y Dinámicas
+Internas</h2>
+<p>Las facciones de <a href="Eldrador.html">Eldrador</a> están
+entrelazadas en una red compleja de rivalidades y alianzas fluctuantes.
+Mientras Casa Valdrin defiende los antiguos valores de la fuerza y la
+protección, el Clan Myrhael maneja las intrigas y el poder suave de la
+diplomacia. La Hermandad de la Llama busca reformar desde dentro, con
+fervor y pasión, mientras que Los Susurros del Crepúsculo trabajan en
+las sombras para mantener un balance delicado.</p>
+<p>En tiempos de paz, las cumbres de <a
+href="Eldrador.html">Eldrador</a> convocan a representantes de cada
+facción para deliberar sobre el destino del reino; en tiempos de guerra,
+la traición y la lucha por el poder emergen con toda su crudeza,
+moldeando no sólo <a href="Eldrador.html">Eldrador</a> sino el
+equilibrio de todo Lithernia.</p>
+<h2 id="costumbres-transversales-y-legado-cultural">Costumbres
+Transversales y Legado Cultural</h2>
+<p>A pesar de sus diferencias, todas las facciones comparten el respeto
+profundo por la tierra que habitan y por las tradiciones ancestrales que
+les conectan a la esencia de <a href="Eldrador.html">Eldrador</a>.
+Festivales como la Noche de las Estrellas Caídas y la Danza del Fuego
+reúnen a sus miembros en una celebración de unidad y renovación.</p>
+<p>Los bardos de <a href="Eldrador.html">Eldrador</a> cantan historias
+de héroes y sombras, de pactos feitos en la sangre y antiguas batallas,
+perpetuando en la memoria colectiva la saga de sus facciones.</p>
+<hr />
+<p><a href="Eldrador.html">Eldrador</a> es un reino donde la esencia
+misma del poder está viva y en constante transformación; conocer sus
+facciones es adentrarse en el alma gloriosa y compleja de Lithernia.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Facciones.html">Facciones</a> (relevancia: 0.94)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

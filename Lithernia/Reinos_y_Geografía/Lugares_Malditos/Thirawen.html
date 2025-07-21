@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thirawen</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Thirawen</div>
+        <div class="content">
+<h1 id="thirawen">Thirawen</h1>
+<p>Thirawen no es una ciudad; es una sentencia. Esculpida en una alta y
+desolada meseta en los confines de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, es una herida abierta en el
+paisaje, perpetuamente azotada por un viento helado y aullante conocido
+como el “Aliento de Chronos”. No hay muros que contengan a sus
+habitantes, pues la propia meseta es una prisión natural, un páramo de
+roca y cielo gris que quiebra la voluntad. Es el vertedero de los
+parias, los rebeldes y los desgraciados del reino, un lugar donde la
+única ley es la supervivencia y la esperanza es un lujo que se congela
+antes de poder ser pronunciado.</p>
+<p>Su arquitectura es un monumento a la desesperación: edificios bajos y
+achaparrados de pizarra oscura, diseñados para agacharse ante la furia
+del viento. Las estructuras, más parecidas a tumbas que a hogares,
+incorporan los restos petrificados y retorcidos de árboles pre-<a
+href="Lilium.html">Lilium</a>, otorgando a la ciudad un aspecto
+esquelético y fantasmal. Sobre este laberinto de callejones sombríos se
+alza la silueta rota de la Aguja del Guardián, un recordatorio constante
+de la autoridad cruel que los condenó a este infierno helado.</p>
+<h2 id="historia">Historia</h2>
+<p>Thirawen nació del miedo y el control, no de la ambición. Tras una
+serie de levantamientos menores en las ciudades vasallas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> hace dos siglos, el Rey Sel’thirak
+decretó la creación de un lugar de exilio definitivo. La tarea de
+construir y vigilar esta jaula fue otorgada al Clan <a
+href="Kromagul.html">Kromagul</a>, maestros del dolor, quienes
+encontraron en la inhóspita Meseta del Viento el lienzo perfecto para su
+obra. El primer Guardián arrastró a los prisioneros a la meseta y los
+obligó a construir su propia prisión con la pizarra que cortaba sus
+manos y bajo el viento que robaba su aliento.</p>
+<p>Con el tiempo, Thirawen se ganó el apodo de “La Tumba del Viento”.
+Generaciones de exiliados han nacido y muerto en sus calles, perdiendo
+el recuerdo del mundo exterior. Oficialmente, el Guardián mantiene el
+orden, pero su presencia es más la de un torturador que la de un
+gobernante. El poder real fluye por las venas de las bandas violentas
+que se han formado en el vacío, clanes improvisados que luchan por
+raciones, refugio y el simple derecho a ver un nuevo amanecer.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>La Aguja del Guardián</strong>: La única estructura que
+desafía al viento es esta torre central, aunque en ruinas. Es la morada
+del Guardián del Clan <a href="Kromagul.html">Kromagul</a> y el centro
+de su poder. Desde sus ventanas rotas, observa la ciudad como un
+depredador. Sus sótanos son cámaras de tortura donde los experimentos
+del Guardián dan a luz a horrores innombrables y ecos de sufrimiento que
+se suman al lamento del viento.</p></li>
+<li><p><strong>El Laberinto de Pizarra</strong>: El corazón de Thirawen.
+Un entramado caótico de callejones estrechos y retorcidos, donde los
+edificios de pizarra se apiñan en busca de protección mutua contra el
+viento. Es el territorio de las bandas; cada esquina, cada patio y cada
+tejado es reclamado y defendido con una violencia desesperada.</p></li>
+<li><p><strong>El Mercado Silbante</strong>: En una plaza abierta donde
+el viento es más feroz, se encuentra el centro neurálgico de la economía
+de Thirawen. No hay puestos, solo figuras encapuchadas que intercambian
+bienes en susurros. Aquí, los <a href="Goblins.html">Goblins</a>
+controlan el flujo de chatarra, raciones mohosas y, lo más valioso, los
+componentes mágicos y las medicinas que logran sacar de las raras
+caravanas de suministros.</p></li>
+<li><p><strong>El Osario Petrificado</strong>: Las afueras de la ciudad,
+donde el bosque pre-<a href="Lilium.html">Lilium</a> petrificado es más
+denso. Es una zona prohibida, un laberinto de agujas de piedra con forma
+de árbol donde anidan los “Cazadores del Viento”, depredadores alados
+que se abalanzan sobre cualquier presa incauta.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La cultura de Thirawen es una amalgama de nihilismo y resiliencia
+brutal. La única forma de arte que ha florecido es el grabado en los
+huesos de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+cazadas en la meseta. Estas intrincadas tallas no representan belleza,
+sino desafío, desesperación o el rostro de un enemigo caído. Las
+historias que se cuentan alrededor de fuegos miserables no hablan de
+héroes, sino de rebeliones fallidas y la futilidad de la esperanza.</p>
+<p>No hay festividades. El único evento que marca el calendario es la
+“Noche Quieta”, la única noche del año en que, por razones desconocidas,
+el Aliento de Chronos amaina. El silencio es tan antinatural y opresivo
+como el propio viento. Es un tiempo para la introspección, pero más a
+menudo, es el momento en que se saldan las deudas de sangre,
+aprovechando que los gritos no se los lleva el viento. El culto abierto
+a cualquier dios está prohibido, pero en secreto, una fe fatalista
+venera al viento como la encarnación del tiempo, que todo lo erosiona. Y
+en los rincones más oscuros, el Primer Rey es adorado como un mártir, un
+símbolo de la rebelión definitiva contra los dioses que los
+condenaron.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>El ambiente de Thirawen es de una opresión aplastante. El aullido
+constante del viento es la banda sonora de la vida y la muerte, un
+sonido que vuelve locos a los recién llegados y que los veteranos
+aprenden a ignorar a costa de su propia cordura. Las calles están
+desnudas, barridas por el viento, y el aire es gélido y seco. El símbolo
+no oficial de la ciudad es una imagen vista a menudo en sus grabados:
+una roca gris y agrietada de la que brota una única rama de árbol
+esquelética, doblada hasta casi romperse por una fuerza invisible,
+representando la resistencia aplastada pero persistente de sus
+habitantes.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Aliento del Rey Sellado</strong>: Los cultistas del
+Primer Rey y los viejos locos susurran la verdadera naturaleza del
+viento. Afirman que no es un fenómeno meteorológico, sino los suspiros
+eternos y atormentados del Primer Rey, sellado en las profundidades de
+la tierra bajo la meseta por la Lanza Celestial Chronos. Creen que el
+viento es la manifestación de su dolor, y que la Noche Quieta es el
+único momento en que el Rey reúne fuerzas para intentar romper sus
+cadenas.</p></li>
+<li><p><strong>La Puerta de la Noche Quieta</strong>: Una leyenda más
+esperanzadora, y por ello más peligrosa, habla de un antiguo portal
+élfico escondido en algún lugar del Laberinto de Pizarra. Se dice que
+fue una ruta de escape secreta de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, pero que su magia fue dañada.
+Ahora, solo durante el silencio anómalo de la Noche Quieta, el portal se
+vuelve visible y se abre por unos breves instantes. Nadie que lo haya
+cruzado ha vuelto para contarlo, pero para muchos, la posibilidad de
+escapar es la única brasa de esperanza que los mantiene vivos.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

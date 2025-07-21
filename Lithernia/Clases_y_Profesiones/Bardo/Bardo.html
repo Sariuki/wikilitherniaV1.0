@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bardo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Bardo</div>
+        <div class="content">
+<h1 id="bardo">Bardo</h1>
+<p>Los bardos de Lithernia son los guardianes de la memoria, los
+cronistas de la Gran Guerra y los portadores de la esperanza en un mundo
+fracturado. Ya sea en los bulliciosos puertos de <a
+href="Galvorn.html">Galvorn</a>, donde los susurros del dios del viento
+<a href="Quiteon.html">Quiteon</a> inspiran nuevas canciones, o en los
+salones de conocimiento de <a href="Valtoria.html">Valtoria</a>, donde
+se les considera “bibliotecas vivientes”, los bardos tejen los hilos del
+pasado, presente y futuro con su música y su magia. Su poder no reside
+solo en la melodía, sino en la capacidad de manifestar los ecos de la
+historia, inspirar a los héroes del mañana y desentrañar los secretos
+que los dioses y el tiempo han intentado ocultar.</p>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como bardo, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d8 por nivel de bardo <strong>Puntos
+de Golpe a nivel 1:</strong> 8 + tu modificador de Constitución
+<strong>Puntos de Golpe a niveles superiores:</strong> 1d8 (o 5) + tu
+modificador de Constitución por cada nivel de bardo después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera <strong>Armas:</strong>
+Armas sencillas, ballestas de mano, espadas cortas, espadas largas,
+estoques <strong>Herramientas:</strong> Tres instrumentos musicales de
+tu elección <strong>Tiradas de Salvación:</strong> Destreza, Carisma
+<strong>Habilidades:</strong> Elige tres habilidades cualesquiera.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) un estoque, (b) una espada larga o (c) cualquier arma
+sencilla * (a) un paquete de diplomático o (b) un paquete de artista *
+(a) un laúd o (b) cualquier otro instrumento musical * Armadura de cuero
+y una daga</p>
+<h3 id="sistema-de-maná-del-bardo"><strong>Sistema de Maná del
+Bardo</strong></h3>
+<p>Tu magia nace de las armonías del Tejido del Maná, canalizadas a
+través de tu arte y tu alma.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que usas para lanzar tus <a href="Conjuros.html">Conjuros</a>. Tu
+fórmula de maná es <strong>6 + (Nivel de Bardo × Modificador de
+Carisma)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d6.</li>
+<li><strong>Aptitud Mágica:</strong> El Carisma es tu aptitud mágica
+para tus <a href="Conjuros.html">Conjuros</a> de bardo.
+<ul>
+<li><strong>CD de salvación de <a
+href="Conjuros.html">Conjuros</a></strong> = 8 + tu bonificador por
+competencia + tu modificador de Carisma.</li>
+<li><strong>Modificador de ataque de conjuro</strong> = tu bonificador
+por competencia + tu modificador de Carisma.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+<li><strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>:</strong>
+Cada vez que lanzas un conjuro, sufres una cantidad de fatiga igual a tu
+<strong>Dado de Maná (1d6) + el nivel del conjuro</strong>. Este sistema
+se detalla en las reglas de magia de Lithernia.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-bardo">Tabla de Progresión del
+Bardo</h3>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 12%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Trucos Conocidos</th>
+<th style="text-align: center;"><a href="Conjuros.html">Conjuros</a>
+Conocidos</th>
+<th style="text-align: center;">Dado de Inspiración</th>
+<th style="text-align: left;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Lanzamiento de <a
+href="Conjuros.html">Conjuros</a>, Inspiración de Bardo</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: left;">6 + (1 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Polifacético, Canción de Descanso</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: left;">6 + (2 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Colegio de Bardo, Pericia</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: left;">6 + (3 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1d6</td>
+<td style="text-align: left;">6 + (4 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Fuente de Inspiración, Inspiración de
+Bardo (d8)</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: left;">6 + (5 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Contraconjuro, Rasgo de Colegio de
+Bardo</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: left;">6 + (6 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: left;">6 + (7 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: left;">6 + (8 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Canción de Descanso (d8)</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">1d8</td>
+<td style="text-align: left;">6 + (9 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Pericia, Secretos Mágicos, Inspiración de
+Bardo (d10)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">1d10</td>
+<td style="text-align: left;">6 + (10 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">1d10</td>
+<td style="text-align: left;">6 + (11 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">1d10</td>
+<td style="text-align: left;">6 + (12 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Canción de Descanso (d10)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">1d10</td>
+<td style="text-align: left;">6 + (13 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Secretos Mágicos, Rasgo de Colegio de
+Bardo</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">1d10</td>
+<td style="text-align: left;">6 + (14 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Inspiración de Bardo (d12)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">1d12</td>
+<td style="text-align: left;">6 + (15 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">1d12</td>
+<td style="text-align: left;">6 + (16 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Canción de Descanso (d12)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">1d12</td>
+<td style="text-align: left;">6 + (17 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Secretos Mágicos</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">1d12</td>
+<td style="text-align: left;">6 + (18 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">1d12</td>
+<td style="text-align: left;">6 + (19 × Mod. CAR)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Inspiración Superior</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">1d12</td>
+<td style="text-align: left;">6 + (20 × Mod. CAR)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="colegios-de-bardo"><strong>Colegios de Bardo</strong></h2>
+<h3 id="colegio-del-conocimiento"><strong>Colegio del
+Conocimiento</strong></h3>
+<p>Los bardos del Colegio del Conocimiento son eruditos y bibliotecarios
+vivientes, maestros del saber arcano y los secretos olvidados. En
+Lithernia, a menudo se encuentran en la Torre de las Estrellas de <a
+href="Valtoria.html">Valtoria</a> o como consejeros en cortes reales,
+usando su vasto conocimiento para influir en el destino de los
+reinos.</p>
+<h4 id="habilidades-adicionales"><strong>Habilidades
+Adicionales</strong></h4>
+<p>Cuando te unes al Colegio del Conocimiento en el nivel 3, ganas
+competencia en tres habilidades de tu elección.</p>
+<h4 id="palabras-hirientes"><strong>Palabras Hirientes</strong></h4>
+<p>También en el nivel 3, aprendes a usar tu ingenio para distraer,
+confundir y socavar la confianza y competencia de otros. Cuando una
+criatura que puedes ver a 60 pies de ti hace una tirada de ataque, una
+prueba de característica o una tirada de daño, puedes usar tu reacción
+para gastar uno de tus usos de Inspiración de Bardo, tirando un dado de
+Inspiración de Bardo y restando el número obtenido de la tirada de la
+criatura. Puedes elegir usar este rasgo después de que la criatura haga
+su tirada, pero antes de que el DM determine si la tirada de ataque o la
+prueba de característica tiene éxito o falla, o antes de que la criatura
+inflija su daño. La criatura es inmune si no puede oírte o si es inmune
+a ser encantada.</p>
+<h4 id="secretos-mágicos-adicionales"><strong>Secretos Mágicos
+Adicionales</strong></h4>
+<p>En el nivel 6, aprendes dos <a href="Conjuros.html">Conjuros</a> de
+tu elección de la lista de <a href="Conjuros.html">Conjuros</a> de
+cualquier clase. Un conjuro que elijas debe ser de un nivel que puedas
+lanzar. Los <a href="Conjuros.html">Conjuros</a> elegidos cuentan como
+<a href="Conjuros.html">Conjuros</a> de bardo para ti, pero no cuentan
+contra el número de <a href="Conjuros.html">Conjuros</a> de bardo que
+conoces.</p>
+<h4 id="pericia-inigualable"><strong>Pericia Inigualable</strong></h4>
+<p>A partir del nivel 14, cuando haces una prueba de característica,
+puedes gastar un uso de Inspiración de Bardo. Tira un dado de
+Inspiración de Bardo y agrega el número obtenido a tu prueba de
+característica. Puedes elegir hacerlo después de tirar el dado para la
+prueba de característica, pero antes de que el DM te diga si tienes
+éxito o fallas.</p>
+<h3 id="colegio-del-valor"><strong>Colegio del Valor</strong></h3>
+<p>Los bardos del Colegio del Valor son los cronistas de las grandes
+batallas, los que cantan las gestas de héroes en las tabernas de <a
+href="Galvorn.html">Galvorn</a> y los que marchan junto a los ejércitos
+para inspirar coraje. Creen que la valentía es la mayor de las virtudes
+y que las grandes hazañas deben ser inmortalizadas en canciones
+épicas.</p>
+<h4 id="competencias-adicionales"><strong>Competencias
+Adicionales</strong></h4>
+<p>Cuando te unes al Colegio del Valor en el nivel 3, ganas competencia
+con armadura intermedia, escudos y armas marciales.</p>
+<h4 id="inspiración-en-combate"><strong>Inspiración en
+Combate</strong></h4>
+<p>También en el nivel 3, aprendes a inspirar a otros en la batalla. Una
+criatura que tiene un dado de Inspiración de Bardo de ti puede tirar ese
+dado y agregar el número obtenido a una tirada de daño de arma que acaba
+de hacer. Alternativamente, cuando se hace una tirada de ataque contra
+la criatura, puede usar su reacción para tirar el dado de Inspiración de
+Bardo y agregar el número obtenido a su CA contra ese ataque, después de
+que se hace la tirada pero antes de saber si golpea o falla.</p>
+<h4 id="ataque-extra"><strong>Ataque Extra</strong></h4>
+<p>A partir del nivel 6, puedes atacar dos veces, en lugar de una,
+siempre que realices la acción de Atacar en tu turno.</p>
+<h4 id="magia-de-batalla"><strong>Magia de Batalla</strong></h4>
+<p>En el nivel 14, has dominado el arte de tejer el lanzamiento de <a
+href="Conjuros.html">Conjuros</a> y el uso de armas en un solo acto
+armonioso. Cuando usas tu acción para lanzar un conjuro de bardo, puedes
+hacer un ataque con arma como una acción adicional.</p>
+<h3 id="colegio-de-los-vientos"><strong>Colegio de los
+Vientos</strong></h3>
+<p>Inspirados por <a href="Quiteon.html">Quiteon</a>, el dios errante
+del viento, los bardos de este colegio son viajeros, exploradores y
+portadores de noticias. Creen que la verdad, como el viento, no puede
+ser contenida. Sus melodías son las brisas que mueven las velas de los
+barcos en <a href="Galvorn.html">Galvorn</a> y los susurros que traen
+nuevas ideas a los rincones más remotos de Lithernia.</p>
+<h4 id="melodía-viajera"><strong>Melodía Viajera</strong></h4>
+<p>Cuando te unes a este colegio en el nivel 3, tu música aligera los
+pasos de tus compañeros. Mientras no lleves armadura pesada, tu
+velocidad de movimiento aumenta en 10 pies. Además, mientras tocas un
+instrumento, tú y cualquier aliado a 30 pies de ti que pueda oírte
+ignoráis el terreno difícil.</p>
+<h4 id="ráfaga-inspiradora"><strong>Ráfaga Inspiradora</strong></h4>
+<p>También en el nivel 3, puedes canalizar el poder del viento para
+proteger a tus aliados. Cuando un aliado a 60 pies de ti es el objetivo
+de un ataque, puedes usar tu reacción y gastar un uso de Inspiración de
+Bardo. Tira tu dado de Inspiración y resta el resultado de la tirada de
+ataque del enemigo. Puedes hacerlo después de que se anuncie el ataque
+pero antes de saber el resultado.</p>
+<h4 id="vientos-de-cambio"><strong>Vientos de Cambio</strong></h4>
+<p>A partir del nivel 6, puedes usar tu acción y gastar 5 Puntos de Maná
+para crear una ráfaga de viento protectora o disruptiva en un radio de
+15 pies centrado en ti durante 1 minuto. Elige uno de los siguientes
+efectos: * <strong>Viento Favorable:</strong> Las tiradas de ataque con
+armas a distancia que pasen a través del área del viento tienen ventaja.
+* <strong>Viento Turbulentos:</strong> El área se convierte en terreno
+difícil para tus enemigos. Además, cualquier criatura enemiga que
+termine su turno en el área debe superar una tirada de salvación de
+Fuerza o ser empujada 10 pies en una dirección de tu elección.</p>
+<h4 id="tormenta-de-historias"><strong>Tormenta de
+Historias</strong></h4>
+<p>En el nivel 14, puedes desatar una tempestad de sonido y viento. Como
+una acción, gastas 10 Puntos de Maná y comienzas una actuación. Cada
+criatura hostil en un radio de 30 pies que pueda oírte debe hacer una
+tirada de salvación de Sabiduría. Si fallan, quedan aturdidas por el
+torbellino de historias y melodías hasta el final de tu siguiente turno.
+Si tienen éxito, reciben un daño sónico igual a tu dado de Inspiración
+de Bardo.</p>
+<h3 id="colegio-de-los-ecos"><strong>Colegio de los Ecos</strong></h3>
+<p>Los bardos del Colegio de los Ecos son los guardianes de la historia
+viva. No solo cuentan las <a href="Leyendas.html">Leyendas</a> de
+Lithernia, sino que las invocan, trayendo ecos del pasado al presente.
+Creen que las hazañas de los héroes y las tragedias de las eras pasadas
+nunca mueren realmente, y que su poder puede ser canalizado para dar
+forma al futuro.</p>
+<h4 id="resonancia-histórica"><strong>Resonancia Histórica</strong></h4>
+<p>Cuando te unes a este colegio en el nivel 3, ganas competencia en las
+habilidades de Historia y Perspicacia. Si ya eres competente en alguna
+de ellas, puedes elegir otra habilidad de la lista de bardo.</p>
+<h4 id="manifestar-eco"><strong>Manifestar Eco</strong></h4>
+<p>También en el nivel 3, puedes usar tu música para traer un fragmento
+del pasado al campo de batalla. Como acción adicional, puedes gastar un
+uso de Inspiración de Bardo para manifestar un eco espectral junto a una
+criatura que puedas ver a 60 pies. El eco dura 1 minuto o hasta que
+gastes otro uso de Inspiración de Bardo. La criatura obtiene uno de los
+siguientes beneficios de tu elección: * <strong>Eco del <a
+href="Heroes.html">Heroes</a>:</strong> La primera vez que la criatura
+golpea con un ataque en su turno, puede infligir un daño de fuerza
+adicional igual a tu tirada de Inspiración de Bardo. * <strong>Eco del
+Sabio:</strong> La criatura puede tirar tu dado de Inspiración de Bardo
+y agregarlo a una prueba de Sabiduría o Inteligencia.</p>
+<h4 id="balada-del-mártir"><strong>Balada del Mártir</strong></h4>
+<p>A partir del nivel 6, puedes tejer una canción de sacrificio heroico.
+Cuando una criatura aliada a 60 pies de ti es reducida a 0 puntos de
+golpe, puedes usar tu reacción y gastar 5 Puntos de Maná. La criatura
+recupera inmediatamente puntos de golpe iguales a 2 tiradas de tu dado
+de Inspiración de Bardo + tu modificador de Carisma.</p>
+<h4 id="invocación-legendaria"><strong>Invocación
+Legendaria</strong></h4>
+<p>En el nivel 14, tu dominio sobre los ecos del pasado te permite
+invocar la esencia de un verdadero <a href="Heroes.html">Heroes</a> de
+Lithernia. Como una acción, puedes gastar 15 Puntos de Maná para invocar
+un Espíritu de <a href="Heroes.html">Heroes</a> en un espacio desocupado
+a 30 pies de ti. El espíritu es amistoso contigo y tus compañeros y
+obedece tus órdenes verbales. Tiene las estadísticas del <strong><a
+href="Caballero.html">Caballero</a> Espectral</strong> (usa el bloque de
+estadísticas del <em>Knight</em> pero es un constructo y su daño es de
+fuerza). El espíritu permanece durante 1 minuto, hasta que es reducido a
+0 puntos de golpe, o hasta que lo despidas como una acción. Una vez que
+usas este rasgo, no puedes volver a usarlo hasta que termines un
+descanso largo.</p>
+        </div>
+    </div>
+</body>
+</html>

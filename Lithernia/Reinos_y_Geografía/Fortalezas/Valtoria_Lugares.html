@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valtoria_Lugares</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Valtoria_Lugares</div>
+        <div class="content">
+<h1 id="valtoria-lugares">Valtoria lugares</h1>
+<h2 id="el-reino-de-la-montaña-esmeralda">El Reino de la Montaña
+Esmeralda</h2>
+<p>En las entrañas de las Colmilleteras del Tajo, donde los picos
+nevados besan las nubes, se extiende el reino de <a
+href="Valtoria.html">Valtoria</a>. Una tierra de profundidades
+insondables y cumbres imponentes, donde los <a
+href="Enanos.html">Enanos</a> han tallado sus legados en la roca viva y
+los goliatths vigilan los pasos celestiales. Sus paisajes combinan la
+rudeza alpina con valles ocultos donde florecen huertos de hongos
+luminiscentes y ríos de aguas diamantinas serpentean entre bosques
+ancestrales de pinos astrales.</p>
+<h3 id="valtoria-la-ciudad-fortaleza">Valtoria, La Ciudad Fortaleza</h3>
+<p><strong>Capital labrada en el corazón de la montaña</strong> -
+<strong>Arquitectura</strong>: Columnas ciclópeas de mithril sosteniendo
+bóvedas decoradas con frescos rúnicos que narran la creación de <a
+href="Rokael.html">Rokael</a>. La luz proviene de cristales de solários
+engastados en la roca, proyectando constelaciones móviles sobre los
+salones del palacio real. - <strong>Símbolo de poder</strong>: La Puerta
+de Obsidiana Rúnica, flanqueada por estatuas gemelas de <a
+href="Rokael.html">Rokael</a> (creador) y <a
+href="Valarios.html">Valarios</a> (destructor), cuyas hachas cruzadas
+forman un arco de acero adamantino. - <strong>Máximo orgullo</strong>:
+La Torre de las Estrellas, centro del conocimiento valtoriano que
+fusiona observatorio astronómico, archivo histórico y templo arcano. En
+su Círculo Interior, los mayores sabios del reino estudian las
+vibraciones del Tejido del Maná.</p>
+<h3 id="ironforge-la-forja-eterna">Ironforge, La Forja Eterna</h3>
+<p><strong>Ciudadela industrial bajo el volcán Durmiente</strong> -
+<strong>Características únicas</strong>: - Ríos de lava canalizados
+mediante ingenios <a href="Gnomos.html">Gnomos</a> que alimentan mil
+forjas día y noche. - Sistema de poleas resonantes que sincroniza el
+trabajo de los martillos creando sinfonías metálicas. - Los Barrios del
+Humo, donde artesanos genasi de tierra refinan minerales con cantos de
+montaña. - <strong>Producción legendaria</strong>: Cada cinco años, en
+la Fiesta de la Primera Chispa, se exhibe el Fruto de <a
+href="Levbrios.html">Levbrios</a>: un arma maestra elegida para
+representar el cenit de la metalurgia valtoriana.</p>
+<h3 id="stonehollow-ciudad-de-las-gemas-parlantes">Stonehollow, Ciudad
+de las Gemas Parlantes</h3>
+<p><strong>Red de cavernas bajo el lago Espejo Estelar</strong> -
+<strong>Maravilla natural</strong>: Estalactitas de cuarzo hialino que
+proyectan hologramas de memorias geológicas al contacto con luz lunar
+filtrada. - <strong>Especialidades</strong>: - <strong>Fragua de
+Resonancias</strong>: Taller donde se imbuyen gemas con ecos de
+ancestros <a href="Enanos.html">Enanos</a> (objetos parlantes). -
+<strong>Mercado Vibradorante</strong>: Plaza pública donde se comercian
+joyas que cambian de color según el estado emocional del portador. -
+<strong>Leyenda local</strong>: Se dice que la Cámara del Latido guarda
+una esmeralda tallada por el mismísimo <a
+href="Trovdor.html">Trovdor</a>, cuyo pulso rítmico mantiene estable la
+montaña.</p>
+<h3 id="bastiones-de-la-cresta-celestial">Bastiones de la Cresta
+Celestial</h3>
+<p><strong>Puestos fronterizos goliatth enriscados</strong> -
+<strong>Características</strong>: - Torres de piedra seca sin argamasa,
+construidas mediante el canto ancestral de los Gigantes de Nube. -
+Puentes de hielo eterno que conectan picos inaccesibles. -
+<strong>Función estratégica</strong>: Desde estas alturas, vigías
+goliatth rastrean movimientos de tropas mediante cristales de visión de
+kilómetros. Sus mensajes se transmiten mediante trompetas de viento que
+imitan patrones de tormenta. - <strong>Ritual clave</strong>: La Danza
+del Abismo, ceremonia donde jóvenes guerreros escalan precipicios sin
+cuerdas para colocar ofrendas en grietas sagradas.</p>
+<h3 id="aldeas-gnómicas-de-los-engranajes-susurrantes">Aldeas Gnómicas
+de los Engranajes Susurrantes</h3>
+<p><strong>Asentamientos en laderas boscosas</strong> -
+<strong>Arquitectura peculiar</strong>: Casas semienterradas con molinos
+de viento cinéticos que alimentan laboratorios subterráneos. - El Pueblo
+del Resorte Perpetuo: Famosa por sus relojes de sol que marcan horas
+mediante flores mecánicas. - Colina de los Autómatas Jardineros: Donde
+máquinas gnomas podan setos en patrones geométricos sagrados. -
+<strong>Innovación constante</strong>: Talleres donde se experimenta con
+energía geotérmica y cristales sonoros para crear instrumentos que
+canalizan magia sin fatiga.</p>
+<h3 id="valles-encantados-de-cirkon">Valles Encantados de Cirkon</h3>
+<p><strong>Jardines secretos en pliegues montañosos</strong> -
+<strong>Ecosistema único</strong>: Hongos bioluminiscentes que crecen en
+espirales perfectas, manantiales cuyas aguas tallan <a
+href="Runas.html">Runas</a> en la piedra y robles petrificados que
+conservan gestos de danza élfica. - <strong>Santuarios de
+piedra</strong>: Altares donde druidas <a href="Enanos.html">Enanos</a>
+realizan el Ritual del Abrazo Rúptico, fusionándose temporalmente con
+vetas minerales para diagnosticar la salud de la montaña. - La Fuente de
+las Lágrimas de Roca: Poza cuyas aguas cristalizan dolor en gemas
+terapéuticas.</p>
+<h3 id="túneles-del-canto-profundo">Túneles del Canto Profundo</h3>
+<p><strong>Red de galerías entre <a href="Valtoria.html">Valtoria</a> e
+Ironforge</strong> - <strong>Características destacadas</strong>: -
+Muros tallados con poemas épicos que resuenan según el paso del
+caminante. - Las Cuatro Pruebas de <a href="Levbrios.html">Levbrios</a>:
+Obstáculos rituales (pasadizos de llamas controladas, puentes de
+resonancia) que todo herrero maestro debe superar. - <strong>Monumento
+funerario</strong>: La Sala de los Martillos Callados, donde se exhiben
+herramientas de artesanos legendarios sobre pedestales de obsidiana
+musical.</p>
+<h2 id="rutas-y-maravillas-naturales">Rutas y Maravillas Naturales</h2>
+<p><strong>Camino de las Estrellas Subterráneas</strong>: Senda
+comercial iluminada por colonias de luciérnagas fósiles donde caravanas
+escoltadas por golems de basalto transportan minerales hacia <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p><strong>Cascada Spektrum</strong>: Salto de agua cuyas gotas
+refractan la luz en arcoíris sólidos que pueden recogerse como láminas
+de cristal temporal.</p>
+<p><strong>El Hueso del Mundo</strong>: Pilar natural de hematita que
+vibra con los terremotos, considerado el axis mundi valtoriano. En su
+base, profetas leen el futuro en las grietas que aparecen tras cada
+temblor.</p>
+<h2 id="lugares-perdidos-y-malditos">Lugares Perdidos y Malditos</h2>
+<p><strong>La Grieta de <a href="Valarios.html">Valarios</a></strong>:
+Abismo volcánico donde yacen los restos de Thrain El Perturbado, primer
+enano que intentó manipular el poder de <a
+href="Valarios.html">Valarios</a>. Sus gemas malditas aún susurran
+promesas de poder a cambio de cordura.</p>
+<p><strong>Minas de la Canción Rota</strong>: Red abandonada donde la
+sobrecarga de un cristal armonizador dejó los túneles habitados por ecos
+invertidos que roban palabras. Solo accesible para Silenciatos (mudos
+voluntarios).</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li>La Torre de las Estrellas</li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.54)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

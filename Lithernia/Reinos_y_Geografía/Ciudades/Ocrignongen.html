@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocrignongen</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ocrignongen</div>
+        <div class="content">
+<h1 id="ocrignongen">Ocrignongen</h1>
+<p>Ocrignongen no es una ciudad construida con piedra, sino tallada
+dentro de una. Descubierta en el corazón de las Montañas del Engranaje
+Rúnico, la ciudad entera yace dentro de una colosal geoda de cristal, un
+milagro geológico que sus habitantes consideran una bendición directa de
+los dioses creadores. La luz exterior se filtra a través de las paredes
+translúcidas de la geoda, bañando el interior en un perpetuo crepúsculo
+de colores cambiantes. Aquí, la robustez de la ingeniería enana se
+fusiona con la intrincada mecánica gnómica, creando una metrópolis que
+es a la vez una fortaleza inexpugnable y un reloj de precisión del
+tamaño de una montaña. Puentes levadizos de bronce y acero, impulsados
+por complejos sistemas de engranajes, conectan distritos excavados en la
+roca, mientras que observatorios con cúpulas de cristal retráctiles se
+abren al firmamento a través de fisuras en la cima de la geoda.</p>
+<h2 id="historia">Historia</h2>
+<p>Ocrignongen nació de una alianza impensable. Tras siglos de rivalidad
+amistosa, un clan de exploradores <a href="Enanos.html">Enanos</a> y un
+gremio de inventores <a href="Gnomos.html">Gnomos</a>, perdidos durante
+una ventisca, se refugiaron en una cueva que los condujo al interior de
+la geoda gigante. Para los <a href="Enanos.html">Enanos</a>, era la obra
+maestra de <a href="Rokael.html">Rokael</a>, el dios de la creación.
+Para los <a href="Gnomos.html">Gnomos</a>, era el desafío mecánico
+definitivo. En lugar de disputar su posesión, decidieron fundarla
+juntos, bajo un único principio: la “Artesanía de Precisión”.</p>
+<p>Los <a href="Enanos.html">Enanos</a> excavaron las profundidades,
+estableciendo forjas rúnicas alimentadas por el calor geotérmico,
+mientras los <a href="Gnomos.html">Gnomos</a> construyeron hacia arriba,
+diseñando los mecanismos que darían vida a la ciudad. La cooperación se
+convirtió en su cultura y su ley. Con el tiempo, tribus de goliatths de
+las cumbres cercanas, impresionados por la tenacidad y la ingeniosidad
+de la ciudad, juraron lealtad a Ocrignongen, convirtiéndose en sus
+guardianes eternos a cambio de un hogar a salvo de las ventiscas y
+acceso a las mejores armas forjadas del reino. Hoy, Ocrignongen es el
+pináculo de la artesanía de <a href="Valtoria.html">Valtoria</a>, un
+símbolo de que dos mentes diferentes pueden crear algo más grande que la
+suma de sus partes.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Corazón Luminoso</strong>: El centro neurálgico de la
+ciudad. No es una plaza, sino el gigantesco cristal central de la geoda.
+Este monolito iridiscente pulsa con una luz interna suave y sirve como
+la principal fuente de iluminación. Los <a href="Enanos.html">Enanos</a>
+han tallado <a href="Runas.html">Runas</a> de poder en su base, mientras
+que los <a href="Gnomos.html">Gnomos</a> han instalado un sistema de
+lentes y espejos a su alrededor que distribuyen la luz por toda la
+ciudad.</p></li>
+<li><p><strong>La Hélice del Artesano</strong>: El distrito residencial
+y comercial principal. Las viviendas y talleres están construidos en una
+vasta espiral descendente tallada en las paredes de la geoda. Las
+tiendas gnómicas, con sus autómatas y pociones burbujeantes, se mezclan
+con las joyerías y armerías enanas, donde las gemas brillan junto al
+acero rúnico.</p></li>
+<li><p><strong>El Pináculo del Augurio</strong>: La sección más alta de
+la ciudad, donde los <a href="Gnomos.html">Gnomos</a> han construido sus
+observatorios. Enormes telescopios de latón y cristal emergen de cúpulas
+retráctiles para estudiar las estrellas. Aquí se encuentra el templo
+sincrético de “La Chispa Inspirada”, un taller-observatorio donde la
+alineación de los planetas se considera crucial para el éxito de los
+encantamientos más complejos.</p></li>
+<li><p><strong>La Forja Raíz</strong>: El distrito inferior, el dominio
+de los <a href="Enanos.html">Enanos</a>. El aire está cargado del calor
+de las fraguas y el eco de los martillos. Ríos de magma canalizados
+fluyen bajo rejillas de hierro, proporcionando la energía para las
+forjas donde se crean las famosas armas rúnicas de Ocrignongen.</p></li>
+<li><p><strong>El Bastión del Guardián</strong>: No es un barrio dentro
+de la geoda, sino la red de túneles de entrada, puertas fortificadas y
+puestos de vigilancia en los pasos de montaña que rodean la ciudad. Está
+habitado y protegido exclusivamente por los goliatths, cuya fuerza y
+resistencia son la primera y última línea de defensa de
+Ocrignongen.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Ocrignongen es un ciclo de creación, prueba y
+perfeccionamiento. El mayor honor social no es la riqueza, sino la
+autoría de un artefacto que fusione a la perfección la mecánica gnómica
+y la magia rúnica enana. El rito de paso para todos los jóvenes es la
+“Prueba del Engranaje Rúnico”, donde deben colaborar en equipos mixtos
+(gnomo y enano) para diseñar y construir un dispositivo funcional y
+encantado. El fracaso no es una deshonra, pero la falta de cooperación
+sí lo es.</p>
+<p>Su festival más importante es el “Solsticio de la Gema”. Durante la
+noche más larga del año, todos los fuegos de la ciudad se apagan.
+Entonces, los ciudadanos trabajan juntos para alinear miles de gemas,
+cristales y espejos, creando un complejo sistema óptico que captura la
+luz de una sola estrella y la refracta por toda la geoda, iluminando la
+ciudad en un deslumbrante espectáculo de luz que, según dicen, honra a
+<a href="Rokael.html">Rokael</a> y <a
+href="Levbrios.html">Levbrios</a>.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>El ambiente de Ocrignongen es de una actividad constante y armoniosa.
+El aire vibra con el zumbido de los engranajes, el murmullo de los
+encantamientos y el tintineo de los cristales. El olor a ozono de la
+maquinaria arcana se mezcla con el aroma del metal caliente y los
+brebajes alquímicos. La arquitectura es una maravilla de funcionalidad y
+belleza: pasarelas que se pliegan y despliegan según la hora del día,
+ventanas que son lentes de aumento móviles para seguir el paso del sol,
+y ascensores de vapor que conectan los distintos niveles de la espiral.
+Todo está diseñado con una lógica impecable, pero adornado con el amor
+por el detalle propio de sus creadores.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Corazón de Estrella</strong>: En lo más profundo de la
+geoda, en un núcleo de roca inaccesible, se susurra que duerme un
+“Corazón de Estrella”, un fragmento consciente de una deidad primordial
+de la creación, anterior incluso a <a href="Rokael.html">Rokael</a>. Una
+facción de <a href="Gnomos.html">Gnomos</a> radicales, los
+“Despertadores”, cree que construir el mecanismo perfecto para
+alcanzarlo y activarlo les otorgaría un conocimiento ilimitado. Los
+ancianos <a href="Enanos.html">Enanos</a>, por otro lado, temen que
+perturbarlo sea una blasfemia que podría hacer que la montaña entera se
+hiciera añicos.</p></li>
+<li><p><strong>El Saboteador Silencioso</strong>: Una leyenda más oscura
+habla de un “<a href="Cazador.html">Cazador</a> de Sombras” exiliado, un
+maestro artesano enano que fue desterrado por su purismo radical. Se
+dice que se esconde en los túneles de ventilación y en las galerías
+olvidadas, y que es el responsable de los fallos inexplicables en los
+mecanismos más complejos de la ciudad. No busca destruir Ocrignongen,
+sino “purificarla”, saboteando sutilmente cualquier creación que
+considere demasiado gnómica y, por tanto, una corrupción de la verdadera
+artesanía enana. Nadie ha visto su rostro, pero a veces, junto a un
+engranaje roto, se encuentra un pequeño martillo de obsidiana, su marca
+personal.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.36)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

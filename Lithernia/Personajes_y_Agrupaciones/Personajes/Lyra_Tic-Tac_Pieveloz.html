@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Tic-Tac_Pieveloz</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Tic-Tac_Pieveloz</div>
+        <div class="content">
+<h1 id="lyra-tic-tac-pieveloz">Lyra ‘Tic-Tac’ Pieveloz</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones subterráneos de <a href="Cyndril.html">Cyndril</a>,
+donde el aire huele a ozono, aceite de precisión y metal frío, la
+historia no se escribe, se calibra. Y ninguna mente en el Clan del
+Engranaje Perpetuo calibra el pasado con la meticulosidad de Lyra
+Pieveloz. Aunque su raza Halfling es una rareza entre los <a
+href="Gnomos.html">Gnomos</a> y <a href="Enanos.html">Enanos</a> del
+clan, su precisión y su memoria casi mecánica le han ganado el respeto
+de todos y el apodo de ‘Tic-Tac’, un sobrenombre nacido del rítmico
+golpeteo de sus dedos sobre la mesa cuando su mente ensambla cronologías
+complejas, un sonido que imita el corazón de un reloj perfecto.</p>
+<p>Nacida en una pequeña comunidad de <a
+href="Medianos.html">Medianos</a> en las laderas de <a
+href="Valtoria.html">Valtoria</a>, la familia de Lyra eran joyeros y
+grabadores, un oficio que le inculcó una paciencia infinita y un ojo
+para el detalle microscópico. Su vida cambió cuando una caravana del
+clan, liderada por el legendario maestro gnomo Kaelen ‘Manecillas’
+Tornilloingenio, visitó su aldea. Kaelen no buscaba gemas, sino mentes.
+Vio en la joven Lyra una capacidad innata para encontrar patrones, para
+ver la gran maquinaria en los pequeños engranajes de la vida cotidiana.
+La reclutó, no como artesana, sino como aprendiz de cronista.</p>
+<p>Dentro del clan, Lyra floreció. Mientras sus compañeros se
+obsesionaban con la construcción de autómatas y la metalurgia rúnica,
+ella se sumergió en los archivos. Comprendió la herejía fundamental del
+clan: que el tiempo no es un río místico, sino una secuencia de causa y
+efecto, un mecanismo que, con suficientes datos, puede ser mapeado y
+predicho. Su motivación es profundamente personal; una inundación
+repentina en su infancia, que arrasó con parte de su aldea, la convenció
+de que los desastres no son actos de dioses caprichosos, sino fallos en
+el sistema, eventos que podrían haberse anticipado y evitado.</p>
+<p>Como Cronista Jefe, Lyra es la arquitecta de la memoria del clan. Es
+ella quien negocia con el Gremio del Sextante Dorado de <a
+href="Galvorn.html">Galvorn</a>, intercambiando cronómetros perfectos
+por cartas estelares que son, para ella, las páginas del futuro. Es ella
+quien se enfrenta a la pesada carga moral de analizar los “ecos
+anímicos” proporcionados por el Clan Whisper de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, extrayendo datos de las memorias
+fantasmales de los caídos para alimentar los algoritmos predictivos del
+Cronómata, el artefacto definitivo del clan. Sabe que su alianza con los
+nigromantes es un secreto que podría destruir la reputación del clan en
+<a href="Valtoria.html">Valtoria</a>, pero la considera un mal necesario
+en la búsqueda del orden absoluto.</p>
+<p>Su conflicto interno es el corazón de su existencia. Dedica su vida a
+registrar la historia con una fidelidad inquebrantable, pero lo hace al
+servicio de un clan que busca, en última instancia, doblegar el futuro a
+su voluntad. ¿Es una guardiana del pasado o una cómplice en la tiranía
+del futuro? Para Lyra, la respuesta es simple: es una relojera, y su
+deber es asegurar que la gran máquina de Lithernia funcione sin saltos,
+sin retrasos, sin catástrofes. Su obsesión es la Lanza Celestial
+<strong>Chronos</strong>, no para blandirla, sino para desensamblar
+conceptualmente su poder y entender el regulador central del tiempo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra es pequeña, incluso para ser una Halfling, con una figura
+delgada que se pierde entre los robustos <a
+href="Enanos.html">Enanos</a> y los enérgicos <a
+href="Gnomos.html">Gnomos</a> de su clan. Su cabello castaño oscuro está
+siempre recogido en un moño funcional, del que escapan algunos mechones
+rebeldes manchados de grasa o polvo metálico. Sus ojos, de un avellana
+intenso, son agudos y rara vez parpadean, acostumbrados a examinar
+minúsculos diagramas y <a href="Runas.html">Runas</a> a través de las
+lentes de magnificación que suelen descansar sobre su frente.</p>
+<p>Viste con pragmatismo: túnicas de cuero oscuro, resistentes y
+prácticas, sobre pantalones de trabajo reforzados. Sus manos, aunque
+delicadas, están permanentemente manchadas de tinta y marcadas por
+pequeñas cicatrices de herramientas de precisión. Su apodo, ‘Tic-Tac’,
+se manifiesta en un hábito nervioso: cuando piensa, sus dedos
+tamborilean sobre cualquier superficie en un patrón rítmico y constante,
+como el segundero de un reloj.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>El Cronicón
+Perpetuo:</strong> Su diario personal y libro de trabajo. Un tomo
+encuadernado en cuero de autómata, cuyas páginas de pergamino tratado
+pueden soportar tintas arcanas. Está lleno de diagramas, cálculos
+temporales y anotaciones en una taquigrafía que solo ella y Kaelen
+pueden descifrar. * <strong>Juego de Herramientas de Cronista:</strong>
+Un estuche de cuero que contiene plumas de mithril, lupas con engranajes
+intercambiables, un cronómetro de bolsillo de precisión gnomo-enana y
+pequeños frascos de tintas especiales que reaccionan a fluctuaciones
+temporales. * <strong>Anillo del Engranaje:</strong> Un anillo de bronce
+y plata con el símbolo del clan, que actúa como llave para las bóvedas
+más seguras de los archivos de <a href="Cyndril.html">Cyndril</a>.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lyra ‘Tic-Tac’ Pieveloz puede no ser una guerrera ni una reina, pero
+su impacto potencial en el destino de Lithernia es incalculable. Es el
+cerebro y la memoria viva del Clan del Engranaje Perpetuo. Cada pieza de
+información que recopila, cada patrón que identifica, es un paso más
+hacia la finalización del <strong>Cronómata</strong>.</p>
+<p>Si el clan tiene éxito, será gracias a la precisión de Lyra. Podrían
+ser capaces de predecir la siguiente incursión de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, una erupción volcánica en las
+tierras de los <a href="Enanos.html">Enanos</a>, o incluso los eventos
+que podrían desencadenar un segundo Cataclismo del <a
+href="Lilium.html">Lilium</a>. En este escenario, Lyra se convertiría en
+una de las figuras más influyentes y silenciosas del mundo, una oráculo
+de la ciencia que reemplaza a los videntes de los dioses.</p>
+<p>Sin embargo, si sus cálculos son erróneos o si su interpretación del
+pasado está sesgada, las consecuencias serían catastróficas. Una
+predicción fallida podría llevar a una nación a la ruina, y un intento
+de manipular el flujo del tiempo basado en datos imperfectos podría
+crear una paradoja con el poder de desgarrar el tejido mismo de la
+realidad. Lyra camina sobre el filo de una navaja, donde un lado es el
+orden perfecto y el otro, un caos inimaginable. Su legado no se medirá
+en batallas ganadas, sino en los segundos que logre robarle o imponerle
+al destino.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clan%20del%20Engranaje%20Perpetuo.html">Clan del Engranaje
+Perpetuo</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Douchy</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Douchy</div>
+        <div class="content">
+<h1 id="douchy">Douchy</h1>
+<p>Enclavada en los valles más altos y protegidos de los Picos de
+Hierro, Douchy no es una ciudad que grita su poder, sino que lo susurra
+desde el corazón de la piedra. Rodeada por un mar de coníferas y
+praderas alpinas, la ciudad es un bastión de paciencia y precisión. Sus
+defensas no son solo las murallas de granito pulido o la experta Guardia
+de Granito, sino la propia montaña, cuyos picos escarpados y ríos de
+deshielo helado disuaden a los intrusos. Douchy es famosa en todo <a
+href="Valtoria.html">Valtoria</a> por su dualidad: parte de ella se
+aferra al exterior en un valle soleado, mientras su alma y su mayor
+riqueza yacen en las profundidades, excavadas con reverencia en la
+ladera de la montaña.</p>
+<h2 id="historia">Historia</h2>
+<p>Douchy no nació de la conquista, sino de la fe. Hace siglos, un grupo
+de mineros y geólogos del Clan Picohierro, liderados por los ancestros
+de Vornik Martillopétreo, siguieron una antigua profecía de <a
+href="Cirkon.html">Cirkon</a>. Se decía que en los Picos de Hierro, una
+veta de cristales cantaba con la voz de la tierra misma. Tras décadas de
+búsqueda y excavación, encontraron las primeras “Piedras Cantarinas”,
+cristales que resonaban con el Tejido del Maná de una forma única.</p>
+<p>Alrededor de esta veta milagrosa creció Douchy. No se convirtió en
+una fortaleza militar, sino en un centro de artesanía sublime. Los <a
+href="Enanos.html">Enanos</a> excavaron y extrajeron las gemas en bruto,
+mientras que los <a href="Gnomos.html">Gnomos</a> de las rocas, atraídos
+por la pureza de los cristales, aplicaron su ingenio para tallarlos en
+lentes arcanas y joyas de precisión sin parangón. La ciudad prosperó,
+ganándose una reputación de neutralidad y maestría. Aunque rinde lealtad
+al Concilio de la Montaña de la capital, su autonomía local, gobernada
+por el Consejo de Ancianos de sus clanes y gremios, rara vez es
+cuestionada, pues su contribución a la riqueza y al conocimiento arcano
+de <a href="Valtoria.html">Valtoria</a> es incalculable.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Balcón de Cuarzo</strong>: La parte de la ciudad
+construida en la superficie del valle. Aquí se encuentran las
+residencias principales, las posadas y los mercados abiertos. Los
+edificios son de granito pulido con techos de pizarra y ventanas con
+incrustaciones de cuarzo que capturan la luz del sol, haciendo que el
+distrito brille incluso en los días nublados.</p></li>
+<li><p><strong>El Taller Resonante</strong>: Un distrito subterráneo
+cercano a la superficie, donde los <a href="Gnomos.html">Gnomos</a> han
+establecido sus talleres de tallado. El aire aquí vibra con el zumbido
+de herramientas delicadas y el suave canto de los cristales al ser
+trabajados. Es un laberinto de pasillos iluminados por lámparas de gemas
+y llenos del olor a aceite de pulido y metal caliente.</p></li>
+<li><p><strong>La Falla Profunda</strong>: El corazón minero de Douchy.
+Un sistema de túneles y cavernas que descienden a las entrañas de la
+montaña. Aquí, los <a href="Enanos.html">Enanos</a> trabajan en las
+vetas, y el eco de sus cantos corales resuena constantemente, una
+práctica que sirve tanto para levantar el ánimo como para probar la
+integridad estructural de la roca. El acceso está restringido y
+custodiado por la Guardia de Granito.</p></li>
+<li><p><strong>El Bastión de Granito</strong>: Una serie de fortalezas y
+atalayas excavadas en los picos que dominan la ciudad. Es el cuartel
+general de la Guardia de Granito, desde donde vigilan los accesos al
+valle y se preparan para defender la ciudad mediante su dominio del
+terreno montañoso y las avalanchas controladas.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Douchy está marcada por un profundo respeto por la tierra.
+La sociedad valora la paciencia, la precisión y la cooperación por
+encima de la fuerza bruta. El evento más importante del año es la “Talla
+del Corazón”, un festival donde los mejores artesanos <a
+href="Enanos.html">Enanos</a> y <a href="Gnomos.html">Gnomos</a>
+compiten por crear la joya más perfecta a partir de una Piedra
+Cantarina. La obra ganadora no se vende, sino que se ofrece a <a
+href="Cirkon.html">Cirkon</a> en su templo principal, en un ritual para
+agradecer a la montaña por su generosidad.</p>
+<p>Los cantos corales en las minas son una tradición sagrada. Se cree
+que las armonías correctas pueden calmar a los espíritus de la tierra,
+revelar la ubicación de nuevas vetas y advertir de la inminencia de un
+derrumbe. La veneración a <a href="Cirkon.html">Cirkon</a> es
+omnipresente, pero los habitantes de Douchy son pragmáticos; una pequeña
+y solemne capilla dedicada a <a href="Valarios.html">Valarios</a>, dios
+de la destrucción, se mantiene siempre atendida, realizando ofrendas
+para apaciguar la furia de los terremotos y los volcanes.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Douchy es una celebración de la piedra. Las
+estructuras no buscan dominar el paisaje, sino integrarse en él. Enormes
+columnas de roca natural se dejan intactas dentro de los grandes
+salones, y las paredes de granito están adornadas con <a
+href="Runas.html">Runas</a> de protección y prosperidad. Las gemas no
+son solo decoración; son funcionales, sirviendo como fuentes de luz,
+focos de energía para talleres y componentes de las defensas mágicas de
+la ciudad. El ambiente es de una calma laboriosa, impregnado por el olor
+a piedra fría, el calor distante de las forjas y el eco musical que
+parece emanar de la propia montaña.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Corazón de <a href="Cirkon.html">Cirkon</a></strong>:
+La leyenda más persistente de Douchy habla de la “Veta Silente”, la mina
+más profunda y peligrosa, donde se dice que yace el Corazón de <a
+href="Cirkon.html">Cirkon</a>. No es una joya inerte, sino una gema
+colosal y geológicamente viva que late con un ritmo lento y poderoso,
+regulando la estabilidad de la montaña y la pureza de sus cristales. Los
+ancianos creen que es la fuente de la prosperidad de la ciudad y su
+máxima protección. Sin embargo, también es su mayor debilidad, pues
+temen que si los Cazadores de Sombras descubrieran su existencia y
+lograran corromperla, la montaña entera colapsaría en un cataclismo de
+polvo y olvido.</p></li>
+<li><p><strong>El Titán Oculto</strong>: Un rumor que circula entre los
+<a href="Gnomos.html">Gnomos</a> más ancianos cuenta que, durante los
+ecos de las Guerras Dracónicas, sus antepasados, en colaboración con los
+maestros herreros <a href="Enanos.html">Enanos</a>, construyeron un
+autómata titánico. Este coloso de piedra y metal, animado por un enorme
+cristal de poder, fue diseñado como la defensa definitiva contra un
+ataque de <a href="Dragones.html">Dragones</a>. La leyenda afirma que el
+autómata nunca fue necesitado y ahora duerme en una caverna sellada y
+olvidada, esperando una palabra de mando que lo despierte para defender
+la ciudad de una amenaza de igual magnitud.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.41)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

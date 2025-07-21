@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La_Orden_de_la_Llama_Pálida</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">La_Orden_de_la_Llama_Pálida</div>
+        <div class="content">
+<h1 id="la-orden-de-la-llama-pálida">La orden de la llama pálida</h1>
+<p><em>“Donde el <a href="Lilium.html">Lilium</a> quemó, nosotros
+purificamos. Donde los dioses siembran la discordia, nosotros traemos el
+Silencio. No somos luz ni somos sombra. Somos el equilibrio que se paga
+con el alma. Somos la Llama Pálida”.</em> — Juramento del iniciado de la
+Orden.</p>
+<p>La Orden de la Llama Pálida es una facción enigmática y ascética de
+cazadores de monstruos, exorcistas y purificadores que operan en los
+márgenes de la sociedad. Dedicados a contener y erradicar la
+<strong>Corrupción</strong> en todas sus formas, sus miembros son
+figuras temidas y respetadas, envueltas en un halo de misterio y
+sacrificio. No sirven a ningún dios ni rey, sino a un único principio:
+el mundo debe ser limpiado de las cicatrices dejadas por la arrogancia
+de dioses y mortales por igual.</p>
+<h3 id="historia-y-orígenes">Historia y Orígenes</h3>
+<p>La Orden nació de las cenizas del <strong>Cataclismo del <a
+href="Lilium.html">Lilium</a></strong>. Mientras los nuevos dioses
+creaban sus razas y fundaban reinos, un grupo de supervivientes de
+diversas estirpes (<a href="Humanos.html">Humanos</a>, elfos y <a
+href="Enanos.html">Enanos</a> de la era del Primer Rey) descubrió que la
+devastación no había terminado con el fuego. El <a
+href="Lilium.html">Lilium</a> había dejado ecos, heridas purulentas en
+el Tejido del Maná que engendraban abominaciones, corrompían la
+naturaleza y enloquecían a los vivos.</p>
+<p>Su fundador, conocido solo como <strong>El Primer Guardián</strong>,
+fue un <a href="Mago.html">Mago</a> de la corte del Primer Rey que
+sobrevivió al cataclismo. Horrorizado por la destrucción divina y el
+caos resultante, renunció a la magia tradicional, que consideraba una
+herramienta de ambición. A través de una meditación profunda y un
+doloroso sacrificio, descubrió cómo canalizar su propia fuerza vital
+para crear una energía purificadora, un “fuego frío” que no quemaba la
+carne, sino la corrupción misma. A esta energía la llamó la
+<strong>Llama Pálida</strong>.</p>
+<p>Reunió a otros supervivientes que habían sido tocados por la
+corrupción pero no consumidos por ella, y les enseñó sus métodos.
+Juntos, juraron convertirse en los cirujanos del mundo, extirpando los
+tumores mágicos que amenazaban con destruir lo poco que quedaba.
+Establecieron su primera fortaleza en una remota cadena montañosa,
+oculta a los ojos de los nuevos reinos, y desde entonces han operado en
+secreto, pasando su conocimiento de generación en generación.</p>
+<h3 id="filosofía-y-creencias">Filosofía y Creencias</h3>
+<p>La filosofía de la Orden es de un neutralismo radical y pragmático.
+Sus miembros creen que las grandes fuerzas del universo —los dioses, los
+<a href="Demonios.html">Demonios</a>, e incluso la desmedida ambición
+del Primer Rey— son fuentes de desequilibrio. La Corrupción, para ellos,
+es la manifestación física de este desequilibrio.</p>
+<ul>
+<li><strong>El Principio del Silencio:</strong> La Orden no busca la
+gloria ni el poder. Su objetivo final es el “Silencio”: un estado en el
+que el mundo está libre de la influencia de poderes abrumadores,
+permitiendo a los mortales forjar su propio destino sin manipulaciones
+divinas o infernales.</li>
+<li><strong>El Sacrificio del Alma:</strong> Portar la Llama Pálida
+tiene un coste terrible. Al canalizarla, un miembro de la Orden quema
+una parte de su propia esencia: sus emociones, sus recuerdos, su
+vitalidad. Por ello, los miembros más veteranos son figuras estoicas,
+desapasionadas y extrañamente vacías, como si fueran ecos de las
+personas que una vez fueron. Este sacrificio es visto como el precio
+necesario para mantener el equilibrio.</li>
+<li><strong>Rechazo de los Panteones:</strong> La Orden no venera a
+ninguno de los panteones. Consideran que los dioses, al crear nuevas
+razas marcadas con sus propios defectos, perpetuaron el ciclo de
+conflicto iniciado con el <a href="Lilium.html">Lilium</a>. Ven a los
+dioses como padres negligentes y a sus “creaciones fallidas” como
+víctimas que deben ser guiadas o, si están demasiado corruptas,
+purificadas.</li>
+</ul>
+<h3 id="la-llama-pálida-magia-y-habilidades">La Llama Pálida: Magia y
+Habilidades</h3>
+<p>La Llama Pálida no es magia en el sentido tradicional. No manipula el
+Tejido del Maná, sino que lo anula. Es una forma de energía espiritual
+que actúa como un disolvente contra la magia corrupta y las entidades
+sobrenaturales.</p>
+<ul>
+<li><strong>Canalización:</strong> Los miembros de la Orden la canalizan
+a través de su propio cuerpo y voluntad. Esto les permite imbuir sus
+armas, tocar a una persona para purgar una maldición o crear sellos de
+contención.</li>
+<li><strong>Efectos:</strong> La Llama Pálida es inofensiva para la
+materia normal y los seres no corruptos, pero es devastadora contra
+no-muertos, <a href="Demonios.html">Demonios</a>, aberraciones y
+aquellos cuya alma ha sido manchada por la magia oscura. Al contacto, no
+quema, sino que desintegra la energía corrupta, dejando a menudo solo un
+rastro de ceniza blanquecina.</li>
+<li><strong>El Coste:</strong> El uso de estas habilidades inflige una
+forma única de <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>,
+que en su caso es una <strong>Fatiga Espiritual</strong>. Acumularla no
+solo causa agotamiento físico, sino también la pérdida temporal de
+recuerdos, habilidades sociales o incluso la capacidad de sentir
+emociones. Un descanso largo puede restaurar el cuerpo, pero las
+cicatrices en el alma son más difíciles de sanar.</li>
+</ul>
+<h3 id="estructura-y-rangos">Estructura y Rangos</h3>
+<p>La Orden está organizada de forma jerárquica y meritocrática,
+valorando la experiencia y el sacrificio por encima de todo.</p>
+<ol type="1">
+<li><strong>Acólitos:</strong> Iniciados que acaban de ser reclutados.
+Pasan años en las fortalezas ocultas de la Orden aprendiendo su
+filosofía, entrenando el cuerpo y la mente, y soportando exposiciones
+controladas a la Corrupción para fortalecer su voluntad.</li>
+<li><strong>Vigilantes:</strong> Miembros de pleno derecho que operan en
+el mundo, generalmente en pequeñas células. Son los cazadores,
+investigadores y exorcistas que responden a los rumores de
+corrupción.</li>
+<li><strong>Guardianes de la Llama:</strong> Veteranos experimentados
+que han sobrevivido a décadas de servicio. Su dominio de la Llama Pálida
+es inmenso, pero el coste personal ha sido enorme. Suelen liderar las
+fortalezas de la Orden, entrenar a los Acólitos y coordinar las misiones
+de los Vigilantes.</li>
+<li><strong>El Corazón Pálido:</strong> El líder de la Orden, un título
+que no se hereda sino que se otorga al Guardián que demuestra el mayor
+sacrificio y sabiduría. Se dice que el Corazón Pálido ya no es una
+persona, sino un nexo viviente de la Llama, que mantiene la energía de
+la Orden anclada al mundo.</li>
+</ol>
+<h3 id="relaciones-con-los-reinos">Relaciones con los Reinos</h3>
+<ul>
+<li><strong><a href="Mor&#39;dhul.html">Mor’dhul</a>:</strong> La Orden
+considera <a href="Mor&#39;dhul.html">Mor’dhul</a> el epicentro de la
+Corrupción en la era actual. Sus agentes operan aquí más que en ningún
+otro lugar, aunque con extremo sigilo. Son enemigos jurados del
+<strong>Clan Whisper</strong> y los cultos de <strong><a
+href="Kromagul.html">Kromagul</a></strong> y <strong><a
+href="Lakros.html">Lakros</a></strong>. El Rey
+<strong>Sel’thirak</strong> los considera una peligrosa secta de herejes
+y los caza sin piedad.</li>
+<li><strong><a href="Valtoria.html">Valtoria</a>:</strong> La relación
+es de cautelosa neutralidad. Los <a href="Enanos.html">Enanos</a>
+aprecian el objetivo de la Orden de limpiar la tierra, pero desconfían
+de sus métodos secretos y su rechazo a los dioses. La <strong>Torre de
+las Estrellas</strong> está fascinada por la Llama Pálida y ha intentado
+estudiarla, pero la Orden protege celosamente sus secretos.</li>
+<li><strong><a href="Galvorn.html">Galvorn</a>:</strong> En el Reino
+Marítimo, la Orden es vista como una superstición o una leyenda útil.
+Los capitanes pragmáticos a veces contratan discretamente a sus miembros
+para lidiar con barcos fantasma, monstruos marinos surgidos de la
+corrupción o islas malditas, pagando con <a
+href="Recursos.html">Recursos</a> y silencio.</li>
+<li><strong><a href="Eldrador.html">Eldrador</a>:</strong> La nobleza
+élfica desprecia a la Orden, considerándolos fanáticos ignorantes que
+blanden un poder burdo. Sin embargo, cuando la Corrupción del <a
+href="Lilium.html">Lilium</a> amenaza uno de sus bosques ancestrales, no
+dudan en permitirles el acceso, aunque siempre bajo estricta vigilancia
+y con la intención de expulsarlos tan pronto como su macabra tarea haya
+terminado.</li>
+</ul>
+<h3 id="símbolos-y-equipo">Símbolos y Equipo</h3>
+<p>Los miembros de la Orden visten ropas funcionales y discretas de
+colores apagados como el gris, el blanco ceniza y el negro. Evitan
+cualquier adorno ostentoso. Su símbolo es una única llama estilizada,
+sin color, a menudo grabada en un amuleto de plata o en la empuñadura de
+sus armas.</p>
+<p>Utilizan armas de plata o hierro frío, a menudo inscritas con sellos
+de contención. Portan viales con cenizas purificadas, sales consagradas
+y otros componentes alquímicos diseñados para debilitar a las criaturas
+sobrenaturales y contrarrestar la magia oscura. Su equipo está hecho
+para durar, no para impresionar.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.55)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

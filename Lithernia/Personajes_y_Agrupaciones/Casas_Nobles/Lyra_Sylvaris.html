@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Sylvaris</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Sylvaris</div>
+        <div class="content">
+<h1 id="lyra-sylvaris">Lyra Sylvaris</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En el corazón del reino élfico de <a
+href="Eldrador.html">Eldrador</a>, donde la tradición es tan antigua
+como los árboles y el destino está tejido en las estrellas, la Casa
+Sylvaris se erige como un pilar del orden cósmico. Son los videntes, los
+profetas estacionales cuya fe en el destino inmutable de <a
+href="Arzia.html">Arzia</a>, la diosa de las estrellas, les ha otorgado
+un poder inmenso dentro de la rígida estructura de la “Mano de Hierro”.
+En este linaje de certeza y fatalismo nació Lyra, una flor de primavera
+en un jardín de otoño perpetuo.</p>
+<p>Hija de Kaelen y nieta de la poderosa matriarca Elara Sylvaris, Lyra
+fue criada para ser la próxima gran vidente de la casa. Desde su
+infancia, fue instruida en la adivinación estacional, aprendiendo a leer
+el futuro en la caída de una hoja, el patrón de la escarcha o el
+florecimiento de un capullo. Sin embargo, su naturaleza de <a
+href="Eladrin.html">Eladrin</a>, nacida bajo el aspecto de la primavera,
+la dotó de una curiosidad insaciable y un espíritu inquieto que pronto
+entraron en conflicto con la doctrina de su familia. Para Lyra, la idea
+de que su vida, sus emociones y sus decisiones eran meramente ecos de un
+guion cósmico preescrito era una jaula, por muy dorada que fuera.</p>
+<p>Mientras su familia veía las profecías como decretos sagrados, Lyra
+las sentía como grilletes. En secreto, comenzó a devorar los textos
+filosóficos de sus rivales, la Casa <a href="Faewind.html">Faewind</a>,
+cuyas ideas sobre un destino fluido y un alma libre resonaban con la
+rebelión que florecía en su corazón. Ve en su filosofía no el caos que
+su abuela Elara denuncia, sino la promesa de un jardín que uno mismo
+puede cultivar. Esta afinidad prohibida es su secreto más peligroso, una
+herejía que podría llevarla al exilio o, peor aún, a ser “reeducada” por
+los métodos fríos y calculados de su propia casa.</p>
+<p>Con 110 años, Lyra es joven para los estándares élficos, pero su
+conflicto interno la ha hecho más sabia y cautelosa de lo que su
+apariencia vibrante sugiere. Se debate entre el amor y el deber hacia su
+linaje y un anhelo desesperado de forjar su propio camino. Su motivación
+no es la búsqueda de poder, sino de la verdad: ¿es el destino una jaula
+ineludible, como afirma su casa, o es un lienzo en blanco, como susurran
+los vientos de <a href="Faewind.html">Faewind</a>? Esta pregunta la
+impulsa a buscar conocimiento más allá de los observatorios de <a
+href="Aeluneth.html">Aeluneth</a>, llevándola a interesarse por las <a
+href="Leyendas.html">Leyendas</a> prohibidas de Lithernia, incluida la
+profecía del Primer Rey, viéndola no como un evento predestinado, sino
+como una prueba definitiva sobre la naturaleza del libre albedrío.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra es la encarnación de su aspecto primaveral. Es de estatura
+grácil y sus movimientos poseen una energía vibrante y contenida. Su
+cabello, de un castaño claro con reflejos cobrizos, parece capturar la
+luz del alba y a menudo lo lleva suelto o con trenzas adornadas con
+pequeñas flores silvestres, un sutil acto de desafío a la severidad de
+su casa. Sus ojos, del color del musgo fresco tras la lluvia, brillan
+con una inteligencia aguda y una curiosidad que rara vez logra ocultar
+del todo. Su piel es pálida, con el leve rubor de la juventud en sus
+mejillas.</p>
+<p>Viste con la elegancia esperada de la nobleza Sylvaris, pero siempre
+con un toque personal. Prefiere las túnicas de cuero élfico ligero y
+sedas en tonos verdes y tierra sobre la seda nocturna y plateada de su
+casa. Su armadura es más funcional que ceremonial, diseñada para el
+movimiento rápido y sigiloso.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Hoja de
+Sauce:</strong> Una espada corta élfica, ligera y afilada, cuyo pomo
+está tallado en forma de un brote de sauce. Es un arma para duelos y
+defensa personal, no para la guerra abierta. * <strong>Arco de Tejo
+Estelar:</strong> Un arco largo tradicional, regalo de su padre, con
+pequeñas <a href="Runas.html">Runas</a> plateadas que brillan débilmente
+bajo la luz de las estrellas, ayudando a la puntería en la noche. *
+<strong>Astrolabio de Bolsillo:</strong> Una reliquia familiar de latón
+y cristal, heredada de su entrenamiento formal en adivinación. Lo usa
+para leer las constelaciones, aunque cada vez más para orientarse en sus
+escapadas secretas que para predecir el futuro. * <strong>El Broche del
+Viento:</strong> Un pequeño broche de plata escondido bajo el cuello de
+su capa, con la forma de una estilizada ráfaga de viento. Es un símbolo
+secreto de su afinidad con las ideas de la Casa <a
+href="Faewind.html">Faewind</a>, un talismán de su rebelión silenciosa.
+* <strong>Diario de Cuero:</strong> Un diario donde anota sus
+observaciones, poemas y, lo más importante, sus reflexiones filosóficas
+sobre el destino y la libertad. Lo protege con un simple pero ingenioso
+conjuro de ilusión.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El legado de Lyra Sylvaris está aún por escribirse, y es precisamente
+esa incertidumbre lo que la convierte en una figura de inmenso
+potencial. No es una reina ni una general, pero es un hilo suelto en el
+gran tapiz del destino que su casa cree inmutable. Su impacto en
+Lithernia dependerá enteramente del camino que elija.</p>
+<p>Si su rebelión es descubierta, podría provocar una fractura
+catastrófica dentro de la nobleza élfica, debilitando la alianza entre
+las casas Auris y Sylvaris y creando una inestabilidad que podría ser
+explotada por rivales internos o incluso por <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Si logra escapar y unirse a sus
+rivales ideológicos, podría convertirse en el símbolo de un nuevo
+movimiento que desafíe la rígida “Mano de Hierro” de <a
+href="Eldrador.html">Eldrador</a> desde sus cimientos.</p>
+<p>Sin embargo, su mayor impacto potencial reside en su búsqueda de la
+verdad. Si Lyra logra demostrar que el destino puede ser moldeado, su
+descubrimiento no solo liberaría su propio espíritu, sino que podría
+cambiar la filosofía de razas enteras. Podría ser la catalizadora que
+inspire a Lithernia a dejar de temer a las profecías y empezar a
+forjarlas. En un mundo al borde de un cambio profetizado, la cuestión de
+si el regreso del Primer Rey es un evento inevitable o una posibilidad
+creada por las acciones de los héroes podría encontrar su respuesta en
+las decisiones de esta joven heredera. Lyra Sylvaris es, en esencia, la
+pregunta que Lithernia debe responderse a sí misma: ¿somos esclavos del
+destino, o somos sus dueños?</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.54)</li>
+<li><a href="Casa%20Sylvaris.html">Casa Sylvaris</a> (relevancia:
+0.45)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

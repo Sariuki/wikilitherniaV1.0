@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herreria</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Herreria</div>
+        <div class="content">
+<h1 id="herrería">Herrería</h1>
+<p>La herrería en Lithernia es más que un oficio; es una tradición
+ancestral cargada de historia, magia y cultura, especialmente relevante
+en los reinos donde la forja tiene un papel vital para la supervivencia,
+la guerra y la tecnología. Desde las montañas de <a
+href="Valtoria.html">Valtoria</a> hasta las sombras de Mor’dhul, la
+herrería representa el arte de transformar metales nobles y minerales
+sagrados en armas, armaduras y artefactos mágicos, con un profundo
+vínculo con los dioses, la magia y las tradiciones de cada cultura.</p>
+<h2 id="significado-cultural-y-espiritual">Significado cultural y
+espiritual</h2>
+<p>En Lithernia, la herrería es una expresión de la interacción entre la
+creación divina y el esfuerzo mortal. Según las <a
+href="Leyendas.html">Leyendas</a>, la primera forja fue un regalo de <a
+href="Rokael.html">Rokael</a>, dios enano de la creación, quien infundió
+en el fuego un elemento sagrado que confería vida y poder no solo al
+metal, sino también al alma del artesano. Por esa razón, los herreros
+son vistos comúnmente como intermediarios entre lo material y lo
+espiritual.</p>
+<p>En <a href="Valtoria.html">Valtoria</a>, la herrería es sagrada y
+está protegida por los clanes y el Concilio de la Montaña. Se considera
+que cada pieza forjada lleva un alma, y por ello hay ritos estrictos
+para bendecir las herramientas y el fuego de la fragua. La precisión y
+dedicación que exige la herrería es vista como una práctica espiritual,
+un modo de honrar a los ancestros y a los dioses de la forja.</p>
+<p>En Mor’dhul, la herrería tiene un tono más oscuro y brutal,
+especialmente en lugares controlados por el Clan <a
+href="Thyrgram.html">Thyrgram</a> o Ironclaw, donde las armas son
+símbolos de poder y dominación, forjadas en fuego volcánico o en las
+profundidades corruptas y mágicas del inframundo.</p>
+<p>En <a href="Galvorn.html">Galvorn</a>, la herrería está más ligada a
+la innovación y la adaptación, combinando la artesanía tradicional con
+un toque de magia elemental inspirada en los dioses del mar y el viento,
+creando armas y armaduras ligeras que facilitan la movilidad en entornos
+costeros y navales.</p>
+<h2 id="técnicas-y-materiales-predominantes">Técnicas y materiales
+predominantes</h2>
+<h3 id="materiales-especiales">Materiales especiales</h3>
+<ul>
+<li><p><strong>Hierro y acero forjado en <a
+href="Valtoria.html">Valtoria</a>:</strong> Minado de las entrañas de
+las montañas, este acero está enriquecido con minerales mágicos y
+cristalinos. Los <a href="Enanos.html">Enanos</a> perfeccionan la
+técnica del temple con cristales lumínicos que confieren al metal
+propiedades únicas, como resistencia mayor o capacidad para canalizar
+maná.</p></li>
+<li><p><strong>Obsidiana y minerales volcánicos de Mor’dhul:</strong>
+Utilizados principalmente para armas rúnicas y símbolos de poder, estos
+materiales absorben energías negativas, ideales para armas y armaduras
+destinadas a combates rituales o guerras sagradas. Combinar obsidiana
+con hierros bendecidos a menudo crea piezas imbuídas de oscuridad o
+ansiedad para el enemigo.</p></li>
+<li><p><strong>Metales ligeros y místicos de <a
+href="Galvorn.html">Galvorn</a>:</strong> Con frecuencia comprenden
+aleaciones únicas que incluyen plata marina o metales bendecidos por <a
+href="Yfrit.html">Yfrit</a> para resistir la corrosión salina y
+potenciar hechizos acuáticos, creando armas útiles para la marina y
+exploradores.</p></li>
+</ul>
+<h3 id="procesos-de-forja">Procesos de forja</h3>
+<p>Los herreros utilizan hornos ancestrales, algunos con fuego
+convencionales y otros con llamas de mana controladas por magos, que
+permiten forjar metales a temperaturas imposibles con técnicas humanas
+únicamente. Los rituales acompañan la forja, especialmente cuando se
+crean armas mágicas o artefactos con propiedades especiales, lo cual
+implica invocaciones a dioses o ancestrales espíritus elementales.</p>
+<p>En <a href="Valtoria.html">Valtoria</a>, la herrería se acompaña de
+símbolos rúnicos y encantamientos menores aplicados con cinceles mágicos
+y herramientas especiales, otorgando a las armas y armaduras capacidades
+que van desde ligeros aumentos de defensa hasta resistencia mágica o
+armonización con el tejido del maná.</p>
+<h2 id="armas-y-armaduras-emblemáticas">Armas y armaduras
+emblemáticas</h2>
+<h3 id="armas-legendarias">Armas legendarias</h3>
+<ul>
+<li><p><strong>La Lanza de <a href="Trovdor.html">Trovdor</a>:</strong>
+Forjada en la profundidad de una caverna mística, posee incrustaciones
+de acero y cristales encantados. Se dice que canaliza la fuerza de la
+montaña en cada golpe.</p></li>
+<li><p><strong>La Filo de Obsidiana de Mor’dhul:</strong> Arma ritual
+usada por el Clan Sel’thirak, grabada con inscripciones de magia de
+muerte y capaz de drenar energía vital con cada corte.</p></li>
+<li><p><strong>Espadas de Ráfaga de <a
+href="Galvorn.html">Galvorn</a>:</strong> Espadas ligeras que combinan
+metal y <a href="Conjuros.html">Conjuros</a> de viento, permitiendo
+ataques rápidos y ágiles, muy valoradas entre los marineros
+mercenarios.</p></li>
+</ul>
+<h3 id="armaduras-destacadas">Armaduras destacadas</h3>
+<ul>
+<li><p><strong>Armadura del Escudo de <a
+href="Valtoria.html">Valtoria</a>:</strong> Construida por los Escudos
+de <a href="Valtoria.html">Valtoria</a>, combina placas metálicas
+tradicionales con encantamientos de protección elementales, ofreciendo
+gran resistencia física y mágica.</p></li>
+<li><p><strong>Coraza Negra de Noblestevo:</strong> Usada por los
+guerreros <a href="Orcos.html">Orcos</a> dedicados a la guerra; su
+construcción es ruda, pensada para absorber impacto y causar miedo por
+su apariencia oscura e imponente.</p></li>
+<li><p><strong>Cota de Mallas del Consejo de Capitanes:</strong>
+Armadura desarrollada en <a href="Galvorn.html">Galvorn</a> para los
+oficiales navales, apoyada en cuero y metal flexible para proteger sin
+sacrificar movimiento.</p></li>
+</ul>
+<h2 id="herrería-mágica-y-forja-de-artefactos">Herrería mágica y forja
+de artefactos</h2>
+<p>En Lithernia, la herrería no se limita a lo físico sino que está
+intrínsecamente ligada con el tejido del maná. La creación de artefactos
+legendarios como las Cuatro Lanzas Celestiales se considera la máxima
+expresión de este arte mixto.</p>
+<h3 id="forjas-arcanas">Forjas arcanas</h3>
+<p>Algunas forjas están construidas sobre líneas ley o nodos de maná, lo
+que permite a los artesanos imbuir energía mágica directamente en la
+forja del metal. Estas forjas requieren el trabajo conjunto de herreros
+y magos especialistas, quienes sincronizan <a
+href="Conjuros.html">Conjuros</a> y técnicas metalúrgicas. La dificultad
+y la <a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>
+durante estas forjas son muy elevadas, pero los resultados puede romper
+límites normales de resistencia y poder.</p>
+<h3 id="técnicas-prohibidas">Técnicas prohibidas</h3>
+<ul>
+<li><p><strong>Forja con fuego del <a
+href="Lilium.html">Lilium</a>:</strong> Rara y extremadamente peligrosa,
+esta técnica consiste en utilizar fragmentos residuales del fuego eterno
+del <a href="Lilium.html">Lilium</a> para fundir metales. Las armas
+creadas de esta forma poseen propiedades únicas pero pueden corromper a
+su portador si no tiene la fortaleza adecuada.</p></li>
+<li><p><strong><a href="Runas.html">Runas</a> de corrupción y
+poder:</strong> En Mor’dhul, algunas armas y armaduras llevan grabados
+<a href="Runas.html">Runas</a> que invocan la sombra, la muerte o la
+sangre, otorgando poderes oscuros a costa de la salud o la vida del
+usuario.</p></li>
+</ul>
+<h3 id="artefactos-de-poder">Artefactos de poder</h3>
+<p>Además de las Cuatro Lanzas Celestiales, existen numerosas armas y
+armaduras legendarias forjadas en distintas épocas y lugares, muchas con
+vínculos directos a dioses o héroes. Estos artefactos son buscados
+incansablemente por aventureros y reinos, pues pueden cambiar el curso
+de batallas y definir la hegemonía política.</p>
+<h2 id="el-rol-de-la-herrería-en-la-sociedad-y-la-guerra">El rol de la
+herrería en la sociedad y la guerra</h2>
+<p>La herrería es esencial para la supervivencia de Lithernia. En un
+mundo marcado por largos conflictos, guerras de clanes y cosmogonías
+divinas, contar con armas y armaduras superiores puede significar la
+diferencia entre la vida y la muerte.</p>
+<p>Los herreros, además de artesanos, son figuras respetadas y a menudo
+protegidas por sus clanes. Tienen un elevado estatus social en <a
+href="Valtoria.html">Valtoria</a> y <a href="Galvorn.html">Galvorn</a>,
+mientras en Mor’dhul su posición es más ambigua: en ocasiones son
+instrumentos del poder y en otras, víctimas de las luchas.</p>
+<p>La producción en masa de armas en ciudades como Ironforge o en
+talleres del clan Ironclaw en Mor’dhul ha dado lugar a innovaciones como
+armaduras reforzadas con magia elemental o espadas que canalizan
+hechizos menores. Este equilibrio controlado de fuerza bruta y técnica
+mágica es factor determinante en las batallas que libran los reinos.</p>
+<h2 id="influencia-en-la-narrativa-y-mecánicas-de-juego">Influencia en
+la narrativa y mecánicas de juego</h2>
+<p>La herrería en las campañas de Lithernia puede ser utilizada por el
+Dungeon Master para introducir elementos de roleo, exploración, comercio
+y desarrollo del personaje:</p>
+<ul>
+<li><p><strong>Forjar un arma legendaria:</strong> Los jugadores pueden
+buscar materiales raros y maestros herreros para crear armas
+personalizadas con efectos específicos o historia ancestral.</p></li>
+<li><p><strong>Piezas imbuidas de maná:</strong> Forjas arcanas permiten
+mejorar objetos con bendiciones o maldiciones, dándole a la herrería un
+componente mágico y estratégico dentro de la mecánica de juego.</p></li>
+<li><p><strong>Misiones relacionadas:</strong> Recuperar planos de forja
+perdidos, proteger una fragua sagrada o sabotear talleres enemigos son
+ganchos recurrentes en narrativas que giran alrededor de la
+herrería.</p></li>
+<li><p><strong>Fatiga y riesgo:</strong> Los artesanos que utilizan maná
+para potenciar la forja deben tener en cuenta la fatiga mágica,
+alineándose con las mecánicas únicas del sistema de magia de
+Lithernia.</p></li>
+</ul>
+<h2 id="conclusión">Conclusión</h2>
+<p>La herrería en Lithernia es una piedra angular de la historia y la
+cultura de los reinos. Al amalgamar la tradición, la espiritualidad y la
+magia con la artesanía, este arte se convierte en un motor cultural,
+bélico y mágico que define identidades, fortalece ejércitos y forja
+destinos. Cualquier aventurero o maestro de campaña encontrará en la
+herrería un recurso invaluable para enriquecer su narrativa, tejiendo
+así el legado forjado a fuego y sombras que distingue a Lithernia en el
+vasto tapiz de mundos fantásticos.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Herrería.html">Herrería</a> (relevancia: 0.67)</li>
+<li><a href="Meta.html">Meta</a> (relevancia: 0.40)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

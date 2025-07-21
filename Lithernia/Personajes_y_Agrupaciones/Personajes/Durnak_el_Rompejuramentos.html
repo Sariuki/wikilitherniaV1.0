@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durnak_el_Rompejuramentos</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Durnak_el_Rompejuramentos</div>
+        <div class="content">
+<h1 id="durnak-el-rompejuramentos">Durnak el Rompejuramentos</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Durnak no es un enano de honor; es la encarnación de un honor roto y
+supurante. Nacido en la penumbra asfixiante de las minas del exilio,
+nunca conoció la luz del sol de <a href="Valtoria.html">Valtoria</a> ni
+escuchó los cantos de las forjas de Ironforge. Su única nana fue el eco
+amargo de las historias de la traición, el relato de cómo su clan, los
+orgullosos Picosombrío, fue despojado de su gloria y condenado a la
+oscuridad por su fanática devoción a <a
+href="Valarios.html">Valarios</a>, el dios de la sagrada Destrucción.
+Para Durnak, la paz de la Reina Valeria no es prosperidad; es la
+herrumbre que corroe el verdadero acero del espíritu enano.</p>
+<p>Su juventud fue un crisol de dolor y entrenamiento brutal bajo la
+tutela de Grakkor Manorrota, el anciano líder del rebautizado Clan
+Garraumbría. Grakkor vio en Durnak no solo fuerza, sino un odio puro,
+una llama negra que podía ser avivada hasta convertirse en un infierno.
+Fue Grakkor quien le enseñó que la verdadera lealtad no se jura a una
+corona o a un concilio, sino al principio inmutable de la purga.</p>
+<p>El epíteto de “Rompejuramentos” no es una simple bravuconada. Se lo
+ganó con sangre y sacrilegio. En un audaz plan urdido por Grakkor,
+Durnak logró infiltrarse en la sociedad de la superficie, presentándose
+como un exiliado arrepentido. Con una actuación que duró años, se ganó
+la confianza de los maestros de la Casa Dravonis, jurando lealtad a la
+corona y a los códigos de la montaña. Se convirtió en un guardián de la
+Gran Fundición de <a href="Sylorian.html">Sylorian</a>, un proyecto que
+simbolizaba la odiada alianza entre <a href="Enanos.html">Enanos</a> y
+elfos. En la noche del solsticio, mientras la ciudad celebraba, Durnak
+rompió su juramento sagrado. No solo abrió las puertas a un escuadrón de
+saboteadores Garraumbría, sino que él mismo, con su mazo rúnico,
+destrozó los pilares de contención arcanos. La fundición colapsó en un
+torrente de metal fundido y vapor, matando a docenas de artesanos <a
+href="Enanos.html">Enanos</a> y elfos, y quebrando la confianza entre
+los dos pueblos durante una generación.</p>
+<p>Ese acto de traición fue su apoteosis. Al regresar a las
+profundidades como un <a href="Heroes.html">Heroes</a> para su clan, fue
+nombrado “<a href="Heroes.html">Heroes</a> de la Garra”, el brazo
+ejecutor de la voluntad de los Garraumbría. Ahora, Durnak lidera las
+incursiones más violentas: corrompe <a href="Runas.html">Runas</a>
+ancestrales, colapsa túneles vitales y asesina a figuras clave que
+promueven la “débil” unidad de <a href="Valtoria.html">Valtoria</a>. No
+busca conquistar, sino quebrar. Su motivación es una fe retorcida: cree
+que solo cuando <a href="Valtoria.html">Valtoria</a> esté de rodillas,
+sangrando y fracturada, podrá renacer en la gloria destructiva que <a
+href="Valarios.html">Valarios</a> exige, libre de la mancha de elfos, <a
+href="Gnomos.html">Gnomos</a> y pacifistas.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Durnak es un testamento andante de su vida en el exilio. Su piel
+tiene la palidez enfermiza de la piedra de cueva, pero sus músculos son
+nudos de hierro forjados en la adversidad. Con 92 años, está en la
+plenitud de su fuerza enana, y sus ojos, hundidos bajo una frente
+huesuda, arden con la brasa perpetua del fanatismo. Su barba, de un
+negro hollín, no está trenzada con esmero, sino atada con toscos anillos
+de hierro oxidado y marcada por quemaduras de antiguos sabotajes. Sobre
+su piel, tatuajes rúnicos dedicados a <a
+href="Valarios.html">Valarios</a> serpentean por sus brazos y torso,
+narrando cada juramento que ha roto y cada pilar que ha derribado.</p>
+<p>Viste una <strong>Armadura de Placas de Granito Negro</strong>, una
+obra maestra del Clan Garraumbría. No brilla; absorbe la luz. Las placas
+están grabadas con símbolos de fractura y ruina, y reforzadas con
+fragmentos de obsidiana, un regalo de sus aliados del Clan <a
+href="Kromagul.html">Kromagul</a> de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>Su arma principal es <strong>“Rompe-cimientos”</strong>, un colosal
+mazo de guerra de dos manos. Su cabeza no es de acero pulido, sino de un
+bloque de hierro meteórico oscuro, grabado con <a
+href="Runas.html">Runas</a> que crepitan con energía necrótica y de
+fuerza. Se dice que cada golpe no solo aplasta la roca, sino que también
+debilita los encantamientos protectores cercanos. A su espalda, lleva un
+hacha de mano forjada con los restos del escudo de un <a
+href="Heroes.html">Heroes</a> de la Casa Dravonis al que mató, un trofeo
+y una profanación constante.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Para el Clan Garraumbría, Durnak el Rompejuramentos es un profeta de
+la destrucción, la prueba viviente de que su causa es justa y su
+venganza, inevitable. Inspira a una nueva generación de exiliados a
+abrazar el terrorismo como un deber sagrado.</p>
+<p>Para el pueblo de <a href="Valtoria.html">Valtoria</a>, es una figura
+de pesadilla, el verdadero rostro de los “Cazadores de Sombras” que
+acechan en la oscuridad. Su nombre se susurra para asustar a los niños y
+para justificar la creciente paranoia que se extiende por las
+ciudades-fortaleza.</p>
+<p>Para la Reina Valeria Bronzebrillo y el Concilio de la Montaña,
+Durnak es una amenaza existencial. No es un simple bandido, sino un
+veneno ideológico que ataca el corazón mismo de la sociedad valtoriana:
+la confianza y el honor de los juramentos. Sus acciones han forzado al
+reino a reforzar sus defensas internas, creando tensiones y sospechas
+incluso entre clanes leales.</p>
+<p>En el gran tapiz de Lithernia, Durnak es un catalizador del
+conflicto. Su cruzada amenaza con desatar una guerra civil enana que
+podría desestabilizar a todo el continente, dejando a <a
+href="Valtoria.html">Valtoria</a> vulnerable a las ambiciones de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> y rompiendo el delicado equilibrio
+de poder que mantiene a raya a las fuerzas más oscuras del mundo. Él es
+la garra que araña la montaña, esperando el día en que esta finalmente
+sangre y se derrumbe.</p>
+        </div>
+    </div>
+</body>
+</html>

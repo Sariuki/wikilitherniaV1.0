@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eterita_Cristalizada</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Eterita_Cristalizada</div>
+        <div class="content">
+<h1 id="eterita-cristalizada">Eterita cristalizada</h1>
+<p>En las profundidades de Lithernia, donde el <strong>Tejido del
+Maná</strong> es tan denso que la realidad misma se deforma, y en las
+cicatrices aún calientes dejadas por el <strong>Cataclismo del <a
+href="Lilium.html">Lilium</a></strong>, yace uno de los minerales más
+raros y codiciados del mundo: la Eterita Cristalizada. Considerada por
+muchos como la sangre solidificada de la magia, esta gema pulsante es
+tanto una fuente de poder inconmensurable como un catalizador de
+desastres, un eco tangible de las fuerzas <a
+href="Primordiales.html">Primordiales</a> que dieron forma al mundo.</p>
+<h3 id="propiedades-y-naturaleza">Propiedades y Naturaleza</h3>
+<p><strong>Origen y Formación</strong> La Eterita es el resultado de la
+sobresaturación del Tejido del Maná en un punto concreto. Se forma en
+<strong>Lugares de Poder</strong>, en la confluencia de líneas ley, o en
+lugares marcados por eventos de energía arcana masiva. El Cataclismo del
+<a href="Lilium.html">Lilium</a> fue el mayor generador de Eterita,
+aunque las vetas creadas por <a
+href="Lithernia/01_Historia/05_CaidaLilium/El_Cataclismo_del_Lilium.html">El_Cataclismo_del_Lilium</a>
+suelen estar corrompidas y son peligrosamente inestables.</p>
+<p>Los sabios <a href="Enanos.html">Enanos</a> de <strong><a
+href="Valtoria.html">Valtoria</a></strong> creen que la Eterita se forma
+cuando la tierra, bendecida por <strong><a
+href="Rokael.html">Rokael</a></strong>, absorbe tal cantidad de maná que
+no puede contenerlo en estado etéreo, forzándolo a cristalizar. Los
+magos élficos de <strong><a href="Eldrador.html">Eldrador</a></strong>,
+en cambio, la ven como lágrimas de <strong><a
+href="Thirogrim.html">Thirogrim</a></strong>, el dios de la magia,
+petrificadas en el mundo mortal.</p>
+<p><strong>Apariencia y Variedades</strong> La apariencia de la Eterita
+varía enormemente según su pureza y origen: * <strong>Eterita Pura (o
+Celestial):</strong> Encontrada principalmente en las profundidades de
+<a href="Valtoria.html">Valtoria</a>, es translúcida, de un color azul
+pálido o blanco plateado. Pulsa con una luz interna suave y emite un
+leve zumbido armónico. Al tacto es fría y parece vibrar en sintonía con
+el Tejido del Maná. * <strong>Eterita de <a
+href="Lilium.html">Lilium</a> (o Eterita de Sangre):</strong> Hallada en
+los cráteres y páramos de <strong><a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong>, esta variedad es de un
+color oscuro, casi obsidiana, veteada de un rojo carmesí que parece
+moverse en su interior. Es cálida al tacto y emite un zumbido disonante.
+Su energía es caótica y propensa a descargas violentas. * <strong>Maná
+Cristalizado (Variedad Élfica):</strong> En los bosques de <a
+href="Eldrador.html">Eldrador</a>, la Eterita adopta formas más
+orgánicas, a menudo incrustada en la madera de árboles milenarios o en
+geodas de cuarzo. Su color suele ser verde esmeralda o dorado, y su luz
+es suave y melódica, en armonía con la naturaleza.</p>
+<p><strong>Volatilidad y Riesgos</strong> La Eterita es intrínsecamente
+inestable. Un cristal en bruto contiene una cantidad masiva de energía
+mágica sin refinar. Intentar canalizar su poder directamente sin el
+entrenamiento o las herramientas adecuadas puede resultar en una
+<strong>sobrecarga</strong> catastrófica, causando daño arcano al
+usuario o una explosión mágica que afecta a su entorno. Por ello, su
+extracción y <a href="Herreria.html">Herreria</a> son artes reservadas
+para los más expertos y valientes. Los mineros <a
+href="Enanos.html">Enanos</a> utilizan <a href="Runas.html">Runas</a> de
+contención y herramientas de metales inertes para evitar desastres en
+las vetas.</p>
+<h3 id="usos-y-aplicaciones">Usos y Aplicaciones</h3>
+<p>La Eterita es un componente esencial en la alta magia y la artesanía
+arcana, con una amplia gama de aplicaciones:</p>
+<ul>
+<li><strong>Fuente de Poder Mágico:</strong> En su forma líquida o en
+polvo, es el ingrediente principal de las <strong>pociones de
+éter</strong>, capaces de restaurar los <strong>Puntos de Maná</strong>
+y aliviar la <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>.
+Los magos también pueden intentar <strong>absorber maná</strong>
+directamente de un cristal, aunque es una maniobra arriesgada.</li>
+<li><strong>Creación de Artefactos Mágicos:</strong> Es el componente
+clave para los artefactos más poderosos. Los <strong>Artífices</strong>
+de <a href="Valtoria.html">Valtoria</a> y los encantadores de <a
+href="Eldrador.html">Eldrador</a> la utilizan como núcleo de poder para
+sus creaciones. Un pequeño fragmento puede alimentar un golem durante un
+siglo, potenciar una espada con energía elemental o crear un amuleto que
+protege contra la magia.</li>
+<li><strong>Potenciación de Rituales y <a
+href="Conjuros.html">Conjuros</a>:</strong> El polvo de Eterita es un
+componente ritual de valor incalculable. Al trazar <strong>Círculos de
+Invocación</strong> con él, se magnifica enormemente su poder,
+facilitando la <strong>potenciación de <a
+href="Conjuros.html">Conjuros</a></strong> o la invocación de entidades
+poderosas. Se rumorea que los nuevos <strong><a
+href="Conjuros.html">Conjuros</a> Estelares</strong> requieren Eterita
+Pura como foco material.</li>
+<li><strong>Facilitador de Magia Avanzada:</strong> Ciertas varitas y
+báculos tallados en Eterita permiten al lanzador realizar proezas
+arcanas casi imposibles, como la <strong>Mezcla de <a
+href="Conjuros.html">Conjuros</a></strong> o el uso avanzado de la
+<strong>Aguja de Trama</strong>, al actuar como un estabilizador del
+flujo de maná.</li>
+</ul>
+<h3 id="extracción-comercio-y-control">Extracción, Comercio y
+Control</h3>
+<p>Dada su rareza y poder, el control de los yacimientos de Eterita es
+un asunto de gran importancia geopolítica.</p>
+<ul>
+<li><strong><a href="Valtoria.html">Valtoria</a>, el Guardián
+Principal:</strong> El Reino de la Montaña posee las vetas más ricas y
+puras. Los clanes mineros <a href="Enanos.html">Enanos</a>, bajo la
+supervisión del Concilio de la Montaña, extraen la Eterita con un
+respeto casi religioso. Su comercio está estrictamente regulado por
+gremios como la “Hermandad del Martillo de Cristal”, que rara vez
+comercia con extraños y jamás con <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</li>
+<li><strong><a href="Eldrador.html">Eldrador</a>, el Cosechador
+Místico:</strong> Los elfos no “minan” la Eterita, sino que la
+“cosechan” mediante rituales que la persuaden a desprenderse de su lecho
+natural. Su producción es menor, pero de una calidad exquisita,
+utilizada casi exclusivamente para las necesidades del reino
+élfico.</li>
+<li><strong><a href="Mor&#39;dhul.html">Mor’dhul</a>, el Explotador
+Oscuro:</strong> En las tierras sombrías, clanes como los <a
+href="Orcos.html">Orcos</a> de <strong>Grimstone</strong> o los <a
+href="Hobgoblins.html">Hobgoblins</a> de <strong>Whisper</strong>
+extraen la Eterita de <a href="Lilium.html">Lilium</a> de forma brutal y
+peligrosa. La usan para alimentar su maquinaria de guerra, crear armas
+malditas y potenciar sus rituales necróticos. Buscan constantemente
+adquirir Eterita Pura a través del contrabando o el saqueo.</li>
+<li><strong><a href="Galvorn.html">Galvorn</a>, el
+Intermediario:</strong> Los mercaderes y capitanes de <a
+href="Galvorn.html">Galvorn</a> son los principales distribuidores
+legales de la Eterita procesada por <a
+href="Valtoria.html">Valtoria</a>. Sus rutas marítimas son objetivos
+constantes para piratas y corsarios de Mor’dhul que buscan robar los
+preciosos cargamentos.</li>
+</ul>
+<h3 id="leyendas-y-significado-cultural">Leyendas y Significado
+Cultural</h3>
+<p>La Eterita está profundamente arraigada en las <a
+href="Leyendas.html">Leyendas</a> de cada cultura.</p>
+<p>Para los <strong><a href="Enanos.html">Enanos</a></strong>, es el
+“Corazón de la Montaña”, un regalo de los dioses creadores que late en
+sintonía con el alma del mundo. Una leyenda cuenta que el primer herrero
+enano forjó un martillo con un núcleo de Eterita que nunca se cansaba,
+capaz de dar forma a la propia realidad.</p>
+<p>Para los <strong>elfos</strong>, es un fragmento de las estrellas,
+una conexión física con la diosa <strong><a
+href="Arzia.html">Arzia</a></strong>. Creen que meditar con un cristal
+de Eterita permite escuchar la música del cosmos y comprender los hilos
+del destino.</p>
+<p>Para las razas de <strong><a
+href="Mor&#39;dhul.html">Mor’dhul</a></strong>, especialmente los <a
+href="Tieflings.html">Tieflings</a> seguidores de la profecía, la
+Eterita de <a href="Lilium.html">Lilium</a> es una cicatriz sagrada.
+Algunos cultos creen que en su interior reside la furia del
+<strong>Primer Rey</strong>, y que un día su energía acumulada se
+liberará para consumir a los dioses.</p>
+<p>Así, la Eterita Cristalizada no es solo un mineral. Es poder, es
+peligro, es historia y es profecía. Es un recurso por el que se libran
+guerras, se forjan alianzas y se construyen imperios, un recordatorio
+constante de que en Lithernia, la magia misma es una fuerza tangible que
+puede ser contenida, pero nunca completamente domada.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Conjuros.html">Conjuros</a></li>
+<li>El Cataclismo del <a href="Lilium.html">Lilium</a></li>
+<li><a href="Eldrador.html">Eldrador</a></li>
+<li><a href="Galvorn.html">Galvorn</a></li>
+<li><a href="Leyendas.html">Leyendas</a></li>
+<li><a href="Valtoria.html">Valtoria</a></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Umbracaelus</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Umbracaelus</div>
+        <div class="content">
+<h1 id="lyra-umbracaelus">Lyra Umbracaelus</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los salones de terciopelo y obsidiana de la Casa Umbracaelus,
+donde el poder se mide en susurros y no en gritos, Lyra es una anomalía
+viviente y un símbolo de la propia fundación de la casa. No nació con la
+sangre plateada de los <a href="Eladrin.html">Eladrin</a> Umbracaelus,
+sino con la pálida piel y el alma ligada al crepúsculo de los
+Shadar-Kai. Su existencia es el sello de carne y hueso del pacto
+centenario forjado por Lyrenius el Sombrío: una niña Shadar-Kai,
+entregada a la casa <a href="Noble.html">Noble</a> como pupila y prueba
+de confianza mutua. Para Lyra, esto nunca fue una carga, sino su
+propósito.</p>
+<p>Criada entre las sombras protectoras de <a
+href="Dorathil.html">Dorathil</a>, su educación se desvió de las sendas
+tradicionales de la nobleza élfica. No aprendió el arte de la espada ni
+la alta magia de las estrellas, sino disciplinas más sutiles y, para
+muchos, más peligrosas. Sus tutores fueron maestros de la ilusión,
+historiadores de verdades prohibidas y estrategas que jugaban con <a
+href="Reputaciones.html">Reputaciones</a> como si fueran piezas de
+ajedrez. Desde joven, demostró una mente analítica y una memoria
+prodigiosa, capaz de encontrar patrones en el caos de la intriga
+política y de recordar el más mínimo detalle de un pacto olvidado.</p>
+<p>Su ascenso al puesto de Archivista de la Penumbra no fue por
+herencia, sino por mérito. Demostró su valía al desenmascarar una
+elaborada campaña de desinformación de la Casa Lumeris, que pretendía
+desacreditar a los Umbracaelus ante el trono utilizando profecías
+manipuladas. Lyra no usó la fuerza, sino que tejió una red de
+contra-rumores y filtró verdades inconvenientes sobre los videntes de
+Lumeris, desmantelando su credibilidad desde dentro. Esta hazaña
+consolidó su posición como una de las operativas más eficaces de la
+casa.</p>
+<p>Como Guardiana de Pactos, Lyra es el puente entre dos mundos. Negocia
+con la misma facilidad en los elegantes salones de la nobleza élfica que
+en los callejones silenciosos donde habitan los Shadar-Kai. Entiende el
+rígido honor de los elfos y la lealtad pragmática de su propio pueblo.
+Su motivación principal es la preservación de este equilibrio. Sabe que
+la Casa Umbracaelus es el escudo que protege a los Shadar-Kai de la
+opresiva “Mano de Hierro” de <a href="Eldrador.html">Eldrador</a>, y que
+los Shadar-Kai son la red de inteligencia que mantiene a la casa un paso
+por delante de sus rivales. Para Lyra, la supervivencia de uno es la
+supervivencia del otro. El peso de los secretos que custodia en los
+‘Archivos de la Penumbra’ es inmenso; allí se guardan los pecados de
+reyes, las debilidades de casas rivales y las verdades sobre profecías
+que podrían sumir a Lithernia en el caos si vieran la luz. Es una
+responsabilidad que lleva con una calma imperturbable, pues cree
+firmemente en el lema de su casa: la verdad, la auténtica verdad, solo
+se encuentra en la oscuridad.</p>
+<h3 id="descripción-y-equipamiento">Descripción y Equipamiento</h3>
+<p>Lyra personifica la gracia letal de su herencia Shadar-Kai. Su piel
+es pálida como el mármol pulido, y su largo cabello, de un negro
+profundo, suele llevarlo recogido en una trenza compleja adornada con
+finos hilos de plata. Sus ojos, de un violeta oscuro, parecen contener
+la profundidad de un cielo nocturno sin estrellas; observan todo con una
+intensidad tranquila que a menudo inquieta a quienes no están
+acostumbrados. Aunque su porte es el de una <a
+href="Noble.html">Noble</a> elfa, sereno y controlado, sus movimientos
+poseen una fluidez sigilosa, casi depredadora.</p>
+<p>Viste con una elegancia funcional. Sus atuendos consisten en sedas de
+color índigo y negro, y cueros tratados para no producir ruido. Sobre su
+túnica siempre lleva un broche de plata pulida con la forma de la
+polilla de obsidiana, el símbolo de su casa. No porta armadura pesada ni
+armas ostentosas. Su defensa personal se confía a una daga de estilete,
+forjada con acero sombrío de manufactura Shadar-Kai, oculta en la manga
+de su vestido.</p>
+<p>Su verdadero equipamiento es el de una maestra de secretos: *
+<strong>Los Archivos de la Penumbra:</strong> No es un objeto, sino su
+dominio. Una biblioteca secreta bajo la mansión Umbracaelus, protegida
+por ilusiones y guardianes de las sombras, donde cataloga información en
+pergaminos tratados con tintas simpáticas y cifras complejas. *
+<strong>Grimorio de Pactos:</strong> Un libro encuadernado en piel de
+basilisco donde registra cada acuerdo, deuda y favor que la casa ha
+concedido o recibido. Las páginas están protegidas por glifos que solo
+ella puede leer. * <strong>Anillo de Susurros:</strong> Un anillo de
+plata y ónice que le permite comunicarse telepáticamente a corta
+distancia con otros portadores de anillos similares, una herramienta
+vital para coordinar a su red de informantes sin ser detectada.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Lyra Umbracaelus nunca será cantada en las baladas épicas de los
+héroes de Lithernia. Su nombre no será grabado en monumentos de
+victoria, y su rostro no adornará los estandartes de grandes ejércitos.
+Su legado será silencioso, invisible, pero no por ello menos profundo.
+Es una arquitecta del poder en la sombra, una guardiana de las verdades
+que sostienen y amenazan el delicado equilibrio de <a
+href="Eldrador.html">Eldrador</a>.</p>
+<p>Su impacto se medirá en las guerras que nunca estallaron, en los
+complots que se desvanecieron antes de nacer y en la estabilidad que su
+casa aporta al reino, aunque sea a través de métodos que otros
+considerarían deshonrosos. Representa una evolución de la nobleza, donde
+la influencia no se basa en el linaje puro o la fuerza marcial, sino en
+el dominio de la información. Mientras los paladines de la Casa <a
+href="Aurelin.html">Aurelin</a> luchan contra las sombras, Lyra
+Umbracaelus las domina, demostrando que en un mundo tan complejo como
+Lithernia, a veces la mano que mueve los hilos es más poderosa que la
+que empuña la espada.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casa%20Umbracaelus.html">Casa Umbracaelus</a> (relevancia:
+0.46)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

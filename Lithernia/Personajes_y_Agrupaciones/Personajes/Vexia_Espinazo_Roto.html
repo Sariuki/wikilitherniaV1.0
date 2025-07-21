@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexia_Espinazo_Roto</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Vexia_Espinazo_Roto</div>
+        <div class="content">
+<h1 id="vexia-espinazo-roto">Vexia Espinazo Roto</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales del Clan Cicatriz Vil, pocos nombres resuenan con la
+mezcla de temor y reverencia que inspira <a href="Vexia.html">Vexia</a>.
+No es una guerrera, ni una campeona de la arena; es el alma oscura del
+clan, la mente calculadora que guía su furia. Nacida en la era posterior
+a la fundación del clan, cuando los <a href="Orcos.html">Orcos</a>
+nómadas aún aprendían a dominar los horrores del Bosque de Vidrio
+Ceniciento, <a href="Vexia.html">Vexia</a> demostró una afinidad innata
+no con el hacha, sino con los susurros de la sangre derramada.</p>
+<p>Su epíteto, “Espinazo Roto”, no es una marca de debilidad, sino el
+símbolo de su ascensión. En su juventud, durante una cacería ritual para
+probar su valía, se enfrentó a una Quimera Cenicienta, una de las
+abominaciones más retorcidas nacidas del <a
+href="Lilium.html">Lilium</a>. La bestia la destrozó, quebrando su
+columna vertebral y dejándola moribunda sobre la tierra agrietada. En
+ese umbral entre la vida y la nada, <a href="Lakros.html">Lakros</a>, el
+Dios de la Sangre, le habló. No con palabras, sino con visiones de
+cacerías futuras, de la sangre de <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+imposibles alimentando al clan, y del poder que yace en el dolor.
+Sobrevivió, pero su cuerpo quedó torcido para siempre, una ofrenda
+física a cambio de una visión divina.</p>
+<p>Con el tiempo, las profecías de <a href="Vexia.html">Vexia</a> se
+volvieron el pilar del clan. Guió a los cazadores hacia presas
+legendarias, advirtió de las emboscadas de los elfos silvanos en las
+fronteras de <a href="Eldrador.html">Eldrador</a> y predijo las
+traiciones de clanes menores. Su poder consolidó la alianza con <a
+href="Vanyaran.html">Vanyaran</a>, proveyendo al gobierno hobgoblin
+componentes alquímicos que solo sus cazadores podían obtener. Ghorak
+Colmillo-Ceniza, el actual líder, un orco de fuerza brutal y mente
+simple, depende de sus augurios para mantener su posición. <a
+href="Vexia.html">Vexia</a> lo sabe y lo explota, tejiendo profecías que
+no solo sirven al clan, sino que moldean su futuro según su propio y
+ambicioso diseño.</p>
+<p>Su verdadera obra, sin embargo, es Kaelen Vientofétido. En este joven
+<a href="Cazador.html">Cazador</a>, <a href="Vexia.html">Vexia</a> no
+vio solo fuerza, sino una astucia inusual para un orco. Vio la semilla
+de un líder capaz de entender la política, la estrategia y el miedo como
+armas. En secreto, lo ha convertido en su protegido, enseñándole a ver
+más allá de la próxima cacería, a interpretar el poder no solo como
+fuerza física, sino como influencia. Para <a
+href="Vexia.html">Vexia</a>, Ghorak es el ariete que derriba la puerta,
+pero Kaelen será quien se siente en el trono que hay detrás. Su
+motivación última es asegurar que el Clan Cicatriz Vil no solo
+sobreviva, sino que ascienda y domine, convirtiéndose en una verdadera
+casa de poder en la jerarquía de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, una que beba la sangre no solo de
+<a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>,
+sino de reinos.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p><a href="Vexia.html">Vexia</a> es la viva imagen de la supervivencia
+a un alto coste. A sus noventa años, una edad casi mítica para un orco
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>, su piel verdosa es un mapa
+de cicatrices rituales y arrugas profundas, tensa sobre un cuerpo
+encorvado y torcido por su antigua herida. Su columna vertebral está
+visiblemente deformada, obligándola a caminar apoyada en un báculo
+nudoso hecho con la espina dorsal fosilizada de la misma quimera que la
+marcó.</p>
+<p>A diferencia de los guerreros del clan, no viste armadura metálica.
+Su atuendo consiste en túnicas oscuras hechas con las pieles curadas de
+<a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+cazadas, adornadas con huesos pulidos, plumas de Vidrio Ceniciento y
+garras rotas. Su rostro está a menudo oculto bajo una capucha, pero
+cuando la retira, revela unos ojos lechosos y sin pupila que parecen
+mirar más allá del plano material. Su cabello, ralo y canoso, está
+recogido en trenzas tensas de las que cuelgan pequeños fetiches de hueso
+y dientes que tintinean suavemente con cada uno de sus estudiados
+movimientos.</p>
+<p>Su equipamiento es enteramente ritualístico: * <strong>El Báculo del
+Primer Augurio:</strong> El ya mencionado bastón de espina dorsal,
+coronado con un cráneo de reptil con gemas de obsidiana en las cuencas.
+Es su foco para canalizar visiones. * <strong>Cuchillo de
+Sangría:</strong> Una daga ceremonial de obsidiana afilada, utilizada
+para extraer la sangre de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+(o de sí misma) para sus rituales de adivinación. * <strong>El Corazón
+de Ceniza:</strong> Una piedra porosa y caliente al tacto, extraída del
+pecho de un elemental de magma. La utiliza para calentar la sangre en
+sus cuencos de adivinación, liberando los “vapores del destino”. *
+<strong>Tatuajes Proféticos:</strong> Su cuerpo está cubierto de
+intrincados tatuajes de tinta de sangre que, según ella, se mueven y
+cambian para reflejar el futuro del clan.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Aunque <a href="Vexia.html">Vexia</a> opera desde las sombras de un
+clan fronterizo, su impacto potencial en el tablero de poder de
+Lithernia es inmenso. Es la estratega que está transformando a los
+Cicatriz Vil de una banda de cazadores salvajes a una facción
+disciplinada y con propósito, una herramienta mucho más peligrosa en
+manos de <a href="Mor&#39;dhul.html">Mor’dhul</a>. Su alianza pragmática
+con el Clan <a href="Kromagul.html">Kromagul</a> fortalece a ambas
+facciones, creando un eje de poder basado en el dolor y la dominación de
+la naturaleza corrupta que podría desestabilizar a sus rivales.</p>
+<p>Su verdadero legado, sin embargo, será Kaelen. Si su plan tiene éxito
+y Kaelen asciende al liderazgo, el Clan Cicatriz Vil podría convertirse
+en una fuerza con la que negociar o a la que temer, rivalizando con las
+antiguas casas orcas e incluso con las intrigas de los <a
+href="Tieflings.html">Tieflings</a>. Una <a href="Vexia.html">Vexia</a>
+anciana, gobernando a través de un líder títere inteligente y
+despiadado, podría llevar al clan a reclamar vastos territorios,
+exacerbando el conflicto con <a href="Eldrador.html">Eldrador</a> y
+alterando el equilibrio de poder en todo <a
+href="Mor&#39;dhul.html">Mor’dhul</a>.</p>
+<p>En un mundo al borde de cumplir antiguas profecías, <a
+href="Vexia.html">Vexia</a> Espinazo Roto es un recordatorio de que los
+oráculos más peligrosos no son los que leen el futuro, sino los que se
+atreven a escribirlo con la sangre de otros.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.50)</li>
+<li><a href="Clan%20Cicatriz%20Vil.html">Clan Cicatriz Vil</a>
+(relevancia: 0.42)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

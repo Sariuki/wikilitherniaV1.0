@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kromagul</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kromagul</div>
+        <div class="content">
+<h1 id="kromagul">Kromagul</h1>
+<h2 id="biografía">Biografía</h2>
+<p><strong>Origen y Genealogía</strong> Nacido en la Era Crepuscular de
+la unión impía entre la oscuridad y el tormento, Kromagul es una deidad
+de tercera generación dentro del violento panteón Korogrim. Es hijo de
+<a href="Lakros.html">Lakros</a>, el semi-ogro dios de la Sangre, y
+nieto de <a href="Thyrgram.html">Thyrgram</a>, el colérico dios orco de
+la Guerra. Su linaje está empapado en la violencia, pero donde su abuelo
+se deleita en el estruendo de la batalla y su padre en el clímax
+sangriento de la carnicería, Kromagul encontró su poder y su propósito
+en el eco persistente de la agonía. Para él, el verdadero dominio no
+reside en el golpe que mata, sino en el sufrimiento que lo precede y lo
+sobrevive.</p>
+<p><strong>Filosofía y Creaciones</strong> La doctrina de Kromagul es
+tan simple como aterradora: el dolor es la herramienta de control más
+pura y eficaz. Mientras otros dioses buscan la lealtad a través del
+miedo a la muerte o la promesa de gloria, Kromagul enseña que se puede
+quebrar cualquier espíritu y doblegar cualquier voluntad a través de una
+aplicación metódica y artística del sufrimiento. Para llevar a cabo su
+visión, dio forma a los <a href="Hobgoblins.html">Hobgoblins</a>.
+Moldeados a su imagen, no son brutos salvajes, sino estrategas
+disciplinados, crueles y organizados, capaces de ver la tortura como un
+arte y la dominación como una ciencia. A través de ellos, y de su clan
+homónimo, Kromagul exporta su filosofía: un orden basado en el miedo
+absoluto, donde la agonía es el lenguaje universal del poder.</p>
+<p><strong>Ambiciones y Conflictos</strong> La ambición de Kromagul es
+ilimitada y su desdén por los métodos de sus ancestros es palpable.
+Desafía abiertamente a su padre, <a href="Lakros.html">Lakros</a>, en
+una amarga rivalidad que es tanto ideológica como de poder. Kromagul
+considera la furia descontrolada de <a href="Lakros.html">Lakros</a> un
+desperdicio de potencial; la sangre derramada sin un propósito de
+subyugación a largo plazo es, para él, un arte efímero y vulgar. Su
+objetivo es demostrar que su imperio de dolor metódico es superior a la
+anarquía sangrienta de su padre. Aunque nominalmente leal a su
+tío-abuelo Sel’thirak, rey de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+lo ve como un mal necesario: un marco de poder que él puede explotar y
+corromper desde dentro, extendiendo su influencia a través del miedo que
+ni siquiera la muerte puede inspirar. Se alimenta de los gritos de los
+afligidos, y por ello busca activamente perpetuar y profundizar las
+heridas que el cataclismo del <a href="Lilium.html">Lilium</a> dejó en
+el mundo.</p>
+<p><strong>El Rey de la Ciudad del Dolor</strong> A diferencia de la
+mayoría de los dioses, que permanecen distantes, Kromagul mantiene una
+presencia física y directa en el plano mortal. Gobierna desde su trono
+en Fuempillos, la infame “Ciudad del Dolor” en <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Esta ciudad es su obra maestra y
+su laboratorio: un lugar donde la tortura no es un castigo a puerta
+cerrada, sino un arte público y una forma de gobierno. Las plazas de
+Fuempillos son escenarios para espectáculos de agonía, y sus leyes están
+diseñadas para maximizar el sufrimiento como forma de control social. Al
+gobernar en persona, Kromagul se ha convertido en una amenaza tangible y
+presente, un tirano divino cuyo aliento helado sienten sus súbditos cada
+día.</p>
+<h2 id="descripción-física-y-manifestación">Descripción Física y
+Manifestación</h2>
+<p>En su forma de avatar, Kromagul es la encarnación perfecta de un
+hobgoblin, elevado a un ideal de terror metódico. Es alto y de
+constitución fibrosa, con una piel de un enfermizo tono verde grisáceo,
+tan pulcra y tensa como el cuero estirado en un potro de tortura. Sus
+ojos, de un naranja brillante como el de un metal al rojo vivo, no arden
+con locura, sino que brillan con una inteligencia fría y calculadora,
+analizando cada debilidad y cada punto de quiebre.</p>
+<p>Viste una armadura de placas de hierro negro pulido, adornada no con
+cráneos o púas vulgares, sino con ganchos, pinzas y hojas afiladas que
+parecen instrumentos quirúrgicos. En lugar de una capa, lleva un manto
+hecho de piel desollada y curtida, sobre el cual se retuercen <a
+href="Runas.html">Runas</a> que susurran constantemente letanías de
+dolor. Su rasgo más distintivo es su sonrisa: una línea fina y cruel,
+perpetuamente curvada en una expresión de sádica satisfacción, como si
+disfrutara de un chiste que solo él entiende y cuya gracia reside en el
+sufrimiento ajeno.</p>
+<p><strong>Equipo Relevante:</strong> * <strong>El Látigo de los
+Lamentos:</strong> Un látigo de múltiples colas, cada una terminada en
+un gancho de obsidiana que no solo desgarra la carne, sino que extrae un
+eco del alma de la víctima, causando un dolor psíquico insoportable. *
+<strong>La Daga Silente:</strong> Una estilete delgado y serrado que no
+produce sonido al cortar. Las heridas que inflige no sangran
+externamente, sino que causan una hemorragia interna y un dolor
+paralizante que impide a la víctima gritar.</p>
+<h2 id="estadísticas-del-avatar-de-kromagul">Estadísticas del Avatar de
+Kromagul</h2>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>El impacto de Kromagul en Lithernia es profundo y perverso. Es el
+arquitecto de una de las razas más disciplinadas y temidas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, los <a
+href="Hobgoblins.html">Hobgoblins</a>, y el patrón de un sistema de
+creencias que glorifica la crueldad como una virtud. Su legado no es de
+ruinas y cráneos como el de sus parientes, sino de cicatrices que nunca
+sanan, de voluntades rotas y de un orden social construido sobre los
+cimientos del miedo perpetuo.</p>
+<p>Al gobernar personalmente desde Fuempillos, ha demostrado que un dios
+no necesita ser una fuerza cósmica y distante para ser temido; puede ser
+un rey, un carcelero y un torturador. Su existencia es un recordatorio
+constante de que la tiranía puede ser metódica, inteligente y
+organizada.</p>
+<p>En el gran tablero de ajedrez de los dioses, Kromagul es un jugador
+peligroso. Su ambición y su rivalidad con <a
+href="Lakros.html">Lakros</a> son una fuente constante de inestabilidad
+dentro del panteón Korogrim, garantizando que el conflicto interno en <a
+href="Mor&#39;dhul.html">Mor’dhul</a> nunca cese. Es el parásito que se
+alimenta de la miseria del mundo, un mal que no busca un final rápido,
+sino una agonía eterna para todos los que caen bajo su sombra. En un
+mundo que ya sufre los ecos del <a href="Lilium.html">Lilium</a>,
+Kromagul se asegura de que las heridas nunca dejen de sangrar.</p>
+        </div>
+    </div>
+</body>
+</html>

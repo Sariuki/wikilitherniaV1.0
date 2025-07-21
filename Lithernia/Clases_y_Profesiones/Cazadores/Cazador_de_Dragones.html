@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cazador_de_Dragones</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Cazador_de_Dragones</div>
+        <div class="content">
+<h1 id="cazador-de-dragones">Cazador de Dragones</h1>
+<p>Los Cazadores de <a href="Dragones.html">Dragones</a> son guerreros
+especializados, forjados en el conocimiento de las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+más antiguas y poderosas de Lithernia. Su leyenda se remonta a la Era de
+las Escamas y Fuego, cuando los mortales aprendieron a enfrentar, y a
+veces a venerar, a los grandes <a href="Dragones.html">Dragones</a>. Un
+<a href="Cazador.html">Cazador</a> de <a
+href="Dragones.html">Dragones</a> no es un simple bruto; es un
+estratega, un superviviente y un conducto de una energía primordial que
+le permite enfrentarse a amenazas que harían huir a ejércitos enteros.
+Canalizan su propia resistencia y voluntad a través del Tejido del Maná,
+convirtiendo su propio cuerpo en un arma contra las criaturas más
+temibles del mundo.</p>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como <a href="Cazador.html">Cazador</a> de <a
+href="Dragones.html">Dragones</a>, obtienes los siguientes rasgos de
+clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d10 por nivel de <a
+href="Cazador.html">Cazador</a> de <a href="Dragones.html">Dragones</a>
+<strong>Puntos de Golpe a nivel 1:</strong> 10 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d10
+(o 6) + tu modificador de Constitución por cada nivel de <a
+href="Cazador.html">Cazador</a> de <a href="Dragones.html">Dragones</a>
+después del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera, armadura intermedia,
+escudos <strong>Armas:</strong> Armas sencillas, armas marciales
+<strong>Herramientas:</strong> Herramientas de trampero <strong>Tiradas
+de Salvación:</strong> Destreza, Constitución
+<strong>Habilidades:</strong> Elige dos de entre Acrobacias, Atletismo,
+Historia, Percepción, Perspicacia, Sigilo y Supervivencia.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) una cota de escamas o (b) una armadura de cuero * (a)
+un arma marcial y un escudo o (b) dos armas marciales * (a) una ballesta
+ligera y 20 virotes o (b) dos hachas de mano * (a) un paquete de
+explorador o (b) un paquete de dungeon</p>
+<h3 id="sistema-de-maná-del-cazador-de-dragones"><strong>Sistema de Maná
+del Cazador de Dragones</strong></h3>
+<p>Tu poder nace de una resiliencia interna y un conocimiento ancestral
+de tu presa, lo que te permite manipular el Tejido del Maná.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que usas para alimentar tus <a href="Conjuros.html">Conjuros</a> y
+habilidades. Tu fórmula de maná es <strong>4 + (Nivel de <a
+href="Cazador.html">Cazador</a> de <a href="Dragones.html">Dragones</a>
+× Modificador de Constitución)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d8.</li>
+<li><strong>Aptitud Mágica:</strong> La Constitución es tu aptitud
+mágica para tus <a href="Conjuros.html">Conjuros</a> de <a
+href="Cazador.html">Cazador</a> de <a href="Dragones.html">Dragones</a>.
+<ul>
+<li><strong>CD de salvación de <a
+href="Conjuros.html">Conjuros</a></strong> = 8 + tu bonificador por
+competencia + tu modificador de Constitución.</li>
+<li><strong>Modificador de ataque de Conjuro</strong> = tu bonificador
+por competencia + tu modificador de Constitución.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-cazador-de-dragones">Tabla de Progresión
+del Cazador de Dragones</h3>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;"><a href="Conjuros.html">Conjuros</a>
+Conocidos</th>
+<th style="text-align: center;">1º</th>
+<th style="text-align: center;">2º</th>
+<th style="text-align: center;">3º</th>
+<th style="text-align: center;">4º</th>
+<th style="text-align: center;">5º</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Conocimiento Dracónico, Resistencia
+Dracónica, <a href="Cazador.html">Cazador</a> Furtivo (1d4)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (1 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Lanzamiento de <a
+href="Conjuros.html">Conjuros</a>, Estilo de Combate</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (2 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Cónclave de <a
+href="Cazador.html">Cazador</a> de <a href="Dragones.html">Dragones</a>,
+Sentidos Aguzados</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (3 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (4 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Ataque Extra</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (5 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Rasgo de Cónclave</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (6 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Evasión Dracónica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (7 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (8 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;"><a href="Cazador.html">Cazador</a> Furtivo
+(1d6)</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (9 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Rasgo de Cónclave</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (10 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Golpe Aniquilador (1d8)</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (11 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (12 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Voluntad de Acero</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (13 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Rasgo de Cónclave</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (14 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;"><a href="Cazador.html">Cazador</a> Furtivo
+(1d8)</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (15 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">4 + (16 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Golpe Aniquilador (2d8)</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4 + (17 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Sentidos Dracónicos</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4 + (18 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4 + (19 × Mod. CON)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Matadragones</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4 + (20 × Mod. CON)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rasgos-de-nivel">Rasgos de Nivel</h3>
+<h4 id="nivel-1"><strong>Nivel 1</strong></h4>
+<p><strong>Conocimiento Dracónico</strong> Tu estudio de las criaturas
+dracónicas te otorga una ventaja en las pruebas de Inteligencia
+(Historia) y Sabiduría (Supervivencia) relacionadas con <a
+href="Dragones.html">Dragones</a>. Además, aprendes a hablar, leer y
+escribir el idioma Dracónico.</p>
+<p><strong>Resistencia Dracónica</strong> Elige un tipo de daño de la
+siguiente lista: ácido, frío, fuego, relámpago o veneno. Ganas
+resistencia a ese tipo de daño. Puedes cambiar el tipo de daño elegido
+cuando finalizas un descanso largo.</p>
+<p><strong><a href="Cazador.html">Cazador</a> Furtivo</strong> Has
+aprendido a marcar a tu presa. Una vez por turno, cuando golpeas a una
+criatura con un ataque de arma, puedes marcarla. La primera vez en cada
+uno de tus turnos que golpees a la criatura marcada con un ataque de
+arma, infliges un daño adicional de 1d4. Esta marca dura 1 minuto o
+hasta que pierdas la concentración (como si te concentraras en un
+conjuro). Puedes usar este rasgo un número de veces igual a tu
+bonificador de competencia, y recuperas todos los usos gastados cuando
+terminas un descanso largo. El dado de daño aumenta a 1d6 en el nivel 9
+y a 1d8 en el nivel 15.</p>
+<h4 id="nivel-2"><strong>Nivel 2</strong></h4>
+<p><strong>Lanzamiento de <a href="Conjuros.html">Conjuros</a></strong>
+A nivel 2, aprendes a canalizar maná para lanzar <a
+href="Conjuros.html">Conjuros</a>. Consulta la tabla de progresión para
+ver cuántos <a href="Conjuros.html">Conjuros</a> conoces y los niveles
+que puedes lanzar. Para lanzar uno de estos <a
+href="Conjuros.html">Conjuros</a>, debes gastar puntos de maná
+equivalentes al nivel del conjuro. El coste en maná es 2 para un conjuro
+de nivel 1, 3 para nivel 2, 5 para nivel 3, 6 para nivel 4 y 7 para
+nivel 5.</p>
+<p><strong>Estilo de Combate</strong> Eliges un estilo de combate
+especializado. * <strong>Arquería:</strong> Ganas un +2 a las tiradas de
+ataque que hagas con armas a distancia. * <strong>Defensa:</strong>
+Mientras lleves armadura, ganas un +1 a tu CA. * <strong>Duelo:</strong>
+Cuando empuñas un arma cuerpo a cuerpo en una mano y ninguna otra arma,
+ganas un +2 a las tiradas de daño con esa arma. * <strong>Lucha con Dos
+Armas:</strong> Cuando luchas con dos armas, puedes añadir tu
+modificador de característica al daño del segundo ataque.</p>
+<h4 id="nivel-3"><strong>Nivel 3</strong></h4>
+<p><strong>Cónclave de <a href="Cazador.html">Cazador</a> de <a
+href="Dragones.html">Dragones</a></strong> Eliges un cónclave que define
+tu método de caza: el Cónclave de la Garra, el Cónclave del Ala o el
+Cónclave del Aliento. Tu elección te otorga rasgos en los niveles 3, 6,
+10 y 14.</p>
+<p><strong>Sentidos Aguzados</strong> Ganas competencia en la habilidad
+de Percepción. Si ya eres competente, tu bonificador de competencia se
+duplica para cualquier prueba de Sabiduría (Percepción) que hagas.</p>
+<h4 id="nivel-4"><strong>Nivel 4</strong></h4>
+<p><strong>Mejora de Puntuación de Característica</strong> Aumentas una
+puntuación de característica de tu elección en 2, o dos puntuaciones de
+característica en 1. No puedes aumentar una puntuación por encima de
+20.</p>
+<h4 id="nivel-5"><strong>Nivel 5</strong></h4>
+<p><strong>Ataque Extra</strong> Puedes atacar dos veces, en lugar de
+una, siempre que realices la acción de Atacar en tu turno.</p>
+<h4 id="nivel-7"><strong>Nivel 7</strong></h4>
+<p><strong>Evasión Dracónica</strong> Cuando estás sujeto a un efecto
+que te permite hacer una tirada de salvación de Destreza para recibir
+solo la mitad del daño, en su lugar no recibes daño si tienes éxito en
+la tirada de salvación, y solo la mitad del daño si fallas.</p>
+<h4 id="nivel-11"><strong>Nivel 11</strong></h4>
+<p><strong>Golpe Aniquilador</strong> Una vez en cada uno de tus turnos,
+cuando golpeas a una criatura con un ataque de arma, puedes hacer que el
+ataque inflija 1d8 de daño adicional del mismo tipo que el arma. Este
+daño aumenta a 2d8 en el nivel 17.</p>
+<h4 id="nivel-13"><strong>Nivel 13</strong></h4>
+<p><strong>Voluntad de Acero</strong> Tienes ventaja en las tiradas de
+salvación contra ser asustado.</p>
+<h4 id="nivel-18"><strong>Nivel 18</strong></h4>
+<p><strong>Sentidos Dracónicos</strong> Ganas visión ciega con un
+alcance de 30 pies. Dentro de ese rango, puedes ver efectivamente
+cualquier cosa que no esté detrás de una cobertura total, incluso si
+estás cegado o en la oscuridad. Además, puedes ver criaturas y objetos
+invisibles dentro de ese rango.</p>
+<h4 id="nivel-20"><strong>Nivel 20</strong></h4>
+<p><strong>Matadragones</strong> Tu habilidad para cazar <a
+href="Dragones.html">Dragones</a> alcanza su cénit. Cuando golpeas a una
+criatura de tipo dragón con un ataque de arma, ese ataque es un golpe
+crítico. Además, como acción, puedes gastar 10 Puntos de Maná para que
+tu Resistencia Dracónica se convierta en inmunidad durante 1 minuto.</p>
+<h3 id="lista-de-conjuros-del-cazador-de-dragones"><strong>Lista de
+Conjuros del Cazador de Dragones</strong></h3>
+<p><strong>Nivel 1</strong> * Absorber Elementos * Alarma * Curar
+Heridas * Detectar Magia * Golpe Enmarañador * Hablar con los Animales *
+Luz Estelar * Marca del <a href="Cazador.html">Cazador</a> * Nube de
+Oscurecimiento * Salto Largo * Susurro Astral</p>
+<p><strong>Nivel 2</strong> * Ayuda * Encontrar Trampas * Escudo de
+Constelaciones * Localizar Objeto * Pasar sin Rastro * Protección contra
+Veneno * Restablecimiento Menor * Silencio * Vínculo Estelar * Visión en
+la Oscuridad</p>
+<p><strong>Nivel 3</strong> * Arma Elemental * Conjurar Andanada * Danza
+de las Constelaciones * Luz del Día * Meteoro Menor * Protección contra
+Energía * Respirar bajo el Agua * Visión del Destino</p>
+<p><strong>Nivel 4</strong> * Guardián de la Naturaleza * Libertad de
+Movimiento * Localizar Criatura * Piel de Piedra</p>
+<p><strong>Nivel 5</strong> * Conjurar Descarga de Proyectiles * Golpe
+de Viento de Acero * Restablecimiento Mayor</p>
+        </div>
+    </div>
+</body>
+</html>

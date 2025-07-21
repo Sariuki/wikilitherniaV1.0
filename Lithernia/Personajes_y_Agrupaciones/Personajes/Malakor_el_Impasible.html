@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malakor_el_Impasible</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Malakor_el_Impasible</div>
+        <div class="content">
+<h1 id="malakor-el-impasible">Malakor el Impasible</h1>
+<h3 id="biografía">Biografía</h3>
+<p>En los anales sombríos de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+donde la crueldad es moneda corriente y el poder se mide en cicatrices,
+pocos nombres inspiran un terror tan gélido y cerebral como el de
+Malakor. Nacido en una estirpe de <a
+href="Hobgoblins.html">Hobgoblins</a> disciplinados al servicio del Clan
+<a href="Kromagul.html">Kromagul</a>, Malakor no mostró interés en la
+brutalidad marcial de sus congéneres. En cambio, su mente afilada se
+sumergió en la filosofía, la anatomía y la metafísica del sufrimiento.
+Observó con desdén académico la barbarie de los cultos de <a
+href="Lakros.html">Lakros</a>, el Dios de la Sangre, considerándolos
+primitivos, ruidosos y un desperdicio de potencial. Para Malakor, el
+grito de una víctima era un fracaso, una interrupción vulgar en la
+sublime conversación entre el dolor y el alma.</p>
+<p>Convencido de que servía a <a href="Kromagul.html">Kromagul</a>, el
+Dios del Dolor, de una forma más pura y elevada, fundó <strong>El Látigo
+Silencioso</strong>. Su doctrina era una herejía para los brutales y una
+revelación para los sádicos intelectuales: el verdadero poder no reside
+en infligir dolor, sino en la capacidad de soportarlo y comprenderlo en
+un silencio absoluto. El tormento, para Malakor, es una herramienta de
+purificación, un escalpelo que extirpa las mentiras del espíritu y
+revela la verdad desnuda de la voluntad.</p>
+<p>Desde su sede en las criptas de <a href="Calanor.html">Calanor</a>,
+Malakor ha perfeccionado su arte. Su culto no busca la conquista a
+través de ejércitos, sino el control a través de la fractura
+psicológica. Sus “sesiones de revelación” se han convertido en leyenda:
+nobles, magos y generales entran en sus cámaras y salen como cáscaras
+vacías, leales a su voluntad, o con secretos tan profundos arrancados de
+su ser que se convierten en sus marionetas. Su mayor hazaña conocida fue
+el interrogatorio del embajador de la Casa Auris, del cual extrajo no
+solo los planes de defensa de una fortaleza élfica, sino la localización
+de tres linajes bastardos que la casa había mantenido en secreto por
+siglos, dándole a <a href="Mor&#39;dhul.html">Mor’dhul</a> un arma de
+chantaje de valor incalculable.</p>
+<p>Mantiene una relación simbiótica y tensa con el Barón Vexor, el
+gobernante de <a href="Calanor.html">Calanor</a>, quien utiliza a los
+inquisidores del Látigo Silencioso para mantener un orden implacable. A
+cambio, Malakor obtiene legitimidad y un flujo constante de “sujetos de
+estudio”. Su rivalidad con el Clan Whisper es profesional; los considera
+necrófagos que solo trabajan con el eco del dolor, mientras que él es el
+arquitecto del sufrimiento en su estado más puro y presente.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Malakor es la antítesis del bruto hobgoblin. Es de estatura media
+para su raza, con una complexión delgada y una postura erguida que
+denota una disciplina férrea. Su piel tiene el color del granito pulido,
+y su rostro, desprovisto de cicatrices de batalla, está marcado
+únicamente por las finas líneas de la concentración perpetua. Sus ojos,
+de un amarillo pálido y sin parpadeo, observan el mundo con una calma
+depredadora, analizando cada microexpresión, cada tic nervioso. Se mueve
+con una economía de movimiento aterradora; cada gesto es deliberado,
+silencioso y preciso.</p>
+<p>Viste túnicas austeras de color carbón, sin adornos ni insignias,
+similares a las de un <a href="Monje.html">Monje</a> asceta. No porta
+armadura, pues considera que la verdadera defensa reside en la
+intimidación y el control. Su equipamiento no son hachas ni mazas, sino
+un conjunto de herramientas quirúrgicas que él mismo ha diseñado: agujas
+de plata que no dejan marca, pinzas de obsidiana que enfrían el nervio
+al contacto y cadenas forjadas con un metal que amortigua cualquier
+sonido. Su presencia no impone por la fuerza, sino por la terrible
+promesa de un dolor metódico e ineludible.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Malakor el Impasible ha introducido una nueva y aterradora doctrina
+en el panteón del mal de Lithernia. Más allá de la furia de <a
+href="Thyrgram.html">Thyrgram</a> o la sed de sangre de <a
+href="Lakros.html">Lakros</a>, él ha codificado el dolor como una
+ciencia y un arte. Su culto, <strong>El Látigo Silencioso</strong>, ha
+creado una red de espionaje y chantaje que se extiende por las venas de
+<a href="Mor&#39;dhul.html">Mor’dhul</a>, otorgando a sus patrones del
+Clan <a href="Kromagul.html">Kromagul</a> una influencia
+desproporcionada.</p>
+<p>Su legado no será el de un conquistador que derriba murallas, sino el
+de un filósofo del tormento que corrompe el alma de una nación desde
+dentro. Ha demostrado que el miedo más profundo no nace del hacha del
+verdugo, sino del susurro del inquisidor que conoce tus secretos más
+oscuros porque él mismo los esculpió en tu psique. En un continente
+marcado por la guerra abierta y las traiciones sangrientas, Malakor es
+un recordatorio de que las armas más efectivas son aquellas que no dejan
+herida visible, y que el silencio de una víctima puede ser más poderoso
+y aterrador que cualquier grito de guerra.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="El%20Látigo%20Silencioso.html">El Látigo Silencioso</a>
+(relevancia: 0.40)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.34)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

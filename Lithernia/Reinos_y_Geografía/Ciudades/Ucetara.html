@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucetara</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ucetara</div>
+        <div class="content">
+<h1 id="ucetara">Ucetara</h1>
+<p>Ucetara es un secreto susurrado por las olas. Escondida en una serie
+de calas naturales a lo largo de la Costa Fragmentada de <a
+href="Galvorn.html">Galvorn</a>, la ciudad no se anuncia con grandes
+faros ni muelles bulliciosos, sino que se oculta a plena vista. Sus
+edificios de piedra caliza blanca y madera de deriva se aferran a las
+paredes de los acantilados, dispuestos en terrazas que ascienden como
+escalones de un gigante. Puentes colgantes de cuerda y madera se
+balancean sobre las ensenadas, y sus tejados de tejas azules y verdes se
+funden con el color del mar, haciéndola casi invisible desde la
+distancia. Ucetara no es una ciudad de conquista; es un bastión de
+discreción, un puerto donde los secretos valen más que el oro.</p>
+<h2 id="historia">Historia</h2>
+<p>Los orígenes de Ucetara no están en la gloria, sino en la
+supervivencia. Durante las brutales Siete Escaramuzas del Mar, cuando
+los corsarios de Mor’dhul asolaban las costas, un legendario capitán
+humano llamado Arion, apodado ‘El Silencioso’ por su habilidad para
+navegar sin ser detectado, guio a un convoy de refugiados y mercaderes a
+estas calas ocultas. Allí fundaron un santuario, un lugar donde el
+sigilo era la mejor armadura.</p>
+<p>Lo que comenzó como un campamento secreto se convirtió en una ciudad
+próspera. Los descendientes de Arion perfeccionaron el arte de la
+construcción naval, creando balandros rápidos y sigilosos que se
+convirtieron en la envidia de exploradores y comerciantes
+independientes. El gobierno pasó a manos del Cónclave de las Mareas, un
+consejo formado por los descendientes de aquellas primeras familias,
+maestros de gremios y los navegantes más sabios, que hoy es presidido
+por el Maestre Kaelen Maris, un sereno Genasi de Agua cuya política de
+neutralidad y defensa ha mantenido a Ucetara a salvo.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Muelle del Refugio</strong>: El corazón comercial de
+Ucetara, aunque carece del estruendo de otros puertos. Es una red de
+embarcaderos de madera construidos en la cala más grande y protegida.
+Aquí, las transacciones se cierran con un apretón de manos y una mirada
+de entendimiento. El aire huele a sal, pescado curado y al licor de
+algas local.</p></li>
+<li><p><strong>Las Terrazas de Salblanca</strong>: El distrito
+residencial principal, que escala los acantilados. Las casas de piedra
+caliza están conectadas por escaleras talladas en la roca y los icónicos
+puentes colgantes. Desde aquí, las vistas del océano son espectaculares,
+y cada hogar tiene un pequeño balcón para observar la marea.</p></li>
+<li><p><strong>El Astillero de la Sombra</strong>: Ubicado en una cala
+aislada y accesible solo a través de un túnel acuático, aquí es donde se
+construyen los famosos balandros de Ucetara. Los secretos de su diseño
+son guardados con celo por el Gremio de Carpinteros de Ribera, y se
+rumorea que imbuyen la madera con <a href="Runas.html">Runas</a> de
+silencio.</p></li>
+<li><p><strong>La Atalaya del Cónclave</strong>: En el punto más alto de
+la ciudad se alza una torre sencilla pero imponente de piedra blanca. Es
+la sede del Cónclave de las Mareas. No tiene grandes lujos, solo una
+sala circular con una gran mesa de madera de deriva y ventanas que
+ofrecen una vista panorámica de todas las calas, sirviendo como el
+centro neurálgico de la defensa de la ciudad.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Ucetara se rige por la marea y la discreción. Un proverbio
+local dice: “Las paredes tienen oídos, pero el océano guarda todos los
+secretos”. Valoran la palabra dada y la capacidad de mantener la boca
+cerrada. Su mayor festividad es el ‘Festival de la Calma’, una noche al
+año donde, tras una jornada de silencio absoluto, los ciudadanos lanzan
+miles de linternas flotantes al mar en honor a <a
+href="Yfrit.html">Yfrit</a>, pidiendo otro año de travesías seguras y
+paz.</p>
+<p>El culto a los dioses del mar es pragmático; se rinde tributo a <a
+href="Yfrit.html">Yfrit</a> para la prosperidad, a <a
+href="Quiteon.html">Quiteon</a> para buenos vientos y a <a
+href="Exion.html">Exion</a> para apaciguar su furia. Antes de zarpar, es
+costumbre verter una copa de su famoso licor, el ‘Beso de la
+Profundidad’, en las olas como ofrenda.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Ucetara es funcional y bella, diseñada para
+armonizar con el entorno. La piedra caliza mantiene las casas frescas y
+la madera de deriva, blanqueada por el sol y la sal, les da un aspecto
+rústico y resistente. El ambiente general es de una calma vigilante. El
+sonido predominante no es el de la gente, sino el del mar rompiendo
+contra las rocas y el viento silbando en los puentes colgantes. Es una
+ciudad que se siente antigua y sabia, un lugar que ha aprendido que la
+verdadera fuerza no reside en el ruido, sino en la resistencia
+silenciosa. Su emblema, una caracola de nácar de la que surgen tres olas
+entrelazadas sobre un fondo azul oscuro, representa a la perfección su
+espíritu: un refugio protector que cabalga las olas de la libertad.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>Las Cavernas Susurrantes</strong>: Se dice que durante la
+marea más baja, en la noche sin luna, se abre una entrada oculta en los
+acantilados. Esta conduce a las ‘Cavernas Susurrantes’, una red de
+túneles submarinos. Algunos juran que guardan el tesoro perdido del Rey
+Pirata Kael, mientras que los más ancianos murmuran que los túneles son
+mucho más antiguos y llevan a las ruinas de una ciudad pre-<a
+href="Lilium.html">Lilium</a>, un secreto que el Cónclave protegería con
+su vida.</p></li>
+<li><p><strong>El Vigía de la Niebla</strong>: Ucetara rara vez ha sido
+atacada con éxito desde el mar, y la leyenda atribuye esto al ‘Vigía de
+la Niebla’. Se cuenta que un colosal y antiguo elemental de agua duerme
+en las profundidades de las calas. No es una bestia, sino un guardián.
+Cuando barcos con malas intenciones se acercan, el Vigía se manifiesta
+como una densa niebla que desorienta y confunde, o como una ola
+solitaria y masiva que hace zozobrar a las naves enemigas sin dejar
+rastro. Ver su silueta en la niebla es considerado un presagio de
+protección divina.</p></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.55)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

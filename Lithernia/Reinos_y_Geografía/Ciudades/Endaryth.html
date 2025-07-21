@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endaryth</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Endaryth</div>
+        <div class="content">
+<h1 id="endaryth">Endaryth</h1>
+<p>Donde la mayoría de las ciudades de <a
+href="Galvorn.html">Galvorn</a> miran al mar en busca de comercio o
+guerra, Endaryth alza su vista a los cielos y al horizonte infinito.
+Situada en una bahía resguardada y bendecida con vientos constantes,
+esta ciudad portuaria es el corazón intelectual del reino marítimo. Sus
+muelles no solo albergan galeones mercantes, sino los elegantes y
+resistentes navíos exploratorios, construidos para desafiar los límites
+de los <a href="Mapas.html">Mapas</a> conocidos. Edificios de piedra
+caliza blanca y madera de roble marino se elevan hacia el cielo,
+coronados por cúpulas de observatorio y veletas artísticas que giran con
+la brisa. Endaryth no es una ciudad de guerreros, sino de soñadores,
+cartógrafos y astrónomos; un lugar donde un nuevo mapa estelar es más
+valioso que un cofre de oro.</p>
+<h2 id="historia">Historia</h2>
+<p>Endaryth fue fundada hace tres siglos por el legendario navegante
+humano Alaric, conocido como “el Trazador de Estrellas”. A diferencia de
+otros capitanes que buscaban riquezas, Alaric estaba obsesionado con lo
+que yacía más allá del mundo conocido. Guiado por lo que él llamaba “los
+susurros de <a href="Quiteon.html">Quiteon</a> en las velas y los
+secretos de <a href="Taladrios.html">Taladrios</a> en la marea”,
+descubrió una bahía perfectamente protegida de las tormentas de <a
+href="Exion.html">Exion</a>. Allí, junto a un pequeño grupo de eruditos,
+astrónomos y constructores de barcos, fundó un asentamiento dedicado a
+un único propósito: cartografiar toda Lithernia, tanto la tierra como el
+cielo.</p>
+<p>La ciudad creció bajo el gobierno del “Círculo del Horizonte”, una
+alianza del Gremio de Cartógrafos y el Sindicato de Astrónomos. Aunque
+rinden lealtad formal al Consejo de Capitanes de <a
+href="Galvorn.html">Galvorn</a>, Endaryth goza de una autonomía casi
+total en asuntos de conocimiento y exploración. Se ha convertido en un
+imán para los intelectuales del reino, un bastión de la razón y el
+descubrimiento en un mundo a menudo dominado por la guerra y la
+superstición.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>El Muelle del Sextante</strong>: El corazón palpitante de
+la ciudad. A diferencia de otros puertos, este está impecablemente
+organizado. Aquí se encuentran los astilleros más avanzados de <a
+href="Galvorn.html">Galvorn</a>, donde los Genasi de Aire trabajan junto
+a carpinteros <a href="Humanos.html">Humanos</a> para crear barcos más
+rápidos y resistentes. Las grúas de madera se elevan como esqueletos de
+gigantes, y el aire huele a brea, sal y madera recién cortada.</p></li>
+<li><p><strong>La Espiral del Céfiro</strong>: El centro espiritual y
+gubernamental de Endaryth. Es una torre alta y abierta, sin techo,
+diseñada para que el viento fluya libremente a través de ella. Sirve
+como templo principal a <a href="Quiteon.html">Quiteon</a> y como sala
+de reuniones del Círculo del Horizonte. En su cima se encuentra un
+colosal astrolabio de bronce que se mueve con la rotación del
+planeta.</p></li>
+<li><p><strong>El Archivo de las Mareas</strong>: Una vasta biblioteca
+circular excavada en el acantilado, protegida de la humedad por <a
+href="Runas.html">Runas</a> enanas. Alberga la colección de <a
+href="Mapas.html">Mapas</a>, cartas de navegación y bitácoras de viaje
+más extensa de Lithernia. Los eruditos, devotos de <a
+href="Taladrios.html">Taladrios</a>, pasan aquí sus vidas preservando la
+historia de cada descubrimiento.</p></li>
+<li><p><strong>El Distrito de los Veleros</strong>: La zona residencial,
+con calles amplias y casas diseñadas para ser frescas y luminosas. Casi
+todos los hogares tienen un pequeño observatorio personal en el tejado o
+un balcón orientado hacia el mar, donde los ciudadanos pasan las noches
+observando las estrellas.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La vida en Endaryth está marcada por la curiosidad. Los niños no
+juegan a ser soldados, sino exploradores que dibujan <a
+href="Mapas.html">Mapas</a> de sus propios barrios. Las disputas se
+resuelven a menudo mediante debates de lógica en lugar de duelos. Por la
+noche, la ciudad se oscurece a propósito para minimizar la contaminación
+lumínica, permitiendo una visión perfecta del firmamento.</p>
+<p>Su festividad más importante es el “Festival de la Primera Brisa”,
+que marca el inicio de la temporada de exploración. Los nuevos barcos
+son botados al mar mientras los ciudadanos lanzan cometas de papel con
+plegarias a <a href="Quiteon.html">Quiteon</a> y deseos de buenos
+vientos. Una costumbre única es la existencia de “bibliotecas de
+bitácora”, pequeños puestos públicos donde los marineros dejan copias
+anónimas de sus diarios de viaje para que cualquiera pueda aprender de
+sus éxitos y fracasos.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>La arquitectura de Endaryth es funcional y elegante, pensada para
+armonizar con el viento y el mar. Los edificios son aerodinámicos, con
+tejados curvos y grandes ventanales para capturar la luz. El símbolo de
+la ciudad —una brújula dorada sobre un sextante de plata— adorna
+puertas, banderas y las velas de sus barcos. El ambiente es de calma
+intelectual y optimismo. Se oye el constante murmullo del viento, el
+lejano martilleo de los astilleros y las discusiones animadas de los
+eruditos en las plazas. Es un lugar donde el futuro parece algo que se
+puede dibujar, medir y alcanzar.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Errante Silencioso</strong>: Los marineros juran que,
+en las noches de niebla espesa, un barco fantasma navega silenciosamente
+por la bahía. Se le conoce como el “Errante Silencioso”, y se dice que
+su tripulación espectral busca eternamente un mapa que les muestre el
+camino de regreso al mundo de los vivos. La leyenda afirma que la
+bitácora del capitán, si pudiera obtenerse, contiene rutas a islas y
+continentes que desaparecieron tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>.</p></li>
+<li><p><strong>El Atlas de los Ecos</strong>: El rumor más guardado en
+Endaryth es que el Círculo del Horizonte oculta un mapa maestro en las
+bóvedas más profundas del Archivo de las Mareas. No es un mapa común,
+sino el “Atlas de los Ecos”, un artefacto arcano que muestra la
+geografía de Lithernia en capas, revelando no solo el mundo actual, sino
+también cómo era antes del <a href="Lilium.html">Lilium</a>. Se susurra
+que facciones de <a href="Mor&#39;dhul.html">Mor’dhul</a> y <a
+href="Eldrador.html">Eldrador</a> pagarían cualquier precio, o enviarían
+a sus mejores asesinos, para poner sus manos sobre un conocimiento tan
+poderoso.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

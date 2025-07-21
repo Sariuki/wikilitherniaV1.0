@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_GuerrasDraconicas</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">03_GuerrasDraconicas</div>
+        <div class="content">
+<h1 id="guerras-dracónicas">03 Guerras Dracónicas</h1>
+<p>Las Guerras Dracónicas marcaban una era de fuego y sangre en
+Lithernia, un cataclismo que definió el destino de los pueblos y de los
+mismos cielos. En la Era de Escamas y Fuego, estos conflictos fueron la
+confrontación titánica entre las majestuosas razas dracónicas y las
+naciones mortales que buscaban reclamar su poder o sobrevivir bajo sus
+sombras.</p>
+<h2 id="contexto-histórico">Contexto Histórico</h2>
+<p>Tras milenios de coexistencia temerosa, la expansión de los <a
+href="Dragones.html">Dragones</a> dorados y plateados —guardianes de
+antiguas verdades y portadores de energía cósmica— fue percibida como
+una amenaza inminente por las confederaciones humanas y elfos
+oscurantistas que poblaban Lithernia. La ambición por controlar las
+fuentes de poder arcanotérmico y dragontino llevó a la formación de
+coaliciones insólitas y a la ruptura de antiguos pactos.</p>
+<h2 id="desarrollo-de-las-guerras">Desarrollo de las Guerras</h2>
+<h3 id="primera-ola-el-despertar-de-las-escamas">Primera Ola: El
+Despertar de las Escamas</h3>
+<ul>
+<li><strong>Duración:</strong> 127 años<br />
+</li>
+<li><strong>Eventos clave:</strong>
+<ul>
+<li>La Batalla de Tialderen, donde las alas de fuego oscurecieron el
+cielo y la legendaria dragona Vyrlanna fue abatida, marcando el primer
+gran revés para las fuerzas dracónicas.<br />
+</li>
+<li>La formación de La Alianza Forjafuego, un grupo de reinos <a
+href="Humanos.html">Humanos</a> y tribus bárbaras unidas en su odio
+común contra las <a
+href="Lithernia/07_Bestias_Monstruos/Bestias.html">Lithernia/07_Bestias_Monstruos/Bestias</a>
+aladas.</li>
+</ul></li>
+</ul>
+<h3 id="segunda-ola-la-resistencia-de-las-sombras">Segunda Ola: La
+Resistencia de las Sombras</h3>
+<ul>
+<li><strong>Duración:</strong> 93 años<br />
+</li>
+<li><strong>Eventos clave:</strong>
+<ul>
+<li>Recurso a la magia oscura y prohibida por parte de los elfos y
+nigromantes para igualar el poder de los <a
+href="Dragones.html">Dragones</a>, dando origen a las sombras
+draconianas, criaturas híbridas que sembraron terror por toda la
+región.<br />
+</li>
+<li>La Traición de Syraeth, un príncipe élfico que vendió sus tierras a
+cambio de la vida de su pueblo, alimentando un odio que perduraría por
+siglos.</li>
+</ul></li>
+</ul>
+<h3 id="tercera-ola-el-fin-del-crepúsculo">Tercera Ola: El Fin del
+Crepúsculo</h3>
+<ul>
+<li><strong>Duración:</strong> 54 años<br />
+</li>
+<li><strong>Eventos clave:</strong>
+<ul>
+<li>La Gran Alianza de Lithernia, un pacto sagrado entre <a
+href="Humanos.html">Humanos</a>, elfos, <a href="Enanos.html">Enanos</a>
+y <a href="Dragones.html">Dragones</a> rebeldes que buscaban la
+paz.<br />
+</li>
+<li>El sitio de Vharthas, donde la alianza resistió el último embate de
+las tropas dracónicas comandadas por el invencible dragón negro
+Malkaaroth.<br />
+</li>
+<li>La firma del Pacto de Llamas Eternas, que selló un nuevo orden entre
+razas y estableció reservas sagradas para las criaturas aladas.</li>
+</ul></li>
+</ul>
+<h2 id="consecuencias-y-legado">Consecuencias y Legado</h2>
+<p>Las Guerras Dracónicas no solo transformaron los <a
+href="Mapas.html">Mapas</a>, sino también la cosmovisión y la cultura de
+Lithernia. La reverencia hacia los <a href="Dragones.html">Dragones</a>
+se convirtió en oración y temor; surgieron mitos sobre sus orígenes y
+avisos sobre el equilibrio roto.</p>
+<h3 id="impactos-sociales-y-culturales">Impactos Sociales y
+Culturales</h3>
+<ul>
+<li><strong>Cultos Dracónicos:</strong> Nuevas ordenes religiosas
+conmemoraron la destrucción y la salvación, mezclando devoción y pactos
+secretos para proteger el conocimiento arcano.</li>
+<li><strong>El Arte de la <a href="Herreria.html">Herreria</a>
+Draconiana:</strong> Técnica creadora de armas y armaduras imbuídas con
+escamas y esencia de dragón, el arte fue transmitido solo a linajes
+escogidos.</li>
+<li><strong>Festivales del Fuego Renacido:</strong> Ceremonias anuales
+donde se conmemora el fin de las guerras con danzas de fuego y relatos
+épicos alrededor de hogueras, manteniendo viva la historia.</li>
+</ul>
+<h2 id="leyendas-oscuras">Leyendas Oscuras</h2>
+<p>Se cuentan viejas historias en el sopor de la noche sobre <a
+href="Dragones.html">Dragones</a> caídos que nunca murieron y cuyas
+almas ardientes siguen viajando bajo la piel de Lithernia, guiando a
+nuevos héroes o trayendo ruina.</p>
+<hr />
+<p>Las Guerras Dracónicas permanecen en los anales como un eco
+ensordecedor, una época pasada de gloria y desastre, recordada como la
+era en que fuego y escamas forjaron el alma de Lithernia.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li>Guerras Dracónicas</li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.54)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.37)</li>
+<li><a href="Conflictos%20-%20Guerras%20Dracónicas.html">Conflictos -
+Guerras Dracónicas</a> (relevancia: 0.37)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clerigo</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Clerigo</div>
+        <div class="content">
+<h1 id="clérigo">Clérigo</h1>
+<p>Los clérigos son intermediarios entre el mundo mortal y los planos
+distantes de los dioses. Tan variados como los dioses a los que sirven,
+los clérigos se esfuerzan por encarnar las obras de sus deidades. Un
+clérigo es un <a href="Sacerdote.html">Sacerdote</a>, pero no todos los
+sacerdotes son clérigos. Un clérigo está imbuido de magia divina y es un
+símbolo del poder de su dios en el mundo. Ya sea sirviendo a un dios de
+la luz y la justicia o a uno de la muerte y la tiranía, el clérigo es el
+agente elegido de ese poder en Lithernia.</p>
+<h2 id="rasgos-de-clase">Rasgos de Clase</h2>
+<p>Como clérigo, obtienes los siguientes rasgos de clase.</p>
+<h4 id="puntos-de-golpe"><strong>Puntos de Golpe</strong></h4>
+<p><strong>Dado de Golpe:</strong> 1d8 por nivel de clérigo
+<strong>Puntos de Golpe a nivel 1:</strong> 8 + tu modificador de
+Constitución <strong>Puntos de Golpe a niveles superiores:</strong> 1d8
+(o 5) + tu modificador de Constitución por cada nivel de clérigo después
+del 1º</p>
+<h4 id="competencias"><strong>Competencias</strong></h4>
+<p><strong>Armadura:</strong> Armadura ligera, armadura intermedia,
+escudos <strong>Armas:</strong> Todas las armas sencillas
+<strong>Herramientas:</strong> Ninguna <strong>Tiradas de
+Salvación:</strong> Sabiduría, Carisma <strong>Habilidades:</strong>
+Elige dos de entre Historia, Perspicacia, Medicina, Persuasión y
+Religión.</p>
+<h4 id="equipo"><strong>Equipo</strong></h4>
+<p>Empiezas con el siguiente equipo, además del equipo otorgado por tu
+trasfondo: * (a) una maza o (b) un martillo de guerra (si tienes
+competencia) * (a) armadura de escamas, (b) armadura de cuero o (c) cota
+de malla (si tienes competencia) * (a) una ballesta ligera y 20 virotes
+o (b) cualquier arma sencilla * (a) un paquete de <a
+href="Sacerdote.html">Sacerdote</a> o (b) un paquete de explorador * Un
+escudo y un símbolo sagrado</p>
+<h3 id="sistema-de-maná-del-clérigo"><strong>Sistema de Maná del
+Clérigo</strong></h3>
+<p>Tu poder divino se manifiesta a través del Tejido del Maná,
+canalizado por tu fe inquebrantable.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Tienes una reserva de puntos de
+maná que usas para lanzar tus <a href="Conjuros.html">Conjuros</a>. Tu
+fórmula de maná es <strong>8 + (Nivel de Clérigo × Modificador de
+Sabiduría)</strong>.</li>
+<li><strong>Dado de Maná:</strong> 1d8.</li>
+<li><strong>Aptitud Mágica:</strong> La Sabiduría es tu aptitud mágica
+para tus <a href="Conjuros.html">Conjuros</a> de clérigo. El poder de tu
+magia proviene de la devoción a tu dios.
+<ul>
+<li><strong>CD de salvación de Maná</strong> = 8 + tu bonificador por
+competencia + tu modificador de Sabiduría.</li>
+<li><strong>Modificador de ataque de Maná</strong> = tu bonificador por
+competencia + tu modificador de Sabiduría.</li>
+</ul></li>
+<li><strong>Recuperación de Maná:</strong> Recuperas todos tus puntos de
+maná gastados cuando finalizas un descanso largo.</li>
+<li><strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>:</strong>
+Canalizar el poder divino tiene un coste. Cada conjuro que lanzas
+inflige una <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>
+igual a tu <strong>Dado de Maná (1d8) + el nivel del conjuro</strong>.
+Acumular demasiada fatiga puede llevar al agotamiento.</li>
+</ul>
+<h3 id="tabla-de-progresión-del-clérigo">Tabla de Progresión del
+Clérigo</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel</th>
+<th style="text-align: center;">Bon. por Competencia</th>
+<th style="text-align: left;">Rasgos</th>
+<th style="text-align: center;">Trucos Conocidos</th>
+<th style="text-align: center;">Puntos de Maná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Lanzamiento de <a
+href="Conjuros.html">Conjuros</a>, Dominio Divino</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8 + (1 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Canalizar Divinidad (1/descanso), Rasgo de
+Dominio Divino</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8 + (2 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8 + (3 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">+2</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (4 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Destruir No Muertos (VD 1/2)</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (5 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Canalizar Divinidad (2/descanso), Rasgo de
+Dominio Divino</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (6 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (7 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">+3</td>
+<td style="text-align: left;">Mejora de Puntuación de Característica,
+Destruir No Muertos (VD 1), Rasgo de Dominio Divino</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (8 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8 + (9 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Intervención Divina</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (10 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Destruir No Muertos (VD 2)</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (11 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">+4</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (12 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (13 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Destruir No Muertos (VD 3)</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (14 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (15 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">+5</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (16 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Destruir No Muertos (VD 4), Rasgo de
+Dominio Divino</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (17 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Canalizar Divinidad (3/descanso)</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (18 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Puntuación de
+Característica</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (19 × Mod. SAB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">+6</td>
+<td style="text-align: left;">Mejora de Intervención Divina</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8 + (20 × Mod. SAB)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="lanzamiento-de-conjuros"><strong>Lanzamiento de
+Conjuros</strong></h3>
+<p>Como conducto del poder divino, puedes lanzar <a
+href="Conjuros.html">Conjuros</a> de clérigo.</p>
+<h4 id="trucos"><strong>Trucos</strong></h4>
+<p>A nivel 1, conoces tres trucos de tu elección de la lista de <a
+href="Conjuros.html">Conjuros</a> de clérigo. Aprendes trucos de clérigo
+adicionales de tu elección en niveles superiores, como se muestra en la
+columna de Trucos Conocidos de la tabla del Clérigo.</p>
+<h4 id="preparar-y-lanzar-conjuros"><strong>Preparar y Lanzar
+Conjuros</strong></h4>
+<p>La tabla del Clérigo muestra cuántos Puntos de Maná tienes para
+lanzar tus <a href="Conjuros.html">Conjuros</a>. Para lanzar uno de tus
+<a href="Conjuros.html">Conjuros</a> de clérigo, debes gastar una
+cantidad de Puntos de Maná correspondiente al nivel del conjuro. Los
+costes son: Nivel 1 (2), Nivel 2 (3), Nivel 3 (5), Nivel 4 (6), Nivel 5
+(7). No puedes lanzar <a href="Conjuros.html">Conjuros</a> de nivel 6 o
+superior con este sistema.</p>
+<p>Preparas la lista de <a href="Conjuros.html">Conjuros</a> de clérigo
+que están disponibles para que los lances. Para hacerlo, elige un número
+de <a href="Conjuros.html">Conjuros</a> de clérigo igual a tu
+<strong>modificador de Sabiduría + tu nivel de clérigo</strong> (mínimo
+de un conjuro). Los <a href="Conjuros.html">Conjuros</a> deben ser de un
+nivel que puedas lanzar.</p>
+<p>Puedes cambiar tu lista de <a href="Conjuros.html">Conjuros</a>
+preparados cuando terminas un descanso largo. Preparar una nueva lista
+de <a href="Conjuros.html">Conjuros</a> de clérigo requiere tiempo de
+oración y meditación: al menos 1 minuto por nivel de conjuro para cada
+conjuro en tu lista.</p>
+<h4 id="símbolo-sagrado"><strong>Símbolo Sagrado</strong></h4>
+<p>Puedes usar un símbolo sagrado como foco de lanzamiento para tus <a
+href="Conjuros.html">Conjuros</a> de clérigo.</p>
+<h3 id="dominio-divino"><strong>Dominio Divino</strong></h3>
+<p>Elige un dominio relacionado con tu deidad: el <strong>Dominio de la
+Vida</strong>, el <strong>Dominio de la Luz</strong> o el
+<strong>Dominio de la Protección</strong>, cada uno detallado al final
+de la descripción de la clase. Tu elección te otorga <a
+href="Conjuros.html">Conjuros</a> de dominio y otros rasgos cuando lo
+eliges en el nivel 1. También te otorga formas adicionales de usar
+Canalizar Divinidad cuando obtienes ese rasgo en el nivel 2, y
+beneficios adicionales en los niveles 6, 8 y 17.</p>
+<h4 id="conjuros-de-dominio"><strong>Conjuros de Dominio</strong></h4>
+<p>Cada dominio tiene una lista de <a href="Conjuros.html">Conjuros</a>
+—sus <a href="Conjuros.html">Conjuros</a> de dominio— que obtienes en
+los niveles de clérigo especificados en la descripción del dominio. Una
+vez que obtienes un conjuro de dominio, siempre lo tienes preparado y no
+cuenta para el número de <a href="Conjuros.html">Conjuros</a> que puedes
+preparar cada día.</p>
+<h3 id="canalizar-divinidad"><strong>Canalizar Divinidad</strong></h3>
+<p>En el nivel 2, obtienes la capacidad de canalizar energía divina
+directamente de tu deidad, usando esa energía para potenciar efectos
+mágicos. Comienzas con dos efectos: Expulsar No Muertos y un efecto
+determinado por tu dominio.</p>
+<p>Cuando usas tu Canalizar Divinidad, eliges qué efecto crear. Debes
+terminar un descanso corto o largo para volver a usar tu Canalizar
+Divinidad.</p>
+<p>Algunos efectos de Canalizar Divinidad requieren tiradas de
+salvación. Cuando usas tal efecto de esta clase, la CD es igual a la CD
+de salvación de tus <a href="Conjuros.html">Conjuros</a> de clérigo.</p>
+<p>A partir del nivel 6, puedes usar tu Canalizar Divinidad dos veces
+entre descansos, y a partir del nivel 18, puedes usarlo tres veces entre
+descansos. Cuando terminas un descanso corto o largo, recuperas tus usos
+gastados.</p>
+<h4 id="canalizar-divinidad-expulsar-no-muertos"><strong>Canalizar
+Divinidad: Expulsar No Muertos</strong></h4>
+<p>Como una acción, presentas tu símbolo sagrado y recitas una plegaria
+para censurar a los no muertos. Cada no muerto que pueda verte u oírte a
+30 pies de ti debe hacer una tirada de salvación de Sabiduría. Si la
+criatura falla su tirada de salvación, es expulsada durante 1 minuto o
+hasta que reciba algún daño. Una criatura expulsada debe pasar sus
+turnos intentando moverse lo más lejos posible de ti, y no puede moverse
+voluntariamente a un espacio a 30 pies de ti. Tampoco puede realizar
+reacciones. Para su acción, solo puede usar la acción de Correr o
+intentar escapar de un efecto que le impida moverse.</p>
+<h3 id="mejora-de-puntuación-de-característica"><strong>Mejora de
+Puntuación de Característica</strong></h3>
+<p>Cuando alcanzas el nivel 4, y de nuevo en los niveles 8, 12, 16 y 19,
+puedes aumentar una puntuación de característica de tu elección en 2, o
+puedes aumentar dos puntuaciones de característica de tu elección en 1.
+Como es habitual, no puedes aumentar una puntuación de característica
+por encima de 20 usando este rasgo.</p>
+<h3 id="destruir-no-muertos"><strong>Destruir No Muertos</strong></h3>
+<p>A partir del nivel 5, cuando un no muerto falla su tirada de
+salvación contra tu rasgo Expulsar No Muertos, la criatura es destruida
+instantáneamente si su valor de desafío es igual o inferior a un cierto
+umbral, como se muestra en la tabla de Destruir No Muertos.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Clérigo</th>
+<th style="text-align: center;">Destruye No Muertos de VD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1/2 o inferior</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">1 o inferior</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">2 o inferior</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">3 o inferior</td>
+</tr>
+<tr>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">4 o inferior</td>
+</tr>
+</tbody>
+</table>
+<h3 id="intervención-divina"><strong>Intervención Divina</strong></h3>
+<p>A partir del nivel 10, puedes implorar la ayuda de tu deidad en
+momentos de gran necesidad. Implorar la ayuda de tu deidad requiere que
+uses tu acción. Describe la asistencia que buscas y tira un dado
+percentil. Si tiras un número igual o inferior a tu nivel de clérigo, tu
+deidad interviene. El DM elige la naturaleza de la intervención; el
+efecto de cualquier conjuro de clérigo o conjuro de dominio sería
+apropiado. Si tu deidad interviene, no puedes volver a usar este rasgo
+durante 7 días. De lo contrario, puedes volver a usarlo después de
+terminar un descanso largo.</p>
+<p>En el nivel 20, tu llamada de intervención tiene éxito
+automáticamente, no se requiere tirada.</p>
+<h2 id="dominios-divinos"><strong>Dominios Divinos</strong></h2>
+<h3 id="dominio-de-la-vida"><strong>Dominio de la Vida</strong></h3>
+<p>El dominio de la Vida se centra en la vibrante energía positiva que
+sustenta toda la vida. Los dioses que influyen en este dominio, como
+<strong>Harmías</strong> y <strong><a
+href="Ferion.html">Ferion</a></strong>, promueven la vitalidad y la
+salud a través de la curación y la protección. Sus clérigos son
+sanadores magistrales, ministros de la restauración y guardianes de los
+débiles.</p>
+<h4 id="conjuros-del-dominio-de-la-vida">Conjuros del Dominio de la
+Vida</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Clérigo</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><em>Bendecir</em>, <em>Curar
+heridas</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Restauración menor</em>, <em>Arma
+espiritual</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Faro de esperanza</em>,
+<em>Revivir</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;"><em>Protección contra la muerte</em>,
+<em>Guardián de la fe</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Curar heridas en masa</em>,
+<em>Resurrección</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="competencia-adicional"><strong>Competencia
+Adicional</strong></h4>
+<p>A nivel 1, ganas competencia con armadura pesada.</p>
+<h4 id="discípulo-de-la-vida"><strong>Discípulo de la Vida</strong></h4>
+<p>También a partir del nivel 1, tus <a
+href="Conjuros.html">Conjuros</a> de curación son más efectivos. Siempre
+que uses un conjuro de nivel 1 o superior para restaurar puntos de golpe
+a una criatura, la criatura recupera puntos de golpe adicionales iguales
+a 2 + el nivel del conjuro.</p>
+<h4 id="canalizar-divinidad-preservar-la-vida"><strong>Canalizar
+Divinidad: Preservar la Vida</strong></h4>
+<p>A partir del nivel 2, puedes usar tu Canalizar Divinidad para curar a
+los heridos graves. Como una acción, presentas tu símbolo sagrado y
+evocas energía curativa que puede restaurar un número de puntos de golpe
+igual a cinco veces tu nivel de clérigo. Elige cualquier criatura a 30
+pies de ti y divide estos puntos de golpe entre ellas. Este rasgo no
+puede restaurar a una criatura a más de la mitad de su máximo de puntos
+de golpe. No puedes usar este rasgo en un no muerto o un constructo.</p>
+<h4 id="sanador-bendecido"><strong>Sanador Bendecido</strong></h4>
+<p>A partir del nivel 6, la energía curativa que canalizas te sana a ti
+también. Cuando lanzas un conjuro de nivel 1 o superior que restaura
+puntos de golpe a una criatura que no seas tú, recuperas puntos de golpe
+iguales a 2 + el nivel del conjuro.</p>
+<h4 id="golpe-divino"><strong>Golpe Divino</strong></h4>
+<p>En el nivel 8, ganas la capacidad de imbuir tus golpes con energía
+divina. Una vez en cada uno de tus turnos, cuando golpeas a una criatura
+con un ataque de arma, puedes hacer que el ataque inflija 1d8 de daño
+radiante adicional al objetivo. Cuando alcanzas el nivel 14, el daño
+adicional aumenta a 2d8.</p>
+<h4 id="sanación-suprema"><strong>Sanación Suprema</strong></h4>
+<p>A partir del nivel 17, cuando normalmente tirarías uno o más dados
+para restaurar puntos de golpe con un conjuro, en su lugar usas el
+resultado más alto posible para cada dado.</p>
+<h3 id="dominio-de-la-luz"><strong>Dominio de la Luz</strong></h3>
+<p>El dominio de la Luz es el dominio de deidades como
+<strong>Harmías</strong>, <strong><a
+href="Arzia.html">Arzia</a></strong> y <strong><a
+href="Solniria.html">Solniria</a></strong>. Representa la verdad, la
+revelación y la belleza, pero también la ira purificadora del sol. Los
+clérigos de la Luz son almas iluminadas que traen esperanza a los
+lugares oscuros y usan el poder del sol y el fuego para quemar la
+corrupción y desterrar las mentiras.</p>
+<h4 id="conjuros-del-dominio-de-la-luz">Conjuros del Dominio de la
+Luz</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Clérigo</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><em>Manos ardientes</em>, <em>Fuego
+feérico</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Rayo abrasador</em>, <em>Esfera
+llameante</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Luz del día</em>, <em>Bola de
+fuego</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;"><em>Guardián de la fe</em>, <em>Muro de
+fuego</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Golpe de llamas</em>,
+<em>Escudriñar</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="truco-adicional"><strong>Truco Adicional</strong></h4>
+<p>Cuando eliges este dominio en el nivel 1, ganas el truco <em>Luz</em>
+si no lo conocías ya.</p>
+<h4 id="destello-protector"><strong>Destello Protector</strong></h4>
+<p>También en el nivel 1, puedes interponer una luz divina entre tú y un
+atacante. Cuando eres atacado por una criatura que puedes ver a 30 pies
+de ti, puedes usar tu reacción para imponer desventaja en la tirada de
+ataque de la criatura, provocando que un destello de luz la desoriente
+antes de que impacte. Puedes usar este rasgo un número de veces igual a
+tu modificador de Sabiduría (mínimo de una vez). Recuperas todos los
+usos gastados cuando terminas un descanso largo.</p>
+<h4 id="canalizar-divinidad-resplandor-del-alba"><strong>Canalizar
+Divinidad: Resplandor del Alba</strong></h4>
+<p>A partir del nivel 2, puedes usar tu Canalizar Divinidad para crear
+una explosión de luz solar. Como una acción, presentas tu símbolo
+sagrado, y cualquier oscuridad mágica a 30 pies de ti se disipa. Además,
+cada criatura hostil a 30 pies de ti debe hacer una tirada de salvación
+de Constitución. Una criatura recibe 2d10 + tu nivel de clérigo de daño
+radiante si falla la salvación, y la mitad de daño si tiene éxito.</p>
+<h4 id="destello-mejorado"><strong>Destello Mejorado</strong></h4>
+<p>A partir del nivel 6, también puedes usar tu rasgo Destello Protector
+cuando una criatura que puedes ver a 30 pies de ti ataca a una criatura
+que no eres tú.</p>
+<h4 id="golpe-divino-1"><strong>Golpe Divino</strong></h4>
+<p>En el nivel 8, ganas la capacidad de imbuir tus golpes con energía
+divina. Una vez en cada uno de tus turnos, cuando golpeas a una criatura
+con un ataque de arma, puedes hacer que el ataque inflija 1d8 de daño
+radiante adicional al objetivo. Cuando alcanzas el nivel 14, el daño
+adicional aumenta a 2d8.</p>
+<h4 id="corona-de-luz"><strong>Corona de Luz</strong></h4>
+<p>A partir del nivel 17, puedes usar tu acción para activar un aura de
+luz solar que dura 1 minuto o hasta que la desactives como otra acción.
+Emites luz brillante en un radio de 60 pies y luz tenue en 30 pies
+adicionales. Tus enemigos en la luz brillante tienen desventaja en las
+tiradas de salvación contra cualquier conjuro que inflija daño de fuego
+o radiante.</p>
+<h3 id="dominio-de-la-protección"><strong>Dominio de la
+Protección</strong></h3>
+<p>El dominio de la Protección pertenece a deidades que son guardianes
+de sus fieles, como <strong><a href="Rokael.html">Rokael</a></strong>,
+<strong><a href="Yfrit.html">Yfrit</a></strong> o <strong><a
+href="Thirogrim.html">Thirogrim</a></strong>. Sus clérigos son los
+baluartes de la fe, defensores inamovibles que protegen a los inocentes
+y se interponen entre sus aliados y el peligro. Su poder reside en la
+capacidad de absorber el daño, desviar ataques y asegurar que la línea
+se mantenga firme.</p>
+<h4 id="conjuros-del-dominio-de-la-protección">Conjuros del Dominio de
+la Protección</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Nivel de Clérigo</th>
+<th style="text-align: left;"><a href="Conjuros.html">Conjuros</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><em>Protección contra el bien y el
+mal</em>, <em>Santuario</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><em>Ayuda</em>, <em>Proteger a
+otro</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><em>Círculo mágico</em>, <em>Protección
+contra energía</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;"><em>Guardián de la fe</em>, <em>Piel de
+piedra</em></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;"><em>Disipar el bien y el mal</em>,
+<em>Muro de fuerza</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="competencia-adicional-1"><strong>Competencia
+Adicional</strong></h4>
+<p>A nivel 1, ganas competencia con armadura pesada.</p>
+<h4 id="escudo-de-los-fieles"><strong>Escudo de los Fieles</strong></h4>
+<p>También a partir del nivel 1, puedes proteger a tus aliados de los
+ataques. Cuando una criatura ataca a un objetivo que no eres tú y que
+está a 5 pies de ti, puedes usar tu reacción para imponer desventaja en
+la tirada de ataque de la criatura. Para hacerlo, debes poder ver tanto
+al atacante como al objetivo.</p>
+<h4 id="canalizar-divinidad-defensa-radiante"><strong>Canalizar
+Divinidad: Defensa Radiante</strong></h4>
+<p>A partir del nivel 2, puedes usar tu Canalizar Divinidad para
+castigar a quienes dañan a tus protegidos. Como una reacción,
+inmediatamente después de que un atacante a 30 pies de ti dañe a un
+aliado, puedes usar tu Canalizar Divinidad para envolver al atacante en
+llamas divinas. El atacante debe hacer una tirada de salvación de
+Destreza. Recibe 2d6 + tu nivel de clérigo de daño radiante si falla la
+salvación, o la mitad de daño si tiene éxito.</p>
+<h4 id="égida-del-guardián"><strong>Égida del Guardián</strong></h4>
+<p>A partir del nivel 6, cuando una criatura aliada a 10 pies de ti
+recibe daño, puedes usar tu reacción para otorgarle resistencia a ese
+daño.</p>
+<h4 id="golpe-divino-2"><strong>Golpe Divino</strong></h4>
+<p>En el nivel 8, ganas la capacidad de imbuir tus golpes con energía
+divina. Una vez en cada uno de tus turnos, cuando golpeas a una criatura
+con un ataque de arma, puedes hacer que el ataque inflija 1d8 de daño
+radiante adicional al objetivo. Cuando alcanzas el nivel 14, el daño
+adicional aumenta a 2d8.</p>
+<h4 id="defensa-indomable"><strong>Defensa Indomable</strong></h4>
+<p>A partir del nivel 17, te conviertes en el ancla de la defensa de tu
+grupo. Como una acción, puedes otorgar a ti y a un número de criaturas
+aliadas que puedas ver a 30 pies de ti igual a tu modificador de
+Sabiduría, resistencia a todo el daño durante 1 minuto. Una vez que uses
+este rasgo, no puedes volver a usarlo hasta que termines un descanso
+largo.</p>
+<hr />
+<h3
+id="las-sendas-del-héroe-el-sistema-de-clases-en-lithernia"><strong>Las
+Sendas del Héroe: El Sistema de Clases en Lithernia</strong></h3>
+<p>En el <a href="Título_de_la_nota.html">Título_de_la_nota</a>, marcado
+por la cicatriz del <a href="Lilium.html">Lilium</a> y la sombra de la
+Gran Guerra, un personaje es mucho más que sus habilidades de combate o
+sus proezas mágicas. Es la suma de sus convicciones, su origen y el
+camino que elige para enfrentar un destino incierto. El sistema de
+clases en Lithernia está diseñado para reflejar esta realidad,
+ofreciendo no solo un conjunto de mecánicas, sino una identidad forjada
+en el crisol de un mundo en conflicto.</p>
+<p>Cada clase representa una vocación, una senda de poder y una
+filosofía de vida. Ya sea como un <a href="Sacerdote.html">Sacerdote</a>
+que canaliza la voluntad de los dioses, un <a href="Mago.html">Mago</a>
+que desentraña los secretos del Tejido de Maná o un <a
+href="Caballero.html">Caballero</a> que defiende un código de honor en
+medio del caos, tu elección definirá cómo interactúas con los grandes
+poderes de Lithernia: desde los reinos en guerra hasta las facciones que
+susurran la profecía del retorno del Primer Rey.</p>
+<h4 id="visión-general-del-sistema"><strong>Visión General del
+Sistema</strong></h4>
+<p>El sistema de clases de Lithernia se basa en arquetipos familiares,
+pero con un enfoque temático y mecánico único. Encontrarás clases
+tradicionales como el <strong><a
+href="Guerrero.html">Guerrero</a></strong>, el <strong><a
+href="Mago.html">Mago</a></strong> o el <strong>Pícaro</strong>, junto a
+nuevas sendas nacidas de la historia del mundo, como el <strong><a
+href="Cazador.html">Cazador</a> de <a
+href="Dragones.html">Dragones</a></strong>, el <strong><a
+href="Nigromante.html">Nigromante</a></strong> o <strong>El
+Blasfemo</strong>. Cada clase está diseñada para encajar en el lore,
+ofreciendo una lente única a través de la cual experimentar los
+conflictos y misterios de Lithernia.</p>
+<p>El diseño se centra en tres pilares fundamentales:</p>
+<ol type="1">
+<li><strong>Identidad Temática:</strong> Cada clase está profundamente
+arraigada en la historia y las culturas del mundo. Un <a
+href="Sacerdote.html">Sacerdote</a> de <a
+href="Galvorn.html">Galvorn</a> no será igual que uno de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>; un <a href="Mago.html">Mago</a>
+de la Torre de las Estrellas de <a href="Valtoria.html">Valtoria</a>
+tendrá una visión de la magia muy diferente a la de un <a
+href="Hechicero.html">Hechicero</a> elfo de <a
+href="Eldrador.html">Eldrador</a>.</li>
+<li><strong>Mecánicas Distintivas:</strong> La magia y las habilidades
+tienen un coste tangible. El sistema de Maná, Fatiga y Canalización hace
+que el poder se sienta real y arriesgado.</li>
+<li><strong>Progresión Significativa:</strong> A medida que tu personaje
+avanza, no solo se vuelve más poderoso, sino que su influencia en el
+mundo y su dominio de las artes arcanas o marciales se expande de forma
+notable.</li>
+</ol>
+<h4 id="el-maná-y-el-coste-de-la-magia"><strong>El Maná y el Coste de la
+Magia</strong></h4>
+<p>A diferencia de otros sistemas, la magia en Lithernia no es un
+recurso ilimitado ni gratuito. Fluye a través del <strong>Tejido del
+Maná</strong>, y canalizarla exige un esfuerzo físico y mental.</p>
+<ul>
+<li><strong>Puntos de Maná:</strong> Las clases lanzadoras de <a
+href="Conjuros.html">Conjuros</a> utilizan un sistema flexible de Puntos
+de Maná. Esta reserva de energía representa su capacidad para tirar de
+los hilos del Tejido y moldearlos.</li>
+<li><strong>Dado de Maná:</strong> Cada clase arcana posee un
+<strong>Dado de Maná</strong> único (d6, d8, d10), que representa su
+“firma” o afinidad personal con la magia. Este dado no solo influye en
+la potencia de ciertos efectos, sino que determina el coste físico de
+cada hechizo.</li>
+<li><strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a>:</strong>
+Lanzar un conjuro impone una carga. Cada vez que un personaje conjura,
+sufre una <strong><a
+href="La_Crisis_de_la_Fatiga_de_Maná.html">La_Crisis_de_la_Fatiga_de_Maná</a></strong>
+que se acumula, representando el agotamiento de forzar la energía mágica
+a través de su cuerpo. Abusar de la magia puede llevar a un personaje al
+borde del colapso, haciendo que cada decisión de lanzar un hechizo sea
+tácticamente relevante.</li>
+</ul>
+<p>Este sistema asegura que la magia se sienta poderosa, pero también
+peligrosa, reflejando un mundo donde el poder siempre tiene un
+precio.</p>
+<h4 id="progresión-y-maestría"><strong>Progresión y
+Maestría</strong></h4>
+<p>La progresión en Lithernia se mide en niveles, y cada uno desbloquea
+nuevas habilidades y un mayor dominio de la clase. Este crecimiento no
+es solo numérico; a menudo representa un salto cualitativo en la
+capacidad del personaje para influir en su entorno.</p>
+<p>Un ejemplo claro son los <strong>Círculos de Invocación</strong>. Un
+<a href="Mago.html">Mago</a> novato puede usar Círculos Menores para
+potenciar ligeramente sus hechizos, pero solo al alcanzar hitos de poder
+(niveles 5 y 11) aprenderá a dominar los Círculos Intermedios y Mayores,
+capaces de desatar efectos mágicos de una escala completamente distinta.
+La progresión, por tanto, es un viaje desde el aprendiz hasta el
+maestro, cuyas acciones pueden llegar a cambiar el curso de una batalla
+o incluso el destino de un reino.</p>
+<h4 id="subclases-forjando-una-identidad-única"><strong>Subclases:
+Forjando una Identidad Única</strong></h4>
+<p>Dentro de cada clase principal, existen especializaciones conocidas
+como <strong>subclases</strong>. Estas representan el camino específico
+que un personaje decide seguir, permitiendo una personalización profunda
+y un rol más definido en el mundo. No todos los guerreros luchan igual,
+ni todos los clérigos sirven a su dios de la misma manera.</p>
+<p>Por ejemplo, un <strong><a
+href="Caballero.html">Caballero</a></strong> puede unirse a la Orden de
+la Espada, centrada en el ataque; a la Orden del Escudo, dedicada a la
+protección; o a la Orden de la Montura, especializada en el combate a
+caballo. Un <strong><a href="Sacerdote.html">Sacerdote</a>
+(Clérigo)</strong> elegirá un dominio divino que definirá su propósito,
+como el Dominio de la Vida para un sanador o el Dominio de la Luz para
+un cruzado contra la oscuridad.</p>
+<p>Las subclases son la forma en que tu personaje refina su vocación,
+alineando sus habilidades con su trasfondo, su fe y sus objetivos
+personales.</p>
+<h4 id="el-rol-de-las-clases-en-la-sociedad-y-el-conflicto"><strong>El
+Rol de las Clases en la Sociedad y el Conflicto</strong></h4>
+<p>En Lithernia, tu clase es tu lugar en el mundo. Un <strong><a
+href="Nigromante.html">Nigromante</a></strong> o un
+<strong>Blasfemo</strong> probablemente encontrarán afinidad (o
+conflicto) con los clanes oscuros de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Un <strong><a
+href="Mago.html">Mago</a></strong> podría aspirar a un puesto en la
+prestigiosa Torre de las Estrellas de <a
+href="Valtoria.html">Valtoria</a>. Un <strong><a
+href="Druida.html">Druida</a></strong> o un <strong><a
+href="Guardabosques.html">Guardabosques</a></strong> serán los
+protectores naturales de los bosques de <a
+href="Eldrador.html">Eldrador</a>, mientras que un <strong><a
+href="Bardo.html">Bardo</a></strong> o un <strong>Pícaro</strong>
+prosperarán en los bulliciosos puertos de <a
+href="Galvorn.html">Galvorn</a>.</p>
+<p>Más importante aún, cada clase ofrece una perspectiva única sobre la
+<strong>Profecía del Retorno del Primer Rey</strong>. Un Paladín podría
+verla como un llamado sagrado para restaurar la justicia. Un <a
+href="Hechicero.html">Hechicero</a> podría sentir el poder latente de
+las Lanzas Celestiales. Un Pícaro podría verla como una oportunidad para
+el caos y el beneficio. Tu clase no solo te da herramientas para la
+aventura; te posiciona como un actor clave en el drama que definirá el
+futuro de Lithernia.</p>
+<p>Elegir una clase es, en esencia, el primer y más importante paso para
+escribir tu propia leyenda en las páginas de la historia de este mundo.
+¿Qué senda escogerás?</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Clérigo.html">Clérigo</a> (relevancia: 0.50)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

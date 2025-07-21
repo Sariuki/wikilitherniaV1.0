@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valandir</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Valandir</div>
+        <div class="content">
+<h1 id="valandir">Valandir</h1>
+<p>Valandir es una ciudad que observa la eternidad. Tallada directamente
+en la ladera de las Montañas del Augurio, sus esbeltas torres de cuarzo
+blanco y obsidiana pulida se alzan como agujas que pretenden perforar el
+velo del destino. No es una metrópoli de comercio bullicioso ni de
+clamor marcial; es un santuario de silencio y contemplación, donde el
+futuro se considera un texto sagrado que solo los más dignos pueden
+leer. Las estructuras están conectadas por etéreos puentes de cristal
+solidificado que, incluso durante el día, brillan con una luz estelar
+interna, como si las constelaciones hubieran sido atrapadas en su
+interior. En su cima, las cúpulas de los grandes observatorios, forjadas
+con cristal encantado, anulan la luz mundana, permitiendo a los videntes
+una comunión perfecta con el firmamento.</p>
+<h2 id="historia">Historia</h2>
+<p>Fundada por la antigua Casa Astrylion tras el Cataclismo del <a
+href="Lilium.html">Lilium</a>, Valandir nació de una necesidad tanto
+como de una devoción. Los primeros videntes Astrylion, leales a la
+corona élfica, creían que el cataclismo había sido predicho en las
+estrellas, pero que nadie había sabido interpretar las señales. Juraron
+que nunca más <a href="Eldrador.html">Eldrador</a> sería tomado por
+sorpresa. Eligieron las Montañas del Augurio por sus cielos despejados y
+sus ricas vetas de cristales resonantes, y allí comenzaron a construir
+su bastión de conocimiento. Durante siglos, Valandir ha servido como los
+ojos y oídos del futuro para el reino élfico. Su lealtad a la corona es
+inquebrantable, y sus profecías han guiado la política y las guerras de
+<a href="Eldrador.html">Eldrador</a>. Gobierna la Duquesa Elara de la
+Casa Astrylion, una vidente cuyo poder se dice que rivaliza con el de
+los oráculos de la antigüedad, y cuya palabra es tan valorada en la
+corte como la del propio Rey.</p>
+<h2 id="barrios-y-zonas">Barrios y Zonas</h2>
+<ul>
+<li><p><strong>Las Cúpulas Silenciosas</strong>: La corona de la ciudad.
+Un complejo de observatorios en la cumbre de la montaña, donde los
+videntes más poderosos pasan sus días y noches escrutando el cosmos. El
+acceso está restringido a la élite de la Casa Astrylion y a sus
+iniciados. El aire aquí zumba con una energía arcana palpable.</p></li>
+<li><p><strong>El Núcleo de Cuarzo</strong>: El corazón residencial y
+artesanal de Valandir, tallado en las laderas de la montaña. Los
+talleres de artesanos de cristal y los hogares de los elfos se
+entrelazan en una arquitectura fluida de piedra blanca y negra. Aquí se
+crean los famosos lentes mágicos, orbes de escrutinio y tapices
+estelares que son la principal exportación de la ciudad.</p></li>
+<li><p><strong>Las Vetas del Destino</strong>: Las profundas minas que
+se hunden en el corazón de la montaña. De aquí se extraen las “Gemas
+Estelares”, cristales únicos que vibran en sintonía con el tejido del
+maná y son esenciales para la adivinación. Las minas son un laberinto
+peligroso, y solo los mineros más experimentados, a menudo Elfos del
+Bosque y Shadar-Kai, se atreven a trabajar en sus
+profundidades.</p></li>
+<li><p><strong>El Enclave de la Forja</strong>: Un pequeño distrito
+cerca de las puertas inferiores de la ciudad, hogar de la delegación
+comercial enana de <a href="Valtoria.html">Valtoria</a>. Aislados pero
+respetados por su maestría, los <a href="Enanos.html">Enanos</a>
+proporcionan los metales raros necesarios para los astrolabios y
+herramientas arcanas, a cambio de un suministro constante de gemas y el
+derecho a comerciar sin interferencias.</p></li>
+</ul>
+<h2 id="costumbres-y-vida-cotidiana">Costumbres y Vida Cotidiana</h2>
+<p>La sociedad de Valandir es contemplativa y jerárquica. El estatus no
+se mide en oro, sino en la claridad de las visiones proféticas. Un Alto
+Elfo de linaje <a href="Noble.html">Noble</a> pero con poca aptitud para
+la adivinación es menos respetado que un Shadar-Kai de clase baja cuyas
+premoniciones resultan ser precisas. La vida se rige por una disciplina
+estricta; la música es etérea y matemática, sus melodías compuestas para
+reflejar los movimientos de los cuerpos celestes.</p>
+<p>El festival más importante es el “Solsticio Silencioso”, un día anual
+en el que toda la ciudad guarda un voto de silencio absoluto, creyendo
+que solo en la quietud total se pueden escuchar los susurros del
+destino. Para un joven vidente, la prueba de iniciación consiste en
+pasar una noche a solas en las cavernas de cristal más profundas,
+enfrentándose a visiones de su propio futuro, una prueba que puede
+otorgar gran poder o llevar a la locura.</p>
+<h2 id="arquitectura-y-ambiente">Arquitectura y Ambiente</h2>
+<p>El ambiente de Valandir es de una calma imponente y ligeramente
+opresiva. El silencio es la norma, roto solo por el suave tintineo de
+los carillones de cristal que cuelgan en los puentes y el murmullo
+lejano de los vientos de la montaña. El diseño de la ciudad es un juego
+de contrastes: el blanco puro del cuarzo contra el negro abismal de la
+obsidiana, la luz estelar atrapada en el cristal contra la oscuridad de
+las profundidades de la montaña. La heráldica de la ciudad, una estrella
+de siete puntas de plata con un ojo sin párpados en su centro, está
+grabada en todas las entradas y edificios importantes, un recordatorio
+constante de que en Valandir, uno siempre está siendo observado, ya sea
+por la Casa Astrylion o por el propio destino.</p>
+<h2 id="leyendas-urbanas">Leyendas Urbanas</h2>
+<ul>
+<li><p><strong>El Eco de la Falla</strong>: En las profundidades de las
+minas abandonadas, se dice que existe un fenómeno conocido como el “Eco
+de la Falla”. Allí, la energía mágica residual del <a
+href="Lilium.html">Lilium</a> es tan intensa que a veces cristaliza
+momentos del pasado. Los mineros que se han topado con él cuentan
+historias de visiones vívidas y aterradoras: la caída de un <a
+href="Heroes.html">Heroes</a> antiguo, el grito silencioso de una ciudad
+consumida por el fuego, el rostro del Primer Rey en su momento de
+desafío. La leyenda advierte que estas visiones son una trampa; aquel
+que las observa demasiado tiempo queda atrapado en un bucle temporal,
+reviviendo la desesperación de ese eco para siempre.</p></li>
+<li><p><strong>El Corazón de la Perdición</strong>: Se susurra que la
+Casa Astrylion guarda en su bóveda más secreta una Gema Estelar del
+tamaño de un corazón, conocida como el “Corazón de la Perdición”. A
+diferencia de otras gemas, esta no muestra el futuro, sino un único y
+terrible evento: el fin de Lithernia. La Duquesa Elara consulta la gema
+una vez al año, en la más absoluta soledad, para medir cuán cerca está
+el mundo de ese destino final. Algunos creen que la gema es una
+advertencia, mientras que otros, especialmente los seguidores secretos
+de <a href="Morgal.html">Morgal</a>, piensan que es un plan, y que la
+casa <a href="Noble.html">Noble</a> la utiliza para manipular a <a
+href="Eldrador.html">Eldrador</a> hacia un futuro que solo a ellos
+beneficia.</p></li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

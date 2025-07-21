@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galvorn_CasasNobles</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Galvorn_CasasNobles</div>
+        <div class="content">
+<h1 id="galvorn-casasnobles">Galvorn casasnobles</h1>
+<p><a href="Galvorn.html">Galvorn</a>, uno de los reinos más antiguos y
+poderosos de Lithernia, vive y respira a través de sus casas nobles.
+Estas dinastías no solo moldean la política y la guerra, sino que
+custodian las <a href="Leyendas.html">Leyendas</a>, tradiciones y los
+secretos ancestrales que definen la identidad del reino. La nobleza de
+<a href="Galvorn.html">Galvorn</a> es un entramado complejo de
+lealtades, linajes y rituales que se remontan a la Era del Fuego
+Eterno.</p>
+<h2 id="historia-y-origen-de-las-casas-nobles">Historia y origen de las
+casas nobles</h2>
+<p>Las casas nobles de <a href="Galvorn.html">Galvorn</a> surgieron tras
+la Gran Conquista, cuando el primer monarca unificó las tierras
+dispersas bajo un solo estandarte. Cada familia <a
+href="Noble.html">Noble</a> heredó territorios, títulos y
+responsabilidades que aún hoy mantienen firme el equilibrio del poder.
+Sus raíces son antiguas, muchas reclamando descendencia directa de los
+héroes que fundaron el reino, bendecidos por los Señores del Viento y la
+Tierra.</p>
+<p>Con el paso de los siglos, la sangre <a href="Noble.html">Noble</a>
+se ha entrelazado en alianzas estratégicas y pactos sagrados. Sin
+embargo, viejas rencillas y disputas por la sucesión mantienen viva la
+llama de la ambición y la traición en los salones de mármol y los
+bosques encantados de <a href="Galvorn.html">Galvorn</a>.</p>
+<h2 id="casas-principales-de-galvorn">Casas principales de Galvorn</h2>
+<h3 id="casa-vaelandor">Casa Vaelandor</h3>
+<p>La casa Vaelandor, soberana de las tierras del norte, es conocida por
+su férrea lealtad y destreza en la caza. Su emblema, el lobo plateado
+sobre fondo negro, alegoriza su espíritu indomable y su alianza con las
+tribus salvajes de los bosques. Los Vaelandor guardan la Crónica de las
+Sombras, un libro antiguo que contiene profecías y secretos mágicos.</p>
+<h4 id="costumbres">Costumbres:</h4>
+<ul>
+<li>La Caza de la Luna, un rito anual donde la nobleza corre tras presas
+sagradas bajo la luz lunar.<br />
+</li>
+<li>Juramento del Lobo, pacto de sangre entre la casa y sus
+aliados.</li>
+</ul>
+<h3 id="casa-merúndar">Casa Merúndar</h3>
+<p>Renombrada por su sapiencia y dominio de las artes arcanas, la casa
+Merúndar patrulla la frontera oriental, defendiendo las tierras de <a
+href="Galvorn.html">Galvorn</a> de invasiones y criaturas nativas. Su
+blasón, un halcón dorado alzado entre estrellas, simboliza visión y
+vigilancia.</p>
+<h4 id="leyendas">Leyendas:</h4>
+<p>Se dice que un antepasado de Merúndar, el <a
+href="Mago.html">Mago</a> Astrael, hizo un pacto con los <a
+href="Dragones.html">Dragones</a> de las montañas para proteger el
+reino, legado que sus descendientes han honrado por siglos.</p>
+<h3 id="casa-thalmer">Casa Thalmer</h3>
+<p>Dueños de las fértiles tierras del sur, la casa Thalmer es la columna
+vertebral económica del reino, especializada en la agricultura, la
+diplomacia y la marina. Su insignia es un tridente azul sobre campo
+plateado, evocando dominio del mar y la cosecha.</p>
+<h4 id="tradiciones">Tradiciones:</h4>
+<ul>
+<li>Festival de las Mareas, celebración dedicada a los dioses marinos
+donde se realizan ofrendas para garantizar buenas cosechas y navegación
+segura.<br />
+</li>
+<li>Consejo de las Tres Estrellas, reunión anual que define la política
+exterior junto con las casas vecinas.</li>
+</ul>
+<h2 id="leyendas-y-relatos-nobles">Leyendas y relatos nobles</h2>
+<p><a href="Galvorn.html">Galvorn</a> vive entre relatos donde las casas
+nobles son protagonistas de gestas heroicas y traiciones épicas. Se
+cuentan historias como la “Noche de las Lanzas Rojas”, un conflicto
+interno que marcó la rivalidad histórica entre Vaelandor y Thalmer, o la
+“Conjura del Halcón”, una intriga donde Merúndar salvó al reino con su
+hechicería y astucia.</p>
+<h2 id="costumbres-y-normas-en-la-nobleza">Costumbres y normas en la
+nobleza</h2>
+<p>Las casas nobiliarias de <a href="Galvorn.html">Galvorn</a> mantienen
+códigos estrictos:<br />
+- <strong>Lealtad ante todo:</strong> La traición se castiga con el
+exilio o la muerte.<br />
+- <strong>Herencia sagrada:</strong> Cada linaje debe preservar la
+pureza de su sangre, con matrimonios cuidadosamente concertados.<br />
+- <strong>Ritos de iniciación:</strong> Los jóvenes nobles deben pasar
+por pruebas de valor, sabiduría y honor antes de entrar en el consejo de
+sus casas.</p>
+<p>Las reuniones de las casas, celebradas en el Gran Salón de Thalhalen,
+la capital de <a href="Galvorn.html">Galvorn</a>, son eventos
+majestuosos donde se forjan alianzas y se deciden los destinos de todo
+Lithernia.</p>
+<hr />
+<p>El entramado de las casas nobles no es solo una cuestión de poder,
+sino un reflejo del alma de <a href="Galvorn.html">Galvorn</a>, un reino
+donde la historia, la magia y la sangre convergen para marcar el paso de
+las eras.</p>
+<h2 id="backlinks">Backlinks</h2>
+<ul>
+<li><a href="Galvorn.html">Galvorn</a></li>
+</ul>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Casas%20Nobles.html">Casas Nobles</a> (relevancia:
+0.81)</li>
+<li><a href="Casas%20Nobles%20de%20Galvorn.html">Casas Nobles de
+Galvorn</a> (relevancia: 0.70)</li>
+<li><a
+href="Casas%20Nobles%20de%20Galvorn%20-%20Linajes%20y%20Leyendas.html">Casas
+Nobles de Galvorn - Linajes y Leyendas</a> (relevancia: 0.65)</li>
+<li><a
+href="Casas%20Nobles%20de%20Eldrador%20-%20Cultura%20y%20Tradiciones.html">Casas
+Nobles de Eldrador - Cultura y Tradiciones</a> (relevancia: 0.43)</li>
+<li><a
+href="Casas%20Nobles%20de%20Eldrador%20-%20Linajes%20y%20Familias.html">Casas
+Nobles de Eldrador - Linajes y Familias</a> (relevancia: 0.39)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

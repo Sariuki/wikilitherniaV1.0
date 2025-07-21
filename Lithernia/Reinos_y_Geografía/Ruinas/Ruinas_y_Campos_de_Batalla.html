@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruinas_y_Campos_de_Batalla</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ruinas_y_Campos_de_Batalla</div>
+        <div class="content">
+<h1 id="ruinas-y-campos-de-batalla">Ruinas y campos de batalla</h1>
+<p>En Lithernia, las ruinas y campos de batalla antiguos son mucho más
+que vestigios de un pasado sangriento: son portales palpables a la Era
+del Primer Rey, un tiempo donde el destino del mundo fue forjado con
+acero y hechicería. Estos sitios emblemáticos están dispersos a lo largo
+y ancho de la tierra, marcados en viejos <a href="Mapas.html">Mapas</a>
+y envueltos en <a href="Leyendas.html">Leyendas</a> que aún susurran en
+el viento.</p>
+<h2 id="contexto-histórico">Contexto histórico</h2>
+<p>La Era del Primer Rey fue una época de conflictos titánicos, donde
+tribus dispersas y reinos nacientes lucharon por el dominio, la
+supervivencia y la unificación de Lithernia. Las guerras de ese periodo
+dejaron cicatrices imborrables en la geografía: campos donde ríos de
+sangre fertilizaron la tierra, fortalezas aniquiladas y ciudades caídas
+que luego se convertirían en ruinas desoladas. Hoy, estos lugares actúan
+como recordatorios eternos del sacrificio que fundó la nación.</p>
+<h2 id="mapa-de-sitios-emblemáticos">Mapa de sitios emblemáticos</h2>
+<p>A continuación, se describen los puntos más significativos de esta
+era, conservados en <a href="Mapas.html">Mapas</a> antiguos y venerados
+por historiadores y viajeros:</p>
+<h3 id="la-cuenca-de-draemir">1. La Cuenca de Draemir</h3>
+<p>Ubicada en el corazón del valle medio, la Cuenca de Draemir fue
+escenario de la devastadora Batalla de los Cuatro Reyes. Se dice que el
+estrépito de los cañones y el rugido de los magos belicosos resonaron
+durante siete días y siete noches, convirtiendo el floreciente valle en
+un páramo ennegrecido. Las ruinas de las murallas de Draemir,
+parcialmente sepultadas por la maleza, aún conservan inscripciones de
+antiguos <a href="Conjuros.html">Conjuros</a> de protección.</p>
+<h3 id="el-campo-sangriento-de-vharol">2. El Campo Sangriento de
+Vharol</h3>
+<p>Este extenso terreno abierto al norte de Lithernia fue el lugar de la
+última resistencia antes de la coronación del Primer Rey. Según las <a
+href="Leyendas.html">Leyendas</a>, los huesos de miles de guerreros
+descansan bajo su suelo, custodiados por el viento que parece cargar aún
+con sus lamentos. Los habitantes locales evitan pisar el centro exacto
+del campo, creyendo que es una puerta hacia el inframundo donde los
+espíritus guerreros permanecen en eterna vigilia.</p>
+<h3 id="las-ruinas-de-thalmorath">3. Las Ruinas de Thal’Morath</h3>
+<p>Una fortaleza antaño impenetrable, Thal’Morath cayó tras un asedio
+que duró meses. Sus piedras, ahora cubiertas de musgo, guardan frescos
+deteriorados que cuentan la historia del grueso de la guerra y las
+tragedias personales entre soldados y civiles. Los arqueólogos suelen
+debatir si Thal’Morath alberga en su profundidad reliquias del primer
+linaje real.</p>
+<h2 id="leyendas-y-tradiciones">Leyendas y tradiciones</h2>
+<p>Las ruinas y campos de batalla no solo conservan historia tangible,
+sino que se han convertido en el escenario de numerosas <a
+href="Leyendas.html">Leyendas</a>:</p>
+<ul>
+<li><strong>El Fantasma del Centinela</strong>, que según relatos se
+aparece al caer la noche en el Campo Sangriento de Vharol, vigilando
+eternamente con su lanza y escudo de bruma.</li>
+<li><strong>El Eco de los Ancestros</strong>, un fenómeno audible en las
+noches claras de luna llena en Draemir, donde se escuchan cantos de
+guerra y órdenes susurradas.</li>
+<li><strong>La Llama Eterna de Thal’Morath</strong>, un fuego místico
+que algunos dicen arde sin consumir nada, un símbolo de la resistencia y
+la esperanza que perdura.</li>
+</ul>
+<p>Cada año, en el aniversario de la Coronación del Primer Rey,
+comunidades de todo Lithernia peregrinan a estos lugares, llevando a
+cabo ceremonias que mezclan recuerdos solemnes, relatos heroicos y
+ofrendas florales para honrar a los caídos.</p>
+<h2 id="importancia-contemporánea">Importancia contemporánea</h2>
+<p>Más allá de su valor histórico y cultural, estas ruinas y campos
+juegan un papel crucial en la identidad litherniana. Son centros de
+estudio para magos e historiadores, fuentes de inspiración para poetas y
+músicos, y un vínculo vivo con un pasado que cimentó la unión y el
+orgullo de su pueblo.</p>
+<p>Conservar y respetar estos sitios es para los lithernianos no solo un
+acto patriótico, sino una forma de mantener encendida la llama de la
+memoria y del coraje que definió su reino.</p>
+<hr />
+<p>Explorar las ruinas y campos de batalla es adentrarse en la esencia
+profunda de Lithernia, donde historia y mito se entrelazan en un abrazo
+eterno. Cada piedra, cada fragmento oxidado, cuenta la historia de un
+mundo moldeado por el coraje de sus primeros héroes.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.52)</li>
+<li><a href="Era.html">Era</a> (relevancia: 0.42)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

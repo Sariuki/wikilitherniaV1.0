@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecos_de_la_Rebelión</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Ecos_de_la_Rebelión</div>
+        <div class="content">
+<h1 id="ecos-de-la-rebelión">Ecos de la Rebelión</h1>
+<p>La caída del Primer Rey de Lithernia marcó no solo el fin de una era
+de unificación bajo un solo mando, sino también el despertar de
+profundas transformaciones culturales y sociales que resonaron en las
+generaciones siguientes. Los ecos de la rebelión que derrocó al monarca
+fundador no se limitaron a la violencia y el cambio político; moldearon
+el alma misma de Lithernia, dejando cicatrices imborrables y semillas de
+renovación.</p>
+<h2 id="el-fin-de-un-reinado-el-inicio-de-una-era">El fin de un reinado,
+el inicio de una era</h2>
+<p>La Rebelión, impulsada por facciones descontentas con el centralismo
+del Primer Rey, desató un fragmentamiento del territorio en múltiples
+dominios autónomos. Esta disgregación política tuvo un impacto inmediato
+en la estructura social, alentando formas de gobierno más locales y
+democráticas que contrastaban con la monarquía absoluta que había
+imperado.</p>
+<p>Con la retirada del Primer Rey, se desvaneció también la figura del
+gobernante intocable, dando paso a una mayor crítica social y al
+cuestionamiento del origen divino del poder. Esta ruptura simbólica se
+tradujo en un auge de las artes y las letras, donde poetas y bardos
+comenzaron a narrar no solo la gloria de los reyes, sino también las
+historias de los pueblos comunes.</p>
+<h2 id="consecuencias-culturales">Consecuencias culturales</h2>
+<h3 id="reinterpretación-de-símbolos-y-tradiciones">Reinterpretación de
+símbolos y tradiciones</h3>
+<ul>
+<li><strong>La corona fragmentada:</strong> Símbolo recurrente en las
+manifestaciones artísticas posteriores, representaba la desunión y la
+esperanza de un futuro compartido. A menudo era tallada en madera,
+quebrada en piezas desunidas pero siempre juntas en un mismo
+bastidor.</li>
+<li><strong>Festividades de la Libertad:</strong> Instituidas en memoria
+de la victoria popular, estas celebraciones mezclaban antiguos rituales
+solares con elementos nuevos como el encendido de hogueras que
+simbolizaban la purificación del antiguo régimen.</li>
+<li><strong>La poesía de la disensión:</strong> Surgió una escuela
+literaria que valoraba la crítica hacia la autoridad y la celebración
+del individualismo, en clara ruptura con la poesía cortesana
+anterior.</li>
+</ul>
+<h3 id="renovación-lingüística">Renovación lingüística</h3>
+<p>La rebelión propició la inclusión y valorización de dialectos y
+lenguas periféricas, antes marginadas por el centralismo. En las zonas
+montañosas y costeras, las lenguas locales ganaron prestigio, y con
+ellas, una riqueza cultural que enriqueció la identidad litherniana.</p>
+<h2 id="transformaciones-sociales">Transformaciones sociales</h2>
+<h3 id="reconfiguración-del-poder">Reconfiguración del poder</h3>
+<p>El centralismo dio paso a sistemas políticos semi-autónomos basados
+en concejos y asambleas. El poder se descentralizó, dando mayor voz a
+ganaderos, artesanos y comerciantes, que antes habían quedado eclipsados
+por la nobleza palaciega.</p>
+<h3 id="efectos-en-la-estructura-social">Efectos en la estructura
+social</h3>
+<ul>
+<li><strong>Declive de la nobleza imperial:</strong> Muchas casas
+nobiliarias perdieron privilegios y tierras, lo que debilitó el orden
+jerárquico.</li>
+<li><strong>Ascenso de la burguesía local:</strong> Comerciantes y
+líderes comunitarios tomaron protagonismo, fomentando un crecimiento
+económico más diverso, basado en la agricultura, la artesanía y el
+comercio entre dominios.</li>
+<li><strong>Aumento del sentido de identidad regional:</strong> Las
+comunidades comenzaron a valorarse de manera particular, enriqueciendo
+la variedad cultural dentro de Lithernia.</li>
+</ul>
+<h2 id="leyendas-posteriores-a-la-rebelión">Leyendas posteriores a la
+Rebelión</h2>
+<p>Una de las <a href="Leyendas.html">Leyendas</a> más populares habla
+del <strong>Viento de los Caídos</strong>, un fenómeno que supuestamente
+ocurre en las noches claras del aniversario de la rebelión. Se dice que
+un viento frío arrastra susurros de los héroes caídos y voces de
+antiguos conspiradores, recordando a todos que la libertad es un
+equilibrio frágil, forjado con el costo del sacrificio.</p>
+<p>Otra historia recurrente es la de <strong>El Último Juramento del
+Primer Rey</strong>, donde se afirma que, desde su exilio, el monarca
+prometió no volver a imponer su reino, sino inspirar la sabiduría en
+quienes desean gobernar con justicia, haciendo eco en los sabios y
+gobernantes de las nuevas épocas.</p>
+<h2 id="legado-y-reflexión">Legado y reflexión</h2>
+<p>Los ecos de la rebelión dejaron claro que ningún poder es eterno ni
+absoluto. La conciencia colectiva de Lithernia se transformó hacia una
+sociedad más plural y crítica, donde la memoria de la caída del Primer
+Rey sirve tanto de advertencia como de inspiración.</p>
+<p>La rebelión, lejos de ser un mero evento político, fue el fundamento
+de una nueva identidad para Lithernia: un mundo en donde la libertad, la
+diversidad y la justicia son ideales que se deben defender
+constantemente, resonando en la vibrante cultura que aún hoy define a
+sus gentes.</p>
+<hr />
+<p><strong>Referencias en la cultura actual:</strong></p>
+<ul>
+<li>La popular serie teatral <em>“Sombras de la Corona”</em> explora la
+complejidad de la rebelión y sus consecuencias.</li>
+<li>El Museo de la Historia de Lithernia dedica una sala completa a los
+artefactos y escritos de esta época.</li>
+<li>En festivales regionales, la música tradicional incorpora
+instrumentos y ritmos que simbolizan la resistencia y la unión.</li>
+</ul>
+<p>Los ecos siguen vivos, recordándonos que la historia es tejido
+colectivo, y que cada generación debe escuchar con atención sus llamados
+para construir un futuro digno del sacrificio de sus antepasados.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.53)</li>
+<li><a href="Historia.html">Historia</a> (relevancia: 0.38)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

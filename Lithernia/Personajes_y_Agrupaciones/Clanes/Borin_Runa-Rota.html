@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borin_Runa-Rota</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Borin_Runa-Rota</div>
+        <div class="content">
+<p>nombre: Borin Runa-Rota rol: Maestro de <a
+href="Runas.html">Runas</a> y Co-Fundador edad: 182 agrupacion: Los
+Buscadores de Brasas tipo: Gremio lema: “De las cenizas, renace el
+poder.” escudo: Un yunque roto de obsidiana del que emana una llama
+púrpura. ciudad_sede: <a href="Valarion.html">Valarion</a> rivalidades:
+- La Torre de las Estrellas (<a href="Valtoria.html">Valtoria</a>) -
+Clan Grimstone (<a href="Mor&#39;dhul.html">Mor’dhul</a>) alianzas: -
+Clan Nighthawk (<a href="Mor&#39;dhul.html">Mor’dhul</a>) - Capitanes
+Independientes de <a href="Galvorn.html">Galvorn</a> relaciones:
+“Respeto tenso con su socio Kaelen <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>;
+rencor profundo hacia la élite de <a href="Valtoria.html">Valtoria</a>
+que lo exilió.” tags: [lithernia, personajes, Gremio, Buscadores de
+Brasas, Enano, <a href="Valtoria.html">Valtoria</a>] —</p>
+<h1 id="borin-runa-rota">Borin Runa-Rota</h1>
+<h3 id="biografía">Biografía</h3>
+<p>Nacido en los profundos salones de <a
+href="Valtoria.html">Valtoria</a> bajo el nombre de Borin del Clan
+Bronzebrillo, su destino parecía forjado en la misma roca que sus
+ancestros: convertirse en un maestro herrero, un pilar de la tradición
+enana. Desde joven, Borin demostró un talento prodigioso, no solo para
+moldear el metal, sino para imbuirlo con el poder de las <a
+href="Runas.html">Runas</a>. Sus manos danzaban sobre el acero y la
+piedra, grabando símbolos que cantaban con una energía que superaba a la
+de artesanos con el doble de su edad. Pero donde otros veían la
+perfección en la tradición, Borin veía límites.</p>
+<p>Su ambición lo llevó a los archivos de la Torre de las Estrellas,
+donde estudió textos prohibidos que hablaban de la magia caótica
+liberada durante el Cataclismo del <a href="Lilium.html">Lilium</a>.
+Para él, esta energía no era una maldición, sino una fuente de poder
+virgen, una veta de mineral arcano que los dogmáticos sabios de <a
+href="Valtoria.html">Valtoria</a> eran demasiado cobardes para explotar.
+En secreto, comenzó a experimentar, intentando canalizar la esencia
+residual del <a href="Lilium.html">Lilium</a> en sus <a
+href="Runas.html">Runas</a>, buscando crear artefactos de un poder
+inimaginable.</p>
+<p>El desastre fue inevitable. Durante un ritual clandestino, una runa
+sobrecargada con energía del <a href="Lilium.html">Lilium</a> se
+fracturó. La explosión resultante no solo destruyó una de las forjas
+ancestrales de los Bronzebrillo, sino que también cobró la vida de
+varios aprendices. El Concilio de la Montaña, horrorizado por su
+herejía, lo despojó de su nombre y su clan. Lo marcaron como
+<strong>“Runa-Rota”</strong>, un paria sentenciado al exilio perpetuo
+por profanar el sagrado arte de la forja.</p>
+<p>Humillado y consumido por el rencor, Borin vagó por Lithernia como un
+fantasma. Fue en los páramos cenicientos cerca de <a
+href="Mor&#39;dhul.html">Mor’dhul</a> donde su camino se cruzó con el de
+Kaelen <a
+href="Lithernia/09_Personajes/02_Figuras_Historicas/Ignis.html">Ignis</a>,
+un pragmático y poderoso <a href="Dragonborn.html">Dragonborn</a>.
+Kaelen vio en la desesperación de Borin una herramienta; Borin vio en la
+fuerza de Kaelen el músculo que necesitaba para llevar a cabo su
+venganza intelectual. Juntos fundaron <strong>Los Buscadores de
+Brasas</strong>, un gremio basado en la filosofía Agrietacero de Borin:
+la destrucción no es un final, sino el crisol de un nuevo comienzo.</p>
+<p>Hoy, Borin es el cerebro y el alma arcana del gremio. Mientras Kaelen
+lidera las expediciones con fuerza bruta, es Borin quien descifra los
+secretos de los artefactos que recuperan. Cada pieza de la era del
+Primer Rey, cada fragmento imbuido por el <a
+href="Lilium.html">Lilium</a>, es un paso más en su obsesión: forjar una
+runa maestra, una obra de poder tan absoluto que haga que la misma Torre
+de las Estrellas se arrodille y admita que el exiliado, el “Runa-Rota”,
+siempre tuvo la razón. Su relación con Kaelen es una alianza de
+necesidad; desprecia la simpleza del <a
+href="Dragonborn.html">Dragonborn</a>, a quien considera un bárbaro
+incapaz de apreciar la sinfonía de poder que él dirige, pero sabe que
+sin su fuerza, sus ambiciones seguirían siendo polvo.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Borin es la viva imagen de un maestro enano consumido por su arte.
+Aunque su cuerpo de 182 años conserva la robustez de la montaña, sus
+hombros están ligeramente encorvados por décadas de trabajo sobre el
+yunque. Su barba, antes de un color rojizo como el cobre, ahora es una
+cascada de hebras grises y blancas, trenzada con alambres de mithril y
+pequeñas <a href="Runas.html">Runas</a> de obsidiana que a veces brillan
+con una luz púrpura enfermiza.</p>
+<p>Sus manos son su testamento: anchas, callosas y cubiertas de
+cicatrices de quemaduras, tanto de forja como de energía arcana. La mano
+izquierda tiembla ocasionalmente, un recuerdo permanente de la explosión
+que le costó su hogar. Sus ojos, profundos y de un color acero, arden
+con una inteligencia febril y un rencor que el tiempo no ha logrado
+apagar.</p>
+<p>Viste un delantal de cuero de basilisco, curtido y endurecido, sobre
+una armadura de placas enana modificada por él mismo. Las placas están
+grabadas con <a href="Runas.html">Runas</a> experimentales que zumban
+con una energía contenida, listas para ser activadas. Siempre lleva
+consigo: * <strong>Martillo Rúnico “Rompejuramentos”:</strong> Su
+martillo de maestro artesano, el mismo con el que fue exiliado. Lo ha
+modificado para que pueda tanto inscribir <a href="Runas.html">Runas</a>
+como canalizar energía arcana inestable. * <strong>Juego de Cinceles de
+Hueso de Dragón:</strong> Herramientas de precisión para su trabajo
+rúnico, capaces de grabar hasta los materiales más resistentes. *
+<strong>El Corazón de Ceniza:</strong> Un relicario de plomo rúnico que
+cuelga de su cuello. En su interior, un fragmento cristalizado del <a
+href="Lilium.html">Lilium</a> pulsa con una luz caótica. Lo usa como
+catalizador para sus rituales más peligrosos, una fuente de poder y un
+recordatorio constante de su caída y su ambición.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>Borin Runa-Rota es una figura paradójica y peligrosa en la era actual
+de Lithernia. Es un catalizador del cambio, un pionero en un campo de la
+magia que el mundo considera tabú. Su trabajo amenaza con reescribir las
+leyes de la encantación, demostrando que el poder más grande puede
+surgir no de la pureza y la tradición, sino del caos y la
+destrucción.</p>
+<p>Para sus seguidores en los Buscadores de Brasas, es un profeta. Para
+sus enemigos en <a href="Valtoria.html">Valtoria</a>, es la encarnación
+de la arrogancia que casi destruyó el mundo con el Primer Rey. Para
+facciones como el Clan Nighthawk o los capitanes sin escrúpulos de <a
+href="Galvorn.html">Galvorn</a>, es un activo invaluable, una fuente de
+poder sin las ataduras de la moral o la lealtad a un reino.</p>
+<p>Su verdadero impacto aún está por verse. Si logra su objetivo, podría
+desatar una nueva era de artefactos y poder que altere el equilibrio de
+Lithernia para siempre. Pero si su ambición lo ciega una vez más, las
+cenizas de las que busca renacer podrían ser las de una catástrofe aún
+mayor que la que causó su exilio. Borin no es solo un enano resentido;
+es una bomba de tiempo con un fusible rúnico, y el mundo entero contiene
+la respiración, sin saber si su obra final será una creación maestra o
+un epitafio para todos.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.49)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

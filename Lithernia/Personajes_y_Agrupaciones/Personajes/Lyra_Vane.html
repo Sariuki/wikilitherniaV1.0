@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra_Vane</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Lyra_Vane</div>
+        <div class="content">
+<h1 id="lyra-vane">Lyra Vane</h1>
+<blockquote>
+<p><em>“La esperanza no es una luz que se encuentra, sino una llama que
+se enciende en la más profunda oscuridad. Yo soy solo la
+chispa.”</em></p>
+</blockquote>
+<h3 id="biografía">Biografía</h3>
+<p>Nacida en el crisol de opresión y rebeldía que es la ciudad ocupada
+de <a href="Lywathil.html">Lywathil</a>, Lyra Vane es el producto de una
+herencia rota y una voluntad inquebrantable. Como semielfa, su linaje se
+remonta a los orgullosos habitantes originales de la ciudad, ahora
+subyugados bajo el puño de hierro del Clan Nighthawk de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Creció viendo cómo las
+tradiciones de su pueblo eran borradas, sus líderes silenciados y sus
+esperanzas convertidas en cenizas bajo el cielo perpetuamente nublado
+impuesto por sus conquistadores. Sus padres, miembros de la resistencia
+inicial, fueron ejecutados públicamente como ejemplo, dejando en Lyra
+cicatrices invisibles y una sed de justicia que ni la magia oscura de
+los <a href="Hobgoblins.html">Hobgoblins</a> podía apagar.</p>
+<p>Fue en los callejones sombríos de <a
+href="Lywathil.html">Lywathil</a> donde Lyra fue encontrada por Kaelen
+Umbrae, un enigmático elfo oscuro exiliado de <a
+href="Eldrador.html">Eldrador</a> y uno de los estrategas de los recién
+formados <strong>Heraldos del Amanecer Roto</strong>. Kaelen vio en la
+joven no solo el odio de una víctima, sino el fuego de una líder. Bajo
+su tutela, Lyra se transformó. Aprendió el arte del sigilo, el disfraz y
+la manipulación, pero su verdadero talento floreció en el poder de su
+palabra. Se convirtió en la <strong>Voz del Amanecer</strong>, una
+reclutadora y espía cuya misión es viajar por Lithernia, identificando y
+avivando las brasas del descontento en todos los rincones del
+continente.</p>
+<p>Su motivación va más allá de la venganza personal. Lyra cree
+fervientemente en la profecía del Primer Rey y en la interpretación de
+los Heraldos: que la “purga” prometida no es un acto de genocidio, sino
+la liberación de todos los pueblos de la tiranía de los dioses y sus
+sirvientes mortales. Su objetivo es encontrar y destruir las Lanzas
+Celestiales—<em>Requiem, Ultimatum, Mortum y Chronos</em>—para liberar
+el poder del Rey en un <a href="Heroes.html">Heroes</a> que una al mundo
+bajo un estandarte de libertad.</p>
+<p>Entre sus hazañas se cuenta la infiltración en la corte de la Casa
+Auris en <a href="Eldrador.html">Eldrador</a> bajo la apariencia de una
+barda, donde sembró la duda sobre la alianza de los nobles con <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. También ha establecido contacto
+con <strong>Lord-Regent Malakor Vex</strong>, un ambicioso <a
+href="Noble.html">Noble</a> humano cuyas tierras sufren las incursiones
+de <a href="Mor&#39;dhul.html">Mor’dhul</a>, forjando una alianza tan
+prometedora como peligrosa. Su mayor conflicto personal reside en el
+equilibrio entre su idealismo y los métodos que debe emplear. Cada
+mentira, cada secreto y cada vida puesta en riesgo en nombre de su causa
+la acercan peligrosamente a la oscuridad que combate, un miedo que
+Kaelen le recuerda constantemente.</p>
+<h3 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h3>
+<p>Lyra posee la complexión esbelta de su herencia élfica, pero con la
+expresividad y la calidez adaptativa de los <a
+href="Humanos.html">Humanos</a>. Su cabello es de un castaño oscuro que
+puede parecer casi negro en la penumbra, usualmente recogido en una
+trenza práctica. Sus ojos, de un verde avellana, son su rasgo más
+distintivo: una mirada que puede desarmar con empatía o analizar con la
+frialdad de un estratega. Sus orejas, sutilmente puntiagudas, suelen
+estar ocultas bajo capuchas o peinados sencillos para no delatar su
+linaje mixto en territorios hostiles.</p>
+<p>Viste de forma práctica y discreta, favoreciendo túnicas de viajero
+de colores neutros, cuero endurecido y botas resistentes que le permiten
+moverse con agilidad tanto en los salones de la nobleza como en los
+tejados de una ciudad.</p>
+<p><strong>Equipamiento Relevante:</strong> * <strong>Daga de Sauce
+Plateado:</strong> Una daga corta, ligera y silenciosa, con el mango
+tallado en madera de sauce, un árbol simbólico para las células rebeldes
+aliadas. No es un arma para el combate abierto, sino una herramienta
+para la defensa y el sigilo. * <strong>Kit de Disfraces:</strong> Un
+conjunto de cosméticos, ropajes y pequeños aderezos que le permiten
+adoptar múltiples identidades, desde una simple campesina hasta una
+acólita o una mercader. * <strong>El Sello del Heraldo:</strong> Un
+pequeño broche de bronce con la forma de una estrella rota, que solo
+revela su verdadera forma —la corona quebrada del culto— bajo una luz
+específica o al contacto con la sangre de un iniciado. Es su única
+conexión tangible con la hermandad. * <strong>Tinta Simpática y Papeles
+Cifrados:</strong> Utiliza métodos arcanos menores para enviar y recibir
+mensajes, manteniendo a su red de espías conectada y a salvo de los ojos
+de Sel’thirak y sus secuaces.</p>
+<h3 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h3>
+<p>El impacto de Lyra Vane en Lithernia no se medirá en batallas ganadas
+o castillos conquistados, sino en las mentes encendidas y las cadenas de
+susurros que ha tejido a través de los reinos. Es la arquitecta de una
+red de resistencia que une al <a href="Erudito.html">Erudito</a>
+desilusionado de <a href="Valtoria.html">Valtoria</a> con el esclavo
+orco de <a href="Mor&#39;dhul.html">Mor’dhul</a> y el campesino oprimido
+de <a href="Eldrador.html">Eldrador</a>.</p>
+<p>A través de su trabajo, la profecía del Primer Rey ha dejado de ser
+una leyenda olvidada para convertirse en un himno de revolución. Si los
+Heraldos del Amanecer Roto logran su objetivo, será en gran parte
+gracias a los cimientos que Lyra ha construido en las sombras. Y si cae,
+su nombre se convertirá en leyenda entre los oprimidos: la Voz que se
+atrevió a hablar de un nuevo amanecer cuando el mundo solo conocía la
+noche, un mártir cuyo sacrificio inspirará a incontables otros a tomar
+las armas en su lugar. Lyra Vane es la prueba viviente de que el arma
+más poderosa en Lithernia no es una lanza celestial, sino una idea.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.66)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

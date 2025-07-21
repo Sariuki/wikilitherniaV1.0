@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen_Corvus</title>
+    <style>
+
+/* D&D Style CSS for Obsidian Wiki */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --parchment: #f4f1e8;
+    --dark-parchment: #e8e0d0;
+    --burgundy: #8b2635;
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --forest: #2d5016;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --text-dark: #2c1810;
+    --border-ornate: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--dark-parchment) 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139, 38, 53, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(45, 80, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    border: 3px solid var(--border-ornate);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow);
+    padding: 40px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold), var(--burgundy), var(--forest), var(--gold));
+    border-radius: 13px;
+    z-index: -1;
+}
+
+.wiki-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px var(--shadow);
+    border-bottom: 3px double var(--border-ornate);
+    padding-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--forest);
+}
+
+h3 {
+    font-size: 1.5em;
+    color: var(--dark-gold);
+}
+
+p {
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted var(--burgundy);
+}
+
+a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    text-shadow: 1px 1px 2px var(--shadow);
+}
+
+.wiki-link {
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+blockquote {
+    background: rgba(139, 38, 53, 0.1);
+    border-left: 4px solid var(--burgundy);
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2em 0;
+    background: var(--parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--burgundy), var(--forest));
+    color: var(--parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--dark-parchment);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.stat-block {
+    background: linear-gradient(135deg, var(--dark-parchment), var(--parchment));
+    border: 2px solid var(--border-ornate);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 2em 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.spell-block {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.1), rgba(139, 38, 53, 0.1));
+    border: 2px solid var(--forest);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 1.5em 0;
+}
+
+.monster-block {
+    background: rgba(139, 38, 53, 0.05);
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+}
+
+code {
+    background: var(--dark-parchment);
+    border: 1px solid var(--border-ornate);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--dark-parchment);
+    border: 2px solid var(--border-ornate);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.navigation {
+    text-align: center;
+    margin: 2em 0;
+    padding: 1em;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+}
+
+.navigation a {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--text-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: var(--dark-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .wiki-title {
+        font-size: 2em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Clases especiales para elementos de D&D */
+.ability-score {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--parchment);
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin: 2px;
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dice-roll {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--dark-gold);
+}
+
+.damage {
+    color: var(--burgundy);
+    font-weight: bold;
+}
+
+.healing {
+    color: var(--forest);
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wiki-title">Kaelen_Corvus</div>
+        <div class="content">
+<h1 id="kaelen-corvus">Kaelen Corvus</h1>
+<h3 id="la-daga-silenciosa-de-nynthil">La Daga Silenciosa de
+Nynthil</h3>
+<p>En las cortes sombrías de <a href="Mor&#39;dhul.html">Mor’dhul</a>,
+donde el poder se mide en ejércitos y brutalidad, la Casa Corvus juega
+una partida diferente. Son los arquitectos del miedo silencioso, los
+tejedores de la traición y los mercaderes de los secretos más oscuros. Y
+si su patriarca, Malachi, es la mente que diseña la red, su hijo Kaelen
+es la araña que ataca. Conocido en los callejones de <a
+href="Nynthil.html">Nynthil</a> como la “Daga Silenciosa”, Kaelen es el
+heredero y ejecutor de la Casa, la manifestación letal de su
+influencia.</p>
+<h2 id="biografía">Biografía</h2>
+<p>Nacido en el corazón del poder de la Casa Corvus, Kaelen fue criado
+no entre pergaminos y <a href="Mapas.html">Mapas</a>, sino en la arena y
+la penumbra. Mientras su padre, el calculador Malachi Corvus,
+consolidaba el dominio de la familia a través de una vasta red de
+espías, Kaelen fue instruido en un arte más directo: el de la muerte. Su
+infancia fue una sucesión de lecciones con maestros de armas, duelistas
+exiliados y alquimistas especializados en venenos que no dejan rastro.
+Para cuando alcanzó la madurez tiefling, su nombre ya era un susurro que
+ponía fin a negociaciones y silenciaba a rivales potenciales.</p>
+<p>La filosofía de Kaelen choca frontalmente con la de su padre y la de
+su casa. Desprecia la paciencia, considerándola un lujo para los
+débiles. ¿Por qué pasar meses tejiendo un rumor para desacreditar a un
+general del Clan <a href="Thyrgram.html">Thyrgram</a> cuando un golpe
+certero en la noche puede lograr el mismo resultado de forma más limpia
+y definitiva? Este desdén por la “fuerza bruta” de los <a
+href="Orcos.html">Orcos</a> es legendario. Una de sus hazañas más
+notorias fue humillar al <a href="Heroes.html">Heroes</a> orco de una
+arena no con fuerza, sino con una danza de fintas y un rasguño
+envenenado que lo dejó paralizado y deshonrado ante su clan. Este acto
+le granjeó a la Casa Corvus tanto temor como peligrosos enemigos.</p>
+<p>Su principal fuente de frustración es la cautela de su padre respecto
+a la Casa Aethel. Kaelen ve a Lord Aethel y a sus seguidores como brutos
+con títulos, cuya crueldad abierta es una vulgaridad comparada con el
+arte sutil de los Corvus. Ha abogado en innumerables ocasiones por la
+eliminación directa de sus rivales, pero Malachi siempre se lo prohíbe,
+insistiendo en que un enemigo conocido y predecible es más valioso que
+el caos que generaría su muerte. Esta tensión define su relación: Kaelen
+es una herramienta de precisión mortal, afilada y ansiosa por ser usada,
+pero sujeta por una mano que prefiere amenazar a cortar.</p>
+<p>Actualmente, Kaelen cumple las órdenes de su padre, actuando como el
+músculo y la hoja de la Casa Corvus. Lidera las operaciones de campo,
+silencia a los cabos sueltos y se asegura de que la influencia de su
+familia se sienta, no solo se oiga. Pero su impaciencia crece, y sueña
+con el día en que él dirija la casa, un día en que los cuervos de su
+estandarte no solo observen, sino que se lancen en picado a por su
+presa.</p>
+<h2 id="descripción-física-y-equipamiento">Descripción Física y
+Equipamiento</h2>
+<p>Kaelen posee la gracia depredadora de los de su linaje. Es un
+tiefling de complexión esbelta y ágil, más alto que la media, con una
+piel de un tono gris ceniza que le permite fundirse con las sombras de
+<a href="Nynthil.html">Nynthil</a>. Sus cuernos, afilados y de un negro
+pulido, se curvan elegantemente hacia atrás desde su frente, dándole un
+perfil aerodinámico y amenazante. Sus ojos son la característica más
+llamativa: dos esmeraldas brillantes, idénticas a la del cuervo en el
+blasón de su casa, que parecen analizar cada movimiento y cada debilidad
+con una inteligencia fría y penetrante.</p>
+<p>Viste con una elegancia pragmática. Su atuendo habitual es una
+armadura de cuero sombrío, flexible y silenciosa, reforzada con
+filigranas de mithril en puntos vitales y sujeta con hebillas de plata
+oscura. Sobre ella, a menudo lleva una capa gris marengo de seda de
+araña, que difumina su silueta y ondea sin sonido.</p>
+<p><strong>Equipamiento Relevante:</strong></p>
+<ul>
+<li><strong>Dagas Gemelas “Silencio” y “Lamento”:</strong> Su arma
+predilecta. Un par de estiletes perfectamente equilibrados, forjados en
+acero oscuro de las minas de <a href="Mor&#39;dhul.html">Mor’dhul</a>.
+Las hojas están grabadas con <a href="Runas.html">Runas</a> sutiles que
+amortiguan el sonido y facilitan la canalización de venenos. Siempre
+lleva al menos una de ellas untada con “Beso del Cuervo”, una
+neurotoxina desarrollada en los laboratorios de su casa.</li>
+<li><strong>Sello de la Casa Corvus:</strong> Un anillo de plata con
+forma de llave, que no solo es su símbolo de autoridad como heredero,
+sino que también sirve como llave maestra para muchas de las puertas
+secretas y pasadizos de <a href="Nynthil.html">Nynthil</a>.</li>
+<li><strong>Viales de <a href="Alquimia.html">Alquimia</a>:</strong>
+Siempre lleva consigo un pequeño surtido de viales de cristal oscuro,
+que contienen desde venenos paralizantes y pociones de invisibilidad
+hasta antídotos y ácidos para disolver cerraduras o barrotes.</li>
+</ul>
+<h2 id="legado-e-impacto-en-lithernia">Legado e Impacto en
+Lithernia</h2>
+<p>Kaelen Corvus es más que un simple asesino; es el futuro incierto de
+una de las casas más influyentes y peligrosas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>. Su existencia demuestra que el
+poder de los Corvus no reside únicamente en la información, sino en su
+capacidad para actuar sobre ella de manera decisiva y letal. Él es la
+amenaza implícita en cada susurro de sus espías.</p>
+<p>Su impacto en el delicado equilibrio de poder de Lithernia es el de
+un catalizador. Su impaciencia y su enfoque directo podrían ser la
+chispa que encienda un conflicto abierto entre las casas de <a
+href="Mor&#39;dhul.html">Mor’dhul</a>, desestabilizando el régimen de
+Sel’thirak y alterando el curso de la Gran Guerra. Si Kaelen llegara a
+liderar la Casa Corvus, su filosofía podría transformarla de una
+potencia de intriga a una maquinaria de asesinatos políticos, cambiando
+las reglas del juego para todos los reinos. Su legado, por tanto, pende
+de un hilo: podría ser el arquitecto de la mayor gloria de su casa o la
+causa de su estrepitosa caída. En un mundo al borde del cambio, una daga
+en la mano correcta —o equivocada— puede reescribir el destino.</p>
+<h2 id="enlaces-relacionados">Enlaces relacionados</h2>
+<ul>
+<li><a href="Era.html">Era</a> (relevancia: 0.44)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>
